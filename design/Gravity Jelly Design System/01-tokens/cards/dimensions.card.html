@@ -1,0 +1,26 @@
+<!-- @dsCard group="Spacing" viewport="700x200" name="Key Dimensions (dp)" subtitle="cell · HUD · tray · FAB · CTA — actual size" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<style>
+  html, body { margin: 0; }
+  body { background: var(--color-bg); color: var(--color-text); padding: 22px; font-family: var(--font-body); }
+  .row { display: flex; gap: 22px; align-items: flex-end; }
+  .item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .name { font-size: 11px; font-weight: 700; color: var(--color-text-muted); }
+  .box { background: var(--color-surface); border: 2px solid var(--color-cell-line); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-weight: 800; font-family: var(--font-display); color: var(--color-text-muted); font-size: 11px; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="item"><div class="box" style="width:var(--dim-cell);height:var(--dim-cell)">36</div><div class="name">cell</div></div>
+    <div class="item"><div class="box" style="width:200px;height:var(--dim-hud-h)">56</div><div class="name">hud-h</div></div>
+    <div class="item"><div class="box" style="width:140px;height:var(--dim-tray-h)">112</div><div class="name">tray-h</div></div>
+    <div class="item"><div class="box" style="width:var(--dim-gravity-btn);height:var(--dim-gravity-btn);border-radius:var(--radius-full)">64</div><div class="name">gravity-btn</div></div>
+    <div class="item"><div class="box" style="width:120px;height:var(--dim-cta-h);border-radius:var(--radius-xl)">56</div><div class="name">cta-h</div></div>
+    <div class="item"><div class="box" style="width:var(--dim-touch-min);height:var(--dim-touch-min)">48</div><div class="name">touch-min</div></div>
+  </div>
+</body>
+</html>

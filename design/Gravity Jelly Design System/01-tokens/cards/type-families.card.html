@@ -1,0 +1,48 @@
+<!-- @dsCard group="Type" viewport="700x400" name="Font Families" subtitle="Fredoka + Nunito — free Google Fonts (OFL), Android-ready" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<style>
+  html, body { margin: 0; }
+  body { background: var(--color-bg); color: var(--color-text); padding: 24px; }
+  .block { margin-bottom: 16px; }
+  .tag { font-family: var(--font-body); font-size: 11px; font-weight: 700; color: var(--color-text-muted); letter-spacing: .06em; }
+  .disp { font-family: var(--font-display); font-weight: 700; font-size: 40px; line-height: 1; }
+  .body { font-family: var(--font-body); font-weight: 700; font-size: 22px; }
+  .viet { font-family: inherit; font-weight: 600; font-size: 15px; color: var(--color-text-muted); line-height: 1.5; margin-top: 4px; max-width: 640px; }
+  .disp + .viet { font-family: var(--font-display); font-weight: 500; font-size: 22px; color: var(--color-text); }
+  .body + .viet { font-family: var(--font-body); }
+  .nums { font-family: var(--font-display); font-weight: 800; font-size: 30px; color: var(--color-block-pink); margin-top: 4px; }
+  .lic { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+  .pill { font-family: var(--font-body); font-size: 11px; font-weight: 800; letter-spacing: .03em;
+          padding: 5px 12px; border-radius: 999px; white-space: nowrap; }
+  .pill.free { background: var(--color-block-mint); color: var(--color-text-on-jelly); }
+  .pill.android { background: var(--color-block-blue); color: var(--color-text-on-jelly); }
+  .note { font-family: var(--font-body); font-size: 12px; font-weight: 600; color: var(--color-text-muted);
+          line-height: 1.4; margin-top: 12px; max-width: 620px; }
+</style>
+</head>
+<body>
+  <div class="block">
+    <div class="tag">FONT/DISPLAY — FREDOKA</div>
+    <div class="disp">Gravity Jelly · TRỌNG LỰC</div>
+    <div class="viet">Vũ trụ · Núi lửa · Sông &amp; Thác · Bãi biển · Đồng cỏ</div>
+    <div class="nums">0 1 2 3 4 5 6 7 8 9</div>
+  </div>
+  <div class="block">
+    <div class="tag">FONT/BODY — NUNITO</div>
+    <div class="body">Xoay trọng lực để dồn khối thạch</div>
+    <div class="viet">aàáảãạ ăằắẳẵặ âầấẩẫậ eèéẻẽẹ êềếểễệ iìíỉĩị oòóỏõọ ôồốổỗộ ơờớởỡợ uùúủũụ ưừứửữự yỳýỷỹỵ đ Đ</div>
+  </div>
+  <div class="lic">
+    <span class="pill free">FREE · SIL OFL 1.1</span>
+    <span class="pill android">ANDROID-READY · .TTF</span>
+  </div>
+  <div class="note">
+    Cả hai font đều miễn phí trên Google Fonts (giấy phép SIL Open Font License — dùng thương mại OK).
+    Tải file .ttf về và đặt trong <b>res/font/</b> để bundle vào app, hoặc dùng Downloadable Fonts qua Google Play Services. Hỗ trợ đầy đủ tiếng Việt có dấu.
+  </div>
+</body>
+</html>

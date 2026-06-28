@@ -1,0 +1,25 @@
+<!-- @dsCard group="Spacing" viewport="700x170" name="Spacing Scale" subtitle="4dp grid · 2xs → 3xl" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<style>
+  html, body { margin: 0; }
+  body { background: var(--color-bg); color: var(--color-text); padding: 24px; font-family: var(--font-body); }
+  .r { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+  .lbl { width: 120px; font-size: 12px; font-weight: 700; color: var(--color-text-muted); }
+  .bar { height: 16px; background: var(--color-block-mint); border-radius: 4px; }
+</style>
+</head>
+<body>
+  <div class="r"><span class="lbl">space/2xs · 2dp</span><div class="bar" style="width:var(--space-2xs)"></div></div>
+  <div class="r"><span class="lbl">space/xs · 4dp</span><div class="bar" style="width:var(--space-xs)"></div></div>
+  <div class="r"><span class="lbl">space/sm · 8dp</span><div class="bar" style="width:var(--space-sm)"></div></div>
+  <div class="r"><span class="lbl">space/md · 12dp</span><div class="bar" style="width:var(--space-md)"></div></div>
+  <div class="r"><span class="lbl">space/lg · 16dp</span><div class="bar" style="width:var(--space-lg)"></div></div>
+  <div class="r"><span class="lbl">space/xl · 24dp</span><div class="bar" style="width:var(--space-xl)"></div></div>
+  <div class="r"><span class="lbl">space/2xl · 32dp</span><div class="bar" style="width:var(--space-2xl)"></div></div>
+  <div class="r"><span class="lbl">space/3xl · 48dp</span><div class="bar" style="width:var(--space-3xl)"></div></div>
+</body>
+</html>

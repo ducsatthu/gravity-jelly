@@ -1,0 +1,25 @@
+<!-- @dsCard group="Motion" viewport="700x180" name="Durations & Easing" subtitle="150 / 250 / 350 / 450ms · ease tokens" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<style>
+  html, body { margin: 0; }
+  body { background: var(--color-bg); color: var(--color-text); padding: 24px; font-family: var(--font-body); }
+  .r { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+  .lbl { width: 170px; font-size: 12px; font-weight: 700; color: var(--color-text-muted); }
+  .track { flex: 1; height: 16px; background: var(--color-surface-sunken); border-radius: var(--radius-full); overflow: hidden; }
+  .fill { height: 100%; border-radius: var(--radius-full); background: var(--color-gravity); width: 12%; }
+  .f1 { animation: run 1.8s var(--ease-inout) infinite; animation-duration: 1.8s; }
+  @keyframes run { 0%,8% { width: 8%; } 55%,100% { width: 100%; } }
+  .a { animation-delay: .1s; } .b { animation-delay: .1s; } 
+</style>
+</head>
+<body>
+  <div class="r"><span class="lbl">motion/fast · 150ms</span><div class="track"><div class="fill f1" style="background:var(--color-block-pink);animation:run 1.5s cubic-bezier(0.18,0.80,0.32,1) infinite"></div></div></div>
+  <div class="r"><span class="lbl">motion/base · 250ms</span><div class="track"><div class="fill" style="background:var(--color-block-mint);animation:run 1.5s cubic-bezier(0.34,1.56,0.5,1) infinite;animation-delay:.05s"></div></div></div>
+  <div class="r"><span class="lbl">motion/medium · 350ms</span><div class="track"><div class="fill" style="background:var(--color-gravity);animation:run 1.5s cubic-bezier(0.45,0.05,0.30,0.95) infinite;animation-delay:.1s"></div></div></div>
+  <div class="r"><span class="lbl">motion/slow · 450ms</span><div class="track"><div class="fill" style="background:var(--color-block-blue);animation:run 1.5s cubic-bezier(0.45,0.05,0.30,0.95) infinite;animation-delay:.15s"></div></div></div>
+</body>
+</html>

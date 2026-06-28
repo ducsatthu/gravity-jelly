@@ -1,0 +1,244 @@
+<!-- @dsCard group="Screens" viewport="440x900" name="Gravity Jelly — Interactive Kit" subtitle="Toàn bộ 14 màn click-through: Splash → Home → Intro → Game → Win/Result, + Shop/Daily/Missions/Leaderboard/Boss" -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Gravity Jelly — UI Kit</title>
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  html, body { margin: 0; height: 100%; }
+  body {
+    background: radial-gradient(120% 90% at 50% 0%, #FFF7EC 0%, #F3E3CC 100%);
+    font-family: var(--font-body);
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; padding: 32px; box-sizing: border-box;
+  }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script src="../_ds_bundle.js"></script>
+  <script type="text/babel" src="phone-frame.jsx"></script>
+  <script type="text/babel" src="board.jsx"></script>
+  <script type="text/babel" src="screen-extras.jsx"></script>
+  <script type="text/babel" src="game-screen.jsx"></script>
+  <script type="text/babel" src="home-screen.jsx"></script>
+  <script type="text/babel" src="result-screen.jsx"></script>
+  <script type="text/babel" src="settings-screen.jsx"></script>
+  <script type="text/babel" src="splash-screen.jsx"></script>
+  <script type="text/babel" src="level-intro-screen.jsx"></script>
+  <script type="text/babel" src="level-win-screen.jsx"></script>
+  <script type="text/babel" src="pause-screen.jsx"></script>
+  <script type="text/babel" src="out-of-lives-screen.jsx"></script>
+  <script type="text/babel" src="boss-intro-screen.jsx"></script>
+  <script type="text/babel" src="daily-reward-screen.jsx"></script>
+  <script type="text/babel" src="shop-screen.jsx"></script>
+  <script type="text/babel" src="missions-screen.jsx"></script>
+  <script type="text/babel" src="leaderboard-screen.jsx"></script>
+  <script type="text/babel">
+    const NS = window.GravityJellyDesignSystem_3e0487;
+    const { Icon } = NS;
+    const { useState } = React;
+
+    const DIRS = ['down', 'left', 'up', 'right'];
+    const DEFAULT_BOARD = [
+      ".........",
+      ".........",
+      ".........",
+      ".....PP..",
+      ".....PP..",
+      "...M..BB.",
+      ".YYM.SBB.",
+      ".YYMMSB..",
+      "YYYMMSPPP",
+    ];
+    const DEFAULT_PIECES = [
+      { cells: [[0,0],[1,0],[1,1]], color: 'mint', count: 3 },
+      { cells: [[0,0],[0,1],[0,2]], color: 'pink', count: 3 },
+      { cells: [[0,0],[0,1],[1,0],[1,1]], color: 'yellow', count: 4 },
+    ];
+
+    function freshGame() {
+      return { score: 12480, direction: 'down', turnsLeft: 3, selectedIndex: 0, combo: 0 };
+    }
+
+    // every reachable screen, for the launcher
+    const SCREENS = [
+      { key: 'splash', label: 'Splash', solo: true },
+      { key: 'home', label: 'Home' },
+      { key: 'levelIntro', label: 'Level Intro' },
+      { key: 'game', label: 'Game' },
+      { key: 'pause', label: 'Pause', solo: true },
+      { key: 'levelWin', label: 'Level Win', solo: true },
+      { key: 'result', label: 'Result' },
+      { key: 'outOfLives', label: 'Hết lượt', solo: true },
+      { key: 'bossIntro', label: 'Boss Intro', solo: true },
+      { key: 'daily', label: 'Daily' },
+      { key: 'shop', label: 'Shop' },
+      { key: 'missions', label: 'Nhiệm vụ' },
+      { key: 'leaderboard', label: 'Xếp hạng' },
+      { key: 'settings', label: 'Cài đặt' },
+    ];
+
+    function Launcher({ current, onPick }) {
+      const [open, setOpen] = useState(false);
+      return (
+        <div style={{ position: 'fixed', top: 18, right: 18, zIndex: 50, fontFamily: 'var(--font-body)' }}>
+          <button type="button" onClick={() => setOpen(o => !o)} aria-label="Chọn màn hình"
+            style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 16px', borderRadius: 999, border: 'none', cursor: 'pointer', background: 'var(--color-text)', color: '#fff', boxShadow: '0 6px 16px rgba(120,92,52,0.28)', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 14 }}>
+            <Icon name="home" size={18} color="#fff" /> Màn hình <span style={{ opacity: 0.6 }}>▾</span>
+          </button>
+          {open && (
+            <div style={{ marginTop: 10, padding: 8, width: 220, background: '#fff', borderRadius: 18, boxShadow: '0 16px 40px rgba(120,92,52,0.26)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
+              {SCREENS.map(s => (
+                <button key={s.key} type="button" onClick={() => { onPick(s.key); setOpen(false); }}
+                  style={{ padding: '9px 8px', borderRadius: 11, border: 'none', cursor: 'pointer', textAlign: 'left', background: current === s.key ? 'var(--color-primary)' : 'var(--color-surface-sunken)', color: current === s.key ? '#fff' : 'var(--color-text)', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 12.5 }}>
+                  {s.label}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    function App() {
+      const [screen, setScreen] = useState('splash');
+      const [best, setBest] = useState(28640);
+      const [coins, setCoins] = useState(1240);
+      const [level, setLevel] = useState(23);
+      const [g, setG] = useState(freshGame());
+      const [paused, setPaused] = useState(false);
+      const [result, setResult] = useState({ score: 0, isNewBest: false });
+      const [win, setWin] = useState({ stars: 2, score: 12480, coins: 120 });
+      const [settings, setSettings] = useState({ sound: true, music: true, vibrate: false, lang: 'vi' });
+
+      const PhoneFrame = window.GJPhoneFrame;
+      const Home = window.GJHomeScreen;
+      const Game = window.GJGameScreen;
+      const Result = window.GJResultScreen;
+      const Settings = window.GJSettingsScreen;
+      const Splash = window.GJSplashScreen;
+      const LevelIntro = window.GJLevelIntroScreen;
+      const LevelWin = window.GJLevelWinScreen;
+      const Pause = window.GJPauseScreen;
+      const OutOfLives = window.GJOutOfLivesScreen;
+      const BossIntro = window.GJBossIntroScreen;
+      const Daily = window.GJDailyRewardScreen;
+      const Shop = window.GJShopScreen;
+      const Missions = window.GJMissionsScreen;
+      const Leaderboard = window.GJLeaderboardScreen;
+
+      const startGame = () => { setG(freshGame()); setPaused(false); setScreen('game'); };
+      const isBoss = level % 10 === 0;
+
+      const rotate = () => setG((s) => {
+        const di = (DIRS.indexOf(s.direction) + 1) % DIRS.length;
+        const turnsLeft = Math.max(0, s.turnsLeft - 1);
+        return { ...s, direction: DIRS[di], turnsLeft, combo: ((s.combo % 4) + 2), score: s.score + 240 };
+      });
+
+      const finishWin = () => {
+        const stars = 1 + (g.combo > 4 ? 2 : g.turnsLeft > 0 ? 1 : 0);
+        setWin({ stars: Math.min(3, stars), score: g.score, coins: 80 + stars * 40 });
+        setScreen('levelWin');
+      };
+      const endRun = () => {
+        const isNewBest = g.score > best;
+        if (isNewBest) setBest(g.score);
+        setResult({ score: g.score, isNewBest });
+        setScreen('result');
+      };
+
+      // intro level: boss levels detour through BossIntro first
+      const goIntro = () => setScreen(isBoss ? 'bossIntro' : 'levelIntro');
+
+      let body = null, fixed = null;
+
+      if (screen === 'splash') {
+        body = <Splash progress={0.72} />;
+        // auto-advance after a beat (kept manual-friendly: tap anywhere)
+      } else if (screen === 'home') {
+        body = <Home best={best} onPlay={goIntro} onSettings={() => setScreen('settings')} onDaily={() => setScreen('daily')} />;
+      } else if (screen === 'levelIntro') {
+        body = <LevelIntro level={level} world="Sông & Thác" accent="var(--color-info)"
+          onStart={startGame} onClose={() => setScreen('home')} />;
+      } else if (screen === 'bossIntro') {
+        body = <BossIntro level={level} world="Sông & Thác" onChallenge={startGame} onClose={() => setScreen('home')} />;
+      } else if (screen === 'game') {
+        body = <>
+          <Game score={g.score} direction={g.direction} turnsLeft={g.turnsLeft}
+            board={DEFAULT_BOARD} pieces={DEFAULT_PIECES} selectedIndex={g.selectedIndex} combo={g.combo}
+            onPause={() => setPaused(true)}
+            onRotate={rotate}
+            onSelectPiece={(i) => setG((s) => ({ ...s, selectedIndex: i }))} />
+          {paused && <div style={{ position: 'absolute', inset: 0 }}>
+            <Pause sound={settings.sound} music={settings.music}
+              onToggle={(k) => setSettings(s => ({ ...s, [k]: !s[k] }))}
+              onResume={() => setPaused(false)}
+              onRestart={startGame}
+              onSettings={() => { setPaused(false); setScreen('settings'); }}
+              onQuit={() => { setPaused(false); setScreen('home'); }} />
+          </div>}
+          {/* dev shortcuts: jump to win / lose */}
+          <div style={{ position: 'absolute', left: 12, bottom: 12, display: 'flex', gap: 6, zIndex: 30 }}>
+            <button type="button" onClick={finishWin} style={devBtn}>▷ Thắng</button>
+            <button type="button" onClick={() => setScreen('outOfLives')} style={devBtn}>♥ Hết lượt</button>
+          </div>
+        </>;
+      } else if (screen === 'pause') {
+        body = <Pause sound={settings.sound} music={settings.music}
+          onToggle={(k) => setSettings(s => ({ ...s, [k]: !s[k] }))}
+          onResume={() => setScreen('game')} onRestart={startGame}
+          onSettings={() => setScreen('settings')} onQuit={() => setScreen('home')} />;
+      } else if (screen === 'levelWin') {
+        body = <LevelWin level={level} stars={win.stars} score={win.score} coins={win.coins}
+          onNext={() => { setLevel(l => l + 1); setCoins(c => c + win.coins); setScreen('levelIntro'); }}
+          onReplay={startGame} onHome={() => setScreen('home')} />;
+      } else if (screen === 'result') {
+        body = <Result score={result.score} best={best} isNewBest={result.isNewBest}
+          onX2={() => setResult((r) => ({ ...r, score: r.score * 2 }))}
+          onRevive={() => setScreen('game')}
+          onReplay={startGame}
+          onHome={() => setScreen('home')} />;
+      } else if (screen === 'outOfLives') {
+        body = <OutOfLives countdown="24:59" refillPrice={250}
+          onRefill={() => { setCoins(c => Math.max(0, c - 250)); setScreen('game'); }}
+          onWatchAd={() => setScreen('game')} onBack={() => setScreen('home')} />;
+      } else if (screen === 'daily') {
+        body = <Daily streak={4} onClaim={() => { setCoins(c => c + 200); setScreen('home'); }} onClose={() => setScreen('home')} />;
+      } else if (screen === 'shop') {
+        body = <Shop balance={coins} onBack={() => setScreen('home')} />;
+      } else if (screen === 'missions') {
+        body = <Missions onBack={() => setScreen('home')} />;
+      } else if (screen === 'leaderboard') {
+        body = <Leaderboard onBack={() => setScreen('home')} />;
+      } else if (screen === 'settings') {
+        body = <Settings settings={settings}
+          onToggle={(k) => setSettings((s) => ({ ...s, [k]: !s[k] }))}
+          onLang={(lang) => setSettings((s) => ({ ...s, lang }))}
+          onBack={() => setScreen('home')} />;
+      }
+
+      const noStatus = screen === 'splash' || screen === 'bossIntro';
+
+      return (
+        <>
+          <Launcher current={screen} onPick={setScreen} />
+          <div onClick={screen === 'splash' ? () => setScreen('home') : undefined} style={{ cursor: screen === 'splash' ? 'pointer' : 'default' }}>
+            <PhoneFrame statusBar={!noStatus}>{body}</PhoneFrame>
+          </div>
+        </>
+      );
+    }
+
+    const devBtn = { padding: '6px 10px', borderRadius: 9, border: 'none', cursor: 'pointer', background: 'rgba(91,70,54,0.78)', color: '#fff', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 11 };
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  html, body { margin: 0; padding: 0; background: transparent; }
+  #stage { position: relative; }
+  .wm { font-family: 'Fredoka', sans-serif; font-weight: 700; line-height: 0.95; white-space: nowrap; }
+  .pink { color: #F7A9C0; text-shadow: 0 6px 0 #E576A0, 0 8px 10px rgba(180,90,130,0.28); }
+  .white { color: #FFFFFF; text-shadow: 0 6px 0 rgba(99,83,214,0.7); }
+  /* feature graphic */
+  #feature { width: 1024px; height: 500px; background: radial-gradient(120% 130% at 22% 18%, #C6E4FF, #8FC2F6 62%, #73AEEF); display: flex; align-items: center; gap: 44px; padding: 0 80px; box-sizing: border-box; overflow: hidden; position: relative; }
+  #feature .blob { position: absolute; border-radius: 50%; background: #fff; opacity: 0.06; }
+  /* wordmark transparent canvases */
+  #wm-h { padding: 30px 40px; display: inline-block; }
+  #wm-s { padding: 30px 40px; display: inline-block; }
+</style>
+</head>
+<body>
+  <div id="stage"></div>
+  <script src="./gravity-jelly-logo.js"></script>
+  <script>
+    const which = (location.hash || '#feature').slice(1);
+    const stage = document.getElementById('stage');
+    const icon = (s) => '<div style="width:' + s + 'px;height:' + s + 'px;border-radius:22%;overflow:hidden;box-shadow:0 12px 28px rgba(60,44,24,0.28)">' + GJLogo.fullIconSVG(s, { rounding: 0 }) + '</div>';
+
+    if (which === 'feature') {
+      stage.innerHTML =
+        '<div id="feature">' +
+          '<div class="blob" style="width:280px;height:280px;left:-60px;bottom:-120px"></div>' +
+          '<div class="blob" style="width:180px;height:180px;right:60px;top:-70px"></div>' +
+          icon(300) +
+          '<div style="display:flex;flex-direction:column;gap:6px;position:relative">' +
+            '<span class="wm pink" style="font-size:96px">GRAVITY</span>' +
+            '<span class="wm pink" style="font-size:96px;letter-spacing:0.22em">JELLY</span>' +
+            '<span style="font-family:var(--font-body);font-weight:800;color:#3E5A78;font-size:23px;letter-spacing:0.03em;margin-top:14px;white-space:nowrap">Xoay trọng lực · Xếp jelly · Ăn combo</span>' +
+          '</div>' +
+        '</div>';
+    } else if (which === 'wm-h') {
+      stage.innerHTML = '<div id="wm-h"><span class="wm pink" style="font-size:88px">GRAVITY JELLY</span></div>';
+    } else if (which === 'wm-s') {
+      stage.innerHTML = '<div id="wm-s" style="display:flex;flex-direction:column"><span class="wm pink" style="font-size:96px">GRAVITY</span><span class="wm pink" style="font-size:96px;letter-spacing:0.2em">JELLY</span></div>';
+    }
+    document.fonts.ready.then(() => { document.body.setAttribute('data-ready', '1'); });
+  </script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="gj_bg">#FFF7EC</color>
+    <!-- Nền native splash = KEM #FFF7EC (brand.card · "Nền splash" → windowSplashScreenBackground).
+         Đúng tông giao diện game: khối jelly hồng chuyển từ splash → app không "nhảy" màu.
+         (Sky #8FC2F6 nay chỉ là tông phụ cho chiến dịch.) -->
+    <color name="gj_splash_cream">#FFF7EC</color>
+</resources>

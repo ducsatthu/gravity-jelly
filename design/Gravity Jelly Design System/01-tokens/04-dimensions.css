@@ -1,0 +1,39 @@
+/* ============================================================
+   GRAVITY JELLY — DIMENSION TOKENS (dp)
+   Device baseline: 360 x 800 dp, portrait. Min touch 48dp.
+   Compose target: dim/<name> -> .dp
+   ============================================================ */
+
+:root {
+  /* --- Device frame --- */
+  --dim-screen-w: 360px;   /* dim/screen-w  baseline width  */
+  --dim-screen-h: 800px;   /* dim/screen-h  baseline height */
+  --dim-screen-pad: 16px;  /* dim/screen-pad outer gutters  */
+
+  /* --- Board / grid (9x9) --- */
+  --dim-cell: 36px;        /* dim/cell        single grid cell */
+  --dim-cell-gap: 2px;     /* dim/cell-gap    gap between cells */
+  --dim-board: 340px;      /* dim/board       9*36 + 8*2 = 340 */
+  --dim-board-margin: 10px;/* dim/board-margin lateral board margin */
+  --dim-board-pad: 8px;    /* dim/board-pad   well inner padding */
+
+  /* --- HUD --- */
+  --dim-hud-h: 56px;       /* dim/hud-h       top status bar */
+
+  /* --- Tray (up to 3 upcoming pieces, fits 4-long bars) --- */
+  --dim-tray-h: 112px;     /* dim/tray-h      bottom piece dock */
+  --dim-tray-slot: 96px;   /* dim/tray-slot   each piece slot box */
+  --dim-tray-cell: 20px;   /* dim/tray-cell   shrunk cell in tray */
+
+  /* --- Controls --- */
+  --dim-gravity-btn: 64px; /* dim/gravity-btn floating rotate FAB */
+  --dim-cta-h: 56px;       /* dim/cta-h       primary button height */
+  --dim-btn-h: 48px;       /* dim/btn-h       standard button height */
+  --dim-icon-btn: 48px;    /* dim/icon-btn    pause / icon hit target */
+  --dim-touch-min: 48px;   /* dim/touch-min   minimum tap target */
+
+  /* --- Icon sizes --- */
+  --dim-icon-sm: 20px;     /* dim/icon-sm */
+  --dim-icon-md: 24px;     /* dim/icon-md */
+  --dim-icon-lg: 32px;     /* dim/icon-lg */
+}

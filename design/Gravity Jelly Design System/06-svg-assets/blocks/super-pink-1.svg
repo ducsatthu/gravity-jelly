@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-26 -26 152 152" width="152" height="152" role="img" aria-label="Gravity Jelly super block — pink level 1">
+  <defs>
+    <clipPath id="s1pink"><rect x="7" y="7" width="86" height="86" rx="21.5"></rect></clipPath>
+    <radialGradient id="glow_s1pink" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FBD0DF" stop-opacity="0.9"></stop><stop offset="44%" stop-color="#E576A0" stop-opacity="0.32"></stop><stop offset="100%" stop-color="#E576A0" stop-opacity="0"></stop></radialGradient>
+    <filter id="soft_s1pink" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="4"></feGaussianBlur></filter>
+    <filter id="mid_s1pink" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="3"></feGaussianBlur></filter>
+  </defs>
+  <circle cx="50" cy="50" r="72" fill="url(#glow_s1pink)"></circle>
+  <rect x="0" y="0" width="100" height="100" rx="28" fill="none" stroke="#FFCA66" stroke-width="4" stroke-linecap="round" stroke-dasharray="87.98 263.95" stroke-dashoffset="0.00" stroke-opacity="0.95"></rect>
+  <rect x="0" y="0" width="100" height="100" rx="28" fill="none" stroke="#5FC3B2" stroke-width="4" stroke-linecap="round" stroke-dasharray="87.98 263.95" stroke-dashoffset="-87.98" stroke-opacity="0.95"></rect>
+  <rect x="0" y="0" width="100" height="100" rx="28" fill="none" stroke="#E576A0" stroke-width="4" stroke-linecap="round" stroke-dasharray="87.98 263.95" stroke-dashoffset="-175.96" stroke-opacity="0.95"></rect>
+  <rect x="0" y="0" width="100" height="100" rx="28" fill="none" stroke="#8FB6F2" stroke-width="4" stroke-linecap="round" stroke-dasharray="87.98 263.95" stroke-dashoffset="-263.95" stroke-opacity="0.95"></rect>
+  <g transform="translate(85 -6) scale(0.6)"><circle r="9" fill="#FFCA66" opacity="0.3" filter="url(#mid_s1pink)"></circle><path d="M0,-7 C0.7,-2 2,-0.7 7,0 C2,0.7 0.7,2 0,7 C-0.7,2 -2,0.7 -7,0 C-2,-0.7 -0.7,-2 0,-7 Z" fill="#FFCA66"></path><circle r="1.8" fill="#FFFFFF"></circle></g>
+  <g transform="translate(106.5 80) scale(0.5)"><circle r="9" fill="#8FB6F2" opacity="0.3" filter="url(#mid_s1pink)"></circle><path d="M0,-7 C0.7,-2 2,-0.7 7,0 C2,0.7 0.7,2 0,7 C-0.7,2 -2,0.7 -7,0 C-2,-0.7 -0.7,-2 0,-7 Z" fill="#8FB6F2"></path><circle r="1.8" fill="#FFFFFF"></circle></g>
+  <g transform="translate(19 108.3) scale(0.54)"><circle r="9" fill="#5FC3B2" opacity="0.3" filter="url(#mid_s1pink)"></circle><path d="M0,-7 C0.7,-2 2,-0.7 7,0 C2,0.7 0.7,2 0,7 C-0.7,2 -2,0.7 -7,0 C-2,-0.7 -0.7,-2 0,-7 Z" fill="#5FC3B2"></path><circle r="1.8" fill="#FFFFFF"></circle></g>
+  <g transform="translate(-6 15) scale(0.5)"><circle r="9" fill="#F7A9C0" opacity="0.3" filter="url(#mid_s1pink)"></circle><path d="M0,-7 C0.7,-2 2,-0.7 7,0 C2,0.7 0.7,2 0,7 C-0.7,2 -2,0.7 -7,0 C-2,-0.7 -0.7,-2 0,-7 Z" fill="#F7A9C0"></path><circle r="1.8" fill="#FFFFFF"></circle></g>
+  <g transform="translate(82 -5.4) scale(0.58)"><circle r="9" fill="#A99CF6" opacity="0.3" filter="url(#mid_s1pink)"></circle><path d="M0,-7 C0.7,-2 2,-0.7 7,0 C2,0.7 0.7,2 0,7 C-0.7,2 -2,0.7 -7,0 C-2,-0.7 -0.7,-2 0,-7 Z" fill="#A99CF6"></path><circle r="1.8" fill="#FFFFFF"></circle></g>
+  
+  <rect x="3.5" y="3.5" width="93" height="93" rx="25" fill="#F7A9C0" stroke="#E576A0" stroke-width="7"></rect>
+  <g clip-path="url(#s1pink)"><ellipse cx="50" cy="18" rx="38" ry="15" fill="#FBD0DF" fill-opacity="0.9"></ellipse></g>
+  <rect x="10" y="10" width="80" height="80" rx="19" fill="none" stroke="#FBD0DF" stroke-width="2.6" stroke-opacity="0.95"></rect>
+  <path d="M22 53 A11 9 0 0 0 44 53 Z" fill="#FFFFFF" stroke="#4A3526" stroke-opacity="0.22" stroke-width="1.5"></path>
+  <path d="M56 53 A11 9 0 0 0 78 53 Z" fill="#FFFFFF" stroke="#4A3526" stroke-opacity="0.22" stroke-width="1.5"></path>
+  <line x1="22" y1="53" x2="44" y2="53" stroke="#4A3526" stroke-opacity="0.4" stroke-width="2.4" stroke-linecap="round"></line>
+  <line x1="56" y1="53" x2="78" y2="53" stroke="#4A3526" stroke-opacity="0.4" stroke-width="2.4" stroke-linecap="round"></line>
+  <circle cx="34" cy="51" r="4.6" fill="#4A3526"></circle><circle cx="66" cy="51" r="4.6" fill="#4A3526"></circle>
+  <circle cx="35.6" cy="49.6" r="1.5" fill="#FFFFFF" fill-opacity="0.9"></circle><circle cx="67.6" cy="49.6" r="1.5" fill="#FFFFFF" fill-opacity="0.9"></circle>
+  <g transform="translate(50 3)">
+    <rect x="-11" y="-1" width="22" height="6.4" rx="2.2" fill="#FFCA66" stroke="#E2A82E" stroke-width="1.3"></rect>
+    <circle cx="-7" cy="-2.4" r="3.3" fill="#FFCA66" stroke="#E2A82E" stroke-width="1.3"></circle>
+    <circle cx="7" cy="-2.4" r="3.3" fill="#FFCA66" stroke="#E2A82E" stroke-width="1.3"></circle>
+    <circle cx="0" cy="-4.4" r="3.9" fill="#FFCA66" stroke="#E2A82E" stroke-width="1.3"></circle>
+    <circle cx="-7" cy="-2.4" r="1.1" fill="#FFE3A3"></circle>
+    <circle cx="7" cy="-2.4" r="1.1" fill="#FFE3A3"></circle>
+    <circle cx="0" cy="1.8" r="3.8" fill="#E576A0" stroke="#FFFFFF" stroke-width="1.1"></circle>
+    <g transform="translate(-3.2 -1.4) scale(0.3)"><path d="M12 20.7l-1.5-1.4C5.4 14.6 2 11.5 2 7.8 2 5.1 4.1 3 6.8 3 8.3 3 9.8 3.8 12 6 14.2 3.8 15.7 3 17.2 3 19.9 3 22 5.1 22 7.8c0 3.7-3.4 6.8-8.5 11.5z" fill="#FFFFFF"></path></g></g>
+</svg>

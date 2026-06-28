@@ -1,0 +1,132 @@
+<!-- @dsCard group="Assets" viewport="760x1320" name="SVG Game Objects" subtitle="Bộ vector đầy đủ — blocks, mắt, mảnh jelly, token, nút, icon. Scale-safe, không vỡ trên mọi mật độ màn hình Android." -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  html, body { margin: 0; }
+  body { background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); padding: 24px; }
+  h2 { font-family: var(--font-display); font-weight: 700; font-size: 16px; margin: 0 0 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--color-text-muted); }
+  section { margin-bottom: 28px; }
+  .blocks { display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-end; }
+  .blocks figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .blocks img { width: 72px; height: 72px; }
+  .scale { display: flex; gap: 12px; align-items: flex-end; padding: 12px; background: var(--color-surface-sunken); border-radius: var(--radius-card); }
+  .scale img { display: block; }
+  .fab { width: 84px; }
+  .faces { display: flex; gap: 14px; flex-wrap: wrap; }
+  .faces figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .faces .stack { position: relative; width: 64px; height: 64px; }
+  .faces .stack img { position: absolute; inset: 0; width: 64px; height: 64px; }
+  .pieces { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .pieces img { width: 40px; height: 40px; }
+  .tokens { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+  .tokens img { height: 56px; }
+  .btns { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+  .btns img { height: 56px; }
+  .arrows { display: flex; gap: 12px; }
+  .arrows img { width: 52px; height: 52px; }
+  .icons { display: grid; grid-template-columns: repeat(11, 1fr); gap: 14px; background: var(--color-surface); border-radius: var(--radius-card); padding: 16px; box-shadow: var(--shadow-sm); }
+  .icons img { width: 28px; height: 28px; }
+  cap { display: block; font-size: 11px; font-weight: 700; color: var(--color-text-muted); letter-spacing: .03em; }
+  .note { font-size: 12px; font-weight: 600; color: var(--color-text-muted); line-height: 1.5; max-width: 660px; }
+  code { font-family: ui-monospace, monospace; background: var(--color-surface-sunken); padding: 1px 5px; border-radius: 5px; font-size: 11px; }
+</style>
+</head>
+<body>
+  <section>
+    <h2>Jelly blocks · 5 màu</h2>
+    <div class="blocks">
+      <figure><img src="blocks/jelly-yellow.svg" alt="yellow" /><cap>yellow · ★</cap></figure>
+      <figure><img src="blocks/jelly-mint.svg" alt="mint" /><cap>mint · 🍀</cap></figure>
+      <figure><img src="blocks/jelly-pink.svg" alt="pink" /><cap>pink · ♥</cap></figure>
+      <figure><img src="blocks/jelly-blue.svg" alt="blue" /><cap>blue · 💧</cap></figure>
+      <figure><img src="blocks/jelly-stone.svg" alt="stone" /><cap>stone · khóa</cap></figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>Siêu khối · theo 4 màu, cấp 1 + cấp 2</h2>
+    <div class="blocks">
+      <figure><img src="blocks/super-yellow-1.svg" alt="super yellow 1" /><cap>yellow · cấp 1</cap></figure>
+      <figure><img src="blocks/super-mint-1.svg" alt="super mint 1" /><cap>mint · cấp 1</cap></figure>
+      <figure><img src="blocks/super-pink-1.svg" alt="super pink 1" /><cap>pink · cấp 1</cap></figure>
+      <figure><img src="blocks/super-blue-1.svg" alt="super blue 1" /><cap>blue · cấp 1</cap></figure>
+    </div>
+    <div class="blocks" style="margin-top:16px">
+      <figure><img src="blocks/super-yellow-2.svg" alt="super yellow 2" /><cap>yellow · cấp 2</cap></figure>
+      <figure><img src="blocks/super-mint-2.svg" alt="super mint 2" /><cap>mint · cấp 2</cap></figure>
+      <figure><img src="blocks/super-pink-2.svg" alt="super pink 2" /><cap>pink · cấp 2</cap></figure>
+      <figure><img src="blocks/super-blue-2.svg" alt="super blue 2" /><cap>blue · cấp 2</cap></figure>
+      <figure><img src="blocks/rainbow.svg" alt="rainbow wild" /><cap>cầu vồng · wild</cap></figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>Scale-safe · 1 file dùng mọi kích thước</h2>
+    <div class="scale">
+      <img src="blocks/jelly-pink.svg" style="width:32px;height:32px" alt="32" />
+      <img src="blocks/jelly-pink.svg" style="width:48px;height:48px" alt="48" />
+      <img src="blocks/jelly-pink.svg" style="width:72px;height:72px" alt="72" />
+      <img src="blocks/jelly-pink.svg" style="width:112px;height:112px" alt="112" />
+    </div>
+  </section>
+
+  <section>
+    <h2>Gravity FAB</h2>
+    <img class="fab" src="ui/gravity-fab.svg" alt="gravity FAB" />
+  </section>
+
+  <section>
+    <h2>Mắt · hướng trọng lực + biểu cảm (overlay)</h2>
+    <div class="faces">
+      <figure><div class="stack"><img src="blocks/jelly-yellow.svg" style="opacity:.18" /><img src="faces/eyes-down.svg" /></div><cap>down</cap></figure>
+      <figure><div class="stack"><img src="blocks/jelly-yellow.svg" style="opacity:.18" /><img src="faces/eyes-up.svg" /></div><cap>up</cap></figure>
+      <figure><div class="stack"><img src="blocks/jelly-yellow.svg" style="opacity:.18" /><img src="faces/eyes-left.svg" /></div><cap>left</cap></figure>
+      <figure><div class="stack"><img src="blocks/jelly-yellow.svg" style="opacity:.18" /><img src="faces/eyes-right.svg" /></div><cap>right</cap></figure>
+      <figure><div class="stack"><img src="blocks/jelly-yellow.svg" style="opacity:.18" /><img src="faces/eyes-front.svg" /></div><cap>front</cap></figure>
+      <figure><div class="stack"><img src="blocks/jelly-yellow.svg" style="opacity:.18" /><img src="faces/eyes-happy.svg" /></div><cap>happy</cap></figure>
+      <figure><div class="stack"><img src="blocks/jelly-yellow.svg" style="opacity:.18" /><img src="faces/eyes-wink.svg" /></div><cap>wink</cap></figure>
+      <figure><div class="stack"><img src="blocks/jelly-yellow.svg" style="opacity:.18" /><img src="faces/eyes-focus.svg" /></div><cap>focus</cap></figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>Mảnh jelly mini · combo confetti (7 màu)</h2>
+    <div class="pieces">
+      <img src="pieces/jelly-mini-rose.svg" /><img src="pieces/jelly-mini-orange.svg" /><img src="pieces/jelly-mini-gold.svg" /><img src="pieces/jelly-mini-green.svg" /><img src="pieces/jelly-mini-teal.svg" /><img src="pieces/jelly-mini-blue.svg" /><img src="pieces/jelly-mini-violet.svg" />
+    </div>
+  </section>
+
+  <section>
+    <h2>Token · sao, tim, xu</h2>
+    <div class="tokens">
+      <img src="tokens/star-full.svg" /><img src="tokens/star-empty.svg" /><img src="tokens/heart.svg" /><img src="tokens/coin.svg" />
+    </div>
+  </section>
+
+  <section>
+    <h2>Nút jelly · 5 biến thể</h2>
+    <div class="btns">
+      <img src="ui/button-primary.svg" /><img src="ui/button-gravity.svg" /><img src="ui/button-success.svg" /><img src="ui/button-danger.svg" /><img src="ui/button-secondary.svg" />
+    </div>
+  </section>
+
+  <section>
+    <h2>Chỉ báo hướng trọng lực (HUD)</h2>
+    <div class="arrows">
+      <img src="ui/gravity-arrow-down.svg" /><img src="ui/gravity-arrow-up.svg" /><img src="ui/gravity-arrow-left.svg" /><img src="ui/gravity-arrow-right.svg" />
+    </div>
+  </section>
+
+  <section>
+    <h2>Icon set · 21 glyph</h2>
+    <div class="icons">
+      <img src="icons/icon-pause.svg" /><img src="icons/icon-play.svg" /><img src="icons/icon-settings.svg" /><img src="icons/icon-rotate.svg" /><img src="icons/icon-rotateCw.svg" /><img src="icons/icon-volume.svg" /><img src="icons/icon-mute.svg" /><img src="icons/icon-music.svg" /><img src="icons/icon-vibrate.svg" /><img src="icons/icon-globe.svg" /><img src="icons/icon-info.svg" /><img src="icons/icon-close.svg" /><img src="icons/icon-back.svg" /><img src="icons/icon-home.svg" /><img src="icons/icon-refresh.svg" /><img src="icons/icon-heart.svg" /><img src="icons/icon-star.svg" /><img src="icons/icon-trophy.svg" /><img src="icons/icon-x2.svg" /><img src="icons/icon-chevron.svg" /><img src="icons/icon-check.svg" />
+    </div>
+  </section>
+
+  <p class="note">SVG vector — nhúng thẳng vào game (Android: dùng làm Drawable/asset, hoặc convert sang VectorDrawable). 1 file co giãn mọi mật độ (mdpi→xxxhdpi) không vỡ. Icon stroke mặc định <code>#5B4636</code> — đổi <code>stroke</code> để recolor.</p>
+</body>
+</html>

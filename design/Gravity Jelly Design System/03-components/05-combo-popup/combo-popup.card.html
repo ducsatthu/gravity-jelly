@@ -1,0 +1,99 @@
+<!-- @dsCard group="Components" viewport="940x880" name="Combo Popup" subtitle="Anatomy: combo badge (×1–10), falling blocks, the dish + scenery, and the two combined" -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<style>
+  html, body { margin: 0; }
+  body { background: var(--color-surface-sunken); font-family: var(--font-body); color: var(--color-text); padding: 26px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; max-width: 880px; margin: 0 auto; }
+  .card { background: var(--color-surface); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+  .num { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: var(--color-gravity); color: var(--color-text-invert); font-family: var(--font-display); font-weight: 800; font-size: 13px; flex-shrink: 0; }
+  .head { display: flex; align-items: center; gap: 10px; }
+  .head h3 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 16px; color: var(--color-text); }
+  .head p { margin: 2px 0 0; font-size: 12px; color: var(--color-text-muted); }
+  .stage { position: relative; border-radius: 16px; background: linear-gradient(180deg,#FFFCF5 0%, var(--color-bg) 60%); overflow: hidden; }
+  /* element 1 — badge grid */
+  .badges { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px 8px; align-items: center; justify-items: center; padding: 16px 8px; }
+  .badge-cell { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .badge-cell small { font-size: 10px; color: var(--color-text-muted); font-weight: 700; }
+  .full { grid-column: 1 / -1; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script src="../../_ds_bundle.js"></script>
+  <script type="text/babel">
+    const { ComboPopup, JellyScene } = window.GravityJellyDesignSystem_3e0487;
+
+    function Panel({ n, title, desc, children, full }) {
+      return (
+        <div className={'card' + (full ? ' full' : '')}>
+          <div className="head">
+            <span className="num">{n}</span>
+            <div><h3>{title}</h3><p>{desc}</p></div>
+          </div>
+          {children}
+        </div>
+      );
+    }
+
+    function App() {
+      // replay tick so the falling / combined panels re-run their animation
+      const [k, setK] = React.useState(0);
+      React.useEffect(() => { const t = setInterval(() => setK(x => x + 1), 2600); return () => clearInterval(t); }, []);
+      const combos = [1,2,3,4,5,6,7,8,9,10];
+      return (
+        <div className="grid">
+          {/* 1 — combo badge, ×1 → ×10 (and beyond) */}
+          <Panel n="1" title="Combo Popup" desc="Huy hiệu ×1 → ×10 (mở rộng được thêm)" full>
+            <div className="badges">
+              {combos.map((c) => (
+                <div className="badge-cell" key={c}>
+                  <ComboPopup combo={c} showPieces={false} showDish={false} animate={false} />
+                  <small>×{c}</small>
+                </div>
+              ))}
+            </div>
+          </Panel>
+
+          {/* 2 — falling blocks effect (no dish, no text) */}
+          <Panel n="2" title="Hiệu ứng block rơi" desc="Vài khối jelly rơi xuống & nảy">
+            <div className="stage" style={{ height: 150 }}>
+              <div key={'fall'+k} style={{ position: 'absolute', inset: 0, display: 'flex', justifyContent: 'center', alignItems: 'flex-end' }}>
+                <ComboPopup combo={5} showText={false} showDish={false} floor={14} height={150} />
+              </div>
+            </div>
+          </Panel>
+
+          {/* 3 — the dish + mushrooms / plants / characters */}
+          <Panel n="3" title="Đĩa jelly & nấm, cây cối" desc="Sân khấu khối rơi vào">
+            <div className="stage" style={{ height: 150 }}>
+              <JellyScene band={false} />
+            </div>
+          </Panel>
+
+          {/* 4 — combined: falling from above INTO the dish */}
+          <Panel n="4" title="Ghép: rơi từ trên vào đĩa" desc="Block rơi xuống đáp vào đĩa của cảnh" full>
+            <div className="stage" style={{ height: 160 }}>
+              <JellyScene band={false} showCast={false} />
+              <div key={'combo'+k} style={{ position: 'absolute', inset: 0, display: 'flex', justifyContent: 'center', alignItems: 'flex-end' }}>
+                <ComboPopup combo={6} showDish={false} showText={false} floor={20} height={200} />
+              </div>
+              {/* combo text rides above the combined scene */}
+              <div key={'txt'+k} style={{ position: 'absolute', top: 8, left: '50%', transform: 'translateX(-50%)' }}>
+                <ComboPopup combo={6} showDish={false} showPieces={false} />
+              </div>
+            </div>
+          </Panel>
+        </div>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+  </script>
+</body>
+</html>

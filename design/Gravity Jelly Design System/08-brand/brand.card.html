@@ -1,0 +1,270 @@
+<!-- @dsCard group="Brand" viewport="1180x2920" name="Logo & App Icon" subtitle="Bộ nhận diện Gravity Jelly cho Android — app icon adaptive, native splash + loading, wordmark, lockup, clear-space, màu nền, do/don't + file xuất" -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  html, body { margin: 0; }
+  body { background: var(--color-bg); font-family: var(--font-body); color: var(--color-text); padding: 40px 24px 64px; }
+  .wrap { max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+  .card { background: var(--color-surface); border-radius: var(--radius-2xl); box-shadow: var(--shadow-md); padding: 32px; }
+  .eyebrow { font-family: var(--font-body); font-weight: 800; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-muted); margin: 0 0 4px; }
+  h2 { font-family: var(--font-display); font-weight: 700; font-size: 26px; margin: 0 0 4px; color: var(--color-text); }
+  h3 { font-family: var(--font-display); font-weight: 600; font-size: 18px; margin: 0 0 10px; color: var(--color-text); }
+  p.note { font-family: var(--font-body); font-weight: 600; font-size: 14px; line-height: 1.5; color: var(--color-text-muted); margin: 6px 0 0; max-width: 720px; }
+  .row { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; }
+  .tile { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .cap { font-family: var(--font-body); font-weight: 700; font-size: 12px; color: var(--color-text-muted); text-align: center; }
+  .cap b { color: var(--color-text); font-weight: 800; }
+  .mask-round { border-radius: 22%; overflow: hidden; box-shadow: var(--shadow-md); }
+  .mask-circle { border-radius: 50%; overflow: hidden; box-shadow: var(--shadow-md); }
+  .mask-square { border-radius: 8%; overflow: hidden; box-shadow: var(--shadow-md); }
+  .swatch { width: 96px; height: 96px; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); display: flex; align-items: flex-end; padding: 8px; box-sizing: border-box; }
+  .swcap { font-family: var(--font-body); font-weight: 800; font-size: 11px; }
+  .do, .dont { border-radius: var(--radius-lg); padding: 14px; display: flex; flex-direction: column; gap: 10px; align-items: center; width: 150px; }
+  .do { background: color-mix(in srgb, var(--color-success) 12%, #fff); box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--color-success) 40%, #fff); }
+  .dont { background: color-mix(in srgb, var(--color-danger) 10%, #fff); box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--color-danger) 35%, #fff); }
+  .tag { font-family: var(--font-display); font-weight: 700; font-size: 13px; }
+  .tag.ok { color: #3FA152; } .tag.no { color: #D5685C; }
+  .dl { font-family: var(--font-body); font-weight: 700; font-size: 13px; color: var(--color-text); display: grid; grid-template-columns: 1fr auto; gap: 6px 18px; max-width: 560px; }
+  .dl .f { font-family: 'Fredoka', monospace; color: var(--color-gravity); }
+  /* wordmark */
+  .wm { font-family: 'Fredoka', sans-serif; font-weight: 700; line-height: 1.0; letter-spacing: 0.005em; white-space: nowrap; }
+  .wm.pink { color: #F7A9C0; text-shadow: 0 4px 0 #E576A0, 0 5px 7px rgba(180,90,130,0.28); }
+  .wm.white { color: #FFFFFF; text-shadow: 0 4px 0 rgba(99,83,214,0.65); }
+  .onpurple { background: linear-gradient(135deg, #6B5640, #4A3829); border-radius: var(--radius-xl); }
+  .oncream { background: var(--color-bg); border-radius: var(--radius-xl); box-shadow: inset 0 0 0 1.5px var(--color-cell-line); }
+  .lockup { display: flex; align-items: center; gap: 18px; padding: 22px 28px; }
+  .stack-wm { display: flex; flex-direction: column; line-height: 0.92; }
+</style>
+</head>
+<body>
+  <div class="wrap" id="wrap">
+
+    <!-- HERO -->
+    <div class="card" style="display:flex; align-items:center; gap:32px; flex-wrap:wrap; background:radial-gradient(130% 120% at 12% 10%, #FFFFFF, #FFF7EC);">
+      <div class="mask-round" id="hero-icon" style="width:168px; height:168px;"></div>
+      <div>
+        <p class="eyebrow">Bộ nhận diện · Android</p>
+        <h2 style="font-size:40px; margin:0;">Gravity Jelly</h2>
+        <p class="note">Một nhân vật jelly khối hồng — mắt to long lanh + sticker trái tim của thương hiệu — kèm nét xoay trọng lực tím (cơ chế chữ ký), trên nền KEM đúng tông giao diện game. Hồng + tím trên kem: ấm, ngọt, đồng bộ với toàn bộ app. Một nguồn SVG duy nhất → xuất ra mọi cỡ Android.</p>
+      </div>
+    </div>
+
+    <!-- APP ICON -->
+    <div class="card">
+      <p class="eyebrow">App icon</p>
+      <h2>Icon ứng dụng</h2>
+      <p class="note">Hình chính: một khối jelly HỒNG to với mắt to long lanh + sticker trái tim đúng ngôn ngữ thương hiệu, kèm nét xoay trọng lực tím. Nền kem + khối hồng + tia lấp lánh vàng nên ấm áp, dễ nhận ra và đồng bộ với game.</p>
+      <div class="row" style="margin-top:22px;">
+        <div class="tile"><div class="mask-round" id="ic-512" style="width:200px;height:200px;"></div><span class="cap"><b>Play Store</b><br>512 × 512</span></div>
+        <div class="tile"><div class="mask-circle" id="ic-circle" style="width:120px;height:120px;"></div><span class="cap">Mask tròn</span></div>
+        <div class="tile"><div class="mask-round" id="ic-rsquare" style="width:120px;height:120px;"></div><span class="cap">Bo góc</span></div>
+        <div class="tile"><div class="mask-square" id="ic-square" style="width:120px;height:120px;"></div><span class="cap">Vuông</span></div>
+      </div>
+      <h3 style="margin-top:30px;">Cỡ launcher theo mật độ</h3>
+      <div class="row" style="align-items:flex-end;">
+        <div class="tile"><div class="mask-round" id="d-192" style="width:96px;height:96px;"></div><span class="cap"><b>192</b><br>xxxhdpi</span></div>
+        <div class="tile"><div class="mask-round" id="d-144" style="width:72px;height:72px;"></div><span class="cap"><b>144</b><br>xxhdpi</span></div>
+        <div class="tile"><div class="mask-round" id="d-96" style="width:48px;height:48px;"></div><span class="cap"><b>96</b><br>xhdpi</span></div>
+        <div class="tile"><div class="mask-round" id="d-72" style="width:36px;height:36px;"></div><span class="cap"><b>72</b><br>hdpi</span></div>
+        <div class="tile"><div class="mask-round" id="d-48" style="width:24px;height:24px;"></div><span class="cap"><b>48</b><br>mdpi</span></div>
+      </div>
+      <h3 style="margin-top:30px;">Tông nền — chọn 1 làm chính</h3>
+      <p class="note">Mặc định <b>Kem</b> (đồng bộ với giao diện game). Có thể đổi tông theo chiến dịch; luôn giữ nguyên khối jelly hồng &amp; nét xoay tím.</p>
+      <div class="row" id="cw-row" style="margin-top:14px;"></div>
+    </div>
+
+    <!-- ADAPTIVE -->
+    <div class="card">
+      <p class="eyebrow">Adaptive icon · Android 8+</p>
+      <h2>Hai lớp tách rời</h2>
+      <p class="note">Foreground (khối jelly + nét xoay, nền trong suốt) và background (gradient kem) tách riêng để hệ điều hành tự cắt theo hình thiết bị. Nội dung chính nằm trong vùng an toàn 66% ở giữa.</p>
+      <div class="row" style="margin-top:22px; align-items:center;">
+        <div class="tile"><div id="ad-bg" style="width:150px;height:150px;border-radius:18px;overflow:hidden;box-shadow:var(--shadow-sm);"></div><span class="cap"><b>background</b><br>432 · gradient</span></div>
+        <div class="tile"><div id="ad-fg" style="width:150px;height:150px;border-radius:18px;overflow:hidden;box-shadow:inset 0 0 0 1.5px var(--color-cell-line); position:relative; background:repeating-conic-gradient(#F4E9D8 0% 25%, #FBEFDD 0% 50%) 50%/24px 24px;"></div><span class="cap"><b>foreground</b><br>432 · trong suốt + vùng an toàn</span></div>
+        <div class="tile" style="font-size:30px;color:var(--color-text-muted);font-family:var(--font-display);">→</div>
+        <div class="tile"><div class="mask-circle" id="ad-res-c" style="width:120px;height:120px;"></div><span class="cap">Kết quả · tròn</span></div>
+        <div class="tile"><div class="mask-round" id="ad-res-r" style="width:120px;height:120px;"></div><span class="cap">Kết quả · bo góc</span></div>
+        <div class="tile"><div class="mask-circle" id="ad-mono" style="width:120px;height:120px; background:#73AEEF;"></div><span class="cap"><b>Monochrome</b><br>themed · Android 13</span></div>
+      </div>
+    </div>
+
+    <!-- NATIVE SPLASH + LOADING -->
+    <div class="card">
+      <p class="eyebrow">Native splash · Android 12+ &amp; màn hình tải</p>
+      <h2>Splash &amp; Loading</h2>
+      <p class="note">Một nền duy nhất nối liền ba lớp: native splash của hệ điều hành → màn hình tải trong app → app icon. Nền splash là <b>Kem #FFF7EC</b> — đúng tông giao diện game, nên khối jelly hồng chuyển cảnh mượt, không “nhảy” màu.</p>
+      <div class="row" style="margin-top:22px; gap:28px; align-items:flex-start;">
+        <!-- native splash -->
+        <div class="tile">
+          <div style="width:206px; height:424px; border-radius:34px; background:#FFF7EC; box-shadow:var(--shadow-md); position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+            <div id="ns-mark" style="width:150px; height:150px;"></div>
+            <span class="wm pink" style="position:absolute; bottom:34px; left:0; right:0; text-align:center; font-size:18px;">GRAVITY JELLY</span>
+          </div>
+          <span class="cap"><b>① Native splash</b><br>windowSplashScreenBackground = #FFF7EC<br>icon ở giữa · wordmark = branding image</span>
+        </div>
+        <div class="tile" style="align-self:center; font-size:30px; color:var(--color-text-muted); font-family:var(--font-display);">→</div>
+        <!-- loading -->
+        <div class="tile">
+          <div style="width:206px; height:424px; border-radius:34px; background:radial-gradient(120% 80% at 50% 28%, #FFFDF7 0%, #FFF7EC 58%, #F3E3CC 100%); box-shadow:var(--shadow-md); position:relative; overflow:hidden;">
+            <div style="position:absolute; top:60px; left:-26px; width:104px; height:104px; border-radius:50%; background:var(--color-block-mint-shine); opacity:0.5; filter:blur(6px);"></div>
+            <div style="position:absolute; bottom:128px; right:-20px; width:78px; height:78px; border-radius:50%; background:var(--color-block-pink-shine); opacity:0.55; filter:blur(6px);"></div>
+            <div style="position:absolute; top:96px; left:0; right:0; display:flex; flex-direction:column; align-items:center; gap:14px;">
+              <div id="ld-tiles" style="display:flex; gap:5px; align-items:flex-start;"></div>
+              <div style="text-align:center; line-height:0.9;">
+                <div style="font-family:'Fredoka'; font-weight:600; font-size:14px; letter-spacing:0.18em; color:var(--color-text-muted);">GRAVITY</div>
+                <div class="wm pink" style="font-size:34px;">JELLY</div>
+              </div>
+            </div>
+            <div style="position:absolute; bottom:52px; left:26px; right:26px; display:flex; flex-direction:column; align-items:center; gap:9px;">
+              <div style="width:100%; height:13px; border-radius:999px; background:var(--color-surface-sunken); box-shadow:inset 0 1px 3px var(--color-shadow-soft); padding:2px; box-sizing:border-box;">
+                <div style="width:64%; height:100%; border-radius:999px; background:linear-gradient(90deg, var(--color-block-mint), var(--color-block-blue));"></div>
+              </div>
+              <span style="font-family:'Fredoka'; font-weight:700; font-size:11px; letter-spacing:0.04em; color:var(--color-text-muted);">ĐANG TẢI… 64%</span>
+            </div>
+            <span style="position:absolute; bottom:20px; left:0; right:0; text-align:center; font-family:var(--font-body); font-weight:600; font-size:11px; color:var(--color-text-muted); opacity:0.7;">v1.0.0</span>
+          </div>
+          <span class="cap"><b>② Màn hình tải (trong app)</b><br>cùng nền kem · logo blocks + thanh tải jelly</span>
+        </div>
+        <div class="tile" style="align-self:center; font-size:30px; color:var(--color-text-muted); font-family:var(--font-display);">→</div>
+        <div class="tile" style="align-self:center;">
+          <div class="mask-round" id="ns-icon" style="width:118px; height:118px;"></div>
+          <span class="cap"><b>③ App icon</b><br>cùng tông kem</span>
+        </div>
+      </div>
+      <h3 style="margin-top:28px;">Nền splash</h3>
+      <div class="row" style="margin-top:12px;">
+        <div class="tile"><div class="swatch" style="background:#FFF7EC; color:#9B886F; box-shadow:inset 0 0 0 1.5px #EFE0C9;"><span class="swcap">Kem #FFF7EC</span></div><span class="cap">Native splash<br>(solid · windowBackground)</span></div>
+        <div class="tile"><div class="swatch" style="background:linear-gradient(160deg,#FFFDF7,#F3E3CC); color:#9B886F; box-shadow:inset 0 0 0 1.5px #EFE0C9;"><span class="swcap">Cream Wash</span></div><span class="cap">Màn hình tải<br>(gradient trong app)</span></div>
+      </div>
+    </div>
+
+    <!-- WORDMARK -->
+    <div class="card">
+      <p class="eyebrow">Wordmark</p>
+      <h2>Chữ thương hiệu</h2>
+      <p class="note">Fredoka Bold, hồng kẹo với viền chìm. Hai bố cục: ngang (1 hàng) và xếp chồng (2 hàng). Dùng kèm icon thành lockup, hoặc đứng riêng.</p>
+      <div style="display:flex; flex-direction:column; gap:18px; margin-top:20px;">
+        <div class="oncream lockup"><div id="lk-icon-1" style="width:88px;height:88px;" class="mask-round"></div><span class="wm pink" style="font-size:40px;">GRAVITY JELLY</span></div>
+        <div class="onpurple lockup"><div id="lk-icon-2" style="width:88px;height:88px;" class="mask-round"></div><div class="stack-wm"><span class="wm white" style="font-size:36px;">GRAVITY</span><span class="wm white" style="font-size:36px; letter-spacing:0.16em;">JELLY</span></div></div>
+        <div class="row" style="align-items:center;">
+          <div class="oncream lockup" style="flex:1; justify-content:center;"><div class="stack-wm" style="align-items:center;"><span class="wm pink" style="font-size:34px;">GRAVITY</span><span class="wm pink" style="font-size:34px; letter-spacing:0.18em;">JELLY</span></div></div>
+          <div class="onpurple lockup" style="flex:1; justify-content:center;"><span class="wm white" style="font-size:30px;">GRAVITY JELLY</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLEAR SPACE + MIN -->
+    <div class="card">
+      <p class="eyebrow">Khoảng trống & cỡ tối thiểu</p>
+      <h2>Quy tắc đặt logo</h2>
+      <div class="row" style="margin-top:18px; gap:48px; align-items:center;">
+        <div class="tile">
+          <div style="position:relative; padding:36px; border:2px dashed var(--color-cell-line); border-radius:18px;">
+            <div class="mask-round" id="cs-icon" style="width:120px;height:120px;"></div>
+            <span style="position:absolute; left:8px; top:50%; transform:translateY(-50%); font-family:var(--font-display); color:var(--color-text-muted); font-size:13px;">½×</span>
+            <span style="position:absolute; top:8px; left:50%; transform:translateX(-50%); font-family:var(--font-display); color:var(--color-text-muted); font-size:13px;">½×</span>
+          </div>
+          <span class="cap">Chừa lề tối thiểu ≥ ½ chiều cao khối jelly quanh logo</span>
+        </div>
+        <div class="tile">
+          <div class="mask-round" id="min-icon" style="width:48px;height:48px;"></div>
+          <span class="cap"><b>48 dp</b> — cỡ icon nhỏ nhất.<br>Wordmark không nhỏ hơn <b>16 px</b> chiều cao chữ.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- BACKGROUNDS -->
+    <div class="card">
+      <p class="eyebrow">Màu nền cho phép</p>
+      <h2>Đặt logo trên nền nào</h2>
+      <p class="note">Nền chính của icon &amp; splash là kem — đồng bộ với giao diện game. Khi đặt logo/lockup lên nền khác, chỉ dùng các nền thương hiệu sau để giữ tương phản.</p>
+      <div class="row" style="margin-top:18px;">
+        <div class="tile"><div class="swatch" style="background:#FFF7EC;color:#9B886F;box-shadow:inset 0 0 0 1.5px #EFE0C9;"><span class="swcap">Kem #FFF7EC</span></div><span class="cap">Nền icon &amp; splash chính</span></div>
+        <div class="tile"><div class="swatch" style="background:#FF9F68;color:#fff;"><span class="swcap">Tangerine #FF9F68</span></div><span class="cap">Banner / CTA</span></div>
+        <div class="tile"><div class="swatch" style="background:#8FC2F6;color:#2C4A6B;"><span class="swcap">Sky #8FC2F6</span></div><span class="cap">Tông phụ (chiến dịch)</span></div>
+        <div class="tile"><div class="swatch" style="background:#5B4636;color:#fff;"><span class="swcap">Cocoa #5B4636</span></div><span class="cap">Nền tối</span></div>
+      </div>
+    </div>
+
+    <!-- DO / DON'T -->
+    <div class="card">
+      <p class="eyebrow">Nên / Không</p>
+      <h2>Dùng đúng cách</h2>
+      <div class="row" style="margin-top:18px;">
+        <div class="do"><span class="tag ok">NÊN</span><div class="mask-round" id="dd-1" style="width:84px;height:84px;"></div><span class="cap">Giữ nguyên khối jelly + nét xoay</span></div>
+        <div class="do"><span class="tag ok">NÊN</span><div class="mask-circle" id="dd-2" style="width:84px;height:84px;"></div><span class="cap">Để hệ máy cắt mask tự do</span></div>
+        <div class="dont"><span class="tag no">KHÔNG</span><div id="dd-3" style="width:84px;height:84px; border-radius:22%; overflow:hidden; filter:hue-rotate(60deg) saturate(1.4);"></div><span class="cap">Đổi màu nền / xoay tông</span></div>
+        <div class="dont"><span class="tag no">KHÔNG</span><div id="dd-4" style="width:84px;height:84px; border-radius:22%; overflow:hidden; transform:rotate(12deg) scale(0.82);"></div><span class="cap">Nghiêng, bóp méo, thu nhỏ khối</span></div>
+        <div class="dont"><span class="tag no">KHÔNG</span><div id="dd-5" style="width:84px;height:84px; border-radius:22%; overflow:hidden; box-shadow:0 0 0 4px #FFCA66;"></div><span class="cap">Thêm viền / đổ bóng lạ</span></div>
+      </div>
+    </div>
+
+    <!-- FILES -->
+    <div class="card">
+      <p class="eyebrow">File xuất cho Android</p>
+      <h2>Trong thư mục <span style="font-family:'Fredoka';color:var(--color-gravity)">08-brand/android/</span></h2>
+      <div class="dl" style="margin-top:14px;">
+        <span class="f">ic_launcher_foreground.png</span><span>432 · trong suốt (lớp foreground)</span>
+        <span class="f">ic_launcher_background.png</span><span>432 · gradient xanh trời (lớp background)</span>
+        <span class="f">ic_launcher_monochrome.png</span><span>432 · silhouette trắng (themed icon)</span>
+        <span class="f">ic_launcher-512.png</span><span>512 · icon Play Store (bo góc)</span>
+        <span class="f">splash_icon.png</span><span>432 · icon trên nền splash (windowSplashScreenAnimatedIcon)</span>
+        <span class="f">splash_branding.png</span><span>wordmark dưới đáy splash (branding image)</span>
+        <span class="f">themes.xml · splashBackground</span><span>#FFF7EC · windowSplashScreenBackground</span>
+        <span class="f">mipmap-xxxhdpi … mdpi</span><span>192 / 144 / 96 / 72 / 48 · composited</span>
+        <span class="f">feature-graphic.png</span><span>1024 × 500 · ảnh bìa Play Store</span>
+        <span class="f">wordmark-horizontal.png</span><span>wordmark ngang · nền kem (hồng kẹo)</span>
+        <span class="f">wordmark-stacked.png</span><span>wordmark xếp chồng · nền cocoa (trắng)</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="./gravity-jelly-logo.js"></script>
+  <script>
+    const put = (id, svg) => { const el = document.getElementById(id); if (el) el.insertAdjacentHTML('beforeend', svg); };
+    const full = (s, r) => GJLogo.fullIconSVG(s, { rounding: r == null ? 0 : r });
+
+    // hero + store
+    put('hero-icon', full(168, 0));
+    put('ic-512', full(200, 0));
+    put('ic-circle', full(120, 0));
+    put('ic-rsquare', full(120, 0));
+    put('ic-square', full(120, 0));
+    // densities
+    [['d-192',96],['d-144',72],['d-96',48],['d-72',36],['d-48',24]].forEach(([id,s]) => put(id, full(s, 0)));
+    // adaptive layers
+    put('ad-bg', GJLogo.backgroundSVG(150, { rounding: 0 }));
+    // foreground with safe-zone ring overlay
+    put('ad-fg', GJLogo.foregroundSVG(150) + '<svg width="150" height="150" style="position:absolute;inset:0" viewBox="0 0 150 150"><circle cx="75" cy="75" r="49.5" fill="none" stroke="#73AEEF" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.7"/></svg>');
+    put('ad-res-c', full(120, 0));
+    put('ad-res-r', full(120, 0));
+    put('ad-mono', GJLogo.monochromeSVG(120));
+    // native splash + loading
+    put('ns-mark', GJLogo.foregroundSVG(150));
+    put('ns-icon', full(118, 0));
+    const ldOrder = [['pink',-8],['yellow',4],['mint',-4],['blue',8]];
+    const ld = document.getElementById('ld-tiles');
+    if (ld) ldOrder.forEach(([c,rot]) => ld.insertAdjacentHTML('beforeend', '<div style="transform:rotate(' + rot + 'deg)">' + GJLogo.wrap(46, GJLogo.heroBlock(46, c, 0.92, false)) + '</div>'));
+    // lockups
+    put('lk-icon-1', full(88, 0));
+    put('lk-icon-2', full(88, 0));
+    // clear space / min
+    put('cs-icon', full(120, 0));
+    put('min-icon', full(48, 0));
+    // colorways
+    const cws = [['cream','Kem · chính'],['coral','Cam đào'],['mint','Mint'],['bubblegum','Kẹo hồng'],['sky','Xanh trời']];
+    const cw = document.getElementById('cw-row');
+    if (cw) cws.forEach(([k,l]) => cw.insertAdjacentHTML('beforeend', '<div class="tile"><div class="mask-round" style="width:96px;height:96px">' + GJLogo.fullIconSVG(96, { colorway: k, rounding: 0 }) + '</div><span class="cap">' + l + '</span></div>'));
+    // do/dont
+    put('dd-1', full(84, 0));
+    put('dd-2', full(84, 0));
+    put('dd-3', full(84, 0));
+    put('dd-4', full(84, 0));
+    put('dd-5', full(84, 0));
+  </script>
+</body>
+</html>

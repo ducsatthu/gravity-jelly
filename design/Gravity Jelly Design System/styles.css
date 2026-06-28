@@ -1,0 +1,10 @@
+/* ============================================================
+   GRAVITY JELLY — DESIGN SYSTEM ENTRY
+   Consumers link this one file. @import lines only.
+   ============================================================ */
+
+@import url('./01-tokens/01-colors.css');
+@import url('./01-tokens/02-typography.css');
+@import url('./01-tokens/03-spacing-radius.css');
+@import url('./01-tokens/04-dimensions.css');
+@import url('./01-tokens/05-motion.css');

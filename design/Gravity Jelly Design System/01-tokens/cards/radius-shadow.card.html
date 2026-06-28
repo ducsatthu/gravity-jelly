@@ -1,0 +1,30 @@
+<!-- @dsCard group="Spacing" viewport="700x160" name="Radius & Shadow" subtitle="Corner radii + soft jelly shadows" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<style>
+  html, body { margin: 0; }
+  body { background: var(--color-bg); color: var(--color-text); padding: 24px; font-family: var(--font-body); }
+  .row { display: flex; gap: 22px; align-items: flex-end; }
+  .item { text-align: center; }
+  .box { width: 64px; height: 56px; background: var(--color-block-blue); border: 3px solid var(--color-block-blue-edge); }
+  .scard { width: 64px; height: 56px; background: var(--color-surface); border-radius: var(--radius-lg); }
+  .name { font-size: 11px; font-weight: 700; color: var(--color-text-muted); margin-top: 8px; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="item"><div class="box" style="border-radius:var(--radius-sm)"></div><div class="name">radius/sm 8</div></div>
+    <div class="item"><div class="box" style="border-radius:var(--radius-md)"></div><div class="name">radius/md 12</div></div>
+    <div class="item"><div class="box" style="border-radius:var(--radius-lg)"></div><div class="name">radius/lg 20</div></div>
+    <div class="item"><div class="box" style="border-radius:var(--radius-xl)"></div><div class="name">radius/xl 28</div></div>
+    <div class="item"><div class="box" style="border-radius:var(--radius-2xl)"></div><div class="name">radius/2xl 36</div></div>
+    <div style="width:1px;align-self:stretch;background:var(--color-cell-line)"></div>
+    <div class="item"><div class="scard" style="box-shadow:var(--shadow-sm)"></div><div class="name">shadow/sm</div></div>
+    <div class="item"><div class="scard" style="box-shadow:var(--shadow-md)"></div><div class="name">shadow/md</div></div>
+    <div class="item"><div class="scard" style="box-shadow:var(--shadow-lg)"></div><div class="name">shadow/lg</div></div>
+  </div>
+</body>
+</html>

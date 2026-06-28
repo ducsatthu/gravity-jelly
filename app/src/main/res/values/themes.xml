@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Theme nền cho Activity trước khi Compose dựng. Màu nền = bg kem #FFF7EC. -->
+    <style name="Theme.GravityJelly" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/gj_bg</item>
+        <item name="android:statusBarColor">@color/gj_bg</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <!-- Splash hệ thống (androidx.core SplashScreen, backport tới API 24): nền KEM #FFF7EC +
+         logo thương hiệu (khối jelly hồng + nét xoay tím + quầng/lấp lánh vàng) đúng
+         brand.card / gravity-jelly-logo.js (colorway "cream"). Nền splash = nền game → khi
+         Compose dựng frame đầu (postSplashScreenTheme) không "nhảy" màu. Tránh chớp trắng cold start. -->
+    <style name="Theme.GravityJelly.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/gj_splash_cream</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_logo</item>
+        <item name="postSplashScreenTheme">@style/Theme.GravityJelly</item>
+        <item name="android:statusBarColor">@color/gj_splash_cream</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>

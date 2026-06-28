@@ -1,0 +1,168 @@
+<!-- @dsCard group="Motion" viewport="700x440" name="Effects (animated)" subtitle="4-way fall · rotate · happy clear · escalating combo · focus · wink · blink" -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  html, body { margin: 0; }
+  body { background: var(--color-bg); font-family: var(--font-body); color: var(--color-text); padding: 20px; }
+  .grid { display: flex; flex-direction: column; gap: 18px; }
+  .row { display: flex; gap: 18px; align-items: stretch; }
+  .panel { flex: 1; background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: 12px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .stage { height: 96px; display: flex; align-items: center; justify-content: center; position: relative; width: 100%; }
+  .cap { font-size: 11px; font-weight: 700; color: var(--color-text-muted); letter-spacing: .04em; text-align: center; }
+
+  /* directional fall keyframes (start at the opposite wall, settle + squash) */
+  @keyframes gjFallDown  { 0%{transform:translateY(-34px)} 60%{transform:translateY(0) scale(1,1)} 72%{transform:translateY(0) scale(1.2,0.78)} 86%{transform:translateY(0) scale(0.92,1.08)} 100%{transform:translateY(0) scale(1,1)} }
+  @keyframes gjFallUp    { 0%{transform:translateY(34px)}  60%{transform:translateY(0) scale(1,1)} 72%{transform:translateY(0) scale(1.2,0.78)} 86%{transform:translateY(0) scale(0.92,1.08)} 100%{transform:translateY(0) scale(1,1)} }
+  @keyframes gjFallLeft  { 0%{transform:translateX(34px)}  60%{transform:translateX(0) scale(1,1)} 72%{transform:translateX(0) scale(0.78,1.2)} 86%{transform:translateX(0) scale(1.08,0.92)} 100%{transform:translateX(0) scale(1,1)} }
+  @keyframes gjFallRight { 0%{transform:translateX(-34px)} 60%{transform:translateX(0) scale(1,1)} 72%{transform:translateX(0) scale(0.78,1.2)} 86%{transform:translateX(0) scale(1.08,0.92)} 100%{transform:translateX(0) scale(1,1)} }
+  .fall-down  { animation: gjFallDown  900ms var(--ease-out) both; transform-origin: 50% 100%; }
+  .fall-up    { animation: gjFallUp    900ms var(--ease-out) both; transform-origin: 50% 0%; }
+  .fall-left  { animation: gjFallLeft  900ms var(--ease-out) both; transform-origin: 0% 50%; }
+  .fall-right { animation: gjFallRight 900ms var(--ease-out) both; transform-origin: 100% 50%; }
+
+  .wall { position: absolute; inset: 6px; border-radius: var(--radius-md); border: 2px dashed var(--color-cell-line); pointer-events: none; }
+  .arrow { position: absolute; font-size: 14px; color: var(--color-gravity); font-weight: 800; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script src="../_ds_bundle.js"></script>
+  <script type="text/babel">
+    const NS = window.GravityJellyDesignSystem_3e0487;
+    const { JellyBlock, ComboPopup } = NS;
+    const { useState, useEffect } = React;
+    const DIRS = ['down','left','up','right'];
+    const ARROWS = { down:'↓', up:'↑', left:'←', right:'→' };
+    const ARROW_POS = {
+      down:  { top: 4, left: '50%', transform: 'translateX(-50%)' },
+      up:    { bottom: 4, left: '50%', transform: 'translateX(-50%)' },
+      left:  { right: 6, top: '50%', transform: 'translateY(-50%)' },
+      right: { left: 6, top: '50%', transform: 'translateY(-50%)' },
+    };
+
+    // 1 — falls toward each gravity wall in turn; eyes track the fall.
+    function FallDirs() {
+      const [i, setI] = useState(0);
+      useEffect(() => { const t = setInterval(() => setI(x => (x + 1) % 4), 1200); return () => clearInterval(t); }, []);
+      const d = DIRS[i];
+      return (
+        <>
+          <div className="wall" />
+          <div className="arrow" style={ARROW_POS[d]}>{ARROWS[d]}</div>
+          <div key={i} className={'fall-' + d}>
+            <JellyBlock color="yellow" size={48} direction={d} />
+          </div>
+        </>
+      );
+    }
+
+    // 2 — gravity rotate: eyes swing to the new direction, then settle front.
+    function Rotate() {
+      const [i, setI] = useState(0);
+      const [looking, setLooking] = useState(true);
+      useEffect(() => {
+        let alive = true;
+        const step = () => {
+          setI(x => (x + 1) % 4);
+          setLooking(true);
+          setTimeout(() => { if (alive) setLooking(false); }, 600);
+        };
+        const t = setInterval(step, 1500);
+        return () => { alive = false; clearInterval(t); };
+      }, []);
+      return <JellyBlock color="mint" size={48} direction={DIRS[i]} expression={looking ? 'normal' : 'front'} />;
+    }
+
+    // 3 — line clear: blocks beam a happy "^ ^" and pop one-by-one, slowly.
+    function ClearHappy() {
+      const [cleared, setCleared] = useState([false, false, false]);
+      useEffect(() => {
+        let timers = [];
+        const run = () => {
+          setCleared([false, false, false]);
+          [0, 1, 2].forEach((i) => {
+            timers.push(setTimeout(() => setCleared((c) => { const n = [...c]; n[i] = true; return n; }), 360 + i * 460));
+          });
+        };
+        run();
+        const loop = setInterval(run, 3000);
+        return () => { clearInterval(loop); timers.forEach(clearTimeout); };
+      }, []);
+      const slowFade = { transition: 'transform 380ms var(--ease-jelly), opacity 560ms var(--ease-out), filter 560ms var(--ease-out)' };
+      return <div style={{ display: 'flex', gap: 2 }}>
+        {['pink', 'pink', 'pink'].map((c, i) => (
+          <JellyBlock key={i} color={c} size={40} clearing={cleared[i]} expression="happy" style={slowFade} />
+        ))}
+      </div>;
+    }
+
+    // 4 — combo popup: each clear pushes the chain higher → praise heats up.
+    function Combo() {
+      const [k, setK] = useState(0);
+      const seq = [2, 3, 4, 5, 7, 9];
+      useEffect(() => { const t = setInterval(() => setK(x => x + 1), 1200); return () => clearInterval(t); }, []);
+      return <ComboPopup key={k} combo={seq[k % seq.length]} showDish={false} />;
+    }
+
+    // 5 — eyes front, locked on the player; the reticle keeps pulling focus.
+    function Focus() {
+      return <JellyBlock color="blue" size={48} direction="down" expression="focus" />;
+    }
+
+    // 6 — and now and then, a cheeky wink at the user.
+    function Wink() {
+      const [on, setOn] = useState(false);
+      useEffect(() => {
+        let alive = true;
+        const blink = () => { setOn(true); setTimeout(() => { if (alive) setOn(false); }, 420); };
+        const t = setInterval(blink, 2200); blink();
+        return () => { alive = false; clearInterval(t); };
+      }, []);
+      return <JellyBlock color="yellow" size={48} direction="down" expression={on ? 'wink' : 'front'} />;
+    }
+
+    // 7 — looks straight ahead and blinks both eyes, like a person.
+    function Blink() {
+      const [shut, setShut] = useState(false);
+      useEffect(() => {
+        let alive = true; const timers = [];
+        const close = (ms) => { setShut(true); timers.push(setTimeout(() => { if (alive) setShut(false); }, ms)); };
+        const beat = () => {
+          close(130);
+          // occasional natural double-blink
+          if (Math.random() < 0.35) timers.push(setTimeout(() => close(120), 300));
+        };
+        const t = setInterval(beat, 2400); beat();
+        return () => { alive = false; clearInterval(t); timers.forEach(clearTimeout); };
+      }, []);
+      return <JellyBlock color="mint" size={48} direction="down" expression="front" blink={shut} />;
+    }
+
+    const Panel = ({ children, cap }) => (
+      <div className="panel"><div className="stage">{children}</div><div className="cap">{cap}</div></div>
+    );
+
+    ReactDOM.createRoot(document.getElementById('root')).render(
+      <div className="grid">
+        <div className="row">
+          <Panel cap="RƠI · 4 HƯỚNG"><FallDirs/></Panel>
+          <Panel cap="XOAY TRỌNG LỰC · 350ms"><Rotate/></Panel>
+          <Panel cap="XÓA HÀNG · vui vẻ ^ ^"><ClearHappy/></Panel>
+          <Panel cap="COMBO · khen ngợi tăng dần"><Combo/></Panel>
+        </div>
+        <div className="row">
+          <Panel cap="FOCUS · nhìn người chơi"><Focus/></Panel>
+          <Panel cap="NHÁY MẮT · chào người chơi"><Wink/></Panel>
+          <Panel cap="NHÌN THẲNG · chớp mắt"><Blink/></Panel>
+        </div>
+      </div>
+    );
+  </script>
+</body>
+</html>

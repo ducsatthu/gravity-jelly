@@ -1,0 +1,37 @@
+/* ============================================================
+   GRAVITY JELLY — SPACING & RADIUS TOKENS
+   Strict 4dp grid. Compose target: space/<size>, radius/<size>
+   ============================================================ */
+
+:root {
+  /* --- Spacing (4dp grid; value == dp) --- */
+  --space-2xs: 2px;   /* space/2xs  cell gap, hairline */
+  --space-xs:  4px;   /* space/xs   */
+  --space-sm:  8px;   /* space/sm   */
+  --space-md:  12px;  /* space/md   */
+  --space-lg:  16px;  /* space/lg   default screen padding */
+  --space-xl:  24px;  /* space/xl   */
+  --space-2xl: 32px;  /* space/2xl  */
+  --space-3xl: 48px;  /* space/3xl  */
+
+  /* --- Corner radius (jelly = generous rounding) --- */
+  --radius-sm:   8px;   /* radius/sm   chips, small tags */
+  --radius-md:   12px;  /* radius/md   jelly cell rounding */
+  --radius-lg:   20px;  /* radius/lg   cards, tray slots */
+  --radius-xl:   28px;  /* radius/xl   primary buttons, panels */
+  --radius-2xl:  36px;  /* radius/2xl  sheets, big panels */
+  --radius-full: 999px; /* radius/full pills, round buttons */
+
+  /* --- Border widths (thick jelly outline) --- */
+  --border-thin:  1.5px; /* border/thin  separators */
+  --border-jelly: 3px;   /* border/jelly block outline */
+  --border-bold:  4px;   /* border/bold  selected / focus ring */
+
+  /* --- Soft jelly shadow recipes --- */
+  --shadow-sm:   0 2px 6px var(--color-shadow-soft);
+  --shadow-md:   0 6px 14px var(--color-shadow-soft);
+  --shadow-lg:   0 12px 28px var(--color-shadow-key);
+  --shadow-press:0 2px 4px var(--color-shadow-soft);
+  /* inner glossy top sheen used on jelly fills */
+  --shadow-gloss-inset: inset 0 3px 0 rgba(255,255,255,0.55);
+}

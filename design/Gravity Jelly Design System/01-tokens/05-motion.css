@@ -1,0 +1,24 @@
+/* ============================================================
+   GRAVITY JELLY — MOTION TOKENS
+   All movement: short, smooth ease-in-out, 150-450ms.
+   Compose target: motion/<name> -> AnimationSpec
+   ============================================================ */
+
+:root {
+  /* --- Durations --- */
+  --motion-fast:   150ms /* @kind other */;   /* motion/fast   taps, squash settle */
+  --motion-base:   250ms /* @kind other */;   /* motion/base   piece place, popups */
+  --motion-medium: 350ms /* @kind other */;   /* motion/medium gravity rotate slide */
+  --motion-slow:   450ms /* @kind other */;   /* motion/slow   chain collapse / combo */
+
+  /* --- Easing --- */
+  --ease-inout:  cubic-bezier(0.45, 0.05, 0.30, 0.95) /* @kind other */;
+  --ease-out:    cubic-bezier(0.18, 0.80, 0.32, 1.00) /* @kind other */;
+  --ease-in:     cubic-bezier(0.55, 0.00, 0.85, 0.30) /* @kind other */;
+  --ease-jelly:  cubic-bezier(0.34, 1.56, 0.50, 1.00) /* @kind other */;
+
+  /* --- Named transitions --- */
+  --t-tap:    transform var(--motion-fast) var(--ease-out);
+  --t-place:  transform var(--motion-base) var(--ease-jelly);
+  --t-rotate: transform var(--motion-medium) var(--ease-inout);
+}

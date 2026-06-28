@@ -1,0 +1,65 @@
+/* ============================================================
+   GRAVITY JELLY — COLOR TOKENS
+   Compose target: Jetpack Compose Color/*  (color/<name>)
+   ============================================================ */
+
+:root {
+  /* --- Surfaces / background --- */
+  --color-bg: #FFF7EC;             /* color/bg             cream base canvas */
+  --color-surface: #FFFFFF;        /* color/surface        panels, sheets */
+  --color-surface-sunken: #F4E9D8; /* color/surface-sunken board well, inset */
+  --color-overlay: rgba(60, 44, 24, 0.42); /* color/overlay  dialog scrim */
+
+  /* --- Jelly block fills (the 4 signature characters) --- */
+  --color-block-yellow: #FFE3A3;   /* color/block-yellow */
+  --color-block-mint:   #A3E5D9;   /* color/block-mint   */
+  --color-block-pink:   #F7A9C0;   /* color/block-pink   */
+  --color-block-blue:   #B3C7F7;   /* color/block-blue   */
+
+  /* --- Jelly block borders (darker sibling of each fill) --- */
+  --color-block-yellow-edge: #E8B85C;
+  --color-block-mint-edge:   #5FC3B2;
+  --color-block-pink-edge:   #E576A0;
+  --color-block-blue-edge:   #7E9CE8;
+
+  /* --- Jelly highlight (top-glossy sheen, one per fill) --- */
+  --color-block-yellow-shine: #FFF1CE;
+  --color-block-mint-shine:   #CBF2EB;
+  --color-block-pink-shine:   #FBD0DF;
+  --color-block-blue-shine:   #D6E1FB;
+
+  /* --- Stone (fixed / immovable cells) — warm neutral --- */
+  --color-stone: #C9BCA8;          /* color/stone        fill */
+  --color-stone-edge: #A89A82;     /* color/stone-edge   */
+  --color-stone-shine: #DBD0BF;    /* color/stone-shine  */
+
+  /* --- Empty grid cell --- */
+  --color-cell-empty: #FBEFDD;     /* color/cell-empty   */
+  --color-cell-line:  #EFE0C9;     /* color/cell-line    subtle separators */
+
+  /* --- Text --- */
+  --color-text:         #5B4636;   /* color/text          warm cocoa, primary */
+  --color-text-muted:   #9B886F;   /* color/text-muted    */
+  --color-text-invert:  #FFFFFF;   /* color/text-invert   on dark/colored */
+  --color-text-on-block:#6A4A2E;   /* color/text-on-block readable on jelly */
+
+  /* --- Brand / accent (play, primary CTA) --- */
+  --color-primary:       #FF9F68;  /* color/primary       warm tangerine */
+  --color-primary-edge:  #E97E45;  /* color/primary-edge  pressed/border */
+  --color-primary-shine: #FFC59A;  /* color/primary-shine top sheen */
+
+  /* --- Semantic --- */
+  --color-success: #6FCF7F;        /* color/success */
+  --color-warning: #FFCA66;        /* color/warning */
+  --color-danger:  #F08A7E;        /* color/danger  revive / lose */
+  --color-info:    #8FB6F2;        /* color/info    */
+
+  /* --- Gravity indicator accent (signature mechanic) --- */
+  --color-gravity:       #7E6CF0;  /* color/gravity */
+  --color-gravity-edge:  #6353D6;  /* color/gravity-edge */
+  --color-gravity-shine: #A99CF6;  /* color/gravity-shine */
+
+  /* --- Shadows (soft jelly) --- */
+  --color-shadow-soft: rgba(120, 92, 52, 0.16); /* color/shadow-soft */
+  --color-shadow-key:  rgba(120, 92, 52, 0.24); /* color/shadow-key  */
+}

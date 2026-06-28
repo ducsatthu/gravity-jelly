@@ -1,0 +1,41 @@
+/* ============================================================
+   GRAVITY JELLY — TYPOGRAPHY TOKENS
+   Display/number font: Fredoka (rounded, bold, friendly)
+   Body/UI font:        Nunito  (rounded humanist sans)
+   Compose target: text/<role> -> TextStyle in Type.kt
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800&display=swap');
+
+:root {
+  /* --- Families --- */
+  --font-display: 'Fredoka', system-ui, sans-serif; /* font/display titles, numbers */
+  --font-body:    'Nunito', system-ui, sans-serif;  /* font/body  UI, labels, copy */
+
+  /* --- Weights --- */
+  --weight-regular: 400;  /* weight/regular */
+  --weight-medium:  500;  /* weight/medium  */
+  --weight-semibold:600;  /* weight/semibold */
+  --weight-bold:    700;  /* weight/bold    */
+  --weight-extra:   800;  /* weight/extra   numbers / score pop */
+
+  /* --- Type scale (sp ~= px @ baseline) --- */
+  --text-display:  40px;  /* text/display   logo, big score */
+  --text-title:    28px;  /* text/title     screen titles */
+  --text-heading:  22px;  /* text/heading   section / dialog title */
+  --text-score:    20px;  /* text/score     HUD score number */
+  --text-body:     16px;  /* text/body      default UI text */
+  --text-label:    14px;  /* text/label     buttons, list rows */
+  --text-caption:  12px;  /* text/caption   secondary / hints */
+  --text-block:    18px;  /* text/block     number drawn on a jelly cell */
+
+  /* --- Line heights --- */
+  --leading-tight: 1.05;  /* leading/tight  display & numbers */
+  --leading-snug:  1.25;  /* leading/snug   headings */
+  --leading-body:  1.45;  /* leading/body   paragraphs */
+
+  /* --- Letter spacing --- */
+  --tracking-tight: -0.01em; /* tracking/tight display */
+  --tracking-normal: 0em;    /* tracking/normal */
+  --tracking-wide:  0.04em;  /* tracking/wide  small caps labels */
+}

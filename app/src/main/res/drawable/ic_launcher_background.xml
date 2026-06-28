@@ -1,0 +1,36 @@
+<!--
+  Launcher background — logo (brand.card / gravity-jelly-logo.js → backgroundSVG, colorway "cream"):
+  gradient KEM radial #FFFEFB→#FFF7EC→#F4E7D2 (cx 50% · cy 34% · r 80%) + 2 đốm bokeh trắng mờ.
+  Khối jelly hồng (lớp foreground) đặt lên nền kem này — đồng bộ với giao diện game.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <path android:pathData="M0,0 h108 v108 h-108 z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="54"
+                android:centerY="36.72"
+                android:gradientRadius="86.4">
+                <item android:offset="0" android:color="#FFFEFB" />
+                <item android:offset="0.6" android:color="#FFF7EC" />
+                <item android:offset="1" android:color="#F4E7D2" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- bokeh (backgroundSVG): r 0.12 @ (0.19,0.83) · r 0.08 @ (0.85,0.18), opacity 0.10 -->
+    <path
+        android:pathData="M7.56,89.64 a12.96,12.96 0 1,0 25.92,0 a12.96,12.96 0 1,0 -25.92,0 Z"
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.10" />
+    <path
+        android:pathData="M83.16,19.44 a8.64,8.64 0 1,0 17.28,0 a8.64,8.64 0 1,0 -17.28,0 Z"
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.10" />
+</vector>

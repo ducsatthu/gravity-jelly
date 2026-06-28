@@ -1,0 +1,373 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "02-foundations/01-jelly-block/**",
+              "02-foundations/02-eyes/**",
+              "02-foundations/03-icon/**",
+              "03-components/01-button/**",
+              "03-components/02-hud/**",
+              "03-components/03-tray/**",
+              "03-components/04-gravity-rotate-button/**",
+              "03-components/05-combo-popup/**",
+              "03-components/06-dialog/**",
+              "03-components/07-jelly-scene/**",
+              "04-screens/**",
+              "04-screens/play/**",
+              "07-mechanics/**",
+              "08-brand/**",
+              "board.jsx",
+              "game-screen.jsx",
+              "jelly-play.jsx",
+              "world4-strip.jsx"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Fredoka|Nunito))/i]",
+        "message": "Font not provided by the design system. Available: Fredoka, Nunito."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|variant|size|icon|iconRight|fullWidth|disabled|comingSoon|onClick|style|key|ref|className|style|children)$/]",
+        "message": "<Button> doesn't accept that prop. Declared props: children, variant, size, icon, iconRight, fullWidth, disabled, comingSoon, onClick, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ComboPopup'] > JSXAttribute > JSXIdentifier[name!=/^(?:combo|praise|pieces|colors|showDish|height|label|visible|animate|style|key|ref|className|style|children)$/]",
+        "message": "<ComboPopup> doesn't accept that prop. Declared props: combo, praise, pieces, colors, showDish, height, label, visible, animate, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Dialog'] > JSXAttribute > JSXIdentifier[name!=/^(?:open|title|icon|children|actions|onClose|dismissable|style|key|ref|className|style|children)$/]",
+        "message": "<Dialog> doesn't accept that prop. Declared props: open, title, icon, children, actions, onClose, dismissable, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Eyes'] > JSXAttribute > JSXIdentifier[name!=/^(?:direction|blockSize|open|expression|style|key|ref|className|style|children)$/]",
+        "message": "<Eyes> doesn't accept that prop. Declared props: direction, blockSize, open, expression, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='GravityRotateButton'] > JSXAttribute > JSXIdentifier[name!=/^(?:turnsLeft|onRotate|disabled|style|key|ref|className|style|children)$/]",
+        "message": "<GravityRotateButton> doesn't accept that prop. Declared props: turnsLeft, onRotate, disabled, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Hud'] > JSXAttribute > JSXIdentifier[name!=/^(?:score|best|direction|onPause|style|key|ref|className|style|children)$/]",
+        "message": "<Hud> doesn't accept that prop. Declared props: score, best, direction, onPause, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Icon'] > JSXAttribute > JSXIdentifier[name!=/^(?:name|size|color|strokeWidth|style|key|ref|className|style|children)$/]",
+        "message": "<Icon> doesn't accept that prop. Declared props: name, size, color, strokeWidth, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='JellyConnect'] > JSXAttribute > JSXIdentifier[name!=/^(?:top|right|bottom|left|key|ref|className|style|children)$/]",
+        "message": "<JellyConnect> doesn't accept that prop. Declared props: top, right, bottom, left."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='JellyScene'] > JSXAttribute > JSXIdentifier[name!=/^(?:showDish|showCast|band|style|key|ref|className|style|children)$/]",
+        "message": "<JellyScene> doesn't accept that prop. Declared props: showDish, showCast, band, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TrayPieceModel'] > JSXAttribute > JSXIdentifier[name!=/^(?:cells|color|count|key|ref|className|style|children)$/]",
+        "message": "<TrayPieceModel> doesn't accept that prop. Declared props: cells, color, count."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {
+      "Button": {
+        "replaces": []
+      },
+      "ComboPopup": {
+        "replaces": []
+      },
+      "Dialog": {
+        "replaces": []
+      },
+      "Eyes": {
+        "replaces": []
+      },
+      "GravityRotateButton": {
+        "replaces": []
+      },
+      "Hud": {
+        "replaces": []
+      },
+      "Icon": {
+        "replaces": []
+      },
+      "JellyConnect": {
+        "replaces": []
+      },
+      "JellyScene": {
+        "replaces": []
+      },
+      "TrayPieceModel": {
+        "replaces": []
+      }
+    },
+    "tokens": [
+      "--border-bold",
+      "--border-jelly",
+      "--border-thin",
+      "--color-bg",
+      "--color-block-blue",
+      "--color-block-blue-edge",
+      "--color-block-blue-shine",
+      "--color-block-mint",
+      "--color-block-mint-edge",
+      "--color-block-mint-shine",
+      "--color-block-pink",
+      "--color-block-pink-edge",
+      "--color-block-pink-shine",
+      "--color-block-yellow",
+      "--color-block-yellow-edge",
+      "--color-block-yellow-shine",
+      "--color-cell-empty",
+      "--color-cell-line",
+      "--color-danger",
+      "--color-gravity",
+      "--color-gravity-edge",
+      "--color-gravity-shine",
+      "--color-info",
+      "--color-overlay",
+      "--color-primary",
+      "--color-primary-edge",
+      "--color-primary-shine",
+      "--color-shadow-key",
+      "--color-shadow-soft",
+      "--color-stone",
+      "--color-stone-edge",
+      "--color-stone-shine",
+      "--color-success",
+      "--color-surface",
+      "--color-surface-sunken",
+      "--color-text",
+      "--color-text-invert",
+      "--color-text-muted",
+      "--color-text-on-block",
+      "--color-warning",
+      "--dim-board",
+      "--dim-board-margin",
+      "--dim-board-pad",
+      "--dim-btn-h",
+      "--dim-cell",
+      "--dim-cell-gap",
+      "--dim-cta-h",
+      "--dim-gravity-btn",
+      "--dim-hud-h",
+      "--dim-icon-btn",
+      "--dim-icon-lg",
+      "--dim-icon-md",
+      "--dim-icon-sm",
+      "--dim-screen-h",
+      "--dim-screen-pad",
+      "--dim-screen-w",
+      "--dim-touch-min",
+      "--dim-tray-cell",
+      "--dim-tray-h",
+      "--dim-tray-slot",
+      "--ease-in",
+      "--ease-inout",
+      "--ease-jelly",
+      "--ease-out",
+      "--font-body",
+      "--font-display",
+      "--leading-body",
+      "--leading-snug",
+      "--leading-tight",
+      "--motion-base",
+      "--motion-fast",
+      "--motion-medium",
+      "--motion-slow",
+      "--radius-2xl",
+      "--radius-full",
+      "--radius-lg",
+      "--radius-md",
+      "--radius-sm",
+      "--radius-xl",
+      "--shadow-gloss-inset",
+      "--shadow-lg",
+      "--shadow-md",
+      "--shadow-press",
+      "--shadow-sm",
+      "--space-2xl",
+      "--space-2xs",
+      "--space-3xl",
+      "--space-lg",
+      "--space-md",
+      "--space-sm",
+      "--space-xl",
+      "--space-xs",
+      "--t-place",
+      "--t-rotate",
+      "--t-tap",
+      "--text-block",
+      "--text-body",
+      "--text-caption",
+      "--text-display",
+      "--text-heading",
+      "--text-label",
+      "--text-score",
+      "--text-title",
+      "--tracking-normal",
+      "--tracking-tight",
+      "--tracking-wide",
+      "--weight-bold",
+      "--weight-extra",
+      "--weight-medium",
+      "--weight-regular",
+      "--weight-semibold"
+    ],
+    "tokenKinds": {
+      "--color-bg": "color",
+      "--color-surface": "color",
+      "--color-surface-sunken": "color",
+      "--color-overlay": "color",
+      "--color-block-yellow": "color",
+      "--color-block-mint": "color",
+      "--color-block-pink": "color",
+      "--color-block-blue": "color",
+      "--color-block-yellow-edge": "color",
+      "--color-block-mint-edge": "color",
+      "--color-block-pink-edge": "color",
+      "--color-block-blue-edge": "color",
+      "--color-block-yellow-shine": "color",
+      "--color-block-mint-shine": "color",
+      "--color-block-pink-shine": "color",
+      "--color-block-blue-shine": "color",
+      "--color-stone": "color",
+      "--color-stone-edge": "color",
+      "--color-stone-shine": "color",
+      "--color-cell-empty": "color",
+      "--color-cell-line": "color",
+      "--color-text": "font",
+      "--color-text-muted": "font",
+      "--color-text-invert": "font",
+      "--color-text-on-block": "font",
+      "--color-primary": "color",
+      "--color-primary-edge": "color",
+      "--color-primary-shine": "color",
+      "--color-success": "color",
+      "--color-warning": "color",
+      "--color-danger": "color",
+      "--color-info": "color",
+      "--color-gravity": "color",
+      "--color-gravity-edge": "color",
+      "--color-gravity-shine": "color",
+      "--color-shadow-soft": "shadow",
+      "--color-shadow-key": "shadow",
+      "--font-display": "font",
+      "--font-body": "font",
+      "--weight-regular": "font",
+      "--weight-medium": "font",
+      "--weight-semibold": "font",
+      "--weight-bold": "font",
+      "--weight-extra": "font",
+      "--text-display": "font",
+      "--text-title": "font",
+      "--text-heading": "font",
+      "--text-score": "font",
+      "--text-body": "font",
+      "--text-label": "font",
+      "--text-caption": "font",
+      "--text-block": "font",
+      "--leading-tight": "font",
+      "--leading-snug": "font",
+      "--leading-body": "font",
+      "--tracking-tight": "font",
+      "--tracking-normal": "font",
+      "--tracking-wide": "font",
+      "--space-2xs": "spacing",
+      "--space-xs": "spacing",
+      "--space-sm": "spacing",
+      "--space-md": "spacing",
+      "--space-lg": "spacing",
+      "--space-xl": "spacing",
+      "--space-2xl": "spacing",
+      "--space-3xl": "spacing",
+      "--radius-sm": "radius",
+      "--radius-md": "radius",
+      "--radius-lg": "radius",
+      "--radius-xl": "radius",
+      "--radius-2xl": "radius",
+      "--radius-full": "radius",
+      "--border-thin": "spacing",
+      "--border-jelly": "spacing",
+      "--border-bold": "spacing",
+      "--shadow-sm": "shadow",
+      "--shadow-md": "shadow",
+      "--shadow-lg": "shadow",
+      "--shadow-press": "shadow",
+      "--shadow-gloss-inset": "shadow",
+      "--dim-screen-w": "spacing",
+      "--dim-screen-h": "spacing",
+      "--dim-screen-pad": "spacing",
+      "--dim-cell": "spacing",
+      "--dim-cell-gap": "spacing",
+      "--dim-board": "spacing",
+      "--dim-board-margin": "spacing",
+      "--dim-board-pad": "spacing",
+      "--dim-hud-h": "spacing",
+      "--dim-tray-h": "spacing",
+      "--dim-tray-slot": "spacing",
+      "--dim-tray-cell": "spacing",
+      "--dim-gravity-btn": "spacing",
+      "--dim-cta-h": "spacing",
+      "--dim-btn-h": "spacing",
+      "--dim-icon-btn": "spacing",
+      "--dim-touch-min": "spacing",
+      "--dim-icon-sm": "spacing",
+      "--dim-icon-md": "spacing",
+      "--dim-icon-lg": "spacing",
+      "--motion-fast": "other",
+      "--motion-base": "other",
+      "--motion-medium": "other",
+      "--motion-slow": "other",
+      "--ease-inout": "other",
+      "--ease-out": "other",
+      "--ease-in": "other",
+      "--ease-jelly": "other",
+      "--t-tap": "color",
+      "--t-place": "color",
+      "--t-rotate": "color"
+    },
+    "fontFamilies": [
+      "Fredoka",
+      "Nunito"
+    ]
+  }
+}
