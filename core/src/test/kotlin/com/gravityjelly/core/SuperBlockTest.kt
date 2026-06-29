@@ -18,6 +18,7 @@ class SuperBlockTest {
 
     private fun b(color: JellyColor) = Grid.Cell(CellType.BLOCK, color)
     private fun sup(color: JellyColor, level: Int = 1) = Grid.Cell(CellType.BLOCK, color, superLevel = level)
+    private fun rb() = Grid.Cell(CellType.BLOCK, color = null, rainbow = true)
     private val palette = arrayOf(JellyColor.YELLOW, JellyColor.MINT, JellyColor.PINK, JellyColor.BLUE)
 
     private fun countOccupied(g: Grid): Int {
@@ -186,6 +187,79 @@ class SuperBlockTest {
         assertEquals(0, countOccupied(g))
     }
 
+    // ── hàng/cột đơn sắc → siêu khối (PHA 0) ───────────────────────────────────
+
+    @Test
+    fun resolve_monoFullRow_formsSuper1WithDoubleScore() {
+        val g = Grid()
+        for (x in 0 until 9) g.set(x, 8, b(JellyColor.MINT))   // hàng 8 đầy, toàn MINT
+        val r = resolve(g, Direction.DOWN)
+        assertFalse(r.cleared)
+        assertTrue(r.formedSuper)
+        assertTrue(r.events.none { it is ResolveEvent.LinesCleared })   // KHÔNG xóa, ghép super
+        val sf = r.events.filterIsInstance<ResolveEvent.SuperFormed>().single()
+        assertEquals(1, sf.level)
+        assertEquals(SuperSource.ROW, sf.source)
+        assertEquals(Vec(4, 8), sf.at)
+        assertEquals(18, r.totalScore)        // 9 ô × combo 1 × 2 (thưởng đơn sắc)
+        assertEquals(1, r.endCombo)
+        assertEquals(1, countOccupied(g))
+    }
+
+    @Test
+    fun resolve_monoFullColumn_formsSuper() {
+        val g = Grid()
+        for (y in 0 until 9) g.set(0, y, b(JellyColor.BLUE))   // cột 0 đầy, toàn BLUE
+        val r = resolve(g, Direction.DOWN)
+        val sf = r.events.filterIsInstance<ResolveEvent.SuperFormed>().single()
+        assertEquals(SuperSource.COLUMN, sf.source)
+        assertEquals(Vec(0, 4), sf.at)
+        assertEquals(18, r.totalScore)
+    }
+
+    @Test
+    fun resolve_monoRowWithSuper1_formsSuper2() {
+        val g = Grid()
+        for (x in 0 until 9) g.set(x, 8, b(JellyColor.PINK))
+        g.set(0, 8, sup(JellyColor.PINK))     // 1 ô trong hàng là super-1 → đường đơn sắc → cấp 2
+        val r = resolve(g, Direction.DOWN)
+        val sf = r.events.filterIsInstance<ResolveEvent.SuperFormed>().single()
+        assertEquals(2, sf.level)
+        assertEquals(18, r.totalScore)
+    }
+
+    @Test
+    fun findMonoLineSuper_mixedRow_null() {
+        val g = Grid()
+        for (x in 0 until 9) g.set(x, 8, b(palette[x % 4]))   // hàng đầy nhưng nhiều màu
+        assertNull(findMonoLineSuper(g))
+    }
+
+    // ── điểm + combo khi GHÉP (3×3 / cầu vồng) ─────────────────────────────────
+
+    @Test
+    fun resolve_3x3Merge_addsScoreAndCombo() {
+        val g = Grid()
+        fill3x3(g, 3, 3, List(9) { JellyColor.MINT })
+        val r = resolve(g, Direction.DOWN)
+        val sf = r.events.filterIsInstance<ResolveEvent.SuperFormed>().single()
+        assertEquals(9, sf.score)             // 9 ô × combo 1 × 1
+        assertEquals(1, sf.comboLevel)
+        assertEquals(9, r.totalScore)
+        assertEquals(1, r.endCombo)
+    }
+
+    @Test
+    fun resolve_rainbowMerge_addsScoreAndCombo() {
+        val g = Grid()
+        fill3x3Cols(g, 3, 3, JellyColor.MINT, JellyColor.PINK, JellyColor.BLUE)
+        val r = resolve(g, Direction.DOWN)
+        val rf = r.events.filterIsInstance<ResolveEvent.RainbowFormed>().single()
+        assertEquals(9, rf.score)
+        assertEquals(1, rf.comboLevel)
+        assertEquals(1, r.endCombo)
+    }
+
     @Test
     fun resolve_twoSuper1_formSuper2() {
         val g = Grid()
@@ -261,6 +335,34 @@ class SuperBlockTest {
         assertTrue(Vec(3, 3) in toClear)    // 5×5 other color
         assertTrue(Vec(6, 6) in toClear)
         assertFalse(Vec(0, 0) in toClear)   // far other color → giữ
+    }
+
+    @Test
+    fun expandDetonations_rainbow_clearsAdjacentColorsOnly() {
+        val g = Grid()
+        g.set(4, 4, rb())                       // cầu vồng giữa
+        g.set(4, 3, b(JellyColor.MINT))         // kề trên → MINT
+        g.set(4, 5, b(JellyColor.PINK))         // kề dưới → PINK (kề trái/phải trống)
+        g.set(0, 0, b(JellyColor.MINT))         // MINT xa → quét (cùng màu kề)
+        g.set(8, 8, b(JellyColor.PINK))         // PINK xa → quét
+        g.set(1, 1, b(JellyColor.BLUE))         // BLUE không kề → GIỮ
+        val (toClear, dets) = expandDetonations(g, setOf(Vec(4, 4)))
+        assertEquals(1, dets.size)
+        assertTrue(dets[0].isRainbow)
+        assertTrue(Vec(4, 4) in toClear)        // chính cầu vồng
+        assertTrue(Vec(0, 0) in toClear)        // mint xa
+        assertTrue(Vec(8, 8) in toClear)        // pink xa
+        assertFalse(Vec(1, 1) in toClear)       // blue không kề → giữ
+    }
+
+    @Test
+    fun expandDetonations_rainbowNoColoredNeighbor_noSweep() {
+        val g = Grid()
+        g.set(4, 4, rb())                       // cầu vồng cô lập (không màu kề)
+        g.set(0, 0, b(JellyColor.MINT))
+        val (toClear, dets) = expandDetonations(g, setOf(Vec(4, 4)))
+        assertTrue(dets.isEmpty())              // không màu kề → không quét
+        assertFalse(Vec(0, 0) in toClear)
     }
 
     @Test

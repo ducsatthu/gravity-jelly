@@ -1,7 +1,9 @@
 package com.gravityjelly.core
 
 /**
- * Luật MERGE (sau khi xóa hàng/cột đầy = cơ chế tính điểm nền):
+ * Luật MERGE:
+ *  - **Hàng/cột đầy ĐƠN SẮC** (9 ô cùng màu) → SIÊU KHỐI tại tâm đường ([findMonoLineSuper]) — XÉT
+ *    TRƯỚC xóa hàng/cột thường (PHA 0 của [resolve]); thưởng ×2 điểm. Có super-1 trong đường → cấp 2.
  *  - **3×3 cùng màu** → SIÊU KHỐI CẤP 1 ([MergeMove.Super] level 1) → khi bị cuốn vào xóa sẽ
  *    **quét sạch MỌI ô CÙNG MÀU trên toàn bàn**.
  *  - **3×3 ba màu, mỗi màu 1 cột HOẶC 1 hàng** → KHỐI CẦU VỒNG ([MergeMove.Rainbow]).
@@ -15,17 +17,26 @@ package com.gravityjelly.core
 /** Nguồn hình thành (giữ để tương thích event). */
 enum class SuperSource { ROW, COLUMN, BOX, CLUSTER }
 
-/** Một lần nổ siêu khối: [cells] = footprint bị quét (toàn ô cùng màu cho cấp 1; + 5×5 cho cấp 2). */
+/**
+ * Một lần nổ: [cells] = footprint bị quét.
+ *  - Siêu khối: cùng màu toàn bàn (cấp 1) / + 5×5 (cấp 2).
+ *  - Cầu vồng ([isRainbow]=true): quét sạch các MÀU đang KỀ cầu vồng (4-kề); [color] = màu kề đầu tiên
+ *    (chỉ để tương thích event, render không dùng).
+ */
 data class SuperDetonation(
     val center: Vec,
     val color: JellyColor,
     val level: Int,
     val cells: List<Vec>,
+    val isRainbow: Boolean = false,
 )
 
 /** Kết quả xét merge: gom siêu khối (cấp 1/2) hoặc tạo khối cầu vồng. */
 sealed interface MergeMove {
-    data class Super(val center: Vec, val color: JellyColor, val cells: List<Vec>, val level: Int) : MergeMove
+    data class Super(
+        val center: Vec, val color: JellyColor, val cells: List<Vec>, val level: Int,
+        val source: SuperSource = SuperSource.CLUSTER,
+    ) : MergeMove
     data class Rainbow(val center: Vec, val cells: List<Vec>) : MergeMove
 }
 
@@ -57,6 +68,43 @@ fun findMergeMove(grid: Grid): MergeMove? {
         }
     }
     return null
+}
+
+/**
+ * Hàng HOẶC cột đầy 9 ô CÙNG MÀU (BLOCK, superLevel 0/1, không stone/rainbow) → SIÊU KHỐI tại TÂM
+ * đường (cấp 2 nếu chứa ≥1 super-1, ngược lại cấp 1). Quét hàng trước rồi cột → deterministic.
+ * Dùng ở PHA 0 của [resolve] (ưu tiên TRƯỚC xóa hàng/cột thường).
+ */
+fun findMonoLineSuper(grid: Grid): MergeMove.Super? {
+    val n = grid.size
+    for (y in 0 until n) {
+        val color = lineMonoColor(grid, y, horizontal = true) ?: continue
+        val cells = ArrayList<Vec>(n)
+        var hasSuper1 = false
+        for (x in 0 until n) { cells.add(Vec(x, y)); if (grid.get(x, y)?.superLevel == 1) hasSuper1 = true }
+        return MergeMove.Super(Vec(n / 2, y), color, cells, if (hasSuper1) 2 else 1, SuperSource.ROW)
+    }
+    for (x in 0 until n) {
+        val color = lineMonoColor(grid, x, horizontal = false) ?: continue
+        val cells = ArrayList<Vec>(n)
+        var hasSuper1 = false
+        for (y in 0 until n) { cells.add(Vec(x, y)); if (grid.get(x, y)?.superLevel == 1) hasSuper1 = true }
+        return MergeMove.Super(Vec(x, n / 2), color, cells, if (hasSuper1) 2 else 1, SuperSource.COLUMN)
+    }
+    return null
+}
+
+/** Màu chung nếu đường (hàng [idx] nếu [horizontal], else cột [idx]) đầy 9 ô BLOCK cùng màu (super 0/1); null nếu không. */
+private fun lineMonoColor(grid: Grid, idx: Int, horizontal: Boolean): JellyColor? {
+    val n = grid.size
+    val first = (if (horizontal) grid.get(0, idx) else grid.get(idx, 0)) ?: return null
+    val color = first.color ?: return null
+    if (first.type != CellType.BLOCK || first.rainbow || first.superLevel > 1) return null
+    for (k in 1 until n) {
+        val c = if (horizontal) grid.get(k, idx) else grid.get(idx, k)
+        if (c == null || c.type != CellType.BLOCK || c.rainbow || c.color != color || c.superLevel > 1) return null
+    }
+    return color
 }
 
 /** ≥2 ô SIÊU KHỐI CẤP 1 cùng màu dính liền (4-kề) → gộp thành cấp 2 tại tâm. */
@@ -194,10 +242,21 @@ fun collapseToRainbow(grid: Grid, center: Vec, cells: List<Vec>): List<Vec> {
     return emptied
 }
 
+/** Tập MÀU của các ô 4-kề [s] (bỏ ô trống/đá/cầu vồng); thứ tự ổn định → deterministic. */
+private fun adjacentColors(grid: Grid, s: Vec): LinkedHashSet<JellyColor> {
+    val out = LinkedHashSet<JellyColor>()
+    for (dir in Direction.entries) {
+        val c = grid.get(s.x + dir.dx, s.y + dir.dy)
+        c?.color?.let { out.add(it) }
+    }
+    return out
+}
+
 /**
- * Từ tập ô sắp xóa [initial] (hàng/cột đầy), mở rộng dây chuyền nổ siêu khối:
- * **cấp 1 quét sạch MỌI ô cùng màu trên bàn**; **cấp 2 quét cùng màu + thêm vùng 5×5 quanh tâm**.
- * Nổ trúng siêu khối khác (kể cả khác màu, do dính vùng 5×5) → nổ tiếp. KHÔNG sửa [grid].
+ * Từ tập ô sắp xóa [initial] (hàng/cột đầy), mở rộng dây chuyền nổ:
+ *  - **Siêu khối**: cấp 1 quét sạch MỌI ô cùng màu trên bàn; cấp 2 thêm vùng 5×5 quanh tâm.
+ *  - **Cầu vồng**: quét sạch các MÀU đang KỀ nó (4-kề) trên toàn bàn — kề ít màu thì quét ít.
+ * Nổ trúng siêu khối/cầu vồng khác → nổ tiếp. KHÔNG sửa [grid].
  * Trả (tập ô có-nội-dung sẽ bị xóa, danh sách lần nổ theo (y,x)).
  */
 fun expandDetonations(grid: Grid, initial: Set<Vec>): Pair<Set<Vec>, List<SuperDetonation>> {
@@ -207,34 +266,45 @@ fun expandDetonations(grid: Grid, initial: Set<Vec>): Pair<Set<Vec>, List<SuperD
     val queued = HashSet<Vec>()
     val queue = ArrayDeque<Vec>()
 
-    fun enqueueIfSuper(v: Vec) {
+    fun enqueueDetonator(v: Vec) {
         val c = grid.get(v.x, v.y)
-        if (c != null && c.isSuper && queued.add(v)) queue.add(v)
+        if (c != null && (c.isSuper || c.rainbow) && queued.add(v)) queue.add(v)
     }
 
-    for (v in initial.sortedWith(compareBy({ it.y }, { it.x }))) enqueueIfSuper(v)
+    for (v in initial.sortedWith(compareBy({ it.y }, { it.x }))) enqueueDetonator(v)
 
     while (queue.isNotEmpty()) {
         val s = queue.removeFirst()
         val cell = grid.get(s.x, s.y)!!
-        val color = cell.color!!
         val footprint = ArrayList<Vec>()
-        // MỌI cấp: quét sạch ô CÙNG MÀU trên toàn bàn (duyệt y,x → deterministic).
-        for (y in 0 until n) for (x in 0 until n) if (grid.get(x, y)?.color == color) footprint.add(Vec(x, y))
-        // CẤP ≥2: thêm vùng 5×5 quanh tâm (ô khác màu/ trống chưa có trong footprint).
-        if (cell.superLevel >= 2) {
-            for (dy in -SUPER_BLAST_RADIUS..SUPER_BLAST_RADIUS) {
-                for (dx in -SUPER_BLAST_RADIUS..SUPER_BLAST_RADIUS) {
-                    val nx = s.x + dx
-                    val ny = s.y + dy
-                    if (grid.inBounds(nx, ny) && grid.get(nx, ny)?.color != color) footprint.add(Vec(nx, ny))
+        if (cell.rainbow) {
+            // CẦU VỒNG: quét sạch các màu đang KỀ (4-kề). Không màu kề → không quét gì.
+            val colors = adjacentColors(grid, s)
+            if (colors.isEmpty()) continue
+            for (y in 0 until n) for (x in 0 until n) {
+                val cc = grid.get(x, y)?.color
+                if (cc != null && cc in colors) footprint.add(Vec(x, y))
+            }
+            detonations.add(SuperDetonation(s, colors.first(), level = 0, cells = footprint, isRainbow = true))
+        } else {
+            val color = cell.color!!
+            // MỌI cấp: quét sạch ô CÙNG MÀU trên toàn bàn (duyệt y,x → deterministic).
+            for (y in 0 until n) for (x in 0 until n) if (grid.get(x, y)?.color == color) footprint.add(Vec(x, y))
+            // CẤP ≥2: thêm vùng 5×5 quanh tâm (ô khác màu/ trống chưa có trong footprint).
+            if (cell.superLevel >= 2) {
+                for (dy in -SUPER_BLAST_RADIUS..SUPER_BLAST_RADIUS) {
+                    for (dx in -SUPER_BLAST_RADIUS..SUPER_BLAST_RADIUS) {
+                        val nx = s.x + dx
+                        val ny = s.y + dy
+                        if (grid.inBounds(nx, ny) && grid.get(nx, ny)?.color != color) footprint.add(Vec(nx, ny))
+                    }
                 }
             }
+            detonations.add(SuperDetonation(s, color, cell.superLevel, footprint))
         }
-        detonations.add(SuperDetonation(s, color, cell.superLevel, footprint))
         for (v in footprint) {
             if (grid.get(v.x, v.y) != null) toClear.add(v)
-            enqueueIfSuper(v)
+            enqueueDetonator(v)
         }
     }
 

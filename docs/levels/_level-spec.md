@@ -5,12 +5,16 @@ Schema dùng chung cho mọi file `world-XX-*.md`. Mọi màn đặc tả theo *
 ## Quyết định đã chốt (ảnh hưởng format)
 
 - **Màu là chiến thuật.** Mỗi mảnh khay mang **1 trong 4 màu** jelly (Vàng/Mint/Hồng/Xanh). Người chơi chủ động **gom ô cùng màu, dính liền** để tạo siêu khối. Màu KHÔNG còn chỉ trang trí.
-- **Tính điểm nền = xóa hàng/cột đầy** (9 ô bất kỳ màu) như khối cổ điển — luôn ưu tiên xử lý TRƯỚC.
+- **Hàng/cột đầy ĐƠN SẮC** (9 ô cùng màu) → **SIÊU KHỐI tại tâm đường** (KHÔNG xóa) — ưu tiên xử lý
+  **TRƯỚC** xóa thường; **thưởng ×2 điểm**. Có super-1 trong đường → cấp 2. *(Ghi đè thẻ B2 cũ: B2 từng
+  quy định hàng đơn sắc → Khối Cầu Vồng + ×2 điểm; nay đổi sang ghép siêu khối + ×2 điểm.)*
+- **Tính điểm nền = xóa hàng/cột đầy** (mixed màu) như khối cổ điển — xử lý sau PHA siêu-khối-đơn-sắc.
 - **Merge (sau khi không còn dòng đầy):**
   - **3×3 cùng màu** → **SIÊU KHỐI cấp 1** (mắt to, phát sáng) → bị cuốn vào lần xóa kế → **quét sạch MỌI ô cùng màu trên toàn bàn** (dây chuyền).
-  - **3×3 ba màu — mỗi màu 1 cột HOẶC 1 hàng** → **KHỐI CẦU VỒNG** (wild — dự kiến ghép mọi màu).
-  - **SIÊU KHỐI cấp 2** — hình thành 1 trong 2 cách: **(a)** ≥2 siêu-khối-1 cùng màu dính liền (hàng/cột/3×3); **(b)** một ô vuông **3×3 đồng màu có chứa ≥1 siêu-khối-1** (8 ô còn lại là khối thường cùng màu). Khi bị cuốn vào xóa: **quét sạch cùng màu toàn bàn + thêm vùng 5×5 quanh tâm**.
+  - **3×3 ba màu — mỗi màu 1 cột HOẶC 1 hàng** → **KHỐI CẦU VỒNG**. Khi bị cuốn vào xóa → **nổ quét sạch các MÀU đang KỀ (4-kề) cầu vồng** trên toàn bàn (kề ít màu thì quét ít); animation **highlight các ô sắp quét rồi mới quét**, cầu vồng biến mất cuối.
+  - **SIÊU KHỐI cấp 2** — hình thành 1 trong 3 cách: **(a)** ≥2 siêu-khối-1 cùng màu dính liền; **(b)** ô vuông **3×3 đồng màu có chứa ≥1 siêu-khối-1**; **(c)** hàng/cột đơn sắc chứa ≥1 super-1. Khi bị cuốn vào xóa: **quét sạch cùng màu toàn bàn + thêm vùng 5×5 quanh tâm**.
   - 3×3 lộn xộn khác (không mono, không sọc-3-màu) → KHÔNG làm gì. Trọng lực vẫn là cơ chế chữ ký; siêu khối là **tầng thưởng của hệ cụm**, không phải match-3 thứ hai.
+- **Điểm & combo khi GHÉP:** mỗi lần ghép (siêu khối/cầu vồng) **combo +1** và cộng điểm = **số ô × combo** (×2 nếu là hàng/cột đơn sắc). Trước đây ghép không tính điểm/combo — nay có.
 
 ## Quy ước toạ độ & vocab (không lặp lại trong từng màn)
 

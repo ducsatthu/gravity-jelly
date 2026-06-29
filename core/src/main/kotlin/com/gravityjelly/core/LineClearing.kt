@@ -47,4 +47,11 @@ fun lineCells(lines: ClearedLines, size: Int): Set<Vec> {
 object Scoring {
     fun clearScore(cellsCleared: Int, linesCleared: Int, comboLevel: Int = 1): Int =
         cellsCleared * linesCleared * comboLevel
+
+    /**
+     * Điểm khi GHÉP (siêu khối/cầu vồng): số ô gom × combo × [mult].
+     * [mult]=2 cho hàng/cột đầy ĐƠN SẮC (thưởng color-clear), =1 cho 3×3 / cấp 2.
+     */
+    fun mergeScore(cellsMerged: Int, comboLevel: Int, mult: Int = 1): Int =
+        cellsMerged * comboLevel * mult
 }

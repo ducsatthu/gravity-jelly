@@ -44,7 +44,7 @@ class SuperPlaybackTest {
     /** Chạy sim ~2.5s (qua hết nhịp + collapse + gap) để playback hoàn tất. */
     private fun runToEnd(anim: BoardAnimator) {
         var ms = 0L
-        while (ms < 2500) { anim.step(GameClock.STEP_NANOS); ms += GameClock.STEP_NANOS / 1_000_000L }
+        while (ms < 4000) { anim.step(GameClock.STEP_NANOS); ms += GameClock.STEP_NANOS / 1_000_000L }
     }
 
     @Test

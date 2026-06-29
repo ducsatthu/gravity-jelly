@@ -110,7 +110,7 @@ fun EndlessPlayScreen(
                     .onGloballyPositioned { slotWin[i] = it.positionInWindow() }
                     .pointerInput(holder, shell.tray) {
                         detectDragGestures(
-                            onDragStart  = { holder.beginDrag(i); draggingSlot = i },
+                            onDragStart  = { if (holder.beginDrag(i)) draggingSlot = i },
                             onDrag       = { change, _ ->
                                 change.consume()
                                 val w = slotWin[i]

@@ -120,6 +120,7 @@ class EndlessGameHolder(
 
     fun rotate(cw: Boolean) {
         if (shell.gameOver) return
+        if (animator.isPlaying) return   // khoá input khi bàn đang chiếu cascade (tránh lệch thấy/truth)
         val pre = boardRender.grid.copy()
         val preGravity = boardRender.gravity
         val events = engine.rotateGravity(cw)
@@ -130,14 +131,17 @@ class EndlessGameHolder(
         }
     }
 
-    fun beginDrag(trayIndex: Int) {
-        if (shell.gameOver) return
-        val p = shell.tray.getOrNull(trayIndex) ?: return
+    /** Bắt đầu kéo mảnh khay. Trả false (không kéo) khi đã thua hoặc bàn đang chiếu cascade. */
+    fun beginDrag(trayIndex: Int): Boolean {
+        if (shell.gameOver) return false
+        if (animator.isPlaying) return false   // khoá input khi bàn đang chiếu cascade (tránh lệch thấy/truth)
+        val p = shell.tray.getOrNull(trayIndex) ?: return false
         dragIndex = trayIndex
         dragPiece = p
         dragOx = -1; dragOy = -1
         dragDirX = 0; dragDirY = 0; hasDirSample = false
         boardRender.ghost = null
+        return true
     }
 
     /**

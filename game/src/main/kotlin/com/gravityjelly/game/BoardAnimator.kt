@@ -59,6 +59,18 @@ class BoardAnimator {
     private val phases = ArrayList<CascadePhase>()
     private var phaseIdx = 0
 
+    /**
+     * Thời điểm sim mà toàn bộ playback của nước hiện tại (slide xoay + chuỗi cascade) kết thúc.
+     * Lớp vỏ KHOÁ input tới mốc này: ngăn người chơi thả/xoay trong khi bàn còn đang chiếu
+     * (xóa → rơi → …). Nếu không khoá, người chơi thả theo bàn TRUNG GIAN trong khi engine đã
+     * resolve xong → lệch "thấy" vs "truth" (thả đè ô, rơi nhảy đột ngột — bug đã sửa).
+     */
+    private var playbackEndNanos = 0L
+
+    /** true khi animator còn đang chiếu nước hiện tại (slide xoay hoặc cascade chưa xong). */
+    val isPlaying: Boolean
+        get() = renderNanos() < playbackEndNanos
+
     /** Haptic theo từng nhịp xóa (lớp vỏ map sang rung). [comboLevel] để phân biệt combo. */
     var onClearStep: ((comboLevel: Int) -> Unit)? = null
     /** Combo (×N) vừa chốt tại một nhịp → lớp vỏ đọc [comboBurst*] rồi nổ overlay ăn mừng. */
@@ -81,20 +93,27 @@ class BoardAnimator {
         val fireCombo: Boolean = false,
         val slideBefore: Grid? = null,
         val moved: Boolean = false,
-        // siêu khối
+        // siêu khối — hợp nhất
         val superAt: Vec? = null,
         val superColor: JellyColor? = null,
         val superLevel: Int = 0,
         val absorbed: List<Vec>? = null,
-        val blastCells: List<Vec>? = null,
-        val blastCenters: List<Vec>? = null,
+        // nổ siêu khối / cầu vồng theo CHẶNG (xem buildClearBeat)
+        val clearCells: List<Vec>? = null,   // chặng 1: xóa hàng/cột như thường (flash phẳng)
+        val smileCells: List<Vec>? = null,   // chặng 2: ô bị quét — cười (super) / highlight (cầu vồng) rồi biến mất
+        val smileHighlight: Boolean = false, // true = HIGHLIGHT (cầu vồng) thay vì CƯỜI (super)
+        val superCells: List<Vec>? = null,   // chặng 3: tâm SIÊU KHỐI biến mất cuối
+        val rainbowCells: List<Vec>? = null, // chặng 3: tâm CẦU VỒNG biến mất cuối
     )
 
     /**
      * Hiệu ứng "cười tươi rồi nổ" cho TÂM siêu khối khi bị kích: vẽ đè overlay tại ô tâm —
      * mắt HAPPY (^ ^), nhún to (easeOutBack) rồi pop-fade. [start] = thời điểm nhịp xóa nổ.
      */
-    private class SuperFlash(val x: Int, val y: Int, val color: JellyColor, val level: Int, val start: Long)
+    private class SuperFlash(val x: Int, val y: Int, val color: JellyColor, val level: Int, val start: Long, val rainbow: Boolean = false)
+
+    /** Ô bị quét (chặng 2): [highlight]=false → cười (HAPPY, super); =true → highlight glow (cầu vồng). Rồi pop-fade. */
+    private class SmileFlash(val x: Int, val y: Int, val color: JellyColor, val start: Long, val highlight: Boolean = false)
 
     // ── settle: thời điểm sự kiện gần nhất (đặt/xoay/xóa) để quyết "nhìn trọng lực" vs "tính cách".
     // 0 ở đầu ván ⇒ khối nhìn trọng lực ~SETTLE_HOLD rồi trôi dần sang tính cách (xem JellyPersonality).
@@ -145,6 +164,7 @@ class BoardAnimator {
     private val clearColor = Array(n) { Array(n) { Color.White } }
     private val clearShine = Array(n) { Array(n) { Color.White } }   // màu ring shine theo khối
     private val superFlashes = ArrayList<SuperFlash>(4)               // tâm siêu khối đang "cười + nổ"
+    private val smileFlashes = ArrayList<SmileFlash>(32)              // block cùng màu đang "cười rồi biến mất"
     private var squashGravity = Direction.DOWN
 
     // ── combo burst gần nhất (overlay ăn mừng ×N đặt TẠI vùng resolve trên bàn) ──
@@ -261,33 +281,50 @@ class BoardAnimator {
         if (hasBeats) {
             displayGrid = work.copy()   // bàn đã đặt/đã xoay, trước nhịp đầu
 
-            // combo tăng dần theo nhịp xóa ⇒ nhịp xóa cuối có combo cao nhất: nổ overlay ×N tại đó.
-            var lastComboStep = -1
-            var scanIdx = 0
+            // combo tăng dần ⇒ NHỊP cuối có comboLevel cao nhất nổ overlay ×N — xét MỌI nhịp (xóa + ghép).
+            var lastComboBeat = -1
+            var bi = 0
             for (i in events.indices) {
-                val e = events[i]
-                if (e is GameEvent.LinesCleared) {
-                    if (e.comboLevel >= 2) lastComboStep = scanIdx
-                    scanIdx++
+                when (val e = events[i]) {
+                    is GameEvent.SuperFormed -> { if (e.comboLevel >= 2) lastComboBeat = bi; bi++ }
+                    is GameEvent.RainbowFormed -> { if (e.comboLevel >= 2) lastComboBeat = bi; bi++ }
+                    is GameEvent.LinesCleared -> { if (e.comboLevel >= 2) lastComboBeat = bi; bi++ }
+                    else -> {}
                 }
             }
 
-            var clearStepIdx = 0
+            var beatIdx = 0
             for (i in events.indices) {
                 when (val e = events[i]) {
-                    is GameEvent.SuperFormed -> cursor = buildMergeBeat(
-                        e.at, e.absorbed, Grid.Cell(CellType.BLOCK, e.color, superLevel = e.level), e.color, work, postGravity, cursor,
-                    )
-                    is GameEvent.RainbowFormed -> cursor = buildMergeBeat(
-                        e.at, e.absorbed, Grid.Cell(CellType.BLOCK, color = null, rainbow = true), null, work, postGravity, cursor,
-                    )
+                    is GameEvent.SuperFormed -> {
+                        cursor = buildMergeBeat(
+                            e.at, e.absorbed, Grid.Cell(CellType.BLOCK, e.color, superLevel = e.level), e.color, work, postGravity, cursor,
+                            score = e.score, comboLevel = e.comboLevel, fireCombo = beatIdx == lastComboBeat,
+                        )
+                        beatIdx++
+                    }
+                    is GameEvent.RainbowFormed -> {
+                        cursor = buildMergeBeat(
+                            e.at, e.absorbed, Grid.Cell(CellType.BLOCK, color = null, rainbow = true), null, work, postGravity, cursor,
+                            score = e.score, comboLevel = e.comboLevel, fireCombo = beatIdx == lastComboBeat,
+                        )
+                        beatIdx++
+                    }
                     is GameEvent.LinesCleared -> {
-                        cursor = buildClearBeat(e, work, postGravity, cursor, fireCombo = clearStepIdx == lastComboStep)
-                        clearStepIdx++
+                        cursor = buildClearBeat(e, work, postGravity, cursor, fireCombo = beatIdx == lastComboBeat)
+                        beatIdx++
                     }
                     else -> {}
                 }
             }
+        }
+
+        // Mốc kết thúc playback để lớp vỏ khoá input: cascade (cursor đã gồm slide xoay + mọi nhịp)
+        // hoặc chỉ slide xoay (xoay không cleared). Đặt-mảnh-trơn (chỉ squash, bàn không đổi) KHÔNG khoá.
+        playbackEndNanos = when {
+            hasBeats -> cursor
+            postGravity != preGravity -> now + Anim.ROTATE_NANOS
+            else -> now
         }
 
         // áp ngay các pha tới hạn (nhịp đầu) để không trễ một frame
@@ -302,6 +339,7 @@ class BoardAnimator {
     private fun buildMergeBeat(
         at: Vec, absorbed: List<Vec>, resultCell: Grid.Cell, sparkle: JellyColor?,
         work: Grid, gravity: Direction, cursor: Long,
+        score: Int = 0, comboLevel: Int = 0, fireCombo: Boolean = false,
     ): Long {
         val colorGrid = work.copy()                              // còn 9 ô (đọc màu để flash)
         for (v in absorbed) work.set(v.x, v.y, null)
@@ -314,7 +352,7 @@ class BoardAnimator {
         phases.add(
             CascadePhase(
                 at = formAt, display = after, isCollapse = false, isForm = true,
-                colorGrid = colorGrid,
+                colorGrid = colorGrid, score = score, comboLevel = comboLevel, fireCombo = fireCombo,
                 superAt = at, superColor = sparkle, absorbed = absorbed,
             ),
         )
@@ -326,41 +364,74 @@ class BoardAnimator {
     }
 
     /**
-     * Dựng một nhịp XÓA (kèm nổ siêu khối dây chuyền) trên [work] — phản chiếu [expandDetonations]
-     * của :core: line + footprint nổ (cùng màu toàn bàn / +5×5) bị xóa, cụm mất đỡ sụp. Trả [cursor] kế.
+     * Dựng một nhịp XÓA trên [work] — phản chiếu [expandDetonations] của :core.
+     *  • KHÔNG nổ siêu khối → nhịp xóa thường (flash line → rơi).
+     *  • CÓ nổ → **3 CHẶNG** (thời gian config ở companion DET_*): (1) xóa hàng/cột như thường →
+     *    (2) các block CÙNG MÀU cười một chút rồi biến mất → (3) siêu khối biến mất cuối → rơi.
      */
     private fun buildClearBeat(
         e: GameEvent.LinesCleared, work: Grid, gravity: Direction, cursor: Long, fireCombo: Boolean,
     ): Long {
-        val sk = work.copy()                                     // màu line + blast trước khi xóa
+        val sk = work.copy()                                     // màu mọi ô trước khi xóa
         val seed = lineCells(e.lines, Grid.SIZE)
         val (toClear, dets) = expandDetonations(work, seed)
-        for (v in toClear) work.set(v.x, v.y, null)
-        val beforeK = work.copy()                                // sau xóa, trước rơi
+
+        if (dets.isEmpty()) {
+            // ── nhịp xóa thường ──
+            for (v in toClear) work.set(v.x, v.y, null)
+            val beforeK = work.copy()
+            val moved = applyConnectedGravity(work, gravity, toClear)
+            val afterK = work.copy()
+            val clearAt = cursor
+            phases.add(
+                CascadePhase(
+                    at = clearAt, display = beforeK, isCollapse = false,
+                    lines = e.lines, colorGrid = sk,
+                    comboLevel = e.comboLevel, score = e.score, fireCombo = fireCombo,
+                ),
+            )
+            val collapseAt = clearAt + Anim.CLEAR_LEAD_NANOS
+            phases.add(
+                CascadePhase(at = collapseAt, display = afterK, isCollapse = true, slideBefore = beforeK, moved = moved),
+            )
+            return collapseAt + Anim.COLLAPSE_NANOS + Anim.CASCADE_GAP_NANOS
+        }
+
+        // ── NỔ siêu khối / cầu vồng: 4 nhịp (xóa hàng → victim → tâm tan → rơi) ──
+        // Tâm super (cười+nổ) và tâm cầu vồng (highlight→tan) tách riêng; victim = ô bị quét (cùng màu
+        // cho super / màu kề cho cầu vồng). Cầu vồng → victim "highlight" thay vì "cười".
+        val hasRainbow = dets.any { it.isRainbow }
+        val centers = HashSet<Vec>(); for (d in dets) centers.add(d.center)
+        val superCenters = ArrayList<Vec>(); val rainbowCenters = ArrayList<Vec>()
+        for (d in dets) if (d.isRainbow) rainbowCenters.add(d.center) else superCenters.add(d.center)
+        val stage1 = ArrayList<Vec>()                            // hàng/cột (trừ tâm detonator)
+        for (v in seed) if (v !in centers) stage1.add(v)
+        val stage2 = ArrayList<Vec>()                            // ô bị quét (trừ hàng, trừ tâm)
+        for (v in toClear) if (v !in seed && v !in centers) stage2.add(v)
+
+        // display grid theo từng chặng (block còn lại vẫn HIỆN cho tới lượt biến mất)
+        val g1 = sk.copy(); for (v in stage1) g1.set(v.x, v.y, null)
+        val g2 = g1.copy(); for (v in stage2) g2.set(v.x, v.y, null)
+        val g3 = g2.copy(); for (v in centers) g3.set(v.x, v.y, null)
+        for (v in toClear) work.set(v.x, v.y, null)             // work = final (trước rơi)
         val moved = applyConnectedGravity(work, gravity, toClear)
         val afterK = work.copy()
 
-        var blast: ArrayList<Vec>? = null
-        var centers: List<Vec>? = null
-        if (dets.isNotEmpty()) {
-            blast = ArrayList()
-            for (v in toClear) if (v !in seed) blast.add(v)      // ô ngoài hàng do nổ
-            centers = dets.map { it.center }
-        }
+        val t0 = cursor                                                          // chặng 1: xóa hàng
+        val t1 = t0 + DET_LINE_NANOS                                             // chặng 2: victim (cười/highlight)
+        val smileDone = t1 + DET_SMILE_HOLD_NANOS + DET_SMILE_POP_NANOS
+        val t2 = smileDone + DET_SUPER_DELAY_NANOS                               // chặng 3: tâm tan cuối
+        val collapseAt = t2 + SUPER_FLASH_NANOS
 
-        val clearAt = cursor
         phases.add(
             CascadePhase(
-                at = clearAt, display = beforeK, isCollapse = false,
-                lines = e.lines, colorGrid = sk,
-                comboLevel = e.comboLevel, score = e.score, fireCombo = fireCombo,
-                blastCells = blast, blastCenters = centers,
+                at = t0, display = g1, isCollapse = false, colorGrid = sk,
+                comboLevel = e.comboLevel, score = e.score, fireCombo = fireCombo, clearCells = stage1,
             ),
         )
-        val collapseAt = clearAt + Anim.CLEAR_LEAD_NANOS
-        phases.add(
-            CascadePhase(at = collapseAt, display = afterK, isCollapse = true, slideBefore = beforeK, moved = moved),
-        )
+        phases.add(CascadePhase(at = t1, display = g2, isCollapse = false, colorGrid = sk, smileCells = stage2, smileHighlight = hasRainbow))
+        phases.add(CascadePhase(at = t2, display = g3, isCollapse = false, colorGrid = sk, superCells = superCenters, rainbowCells = rainbowCenters))
+        phases.add(CascadePhase(at = collapseAt, display = afterK, isCollapse = true, slideBefore = g3, moved = moved))
         return collapseAt + Anim.COLLAPSE_NANOS + Anim.CASCADE_GAP_NANOS
     }
 
@@ -373,6 +444,8 @@ class BoardAnimator {
             when {
                 p.isCollapse -> activateCollapse(p)
                 p.isForm -> activateForm(p)
+                p.smileCells != null -> activateSmile(p)
+                p.superCells != null -> activateSuperPop(p)
                 else -> activateClear(p)
             }
         }
@@ -397,8 +470,23 @@ class BoardAnimator {
             placeStart[center.y][center.x] = p.at + Anim.CLEAR_LEAD_NANOS  // pop sau khi 8 ô bắt đầu mờ
             val shine = p.superColor?.let { JellyTheme.forColor(it).shine } ?: Color.White
             particles.burst(center.x + 0.5f, center.y + 0.5f, shine, SUPER_POP_PARTICLES)
+            // điểm "+N" cho lần ghép (bay lên tại tâm) — token motion như nhịp xóa
+            if (p.score > 0) {
+                particles.popup(
+                    center.x + 0.5f, center.y + 0.9f, "+${p.score}", JellyTheme.textPrimary, SCORE_SP,
+                    lifeS = Anim.SCORE_POP_NANOS / 1e9f, floatCell = 0.56f,
+                )
+            }
         }
-        onClearStep?.invoke(0)
+        // combo "×N" cho nhịp ghép: nổ overlay ComboPopup tại tâm (lớp :app đọc comboBurst*)
+        if (p.fireCombo && p.comboLevel >= 2) {
+            comboBurstId++
+            comboBurstCombo = p.comboLevel
+            comboBurstCellX = center.x + 0.5f
+            comboBurstCellY = center.y + 0.5f
+            onComboBurst?.invoke()
+        }
+        onClearStep?.invoke(p.comboLevel)
     }
 
     /**
@@ -419,26 +507,13 @@ class BoardAnimator {
                 val x = lines.cols[ci]
                 for (y in 0 until n) if (markClearCell(x, y, colorGrid, p.at + y * stagger)) { sumX += x; sumY += y; cnt++ }
             }
-            // nổ siêu khối: flash footprint (cùng màu / +5×5) LAN từ tâm ra (sóng xung kích) theo từng ô
-            val blast = p.blastCells
-            if (blast != null) {
-                val centers = p.blastCenters
-                for (i in blast.indices) {
-                    val v = blast[i]
-                    val d = if (centers != null) minCheb(v, centers) else 0
-                    markClearCell(v.x, v.y, colorGrid, p.at + d * stagger)
-                }
-            }
-            // TÂM siêu khối bị kích → thay flash vuông phẳng bằng hiệu ứng "cười tươi rồi nổ"
-            val centers = p.blastCenters
-            if (centers != null) {
-                for (i in centers.indices) {
-                    val c = centers[i]
-                    val cell = colorGrid.get(c.x, c.y) ?: continue
-                    val col = cell.color ?: continue
-                    clearStart[c.y][c.x] = 0L                  // tắt flash phẳng để superFlash vẽ thay
-                    superFlashes.add(SuperFlash(c.x, c.y, col, cell.superLevel, p.at))
-                }
+        }
+        // chặng 1 của nổ: xóa hàng/cột (danh sách ô tường minh, quét theo thứ tự)
+        val cc = p.clearCells
+        if (cc != null) {
+            for (i in cc.indices) {
+                val v = cc[i]
+                if (markClearCell(v.x, v.y, colorGrid, p.at + i * stagger)) { sumX += v.x; sumY += v.y; cnt++ }
             }
         }
         if (cnt > 0 && !reducedMotion) {
@@ -463,6 +538,40 @@ class BoardAnimator {
         }
         // haptic theo nhịp (mắt nhìn trọng lực do per-cell [cellSettleFactor] lo: chỉ khối đang rơi)
         onClearStep?.invoke(p.comboLevel)
+    }
+
+    /** Chặng 2 nổ: ô bị quét cười (super) hoặc highlight (cầu vồng) rồi pop-fade ([drawSmileFlashes]). */
+    private fun activateSmile(p: CascadePhase) {
+        val colorGrid = p.colorGrid ?: return
+        val cells = p.smileCells ?: return
+        for (i in cells.indices) {
+            val v = cells[i]
+            val col = colorGrid.get(v.x, v.y)?.color ?: continue
+            smileFlashes.add(SmileFlash(v.x, v.y, col, p.at, highlight = p.smileHighlight))
+        }
+        onClearStep?.invoke(0)
+    }
+
+    /** Chặng 3 nổ: tâm SIÊU KHỐI / CẦU VỒNG "biến mất" CUỐI cùng (overlay [drawSuperFlashes]). */
+    private fun activateSuperPop(p: CascadePhase) {
+        val colorGrid = p.colorGrid ?: return
+        p.superCells?.let { cells ->
+            for (i in cells.indices) {
+                val cell = colorGrid.get(cells[i].x, cells[i].y) ?: continue
+                val col = cell.color ?: continue
+                superFlashes.add(SuperFlash(cells[i].x, cells[i].y, col, cell.superLevel, p.at))
+                if (!reducedMotion) {
+                    particles.burst(cells[i].x + 0.5f, cells[i].y + 0.5f, JellyTheme.forColor(col).shine, SUPER_POP_PARTICLES)
+                }
+            }
+        }
+        p.rainbowCells?.let { cells ->
+            for (i in cells.indices) {
+                superFlashes.add(SuperFlash(cells[i].x, cells[i].y, JellyColor.YELLOW, 0, p.at, rainbow = true))
+                if (!reducedMotion) particles.burst(cells[i].x + 0.5f, cells[i].y + 0.5f, Color.White, SUPER_POP_PARTICLES)
+            }
+        }
+        onClearStep?.invoke(0)
     }
 
     /** Kích hoạt nhịp rơi: nội suy slide từ [CascadePhase.slideBefore] về [CascadePhase.display]. */
@@ -590,20 +699,84 @@ class BoardAnimator {
     fun clear() {
         particles.clear()
         superFlashes.clear()
+        smileFlashes.clear()
         for (y in 0 until n) for (x in 0 until n) {
             placeStart[y][x] = 0L; clearStart[y][x] = 0L
             slideDX[y][x] = 0f; slideDY[y][x] = 0f
         }
         rotActive = false
         phases.clear(); phaseIdx = 0; displayGrid = null
+        playbackEndNanos = renderNanos()  // không kẹt khoá input sang ván mới
         lastEventNanos = renderNanos()   // ván mới: nhìn trọng lực rồi trôi về tính cách
     }
 
     fun drawOverlays(scope: DrawScope, cellPx: Float, gap: Float, measurer: TextMeasurer, now: Long) {
         drawClearing(scope, cellPx, gap, now)
-        drawSuperFlashes(scope, cellPx, gap, now)
+        drawSmileFlashes(scope, cellPx, gap, now)   // block cùng màu cười (chặng 2)
+        drawSuperFlashes(scope, cellPx, gap, now)   // siêu khối biến mất cuối (chặng 3) — vẽ trên cùng
         particles.drawParticles(scope, cellPx, renderAlpha)
         particles.drawPopups(scope, measurer, cellPx, renderAlpha)
+    }
+
+    /**
+     * Block CÙNG MÀU "cười rồi biến mất" (chặng 2 nổ). Giữ HAPPY + nhún nhẹ trong [DET_SMILE_HOLD_NANOS]
+     * rồi pop-fade trong [DET_SMILE_POP_NANOS]. Tổ hợp vocabulary: Eyes.HAPPY + 03-line-clear pop.
+     */
+    private fun drawSmileFlashes(scope: DrawScope, cellPx: Float, gap: Float, now: Long) {
+        if (smileFlashes.isEmpty()) return
+        val blockSize = cellPx - gap
+        val cr = CornerRadius(blockSize * CORNER_FRAC, blockSize * CORNER_FRAC)
+        val borderStroke = Stroke(blockSize * BORDER_FRAC)
+        val total = DET_SMILE_HOLD_NANOS + DET_SMILE_POP_NANOS
+        var i = 0
+        while (i < smileFlashes.size) {
+            val f = smileFlashes[i]
+            val el = now - f.start
+            if (el >= total) { smileFlashes.removeAt(i); continue }
+            i++
+            if (el < 0L) continue
+            val clearP: Float
+            val squash: Float
+            if (el < DET_SMILE_HOLD_NANOS) {
+                clearP = 0f
+                val a = el.toFloat() / DET_SMILE_HOLD_NANOS
+                squash = if (reducedMotion) 1f else 1f + 0.07f * kotlin.math.sin(a * Math.PI.toFloat())  // nhún 1 nhịp
+            } else {
+                clearP = (el - DET_SMILE_HOLD_NANOS).toFloat() / DET_SMILE_POP_NANOS
+                squash = 1f
+            }
+            val left = f.x * cellPx + gap / 2f
+            val top = f.y * cellPx + gap / 2f
+            val palette = JellyTheme.forColor(f.color)
+            with(scope) {
+                if (f.highlight) {
+                    // CẦU VỒNG: block giữ nguyên + vòng sáng trắng nhấp nháy (đánh dấu sắp quét) → pop
+                    drawJellyCell(
+                        left, top, blockSize, cr, borderStroke, palette, f.color, 0f, 1f,
+                        expression = EyeExpression.NORMAL, eyeOpen = true,
+                        squashScaleX = squash, squashScaleY = squash, clearProgress = clearP, showSticker = false,
+                    )
+                    if (clearP == 0f) {
+                        val a = el.toFloat() / DET_SMILE_HOLD_NANOS
+                        val ringA = 0.35f + 0.5f * (0.5f + 0.5f * kotlin.math.sin(a * 3f * Math.PI.toFloat()))
+                        val rw = blockSize * 0.10f
+                        drawRoundRect(
+                            Color.White.copy(alpha = ringA),
+                            Offset(left - rw * 0.5f, top - rw * 0.5f),
+                            Size(blockSize + rw, blockSize + rw),
+                            CornerRadius(cr.x + rw * 0.5f, cr.y + rw * 0.5f), style = Stroke(rw),
+                        )
+                    }
+                } else {
+                    // SUPER: ô cùng màu cười (HAPPY) + nhún → pop
+                    drawJellyCell(
+                        left, top, blockSize, cr, borderStroke, palette, f.color, 0f, 1f,
+                        expression = EyeExpression.HAPPY, eyeOpen = true,
+                        squashScaleX = squash, squashScaleY = squash, clearProgress = clearP, showSticker = false,
+                    )
+                }
+            }
+        }
     }
 
     /**
@@ -641,13 +814,21 @@ class BoardAnimator {
             val left = f.x * cellPx + gap / 2f
             val top  = f.y * cellPx + gap / 2f
             with(scope) {
-                drawSuperJellyCell(
-                    left, top, blockSize, cr, borderStroke,
-                    JellyTheme.forColor(f.color), f.level, 0f, 1f,
-                    expression = EyeExpression.HAPPY, eyeOpen = true,
-                    squashScaleX = bounce, squashScaleY = bounce,
-                    clearProgress = clearP, pulse = 1f, spin = spin,
-                )
+                if (f.rainbow) {
+                    drawRainbowCell(
+                        left, top, blockSize, cr, borderStroke, 0f, 1f,
+                        expression = EyeExpression.HAPPY, eyeOpen = true,
+                        squashScaleX = bounce, squashScaleY = bounce, clearProgress = clearP,
+                    )
+                } else {
+                    drawSuperJellyCell(
+                        left, top, blockSize, cr, borderStroke,
+                        JellyTheme.forColor(f.color), f.level, 0f, 1f,
+                        expression = EyeExpression.HAPPY, eyeOpen = true,
+                        squashScaleX = bounce, squashScaleY = bounce,
+                        clearProgress = clearP, pulse = 1f, spin = spin,
+                    )
+                }
             }
         }
     }
@@ -693,22 +874,21 @@ class BoardAnimator {
         }
     }
 
-    /** Khoảng cách Chebyshev (ô) giữa 2 điểm — dùng để stagger sóng nổ / hội tụ. */
+    /** Khoảng cách Chebyshev (ô) giữa 2 điểm — dùng để stagger hội tụ (hợp nhất). */
     private fun cheb(v: Vec, c: Vec): Int =
         maxOf(kotlin.math.abs(v.x - c.x), kotlin.math.abs(v.y - c.y))
-
-    /** Chebyshev tới tâm nổ GẦN NHẤT (dây chuyền nhiều siêu khối). */
-    private fun minCheb(v: Vec, centers: List<Vec>): Int {
-        var m = Int.MAX_VALUE
-        for (i in centers.indices) { val d = cheb(v, centers[i]); if (d < m) m = d }
-        return if (m == Int.MAX_VALUE) 0 else m
-    }
 
     companion object {
         private const val PARTICLES_PER_CELL = 5   // spec 4–6 đốm/khối
         private const val SUPER_POP_PARTICLES = 12 // lóe sao khi siêu khối hợp nhất (b0 "ngôi sao nổ")
         private const val SUPER_FLASH_NANOS = 520 * Anim.MS   // "cười tươi rồi nổ" của tâm siêu khối
         private const val SUPER_SPIN_NANOS  = 2600 * Anim.MS  // viền màu chạy (đồng bộ BoardCanvas)
+
+        // ── NỔ SIÊU KHỐI: thời gian 3 CHẶNG — CONFIG, chỉnh tăng/giảm cho tới khi đạt ──
+        private const val DET_LINE_NANOS       = 450 * Anim.MS  // chặng 1: xóa hàng/cột xong → chờ
+        private const val DET_SMILE_HOLD_NANOS = 380 * Anim.MS  // chặng 2: block cùng màu CƯỜI bao lâu
+        private const val DET_SMILE_POP_NANOS  = 260 * Anim.MS  // chặng 2: rồi pop-fade biến mất
+        private const val DET_SUPER_DELAY_NANOS = 220 * Anim.MS // chờ thêm trước khi siêu khối biến mất
         private const val SCORE_SP = 16f
         private const val SQUASH_WIDE = 1.08f
         private const val SQUASH_SHORT = 0.86f

@@ -22,13 +22,15 @@ sealed class GameEvent {
         val score: Int,
     ) : GameEvent()
     data class ClustersCollapsed(val moved: Boolean) : GameEvent()
-    /** 9 ô cùng màu hợp nhất thành 1 siêu khối tại [at]; [absorbed] = 8 ô bị thu. */
+    /** 9 ô cùng màu hợp nhất thành 1 siêu khối tại [at]; [absorbed] = ô bị thu. [score]/[comboLevel] cho HUD. */
     data class SuperFormed(
         val at: Vec,
         val color: JellyColor,
         val level: Int,
         val source: SuperSource,
         val absorbed: List<Vec>,
+        val score: Int = 0,
+        val comboLevel: Int = 0,
     ) : GameEvent()
     /** Siêu khối tại [at] nổ; [cells] = footprint bị quét (cùng màu toàn bàn; +5×5 nếu cấp 2). */
     data class SuperDetonated(
@@ -41,6 +43,8 @@ sealed class GameEvent {
     data class RainbowFormed(
         val at: Vec,
         val absorbed: List<Vec>,
+        val score: Int = 0,
+        val comboLevel: Int = 0,
     ) : GameEvent()
     /** Combo leo thang đã hồi [amount] lượt xoay; [budgetAfter] là ngân sách sau khi cộng. */
     data class RotationRefunded(val amount: Int, val budgetAfter: Int) : GameEvent()
@@ -247,7 +251,7 @@ class EndlessEngine(
 private fun ResolveEvent.toGameEvent(): GameEvent = when (this) {
     is ResolveEvent.LinesCleared -> GameEvent.LinesCleared(lines, cellsCleared, comboLevel, score)
     is ResolveEvent.ClustersCollapsed -> GameEvent.ClustersCollapsed(moved)
-    is ResolveEvent.SuperFormed -> GameEvent.SuperFormed(at, color, level, source, absorbed)
+    is ResolveEvent.SuperFormed -> GameEvent.SuperFormed(at, color, level, source, absorbed, score, comboLevel)
     is ResolveEvent.SuperDetonated -> GameEvent.SuperDetonated(at, color, level, cells)
-    is ResolveEvent.RainbowFormed -> GameEvent.RainbowFormed(at, absorbed)
+    is ResolveEvent.RainbowFormed -> GameEvent.RainbowFormed(at, absorbed, score, comboLevel)
 }
