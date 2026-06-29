@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
+import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -21,6 +22,8 @@ data class GjSettings(
     val music: Boolean = true,
     val vibrate: Boolean = true,
     val lastSeed: Long = 0L,
+    /** Id các mục hướng dẫn người chơi đã xem (mỗi luật/thành tựu = 1 id) — xem [com.gravityjelly.app.ui.guide.GjGuide]. */
+    val seenGuides: Set<String> = emptySet(),
 )
 
 /** DataStore preferences gắn vào Context (một instance/quy trình). */
@@ -47,6 +50,7 @@ class SettingsRepository(private val dataStore: DataStore<Preferences>) {
                 music = p[KEY_MUSIC] ?: true,
                 vibrate = p[KEY_VIBRATE] ?: true,
                 lastSeed = p[KEY_LAST_SEED] ?: 0L,
+                seenGuides = p[KEY_SEEN_GUIDES] ?: emptySet(),
             )
         }
 
@@ -63,6 +67,13 @@ class SettingsRepository(private val dataStore: DataStore<Preferences>) {
     suspend fun setVibrate(value: Boolean) = edit { it[KEY_VIBRATE] = value }
     suspend fun setLastSeed(seed: Long) = edit { it[KEY_LAST_SEED] = seed }
 
+    /** Đánh dấu một mục hướng dẫn đã xem (cộng dồn id, idempotent). */
+    suspend fun markGuideSeen(id: String) {
+        dataStore.edit { p ->
+            p[KEY_SEEN_GUIDES] = (p[KEY_SEEN_GUIDES] ?: emptySet()) + id
+        }
+    }
+
     private suspend inline fun edit(crossinline block: (androidx.datastore.preferences.core.MutablePreferences) -> Unit) {
         dataStore.edit { block(it) }
     }
@@ -73,5 +84,6 @@ class SettingsRepository(private val dataStore: DataStore<Preferences>) {
         private val KEY_MUSIC = booleanPreferencesKey("music")
         private val KEY_VIBRATE = booleanPreferencesKey("vibrate")
         private val KEY_LAST_SEED = longPreferencesKey("last_seed")
+        private val KEY_SEEN_GUIDES = stringSetPreferencesKey("seen_guides")
     }
 }

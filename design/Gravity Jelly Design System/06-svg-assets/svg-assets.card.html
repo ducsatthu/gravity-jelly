@@ -29,6 +29,12 @@
   .arrows img { width: 52px; height: 52px; }
   .icons { display: grid; grid-template-columns: repeat(11, 1fr); gap: 14px; background: var(--color-surface); border-radius: var(--radius-card); padding: 16px; box-shadow: var(--shadow-sm); }
   .icons img { width: 28px; height: 28px; }
+  .boards { display: flex; gap: 18px; flex-wrap: wrap; align-items: flex-end; }
+  .boards figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .boards img { display: block; background: var(--color-surface-sunken); border-radius: var(--radius-card); }
+  .boards figure:nth-child(1) img { width: 200px; height: 200px; }
+  .boards figure:nth-child(2) img { width: 240px; height: 81px; }
+  .boards figure:nth-child(3) img { width: 96px; height: 96px; }
   cap { display: block; font-size: 11px; font-weight: 700; color: var(--color-text-muted); letter-spacing: .03em; }
   .note { font-size: 12px; font-weight: 600; color: var(--color-text-muted); line-height: 1.5; max-width: 660px; }
   code { font-family: ui-monospace, monospace; background: var(--color-surface-sunken); padding: 1px 5px; border-radius: 5px; font-size: 11px; }
@@ -59,7 +65,8 @@
       <figure><img src="blocks/super-mint-2.svg" alt="super mint 2" /><cap>mint · cấp 2</cap></figure>
       <figure><img src="blocks/super-pink-2.svg" alt="super pink 2" /><cap>pink · cấp 2</cap></figure>
       <figure><img src="blocks/super-blue-2.svg" alt="super blue 2" /><cap>blue · cấp 2</cap></figure>
-      <figure><img src="blocks/rainbow.svg" alt="rainbow wild" /><cap>cầu vồng · wild</cap></figure>
+      <figure><img src="blocks/rainbow.svg" alt="rainbow wild cấp 1" /><cap>cầu vồng · cấp 1</cap></figure>
+      <figure><img src="blocks/rainbow-2.svg" alt="rainbow wild cấp 2" style="width:72px;height:auto;align-self:flex-start" /><cap>cầu vồng · cấp 2 👑</cap></figure>
     </div>
   </section>
 
@@ -124,6 +131,15 @@
     <h2>Icon set · 21 glyph</h2>
     <div class="icons">
       <img src="icons/icon-pause.svg" /><img src="icons/icon-play.svg" /><img src="icons/icon-settings.svg" /><img src="icons/icon-rotate.svg" /><img src="icons/icon-rotateCw.svg" /><img src="icons/icon-volume.svg" /><img src="icons/icon-mute.svg" /><img src="icons/icon-music.svg" /><img src="icons/icon-vibrate.svg" /><img src="icons/icon-globe.svg" /><img src="icons/icon-info.svg" /><img src="icons/icon-close.svg" /><img src="icons/icon-back.svg" /><img src="icons/icon-home.svg" /><img src="icons/icon-refresh.svg" /><img src="icons/icon-heart.svg" /><img src="icons/icon-star.svg" /><img src="icons/icon-trophy.svg" /><img src="icons/icon-x2.svg" /><img src="icons/icon-chevron.svg" /><img src="icons/icon-check.svg" />
+    </div>
+  </section>
+
+  <section>
+    <h2>Khung board · khay · thẻ điểm (màn chơi)</h2>
+    <div class="boards">
+      <figure><img src="ui/board-frame.svg" alt="board frame" /><cap>khung board 9×9</cap></figure>
+      <figure><img src="ui/tray.svg" alt="tray" /><cap>khay 3 ô</cap></figure>
+      <figure><img src="ui/score-card.svg" alt="score card" /><cap>thẻ điểm</cap></figure>
     </div>
   </section>
 

@@ -1,8 +1,29 @@
 # Gravity Jelly — Project Memory
 
 ## Current task
-Redesigning the **level map ("leo màn") screen** for the casual Android puzzle game *Gravity Jelly*.
-Must follow the existing **Gravity Jelly design system** exactly. All previous campaign-map work was deleted — start fresh. The user will prompt the map **content/layout** in a following message; the spec below is the fixed brand/constraint frame for it (and all future work).
+Maintaining the **Gravity Jelly** design system / UI kit for the casual Android puzzle game.
+Must follow the existing **Gravity Jelly design system** exactly.
+
+## Official Game board ("① Game" screen) — CANONICAL, do not regress
+The play-board screen is `04-screens/board-design.jsx` → `window.GJBoardDesign` (aliased
+`window.GJGameScreen`); it IS the official "① Game" card (`screen-1-game.card.html`) and the
+Game screen in the `index.html` click-through. Old `game-screen.jsx` / `board-scene.jsx` were
+deleted — don't bring them back. Structure, top → bottom:
+- **Meadow PNG backdrop** — `06-svg-assets/backgrounds/meadow-bg.png`, full-bleed `object-fit: cover; object-position: center bottom`.
+- **Unified HUD** (one flex row): score card (left) · gravity D-pad (center) · pause button (right).
+  - Score card = `06-svg-assets/ui/score-card.svg` (plain cream card) with ĐIỂM label + number overlaid centered.
+  - Gravity = purple candy D-pad capsule (← ↑ ↓ →; active dir = raised white disc).
+  - Pause = small (44dp) WHITE round candy button, two purple bars. (Not an image, not purple.)
+- **Board** = 9×9 `GJBoard` grid dropped into the SVG cream frame `06-svg-assets/ui/board-frame.svg`
+  (edge-to-edge, no transparent margin; inset 5%, cell 31dp). Empty-cell radius matches jelly block radius (≈ cell × 0.28).
+- **Tray** = `06-svg-assets/ui/tray.svg` (3 wells, edge-to-edge) kept TIGHT under the board, next to a purple refresh FAB (60dp). Spare meadow space sits below the tray.
+- Props: `score, gravity|direction, board, pieces, blockDirection, onPause, onRotate, onRefresh`.
+
+## Game-art assets live in `06-svg-assets/`
+SVG chrome in `06-svg-assets/ui/` (board-frame, tray, score-card); raster backgrounds in
+`06-svg-assets/backgrounds/`. Shown in the Assets-group cards **SVG Game Objects**
+(`svg-assets.card.html`) and **PNG Backgrounds** (`png-backgrounds.card.html`). When adding
+new game art, drop it here and add it to the matching card.
 
 ## Brand
 "Block jelly" identity: characters are rounded jelly BLOCKS with EYES, thick edge, top gloss/shine. Candy-sweet tone, warm cream background, soft light-brown shadows. Playful, friendly, clean.

@@ -31,6 +31,8 @@ import com.gravityjelly.app.ui.components.BtnVariant
 import com.gravityjelly.app.ui.components.ComboPopup
 import com.gravityjelly.app.ui.components.GjButton
 import com.gravityjelly.app.ui.components.GjDialog
+import com.gravityjelly.app.ui.guide.GjGuide
+import com.gravityjelly.app.ui.guide.GuideTeachDialog
 import com.gravityjelly.app.ui.icons.GjIcons
 import com.gravityjelly.app.ui.theme.GjPalette
 import com.gravityjelly.core.Piece
@@ -44,10 +46,10 @@ import com.gravityjelly.game.rememberGameDriver
 import kotlin.math.roundToInt
 
 /**
- * Màn chơi Endless **ráp ở :app** bằng component design-faithful (GjHud · BoardCanvas ·
- * JellyMeadow · GjTray · GravityRotateButton) qua layout [GameScreen]. Đây là lớp vỏ thay
- * cho `:game` EndlessScreen cũ — vì component design nằm ở :app (không import ngược được
- * từ :game). Input kéo-thả vẫn dùng [EndlessGameHolder] (một chiều: kéo → holder → engine).
+ * Màn chơi Endless **ráp ở :app** qua layout [GameScreen] (board-design.jsx: nền PNG đồng cỏ ·
+ * HUD score-card/D-pad/pause · khung kem bọc [BoardCanvas] · khay 3 giếng + FAB xoay). Đây là
+ * lớp vỏ thay cho `:game` EndlessScreen cũ — vì chrome design nằm ở :app (không import ngược
+ * được từ :game). Input kéo-thả vẫn dùng [EndlessGameHolder] (một chiều: kéo → holder → engine).
  *
  * @param onHome thoát về Home (từ dialog Tạm dừng).
  * @param vibrate / reducedMotion: tôn trọng Settings + a11y (haptic + bỏ juice).
@@ -60,6 +62,8 @@ fun EndlessPlayScreen(
     modifier: Modifier = Modifier,
     vibrate: Boolean = true,
     reducedMotion: Boolean = false,
+    seenGuides: Set<String> = emptySet(),
+    onGuideSeen: (String) -> Unit = {},
 ) {
     val renderTick = rememberGameDriver(holder.animator)
     val shell = holder.shell
@@ -68,6 +72,18 @@ fun EndlessPlayScreen(
 
     var parentWin by remember { mutableStateOf(Offset.Zero) }
     var paused by remember { mutableStateOf(false) }
+
+    // Dạy luật "combo hồi lượt xoay" lần đầu người chơi gặp (combo ≥ ×2 phát RotationRefunded →
+    // holder.rotationRefillTick tăng). Trễ nhẹ để người chơi thấy combo ×N + badge trước rồi mới
+    // hiện popup giải thích; chỉ một lần, đánh dấu đã xem qua seenGuides (bền hoá ở DataStore).
+    var teachComboRefill by remember { mutableStateOf(false) }
+    val comboRefillUnseen = GjGuide.comboRefill.id !in seenGuides
+    LaunchedEffect(holder.rotationRefillTick) {
+        if (holder.rotationRefillTick > 0L && comboRefillUnseen && !shell.gameOver) {
+            kotlinx.coroutines.delay(900L)
+            if (!shell.gameOver) teachComboRefill = true
+        }
+    }
     val slotWin = remember { arrayOf(Offset.Zero, Offset.Zero, Offset.Zero) }
     // ô khay đang kéo → highlight ô nguồn (selected style: ring cam + nền lõm + tam giác).
     // -1 = không kéo. Đặt khi onDragStart, xoá khi thả/huỷ.
@@ -99,11 +115,8 @@ fun EndlessPlayScreen(
             onPause       = { paused = true },
             onSelectPiece = { /* live game dùng kéo-thả, không tap-select */ },
             onRotate      = { if (shell.budget > 0 && !shell.gameOver) holder.rotate(cw = true) },
-            // combo>=2 → jelly block rơi từ board xuống vườn (mảnh vỡ rơi vào đĩa vườn).
-            // Chữ ×N + lời khen KHÔNG ở band nữa: combo hiếm → overlay ăn mừng nổ TẠI vùng
-            // resolve trên bàn (ComboBurstOverlay bên dưới). showDish=false vì khay đã cố định.
-            comboBurst    = if (shell.combo >= 2) shell.combo else 0,
-            showComboText = false,
+            // Combo hiếm → overlay ăn mừng ×N nổ TẠI vùng resolve trên bàn (ComboBurstOverlay bên
+            // dưới). Thiết kế mới (board-design.jsx) dùng nền PNG, KHÔNG còn band vườn để mảnh rơi.
             // mỗi slot khay: theo dõi vị trí window + kéo-thả → holder (như drag cũ, visual design)
             traySlotModifier = { i ->
                 Modifier
@@ -163,6 +176,16 @@ fun EndlessPlayScreen(
                     icon = GjIcons.Play) { Text("Tiếp tục") }
                 GjButton(onClick = { paused = false; onHome() }, variant = BtnVariant.Ghost, fullWidth = true,
                     icon = GjIcons.Home) { Text("Về Home") }
+            },
+        )
+
+        // Popup dạy luật "combo hồi lượt xoay" — lần đầu, bắt buộc xác nhận; đóng → đánh dấu đã xem.
+        GuideTeachDialog(
+            entry     = GjGuide.comboRefill,
+            open      = teachComboRefill,
+            onDismiss = {
+                teachComboRefill = false
+                onGuideSeen(GjGuide.comboRefill.id)
             },
         )
     }

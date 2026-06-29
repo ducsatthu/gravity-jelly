@@ -48,35 +48,121 @@
     return <div className="gj-arrow" style={{ color: 'var(--color-gravity)', display: 'flex' }}><span style={{ display: 'flex', transform: 'rotate(90deg)' }}><Icon name="chevron" size={22} strokeWidth={2.8} /></span></div>;
   }
 
-  /* ===== Boss face ===== */
-  function BossFace({ size = 116, hp = 1, mood = 'normal', aura = true, color = '#7E6CF0', edge = '#6353D6' }) {
-    const eyeR = size * 0.13;
-    const angry = mood === 'angry';
+  /* ===== Boss face ===== =================================================
+     Boss = jelly block (giữ nhận diện) nhưng dữ dằn: mắt híp gằn, KHÔNG miệng,
+     vương miện đổi theo map, giáp đá quanh cổ, hào quang bóng tối phía sau. */
+
+  /* vương miện theo từng map — chỉ đổi màu đá quý (jewel) theo thế giới 1..10 */
+  const MAP_CROWNS = {
+    1:  '#6FCF7F', // Đồng cỏ
+    2:  '#5FC3B2', // Rừng rậm
+    3:  '#8FB6F2', // Sông & Thác
+    4:  '#FFCA66', // Sa mạc
+    5:  '#5FC3B2', // Bãi biển
+    6:  '#B3C7F7', // Núi tuyết
+    7:  '#A99CF6', // Hang băng
+    8:  '#F08A7E', // Núi lửa
+    9:  '#8FB6F2', // Bầu trời
+    10: '#A99CF6', // Vũ trụ
+  };
+  const WORLD_NAMES = {
+    1: 'Đồng cỏ', 2: 'Rừng rậm', 3: 'Sông & Thác', 4: 'Sa mạc', 5: 'Bãi biển',
+    6: 'Núi tuyết', 7: 'Hang băng', 8: 'Núi lửa', 9: 'Bầu trời', 10: 'Vũ trụ',
+  };
+
+  /* gold crown — gem màu = jewel (đổi theo map) */
+  function CrownTop({ size, jewel }) {
+    const w = size * 0.66, h = size * 0.46;
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
-        <div style={{ position: 'relative', width: size, height: size * 0.86 }}>
-          {aura && <div style={{ position: 'absolute', inset: -10, borderRadius: '46% 46% 50% 50%', background: 'radial-gradient(circle, rgba(126,108,240,.45), transparent 70%)', animation: 'gjPulse 1.8s ease infinite' }} />}
-          <div style={{ position: 'relative', width: size, height: size * 0.86, borderRadius: '44% 44% 48% 48% / 50% 50% 46% 46%', background: color, border: `4px solid ${edge}`, boxShadow: 'var(--shadow-md)', overflow: 'hidden' }}>
-            <div style={{ position: 'absolute', top: 4, left: '16%', right: '16%', height: '30%', background: 'rgba(255,255,255,.4)', borderRadius: '50%', filter: 'blur(1px)' }} />
-            {/* eyes */}
-            <div style={{ position: 'absolute', top: '42%', left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: size * 0.16 }}>
-              {[0, 1].map((i) => (
-                <div key={i} style={{ width: eyeR * 2, height: eyeR * 2, borderRadius: '50%', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: 'inset 0 1px 2px rgba(0,0,0,.15)' }}>
-                  <div style={{ width: eyeR, height: eyeR, borderRadius: '50%', background: '#3A2C5E', transform: `translate(${i ? -1 : 1}px, 1px)` }} />
-                </div>
-              ))}
+      <div style={{ position: 'absolute', top: -h * 0.72, left: '50%', transform: 'translateX(-50%)', width: w, height: h, zIndex: 4 }}>
+        <svg viewBox="0 0 100 70" width={w} height={h} style={{ display: 'block', filter: 'drop-shadow(0 3px 2px rgba(74,53,38,.35))' }}>
+          <path d="M11 60 L11 16 L34 38 L50 6 L66 38 L89 16 L89 60 Z" fill="#FFCA66" stroke="#E8B85C" strokeWidth="4" strokeLinejoin="round" strokeLinecap="round" />
+          <rect x="7" y="52" width="86" height="15" rx="6" fill="#FFD27A" stroke="#E8B85C" strokeWidth="4" />
+          <path d="M15 52 L34 40 L50 14 L66 40 L85 52" fill="none" stroke="#FFF1CE" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" opacity="0.75" />
+          <circle cx="11" cy="16" r="5.5" fill={jewel} stroke="#E8B85C" strokeWidth="2" />
+          <circle cx="50" cy="6" r="6.5" fill={jewel} stroke="#E8B85C" strokeWidth="2" />
+          <circle cx="89" cy="16" r="5.5" fill={jewel} stroke="#E8B85C" strokeWidth="2" />
+          <circle cx="50" cy="59" r="4.6" fill={jewel} />
+          <circle cx="30" cy="59" r="3.4" fill="#FFF1CE" />
+          <circle cx="70" cy="59" r="3.4" fill="#FFF1CE" />
+        </svg>
+      </div>
+    );
+  }
+
+  /* mắt gằn — tròng trắng híp dưới mí dày, đồng tử phát sáng, lông mày chếch vào */
+  function FierceEye({ flip, w, body, glow }) {
+    return (
+      <div style={{ position: 'relative', width: w, height: w, transform: flip ? 'scaleX(-1)' : 'none' }}>
+        <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: '#fff', overflow: 'hidden', boxShadow: 'inset 0 1px 2px rgba(0,0,0,.22)' }}>
+          {/* mí trên dày (màu thân) hạ xuống tạo ánh nhìn gằn */}
+          <div style={{ position: 'absolute', top: '-52%', left: '-26%', width: '152%', height: '92%', background: body, transform: 'rotate(19deg)' }} />
+          {/* đồng tử phát sáng */}
+          <div style={{ position: 'absolute', left: '30%', top: '42%', width: w * 0.46, height: w * 0.46, borderRadius: '50%', background: '#1E1340', boxShadow: `0 0 ${w * 0.24}px ${glow}, inset 0 0 ${w * 0.1}px ${glow}` }}>
+            <div style={{ position: 'absolute', top: '12%', left: '16%', width: '36%', height: '36%', borderRadius: '50%', background: '#fff', opacity: 0.95 }} />
+          </div>
+        </div>
+        {/* lông mày gằn */}
+        <div style={{ position: 'absolute', top: '-22%', left: '-4%', width: '92%', height: w * 0.2, background: '#241742', borderRadius: 4, transform: 'rotate(19deg)', transformOrigin: 'right center' }} />
+      </div>
+    );
+  }
+
+  /* giáp đá quanh cổ + ngù vai, gem ngực = jewel */
+  function BossArmor({ size, jewel }) {
+    const s = size;
+    const pauldron = {
+      position: 'absolute', bottom: s * 0.16, width: s * 0.32, height: s * 0.27,
+      borderRadius: '52% 52% 44% 44%', background: 'linear-gradient(180deg,#DBD0BF,#A89A82)',
+      border: '3px solid #8A7E68', boxShadow: 'var(--shadow-sm)', zIndex: 2,
+    };
+    return (
+      <React.Fragment>
+        <div style={{ ...pauldron, left: -s * 0.13 }} />
+        <div style={{ ...pauldron, right: -s * 0.13 }} />
+        {/* gorget / yếm giáp */}
+        <div style={{ position: 'absolute', bottom: -s * 0.05, left: '50%', transform: 'translateX(-50%)', width: s * 0.94, height: s * 0.34, borderRadius: '38% 38% 50% 50% / 64% 64% 100% 100%', background: 'linear-gradient(180deg,#DBD0BF,#C9BCA8 46%,#A89A82)', border: '3px solid #8A7E68', boxShadow: 'var(--shadow-sm)', zIndex: 3, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', overflow: 'hidden' }}>
+          <div style={{ marginTop: s * 0.05, width: s * 0.13, height: s * 0.13, borderRadius: '50%', background: jewel, border: '2px solid #8A7E68', boxShadow: `0 0 ${s * 0.09}px ${jewel}, inset 0 1px 2px rgba(255,255,255,.5)` }} />
+          {/* rivets */}
+          <div style={{ position: 'absolute', bottom: s * 0.05, left: s * 0.14, width: s * 0.045, height: s * 0.045, borderRadius: '50%', background: '#8A7E68' }} />
+          <div style={{ position: 'absolute', bottom: s * 0.05, right: s * 0.14, width: s * 0.045, height: s * 0.045, borderRadius: '50%', background: '#8A7E68' }} />
+        </div>
+      </React.Fragment>
+    );
+  }
+
+  function BossFace({ size = 116, hp = 1, mood = 'angry', aura = true, color = '#7E6CF0', edge = '#6353D6', world, jewel }) {
+    const s = size;
+    const wrap = s * 1.6;
+    const gem = jewel || (world && MAP_CROWNS[world]) || '#F08A7E';
+    const eyeW = s * 0.26;
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: s * 0.12 }}>
+        <div style={{ position: 'relative', width: wrap, height: wrap, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          {/* hào quang bóng tối */}
+          {aura && (
+            <React.Fragment>
+              <div style={{ position: 'absolute', width: s * 1.5, height: s * 1.5, borderRadius: '50%', background: 'radial-gradient(circle, rgba(40,24,74,.62), rgba(40,24,74,.18) 52%, transparent 72%)', filter: 'blur(3px)', animation: 'gjPulse 2.6s ease infinite' }} />
+              <div style={{ position: 'absolute', width: s * 1.22, height: s * 1.22, borderRadius: '50%', boxShadow: `0 0 0 3px rgba(99,83,214,.32), 0 0 ${s * 0.2}px ${s * 0.05}px rgba(126,108,240,.45)` }} />
+            </React.Fragment>
+          )}
+          {/* nhóm boss: vương miện + khối jelly + giáp */}
+          <div style={{ position: 'relative', width: s, height: s }}>
+            <CrownTop size={s} jewel={gem} />
+            <div style={{ position: 'absolute', inset: 0, borderRadius: s * 0.3, background: `linear-gradient(180deg, ${color}, ${edge})`, border: `${Math.max(3, s * 0.035)}px solid ${edge}`, boxSizing: 'border-box', boxShadow: 'var(--shadow-md), inset 0 -7px 11px rgba(36,23,66,.4)', overflow: 'hidden', zIndex: 1 }}>
+              {/* gloss đỉnh */}
+              <div style={{ position: 'absolute', top: s * 0.06, left: '14%', right: '14%', height: '26%', background: 'linear-gradient(180deg, rgba(169,156,246,.85), rgba(169,156,246,0))', borderRadius: '50%' }} />
+              {/* mắt gằn — KHÔNG miệng */}
+              <div style={{ position: 'absolute', top: '36%', left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: s * 0.12 }}>
+                <FierceEye flip={false} w={eyeW} body={edge} glow={gem} />
+                <FierceEye flip={true} w={eyeW} body={edge} glow={gem} />
+              </div>
             </div>
-            {/* brows */}
-            {angry && <div style={{ position: 'absolute', top: '34%', left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: size * 0.1 }}>
-              <div style={{ width: size * 0.2, height: 4, background: '#3A2C5E', borderRadius: 3, transform: 'rotate(16deg)' }} />
-              <div style={{ width: size * 0.2, height: 4, background: '#3A2C5E', borderRadius: 3, transform: 'rotate(-16deg)' }} />
-            </div>}
-            {/* mouth */}
-            <div style={{ position: 'absolute', bottom: '12%', left: '50%', transform: 'translateX(-50%)', width: size * 0.26, height: angry ? size * 0.12 : size * 0.08, borderRadius: angry ? '8px 8px 3px 3px' : '0 0 12px 12px', background: '#3A2C5E' }} />
+            <BossArmor size={s} jewel={gem} />
           </div>
         </div>
         {hp != null && (
-          <div style={{ width: size * 1.1, height: 12, borderRadius: 999, background: 'var(--color-surface-sunken)', boxShadow: 'inset 0 1px 3px rgba(120,92,52,.18)', overflow: 'hidden' }}>
+          <div style={{ width: s, height: 12, borderRadius: 999, background: 'var(--color-surface-sunken)', boxShadow: 'inset 0 1px 3px rgba(120,92,52,.18)', overflow: 'hidden' }}>
             <div style={{ width: (hp * 100) + '%', height: '100%', borderRadius: 999, background: hp > 0.5 ? 'var(--color-success)' : 'var(--color-danger)', transition: 'width .4s' }} />
           </div>
         )}
@@ -259,15 +345,45 @@
   /* boss board: boss face on top + before/after boards */
   W.bossBoard = (card, h) => {
     const { MiniBoard, Panel, ActionNode, GravityChip } = h;
+    const b = card.boss || {};
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, width: '100%' }}>
-        <BossFace mood={card.boss.mood || 'angry'} hp={card.boss.hp != null ? card.boss.hp : 1} size={96} />
+        <BossFace mood={b.mood || 'angry'} hp={b.hp != null ? b.hp : 1} world={b.world} jewel={b.jewel} size={96} />
+        {b.crownStrip && <MapCrownStrip />}
         <Panel label="TRƯỚC"><MiniBoard {...card.before} /></Panel>
         <ActionNode>{window.GJMech.renderAction(card.action)}</ActionNode>
         <Panel label="SAU"><MiniBoard {...card.after} /></Panel>
       </div>
     );
   };
+
+  /* vương miện theo map — dải minh hoạ 10 thế giới */
+  function MapCrownStrip() {
+    return (
+      <div style={{ width: '100%', background: 'var(--color-surface)', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-sm)', padding: '12px 12px 10px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <span style={{ fontFamily: 'var(--font-body)', fontWeight: 800, fontSize: 11, letterSpacing: '.04em', textTransform: 'uppercase', color: 'var(--color-text-muted)', textAlign: 'center' }}>Vương miện đổi theo map</span>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 8 }}>
+          {Object.keys(MAP_CROWNS).map((wKey) => {
+            const w = +wKey, gem = MAP_CROWNS[w];
+            return (
+              <div key={w} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
+                <svg viewBox="0 0 100 70" width="36" height="25" style={{ display: 'block', filter: 'drop-shadow(0 2px 1px rgba(74,53,38,.28))' }}>
+                  <path d="M11 60 L11 16 L34 38 L50 6 L66 38 L89 16 L89 60 Z" fill="#FFCA66" stroke="#E8B85C" strokeWidth="4" strokeLinejoin="round" strokeLinecap="round" />
+                  <rect x="7" y="52" width="86" height="15" rx="6" fill="#FFD27A" stroke="#E8B85C" strokeWidth="4" />
+                  <circle cx="11" cy="16" r="5.5" fill={gem} stroke="#E8B85C" strokeWidth="2" />
+                  <circle cx="50" cy="6" r="6.5" fill={gem} stroke="#E8B85C" strokeWidth="2" />
+                  <circle cx="89" cy="16" r="5.5" fill={gem} stroke="#E8B85C" strokeWidth="2" />
+                  <circle cx="50" cy="59" r="4.6" fill={gem} />
+                </svg>
+                <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 11, color: 'var(--color-text)', lineHeight: 1 }}>{w}</span>
+                <span style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 8.5, color: 'var(--color-text-muted)', lineHeight: 1, textAlign: 'center' }}>{WORLD_NAMES[w]}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
 
   /* G1 buff choice */
   W.buffChoice = (card) => (

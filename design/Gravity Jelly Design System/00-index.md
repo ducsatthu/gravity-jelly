@@ -44,7 +44,7 @@ moved.
 | # | Path | What | Status |
 |---|------|------|--------|
 | — | `04-screens/index.html` | Interactive click-through (Home→Game→Result→Settings) | ✅ |
-| 01 | `04-screens/game-screen.jsx` | **Game** — board + HUD + tray + gravity FAB (priority #1) | ✅ |
+| 01 | `04-screens/board-design.jsx` | **Game** (official ① card) — meadow PNG bg + unified HUD (score · gravity · pause) + SVG board frame + SVG tray + refresh FAB (priority #1) | ✅ |
 | 02 | `04-screens/home-screen.jsx` | **Home** — logo, Play, Settings, Daily | ✅ |
 | 03 | `04-screens/result-screen.jsx` | **Result** — final/best, x2 ad, revive, replay, home | ✅ |
 | 04 | `04-screens/settings-screen.jsx` | **Settings** — sound/music/vibration, language, info | ✅ |

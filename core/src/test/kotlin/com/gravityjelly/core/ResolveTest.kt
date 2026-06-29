@@ -11,15 +11,17 @@ class ResolveTest {
         Grid.Cell(CellType.BLOCK, color)
 
     // Lấp đầy hàng/cột bằng màu XEN KẼ → KHÔNG đơn sắc, nên không kích hợp nhất siêu khối.
-    // (Hoàn tất 1 hàng/cột ĐƠN SẮC giờ tạo siêu khối thay vì xóa — phủ riêng ở SuperBlockTest.)
+    // Lệch pha theo chỉ số hàng/cột (×2) để khi XẾP CHỒNG vẫn không tạo SỌC 3 màu (→ cầu vồng):
+    // resolve giờ GHÉP trước khi xóa (Resolve PHA1) nên 3 hàng sọc cũ sẽ thành cầu vồng thay vì xóa.
+    // (Hàng/cột ĐƠN SẮC tạo siêu khối — phủ riêng ở SuperBlockTest.)
     private val mixPalette = arrayOf(JellyColor.YELLOW, JellyColor.MINT, JellyColor.PINK, JellyColor.BLUE)
 
     private fun fillRow(g: Grid, row: Int) {
-        for (x in 0 until g.size) g.set(x, row, b(mixPalette[x % 4]))
+        for (x in 0 until g.size) g.set(x, row, b(mixPalette[(x + 2 * row) % 4]))
     }
 
     private fun fillCol(g: Grid, col: Int) {
-        for (y in 0 until g.size) g.set(col, y, b(mixPalette[y % 4]))
+        for (y in 0 until g.size) g.set(col, y, b(mixPalette[(y + 2 * col) % 4]))
     }
 
     private fun countOccupied(g: Grid): Int {
@@ -114,25 +116,22 @@ class ResolveTest {
     @Test
     fun cascade_combo2_rowReforms() {
         val g = Grid()
-        // (8,6) PINK: thả LỬNG RỜI — KHÔNG nối liền hàng xóa → đứng yên (luật cục bộ).
+        // (8,6) PINK: thả lửng rời — XÓA dồn CẢ BÀN nên cũng rơi xuống đáy.
         g.set(8, 6, b(JellyColor.PINK))
-        // Row 7: 8 ô (cols 0-7) — kề row 8 → rơi xuống row 8 sau khi xóa.
+        // Row 7: 8 ô (cols 0-7) — rơi xuống row 8 sau khi xóa.
         for (x in 0 until 8) g.set(x, 7, b(JellyColor.MINT))
         // Row 8: full row — xóa trước.
         fillRow(g, 8)
 
         val r = resolve(g, Direction.DOWN)
 
-        // Chỉ row 7 (nối liền) sụp xuống row 8 → 8 ô, col 8 vẫn trống → KHÔNG reform.
-        // (8,6) rời nên không rơi; combo dừng ở 1.
-        assertEquals(1, r.endCombo)
-        assertEquals(9, r.totalScore) // 9 cells × 1 line × 1
-        assertEquals(2, r.events.size) // 1 clear + 1 collapse
+        // Sụp toàn bàn: row 7 MINT (cols 0-7) rơi xuống row 8 cols 0-7 + (8,6) PINK rơi xuống
+        // (8,8) → row 8 ĐẦY LẠI (9 ô) → REFORM xóa lần 2 (combo ×2). Bàn trống sau cùng.
+        assertEquals(2, r.endCombo)
+        assertEquals(27, r.totalScore) // 9 (lần 1, ×1) + 18 (reform, ×2)
+        assertEquals(4, r.events.size) // clear, collapse, clear, collapse
         assertTrue((r.events[1] as ResolveEvent.ClustersCollapsed).moved)
-        // row 7 MINT đã rơi xuống row 8 cols 0-7; (8,6) PINK giữ nguyên.
-        assertEquals(b(JellyColor.MINT), g.get(0, 8))
-        assertEquals(b(JellyColor.PINK), g.get(8, 6))
-        assertTrue(g.isEmpty(8, 8))
+        assertEquals(0, countOccupied(g))
     }
 
     @Test
@@ -148,10 +147,10 @@ class ResolveTest {
 
         val r = resolve(g, Direction.UP)
 
-        // (8,2) rời không nối liền → đứng yên; chỉ row 1 sụp lên row 0 (8 ô) → không reform.
-        assertEquals(1, r.endCombo)
-        assertEquals(9, r.totalScore)
-        assertEquals(b(JellyColor.PINK), g.get(8, 2))
+        // Sụp toàn bàn lên row 0: row 1 MINT + (8,2) PINK đều dồn lên → row 0 đầy lại → reform ×2.
+        assertEquals(2, r.endCombo)
+        assertEquals(27, r.totalScore)
+        assertEquals(0, countOccupied(g))
     }
 
     @Test
@@ -167,27 +166,28 @@ class ResolveTest {
 
         val r = resolve(g, Direction.LEFT)
 
-        // (2,8) rời không nối liền → đứng yên; chỉ col 1 sụp sang col 0 (8 ô) → không reform.
-        assertEquals(1, r.endCombo)
-        assertEquals(9, r.totalScore)
-        assertEquals(b(JellyColor.PINK), g.get(2, 8))
+        // Sụp toàn bàn sang col 0: col 1 MINT + (2,8) PINK đều dồn trái → col 0 đầy lại → reform ×2.
+        assertEquals(2, r.endCombo)
+        assertEquals(27, r.totalScore)
+        assertEquals(0, countOccupied(g))
     }
 
     // ── golden tests ──
 
     /**
-     * GOLDEN TEST — Xóa hàng + sụp CỤC BỘ (chỉ vùng nối liền).
+     * GOLDEN TEST — Xóa hàng + sụp CẢ BÀN (global) → reform.
      *
      * Board setup (gravity DOWN):
      *   Row 6: . . . . . . . . P      (8,6) = PINK — thả LỬNG RỜI
-     *   Row 7: M M M M M M M M .      (0-7,7) = MINT — kề row 8
-     *   Row 8: Y Y Y Y Y Y Y Y Y      (0-8,8) = YELLOW — full row
+     *   Row 7: M M M M M M M M .      (0-7,7) = MINT
+     *   Row 8: Y M P B Y M P B Y      full row (mix)
      *
      * Expected resolve:
      *   1. Clear row 8 (9 cells, 1 line, combo 1) → score 9
-     *   2. Sụp cục bộ: CHỈ row 7 (nối liền row 8) rơi xuống row 8 (cols 0-7).
-     *      (8,6) PINK rời → đứng yên. Row 8 mới chỉ 8 ô → KHÔNG reform.
-     *   Total: 9, endCombo 1, còn 9 ô trên bàn.
+     *   2. Sụp CẢ BÀN: row 7 MINT rơi xuống row 8 (cols 0-7) + (8,6) PINK rơi xuống (8,8).
+     *      → Row 8 đầy lại (9 ô) → REFORM.
+     *   3. Clear row 8 lần 2 (9 cells, combo 2) → score 18. Bàn trống.
+     *   Total: 27, endCombo 2, 4 sự kiện, bàn trống.
      */
     @Test
     fun golden_combo2_exactEvents() {
@@ -198,26 +198,31 @@ class ResolveTest {
 
         val r = resolve(g, Direction.DOWN)
 
-        assertEquals(2, r.events.size)
-        assertEquals(9, r.totalScore)
-        assertEquals(1, r.endCombo)
+        assertEquals(4, r.events.size)
+        assertEquals(27, r.totalScore)
+        assertEquals(2, r.endCombo)
 
-        // Event 0: xóa row 8
+        // Event 0: xóa row 8 lần 1
         val e0 = r.events[0] as ResolveEvent.LinesCleared
         assertEquals(ClearedLines(rows = listOf(8), cols = emptyList()), e0.lines)
         assertEquals(9, e0.cellsCleared)
         assertEquals(1, e0.comboLevel)
         assertEquals(9, e0.score)
 
-        // Event 1: sụp cục bộ (row 7 đã rơi)
-        val e1 = r.events[1] as ResolveEvent.ClustersCollapsed
-        assertTrue(e1.moved)
+        // Event 1: sụp cả bàn (row 7 + PINK đều rơi)
+        assertTrue((r.events[1] as ResolveEvent.ClustersCollapsed).moved)
 
-        // row 7 MINT rơi xuống row 8 cols 0-7; (8,6) PINK giữ nguyên; col 8 row 8 trống.
-        for (x in 0 until 8) assertEquals(b(JellyColor.MINT), g.get(x, 8))
-        assertEquals(b(JellyColor.PINK), g.get(8, 6))
-        assertTrue(g.isEmpty(8, 8))
-        assertEquals(9, countOccupied(g))
+        // Event 2: reform → xóa row 8 lần 2 (combo 2)
+        val e2 = r.events[2] as ResolveEvent.LinesCleared
+        assertEquals(ClearedLines(rows = listOf(8), cols = emptyList()), e2.lines)
+        assertEquals(9, e2.cellsCleared)
+        assertEquals(2, e2.comboLevel)
+        assertEquals(18, e2.score)
+
+        // Event 3: collapse cuối (bàn trống, không di chuyển)
+        assertFalse((r.events[3] as ResolveEvent.ClustersCollapsed).moved)
+
+        assertEquals(0, countOccupied(g))
     }
 
     /**
@@ -246,8 +251,8 @@ class ResolveTest {
     }
 
     /**
-     * GOLDEN TEST — Trạng thái lưới sau xóa + sụp cục bộ.
-     * Xác minh từng vị trí ô: row 7 MINT rơi xuống row 8 cols 0-7, (8,6) PINK giữ nguyên.
+     * GOLDEN TEST — Trạng thái lưới sau xóa + sụp CẢ BÀN → reform.
+     * Row 7 MINT + (8,6) PINK dồn xuống row 8 đầy lại rồi xóa lần 2 → bàn TRỐNG.
      */
     @Test
     fun golden_combo2_finalGridState() {
@@ -260,12 +265,7 @@ class ResolveTest {
 
         for (y in 0 until g.size) {
             for (x in 0 until g.size) {
-                val expected = when {
-                    y == 8 && x in 0 until 8 -> b(JellyColor.MINT)
-                    x == 8 && y == 6 -> b(JellyColor.PINK)
-                    else -> null
-                }
-                assertEquals("Cell ($x,$y)", expected, g.get(x, y))
+                assertEquals("Cell ($x,$y)", null, g.get(x, y))
             }
         }
     }
@@ -281,9 +281,10 @@ class ResolveTest {
      *
      * Step 1: Clear rows 7 AND 8 → 18 cells, 2 lines → combo +2
      *   score = 18 × 2 × 2 = 72
-     * Step 2: Sụp cục bộ — CHỈ row 6 (nối liền rows 7/8) rơi xuống row 8 (cols 0-7).
-     *   (8,5) PINK rời → đứng yên. Row 8 mới chỉ 8 ô → KHÔNG reform.
-     * Total: 72, endCombo 2
+     * Step 2: Sụp CẢ BÀN — row 6 MINT rơi xuống row 8 (cols 0-7) + (8,5) PINK rơi xuống (8,8).
+     *   → Row 8 đầy lại (9 ô) → REFORM.
+     * Step 3: Clear row 8 lần 2 (9 cells, combo 3) → score 9 × 1 × 3 = 27. Bàn trống.
+     * Total: 99, endCombo 3.
      */
     @Test
     fun golden_multiRowThenCascade() {
@@ -295,9 +296,9 @@ class ResolveTest {
 
         val r = resolve(g, Direction.DOWN)
 
-        assertEquals(2, r.events.size)
-        assertEquals(2, r.endCombo)
-        assertEquals(72, r.totalScore)
+        assertEquals(4, r.events.size)
+        assertEquals(3, r.endCombo)
+        assertEquals(99, r.totalScore)
 
         // 2 hàng xóa cùng lúc → combo 2
         val e0 = r.events[0] as ResolveEvent.LinesCleared
@@ -308,10 +309,13 @@ class ResolveTest {
 
         assertTrue((r.events[1] as ResolveEvent.ClustersCollapsed).moved)
 
-        // row 6 MINT rơi xuống row 8 cols 0-7; (8,5) PINK giữ nguyên.
-        for (x in 0 until 8) assertEquals(b(JellyColor.MINT), g.get(x, 8))
-        assertEquals(b(JellyColor.PINK), g.get(8, 5))
-        assertEquals(9, countOccupied(g))
+        // reform → xóa lần 2 (combo 3) rồi bàn trống.
+        val e2 = r.events[2] as ResolveEvent.LinesCleared
+        assertEquals(listOf(8), e2.lines.rows)
+        assertEquals(9, e2.cellsCleared)
+        assertEquals(3, e2.comboLevel)
+        assertEquals(27, e2.score)
+        assertEquals(0, countOccupied(g))
     }
 
     /**
@@ -394,28 +398,27 @@ class ResolveTest {
         g.set(4, 8, b(JellyColor.PINK))
 
         val r = resolve(g, Direction.DOWN)
-        // (8,6) BLUE rời không nối liền → đứng yên; chỉ row 7 sụp → không reform.
-        assertEquals(1, r.endCombo)
-        assertEquals(9, r.totalScore)
-        assertEquals(b(JellyColor.BLUE), g.get(8, 6))
-        assertEquals(9, countOccupied(g))
+        // Sụp cả bàn: row 7 MINT + (8,6) BLUE đều rơi xuống row 8 → đầy lại → reform ×2 → trống.
+        assertEquals(2, r.endCombo)
+        assertEquals(27, r.totalScore)
+        assertEquals(0, countOccupied(g))
     }
 
     // ── edge cases ──
 
     @Test
-    fun clearDoesNotAffectUnrelatedCells() {
+    fun clearAfterDown_floatingCellFallsToFloor() {
         val g = Grid()
         fillRow(g, 8)
-        // Unrelated cell far from the action
+        // Ô lửng trên cao — xóa dồn CẢ BÀN nên rơi xuống đáy (không còn treo).
         g.set(4, 0, b(JellyColor.BLUE))
 
         val r = resolve(g, Direction.DOWN)
 
         assertEquals(1, r.endCombo)
-        // Luật cục bộ: ô BLUE KHÔNG nối liền hàng xóa → KHÔNG rơi, đứng yên tại (4,0).
-        assertFalse((r.events[1] as ResolveEvent.ClustersCollapsed).moved)
-        assertEquals(b(JellyColor.BLUE), g.get(4, 0))
+        // Sụp cả bàn: ô BLUE rơi từ (4,0) xuống đáy (4,8); không reform (chỉ 1 ô).
+        assertTrue((r.events[1] as ResolveEvent.ClustersCollapsed).moved)
+        assertEquals(b(JellyColor.BLUE), g.get(4, 8))
         assertEquals(1, countOccupied(g))
     }
 

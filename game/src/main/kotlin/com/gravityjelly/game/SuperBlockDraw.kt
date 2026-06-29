@@ -190,7 +190,7 @@ internal fun DrawScope.drawSuperJellyCell(
             style = superInnerStroke,
         )
         drawEyes(left, top, blockSize, dirX, dirY, expression, eyeOpenNow, clearAlpha)
-        drawCrown(left, top, blockSize, level, palette, clearAlpha)
+        drawCrown(left, top, blockSize, level, palette.edge, clearAlpha)
     }
 
     if (sx != 1f || sy != 1f) scale(sx, sy, pivot) { body() } else body()
@@ -247,13 +247,12 @@ private fun DrawScope.drawSparkles(
     }
 }
 
-/** Vương miện trên đỉnh khối; ngọc giữa lấy [palette].edge (đúng SVG super-*). */
+/** Vương miện trên đỉnh khối; ngọc giữa = [gem] (super: palette.edge; cầu vồng siêu cấp: tím rainbow). */
 private fun DrawScope.drawCrown(
-    left: Float, top: Float, blockSize: Float, level: Int, palette: BlockPalette, alpha: Float,
+    left: Float, top: Float, blockSize: Float, level: Int, gem: Color, alpha: Float,
 ) {
     val u = superScaleU
     val cx = left + blockSize / 2f
-    val gem = palette.edge
     if (level >= 2) {
         translate(cx, top + 2f * u) {
             // băng đáy
@@ -325,6 +324,9 @@ private fun ensureRbClip(left: Float, top: Float, blockSize: Float, corner: Floa
     )
 }
 
+// Ngọc giữa vương miện cho CẦU VỒNG SIÊU CẤP (tím rainbow, hợp dải màu).
+private val RbCrownGem = Color(0xFFC9A6E8)
+
 internal fun DrawScope.drawRainbowCell(
     left: Float, top: Float, blockSize: Float,
     cr: CornerRadius, borderStroke: Stroke,
@@ -334,6 +336,9 @@ internal fun DrawScope.drawRainbowCell(
     squashScaleX: Float = 1f,
     squashScaleY: Float = 1f,
     clearProgress: Float = 0f,
+    level: Int = 0,
+    pulse: Float = 0f,
+    spin: Float = 0f,
 ) {
     val clearAlpha = if (clearProgress > 0f) 1f - clearProgress else 1f
     val clearScale = if (clearProgress > 0f) 1f + clearProgress * 0.12f else 1f
@@ -344,8 +349,21 @@ internal fun DrawScope.drawRainbowCell(
     val cy = top + blockSize / 2f
     val pivot = Offset(cx, cy)
     val corner = cr.x
+    val apex = level >= 2
+    if (apex) ensureSuperCache(blockSize, density)
 
     fun body() {
+        if (apex) {
+            // ── CẦU VỒNG SIÊU CẤP: hào quang + viền màu chạy + tia lấp lánh (giống siêu khối cấp 2) ──
+            val g = blockSize * 0.05f + blockSize * 0.03f * pulse
+            drawRoundRect(
+                HaloWhite.copy(alpha = (0.10f + 0.15f * pulse) * clearAlpha),
+                Offset(left - g, top - g), Size(blockSize + g * 2, blockSize + g * 2),
+                CornerRadius(cr.x + g, cr.y + g), style = superHaloStroke,
+            )
+            drawSparkles(left, top, blockSize, level, spin, clearAlpha)
+            drawRunningRing(left, top, level, spin, clearAlpha)
+        }
         ensureRbClip(left, top, blockSize, corner)
         clipPath(rbClipPath) {
             rotate(-22f, pivot) {
@@ -370,6 +388,7 @@ internal fun DrawScope.drawRainbowCell(
         drawRoundRect(RbInner.copy(alpha = clearAlpha), Offset(left, top), Size(blockSize, blockSize), cr, style = borderStroke)
         drawRoundRect(RbEdge.copy(alpha = clearAlpha), Offset(left, top), Size(blockSize, blockSize), cr, style = borderStroke)
         drawEyes(left, top, blockSize, dirX, dirY, expression, eyeOpenNow, clearAlpha)
+        if (apex) drawCrown(left, top, blockSize, level, RbCrownGem, clearAlpha)
     }
 
     if (sx != 1f || sy != 1f) scale(sx, sy, pivot) { body() } else body()

@@ -19,6 +19,7 @@ class SuperBlockTest {
     private fun b(color: JellyColor) = Grid.Cell(CellType.BLOCK, color)
     private fun sup(color: JellyColor, level: Int = 1) = Grid.Cell(CellType.BLOCK, color, superLevel = level)
     private fun rb() = Grid.Cell(CellType.BLOCK, color = null, rainbow = true)
+    private fun rbSuper() = Grid.Cell(CellType.BLOCK, color = null, rainbow = true, superLevel = 2)
     private val palette = arrayOf(JellyColor.YELLOW, JellyColor.MINT, JellyColor.PINK, JellyColor.BLUE)
 
     private fun countOccupied(g: Grid): Int {
@@ -113,9 +114,36 @@ class SuperBlockTest {
     }
 
     @Test
-    fun mergeMove_super1DifferentColors_noSuper2() {
+    fun mergeMove_twoAdjacentSuper1DifferentColors_isRainbowSuper2() {
+        // KHÁC màu → CẦU VỒNG SIÊU CẤP (cấp 2)
         val g = Grid()
         g.set(3, 4, sup(JellyColor.MINT)); g.set(4, 4, sup(JellyColor.PINK))
+        val m = findMergeMove(g) as MergeMove.Rainbow
+        assertEquals(2, m.level)
+        assertEquals(2, m.cells.size)
+    }
+
+    @Test
+    fun mergeMove_super1AdjacentRainbow_isRainbowSuper2() {
+        // super-1 + cầu vồng thường dính liền → CẦU VỒNG SIÊU CẤP
+        val g = Grid()
+        g.set(3, 4, sup(JellyColor.MINT)); g.set(4, 4, rb())
+        val m = findMergeMove(g) as MergeMove.Rainbow
+        assertEquals(2, m.level)
+    }
+
+    @Test
+    fun mergeMove_loneSuper1_notMerged() {
+        val g = Grid()
+        g.set(4, 4, sup(JellyColor.MINT))   // 1 mình, không kíp nổ kề
+        assertNull(findMergeMove(g))
+    }
+
+    @Test
+    fun mergeMove_diagonalSuper1_notMerged() {
+        // chéo nhau KHÔNG phải 4-kề → không gộp
+        val g = Grid()
+        g.set(3, 3, sup(JellyColor.MINT)); g.set(4, 4, sup(JellyColor.PINK))
         assertNull(findMergeMove(g))
     }
 
@@ -285,6 +313,17 @@ class SuperBlockTest {
         assertEquals(1, countOccupied(g))
     }
 
+    @Test
+    fun resolve_twoSuper1DifferentColors_formRainbowSuper2() {
+        val g = Grid()
+        g.set(3, 4, sup(JellyColor.MINT)); g.set(4, 4, sup(JellyColor.PINK))
+        val r = resolve(g, Direction.DOWN)
+        val rf = r.events.filterIsInstance<ResolveEvent.RainbowFormed>().single()
+        assertEquals(2, rf.level)
+        assertEquals(1, countWhere(g) { it.rainbow && it.superLevel == 2 })
+        assertEquals(1, countOccupied(g))   // gộp 2 ô → 1 cầu vồng siêu cấp
+    }
+
     // ── nổ ──────────────────────────────────────────────────────────────────────
 
     @Test
@@ -356,6 +395,25 @@ class SuperBlockTest {
     }
 
     @Test
+    fun expandDetonations_rainbowSuper2_clearsEntireBoard() {
+        val g = Grid()
+        g.set(4, 4, rbSuper())                  // cầu vồng siêu cấp (kỹ năng tối thượng)
+        g.set(0, 0, b(JellyColor.MINT))
+        g.set(8, 8, b(JellyColor.PINK))
+        g.set(2, 6, b(JellyColor.BLUE))
+        g.set(7, 1, Grid.Cell(CellType.STONE))  // kể cả đá cũng bị quét sạch
+        val occupied = countOccupied(g)
+        val (toClear, dets) = expandDetonations(g, setOf(Vec(4, 4)))
+        assertTrue(dets.any { it.isRainbow && it.level == 2 })
+        assertEquals(occupied, toClear.size)    // TOÀN BỘ ô có nội dung bị quét
+        assertTrue(Vec(0, 0) in toClear)
+        assertTrue(Vec(8, 8) in toClear)
+        assertTrue(Vec(2, 6) in toClear)
+        assertTrue(Vec(7, 1) in toClear)
+        assertTrue(Vec(4, 4) in toClear)
+    }
+
+    @Test
     fun expandDetonations_rainbowNoColoredNeighbor_noSweep() {
         val g = Grid()
         g.set(4, 4, rb())                       // cầu vồng cô lập (không màu kề)
@@ -373,6 +431,60 @@ class SuperBlockTest {
         assertEquals(1, dets.size)
         assertEquals(1, dets[0].cells.size)   // chỉ chính nó (không còn pink nào khác)
         assertTrue(Vec(0, 0) in toClear)
+    }
+
+    // ── combo khi NỔ (hiển thị ×N lúc flash) ─────────────────────────────────────
+
+    /** Làm đầy hàng [y] để kích nổ detonator ở (4,y); các ô khác màu xen kẽ (tránh mono/cùng màu detonator). */
+    private fun fillRowExcept(g: Grid, y: Int, skipX: Int) {
+        for (x in 0 until 9) if (x != skipX) g.set(x, y, b(if (x % 2 == 0) JellyColor.PINK else JellyColor.BLUE))
+    }
+
+    @Test
+    fun resolve_detonateSuper1_comboPlus2_cumulative() {
+        val g = Grid()
+        g.set(4, 4, sup(JellyColor.MINT)); fillRowExcept(g, 4, 4)
+        val lc = resolve(g, Direction.DOWN, startCombo = 0).events
+            .filterIsInstance<ResolveEvent.LinesCleared>().first()
+        assertEquals(2, lc.comboLevel)                  // super-1 nổ = +2
+
+        val g2 = Grid()
+        g2.set(4, 4, sup(JellyColor.MINT)); fillRowExcept(g2, 4, 4)
+        val lc2 = resolve(g2, Direction.DOWN, startCombo = 3).events
+            .filterIsInstance<ResolveEvent.LinesCleared>().first()
+        assertEquals(5, lc2.comboLevel)                 // cộng dồn 3 + 2
+    }
+
+    @Test
+    fun resolve_detonateSuper2_comboPlus5() {
+        val g = Grid()
+        g.set(4, 4, sup(JellyColor.MINT, level = 2)); fillRowExcept(g, 4, 4)
+        val lc = resolve(g, Direction.DOWN, startCombo = 0).events
+            .filterIsInstance<ResolveEvent.LinesCleared>().first()
+        assertEquals(5, lc.comboLevel)
+    }
+
+    @Test
+    fun resolve_detonateRainbow_comboPlus2PerAdjacentColor() {
+        val g = Grid()
+        g.set(4, 4, rb())
+        g.set(3, 4, b(JellyColor.MINT)); g.set(5, 4, b(JellyColor.PINK))    // kề trong hàng
+        g.set(4, 3, b(JellyColor.BLUE)); g.set(4, 5, b(JellyColor.YELLOW))  // kề trên/dưới → 4 màu
+        g.set(0, 4, b(JellyColor.MINT)); g.set(1, 4, b(JellyColor.PINK)); g.set(2, 4, b(JellyColor.BLUE))
+        g.set(6, 4, b(JellyColor.YELLOW)); g.set(7, 4, b(JellyColor.MINT)); g.set(8, 4, b(JellyColor.PINK))
+        val lc = resolve(g, Direction.DOWN, startCombo = 0).events
+            .filterIsInstance<ResolveEvent.LinesCleared>().first()
+        assertEquals(8, lc.comboLevel)                  // 4 màu kề × 2
+    }
+
+    @Test
+    fun resolve_detonateRainbowSuper2_comboPlus9() {
+        val g = Grid()
+        g.set(4, 4, rbSuper()); fillRowExcept(g, 4, 4)
+        g.set(0, 0, b(JellyColor.YELLOW))               // ô xa → vẫn bị xoá sạch (combo vẫn = 9)
+        val lc = resolve(g, Direction.DOWN, startCombo = 1).events
+            .filterIsInstance<ResolveEvent.LinesCleared>().first()
+        assertEquals(10, lc.comboLevel)                 // cộng dồn 1 + 9
     }
 
     // ── deterministic ──────────────────────────────────────────────────────────

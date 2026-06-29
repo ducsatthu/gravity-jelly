@@ -1,4 +1,4 @@
-<!-- @dsCard group="Screens" viewport="392x812" name="① Game" subtitle="9x9 board, HUD, tray, gravity FAB" -->
+<!-- @dsCard group="Screens" viewport="392x812" name="① Game" subtitle="Màn chơi 9×9 — HUD (điểm · trọng lực · pause), nền đồng cỏ, khay 3 ô + nút đổi mảnh" -->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -17,17 +17,11 @@
   <script src="../_ds_bundle.js"></script>
   <script type="text/babel" src="phone-frame.jsx"></script>
   <script type="text/babel" src="board.jsx"></script>
-  <script type="text/babel" src="game-screen.jsx"></script>
+  <script type="text/babel" src="board-design.jsx"></script>
   <script type="text/babel">
-    const PhoneFrame = window.GJPhoneFrame, Game = window.GJGameScreen;
-    const board = [".........",".........",".........",".....PP..",".....PP..","...M..BB.",".YYM.SBB.",".YYMMSB..","YYYMMSPPP"];
-    const pieces = [
-      { cells: [[0,0],[1,0],[1,1]], color: 'mint', count: 3 },
-      { cells: [[0,0],[0,1],[0,2]], color: 'pink', count: 3 },
-      { cells: [[0,0],[0,1],[1,0],[1,1]], color: 'yellow', count: 4 },
-    ];
+    const PhoneFrame = window.GJPhoneFrame, Board = window.GJBoardDesign;
     ReactDOM.createRoot(document.getElementById('root')).render(
-      <PhoneFrame><Game score={12480} direction="down" turnsLeft={3} board={board} pieces={pieces} selectedIndex={0} combo={3} /></PhoneFrame>
+      <PhoneFrame statusBar={false}><Board score={12480} gravity="up" /></PhoneFrame>
     );
   </script>
 </body>

@@ -29,7 +29,22 @@ data class SuperDetonation(
     val level: Int,
     val cells: List<Vec>,
     val isRainbow: Boolean = false,
+    /** Số MÀU bị quét (cầu vồng thường = số màu kề); siêu khối đơn màu = 1. Dùng tính combo nổ. */
+    val sweptColors: Int = 1,
 )
+
+/**
+ * Combo CỘNG THÊM khi một detonator NỔ (hiển thị "×N" lúc flash, cộng dồn với combo sẵn có):
+ *  - siêu khối **cấp 1** = +2 (quét 1 màu).        - siêu khối **cấp 2** = +5.
+ *  - **cầu vồng thường** = +2 mỗi MÀU kề bị quét (4 màu kề → +8 ngay).
+ *  - **cầu vồng siêu cấp** (xoá sạch bàn) = +9.
+ */
+fun detonationComboBonus(d: SuperDetonation): Int = when {
+    d.isRainbow && d.level >= 2 -> 9
+    d.isRainbow -> 2 * d.sweptColors
+    d.level >= 2 -> 5
+    else -> 2
+}
 
 /** Kết quả xét merge: gom siêu khối (cấp 1/2) hoặc tạo khối cầu vồng. */
 sealed interface MergeMove {
@@ -37,7 +52,11 @@ sealed interface MergeMove {
         val center: Vec, val color: JellyColor, val cells: List<Vec>, val level: Int,
         val source: SuperSource = SuperSource.CLUSTER,
     ) : MergeMove
-    data class Rainbow(val center: Vec, val cells: List<Vec>) : MergeMove
+    /**
+     * Khối cầu vồng. [level] = 0 là cầu vồng thường (3×3 ba màu); [level] = 2 là **CẦU VỒNG SIÊU CẤP**
+     * (gộp từ kíp nổ khác màu / có cầu vồng) — mang vương miện, nổ = xoá sạch TOÀN BỘ bàn.
+     */
+    data class Rainbow(val center: Vec, val cells: List<Vec>, val level: Int = 0) : MergeMove
 }
 
 /** Bán kính vùng nổ phụ của siêu khối CẤP 2: 2 ⇒ vùng 5×5 quanh tâm (thêm sau khi quét cùng màu). */
@@ -49,7 +68,7 @@ const val SUPER_BLAST_RADIUS = 2
  * null nếu không có.
  */
 fun findMergeMove(grid: Grid): MergeMove? {
-    findSuper2(grid)?.let { return it }
+    findDetonatorMerge(grid)?.let { return it }
 
     val n = grid.size
     for (ty in 0..(n - 3)) {
@@ -107,16 +126,22 @@ private fun lineMonoColor(grid: Grid, idx: Int, horizontal: Boolean): JellyColor
     return color
 }
 
-/** ≥2 ô SIÊU KHỐI CẤP 1 cùng màu dính liền (4-kề) → gộp thành cấp 2 tại tâm. */
-private fun findSuper2(grid: Grid): MergeMove.Super? {
+/**
+ * ≥2 ô "KÍP NỔ" dính liền (4-kề) → GỘP thành CẤP 2 tại tâm cụm. Kíp nổ = **siêu-khối-1** (superLevel
+ * 1, không cầu vồng) HOẶC **cầu vồng thường** (rainbow, superLevel 0). Phân loại cụm:
+ *  - toàn super-1 **CÙNG màu** → [MergeMove.Super] cấp 2 cùng màu (nổ: cùng màu toàn bàn + 5×5).
+ *  - **khác màu** giữa các super-1, HOẶC cụm **có chứa cầu vồng** → [MergeMove.Rainbow] cấp 2 — CẦU
+ *    VỒNG SIÊU CẤP (kỹ năng tối thượng: nổ xoá sạch TOÀN BỘ bàn).
+ * Khối cấp 2 (super HOẶC cầu vồng siêu cấp) KHÔNG tham gia → không leo thang vô hạn. Duyệt (y,x),
+ * BFS hướng cố định → deterministic.
+ */
+private fun findDetonatorMerge(grid: Grid): MergeMove? {
     val n = grid.size
     val visited = Array(n) { BooleanArray(n) }
     for (y in 0 until n) {
         for (x in 0 until n) {
             if (visited[y][x]) continue
-            val c = grid.get(x, y)
-            if (c == null || c.superLevel != 1) { visited[y][x] = true; continue }
-            val color = c.color
+            if (!isDetonatorCell(grid.get(x, y))) { visited[y][x] = true; continue }
             val comp = ArrayList<Vec>()
             val queue = ArrayDeque<Vec>()
             queue.add(Vec(x, y)); visited[y][x] = true
@@ -126,22 +151,34 @@ private fun findSuper2(grid: Grid): MergeMove.Super? {
                 for (dir in Direction.entries) {
                     val nx = v.x + dir.dx
                     val ny = v.y + dir.dy
-                    if (grid.inBounds(nx, ny) && !visited[ny][nx]) {
-                        val nc = grid.get(nx, ny)
-                        if (nc != null && nc.superLevel == 1 && nc.color == color) {
-                            visited[ny][nx] = true; queue.add(Vec(nx, ny))
-                        }
+                    if (grid.inBounds(nx, ny) && !visited[ny][nx] && isDetonatorCell(grid.get(nx, ny))) {
+                        visited[ny][nx] = true; queue.add(Vec(nx, ny))
                     }
                 }
             }
-            if (comp.size >= 2 && color != null) {
-                comp.sortWith(compareBy({ it.y }, { it.x }))
-                return MergeMove.Super(clusterCenter(comp), color, comp, level = 2)
+            if (comp.size < 2) continue
+            comp.sortWith(compareBy({ it.y }, { it.x }))
+            val center = clusterCenter(comp)
+            // phân loại cụm: toàn super-1 đồng màu → super cấp 2; còn lại → cầu vồng siêu cấp.
+            var hasRainbow = false
+            val colors = HashSet<JellyColor>()
+            for (v in comp) {
+                val c = grid.get(v.x, v.y)!!
+                if (c.rainbow) hasRainbow = true else c.color?.let { colors.add(it) }
+            }
+            return if (!hasRainbow && colors.size == 1) {
+                MergeMove.Super(center, colors.first(), comp, level = 2)
+            } else {
+                MergeMove.Rainbow(center, comp, level = 2)
             }
         }
     }
     return null
 }
+
+/** Kíp nổ tham gia gộp cấp 2: siêu-khối-1 (không cầu vồng) hoặc cầu vồng thường (chưa lên cấp). */
+private fun isDetonatorCell(c: Grid.Cell?): Boolean =
+    c != null && ((c.superLevel == 1 && !c.rainbow) || (c.rainbow && c.superLevel == 0))
 
 private fun box3x3Cells(tx: Int, ty: Int): List<Vec> {
     val out = ArrayList<Vec>(9)
@@ -231,14 +268,17 @@ fun collapseToSuper(grid: Grid, center: Vec, color: JellyColor, cells: List<Vec>
     return emptied
 }
 
-/** Thu [cells] về 1 KHỐI CẦU VỒNG tại [center]; trả các ô bị làm trống. */
-fun collapseToRainbow(grid: Grid, center: Vec, cells: List<Vec>): List<Vec> {
+/**
+ * Thu [cells] về 1 KHỐI CẦU VỒNG tại [center]; trả các ô bị làm trống. [level] = 0 cầu vồng thường,
+ * = 2 CẦU VỒNG SIÊU CẤP (nổ xoá sạch toàn bàn).
+ */
+fun collapseToRainbow(grid: Grid, center: Vec, cells: List<Vec>, level: Int = 0): List<Vec> {
     val emptied = ArrayList<Vec>(cells.size - 1)
     for (v in cells) {
         grid.set(v.x, v.y, null)
         if (v != center) emptied.add(v)
     }
-    grid.set(center.x, center.y, Grid.Cell(CellType.BLOCK, color = null, rainbow = true))
+    grid.set(center.x, center.y, Grid.Cell(CellType.BLOCK, color = null, rainbow = true, superLevel = level))
     return emptied
 }
 
@@ -278,14 +318,21 @@ fun expandDetonations(grid: Grid, initial: Set<Vec>): Pair<Set<Vec>, List<SuperD
         val cell = grid.get(s.x, s.y)!!
         val footprint = ArrayList<Vec>()
         if (cell.rainbow) {
-            // CẦU VỒNG: quét sạch các màu đang KỀ (4-kề). Không màu kề → không quét gì.
-            val colors = adjacentColors(grid, s)
-            if (colors.isEmpty()) continue
-            for (y in 0 until n) for (x in 0 until n) {
-                val cc = grid.get(x, y)?.color
-                if (cc != null && cc in colors) footprint.add(Vec(x, y))
+            if (cell.superLevel >= 2) {
+                // CẦU VỒNG SIÊU CẤP: kỹ năng tối thượng — quét sạch TOÀN BỘ bàn.
+                for (y in 0 until n) for (x in 0 until n) if (grid.get(x, y) != null) footprint.add(Vec(x, y))
+                val placeholder = adjacentColors(grid, s).firstOrNull() ?: JellyColor.YELLOW
+                detonations.add(SuperDetonation(s, placeholder, level = 2, cells = footprint, isRainbow = true))
+            } else {
+                // CẦU VỒNG thường: quét sạch các màu đang KỀ (4-kề). Không màu kề → không quét gì.
+                val colors = adjacentColors(grid, s)
+                if (colors.isEmpty()) continue
+                for (y in 0 until n) for (x in 0 until n) {
+                    val cc = grid.get(x, y)?.color
+                    if (cc != null && cc in colors) footprint.add(Vec(x, y))
+                }
+                detonations.add(SuperDetonation(s, colors.first(), level = 0, cells = footprint, isRainbow = true, sweptColors = colors.size))
             }
-            detonations.add(SuperDetonation(s, colors.first(), level = 0, cells = footprint, isRainbow = true))
         } else {
             val color = cell.color!!
             // MỌI cấp: quét sạch ô CÙNG MÀU trên toàn bàn (duyệt y,x → deterministic).

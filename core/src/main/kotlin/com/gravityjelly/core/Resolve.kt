@@ -32,12 +32,16 @@ sealed class ResolveEvent {
         val cells: List<Vec>,
     ) : ResolveEvent()
 
-    /** 3×3 ba màu (mỗi màu 1 cột/hàng) → 1 KHỐI CẦU VỒNG tại [at]; [absorbed] = 8 ô bị thu. */
+    /**
+     * 1 KHỐI CẦU VỒNG hình thành tại [at]; [absorbed] = các ô bị thu. [level] = 0 cầu vồng thường
+     * (3×3 ba màu); = 2 CẦU VỒNG SIÊU CẤP (gộp kíp nổ khác màu/có cầu vồng — nổ xoá sạch toàn bàn).
+     */
     data class RainbowFormed(
         val at: Vec,
         val absorbed: List<Vec>,
         val score: Int = 0,
         val comboLevel: Int = 0,
+        val level: Int = 0,
     ) : ResolveEvent()
 }
 
@@ -53,18 +57,19 @@ data class ResolveResult(
 )
 
 /**
- * Vòng resolve, mỗi vòng theo thứ tự ưu tiên:
+ * Vòng resolve, mỗi vòng theo thứ tự ưu tiên — **GHÉP hết rồi mới FLASH** (tránh hàng đầy kích nổ kíp
+ * nổ trước khi kịp ghép → mất khối mạnh "đáng tiếc cho người chơi"):
  *   PHA 0 — **hàng/cột đầy ĐƠN SẮC → SIÊU KHỐI** (ưu tiên TRƯỚC xóa): gom 9 ô về 1 siêu khối tại
  *           tâm đường, **thưởng ×2 điểm** (có super-1 trong đường → cấp 2).
- *   PHA 1 — **xóa hàng/cột đầy** (mixed, tính điểm nền): xóa, đồng thời mọi siêu khối bị cuốn vào →
- *           nổ (cấp 1 = quét cùng màu toàn bàn, cấp 2 = cùng màu + 5×5, dây chuyền) → cụm sụp.
- *   PHA 2 — **merge** (không còn dòng đầy):
- *           • 3×3 cùng màu → SIÊU KHỐI cấp 1.   • ≥2 super-1 / 3×3 chứa super-1 → cấp 2.
- *           • 3×3 ba màu (mỗi màu 1 cột/hàng) → KHỐI CẦU VỒNG.
+ *   PHA 1 — **merge** (trước xóa): • 3×3 cùng màu → SIÊU KHỐI cấp 1.  • gộp kíp nổ dính liền → cấp 2
+ *           (super-1 cùng màu) / CẦU VỒNG SIÊU CẤP (khác màu / có cầu vồng).  • 3×3 ba màu → CẦU VỒNG.
+ *   PHA 2 — **xóa hàng/cột đầy** (mixed, tính điểm nền): xóa, đồng thời mọi kíp nổ bị cuốn vào →
+ *           nổ (cấp 1 = quét cùng màu toàn bàn, cấp 2 = cùng màu + 5×5, cầu vồng siêu cấp = cả bàn) → cụm sụp.
  * Lặp tới khi không còn gì.
  *
- * Combo CỘNG DỒN: mỗi hàng/cột bị xóa +1; **mỗi lần GHÉP (siêu khối/cầu vồng) cũng +1**. Điểm ghép =
- * số ô × combo (×2 nếu là hàng/cột đơn sắc). [mergeEnabled] tắt = chỉ còn xóa hàng/cột nền.
+ * Combo CỘNG DỒN: hàng/cột xóa thường +1; **mỗi lần GHÉP (siêu khối/cầu vồng) +1**; **nhịp NỔ
+ * detonator nhảy theo loại** ([detonationComboBonus]: super1 +2, super2 +5, cầu vồng +2/màu kề, cầu
+ * vồng siêu cấp +9). Điểm ghép = số ô × combo (×2 nếu hàng/cột đơn sắc). [mergeEnabled] tắt = chỉ xóa nền.
  */
 fun resolve(grid: Grid, gravity: Direction, startCombo: Int = 0, mergeEnabled: Boolean = true): ResolveResult {
     val events = mutableListOf<ResolveEvent>()
@@ -83,18 +88,49 @@ fun resolve(grid: Grid, gravity: Direction, startCombo: Int = 0, mergeEnabled: B
             totalScore += score
             events.add(ResolveEvent.SuperFormed(monoLine.center, monoLine.color, monoLine.level, monoLine.source, a, score, combo))
             formed = true
-            val moved = applyConnectedGravity(grid, gravity, a.toHashSet())
+            val moved = applyClusterGravity(grid, gravity)
             events.add(ResolveEvent.ClustersCollapsed(moved))
             continue
         }
 
-        // PHA 1: xóa hàng/cột đầy (có thể kích nổ siêu khối nằm trong vùng xóa).
+        // PHA 1: MERGE TRƯỚC FLASH — GHÉP xong hết (3×3 cùng màu / 3 màu sọc / gộp kíp nổ) rồi mới
+        // xóa. Tránh trường hợp một hàng đầy đi qua các kíp nổ bị FLASH kích nổ trước, làm mất cơ
+        // hội ghép (vd 2 super-1 khác màu → cầu vồng siêu cấp) — "đáng tiếc cho người chơi".
+        val move = if (mergeEnabled) findMergeMove(grid) else null
+        if (move != null) {
+            val absorbed: List<Vec> = when (move) {
+                is MergeMove.Super -> {
+                    combo += 1
+                    val a = collapseToSuper(grid, move.center, move.color, move.cells, move.level)
+                    val score = Scoring.mergeScore(move.cells.size, combo)
+                    totalScore += score
+                    events.add(ResolveEvent.SuperFormed(move.center, move.color, move.level, move.source, a, score, combo))
+                    a
+                }
+                is MergeMove.Rainbow -> {
+                    combo += 1
+                    val a = collapseToRainbow(grid, move.center, move.cells, move.level)
+                    val score = Scoring.mergeScore(move.cells.size, combo)
+                    totalScore += score
+                    events.add(ResolveEvent.RainbowFormed(move.center, a, score, combo, move.level))
+                    a
+                }
+            }
+            formed = true
+            val moved = applyClusterGravity(grid, gravity)
+            events.add(ResolveEvent.ClustersCollapsed(moved))
+            continue
+        }
+
+        // PHA 2: hết đường ghép → xóa hàng/cột đầy (có thể kích nổ kíp nổ nằm trong vùng xóa).
         val lines = findFullLines(grid)
         if (!lines.isEmpty) {
             cleared = true
-            combo += lines.count
             val lineSet = lineCells(lines, grid.size)
             val (toClear, detonations) = expandDetonations(grid, lineSet)
+            // Combo: nhịp NỔ super/cầu vồng → cộng theo LOẠI detonator (×2/×5/×9…), đè +lines.count;
+            // nhịp xóa thường → +lines.count. Cộng dồn với combo sẵn có (startCombo).
+            combo += if (detonations.isEmpty()) lines.count else detonations.sumOf { detonationComboBonus(it) }
             for (v in toClear) grid.set(v.x, v.y, null)
 
             val cellsCleared = toClear.size
@@ -104,35 +140,12 @@ fun resolve(grid: Grid, gravity: Direction, startCombo: Int = 0, mergeEnabled: B
             for (d in detonations) {
                 events.add(ResolveEvent.SuperDetonated(d.center, d.color, d.level, d.cells))
             }
-            val moved = applyConnectedGravity(grid, gravity, toClear)
+            val moved = applyClusterGravity(grid, gravity)
             events.add(ResolveEvent.ClustersCollapsed(moved))
             continue
         }
 
-        // PHA 2: merge (3×3 cùng màu / 3 màu sọc, hoặc gộp super-1) — +điểm×combo, combo +1.
-        val move = if (mergeEnabled) findMergeMove(grid) else null
-        val absorbed: List<Vec> = when (move) {
-            is MergeMove.Super -> {
-                combo += 1
-                val a = collapseToSuper(grid, move.center, move.color, move.cells, move.level)
-                val score = Scoring.mergeScore(move.cells.size, combo)
-                totalScore += score
-                events.add(ResolveEvent.SuperFormed(move.center, move.color, move.level, move.source, a, score, combo))
-                a
-            }
-            is MergeMove.Rainbow -> {
-                combo += 1
-                val a = collapseToRainbow(grid, move.center, move.cells)
-                val score = Scoring.mergeScore(move.cells.size, combo)
-                totalScore += score
-                events.add(ResolveEvent.RainbowFormed(move.center, a, score, combo))
-                a
-            }
-            null -> break
-        }
-        formed = true
-        val moved = applyConnectedGravity(grid, gravity, absorbed.toHashSet())
-        events.add(ResolveEvent.ClustersCollapsed(moved))
+        break
     }
 
     return ResolveResult(events, totalScore, combo, cleared, formed)

@@ -18,7 +18,6 @@ import com.gravityjelly.core.JellyColor
 import com.gravityjelly.core.Piece
 import com.gravityjelly.core.Vec
 import com.gravityjelly.core.applyClusterGravity
-import com.gravityjelly.core.applyConnectedGravity
 import com.gravityjelly.core.expandDetonations
 import com.gravityjelly.core.lineCells
 import com.gravityjelly.core.place
@@ -75,6 +74,13 @@ class BoardAnimator {
     var onClearStep: ((comboLevel: Int) -> Unit)? = null
     /** Combo (×N) vừa chốt tại một nhịp → lớp vỏ đọc [comboBurst*] rồi nổ overlay ăn mừng. */
     var onComboBurst: (() -> Unit)? = null
+    /**
+     * Playback của nước hiện tại vừa kết thúc ([isPlaying] chuyển true→false). Lớp vỏ dùng để
+     * ÁP nước đặt người chơi đã thả TRONG lúc cascade (xem [EndlessGameHolder] pending): bàn giờ đã
+     * ổn định đúng truth → đặt thành công đúng chỗ ghost đã neo. Bắn đúng MỘT lần mỗi lần dừng.
+     */
+    var onPlaybackEnd: (() -> Unit)? = null
+    private var wasPlaying = false
 
     /**
      * Một nhịp playback: "xóa" (flash + điểm/combo), "rơi" (collapse slide),
@@ -154,6 +160,10 @@ class BoardAnimator {
         simTimeNanos += dtNanos
         advancePhases(simTimeNanos)
         particles.step(dtNanos / 1e9f)
+        // Phát hiện mốc playback kết thúc (true→false) để lớp vỏ flush nước đặt đang chờ.
+        val playing = isPlaying
+        if (wasPlaying && !playing) onPlaybackEnd?.invoke()
+        wasPlaying = playing
     }
 
     // ── trạng thái ô (mảng tái dùng) ──
@@ -305,7 +315,7 @@ class BoardAnimator {
                     }
                     is GameEvent.RainbowFormed -> {
                         cursor = buildMergeBeat(
-                            e.at, e.absorbed, Grid.Cell(CellType.BLOCK, color = null, rainbow = true), null, work, postGravity, cursor,
+                            e.at, e.absorbed, Grid.Cell(CellType.BLOCK, color = null, rainbow = true, superLevel = e.level), null, work, postGravity, cursor,
                             score = e.score, comboLevel = e.comboLevel, fireCombo = beatIdx == lastComboBeat,
                         )
                         beatIdx++
@@ -345,7 +355,7 @@ class BoardAnimator {
         for (v in absorbed) work.set(v.x, v.y, null)
         work.set(at.x, at.y, resultCell)
         val after = work.copy()                                  // ô kết quả hiện, 8 ô trống
-        val moved = applyConnectedGravity(work, gravity, absorbed.toHashSet())
+        val moved = applyClusterGravity(work, gravity)
         val afterFall = work.copy()
 
         val formAt = cursor
@@ -380,7 +390,7 @@ class BoardAnimator {
             // ── nhịp xóa thường ──
             for (v in toClear) work.set(v.x, v.y, null)
             val beforeK = work.copy()
-            val moved = applyConnectedGravity(work, gravity, toClear)
+            val moved = applyClusterGravity(work, gravity)
             val afterK = work.copy()
             val clearAt = cursor
             phases.add(
@@ -414,7 +424,7 @@ class BoardAnimator {
         val g2 = g1.copy(); for (v in stage2) g2.set(v.x, v.y, null)
         val g3 = g2.copy(); for (v in centers) g3.set(v.x, v.y, null)
         for (v in toClear) work.set(v.x, v.y, null)             // work = final (trước rơi)
-        val moved = applyConnectedGravity(work, gravity, toClear)
+        val moved = applyClusterGravity(work, gravity)
         val afterK = work.copy()
 
         val t0 = cursor                                                          // chặng 1: xóa hàng
@@ -567,7 +577,8 @@ class BoardAnimator {
         }
         p.rainbowCells?.let { cells ->
             for (i in cells.indices) {
-                superFlashes.add(SuperFlash(cells[i].x, cells[i].y, JellyColor.YELLOW, 0, p.at, rainbow = true))
+                val lvl = colorGrid.get(cells[i].x, cells[i].y)?.superLevel ?: 0
+                superFlashes.add(SuperFlash(cells[i].x, cells[i].y, JellyColor.YELLOW, lvl, p.at, rainbow = true))
                 if (!reducedMotion) particles.burst(cells[i].x + 0.5f, cells[i].y + 0.5f, Color.White, SUPER_POP_PARTICLES)
             }
         }
@@ -707,6 +718,7 @@ class BoardAnimator {
         rotActive = false
         phases.clear(); phaseIdx = 0; displayGrid = null
         playbackEndNanos = renderNanos()  // không kẹt khoá input sang ván mới
+        wasPlaying = false                 // ván mới: không bắn onPlaybackEnd giả (flush nước cũ)
         lastEventNanos = renderNanos()   // ván mới: nhìn trọng lực rồi trôi về tính cách
     }
 
@@ -819,6 +831,7 @@ class BoardAnimator {
                         left, top, blockSize, cr, borderStroke, 0f, 1f,
                         expression = EyeExpression.HAPPY, eyeOpen = true,
                         squashScaleX = bounce, squashScaleY = bounce, clearProgress = clearP,
+                        level = f.level, pulse = 1f, spin = spin,
                     )
                 } else {
                     drawSuperJellyCell(

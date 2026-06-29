@@ -39,12 +39,16 @@ sealed class GameEvent {
         val level: Int,
         val cells: List<Vec>,
     ) : GameEvent()
-    /** 3×3 ba màu (mỗi màu 1 cột/hàng) → 1 KHỐI CẦU VỒNG tại [at]; [absorbed] = 8 ô bị thu. */
+    /**
+     * 1 KHỐI CẦU VỒNG tại [at]; [absorbed] = ô bị thu. [level] = 0 cầu vồng thường;
+     * = 2 CẦU VỒNG SIÊU CẤP (vương miện; nổ xoá sạch toàn bàn).
+     */
     data class RainbowFormed(
         val at: Vec,
         val absorbed: List<Vec>,
         val score: Int = 0,
         val comboLevel: Int = 0,
+        val level: Int = 0,
     ) : GameEvent()
     /** Combo leo thang đã hồi [amount] lượt xoay; [budgetAfter] là ngân sách sau khi cộng. */
     data class RotationRefunded(val amount: Int, val budgetAfter: Int) : GameEvent()
@@ -253,5 +257,5 @@ private fun ResolveEvent.toGameEvent(): GameEvent = when (this) {
     is ResolveEvent.ClustersCollapsed -> GameEvent.ClustersCollapsed(moved)
     is ResolveEvent.SuperFormed -> GameEvent.SuperFormed(at, color, level, source, absorbed, score, comboLevel)
     is ResolveEvent.SuperDetonated -> GameEvent.SuperDetonated(at, color, level, cells)
-    is ResolveEvent.RainbowFormed -> GameEvent.RainbowFormed(at, absorbed, score, comboLevel)
+    is ResolveEvent.RainbowFormed -> GameEvent.RainbowFormed(at, absorbed, score, comboLevel, level)
 }

@@ -25,7 +25,7 @@
   <script type="text/babel" src="phone-frame.jsx"></script>
   <script type="text/babel" src="board.jsx"></script>
   <script type="text/babel" src="screen-extras.jsx"></script>
-  <script type="text/babel" src="game-screen.jsx"></script>
+  <script type="text/babel" src="board-design.jsx"></script>
   <script type="text/babel" src="home-screen.jsx"></script>
   <script type="text/babel" src="result-screen.jsx"></script>
   <script type="text/babel" src="settings-screen.jsx"></script>
@@ -119,7 +119,7 @@
 
       const PhoneFrame = window.GJPhoneFrame;
       const Home = window.GJHomeScreen;
-      const Game = window.GJGameScreen;
+      const Game = window.GJBoardDesign;
       const Result = window.GJResultScreen;
       const Settings = window.GJSettingsScreen;
       const Splash = window.GJSplashScreen;
@@ -224,7 +224,7 @@
           onBack={() => setScreen('home')} />;
       }
 
-      const noStatus = screen === 'splash' || screen === 'bossIntro';
+      const noStatus = screen === 'splash' || screen === 'bossIntro' || screen === 'game';
 
       return (
         <>

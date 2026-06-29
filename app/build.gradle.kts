@@ -37,6 +37,21 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
+    }
+
+    flavorDimensions += "distribution"
+    productFlavors {
+        create("production") {
+            dimension = "distribution"
+            buildConfigField("Boolean", "ADS_ENABLED", "true")
+        }
+        create("demo") {
+            dimension = "distribution"
+            applicationIdSuffix = ".demo"
+            versionNameSuffix = "-demo"
+            buildConfigField("Boolean", "ADS_ENABLED", "false")
+        }
     }
 }
 

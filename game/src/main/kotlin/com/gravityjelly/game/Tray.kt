@@ -1,5 +1,7 @@
 package com.gravityjelly.game
 
+import android.graphics.Rect as AndroidRect
+import android.os.Build
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
@@ -18,13 +20,34 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInWindow
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
 import com.gravityjelly.core.Direction
 import com.gravityjelly.core.Piece
 import com.gravityjelly.core.TrayGenerator
+
+/**
+ * Báo Android không intercept swipe-up (gesture navigation) trong vùng này.
+ * Cần thiết vì khay nằm sát đáy — drag lên bàn bị hệ thống nhận nhầm là home gesture.
+ * Chỉ có hiệu lực từ API 29 (Android 10); thiết bị cũ dùng button nav → không cần.
+ */
+@Composable
+fun Modifier.excludeSystemGestures(): Modifier {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) return this
+    val view = LocalView.current
+    return onGloballyPositioned { coords ->
+        val b = coords.boundsInWindow()
+        view.post {
+            view.systemGestureExclusionRects = listOf(
+                AndroidRect(b.left.toInt(), b.top.toInt(), b.right.toInt(), b.bottom.toInt())
+            )
+        }
+    }
+}
 
 /**
  * Khay 3 mảnh (Composable vỏ). Mỗi ô draggable: kéo lên bàn → holder tính ghost,

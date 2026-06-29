@@ -13,6 +13,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
+import com.gravityjelly.app.BuildConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -42,6 +43,7 @@ class AdsManager(context: Context) {
 
     /** Init SDK ở luồng nền rồi preload (gọi một lần lúc khởi động). Idempotent. */
     suspend fun initialize() {
+        if (!BuildConfig.ADS_ENABLED) return
         if (initialized) return
         initialized = true
         withContext(Dispatchers.IO) {
@@ -54,7 +56,7 @@ class AdsManager(context: Context) {
 
     /** Làm ấm quảng cáo TRƯỚC khi người chơi có thể cần (gọi khi vào màn chơi). KHÔNG gọi lúc thua. */
     fun prepare() {
-        if (!initialized) return
+        if (!BuildConfig.ADS_ENABLED || !initialized) return
         preloadAll()
     }
 
@@ -113,6 +115,7 @@ class AdsManager(context: Context) {
      * @return true nếu đã show (để UI có thể hoãn dialog cho tới khi ad đóng nếu muốn).
      */
     fun onGameOver(activity: Activity): Boolean {
+        if (!BuildConfig.ADS_ENABLED) return false
         lossCount++
         if (lossCount <= AdsConfig.GRACE_GAMES) return false
         if ((lossCount - AdsConfig.GRACE_GAMES) % AdsConfig.LOSS_INTERVAL != 0) return false
@@ -143,6 +146,7 @@ class AdsManager(context: Context) {
      * Nạp bản kế sau khi đóng.
      */
     fun showRewarded(activity: Activity, onReward: () -> Unit, onUnavailable: () -> Unit) {
+        if (!BuildConfig.ADS_ENABLED) { onUnavailable(); return }
         val ad = rewarded
         if (ad == null) {
             preloadRewarded()

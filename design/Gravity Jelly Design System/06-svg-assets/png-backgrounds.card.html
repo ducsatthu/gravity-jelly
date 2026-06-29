@@ -1,0 +1,34 @@
+<!-- @dsCard group="Assets" viewport="760x920" name="PNG Backgrounds" subtitle="Ảnh nền raster cho màn chơi — full-bleed, dùng object-fit: cover canh đáy." -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  html, body { margin: 0; }
+  body { background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); padding: 24px; }
+  h2 { font-family: var(--font-display); font-weight: 700; font-size: 16px; margin: 0 0 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--color-text-muted); }
+  section { margin-bottom: 28px; }
+  .bgs { display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start; }
+  .bgs figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .frame { width: 240px; height: 430px; border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-md); background: var(--color-surface-sunken); }
+  .frame img { width: 100%; height: 100%; object-fit: cover; object-position: center bottom; display: block; }
+  cap { display: block; font-size: 11px; font-weight: 700; color: var(--color-text-muted); letter-spacing: .03em; }
+  .note { font-size: 12px; font-weight: 600; color: var(--color-text-muted); line-height: 1.5; max-width: 660px; }
+  code { font-family: ui-monospace, monospace; background: var(--color-surface-sunken); padding: 1px 5px; border-radius: 5px; font-size: 11px; }
+</style>
+</head>
+<body>
+  <section>
+    <h2>Nền màn chơi · raster</h2>
+    <div class="bgs">
+      <figure>
+        <div class="frame"><img src="backgrounds/meadow-bg.png" alt="meadow background" /></div>
+        <cap>meadow-bg · Đồng cỏ (768×1376)</cap>
+      </figure>
+    </div>
+  </section>
+
+  <p class="note">PNG full-bleed cho nền màn chơi. Đặt phủ kín khung máy với <code>object-fit: cover</code> và <code>object-position: center bottom</code> để giữ tiền cảnh (hoa, nấm) ở đáy. HUD, board và khay xếp chồng lên trên.</p>
+</body>
+</html>

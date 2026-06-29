@@ -42,6 +42,8 @@ fun EndlessGameScreen(
     modifier: Modifier = Modifier,
     vibrate: Boolean = true,
     reducedMotion: Boolean = false,
+    seenGuides: Set<String> = emptySet(),
+    onGuideSeen: (String) -> Unit = {},
 ) {
     val activity = LocalContext.current.findActivity()
 
@@ -81,6 +83,8 @@ fun EndlessGameScreen(
             onHome = onHome,
             vibrate = vibrate,
             reducedMotion = reducedMotion,
+            seenGuides = seenGuides,
+            onGuideSeen = onGuideSeen,
             modifier = Modifier.fillMaxSize(),
         )
 

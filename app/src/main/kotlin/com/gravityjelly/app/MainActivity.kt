@@ -145,6 +145,8 @@ private fun GravityJellyApp() {
                 onHome = { route = Route.Home },
                 vibrate = settings.vibrate,
                 reducedMotion = reducedMotion,
+                seenGuides = settings.seenGuides,
+                onGuideSeen = { id -> scope.launch { repo.markGuideSeen(id) } },
                 modifier = Modifier.fillMaxSize(),
             )
 

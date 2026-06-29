@@ -87,11 +87,11 @@
       caption: 'Gom 9 ô cùng màu → 1 siêu khối; xóa chạm nó = nổ lớn.',
     },
     b0b: {
-      group: grav.B, name: 'Nổ siêu khối', subtitle: 'Nổ quét sạch MỌI ô cùng màu trên bàn — combo khủng, ở boss = sát thương nặng',
-      before: { rows: ['M...M', '..M..', '..o..', 'Y...P', '.M.B.'], direction: 'down', superAt: [2, 2, 'mint'], glow: [[0, 0], [0, 4], [1, 2], [2, 2], [4, 1]] },
+      group: grav.B, name: 'Nổ siêu khối', subtitle: 'Siêu khối nổ 3×3 — combo khủng, ở boss = sát thương nặng',
+      before: { rows: ['.....', '.YYY.', '.Y.Y.', '.YYY.', '.....'], direction: 'down', superAt: [2, 2, 'mint'], glow: [[1, 1], [1, 2], [1, 3], [2, 1], [2, 3], [3, 1], [3, 2], [3, 3]] },
       action: { icon: 'bomb', label: 'Kích nổ', tone: 'danger' },
-      after: { rows: ['.....', '.....', '.....', 'Y...P', '...B.'], direction: 'down' },
-      caption: 'Siêu khối CẤP 1 nổ → quét sạch MỌI ô cùng màu trên toàn bàn (màu khác giữ nguyên). Combo khủng, ở boss = sát thương nặng.',
+      after: { rows: ['B...P', '.....', '.....', '.....', 'Y...M'], direction: 'down' },
+      caption: 'Siêu khối nổ 3×3 — combo khủng, ở boss = sát thương nặng.',
     },
     b1: {
       group: grav.B, name: 'Combo leo thang', subtitle: 'Xóa liên tiếp nuôi bội số combo — đứt nhịp thì reset',
@@ -114,11 +114,11 @@
       caption: 'Cụm 3×3 đủ 9 ô gồm 3 màu khác nhau (3 ô mỗi màu) hợp nhất thành 1 Khối Cầu Vồng — ghép được mọi màu.',
     },
     b4: {
-      group: grav.B, name: 'Siêu khối cấp 2', subtitle: 'Gộp 2 siêu khối → đại nổ: quét cùng màu toàn bàn + vùng 5×5',
-      before: { rows: ['Y...P', '..M..', '.oo..', '..M..', 'B...Y'], supers: [[2, 1, 'mint'], [2, 2, 'mint']] },
+      group: grav.B, name: 'Siêu khối cấp 2', subtitle: 'Gộp 2 siêu khối → đại nổ cả hàng lẫn cột',
+      before: { rows: ['.....', '.....', '.oo..', '.....', '.....'], supers: [[2, 1, 'mint'], [2, 2, 'mint']] },
       action: { icon: 'star', label: 'Gộp 2 siêu khối' },
-      after: { rows: ['.....', '.....', '..o..', '.....', '.....'], superAt: [2, 2, 'mint'], mega: true, glow: [[0, 0], [0, 2], [0, 4], [1, 1], [1, 3], [2, 0], [2, 1], [2, 3], [2, 4], [3, 1], [3, 3], [4, 0], [4, 2], [4, 4]] },
-      caption: 'Gộp 2 siêu khối → đại nổ: quét sạch mọi ô cùng màu trên bàn + thêm vùng 5×5 quanh tâm.',
+      after: { rows: ['.....', '.....', '..o..', '.....', '.....'], superAt: [2, 2, 'mint'], mega: true, glow: [[0, 2], [1, 2], [3, 2], [4, 2], [2, 0], [2, 1], [2, 3], [2, 4]] },
+      caption: 'Gộp 2 siêu khối → đại nổ cả hàng lẫn cột.',
     },
     b5: {
       group: grav.B, name: 'Cụm nặng', subtitle: 'Cụm to rơi mạnh, đè vỡ ô yếu / băng phía dưới',
@@ -288,7 +288,7 @@
     /* ===================== F · BOSS ===================== */
     f1: {
       group: grav.F, name: 'Boss hút trọng lực', subtitle: 'Boss giành quyền trọng lực, kéo cả bàn về phía nó', kind: 'bossBoard',
-      boss: { mood: 'angry', hp: 1 },
+      boss: { mood: 'angry', hp: 1, world: 8, crownStrip: true },
       before: { rows: ['.....', '.....', '.YMP.', 'BYMPB', 'BYMPB'], direction: 'down' },
       action: { icon: 'rays', label: 'Boss hút', tone: 'gravity' },
       after: { rows: ['BYMPB', 'BYMPB', '.YMP.', '.....', '.....'], direction: 'up' },

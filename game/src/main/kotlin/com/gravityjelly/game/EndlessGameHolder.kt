@@ -69,6 +69,13 @@ class EndlessGameHolder(
 
     private var lastComboBurstId = 0L
 
+    /**
+     * Bộ đếm "combo vừa hồi lượt xoay" — tăng mỗi khi engine phát [GameEvent.RotationRefunded].
+     * Lớp vỏ quan sát để bật phản hồi/popup dạy luật (xem EndlessPlayScreen). 0 = chưa hồi lần nào.
+     */
+    var rotationRefillTick by mutableStateOf(0L)
+        private set
+
     // ── trạng thái kéo-thả (plain fields; overlay đọc mỗi frame) ──
     var dragPiece: Piece? = null
         private set
@@ -79,12 +86,26 @@ class EndlessGameHolder(
     private var dragOx = -1
     private var dragOy = -1
 
+    /**
+     * Nước đặt ĐANG CHỜ: người chơi thả mảnh trong khi bàn còn chiếu cascade. KHÔNG chặn cú kéo
+     * (đỡ lỡ nhịp người chơi) — chỉ HOÃN việc áp: ghi lại nước rồi đặt NGAY khi playback kết thúc
+     * (xem [flushPendingPlacement], do [BoardAnimator.onPlaybackEnd] gọi). Ghost giữ tại [ghost]
+     * cho người chơi thấy chỗ sẽ đặt. Mỗi lúc chỉ giữ MỘT nước chờ (cascade ngắn, áp xong mở tiếp).
+     */
+    private class PendingPlacement(val index: Int, val ox: Int, val oy: Int, val ghost: GhostPreview)
+    private var pendingPlacement: PendingPlacement? = null
+
     // Hướng ngón đang kéo (−1/0/1 mỗi trục), lấy từ chuyển động con trỏ để "hít" ghost theo hướng.
     private var dragDirX = 0
     private var dragDirY = 0
     private var dirSampleX = 0f   // điểm mốc lấy mẫu hướng; chuyển động nhỏ tích luỹ tới khi đủ ngưỡng
     private var dirSampleY = 0f
     private var hasDirSample = false
+    // Ứng viên hướng MỚI đang chờ "giữ đủ lâu" mới chốt — chống đổi hướng tức thời khi ngón
+    // nhích/đảo lúc cuối (xem [updateDragDirection]). Đồng hồ lấy từ animator.renderNanos().
+    private var pendingDirX = 0
+    private var pendingDirY = 0
+    private var pendingDirSinceNanos = 0L
 
     // bounds bàn (toạ độ window, px) để quy đổi con trỏ → ô lưới
     private var boardWinX = 0f
@@ -109,6 +130,8 @@ class EndlessGameHolder(
         animator.onClearStep = { comboLevel ->
             onEffect?.invoke(if (comboLevel >= 3) EffectKind.COMBO else EffectKind.CLEAR)
         }
+        // Cascade vừa chiếu xong → áp nước người chơi đã thả trong lúc đó (đặt-hoãn).
+        animator.onPlaybackEnd = { flushPendingPlacement() }
         sync()
     }
 
@@ -128,18 +151,25 @@ class EndlessGameHolder(
         if (events.isNotEmpty()) {
             animator.ingest(events, pre, preGravity, boardRender.grid, boardRender.gravity)
             dispatchFeedback(events)
+            detectRotationRefill(events)
         }
     }
 
-    /** Bắt đầu kéo mảnh khay. Trả false (không kéo) khi đã thua hoặc bàn đang chiếu cascade. */
+    /**
+     * Bắt đầu kéo mảnh khay. CHO PHÉP kéo cả khi bàn đang chiếu cascade — không chặn cú kéo của
+     * người chơi (đỡ lỡ nhịp); việc ĐẶT sẽ hoãn tới khi cascade xong (xem [commitDrag]). Ghost neo
+     * theo [boardRender].grid (đã là truth cuối, ổn định suốt playback) nên chỗ dự kiến luôn đúng.
+     * Trả false khi đã thua, hoặc còn MỘT nước chờ chưa áp (giữ một nước chờ mỗi lúc).
+     */
     fun beginDrag(trayIndex: Int): Boolean {
         if (shell.gameOver) return false
-        if (animator.isPlaying) return false   // khoá input khi bàn đang chiếu cascade (tránh lệch thấy/truth)
+        if (pendingPlacement != null) return false   // còn nước chờ áp khi cascade xong → khoan kéo tiếp
         val p = shell.tray.getOrNull(trayIndex) ?: return false
         dragIndex = trayIndex
         dragPiece = p
         dragOx = -1; dragOy = -1
         dragDirX = 0; dragDirY = 0; hasDirSample = false
+        pendingDirX = 0; pendingDirY = 0; pendingDirSinceNanos = 0L
         boardRender.ghost = null
         return true
     }
@@ -183,39 +213,99 @@ class EndlessGameHolder(
     }
 
     /**
-     * Cập nhật hướng kéo [dragDirX]/[dragDirY] từ chuyển động con trỏ. Tích luỹ độ dời từ mốc
-     * [dirSampleX]/[dirSampleY] tới khi vượt ngưỡng [DIR_THRESHOLD_DP] (lọc rung tay) rồi mới chốt
-     * hướng theo dấu mỗi trục; trục lệch không đáng kể → 0. Giữ hướng cũ khi ngón gần đứng yên.
+     * Cập nhật hướng kéo [dragDirX]/[dragDirY] từ chuyển động con trỏ — gợi ý hướng "hít" ghost.
+     * Chống nhạy 2 lớp để người chơi không bị đặt sai khi nhích/đảo hướng lúc cuối:
+     *  1. NGƯỠNG QUÃNG: phải dời ≥ [DIR_THRESHOLD_DP] kể từ mốc mới tính một hướng ứng viên (lọc rung).
+     *  2. ĐỘ TRỄ THỜI GIAN: hướng MỚI (khác hướng đang dùng) chỉ được CHỐT sau khi giữ liên tục
+     *     ≥ [DIR_COMMIT_NANOS]. Ngón gần đứng yên → GIỮ hướng cũ + reset đồng hồ → khi dừng lại để
+     *     thả tay, ghost không nhảy. Nhờ đó "đẩy lên rồi nhích xuống thả" không lật hướng tức thì.
      */
     private fun updateDragDirection(x: Float, y: Float) {
-        if (!hasDirSample) { dirSampleX = x; dirSampleY = y; hasDirSample = true; return }
+        val now = animator.renderNanos()
+        if (!hasDirSample) {
+            dirSampleX = x; dirSampleY = y; hasDirSample = true
+            pendingDirX = dragDirX; pendingDirY = dragDirY; pendingDirSinceNanos = now
+            return
+        }
         val dx = x - dirSampleX
         val dy = y - dirSampleY
         val threshold = DIR_THRESHOLD_DP * density
-        if (dx * dx + dy * dy < threshold * threshold) return   // chưa dời đủ → giữ hướng cũ
+        if (dx * dx + dy * dy < threshold * threshold) {
+            // Ngón gần đứng yên / đi chậm → giữ hướng hiện tại, reset đồng hồ đổi-hướng.
+            pendingDirX = dragDirX; pendingDirY = dragDirY; pendingDirSinceNanos = now
+            return
+        }
+        // Đã dời đủ xa → đo hướng ứng viên theo trục trội, rồi dời mốc đo đoạn kế.
         val axisEps = threshold * 0.5f
-        dragDirX = if (dx > axisEps) 1 else if (dx < -axisEps) -1 else 0
-        dragDirY = if (dy > axisEps) 1 else if (dy < -axisEps) -1 else 0
+        val candX = if (dx > axisEps) 1 else if (dx < -axisEps) -1 else 0
+        val candY = if (dy > axisEps) 1 else if (dy < -axisEps) -1 else 0
         dirSampleX = x; dirSampleY = y
+
+        if (candX == dragDirX && candY == dragDirY) {
+            // vẫn hướng cũ → giữ, reset pending
+            pendingDirX = candX; pendingDirY = candY; pendingDirSinceNanos = now
+            return
+        }
+        if (candX != pendingDirX || candY != pendingDirY) {
+            // vừa phát hiện hướng mới → bắt đầu đếm độ trễ, CHƯA áp dụng
+            pendingDirX = candX; pendingDirY = candY; pendingDirSinceNanos = now
+            return
+        }
+        // hướng mới đã giữ liên tục đủ lâu → mới chốt
+        if (now - pendingDirSinceNanos >= DIR_COMMIT_NANOS) {
+            dragDirX = candX; dragDirY = candY
+        }
     }
 
-    /** Thả: nếu ghost hợp lệ → gửi đặt-tự-do tới engine (cụm không neo sẽ rơi). */
+    /**
+     * Thả mảnh. Ghost hợp lệ + bàn rảnh → đặt-tự-do ngay (cụm không neo sẽ rơi). Ghost hợp lệ
+     * nhưng bàn CÒN chiếu cascade → KHÔNG áp ngay (sẽ cắt animation + lệch thấy/truth): ghi
+     * [pendingPlacement], bỏ mảnh nổi nhưng GIỮ ghost; animator gọi [flushPendingPlacement] khi
+     * playback xong → đặt thành công đúng chỗ dự kiến.
+     */
     fun commitDrag() {
         val idx = dragIndex
         val ox = dragOx; val oy = dragOy
+        val ghost = boardRender.ghost
+        if (idx < 0 || ox < 0 || oy < 0 || ghost == null) { endDragState(); return }
+        if (animator.isPlaying) {
+            pendingPlacement = PendingPlacement(idx, ox, oy, ghost)
+            // ngón đã nhả: bỏ mảnh nổi, GIỮ ghost để người chơi thấy chỗ sẽ đặt khi cascade xong
+            dragIndex = -1; dragOx = -1; dragOy = -1
+            dragPiece = null; dragWindowPos = null
+            return
+        }
         endDragState()
-        if (idx < 0 || ox < 0 || oy < 0) return
+        applyPlacement(idx, ox, oy)
+    }
+
+    fun cancelDrag() = endDragState()
+
+    /** Gửi nước đặt tới engine + nạp animation. Dùng cho cả đặt ngay lẫn flush nước chờ. */
+    private fun applyPlacement(index: Int, ox: Int, oy: Int) {
         val pre = boardRender.grid.copy()
         val preGravity = boardRender.gravity
-        val events = engine.placePieceAt(idx, ox, oy)
+        val events = engine.placePieceAt(index, ox, oy)
         sync()
         if (events.isNotEmpty()) {
             animator.ingest(events, pre, preGravity, boardRender.grid, boardRender.gravity)
             dispatchFeedback(events)
+            detectRotationRefill(events)
         }
     }
 
-    fun cancelDrag() = endDragState()
+    /**
+     * Áp nước đặt ĐANG CHỜ ngay khi cascade chiếu xong (gọi bởi [BoardAnimator.onPlaybackEnd]).
+     * Tới đây bàn đã ổn định = đúng truth mà ghost đã neo → đặt thành công đúng chỗ dự kiến rồi
+     * mới mở cho nước kế. Bỏ qua nếu đã thua.
+     */
+    private fun flushPendingPlacement() {
+        val p = pendingPlacement ?: return
+        pendingPlacement = null
+        boardRender.ghost = null
+        if (shell.gameOver) return
+        applyPlacement(p.index, p.ox, p.oy)
+    }
 
     /**
      * Animator phát combo (≥2) theo nhịp playback → callback [BoardAnimator.onComboBurst] gọi
@@ -252,6 +342,16 @@ class EndlessGameHolder(
         }
         // Nước đi có xóa → để nhịp xóa lo haptic; chỉ tick "đặt" khi đặt trơn không ăn điểm.
         if (placed && !cleared) cb(EffectKind.PLACE)
+    }
+
+    /**
+     * Quét [GameEvent.RotationRefunded] trong nước vừa đi → tăng [rotationRefillTick] cho lớp vỏ.
+     * Độc lập với haptic (chạy cả khi tắt rung) nên tách khỏi [dispatchFeedback].
+     */
+    private fun detectRotationRefill(events: List<GameEvent>) {
+        for (i in events.indices) {
+            if (events[i] is GameEvent.RotationRefunded) { rotationRefillTick++; return }
+        }
     }
 
     // ── nội bộ ──
@@ -296,7 +396,17 @@ class EndlessGameHolder(
          */
         private const val SNAP_RADIUS = 2
 
-        /** Quãng dời tối thiểu (dp) trước khi chốt lại hướng kéo — lọc rung tay, tránh đảo hướng lia lịa. */
-        private const val DIR_THRESHOLD_DP = 6f
+        /**
+         * Quãng dời tối thiểu (dp) trước khi tính một hướng kéo ứng viên — lọc rung tay, tránh đảo
+         * hướng lia lịa. Tăng từ 6→14dp để bớt nhạy: ngón nhích nhẹ không đổi hướng gợi ý.
+         */
+        private const val DIR_THRESHOLD_DP = 14f
+
+        /**
+         * Độ trễ (ns) phải GIỮ một hướng MỚI liên tục trước khi nó được chốt làm hướng "hít" ghost.
+         * ~160ms: đủ để bỏ qua cú nhích/đảo hướng ngắn lúc người chơi chuẩn bị thả tay (tránh đặt sai),
+         * vẫn đủ nhạy khi họ thật sự đổi hướng kéo có chủ đích.
+         */
+        private const val DIR_COMMIT_NANOS = 160_000_000L
     }
 }

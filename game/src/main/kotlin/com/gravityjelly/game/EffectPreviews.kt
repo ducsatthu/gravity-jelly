@@ -283,8 +283,12 @@ private fun SuperBlocksPreview() {
                 palettes[i], level = 2, dirX = 0f, dirY = 1f, pulse = 1f, spin = 0.12f,
             )
         }
-        // rainbow ở cột cuối
+        // cột cuối: cầu vồng thường (dưới) + CẦU VỒNG SIÊU CẤP có vương miện (trên)
         val rbLeft = 4 * slotW + (slotW - blockSize) / 2f
         drawRainbowCell(rbLeft, rowH + (rowH - blockSize) / 2f, blockSize, cr, borderStroke, 0f, 1f)
+        drawRainbowCell(
+            rbLeft, (rowH - blockSize) / 2f, blockSize, cr, borderStroke, 0f, 1f,
+            level = 2, pulse = 1f, spin = 0.12f,
+        )
     }
 }

@@ -181,6 +181,7 @@ fun BoardCanvas(
                                 eyeOut.dirX, eyeOut.dirY,
                                 expression = eyeOut.expression, eyeOpen = eyeOut.open,
                                 squashScaleX = sqX, squashScaleY = sqY, clearProgress = clp,
+                                level = cell.superLevel, pulse = superPulse, spin = superSpin,
                             )
                             cell.isSuper -> drawSuperJellyCell(
                                 left, top, blockSize, cr, borderStroke,

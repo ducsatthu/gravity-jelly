@@ -105,7 +105,7 @@ fun EndlessScreen(
                     },
             )
             Spacer(Modifier.weight(1f))
-            TrayBar(shell.tray, holder, Modifier.fillMaxWidth())
+            TrayBar(shell.tray, holder, Modifier.fillMaxWidth().excludeSystemGestures())
             Spacer(Modifier.height(8.dp))
         }
 

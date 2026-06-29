@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"GravityJellyDesignSystem_3e0487","components":[{"name":"JellyBlock","sourcePath":"02-foundations/01-jelly-block/JellyBlock.jsx"},{"name":"Eyes","sourcePath":"02-foundations/02-eyes/Eyes.jsx"},{"name":"Icon","sourcePath":"02-foundations/03-icon/Icon.jsx"},{"name":"Button","sourcePath":"03-components/01-button/Button.jsx"},{"name":"Hud","sourcePath":"03-components/02-hud/Hud.jsx"},{"name":"TrayPiece","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"Tray","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"GravityRotateButton","sourcePath":"03-components/04-gravity-rotate-button/GravityRotateButton.jsx"},{"name":"ComboPopup","sourcePath":"03-components/05-combo-popup/ComboPopup.jsx"},{"name":"Dialog","sourcePath":"03-components/06-dialog/Dialog.jsx"},{"name":"JellyScene","sourcePath":"03-components/07-jelly-scene/JellyScene.jsx"}],"sourceHashes":{"02-foundations/01-jelly-block/JellyBlock.jsx":"99d676a3206c","02-foundations/02-eyes/Eyes.jsx":"d4762b606971","02-foundations/03-icon/Icon.jsx":"1d501e149f2f","03-components/01-button/Button.jsx":"ff24f7c456d7","03-components/02-hud/Hud.jsx":"b68bb167fc30","03-components/03-tray/Tray.jsx":"e425b7cd5eed","03-components/04-gravity-rotate-button/GravityRotateButton.jsx":"09df27eb60e6","03-components/05-combo-popup/ComboPopup.jsx":"3430e5b0f130","03-components/06-dialog/Dialog.jsx":"d5e802d0a1db","03-components/07-jelly-scene/JellyScene.jsx":"0967aa6a5b67","04-screens/board.jsx":"825c0f277fa9","04-screens/boss-intro-screen.jsx":"5b7d158f2415","04-screens/daily-reward-screen.jsx":"0309b17c4056","04-screens/game-screen.jsx":"55fdc2e1c7c9","04-screens/home-screen.jsx":"097aea6b25d2","04-screens/leaderboard-screen.jsx":"82c8413c65d7","04-screens/level-intro-screen.jsx":"16abe8e32f95","04-screens/level-win-screen.jsx":"b88ddcf6bfa8","04-screens/map-ftue.jsx":"8f55f3b0c394","04-screens/map-hud.jsx":"7ba182f3789f","04-screens/map-just-completed.jsx":"13c691476df2","04-screens/map-nodes.jsx":"5496d0923f15","04-screens/missions-screen.jsx":"a2cb834bcb3d","04-screens/out-of-lives-screen.jsx":"c5661499a9aa","04-screens/pause-screen.jsx":"edd558af8897","04-screens/phone-frame.jsx":"18e22e60b390","04-screens/play/jelly-play.jsx":"90bcd0f1ca70","04-screens/result-screen.jsx":"775264ed1cbe","04-screens/screen-extras.jsx":"b6a2513dd24c","04-screens/settings-screen.jsx":"a5cbe4af2727","04-screens/shop-screen.jsx":"454bf4d67682","04-screens/splash-screen.jsx":"6b0e750c020b","04-screens/world-gate-locked.jsx":"4d32d0ac3bad","04-screens/world-gate.jsx":"6db94465e8f2","04-screens/world-transition.jsx":"2c01ac267a6a","04-screens/world1-strip.jsx":"e550ab2d58f2","04-screens/world10-strip.jsx":"86352e2ce593","04-screens/world2-forest-draft.jsx":"759336f74f0e","04-screens/world2-strip.jsx":"b8f1f5775dd1","04-screens/world2-transition.jsx":"3c401cae8a6b","04-screens/world3-strip.jsx":"c37017b94d01","04-screens/world3-transition.jsx":"562e934bc9b0","04-screens/world4-strip.jsx":"a23a292882cb","04-screens/world4-transition.jsx":"92f05343cefa","04-screens/world5-strip.jsx":"31ce848e45ea","04-screens/world5-transition.jsx":"88b6358dffeb","04-screens/world6-strip.jsx":"3479dadec253","04-screens/world6-transition.jsx":"d1e8205ae7ac","04-screens/world7-strip.jsx":"e0b64525e7fa","04-screens/world7-transition.jsx":"32759ee57874","04-screens/world8-strip.jsx":"444f9855082e","04-screens/world8-transition.jsx":"dea1a55ba8eb","04-screens/world9-strip.jsx":"aea09bf6b901","04-screens/world9-transition.jsx":"3fcce03107b5","07-mechanics/mechanics-cards.js":"cbf00d6c51e4","07-mechanics/mechanics-kit.jsx":"f52efab2af43","07-mechanics/mechanics-widgets.jsx":"e77606279ca5","08-brand/gravity-jelly-logo.js":"6df76113eb29","board.jsx":"8dfa6c252a92","game-screen.jsx":"275dda3a6546","jelly-play.jsx":"1fd71f5475a0","world4-strip.jsx":"912d0bdb9c6d"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":3,"namespace":"GravityJellyDesignSystem_3e0487","components":[{"name":"JellyBlock","sourcePath":"02-foundations/01-jelly-block/JellyBlock.jsx"},{"name":"Eyes","sourcePath":"02-foundations/02-eyes/Eyes.jsx"},{"name":"Icon","sourcePath":"02-foundations/03-icon/Icon.jsx"},{"name":"Button","sourcePath":"03-components/01-button/Button.jsx"},{"name":"Hud","sourcePath":"03-components/02-hud/Hud.jsx"},{"name":"TrayPiece","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"Tray","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"GravityRotateButton","sourcePath":"03-components/04-gravity-rotate-button/GravityRotateButton.jsx"},{"name":"ComboPopup","sourcePath":"03-components/05-combo-popup/ComboPopup.jsx"},{"name":"Dialog","sourcePath":"03-components/06-dialog/Dialog.jsx"},{"name":"JellyScene","sourcePath":"03-components/07-jelly-scene/JellyScene.jsx"}],"sourceHashes":{"02-foundations/01-jelly-block/JellyBlock.jsx":"99d676a3206c","02-foundations/02-eyes/Eyes.jsx":"d4762b606971","02-foundations/03-icon/Icon.jsx":"1d501e149f2f","03-components/01-button/Button.jsx":"ff24f7c456d7","03-components/02-hud/Hud.jsx":"b68bb167fc30","03-components/03-tray/Tray.jsx":"e425b7cd5eed","03-components/04-gravity-rotate-button/GravityRotateButton.jsx":"09df27eb60e6","03-components/05-combo-popup/ComboPopup.jsx":"3430e5b0f130","03-components/06-dialog/Dialog.jsx":"d5e802d0a1db","03-components/07-jelly-scene/JellyScene.jsx":"0967aa6a5b67","04-screens/board-design.jsx":"4363b5b0e102","04-screens/board.jsx":"a2c1742d1301","04-screens/boss-intro-screen.jsx":"5b7d158f2415","04-screens/daily-reward-screen.jsx":"0309b17c4056","04-screens/home-screen.jsx":"097aea6b25d2","04-screens/leaderboard-screen.jsx":"82c8413c65d7","04-screens/level-intro-screen.jsx":"16abe8e32f95","04-screens/level-win-screen.jsx":"b88ddcf6bfa8","04-screens/map-ftue.jsx":"8f55f3b0c394","04-screens/map-hud.jsx":"7ba182f3789f","04-screens/map-just-completed.jsx":"13c691476df2","04-screens/map-nodes.jsx":"5496d0923f15","04-screens/missions-screen.jsx":"a2cb834bcb3d","04-screens/out-of-lives-screen.jsx":"c5661499a9aa","04-screens/pause-screen.jsx":"edd558af8897","04-screens/phone-frame.jsx":"18e22e60b390","04-screens/play/jelly-play.jsx":"90bcd0f1ca70","04-screens/result-screen.jsx":"775264ed1cbe","04-screens/screen-extras.jsx":"b6a2513dd24c","04-screens/settings-screen.jsx":"a5cbe4af2727","04-screens/shop-screen.jsx":"454bf4d67682","04-screens/splash-screen.jsx":"6b0e750c020b","04-screens/world-gate-locked.jsx":"4d32d0ac3bad","04-screens/world-gate.jsx":"6db94465e8f2","04-screens/world-transition.jsx":"2c01ac267a6a","04-screens/world1-strip.jsx":"e550ab2d58f2","04-screens/world10-strip.jsx":"86352e2ce593","04-screens/world2-forest-draft.jsx":"759336f74f0e","04-screens/world2-strip.jsx":"b8f1f5775dd1","04-screens/world2-transition.jsx":"3c401cae8a6b","04-screens/world3-strip.jsx":"c37017b94d01","04-screens/world3-transition.jsx":"562e934bc9b0","04-screens/world4-strip.jsx":"a23a292882cb","04-screens/world4-transition.jsx":"92f05343cefa","04-screens/world5-strip.jsx":"31ce848e45ea","04-screens/world5-transition.jsx":"88b6358dffeb","04-screens/world6-strip.jsx":"3479dadec253","04-screens/world6-transition.jsx":"d1e8205ae7ac","04-screens/world7-strip.jsx":"e0b64525e7fa","04-screens/world7-transition.jsx":"32759ee57874","04-screens/world8-strip.jsx":"444f9855082e","04-screens/world8-transition.jsx":"dea1a55ba8eb","04-screens/world9-strip.jsx":"aea09bf6b901","04-screens/world9-transition.jsx":"3fcce03107b5","07-mechanics/mechanics-cards.js":"ce4f6defa8dd","07-mechanics/mechanics-kit.jsx":"f52efab2af43","07-mechanics/mechanics-widgets.jsx":"59dbeacaab30","08-brand/gravity-jelly-logo.js":"6df76113eb29","board.jsx":"8dfa6c252a92","game-screen.jsx":"275dda3a6546","jelly-play.jsx":"1fd71f5475a0","world4-strip.jsx":"912d0bdb9c6d"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
@@ -1936,6 +1936,510 @@ function JellyScene({
 Object.assign(__ds_scope, { JellyScene });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "03-components/07-jelly-scene/JellyScene.jsx", error: String((e && e.message) || e) }); }
 
+// 04-screens/board-design.jsx
+try { (() => {
+/* board-design.jsx — the OFFICIAL play board (“① Game” screen).
+   Meadow PNG backdrop + a unified HUD (score card · gravity D-pad · round
+   pause button) + the 9×9 board in an SVG cream frame + the 3-well SVG tray
+   next to a purple refresh FAB. All chrome art lives in 06-svg-assets/.
+
+   Reuses the DS namespace (JellyBlock, Eyes) and the GJBoard grid renderer.
+   Exposes window.GJBoardDesign (also aliased as window.GJGameScreen). */
+(function () {
+  const NS = window.GravityJellyDesignSystem_3e0487;
+  const {
+    JellyBlock,
+    Eyes
+  } = NS;
+  const Board = window.GJBoard;
+  const BG_SRC = '../06-svg-assets/backgrounds/meadow-bg.png';
+  const PAL = {
+    yellow: {
+      fill: '#FFE3A3',
+      edge: '#E8B85C',
+      shine: '#FFF1CE'
+    },
+    mint: {
+      fill: '#A3E5D9',
+      edge: '#5FC3B2',
+      shine: '#CBF2EB'
+    },
+    pink: {
+      fill: '#F7A9C0',
+      edge: '#E576A0',
+      shine: '#FBD0DF'
+    },
+    blue: {
+      fill: '#B3C7F7',
+      edge: '#7E9CE8',
+      shine: '#D6E1FB'
+    }
+  };
+
+  /* ── Score card: the plain cream card with ĐIỂM label + score number. ── */
+  const SCORE_SRC = '../06-svg-assets/ui/score-card.svg';
+  function ScoreCard({
+    score = 12480
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        width: 80,
+        aspectRatio: '1 / 1'
+      }
+    }, /*#__PURE__*/React.createElement("img", {
+      src: SCORE_SRC,
+      alt: "",
+      "aria-hidden": "true",
+      style: {
+        position: 'absolute',
+        inset: 0,
+        width: '100%',
+        height: '100%',
+        display: 'block'
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        inset: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-body)',
+        fontSize: 10,
+        fontWeight: 800,
+        letterSpacing: '0.08em',
+        color: '#9B886F',
+        lineHeight: 1
+      }
+    }, "\u0110I\u1EC2M"), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-display)',
+        fontSize: 18,
+        fontWeight: 700,
+        color: '#5B4636',
+        lineHeight: 1.05,
+        marginTop: 2,
+        whiteSpace: 'nowrap'
+      }
+    }, score.toLocaleString('vi-VN'))));
+  }
+
+  /* ── Gravity D-pad: purple candy capsule with ← ↑ ↓ → ; the active
+        direction (up) sits in a raised white disc. ── */
+  function Arrow({
+    dir = 'up',
+    color = '#FFFFFF',
+    size = 24
+  }) {
+    const rot = {
+      up: 0,
+      down: 180,
+      left: 270,
+      right: 90
+    }[dir] || 0;
+    return /*#__PURE__*/React.createElement("svg", {
+      width: size,
+      height: size,
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: color,
+      strokeWidth: "3",
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      style: {
+        transform: `rotate(${rot}deg)`,
+        display: 'block'
+      }
+    }, /*#__PURE__*/React.createElement("path", {
+      d: "M12 5v14M6 11l6-6 6 6"
+    }));
+  }
+  function GravityPad({
+    active = 'up',
+    onDir,
+    onRotate
+  }) {
+    const ghost = dir => /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      onClick: () => onDir ? onDir(dir) : onRotate && onRotate(),
+      "aria-label": `Trọng lực ${dir}`,
+      style: {
+        width: 26,
+        height: 32,
+        border: 'none',
+        background: 'transparent',
+        borderRadius: '50%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        cursor: 'pointer',
+        padding: 0
+      }
+    }, /*#__PURE__*/React.createElement(Arrow, {
+      dir: dir,
+      color: "rgba(255,255,255,0.92)",
+      size: 20
+    }));
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 1,
+        padding: '5px 9px',
+        background: 'linear-gradient(180deg,#9183F6 0%, #7E6CF0 52%, #6353D6 100%)',
+        borderRadius: 999,
+        boxShadow: '0 6px 0 #4F3FB0, 0 10px 18px rgba(83,68,196,0.36), inset 0 2px 0 rgba(255,255,255,0.3)'
+      }
+    }, ghost('left'), /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      onClick: () => onRotate && onRotate(),
+      "aria-label": `Trọng lực ${active} (đang chọn)`,
+      style: {
+        width: 40,
+        height: 40,
+        borderRadius: '50%',
+        border: 'none',
+        margin: '0 1px',
+        background: 'radial-gradient(120% 120% at 50% 28%, #FFFFFF, #F3ECFF)',
+        boxShadow: '0 4px 0 #C8BCF2, 0 4px 10px rgba(60,44,24,0.18), inset 0 2px 0 rgba(255,255,255,0.9)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        cursor: 'pointer',
+        padding: 0
+      }
+    }, /*#__PURE__*/React.createElement(Arrow, {
+      dir: active,
+      color: "#6353D6",
+      size: 24
+    })), ghost('down'), ghost('right'));
+  }
+
+  /* ── Pause button: the supplied flowered frame with a pause glyph. ── */
+  function PauseCard({
+    onPause
+  }) {
+    const bar = {
+      width: 4,
+      height: 14,
+      borderRadius: 999,
+      background: '#7E6CF0'
+    };
+    return /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      onClick: onPause,
+      "aria-label": "T\u1EA1m d\u1EEBng",
+      style: {
+        width: 44,
+        height: 44,
+        borderRadius: '50%',
+        border: 'none',
+        background: 'radial-gradient(120% 120% at 50% 28%, #FFFFFF, #F6EFE2)',
+        boxShadow: '0 4px 0 #E3D4BF, 0 6px 12px rgba(120,92,52,0.22), inset 0 2px 0 rgba(255,255,255,0.9)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 5,
+        cursor: 'pointer',
+        position: 'relative',
+        flexShrink: 0
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: bar
+    }), /*#__PURE__*/React.createElement("span", {
+      style: bar
+    }));
+  }
+
+  /* ── Board panel: the supplied PNG frame (cream tray + leafy/flower
+        corners, transparent surround) with the 9×9 grid dropped into the
+        inner well. The PNG carries the frame; GJBoard draws only the grid. ── */
+  const FRAME_SRC = '../06-svg-assets/ui/board-frame.svg';
+  function BoardPanel({
+    board,
+    direction
+  }) {
+    const S = 332;
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        width: S,
+        height: S
+      }
+    }, /*#__PURE__*/React.createElement("img", {
+      src: FRAME_SRC,
+      alt: "",
+      "aria-hidden": "true",
+      style: {
+        position: 'absolute',
+        inset: 0,
+        width: '100%',
+        height: '100%',
+        display: 'block'
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: '5%',
+        left: '5%',
+        right: '5%',
+        bottom: '5%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement(Board, {
+      map: board,
+      direction: direction,
+      cell: 31,
+      gap: 2,
+      pad: 0,
+      style: {
+        background: 'transparent',
+        boxShadow: 'none',
+        borderRadius: 0
+      }
+    })));
+  }
+
+  /* ── Tray piece (with eyes + sticker, unlike the dock helper). ── */
+  function PieceView({
+    piece,
+    cell = 30,
+    gap = 3
+  }) {
+    const rows = piece.cells.map(([r]) => r),
+      cols = piece.cells.map(([, c]) => c);
+    const minR = Math.min(...rows),
+      minC = Math.min(...cols);
+    const nR = Math.max(...rows) - minR + 1,
+      nC = Math.max(...cols) - minC + 1;
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        width: nC * cell + (nC - 1) * gap,
+        height: nR * cell + (nR - 1) * gap,
+        filter: 'drop-shadow(0 4px 5px rgba(120,92,52,0.18))'
+      }
+    }, piece.cells.map(([r, c], i) => /*#__PURE__*/React.createElement("div", {
+      key: i,
+      style: {
+        position: 'absolute',
+        left: (c - minC) * (cell + gap),
+        top: (r - minR) * (cell + gap)
+      }
+    }, /*#__PURE__*/React.createElement(JellyBlock, {
+      color: piece.color,
+      size: cell,
+      showEyes: true,
+      direction: "down"
+    }))));
+  }
+
+  /* ── Tray dock: the supplied PNG tray (3 wells) with a piece in each well. ── */
+  const TRAY_SRC = '../06-svg-assets/ui/tray.svg';
+  function TrayDock({
+    pieces
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        flex: 1,
+        position: 'relative',
+        aspectRatio: '770 / 260'
+      }
+    }, /*#__PURE__*/React.createElement("img", {
+      src: TRAY_SRC,
+      alt: "",
+      "aria-hidden": "true",
+      style: {
+        position: 'absolute',
+        inset: 0,
+        width: '100%',
+        height: '100%',
+        display: 'block'
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: '7%',
+        left: '3%',
+        right: '3%',
+        bottom: '9%',
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr 1fr'
+      }
+    }, pieces.map((piece, i) => /*#__PURE__*/React.createElement("div", {
+      key: i,
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement(PieceView, {
+      piece: piece,
+      cell: 20,
+      gap: 2
+    })))));
+  }
+
+  /* ── Refresh / shuffle FAB (purple candy). ── */
+  function RefreshFab({
+    onClick
+  }) {
+    return /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      onClick: onClick,
+      "aria-label": "\u0110\u1ED5i m\u1EA3nh",
+      style: {
+        flexShrink: 0,
+        width: 60,
+        height: 60,
+        borderRadius: '50%',
+        border: 'none',
+        background: 'linear-gradient(180deg,#9183F6 0%, #7E6CF0 55%, #6353D6 100%)',
+        boxShadow: '0 6px 0 #4F3FB0, 0 10px 18px rgba(83,68,196,0.36), inset 0 2px 0 rgba(255,255,255,0.3)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        cursor: 'pointer',
+        position: 'relative'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        top: 8,
+        left: '28%',
+        right: '28%',
+        height: '22%',
+        background: 'rgba(255,255,255,0.45)',
+        borderRadius: '50%'
+      }
+    }), /*#__PURE__*/React.createElement("svg", {
+      width: "30",
+      height: "30",
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: "#FFFFFF",
+      strokeWidth: "2.6",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    }, /*#__PURE__*/React.createElement("path", {
+      d: "M20 11a8 8 0 1 0-1.6 5"
+    }), /*#__PURE__*/React.createElement("path", {
+      d: "M20 5v6h-6"
+    })));
+  }
+
+  /* ── The screen ── */
+  function BoardDesign({
+    score = 12480,
+    gravity,
+    direction,
+    blockDirection = 'down',
+    board,
+    pieces,
+    onPause,
+    onRotate,
+    onRefresh
+  }) {
+    const grav = gravity || direction || 'up';
+    const map = board || ['.........', '.........', '.........', '.....PP..', '.....PP..', '...M..BB.', '.YYM.SBB.', '.YYMMSB..', 'YYYMMSPPP'];
+    const trayPieces = pieces || [{
+      cells: [[0, 0], [1, 0], [1, 1]],
+      color: 'mint'
+    }, {
+      cells: [[0, 0], [0, 1], [0, 2]],
+      color: 'pink'
+    }, {
+      cells: [[0, 0], [0, 1], [1, 0], [1, 1]],
+      color: 'yellow'
+    }];
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+        overflow: 'hidden',
+        fontFamily: 'var(--font-body)'
+      }
+    }, /*#__PURE__*/React.createElement("img", {
+      src: BG_SRC,
+      alt: "",
+      "aria-hidden": "true",
+      style: {
+        position: 'absolute',
+        inset: 0,
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        objectPosition: 'center bottom',
+        display: 'block'
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        zIndex: 1,
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '12px 6px 16px',
+        boxSizing: 'border-box'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: 6,
+        marginBottom: 16
+      }
+    }, /*#__PURE__*/React.createElement(ScoreCard, {
+      score: score
+    }), /*#__PURE__*/React.createElement(GravityPad, {
+      active: grav,
+      onRotate: onRotate
+    }), /*#__PURE__*/React.createElement(PauseCard, {
+      onPause: onPause
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        flex: '0 0 auto',
+        display: 'flex',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        paddingTop: 24
+      }
+    }, /*#__PURE__*/React.createElement(BoardPanel, {
+      board: map,
+      direction: blockDirection
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
+        marginTop: 14
+      }
+    }, /*#__PURE__*/React.createElement(TrayDock, {
+      pieces: trayPieces
+    }), /*#__PURE__*/React.createElement(RefreshFab, {
+      onClick: onRefresh
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        flex: 1,
+        minHeight: 8
+      }
+    })));
+  }
+  window.GJBoardDesign = BoardDesign;
+  window.GJGameScreen = BoardDesign;
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "04-screens/board-design.jsx", error: String((e && e.message) || e) }); }
+
 // 04-screens/board.jsx
 try { (() => {
 /* board.jsx — Game board renderer (UI-kit helper, not a DS primitive).
@@ -2039,7 +2543,7 @@ try { (() => {
           style: {
             width: cell,
             height: cell,
-            borderRadius: 'var(--radius-md)',
+            borderRadius: Math.max(6, Math.round(cell * 0.28)),
             background: 'var(--color-cell-empty)',
             boxShadow: 'inset 0 0 0 1px var(--color-cell-line)'
           }
@@ -2501,683 +3005,6 @@ try { (() => {
   window.GJDailyRewardScreen = DailyRewardScreen;
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "04-screens/daily-reward-screen.jsx", error: String((e && e.message) || e) }); }
-
-// 04-screens/game-screen.jsx
-try { (() => {
-/* game-screen.jsx — the primary GAME view. HUD + 9x9 board + tray + the
-   floating gravity-rotate FAB. Reads DS components from the namespace and
-   GJBoard from board.jsx. Exposes window.GJGameScreen. */
-
-(function () {
-  const NS = window.GravityJellyDesignSystem_3e0487;
-  const {
-    Hud,
-    Tray,
-    GravityRotateButton,
-    ComboPopup,
-    JellyBlock
-  } = NS;
-  const Board = window.GJBoard;
-
-  // JellyMeadow — a soft, layered jelly landscape that permanently dresses the
-  // middle band: depth hills, a grassy ground, a swaying flower, mushrooms, a
-  // peeking critter and drifting orbs. It STAYS when a combo fires — the
-  // ComboPopup simply floats above it on a soft glow, never replacing it.
-  function JellyMeadow() {
-    const orb = s => /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        borderRadius: '50%',
-        boxShadow: 'inset 5px -5px 0 rgba(255,255,255,0.38)',
-        ...s
-      }
-    });
-    const blade = s => /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        width: 6,
-        borderRadius: '3px 3px 2px 2px',
-        background: 'linear-gradient(180deg,var(--color-block-mint-shine),var(--color-block-mint))',
-        transformOrigin: 'bottom center',
-        ...s
-      }
-    });
-    const bush = (left, sc, col) => /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left,
-        bottom: 14,
-        width: 56 * sc,
-        height: 30 * sc,
-        filter: 'drop-shadow(0 3px 2px rgba(120,92,52,0.12))'
-      }
-    }, orb({
-      left: 0,
-      bottom: 0,
-      width: 24 * sc,
-      height: 24 * sc,
-      background: `var(--color-block-${col})`,
-      opacity: 0.92
-    }), orb({
-      left: 16 * sc,
-      bottom: 2,
-      width: 30 * sc,
-      height: 30 * sc,
-      background: `var(--color-block-${col}-shine)`
-    }), orb({
-      left: 34 * sc,
-      bottom: 0,
-      width: 22 * sc,
-      height: 22 * sc,
-      background: `var(--color-block-${col})`,
-      opacity: 0.92
-    }));
-    const mushroom = (left, w, col) => /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left,
-        bottom: 13,
-        width: w,
-        height: w * 1.05,
-        filter: 'drop-shadow(0 3px 2px rgba(120,92,52,0.14))'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: w * 0.32,
-        bottom: 0,
-        width: w * 0.36,
-        height: w * 0.5,
-        borderRadius: '5px 5px 7px 7px',
-        background: 'linear-gradient(180deg,#FCF1DC,#F3E3C4)'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: 0,
-        bottom: w * 0.36,
-        width: w,
-        height: w * 0.6,
-        borderRadius: '50% 50% 42% 42% / 84% 84% 26% 26%',
-        background: `linear-gradient(180deg,var(--color-block-${col}-shine),var(--color-block-${col}))`,
-        boxShadow: 'inset 0 3px 0 rgba(255,255,255,0.45)'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: w * 0.24,
-        bottom: w * 0.62,
-        width: w * 0.16,
-        height: w * 0.16,
-        borderRadius: '50%',
-        background: 'rgba(255,255,255,0.8)'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: w * 0.56,
-        bottom: w * 0.52,
-        width: w * 0.12,
-        height: w * 0.12,
-        borderRadius: '50%',
-        background: 'rgba(255,255,255,0.8)'
-      }
-    }));
-    return /*#__PURE__*/React.createElement("div", {
-      "aria-hidden": "true",
-      style: {
-        position: 'absolute',
-        inset: 0,
-        overflow: 'hidden',
-        borderRadius: 18
-      }
-    }, /*#__PURE__*/React.createElement("style", null, `@keyframes gj-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}@keyframes gj-sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}@media (prefers-reduced-motion: reduce){.gj-fl,.gj-sw{animation:none!important}}`), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: '32%',
-        bottom: 14,
-        width: '46%',
-        height: 32,
-        borderRadius: '50% 50% 0 0 / 100% 100% 0 0',
-        background: 'linear-gradient(180deg,#DCEFD4,#C6E4BD)'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: '-8%',
-        bottom: 14,
-        width: '58%',
-        height: 44,
-        borderRadius: '50% 50% 0 0 / 100% 100% 0 0',
-        background: 'linear-gradient(180deg,#E6F3E2,#D3EACE)'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        right: '-10%',
-        bottom: 14,
-        width: '54%',
-        height: 38,
-        borderRadius: '50% 50% 0 0 / 100% 100% 0 0',
-        background: 'linear-gradient(180deg,#EAF1FA,#DAE6F4)'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        bottom: 0,
-        height: 16,
-        background: 'linear-gradient(180deg,#F1E4CB,#E8D6B6)'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        bottom: 15,
-        height: 3,
-        background: 'rgba(150,170,120,0.45)'
-      }
-    }), blade({
-      left: '3%',
-      bottom: 13,
-      height: 16,
-      transform: 'rotate(-12deg)'
-    }), blade({
-      left: '5%',
-      bottom: 13,
-      height: 22
-    }), blade({
-      left: '7%',
-      bottom: 13,
-      height: 15,
-      transform: 'rotate(12deg)'
-    }), blade({
-      left: '60%',
-      bottom: 13,
-      height: 14,
-      transform: 'rotate(-10deg)'
-    }), blade({
-      left: '61.5%',
-      bottom: 13,
-      height: 19
-    }), bush('9%', 1, 'mint'), /*#__PURE__*/React.createElement("div", {
-      className: "gj-sw",
-      style: {
-        position: 'absolute',
-        left: '24%',
-        bottom: 14,
-        width: 26,
-        height: 40,
-        transformOrigin: 'bottom center',
-        animation: 'gj-sway 4.2s ease-in-out infinite',
-        filter: 'drop-shadow(0 2px 2px rgba(120,92,52,0.12))'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: 11,
-        bottom: 0,
-        width: 4,
-        height: 26,
-        borderRadius: 3,
-        background: 'linear-gradient(180deg,var(--color-block-mint-shine),var(--color-block-mint))'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: 2,
-        bottom: 10,
-        width: 9,
-        height: 7,
-        borderRadius: '0 60% 60% 60%',
-        background: 'var(--color-block-mint)',
-        transform: 'rotate(20deg)'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: 14,
-        bottom: 14,
-        width: 9,
-        height: 7,
-        borderRadius: '60% 0 60% 60%',
-        background: 'var(--color-block-mint)',
-        transform: 'rotate(-20deg)'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: 4,
-        bottom: 22,
-        width: 18,
-        height: 16,
-        borderRadius: '50% 50% 46% 46% / 64% 64% 36% 36%',
-        background: 'linear-gradient(180deg,var(--color-block-pink-shine),var(--color-block-pink))',
-        boxShadow: 'inset 0 2px 0 rgba(255,255,255,0.5)'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: 10,
-        bottom: 27,
-        width: 6,
-        height: 6,
-        borderRadius: '50%',
-        background: 'var(--color-block-yellow)'
-      }
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: '19%',
-        bottom: 21,
-        filter: 'drop-shadow(0 4px 3px rgba(120,92,52,0.16))'
-      }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: "pink",
-      size: 23,
-      showEyes: true
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: '37%',
-        bottom: 19,
-        filter: 'drop-shadow(0 5px 3px rgba(120,92,52,0.18))'
-      }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: "mint",
-      size: 28,
-      showEyes: true
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: '57%',
-        bottom: 20,
-        filter: 'drop-shadow(0 4px 3px rgba(120,92,52,0.16))'
-      }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: "blue",
-      size: 25,
-      showEyes: true
-    })), mushroom('66%', 30, 'pink'), mushroom('77%', 22, 'yellow'), bush('86%', 0.85, 'mint'), /*#__PURE__*/React.createElement("div", {
-      className: "gj-fl",
-      style: {
-        position: 'absolute',
-        left: '30%',
-        bottom: 52,
-        animation: 'gj-float 3.6s ease-in-out infinite'
-      }
-    }, orb({
-      position: 'relative',
-      width: 12,
-      height: 12,
-      background: 'var(--color-block-yellow)',
-      opacity: 0.55
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "gj-fl",
-      style: {
-        position: 'absolute',
-        left: '84%',
-        bottom: 50,
-        animation: 'gj-float 4.4s ease-in-out infinite'
-      }
-    }, orb({
-      position: 'relative',
-      width: 14,
-      height: 14,
-      background: 'var(--color-block-pink)',
-      opacity: 0.5
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: '46%',
-        top: 10,
-        width: 6,
-        height: 6,
-        borderRadius: '50%',
-        background: 'var(--color-block-yellow-shine)',
-        opacity: 0.7
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: '70%',
-        top: 8,
-        width: 4,
-        height: 4,
-        borderRadius: '50%',
-        background: 'var(--color-block-pink-shine)',
-        opacity: 0.7
-      }
-    }));
-  }
-  function GameScreen({
-    score = 12480,
-    direction = 'down',
-    turnsLeft = 3,
-    board,
-    pieces,
-    selectedIndex = 0,
-    combo = 0,
-    onPause,
-    onRotate,
-    onSelectPiece
-  }) {
-    // Measure the board area and compute a cell size so the 9x9 grid always
-    // fits as a perfect square inside the frame (no overflow / clipping).
-    const areaRef = React.useRef(null);
-    const [cell, setCell] = React.useState(30);
-    React.useLayoutEffect(() => {
-      const el = areaRef.current;
-      if (!el || typeof ResizeObserver === 'undefined') return;
-      const measure = () => {
-        const w = el.clientWidth - 8; // slim horizontal padding
-        const h = el.clientHeight - 16; // vertical padding
-        const avail = Math.min(w, h);
-        const c = Math.floor((avail - 15 - 26) / 9); // 15 frame chrome (pad6+border1.5), 26 board pad(5)+gaps(16)
-        setCell(Math.max(20, Math.min(46, c)));
-      };
-      measure();
-      const ro = new ResizeObserver(measure);
-      ro.observe(el);
-      return () => ro.disconnect();
-    }, []);
-
-    // Transient combo burst — the popup + falling jelly is an EVENT, not a
-    // fixed decoration: it appears, plays, then fades out. Fire it from the
-    // XOAY/gravity button to preview (cycles through tiers), and once on mount
-    // from the `combo` prop so the card demonstrates it.
-    const [burst, setBurst] = React.useState(null);
-    const timerRef = React.useRef(null);
-    const seqRef = React.useRef(0);
-    const idxRef = React.useRef(0);
-    const fireCombo = React.useCallback(c => {
-      const id = ++seqRef.current;
-      setBurst({
-        id,
-        combo: c
-      });
-      clearTimeout(timerRef.current);
-      timerRef.current = setTimeout(() => {
-        setBurst(b => b && b.id === id ? null : b);
-      }, 2000);
-    }, []);
-    React.useEffect(() => {
-      if (combo > 0) fireCombo(combo);
-      return () => clearTimeout(timerRef.current);
-    }, []); // once on mount
-    const handleRotate = () => {
-      if (onRotate) onRotate();
-      const seq = [1, 2, 3, 5, 9]; // a plain clear, then escalating combos
-      const c = seq[idxRef.current % seq.length];
-      idxRef.current += 1;
-      fireCombo(c);
-    };
-
-    // Soft decorative jelly blobs that tie the cream background to the
-    // colorful board — low-opacity bokeh in the four signature fills.
-    const blobs = [{
-      c: 'var(--color-block-pink-shine)',
-      top: '11%',
-      left: '-6%',
-      size: 120
-    }, {
-      c: 'var(--color-block-mint-shine)',
-      top: '4%',
-      right: '-8%',
-      size: 150
-    }, {
-      c: 'var(--color-block-yellow-shine)',
-      top: '30%',
-      left: '14%',
-      size: 64
-    }, {
-      c: 'var(--color-block-blue-shine)',
-      top: '22%',
-      right: '10%',
-      size: 80
-    }];
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100%',
-        overflow: 'hidden',
-        background: 'radial-gradient(130% 80% at 50% -10%, #FFFBF3 0%, var(--color-bg) 46%, #F6EAD6 100%)'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      "aria-hidden": "true",
-      style: {
-        position: 'absolute',
-        inset: 0,
-        pointerEvents: 'none',
-        zIndex: 0
-      }
-    }, blobs.map((b, i) => /*#__PURE__*/React.createElement("div", {
-      key: i,
-      style: {
-        position: 'absolute',
-        top: b.top,
-        left: b.left,
-        right: b.right,
-        width: b.size,
-        height: b.size,
-        borderRadius: '42% 58% 56% 44% / 52% 44% 56% 48%',
-        background: b.c,
-        opacity: 0.5,
-        filter: 'blur(2px)'
-      }
-    }))), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        zIndex: 1
-      }
-    }, /*#__PURE__*/React.createElement(Hud, {
-      score: score,
-      direction: direction,
-      onPause: onPause
-    })), /*#__PURE__*/React.createElement("div", {
-      ref: areaRef,
-      style: {
-        position: 'relative',
-        zIndex: 1,
-        flex: 1,
-        minHeight: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '4px 4px 12px'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        padding: 6,
-        borderRadius: 10,
-        background: 'linear-gradient(180deg, #FFFFFF 0%, #FBF1DF 100%)',
-        border: '1.5px solid #F1E3C9',
-        boxShadow: '0 5px 0 #E9D7BA, 0 16px 26px -12px var(--color-shadow-key), inset 0 2px 0 rgba(255,255,255,0.95)'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      "aria-hidden": "true",
-      style: {
-        position: 'absolute',
-        top: 3,
-        left: '20%',
-        right: '20%',
-        height: 12,
-        background: 'rgba(255,255,255,0.45)',
-        borderRadius: '50%',
-        filter: 'blur(2px)',
-        pointerEvents: 'none',
-        zIndex: 2
-      }
-    }), [['pink', {
-      top: 4,
-      left: 4
-    }], ['mint', {
-      top: 4,
-      right: 4
-    }], ['yellow', {
-      bottom: 4,
-      left: 4
-    }], ['blue', {
-      bottom: 4,
-      right: 4
-    }]].map(([col, pos], i) => /*#__PURE__*/React.createElement("div", {
-      key: i,
-      "aria-hidden": "true",
-      style: {
-        position: 'absolute',
-        ...pos,
-        width: 6,
-        height: 6,
-        borderRadius: '50%',
-        background: `var(--color-block-${col})`,
-        boxShadow: 'inset 0 -1px 1px rgba(0,0,0,0.12), 0 1px 1px rgba(255,255,255,0.7)',
-        zIndex: 3
-      }
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        zIndex: 1
-      }
-    }, /*#__PURE__*/React.createElement(Board, {
-      map: board,
-      direction: direction,
-      cell: cell,
-      gap: 2,
-      pad: 5
-    })))), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        zIndex: 1,
-        flexShrink: 0,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 2,
-        padding: '2px 18px 12px'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        height: 100,
-        overflow: 'visible'
-      }
-    }, /*#__PURE__*/React.createElement("style", null, `@keyframes gj-combo-life{0%,66%{opacity:1}100%{opacity:0}}`), burst && /*#__PURE__*/React.createElement("div", {
-      key: 'fall-' + burst.id,
-      style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'flex-end',
-        animation: 'gj-combo-life 2s ease-out forwards',
-        pointerEvents: 'none'
-      }
-    }, /*#__PURE__*/React.createElement(ComboPopup, {
-      combo: Math.max(1, burst.combo),
-      pieces: burst.combo > 1 ? undefined : 4,
-      showDish: false,
-      showText: false,
-      floor: 20,
-      height: 172
-    })), /*#__PURE__*/React.createElement(JellyMeadow, null), burst && burst.combo > 1 && /*#__PURE__*/React.createElement("div", {
-      key: 'txt-' + burst.id,
-      style: {
-        position: 'absolute',
-        top: -26,
-        left: '50%',
-        transform: 'translateX(-50%)',
-        zIndex: 3,
-        animation: 'gj-combo-life 2s ease-out forwards',
-        pointerEvents: 'none'
-      }
-    }, /*#__PURE__*/React.createElement(ComboPopup, {
-      combo: burst.combo,
-      showDish: false,
-      showPieces: false
-    }))), /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        width: 128,
-        height: 56
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: 4,
-        bottom: 0,
-        transform: 'rotate(-9deg)'
-      }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: "yellow",
-      size: 40,
-      direction: "down"
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: 36,
-        bottom: 3,
-        transform: 'rotate(5deg)',
-        zIndex: 2
-      }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: "pink",
-      size: 46,
-      direction: "down"
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: 80,
-        bottom: 0,
-        transform: 'rotate(11deg)'
-      }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: "mint",
-      size: 38,
-      direction: "down"
-    }))), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: 6
-      }
-    }, /*#__PURE__*/React.createElement(GravityRotateButton, {
-      turnsLeft: turnsLeft,
-      onRotate: handleRotate
-    }), /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontFamily: 'var(--font-display)',
-        fontSize: 'var(--text-caption)',
-        fontWeight: 'var(--weight-semibold)',
-        color: 'var(--color-gravity-edge)',
-        letterSpacing: 'var(--tracking-wide)'
-      }
-    }, "XOAY")))), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        zIndex: 1,
-        flexShrink: 0
-      }
-    }, /*#__PURE__*/React.createElement(Tray, {
-      pieces: pieces,
-      selectedIndex: selectedIndex,
-      onSelect: onSelectPiece
-    })));
-  }
-  window.GJGameScreen = GameScreen;
-})();
-})(); } catch (e) { __ds_ns.__errors.push({ path: "04-screens/game-screen.jsx", error: String((e && e.message) || e) }); }
 
 // 04-screens/home-screen.jsx
 try { (() => {
@@ -43288,12 +43115,12 @@ try { (() => {
     b0b: {
       group: grav.B,
       name: 'Nổ siêu khối',
-      subtitle: 'Nổ quét sạch MỌI ô cùng màu trên bàn — combo khủng, ở boss = sát thương nặng',
+      subtitle: 'Siêu khối nổ 3×3 — combo khủng, ở boss = sát thương nặng',
       before: {
-        rows: ['M...M', '..M..', '..o..', 'Y...P', '.M.B.'],
+        rows: ['.....', '.YYY.', '.Y.Y.', '.YYY.', '.....'],
         direction: 'down',
         superAt: [2, 2, 'mint'],
-        glow: [[0, 0], [0, 4], [1, 2], [2, 2], [4, 1]]
+        glow: [[1, 1], [1, 2], [1, 3], [2, 1], [2, 3], [3, 1], [3, 2], [3, 3]]
       },
       action: {
         icon: 'bomb',
@@ -43301,10 +43128,10 @@ try { (() => {
         tone: 'danger'
       },
       after: {
-        rows: ['.....', '.....', '.....', 'Y...P', '...B.'],
+        rows: ['B...P', '.....', '.....', '.....', 'Y...M'],
         direction: 'down'
       },
-      caption: 'Siêu khối CẤP 1 nổ → quét sạch MỌI ô cùng màu trên toàn bàn (màu khác giữ nguyên). Combo khủng, ở boss = sát thương nặng.'
+      caption: 'Siêu khối nổ 3×3 — combo khủng, ở boss = sát thương nặng.'
     },
     b1: {
       group: grav.B,
@@ -43361,9 +43188,9 @@ try { (() => {
     b4: {
       group: grav.B,
       name: 'Siêu khối cấp 2',
-      subtitle: 'Gộp 2 siêu khối → đại nổ: quét cùng màu toàn bàn + vùng 5×5',
+      subtitle: 'Gộp 2 siêu khối → đại nổ cả hàng lẫn cột',
       before: {
-        rows: ['Y...P', '..M..', '.oo..', '..M..', 'B...Y'],
+        rows: ['.....', '.....', '.oo..', '.....', '.....'],
         supers: [[2, 1, 'mint'], [2, 2, 'mint']]
       },
       action: {
@@ -43374,9 +43201,9 @@ try { (() => {
         rows: ['.....', '.....', '..o..', '.....', '.....'],
         superAt: [2, 2, 'mint'],
         mega: true,
-        glow: [[0, 0], [0, 2], [0, 4], [1, 1], [1, 3], [2, 0], [2, 1], [2, 3], [2, 4], [3, 1], [3, 3], [4, 0], [4, 2], [4, 4]]
+        glow: [[0, 2], [1, 2], [3, 2], [4, 2], [2, 0], [2, 1], [2, 3], [2, 4]]
       },
-      caption: 'Gộp 2 siêu khối → đại nổ: quét sạch mọi ô cùng màu trên bàn + thêm vùng 5×5 quanh tâm.'
+      caption: 'Gộp 2 siêu khối → đại nổ cả hàng lẫn cột.'
     },
     b5: {
       group: grav.B,
@@ -43950,7 +43777,9 @@ try { (() => {
       kind: 'bossBoard',
       boss: {
         mood: 'angry',
-        hp: 1
+        hp: 1,
+        world: 8,
+        crownStrip: true
       },
       before: {
         rows: ['.....', '.....', '.YMP.', 'BYMPB', 'BYMPB'],
@@ -45341,130 +45170,385 @@ try { (() => {
     })));
   }
 
-  /* ===== Boss face ===== */
+  /* ===== Boss face ===== =================================================
+     Boss = jelly block (giữ nhận diện) nhưng dữ dằn: mắt híp gằn, KHÔNG miệng,
+     vương miện đổi theo map, giáp đá quanh cổ, hào quang bóng tối phía sau. */
+
+  /* vương miện theo từng map — chỉ đổi màu đá quý (jewel) theo thế giới 1..10 */
+  const MAP_CROWNS = {
+    1: '#6FCF7F',
+    // Đồng cỏ
+    2: '#5FC3B2',
+    // Rừng rậm
+    3: '#8FB6F2',
+    // Sông & Thác
+    4: '#FFCA66',
+    // Sa mạc
+    5: '#5FC3B2',
+    // Bãi biển
+    6: '#B3C7F7',
+    // Núi tuyết
+    7: '#A99CF6',
+    // Hang băng
+    8: '#F08A7E',
+    // Núi lửa
+    9: '#8FB6F2',
+    // Bầu trời
+    10: '#A99CF6' // Vũ trụ
+  };
+  const WORLD_NAMES = {
+    1: 'Đồng cỏ',
+    2: 'Rừng rậm',
+    3: 'Sông & Thác',
+    4: 'Sa mạc',
+    5: 'Bãi biển',
+    6: 'Núi tuyết',
+    7: 'Hang băng',
+    8: 'Núi lửa',
+    9: 'Bầu trời',
+    10: 'Vũ trụ'
+  };
+
+  /* gold crown — gem màu = jewel (đổi theo map) */
+  function CrownTop({
+    size,
+    jewel
+  }) {
+    const w = size * 0.66,
+      h = size * 0.46;
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: -h * 0.72,
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: w,
+        height: h,
+        zIndex: 4
+      }
+    }, /*#__PURE__*/React.createElement("svg", {
+      viewBox: "0 0 100 70",
+      width: w,
+      height: h,
+      style: {
+        display: 'block',
+        filter: 'drop-shadow(0 3px 2px rgba(74,53,38,.35))'
+      }
+    }, /*#__PURE__*/React.createElement("path", {
+      d: "M11 60 L11 16 L34 38 L50 6 L66 38 L89 16 L89 60 Z",
+      fill: "#FFCA66",
+      stroke: "#E8B85C",
+      strokeWidth: "4",
+      strokeLinejoin: "round",
+      strokeLinecap: "round"
+    }), /*#__PURE__*/React.createElement("rect", {
+      x: "7",
+      y: "52",
+      width: "86",
+      height: "15",
+      rx: "6",
+      fill: "#FFD27A",
+      stroke: "#E8B85C",
+      strokeWidth: "4"
+    }), /*#__PURE__*/React.createElement("path", {
+      d: "M15 52 L34 40 L50 14 L66 40 L85 52",
+      fill: "none",
+      stroke: "#FFF1CE",
+      strokeWidth: "2.6",
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      opacity: "0.75"
+    }), /*#__PURE__*/React.createElement("circle", {
+      cx: "11",
+      cy: "16",
+      r: "5.5",
+      fill: jewel,
+      stroke: "#E8B85C",
+      strokeWidth: "2"
+    }), /*#__PURE__*/React.createElement("circle", {
+      cx: "50",
+      cy: "6",
+      r: "6.5",
+      fill: jewel,
+      stroke: "#E8B85C",
+      strokeWidth: "2"
+    }), /*#__PURE__*/React.createElement("circle", {
+      cx: "89",
+      cy: "16",
+      r: "5.5",
+      fill: jewel,
+      stroke: "#E8B85C",
+      strokeWidth: "2"
+    }), /*#__PURE__*/React.createElement("circle", {
+      cx: "50",
+      cy: "59",
+      r: "4.6",
+      fill: jewel
+    }), /*#__PURE__*/React.createElement("circle", {
+      cx: "30",
+      cy: "59",
+      r: "3.4",
+      fill: "#FFF1CE"
+    }), /*#__PURE__*/React.createElement("circle", {
+      cx: "70",
+      cy: "59",
+      r: "3.4",
+      fill: "#FFF1CE"
+    })));
+  }
+
+  /* mắt gằn — tròng trắng híp dưới mí dày, đồng tử phát sáng, lông mày chếch vào */
+  function FierceEye({
+    flip,
+    w,
+    body,
+    glow
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        width: w,
+        height: w,
+        transform: flip ? 'scaleX(-1)' : 'none'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        inset: 0,
+        borderRadius: '50%',
+        background: '#fff',
+        overflow: 'hidden',
+        boxShadow: 'inset 0 1px 2px rgba(0,0,0,.22)'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: '-52%',
+        left: '-26%',
+        width: '152%',
+        height: '92%',
+        background: body,
+        transform: 'rotate(19deg)'
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        left: '30%',
+        top: '42%',
+        width: w * 0.46,
+        height: w * 0.46,
+        borderRadius: '50%',
+        background: '#1E1340',
+        boxShadow: `0 0 ${w * 0.24}px ${glow}, inset 0 0 ${w * 0.1}px ${glow}`
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: '12%',
+        left: '16%',
+        width: '36%',
+        height: '36%',
+        borderRadius: '50%',
+        background: '#fff',
+        opacity: 0.95
+      }
+    }))), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: '-22%',
+        left: '-4%',
+        width: '92%',
+        height: w * 0.2,
+        background: '#241742',
+        borderRadius: 4,
+        transform: 'rotate(19deg)',
+        transformOrigin: 'right center'
+      }
+    }));
+  }
+
+  /* giáp đá quanh cổ + ngù vai, gem ngực = jewel */
+  function BossArmor({
+    size,
+    jewel
+  }) {
+    const s = size;
+    const pauldron = {
+      position: 'absolute',
+      bottom: s * 0.16,
+      width: s * 0.32,
+      height: s * 0.27,
+      borderRadius: '52% 52% 44% 44%',
+      background: 'linear-gradient(180deg,#DBD0BF,#A89A82)',
+      border: '3px solid #8A7E68',
+      boxShadow: 'var(--shadow-sm)',
+      zIndex: 2
+    };
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+      style: {
+        ...pauldron,
+        left: -s * 0.13
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        ...pauldron,
+        right: -s * 0.13
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        bottom: -s * 0.05,
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: s * 0.94,
+        height: s * 0.34,
+        borderRadius: '38% 38% 50% 50% / 64% 64% 100% 100%',
+        background: 'linear-gradient(180deg,#DBD0BF,#C9BCA8 46%,#A89A82)',
+        border: '3px solid #8A7E68',
+        boxShadow: 'var(--shadow-sm)',
+        zIndex: 3,
+        display: 'flex',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        overflow: 'hidden'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginTop: s * 0.05,
+        width: s * 0.13,
+        height: s * 0.13,
+        borderRadius: '50%',
+        background: jewel,
+        border: '2px solid #8A7E68',
+        boxShadow: `0 0 ${s * 0.09}px ${jewel}, inset 0 1px 2px rgba(255,255,255,.5)`
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        bottom: s * 0.05,
+        left: s * 0.14,
+        width: s * 0.045,
+        height: s * 0.045,
+        borderRadius: '50%',
+        background: '#8A7E68'
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        bottom: s * 0.05,
+        right: s * 0.14,
+        width: s * 0.045,
+        height: s * 0.045,
+        borderRadius: '50%',
+        background: '#8A7E68'
+      }
+    })));
+  }
   function BossFace({
     size = 116,
     hp = 1,
-    mood = 'normal',
+    mood = 'angry',
     aura = true,
     color = '#7E6CF0',
-    edge = '#6353D6'
+    edge = '#6353D6',
+    world,
+    jewel
   }) {
-    const eyeR = size * 0.13;
-    const angry = mood === 'angry';
+    const s = size;
+    const wrap = s * 1.6;
+    const gem = jewel || world && MAP_CROWNS[world] || '#F08A7E';
+    const eyeW = s * 0.26;
     return /*#__PURE__*/React.createElement("div", {
       style: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: 8
+        gap: s * 0.12
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'relative',
-        width: size,
-        height: size * 0.86
-      }
-    }, aura && /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        inset: -10,
-        borderRadius: '46% 46% 50% 50%',
-        background: 'radial-gradient(circle, rgba(126,108,240,.45), transparent 70%)',
-        animation: 'gjPulse 1.8s ease infinite'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        width: size,
-        height: size * 0.86,
-        borderRadius: '44% 44% 48% 48% / 50% 50% 46% 46%',
-        background: color,
-        border: `4px solid ${edge}`,
-        boxShadow: 'var(--shadow-md)',
-        overflow: 'hidden'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        top: 4,
-        left: '16%',
-        right: '16%',
-        height: '30%',
-        background: 'rgba(255,255,255,.4)',
-        borderRadius: '50%',
-        filter: 'blur(1px)'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        top: '42%',
-        left: 0,
-        right: 0,
-        display: 'flex',
-        justifyContent: 'center',
-        gap: size * 0.16
-      }
-    }, [0, 1].map(i => /*#__PURE__*/React.createElement("div", {
-      key: i,
-      style: {
-        width: eyeR * 2,
-        height: eyeR * 2,
-        borderRadius: '50%',
-        background: '#fff',
+        width: wrap,
+        height: wrap,
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
-        boxShadow: 'inset 0 1px 2px rgba(0,0,0,.15)'
+        justifyContent: 'center'
       }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        width: eyeR,
-        height: eyeR,
-        borderRadius: '50%',
-        background: '#3A2C5E',
-        transform: `translate(${i ? -1 : 1}px, 1px)`
-      }
-    })))), angry && /*#__PURE__*/React.createElement("div", {
+    }, aura && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'absolute',
-        top: '34%',
-        left: 0,
-        right: 0,
-        display: 'flex',
-        justifyContent: 'center',
-        gap: size * 0.1
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        width: size * 0.2,
-        height: 4,
-        background: '#3A2C5E',
-        borderRadius: 3,
-        transform: 'rotate(16deg)'
+        width: s * 1.5,
+        height: s * 1.5,
+        borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(40,24,74,.62), rgba(40,24,74,.18) 52%, transparent 72%)',
+        filter: 'blur(3px)',
+        animation: 'gjPulse 2.6s ease infinite'
       }
     }), /*#__PURE__*/React.createElement("div", {
       style: {
-        width: size * 0.2,
-        height: 4,
-        background: '#3A2C5E',
-        borderRadius: 3,
-        transform: 'rotate(-16deg)'
+        position: 'absolute',
+        width: s * 1.22,
+        height: s * 1.22,
+        borderRadius: '50%',
+        boxShadow: `0 0 0 3px rgba(99,83,214,.32), 0 0 ${s * 0.2}px ${s * 0.05}px rgba(126,108,240,.45)`
       }
     })), /*#__PURE__*/React.createElement("div", {
       style: {
-        position: 'absolute',
-        bottom: '12%',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        width: size * 0.26,
-        height: angry ? size * 0.12 : size * 0.08,
-        borderRadius: angry ? '8px 8px 3px 3px' : '0 0 12px 12px',
-        background: '#3A2C5E'
+        position: 'relative',
+        width: s,
+        height: s
       }
+    }, /*#__PURE__*/React.createElement(CrownTop, {
+      size: s,
+      jewel: gem
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        inset: 0,
+        borderRadius: s * 0.3,
+        background: `linear-gradient(180deg, ${color}, ${edge})`,
+        border: `${Math.max(3, s * 0.035)}px solid ${edge}`,
+        boxSizing: 'border-box',
+        boxShadow: 'var(--shadow-md), inset 0 -7px 11px rgba(36,23,66,.4)',
+        overflow: 'hidden',
+        zIndex: 1
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: s * 0.06,
+        left: '14%',
+        right: '14%',
+        height: '26%',
+        background: 'linear-gradient(180deg, rgba(169,156,246,.85), rgba(169,156,246,0))',
+        borderRadius: '50%'
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: '36%',
+        left: 0,
+        right: 0,
+        display: 'flex',
+        justifyContent: 'center',
+        gap: s * 0.12
+      }
+    }, /*#__PURE__*/React.createElement(FierceEye, {
+      flip: false,
+      w: eyeW,
+      body: edge,
+      glow: gem
+    }), /*#__PURE__*/React.createElement(FierceEye, {
+      flip: true,
+      w: eyeW,
+      body: edge,
+      glow: gem
+    }))), /*#__PURE__*/React.createElement(BossArmor, {
+      size: s,
+      jewel: gem
     }))), hp != null && /*#__PURE__*/React.createElement("div", {
       style: {
-        width: size * 1.1,
+        width: s,
         height: 12,
         borderRadius: 999,
         background: 'var(--color-surface-sunken)',
@@ -46049,6 +46133,7 @@ try { (() => {
       ActionNode,
       GravityChip
     } = h;
+    const b = card.boss || {};
     return /*#__PURE__*/React.createElement("div", {
       style: {
         display: 'flex',
@@ -46058,15 +46143,128 @@ try { (() => {
         width: '100%'
       }
     }, /*#__PURE__*/React.createElement(BossFace, {
-      mood: card.boss.mood || 'angry',
-      hp: card.boss.hp != null ? card.boss.hp : 1,
+      mood: b.mood || 'angry',
+      hp: b.hp != null ? b.hp : 1,
+      world: b.world,
+      jewel: b.jewel,
       size: 96
-    }), /*#__PURE__*/React.createElement(Panel, {
+    }), b.crownStrip && /*#__PURE__*/React.createElement(MapCrownStrip, null), /*#__PURE__*/React.createElement(Panel, {
       label: "TR\u01AF\u1EDAC"
     }, /*#__PURE__*/React.createElement(MiniBoard, card.before)), /*#__PURE__*/React.createElement(ActionNode, null, window.GJMech.renderAction(card.action)), /*#__PURE__*/React.createElement(Panel, {
       label: "SAU"
     }, /*#__PURE__*/React.createElement(MiniBoard, card.after)));
   };
+
+  /* vương miện theo map — dải minh hoạ 10 thế giới */
+  function MapCrownStrip() {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: '100%',
+        background: 'var(--color-surface)',
+        borderRadius: 'var(--radius-xl)',
+        boxShadow: 'var(--shadow-sm)',
+        padding: '12px 12px 10px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 8
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-body)',
+        fontWeight: 800,
+        fontSize: 11,
+        letterSpacing: '.04em',
+        textTransform: 'uppercase',
+        color: 'var(--color-text-muted)',
+        textAlign: 'center'
+      }
+    }, "V\u01B0\u01A1ng mi\u1EC7n \u0111\u1ED5i theo map"), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(5, 1fr)',
+        gap: 8
+      }
+    }, Object.keys(MAP_CROWNS).map(wKey => {
+      const w = +wKey,
+        gem = MAP_CROWNS[w];
+      return /*#__PURE__*/React.createElement("div", {
+        key: w,
+        style: {
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 3
+        }
+      }, /*#__PURE__*/React.createElement("svg", {
+        viewBox: "0 0 100 70",
+        width: "36",
+        height: "25",
+        style: {
+          display: 'block',
+          filter: 'drop-shadow(0 2px 1px rgba(74,53,38,.28))'
+        }
+      }, /*#__PURE__*/React.createElement("path", {
+        d: "M11 60 L11 16 L34 38 L50 6 L66 38 L89 16 L89 60 Z",
+        fill: "#FFCA66",
+        stroke: "#E8B85C",
+        strokeWidth: "4",
+        strokeLinejoin: "round",
+        strokeLinecap: "round"
+      }), /*#__PURE__*/React.createElement("rect", {
+        x: "7",
+        y: "52",
+        width: "86",
+        height: "15",
+        rx: "6",
+        fill: "#FFD27A",
+        stroke: "#E8B85C",
+        strokeWidth: "4"
+      }), /*#__PURE__*/React.createElement("circle", {
+        cx: "11",
+        cy: "16",
+        r: "5.5",
+        fill: gem,
+        stroke: "#E8B85C",
+        strokeWidth: "2"
+      }), /*#__PURE__*/React.createElement("circle", {
+        cx: "50",
+        cy: "6",
+        r: "6.5",
+        fill: gem,
+        stroke: "#E8B85C",
+        strokeWidth: "2"
+      }), /*#__PURE__*/React.createElement("circle", {
+        cx: "89",
+        cy: "16",
+        r: "5.5",
+        fill: gem,
+        stroke: "#E8B85C",
+        strokeWidth: "2"
+      }), /*#__PURE__*/React.createElement("circle", {
+        cx: "50",
+        cy: "59",
+        r: "4.6",
+        fill: gem
+      })), /*#__PURE__*/React.createElement("span", {
+        style: {
+          fontFamily: 'var(--font-display)',
+          fontWeight: 700,
+          fontSize: 11,
+          color: 'var(--color-text)',
+          lineHeight: 1
+        }
+      }, w), /*#__PURE__*/React.createElement("span", {
+        style: {
+          fontFamily: 'var(--font-body)',
+          fontWeight: 700,
+          fontSize: 8.5,
+          color: 'var(--color-text-muted)',
+          lineHeight: 1,
+          textAlign: 'center'
+        }
+      }, WORLD_NAMES[w]));
+    })));
+  }
 
   /* G1 buff choice */
   W.buffChoice = card => /*#__PURE__*/React.createElement("div", {
