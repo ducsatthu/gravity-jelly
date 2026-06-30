@@ -13,6 +13,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -32,6 +33,7 @@ import com.gravityjelly.app.ui.components.ComboPopup
 import com.gravityjelly.app.ui.components.GjButton
 import com.gravityjelly.app.ui.components.GjDialog
 import com.gravityjelly.app.ui.guide.GjGuide
+import com.gravityjelly.app.ui.guide.GjGuideEntry
 import com.gravityjelly.app.ui.guide.GuideTeachDialog
 import com.gravityjelly.app.ui.icons.GjIcons
 import com.gravityjelly.app.ui.theme.GjPalette
@@ -73,17 +75,62 @@ fun EndlessPlayScreen(
     var parentWin by remember { mutableStateOf(Offset.Zero) }
     var paused by remember { mutableStateOf(false) }
 
-    // Dạy luật "combo hồi lượt xoay" lần đầu người chơi gặp (combo ≥ ×2 phát RotationRefunded →
-    // holder.rotationRefillTick tăng). Trễ nhẹ để người chơi thấy combo ×N + badge trước rồi mới
-    // hiện popup giải thích; chỉ một lần, đánh dấu đã xem qua seenGuides (bền hoá ở DataStore).
-    var teachComboRefill by remember { mutableStateOf(false) }
-    val comboRefillUnseen = GjGuide.comboRefill.id !in seenGuides
-    LaunchedEffect(holder.rotationRefillTick) {
-        if (holder.rotationRefillTick > 0L && comboRefillUnseen && !shell.gameOver) {
-            kotlinx.coroutines.delay(900L)
-            if (!shell.gameOver) teachComboRefill = true
+    // Popup dạy luật ĐANG hiện (null = không). Một popup mỗi lúc, từ HAI nguồn:
+    //  (1) combo-hồi-lượt-xoay — path riêng giữ nhịp 900ms (cho thấy combo ×N + badge trước).
+    //  (2) hàng đợi cơ chế GẶP-LẦN-ĐẦU (holder.guideQueue) — chờ bàn LẮNG rồi hiện tuần tự; khi
+    //      nhiều cơ chế cùng nổ trong một nước (vd xóa hàng → trọng lực rơi → thạch dính), nút đổi
+    //      thành "Tiếp theo" để bước qua từng popup ngay, không phải chờ lại.
+    // [displayEntry] giữ mục cuối để dialog vẫn vẽ đúng nội dung trong lúc chạy animation đóng.
+    var activeGuide by remember { mutableStateOf<GjGuideEntry?>(null) }
+    var displayEntry by remember { mutableStateOf(GjGuide.comboRefill) }
+    LaunchedEffect(activeGuide) { activeGuide?.let { displayEntry = it } }
+
+    // ids đã xem TRONG PHIÊN này (seenGuides từ DataStore cập nhật bất đồng bộ — local đảm bảo
+    // không hiện lại ngay trong lúc bước qua chuỗi popup).
+    val locallySeen = remember { mutableStateListOf<String>() }
+    fun guideSeen(id: String) = id in seenGuides || id in locallySeen
+    // bỏ các cơ chế đã-xem đang nằm đầu hàng đợi (vd đã học từ phiên trước) → không kẹt đầu.
+    fun pruneSeenHeads() {
+        while (holder.guideQueue.firstOrNull()?.let { guideSeen(GjGuide.forMechanic(it).id) } == true) {
+            holder.consumeGuide()
         }
     }
+
+    // (1) combo hồi lượt xoay: RotationRefunded → rotationRefillTick tăng; trễ 900ms rồi hiện.
+    val comboRefillUnseen = !guideSeen(GjGuide.comboRefill.id)
+    LaunchedEffect(holder.rotationRefillTick) {
+        if (holder.rotationRefillTick > 0L && comboRefillUnseen && !holder.shell.gameOver) {
+            kotlinx.coroutines.delay(900L)
+            if (!holder.shell.gameOver && activeGuide == null) activeGuide = GjGuide.comboRefill
+        }
+    }
+
+    // (2) cơ chế gặp-lần-đầu (poll, tránh re-key liên tục khi hàng đợi đổi): chờ bàn LẮNG rồi mở
+    // popup đầu hàng đợi (chưa xem). Popup nằm trên bàn TĨNH, không đè animation nổ/ghép.
+    // Key theo seenGuides để đọc đúng trạng thái đã-xem khi DataStore nạp bất đồng bộ.
+    LaunchedEffect(seenGuides) {
+        while (true) {
+            pruneSeenHeads()
+            val head = holder.guideQueue.firstOrNull()
+            if (head == null || activeGuide != null || holder.shell.gameOver || holder.animator.isPlaying) {
+                kotlinx.coroutines.delay(150L); continue
+            }
+            kotlinx.coroutines.delay(GUIDE_SETTLE_GRACE_MS)
+            if (!holder.shell.gameOver && activeGuide == null && !holder.animator.isPlaying &&
+                holder.guideQueue.firstOrNull() == head
+            ) {
+                activeGuide = GjGuide.forMechanic(head)
+            }
+            kotlinx.coroutines.delay(120L)
+        }
+    }
+
+    // Nhãn nút: cơ chế hàng đợi mà SAU đầu hàng còn mục CHƯA xem → "Tiếp theo"; còn lại "Đã hiểu".
+    // Combo-refill (path riêng) luôn "Đã hiểu".
+    val active = activeGuide
+    val moreInQueue = active != null && active.id != GjGuide.comboRefill.id &&
+        holder.guideQueue.drop(1).any { !guideSeen(GjGuide.forMechanic(it).id) }
+    val guideConfirmLabel = if (moreInQueue) "Tiếp theo" else "Đã hiểu"
     val slotWin = remember { arrayOf(Offset.Zero, Offset.Zero, Offset.Zero) }
     // ô khay đang kéo → highlight ô nguồn (selected style: ring cam + nền lõm + tam giác).
     // -1 = không kéo. Đặt khi onDragStart, xoá khi thả/huỷ.
@@ -179,13 +226,30 @@ fun EndlessPlayScreen(
             },
         )
 
-        // Popup dạy luật "combo hồi lượt xoay" — lần đầu, bắt buộc xác nhận; đóng → đánh dấu đã xem.
+        // Popup dạy luật (combo-refill HOẶC cơ chế gặp-lần-đầu) — bắt buộc xác nhận. Đóng → đánh dấu
+        // đã xem; nếu hàng đợi còn cơ chế khác (nút "Tiếp theo") → hiện NGAY popup kế (không chờ lại).
         GuideTeachDialog(
-            entry     = GjGuide.comboRefill,
-            open      = teachComboRefill,
-            onDismiss = {
-                teachComboRefill = false
-                onGuideSeen(GjGuide.comboRefill.id)
+            entry        = displayEntry,
+            open         = activeGuide != null,
+            confirmLabel = guideConfirmLabel,
+            onDismiss    = {
+                val e = activeGuide
+                activeGuide = null
+                if (e != null) {
+                    locallySeen.add(e.id)
+                    onGuideSeen(e.id)
+                    if (e.id != GjGuide.comboRefill.id) {
+                        holder.consumeGuide()           // bỏ cơ chế vừa dạy khỏi hàng đợi
+                        pruneSeenHeads()
+                        // còn cơ chế chưa xem ở đầu → CHAIN: mở ngay popup kế (bàn đã lắng sẵn);
+                        // set displayEntry cùng nhịp để tiêu đề/nội dung không trễ một frame.
+                        holder.guideQueue.firstOrNull()?.let {
+                            val next = GjGuide.forMechanic(it)
+                            displayEntry = next
+                            activeGuide = next
+                        }
+                    }
+                }
             },
         )
     }
@@ -237,6 +301,9 @@ private fun ComboBurstOverlay(
         }
     }
 }
+
+// Chờ thêm sau khi bàn lắng trước khi mở popup dạy cơ chế — để người chơi thấy KẾT QUẢ đã ổn định.
+private const val GUIDE_SETTLE_GRACE_MS = 450L
 
 private const val COMBO_HOLD_MS  = 1300L   // giữ trước khi tan (gj-combo-life ~66% của ~2s)
 private const val COMBO_FADE_MS  = 700     // thời gian mờ dần

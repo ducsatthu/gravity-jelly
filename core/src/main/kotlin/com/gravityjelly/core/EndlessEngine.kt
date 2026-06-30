@@ -32,12 +32,16 @@ sealed class GameEvent {
         val score: Int = 0,
         val comboLevel: Int = 0,
     ) : GameEvent()
-    /** Siêu khối tại [at] nổ; [cells] = footprint bị quét (cùng màu toàn bàn; +5×5 nếu cấp 2). */
+    /**
+     * Siêu khối tại [at] nổ; [cells] = footprint bị quét (cùng màu toàn bàn; +5×5 nếu cấp 2).
+     * [isRainbow] = true khi detonator là CẦU VỒNG (lớp vỏ phân biệt nổ siêu khối ↔ nổ cầu vồng).
+     */
     data class SuperDetonated(
         val at: Vec,
         val color: JellyColor,
         val level: Int,
         val cells: List<Vec>,
+        val isRainbow: Boolean = false,
     ) : GameEvent()
     /**
      * 1 KHỐI CẦU VỒNG tại [at]; [absorbed] = ô bị thu. [level] = 0 cầu vồng thường;
@@ -256,6 +260,6 @@ private fun ResolveEvent.toGameEvent(): GameEvent = when (this) {
     is ResolveEvent.LinesCleared -> GameEvent.LinesCleared(lines, cellsCleared, comboLevel, score)
     is ResolveEvent.ClustersCollapsed -> GameEvent.ClustersCollapsed(moved)
     is ResolveEvent.SuperFormed -> GameEvent.SuperFormed(at, color, level, source, absorbed, score, comboLevel)
-    is ResolveEvent.SuperDetonated -> GameEvent.SuperDetonated(at, color, level, cells)
+    is ResolveEvent.SuperDetonated -> GameEvent.SuperDetonated(at, color, level, cells, isRainbow)
     is ResolveEvent.RainbowFormed -> GameEvent.RainbowFormed(at, absorbed, score, comboLevel, level)
 }

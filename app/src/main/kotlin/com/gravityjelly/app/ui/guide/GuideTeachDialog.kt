@@ -24,6 +24,7 @@ fun GuideTeachDialog(
     open: Boolean,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
+    confirmLabel: String = "Đã hiểu",
 ) {
     GjDialog(
         open        = open,
@@ -37,7 +38,7 @@ fun GuideTeachDialog(
                 onClick   = onDismiss,
                 variant   = BtnVariant.Gravity,
                 fullWidth = true,
-            ) { Text("Đã hiểu") }
+            ) { Text(confirmLabel) }
         },
     )
 }

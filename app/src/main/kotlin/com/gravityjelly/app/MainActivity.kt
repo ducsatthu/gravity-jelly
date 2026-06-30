@@ -73,6 +73,7 @@ private sealed interface Route {
     data object Home : Route
     data object Game : Route
     data object Settings : Route
+    data object Handbook : Route   // Cẩm nang (tạm thay Daily)
     // data object LevelMap : Route  // sau MVP
 }
 
@@ -132,7 +133,7 @@ private fun GravityJellyApp() {
                 best = settings.best,
                 onPlayEndless = { route = Route.Game },
                 onSettings = { route = Route.Settings },
-                onDaily = { /* SẮP CÓ */ },
+                onHandbook = { route = Route.Handbook },
                 modifier = Modifier.fillMaxSize(),
             )
 
@@ -158,16 +159,22 @@ private fun GravityJellyApp() {
                 onBack = { route = Route.Home },
                 modifier = Modifier.fillMaxSize(),
             )
+
+            Route.Handbook -> CamNangScreen(
+                seenGuides = settings.seenGuides,
+                onBack = { route = Route.Home },
+                modifier = Modifier.fillMaxSize(),
+            )
         }
     }
 }
 
 // rememberSaveable cần khoá nguyên thuỷ cho sealed route.
 private fun Route.routeKey(): Int = when (this) {
-    Route.Home -> 0; Route.Game -> 1; Route.Settings -> 2; Route.Splash -> 3
+    Route.Home -> 0; Route.Game -> 1; Route.Settings -> 2; Route.Splash -> 3; Route.Handbook -> 4
 }
 private fun routeFromKey(key: Int): Route = when (key) {
-    1 -> Route.Game; 2 -> Route.Settings; 3 -> Route.Splash; else -> Route.Home
+    1 -> Route.Game; 2 -> Route.Settings; 3 -> Route.Splash; 4 -> Route.Handbook; else -> Route.Home
 }
 
 private val DEFAULT_SEED = 0x9E3779B97F4A7C15uL.toLong()

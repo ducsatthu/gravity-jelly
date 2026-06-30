@@ -56,7 +56,7 @@ fun HomeScreen(
     best: Int,
     onPlayEndless: () -> Unit,
     onSettings: () -> Unit,
-    onDaily: () -> Unit = {},
+    onHandbook: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     GjScreenScaffold(modifier = modifier, contentAlignment = Alignment.TopCenter) {
@@ -94,7 +94,7 @@ fun HomeScreen(
                     fullWidth = true,
                 ) { Text("CHƠI · ENDLESS") }
 
-                // Hàng dưới: Cài đặt · Daily (sắp có)
+                // Hàng dưới: Cài đặt · Cẩm nang (tạm thay Daily — chưa làm Daily).
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(GjSpace.md),
@@ -107,14 +107,14 @@ fun HomeScreen(
                         fullWidth = true,
                     ) { Text("Cài đặt") }
 
-                    // Khớp design card: icon ⭐ + "Daily" (KHÔNG pill "SẮP CÓ").
+                    // Cẩm nang: danh sách luật đã thu thập, bấm mở popup như in-game.
                     GjButton(
-                        onClick = onDaily,
+                        onClick = onHandbook,
                         modifier = Modifier.weight(1f),
                         variant = BtnVariant.Secondary,
-                        icon = GjIcons.Star,
+                        icon = GjIcons.Info,
                         fullWidth = true,
-                    ) { Text("Daily") }
+                    ) { Text("Cẩm nang") }
                 }
             }
         }
@@ -288,7 +288,7 @@ private fun HomeScreenPreview() {
             best = 12480,
             onPlayEndless = {},
             onSettings = {},
-            onDaily = {},
+            onHandbook = {},
         )
     }
 }

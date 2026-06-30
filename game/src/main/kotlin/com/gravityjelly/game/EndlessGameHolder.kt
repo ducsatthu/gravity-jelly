@@ -18,6 +18,22 @@ import kotlin.math.floor
 enum class EffectKind { PLACE, CLEAR, COMBO }
 
 /**
+ * Cơ chế chơi mà người chơi vừa GẶP lần đầu — lớp vỏ ([com.gravityjelly.app] EndlessPlayScreen) map
+ * sang popup dạy luật / mục cẩm nang tương ứng. Holder phát hiện từ chuỗi [GameEvent] (giữ ranh giới:
+ * :game không biết id guide của :app). Một cơ chế chỉ vào hàng đợi MỘT lần / phiên (dedup); việc đã
+ * xem chưa (bền hoá) do lớp vỏ lọc qua seenGuides.
+ *
+ * (Combo-hồi-lượt-xoay KHÔNG nằm đây — giữ path riêng [rotationRefillTick] để bảo toàn nhịp dạy 900ms.)
+ */
+enum class GameMechanic {
+    GRAVITY_ROTATE,
+    CLEAR_ROW, CLEAR_COLUMN,
+    GRAVITY_DROP, STICKY_CLUSTER,
+    FORM_SUPER1, FORM_RAINBOW, FORM_SUPER2, FORM_RAINBOW2,
+    DETONATE_SUPER1, DETONATE_SUPER2, DETONATE_RAINBOW1, DETONATE_RAINBOW2,
+}
+
+/**
  * Combo burst để ăn mừng tại vùng resolve. [winX]/[winY] là toạ độ cửa sổ (px) của tâm
  * vùng combo trên bàn; lớp vỏ quy về toạ độ cục bộ rồi đặt [com.gravityjelly...ComboPopup].
  */
@@ -75,6 +91,16 @@ class EndlessGameHolder(
      */
     var rotationRefillTick by mutableStateOf(0L)
         private set
+
+    /**
+     * Hàng đợi cơ chế GẶP-LẦN-ĐẦU chờ dạy (theo thứ tự gặp). Lớp vỏ quan sát → chờ bàn lắng → hiện
+     * popup tuần tự (lọc seenGuides), rồi gọi [consumeGuide] bỏ phần tử đầu. Dedup trong [encounteredMechanics]
+     * để mỗi cơ chế chỉ vào hàng đợi một lần mỗi phiên.
+     */
+    var guideQueue by mutableStateOf<List<GameMechanic>>(emptyList())
+        private set
+
+    private val encounteredMechanics = HashSet<GameMechanic>()
 
     // ── trạng thái kéo-thả (plain fields; overlay đọc mỗi frame) ──
     var dragPiece: Piece? = null
@@ -152,6 +178,7 @@ class EndlessGameHolder(
             animator.ingest(events, pre, preGravity, boardRender.grid, boardRender.gravity)
             dispatchFeedback(events)
             detectRotationRefill(events)
+            detectGuideMechanics(events)
         }
     }
 
@@ -291,6 +318,7 @@ class EndlessGameHolder(
             animator.ingest(events, pre, preGravity, boardRender.grid, boardRender.gravity)
             dispatchFeedback(events)
             detectRotationRefill(events)
+            detectGuideMechanics(events)
         }
     }
 
@@ -352,6 +380,51 @@ class EndlessGameHolder(
         for (i in events.indices) {
             if (events[i] is GameEvent.RotationRefunded) { rotationRefillTick++; return }
         }
+    }
+
+    /**
+     * Quét chuỗi sự kiện → phát hiện cơ chế GẶP-LẦN-ĐẦU và nối vào [guideQueue] (giữ thứ tự gặp,
+     * mỗi cơ chế chỉ một lần / phiên qua [encounteredMechanics]). Lớp vỏ map sang popup dạy luật.
+     * `internal` (không private) để test khoá spec phát hiện (GuideMechanicDetectionTest).
+     */
+    internal fun detectGuideMechanics(events: List<GameEvent>) {
+        var added = false
+        val next = ArrayList(guideQueue)
+        fun enqueue(m: GameMechanic) { if (encounteredMechanics.add(m)) { next.add(m); added = true } }
+        for (e in events) {
+            when (e) {
+                // Lần đầu XOAY trọng lực → giới thiệu nút xoay + D-Pad (cơ chế chữ ký).
+                is GameEvent.GravityRotated -> enqueue(GameMechanic.GRAVITY_ROTATE)
+                is GameEvent.LinesCleared -> {
+                    if (e.lines.rows.isNotEmpty()) enqueue(GameMechanic.CLEAR_ROW)
+                    if (e.lines.cols.isNotEmpty()) enqueue(GameMechanic.CLEAR_COLUMN)
+                }
+                // Cụm sụp có DI CHUYỂN (sau xóa/ghép) = lúc dạy được "trọng lực rơi" + "thạch dính
+                // cụm" (đặt SAU clear trong stream → popup xóa-hàng hiện trước, rồi tới hai luật này).
+                is GameEvent.ClustersCollapsed -> if (e.moved) {
+                    enqueue(GameMechanic.GRAVITY_DROP)
+                    enqueue(GameMechanic.STICKY_CLUSTER)
+                }
+                is GameEvent.SuperFormed ->
+                    enqueue(if (e.level >= 2) GameMechanic.FORM_SUPER2 else GameMechanic.FORM_SUPER1)
+                is GameEvent.RainbowFormed ->
+                    enqueue(if (e.level >= 2) GameMechanic.FORM_RAINBOW2 else GameMechanic.FORM_RAINBOW)
+                is GameEvent.SuperDetonated -> enqueue(
+                    if (e.isRainbow) {
+                        if (e.level >= 2) GameMechanic.DETONATE_RAINBOW2 else GameMechanic.DETONATE_RAINBOW1
+                    } else {
+                        if (e.level >= 2) GameMechanic.DETONATE_SUPER2 else GameMechanic.DETONATE_SUPER1
+                    },
+                )
+                else -> {}
+            }
+        }
+        if (added) guideQueue = next
+    }
+
+    /** Bỏ cơ chế đầu hàng đợi (lớp vỏ gọi sau khi đã hiện/đã bỏ qua popup tương ứng). */
+    fun consumeGuide() {
+        if (guideQueue.isNotEmpty()) guideQueue = guideQueue.drop(1)
     }
 
     // ── nội bộ ──

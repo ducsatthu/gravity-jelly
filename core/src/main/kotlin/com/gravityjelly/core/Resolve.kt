@@ -24,12 +24,17 @@ sealed class ResolveEvent {
         val comboLevel: Int = 0,
     ) : ResolveEvent()
 
-    /** Siêu khối tại [at] bị nổ; [cells] = footprint quét (cùng màu toàn bàn; +5×5 nếu cấp 2). */
+    /**
+     * Siêu khối tại [at] bị nổ; [cells] = footprint quét (cùng màu toàn bàn; +5×5 nếu cấp 2).
+     * [isRainbow] = true khi detonator là CẦU VỒNG (quét theo màu kề / cả bàn nếu siêu cấp); giúp
+     * lớp vỏ phân biệt nổ siêu khối ↔ nổ cầu vồng (vd dạy luật lần đầu).
+     */
     data class SuperDetonated(
         val at: Vec,
         val color: JellyColor,
         val level: Int,
         val cells: List<Vec>,
+        val isRainbow: Boolean = false,
     ) : ResolveEvent()
 
     /**
@@ -138,7 +143,7 @@ fun resolve(grid: Grid, gravity: Direction, startCombo: Int = 0, mergeEnabled: B
             totalScore += score
             events.add(ResolveEvent.LinesCleared(lines, cellsCleared, combo, score))
             for (d in detonations) {
-                events.add(ResolveEvent.SuperDetonated(d.center, d.color, d.level, d.cells))
+                events.add(ResolveEvent.SuperDetonated(d.center, d.color, d.level, d.cells, d.isRainbow))
             }
             val moved = applyClusterGravity(grid, gravity)
             events.add(ResolveEvent.ClustersCollapsed(moved))

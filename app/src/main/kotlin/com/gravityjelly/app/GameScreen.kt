@@ -244,8 +244,9 @@ private val DpadEdge    = Color(0xFF4F3FB0)   // boxShadow 0 6px 0 #4F3FB0
  * Capsule tím với **4 mũi tên CỐ ĐỊNH** theo thứ tự trái · trên · phải · dưới; **đĩa trắng nổi
  * (active) DI CHUYỂN** tới mũi tên trùng hướng trọng lực hiện tại. KHÔNG bắt chạm (chỉ chỉ-thị).
  */
+// internal: dùng lại ở popup dạy luật "xoay trọng lực" (GjGuide) để giới thiệu D-Pad thật.
 @Composable
-private fun GravityDpad(direction: Direction, modifier: Modifier = Modifier) {
+internal fun GravityDpad(direction: Direction, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .height(50.dp)

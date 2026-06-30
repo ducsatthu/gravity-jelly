@@ -361,6 +361,18 @@ class SuperBlockTest {
     }
 
     @Test
+    fun resolve_clearLineThroughRainbow_emitsRainbowDetonationEvent() {
+        val g = Grid()
+        g.set(4, 4, rb())                   // cầu vồng giữa hàng 4
+        // hàng 4 đầy quanh cầu vồng (mixed, KHÔNG ghép được) → cuốn cầu vồng vào nổ
+        for (x in 0 until 9) if (x != 4) g.set(x, 4, b(if (x % 2 == 0) JellyColor.PINK else JellyColor.BLUE))
+        val r = resolve(g, Direction.DOWN)
+        // event mang cờ isRainbow để lớp vỏ phân biệt nổ cầu vồng ↔ nổ siêu khối
+        val det = r.events.filterIsInstance<ResolveEvent.SuperDetonated>().single { it.isRainbow }
+        assertEquals(0, det.level)
+    }
+
+    @Test
     fun expandDetonations_super2_clearsSameColorPlus5x5() {
         val g = Grid()
         g.set(4, 4, sup(JellyColor.MINT, level = 2))
