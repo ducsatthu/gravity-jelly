@@ -29,6 +29,12 @@ class GameClock(
         while (accumulator >= stepNanos && steps < MAX_STEPS) {
             onStep(); accumulator -= stepNanos; steps++
         }
+        // Spiral-of-death guard: nếu chạm MAX_STEPS mà accumulator còn dư (delta khổng lồ
+        // khi resume từ nền — withFrameNanos ngừng lúc ra nền nên frame đầu cộng cả khoảng
+        // thời gian ở nền), vứt phần backlog, chỉ giữ phần lẻ < 1 step. Không làm vậy thì
+        // accumulator dư rò rỉ vào alpha, thổi phồng renderNanos() và desync với simTimeNanos
+        // → cascade/trọng lực đứng hình nhưng input lại mở khoá.
+        if (accumulator >= stepNanos) accumulator %= stepNanos
         return (accumulator.toDouble() / stepNanos).toFloat() // alpha nội suy [0,1)
     }
 
