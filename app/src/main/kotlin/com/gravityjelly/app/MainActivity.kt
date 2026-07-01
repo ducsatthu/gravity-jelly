@@ -101,8 +101,12 @@ private fun GravityJellyApp() {
         ),
     ) { mutableStateOf(Route.Splash) }
 
-    // Back hệ thống: từ Game/Settings → Home; ở Home/Splash để hệ thống thoát app.
-    BackHandler(enabled = route != Route.Home && route != Route.Splash) { route = Route.Home }
+    // Back hệ thống: từ Settings/Handbook → Home; ở Home/Splash để hệ thống thoát app.
+    // Route.Game KHÔNG xử lý ở đây — EndlessPlayScreen tự bắt back để mở Tạm dừng (chống back nhầm
+    // mất ván); muốn về Home phải bấm "Về Home" trong dialog.
+    BackHandler(enabled = route != Route.Home && route != Route.Splash && route != Route.Game) {
+        route = Route.Home
+    }
 
     // Chuyển cảnh mềm (150–450ms, ease token); reduced-motion → snap.
     AnimatedContent(

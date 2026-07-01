@@ -1,5 +1,6 @@
 package com.gravityjelly.app
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.gestures.detectDragGestures
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
@@ -26,6 +28,9 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.gravityjelly.app.ui.components.BtnVariant
@@ -37,7 +42,6 @@ import com.gravityjelly.app.ui.guide.GjGuideEntry
 import com.gravityjelly.app.ui.guide.GuideTeachDialog
 import com.gravityjelly.app.ui.icons.GjIcons
 import com.gravityjelly.app.ui.theme.GjPalette
-import com.gravityjelly.core.Piece
 import com.gravityjelly.game.BOARD_PAD_DP
 import com.gravityjelly.game.BoardCanvas
 import com.gravityjelly.game.ComboBurst
@@ -74,6 +78,18 @@ fun EndlessPlayScreen(
 
     var parentWin by remember { mutableStateOf(Offset.Zero) }
     var paused by remember { mutableStateOf(false) }
+
+    // Chuyển app / cuộc gọi đến / xem recents → Activity nhận ON_PAUSE: tự bật dialog Tạm dừng để
+    // ván không chạy tiếp lúc người chơi không nhìn. Frame loop (withFrameNanos) tự ngưng khi ra nền;
+    // dialog giữ ván đứng khi quay lại cho tới khi người chơi bấm "Tiếp tục". Không tự pause nếu đã thua.
+    val lifecycleOwner = LocalLifecycleOwner.current
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_PAUSE && !holder.shell.gameOver) paused = true
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
+    }
 
     // Popup dạy luật ĐANG hiện (null = không). Một popup mỗi lúc, từ HAI nguồn:
     //  (1) combo-hồi-lượt-xoay — path riêng giữ nhịp 900ms (cho thấy combo ×N + badge trước).
@@ -148,6 +164,18 @@ fun EndlessPlayScreen(
         }
     }
 
+    // Back / vuốt-back KHÔNG thoát ván (chống back nhầm mất màn). Ưu tiên: popup dạy luật đang mở →
+    // nuốt (bắt buộc xác nhận). Đã thua (ResultScreen overlay) → về Home. Đang Tạm dừng → tiếp tục
+    // chơi. Còn lại (đang chơi) → mở Tạm dừng; muốn về Home phải bấm "Về Home" trong dialog.
+    BackHandler {
+        when {
+            activeGuide != null -> Unit          // dialog dạy luật: bắt buộc bấm xác nhận
+            shell.gameOver      -> onHome()        // đã thua → về Home
+            paused              -> paused = false  // đang Tạm dừng → tiếp tục
+            else                -> paused = true   // đang chơi → mở Tạm dừng
+        }
+    }
+
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -157,7 +185,7 @@ fun EndlessPlayScreen(
             score         = shell.score,
             direction     = holder.boardRender.gravity,
             turnsLeft     = shell.budget,
-            pieces        = shell.tray.map { it as Piece? },
+            pieces        = shell.tray,
             selectedIndex = draggingSlot,
             onPause       = { paused = true },
             onSelectPiece = { /* live game dùng kéo-thả, không tap-select */ },
