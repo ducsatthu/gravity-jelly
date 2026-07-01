@@ -182,7 +182,7 @@ class EndlessTuningTest {
         playUntilStage(e, 2)
         val tray = e.state().tray
         // All pieces should have size >= 3
-        assertTrue(tray.all { it.shape.size >= 3 })
+        assertTrue(tray.filterNotNull().all { it.shape.size >= 3 })
     }
 
     // ── GAMEPLAY preset ──

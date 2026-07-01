@@ -25,6 +25,9 @@
   .tokens img { height: 56px; }
   .btns { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
   .btns img { height: 56px; }
+  .banners { display: flex; flex-direction: column; gap: 12px; }
+  .banners figure { margin: 0; display: flex; flex-direction: column; gap: 5px; }
+  .banners img { width: 340px; height: auto; display: block; filter: drop-shadow(0 5px 9px rgba(60,44,24,0.28)); }
   .arrows { display: flex; gap: 12px; }
   .arrows img { width: 52px; height: 52px; }
   .icons { display: grid; grid-template-columns: repeat(11, 1fr); gap: 14px; background: var(--color-surface); border-radius: var(--radius-card); padding: 16px; box-shadow: var(--shadow-sm); }
@@ -117,6 +120,17 @@
     <h2>Nút jelly · 5 biến thể</h2>
     <div class="btns">
       <img src="ui/button-primary.svg" /><img src="ui/button-gravity.svg" /><img src="ui/button-success.svg" /><img src="ui/button-danger.svg" /><img src="ui/button-secondary.svg" />
+    </div>
+  </section>
+
+  <section>
+    <h2>Khung banner · PNG · 5 màu (kéo dãn theo nội dung)</h2>
+    <div class="banners">
+      <figure><img src="ui/button-frame.png" alt="banner blue" /><cap>blue · button-frame.png</cap></figure>
+      <figure><img src="ui/button-frame-green.png" alt="banner green" /><cap>green · button-frame-green.png</cap></figure>
+      <figure><img src="ui/button-frame-purple.png" alt="banner purple" /><cap>purple · button-frame-purple.png</cap></figure>
+      <figure><img src="ui/button-frame-red.png" alt="banner red" /><cap>red · button-frame-red.png</cap></figure>
+      <figure><img src="ui/button-frame-orange.png" alt="banner orange" /><cap>orange · button-frame-orange.png</cap></figure>
     </div>
   </section>
 

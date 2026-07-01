@@ -27,7 +27,7 @@ enum class EffectKind { PLACE, CLEAR, COMBO }
  */
 enum class GameMechanic {
     GRAVITY_ROTATE,
-    CLEAR_ROW, CLEAR_COLUMN,
+    CLEAR_LINE,                  // xóa hàng HOẶC cột — cùng một luật (gộp, không tách)
     GRAVITY_DROP, STICKY_CLUSTER,
     FORM_SUPER1, FORM_RAINBOW, FORM_SUPER2, FORM_RAINBOW2,
     DETONATE_SUPER1, DETONATE_SUPER2, DETONATE_RAINBOW1, DETONATE_RAINBOW2,
@@ -45,7 +45,7 @@ data class ShellState(
     val budget: Int,
     val combo: Int,
     val stage: Int,
-    val tray: List<Piece>,
+    val tray: List<Piece?>,
     val gameOver: Boolean,
 )
 
@@ -133,6 +133,12 @@ class EndlessGameHolder(
     private var pendingDirY = 0
     private var pendingDirSinceNanos = 0L
 
+    // Ô lưới dưới con trỏ, có HYSTERESIS: giữ ô hiện tại tới khi con trỏ vượt hẳn mép ô thêm dải đệm
+    // [CELL_HYST] mới lật sang ô mới. Chống ghost nhảy ô do rung tay (chỉ nhích nhẹ KHÔNG đổi chỗ thả),
+    // và buộc phải kéo đủ xa mới đổi ô gợi ý. Int.MIN_VALUE = chưa có mốc (đầu cú kéo) → dùng floor.
+    private var lastCol = Int.MIN_VALUE
+    private var lastRow = Int.MIN_VALUE
+
     // bounds bàn (toạ độ window, px) để quy đổi con trỏ → ô lưới
     private var boardWinX = 0f
     private var boardWinY = 0f
@@ -197,6 +203,7 @@ class EndlessGameHolder(
         dragOx = -1; dragOy = -1
         dragDirX = 0; dragDirY = 0; hasDirSample = false
         pendingDirX = 0; pendingDirY = 0; pendingDirSinceNanos = 0L
+        lastCol = Int.MIN_VALUE; lastRow = Int.MIN_VALUE
         boardRender.ghost = null
         return true
     }
@@ -218,8 +225,11 @@ class EndlessGameHolder(
 
         updateDragDirection(windowX, liftedY)
 
-        val col = floor((windowX - boardWinX) / cell).toInt()
-        val row = floor((liftedY - boardWinY) / cell).toInt()
+        // Quy con trỏ → ô có hysteresis: ô chỉ đổi khi con trỏ vượt hẳn mép ô (dải đệm [CELL_HYST]).
+        // Nhờ đó rung tay nhẹ KHÔNG lệch chỗ thả, và phải kéo đủ xa mới đổi ô gợi ý (xem [stickyCell]).
+        val col = stickyCell((windowX - boardWinX) / cell, lastCol)
+        val row = stickyCell((liftedY - boardWinY) / cell, lastRow)
+        lastCol = col; lastRow = row
         // Con trỏ ra hẳn ngoài bàn (margin 1 ô) → không có ý định thả.
         if (col < -1 || row < -1 || col > Grid.SIZE || row > Grid.SIZE) { clearGhost(); return }
 
@@ -247,6 +257,20 @@ class EndlessGameHolder(
      *     ≥ [DIR_COMMIT_NANOS]. Ngón gần đứng yên → GIỮ hướng cũ + reset đồng hồ → khi dừng lại để
      *     thả tay, ghost không nhảy. Nhờ đó "đẩy lên rồi nhích xuống thả" không lật hướng tức thì.
      */
+    /**
+     * Lượng tử hoá toạ độ ô có HYSTERESIS. [f] là toạ độ ô phân số của con trỏ (px / cell). Giữ ô cũ
+     * [prev] chừng nào con trỏ còn trong khoảng [prev − CELL_HYST, prev + 1 + CELL_HYST]; ra khỏi dải
+     * mới nhảy sang ô mới ([floor]). Hai ô kề nhau chia sẻ vùng chồng lấn rộng 2·[CELL_HYST] nên rung
+     * quanh mép ô không lật đi lật lại — đứng yên đủ lâu để thả, và phải kéo hẳn > ~(0.5 + CELL_HYST) ô
+     * mới đổi ô (không đổi vì nhích tay). [prev] = Int.MIN_VALUE (đầu cú kéo) → chưa có mốc, lấy floor.
+     */
+    private fun stickyCell(f: Float, prev: Int): Int = when {
+        prev == Int.MIN_VALUE -> floor(f).toInt()
+        f < prev - CELL_HYST -> floor(f).toInt()
+        f >= prev + 1 + CELL_HYST -> floor(f).toInt()
+        else -> prev
+    }
+
     private fun updateDragDirection(x: Float, y: Float) {
         val now = animator.renderNanos()
         if (!hasDirSample) {
@@ -395,10 +419,8 @@ class EndlessGameHolder(
             when (e) {
                 // Lần đầu XOAY trọng lực → giới thiệu nút xoay + D-Pad (cơ chế chữ ký).
                 is GameEvent.GravityRotated -> enqueue(GameMechanic.GRAVITY_ROTATE)
-                is GameEvent.LinesCleared -> {
-                    if (e.lines.rows.isNotEmpty()) enqueue(GameMechanic.CLEAR_ROW)
-                    if (e.lines.cols.isNotEmpty()) enqueue(GameMechanic.CLEAR_COLUMN)
-                }
+                is GameEvent.LinesCleared ->
+                    if (e.lines.rows.isNotEmpty() || e.lines.cols.isNotEmpty()) enqueue(GameMechanic.CLEAR_LINE)
                 // Cụm sụp có DI CHUYỂN (sau xóa/ghép) = lúc dạy được "trọng lực rơi" + "thạch dính
                 // cụm" (đặt SAU clear trong stream → popup xóa-hàng hiện trước, rồi tới hai luật này).
                 is GameEvent.ClustersCollapsed -> if (e.moved) {
@@ -468,6 +490,14 @@ class EndlessGameHolder(
          * tha thứ.
          */
         private const val SNAP_RADIUS = 2
+
+        /**
+         * Dải đệm hysteresis (đơn vị Ô) khi quy con trỏ → ô lưới. Giữ ghost dính ở một ô tới khi con
+         * trỏ vượt mép ô thêm dải này mới lật sang ô kế → cần kéo ~(0.5 + dải) ≈ 0.85 ô mới đổi chỗ
+         * gợi ý. Chống "chỉ nhích nhẹ đã lệch": rung quanh mép ô không đổi ghost, người chơi có đủ
+         * vùng đứng yên để thả. Tăng → dính hơn (khó lệch, nhưng khó chỉnh tinh); giảm → nhạy hơn.
+         */
+        private const val CELL_HYST = 0.35f
 
         /**
          * Quãng dời tối thiểu (dp) trước khi tính một hướng kéo ứng viên — lọc rung tay, tránh đảo

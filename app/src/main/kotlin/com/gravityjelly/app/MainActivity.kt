@@ -134,10 +134,10 @@ private fun GravityJellyApp() {
             )
 
             Route.Home -> HomeScreen(
-                best = settings.best,
                 onPlayEndless = { route = Route.Game },
                 onSettings = { route = Route.Settings },
                 onHandbook = { route = Route.Handbook },
+                reducedMotion = reducedMotion,
                 modifier = Modifier.fillMaxSize(),
             )
 

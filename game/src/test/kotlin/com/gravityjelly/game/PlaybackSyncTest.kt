@@ -147,7 +147,8 @@ class PlaybackSyncTest {
                 // thử đặt-tự-do NGẪU NHIÊN (gồm cả chỗ treo lửng) trên các mảnh khay
                 val order = s.tray.indices.shuffledBy { nextRand(it) }
                 for (i in order) {
-                    val spots = freeSpots(s.grid, s.tray[i])
+                    val piece = s.tray[i] ?: continue
+                    val spots = freeSpots(s.grid, piece)
                     if (spots.isEmpty()) continue
                     val (ox, oy) = spots[nextRand(spots.size)]
                     events = engine.placePieceAt(i, ox, oy)

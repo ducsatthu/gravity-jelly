@@ -3,7 +3,8 @@ package com.gravityjelly.core
 data class EndlessState(
     val grid: Grid,
     val gravity: Direction,
-    val tray: List<Piece>,
+    /** 3 ô khay cố định; null = ô đã đặt mảnh đi (các ô khác GIỮ nguyên vị trí, không dồn). */
+    val tray: List<Piece?>,
     val rotationBudget: Int,
     val score: Int,
     val combo: Int,
@@ -57,7 +58,7 @@ sealed class GameEvent {
     /** Combo leo thang đã hồi [amount] lượt xoay; [budgetAfter] là ngân sách sau khi cộng. */
     data class RotationRefunded(val amount: Int, val budgetAfter: Int) : GameEvent()
     data class StonesAdded(val positions: List<Vec>) : GameEvent()
-    data class TrayDealt(val tray: List<Piece>) : GameEvent()
+    data class TrayDealt(val tray: List<Piece?>) : GameEvent()
     data object GameOver : GameEvent()
 }
 
@@ -75,7 +76,7 @@ class EndlessEngine(
     private val grid = Grid()
     private var gravity = Direction.DOWN
     private var stage = 1
-    private var tray: List<Piece> = dealTray()
+    private var tray: List<Piece?> = dealTray()
     private var rotBudget = initialBudget
     private var score = 0
     private var combo = 0
@@ -102,7 +103,7 @@ class EndlessEngine(
         if (gameOver) return emptyList()
         if (trayIndex !in tray.indices) return emptyList()
 
-        val piece = tray[trayIndex]
+        val piece = tray[trayIndex] ?: return emptyList()
         val placeResult = freePlace(grid, piece, ox, oy)
         if (placeResult !is PlacementResult.Success) return emptyList()
 
@@ -119,7 +120,7 @@ class EndlessEngine(
         if (gameOver) return emptyList()
         if (trayIndex !in tray.indices) return emptyList()
 
-        val piece = tray[trayIndex]
+        val piece = tray[trayIndex] ?: return emptyList()
         val dropResult = hardDrop(grid, piece, lateralIndex, gravity)
         if (dropResult !is PlacementResult.Success) return emptyList()
 
@@ -143,9 +144,10 @@ class EndlessEngine(
         applyComboRefund(prevCombo, resolveResult.endCombo, events)
         resolveResult.events.mapTo(events) { it.toGameEvent() }
 
-        tray = tray.toMutableList().also { it.removeAt(trayIndex) }
+        // Set null tại đúng ô vừa đặt — GIỮ vị trí các ô còn lại (không dồn trái).
+        tray = tray.toMutableList().also { it[trayIndex] = null }
 
-        if (tray.isEmpty()) {
+        if (tray.all { it == null }) {
             advanceStage(events)
         }
 
@@ -201,7 +203,7 @@ class EndlessEngine(
 
     private fun checkGameOver(): Boolean {
         // Đặt-tự-do: còn bất kỳ ô trống khít cho mảnh nào là còn nước đi (độc lập trọng lực).
-        if (tray.any { canFreePlaceAnywhere(grid, it) }) return false
+        if (tray.any { it != null && canFreePlaceAnywhere(grid, it) }) return false
         if (rotBudget <= 0) return true
 
         // Xoay trọng lực dồn cụm lại có thể mở ra khoảng trống khít → thử từng hướng.
@@ -210,7 +212,7 @@ class EndlessEngine(
             val testGrid = grid.copy()
             applyClusterGravity(testGrid, dir)
             resolve(testGrid, dir, mergeEnabled = tuning.superMergeEnabled)
-            if (tray.any { canFreePlaceAnywhere(testGrid, it) }) return false
+            if (tray.any { it != null && canFreePlaceAnywhere(testGrid, it) }) return false
         }
 
         return true

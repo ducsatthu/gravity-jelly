@@ -83,17 +83,21 @@ class EndlessEngineTest {
     @Test
     fun placePiece_validPlacement_cellsAppearOnGrid() {
         val e = EndlessEngine(seed = 1L)
-        val piece = e.state().tray[0]
         e.placePiece(0, 0)
         assertTrue(countOccupied(e.state().grid) > 0)
     }
 
     @Test
-    fun placePiece_removesPieceFromTray() {
+    fun placePiece_clearsSlotKeepsOthersInPlace() {
         val e = EndlessEngine(seed = 1L)
-        val before = e.state().tray.size
+        val before = e.state().tray
         e.placePiece(0, 0)
-        assertEquals(before - 1, e.state().tray.size)
+        val after = e.state().tray
+        // Ô vừa đặt thành null; số ô GIỮ nguyên 3 (không dồn) và các ô khác bất biến.
+        assertEquals(3, after.size)
+        assertEquals(null, after[0])
+        assertEquals(before[1], after[1])
+        assertEquals(before[2], after[2])
     }
 
     @Test
@@ -133,8 +137,8 @@ class EndlessEngineTest {
     fun trayDealt_whenTrayEmpty() {
         val e = EndlessEngine(seed = 1L)
         e.placePiece(0, 0)
-        e.placePiece(0, 2)
-        val events = e.placePiece(0, 4) // places last piece
+        e.placePiece(1, 2)
+        val events = e.placePiece(2, 4) // places last piece
         assertTrue(events.any { it is GameEvent.TrayDealt })
         assertEquals(3, e.state().tray.size)
     }
@@ -144,8 +148,8 @@ class EndlessEngineTest {
         val e = EndlessEngine(seed = 1L)
         assertEquals(1, e.state().stage)
         e.placePiece(0, 0)
-        e.placePiece(0, 2)
-        e.placePiece(0, 4) // empties tray → deal
+        e.placePiece(1, 2)
+        e.placePiece(2, 4) // empties tray → deal
         assertEquals(2, e.state().stage)
     }
 
@@ -301,9 +305,9 @@ class EndlessEngineTest {
         assertEquals(1, s0.stage)
         assertFalse(s0.isGameOver)
         // Golden: exact tray colors
-        assertEquals(JellyColor.MINT, s0.tray[0].color)
-        assertEquals(JellyColor.BLUE, s0.tray[1].color)
-        assertEquals(JellyColor.MINT, s0.tray[2].color)
+        assertEquals(JellyColor.MINT, s0.tray[0]!!.color)
+        assertEquals(JellyColor.BLUE, s0.tray[1]!!.color)
+        assertEquals(JellyColor.MINT, s0.tray[2]!!.color)
 
         // ── Step 1: place piece 0 at lateral 0 ──
         val ev1 = e.placePiece(0, 0)
@@ -314,24 +318,26 @@ class EndlessEngineTest {
             placed1.cells,
         )
         val s1 = e.state()
-        assertEquals(2, s1.tray.size)
+        // Ô 0 đã đặt → null; ô 1,2 GIỮ nguyên vị trí (không dồn).
+        assertEquals(null, s1.tray[0])
+        assertEquals(2, s1.tray.count { it != null })
         assertEquals(0, s1.score)
         assertFalse(s1.isGameOver)
 
-        // ── Step 2: place piece 0 (now BLUE L) at lateral 4 ──
-        val ev2 = e.placePiece(0, 4)
+        // ── Step 2: place piece 1 (BLUE L) at lateral 4 ──
+        val ev2 = e.placePiece(1, 4)
         val placed2 = ev2.first() as GameEvent.PiecePlaced
         assertEquals(
             listOf(Vec(4, 6), Vec(4, 7), Vec(4, 8), Vec(5, 8)),
             placed2.cells,
         )
         val s2 = e.state()
-        assertEquals(1, s2.tray.size)
+        assertEquals(1, s2.tray.count { it != null })
         assertEquals(0, s2.score)
         assertFalse(s2.isGameOver)
 
-        // ── Step 3: place last piece (MINT S) at lat 0 → new tray dealt ──
-        val ev3 = e.placePiece(0, 0)
+        // ── Step 3: place last piece 2 (MINT S) at lat 0 → new tray dealt ──
+        val ev3 = e.placePiece(2, 0)
         assertTrue(ev3.isNotEmpty())
         assertTrue(ev3.any { it is GameEvent.TrayDealt })
         val s3 = e.state()
@@ -339,9 +345,9 @@ class EndlessEngineTest {
         assertEquals(2, s3.stage)
         assertEquals(0, s3.score)
         // Golden: exact new tray colors
-        assertEquals(JellyColor.BLUE, s3.tray[0].color)
-        assertEquals(JellyColor.YELLOW, s3.tray[1].color)
-        assertEquals(JellyColor.BLUE, s3.tray[2].color)
+        assertEquals(JellyColor.BLUE, s3.tray[0]!!.color)
+        assertEquals(JellyColor.YELLOW, s3.tray[1]!!.color)
+        assertEquals(JellyColor.BLUE, s3.tray[2]!!.color)
 
         // ── Step 4: rotate CW ──
         val ev4 = e.rotateGravity(cw = true)
@@ -436,7 +442,7 @@ class EndlessEngineTest {
     private fun greedyFreePlace(e: EndlessEngine): List<GameEvent> {
         val s = e.state()
         for (i in s.tray.indices) {
-            val shape = s.tray[i].shape
+            val shape = s.tray[i]?.shape ?: continue
             for (oy in 0..(Grid.SIZE - shape.height)) {
                 for (ox in 0..(Grid.SIZE - shape.width)) {
                     val ev = e.placePieceAt(i, ox, oy)

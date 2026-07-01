@@ -30,22 +30,36 @@ import com.gravityjelly.app.ui.theme.GjSpace
 import com.gravityjelly.game.GameMechanic
 
 /**
+ * Nhóm cẩm nang (gom mục ở màn Cẩm nang) + màu nhấn icon-chip theo nhóm (bám cam-nang-screen.jsx).
+ */
+enum class GuideGroup(val label: String) {
+    BASIC("CƠ BẢN"),
+    SUPER("SIÊU KHỐI"),
+    BLAST("GIẢI PHÓNG"),
+    COMBO("COMBO"),
+}
+
+/**
  * Một mục hướng dẫn người chơi — luật chơi hoặc thành tựu cần giải thích MỘT lần.
  *
  * Đây là model CHUNG: vừa dùng cho popup dạy-lần-đầu ([GuideTeachDialog]), vừa làm
- * nguồn cho trang "Hướng dẫn / Đã đạt được" sau này (lặp [GjGuide.all]). Mỗi mục có
+ * nguồn cho trang Cẩm nang ([com.gravityjelly.app.CamNangScreen] lặp [GjGuide.all]). Mỗi mục có
  * [id] bền (lưu vào `seenGuides` của DataStore để biết đã xem chưa).
  *
  * @param id      khoá bền, không đổi (vd "combo-refill").
  * @param icon    icon badge tiêu đề.
+ * @param group   nhóm hiển thị ở Cẩm nang.
  * @param title   tiêu đề ngắn.
- * @param body    mô tả NGẮN, bôi đậm phần quan trọng ([AnnotatedString]).
+ * @param desc    mô tả MỘT DÒNG cho hàng trong list Cẩm nang.
+ * @param body    mô tả popup, bôi đậm phần quan trọng ([AnnotatedString]).
  * @param demo    minh hoạ bằng hình thật của game (tuỳ chọn) hiện trên phần chữ.
  */
 data class GjGuideEntry(
     val id: String,
     val icon: ImageVector,
+    val group: GuideGroup,
     val title: String,
+    val desc: String,
     val body: AnnotatedString,
     val demo: (@Composable () -> Unit)? = null,
 )
@@ -57,7 +71,9 @@ object GjGuide {
     val comboRefill = GjGuideEntry(
         id    = "combo-refill",
         icon  = GjIcons.RotateCw,
+        group = GuideGroup.COMBO,
         title = "Combo hồi lượt xoay",
+        desc  = "Combo ×2 trở lên → +1 lượt xoay (combo dài hồi càng nhiều)",
         body  = buildAnnotatedString {
             append("Xóa ")
             withStyle(SpanStyle(color = GjPalette.Primary, fontWeight = FontWeight.ExtraBold)) {
@@ -72,85 +88,92 @@ object GjGuide {
         demo  = { ComboRefillDemo() },
     )
 
-    // ── Luật nền: xóa hàng / cột ─────────────────────────────────────────────────
-    val clearRow = GjGuideEntry(
-        id = "clear-row", icon = GjIcons.Check, title = "Xóa hàng",
-        body = body("Lấp đầy ", "MỘT HÀNG" to GjPalette.Primary, " ngang\n(9 ô bất kỳ màu)\n→ cả hàng ", "biến mất" to GjPalette.Gravity, "\nvà được tính điểm."),
-        demo = { ClearRowDemo() },
-    )
-    val clearColumn = GjGuideEntry(
-        id = "clear-column", icon = GjIcons.Check, title = "Xóa cột",
-        body = body("Lấp đầy ", "MỘT CỘT" to GjPalette.Primary, " dọc\n(9 ô bất kỳ màu)\n→ cả cột ", "biến mất" to GjPalette.Gravity, "\nvà được tính điểm."),
-        demo = { ClearColumnDemo() },
+    // ── Luật nền: xóa hàng / cột (cùng một luật) ─────────────────────────────────
+    val clearLine = GjGuideEntry(
+        id = "clear-line", icon = GjIcons.Check, group = GuideGroup.BASIC, title = "Xóa hàng / cột",
+        desc = "Lấp đầy 1 hàng hoặc cột → biến mất + điểm",
+        body = body("Lấp đầy một ", "HÀNG hoặc CỘT" to GjPalette.Primary, "\n(9 ô bất kỳ màu)\n→ cả hàng/cột ", "biến mất" to GjPalette.Gravity, "\nvà được tính điểm."),
+        demo = { ClearLineDemo() },
     )
 
     // ── Cơ chế chữ ký: xoay trọng lực (giới thiệu nút xoay + D-Pad) ──────────────
     val gravityRotate = GjGuideEntry(
-        id = "gravity-rotate", icon = GjIcons.Rotate, title = "Xoay trọng lực",
+        id = "gravity-rotate", icon = GjIcons.Rotate, group = GuideGroup.BASIC, title = "Xoay trọng lực",
+        desc = "Đổi hướng trọng lực 90°; D-Pad chỉ hướng, cả cụm đổ theo",
         body = body("Nhấn ", "nút xoay" to GjPalette.Gravity, " để đổi\nhướng trọng lực 90°.\n", "D-Pad" to GjPalette.Primary, " hiện hướng hiện tại\n— cả cụm khối đổ theo!"),
         demo = { GravityRotateDemo() },
     )
 
     // ── Trọng lực: rơi sau khi xóa · thạch dính cụm ──────────────────────────────
     val gravityDrop = GjGuideEntry(
-        id = "gravity-drop", icon = GjIcons.Chevron, title = "Trọng lực rơi",
+        id = "gravity-drop", icon = GjIcons.Chevron, group = GuideGroup.BASIC, title = "Trọng lực rơi",
+        desc = "Khối rơi xuống, dừng khi gặp khối khác / đáy",
         body = body("Sau khi xóa, các khối\nphía trên ", "RƠI XUỐNG" to GjPalette.Gravity, "\n— dừng lại ngay khi\ngặp ", "khối khác / đáy" to GjPalette.Primary, "."),
         demo = { GravityDropDemo() },
     )
     val stickyCluster = GjGuideEntry(
-        id = "sticky-cluster", icon = GjIcons.Heart, title = "Thạch dính",
+        id = "sticky-cluster", icon = GjIcons.Heart, group = GuideGroup.BASIC, title = "Thạch dính",
+        desc = "Thạch cùng màu dính thành cụm; 1 ô bị chặn → cả cụm dừng",
         body = body("Thạch ", "CÙNG MÀU" to GjPalette.Primary, " chạm nhau\nthì DÍNH thành một khối.\nMột thạch bị chặn\n→ ", "cả khối dừng lại" to GjPalette.Gravity, "!"),
         demo = { StickyClusterDemo() },
     )
 
     // ── Hợp nhất: siêu khối / cầu vồng ───────────────────────────────────────────
     val formSuper1 = GjGuideEntry(
-        id = "form-super1", icon = GjIcons.Star, title = "Siêu khối",
+        id = "form-super1", icon = GjIcons.Star, group = GuideGroup.SUPER, title = "Siêu khối",
+        desc = "Lấp 1 hàng / cột / khối 3×3 cùng màu → siêu khối",
         body = body("Lấp đầy 1 hàng, 1 cột,\nhoặc khối 3×3 ", "CÙNG MÀU" to GjPalette.Primary, "\n→ tạo một ", "SIÊU KHỐI" to GjPalette.Gravity, "\nsáng lấp lánh!"),
         demo = { FormSuper1Demo() },
     )
     val formRainbow = GjGuideEntry(
-        id = "form-rainbow", icon = GjIcons.Heart, title = "Khối cầu vồng",
+        id = "form-rainbow", icon = GjIcons.Heart, group = GuideGroup.SUPER, title = "Khối cầu vồng",
+        desc = "3×3 đủ ba màu (mỗi màu 1 hàng / cột) → cầu vồng",
         body = body("Xếp 3×3 đủ ", "BA MÀU" to GjPalette.Primary, "\n(mỗi màu một hàng/cột)\n→ tạo ", "KHỐI CẦU VỒNG" to GjPalette.Gravity, "."),
         demo = { FormRainbowDemo() },
     )
     val formSuper2 = GjGuideEntry(
-        id = "form-super2", icon = GjIcons.Trophy, title = "Siêu khối cấp 2",
+        id = "form-super2", icon = GjIcons.Trophy, group = GuideGroup.SUPER, title = "Siêu khối cấp 2",
+        desc = "Ghép 2 siêu khối cùng màu dính nhau → cấp 2",
         body = body("Ghép hai siêu khối\n", "CÙNG MÀU" to GjPalette.Primary, " dính nhau\n→ lên ", "SIÊU KHỐI CẤP 2" to GjPalette.Gravity, "\nmạnh hơn nhiều!"),
         demo = { FormSuper2Demo() },
     )
     val formRainbow2 = GjGuideEntry(
-        id = "form-rainbow2", icon = GjIcons.Trophy, title = "Cầu vồng siêu cấp",
-        body = body("Ghép hai kíp nổ\n", "KHÁC MÀU" to GjPalette.Primary, " dính nhau\n→ ", "CẦU VỒNG SIÊU CẤP" to GjPalette.Gravity, "\nđội vương miện!"),
+        id = "form-rainbow2", icon = GjIcons.Trophy, group = GuideGroup.SUPER, title = "Cầu vồng siêu cấp",
+        desc = "Ghép 2 khối giải phóng khác màu → cầu vồng siêu cấp (đội vương miện)",
+        body = body("Ghép hai khối giải phóng\n", "KHÁC MÀU" to GjPalette.Primary, " dính nhau\n→ ", "CẦU VỒNG SIÊU CẤP" to GjPalette.Gravity, "\nđội vương miện!"),
         demo = { FormRainbow2Demo() },
     )
 
-    // ── Kích nổ ──────────────────────────────────────────────────────────────────
+    // ── Giải phóng (kích hoạt siêu khối / cầu vồng) ──────────────────────────────
     val detonateSuper1 = GjGuideEntry(
-        id = "detonate-super1", icon = GjIcons.Star, title = "Nổ siêu khối",
-        body = body("Cuốn siêu khối vào\nmột hàng/cột bị xóa\n→ nổ quét sạch ", "MỌI Ô CÙNG MÀU" to GjPalette.Gravity, "\ntrên toàn bàn!"),
+        id = "detonate-super1", icon = GjIcons.Star, group = GuideGroup.BLAST, title = "Giải phóng siêu khối",
+        desc = "Cuốn vào hàng / cột bị xóa → quét sạch mọi ô cùng màu",
+        body = body("Cuốn siêu khối vào\nmột hàng/cột bị xóa\nsẽ giải phóng, quét sạch\n", "MỌI Ô CÙNG MÀU" to GjPalette.Gravity, " trên bàn!"),
         demo = { DetonateSuper1Demo() },
     )
     val detonateSuper2 = GjGuideEntry(
-        id = "detonate-super2", icon = GjIcons.Trophy, title = "Nổ siêu khối cấp 2",
-        body = body("Siêu khối cấp 2 nổ:\nquét sạch cùng màu\n+ cả ", "vùng 5×5" to GjPalette.Gravity, "\nquanh tâm!"),
+        id = "detonate-super2", icon = GjIcons.Trophy, group = GuideGroup.BLAST, title = "Giải phóng siêu khối cấp 2",
+        desc = "Quét cùng màu + cả vùng 5×5 quanh tâm",
+        body = body("Siêu khối cấp 2 giải phóng:\nquét sạch cùng màu\n+ cả ", "vùng 5×5" to GjPalette.Gravity, "\nquanh tâm!"),
         demo = { DetonateSuper2Demo() },
     )
     val detonateRainbow1 = GjGuideEntry(
-        id = "detonate-rainbow1", icon = GjIcons.Heart, title = "Nổ cầu vồng",
-        body = body("Cầu vồng nổ:\nquét sạch mọi ô thuộc\n", "các MÀU đang KỀ" to GjPalette.Gravity, " nó."),
+        id = "detonate-rainbow1", icon = GjIcons.Heart, group = GuideGroup.BLAST, title = "Giải phóng cầu vồng",
+        desc = "Quét sạch mọi ô thuộc các màu đang KỀ nó",
+        body = body("Cầu vồng giải phóng:\nquét sạch mọi ô thuộc\n", "các MÀU đang KỀ" to GjPalette.Gravity, " nó."),
         demo = { DetonateRainbow1Demo() },
     )
     val detonateRainbow2 = GjGuideEntry(
-        id = "detonate-rainbow2", icon = GjIcons.Trophy, title = "Nổ cầu vồng siêu cấp",
-        body = body("Kỹ năng tối thượng:\ncầu vồng siêu cấp nổ\n→ ", "XÓA SẠCH TOÀN BÀN" to GjPalette.Gravity, "\n(kể cả đá)!"),
+        id = "detonate-rainbow2", icon = GjIcons.Trophy, group = GuideGroup.BLAST, title = "Giải phóng cầu vồng siêu cấp",
+        desc = "Kỹ năng tối thượng: xóa sạch TOÀN BÀN (kể cả đá)",
+        body = body("Kỹ năng tối thượng:\ncầu vồng siêu cấp giải phóng\n→ ", "XÓA SẠCH TOÀN BÀN" to GjPalette.Gravity, "\n(kể cả đá)!"),
         demo = { DetonateRainbow2Demo() },
     )
 
     /** Mọi mục hướng dẫn, theo thứ tự hiển thị ở trang review (cẩm nang). */
     val all: List<GjGuideEntry> = listOf(
         gravityRotate,
-        clearRow, clearColumn,
+        clearLine,
         gravityDrop, stickyCluster,
         formSuper1, formRainbow, formSuper2, formRainbow2,
         detonateSuper1, detonateSuper2, detonateRainbow1, detonateRainbow2,
@@ -166,8 +189,7 @@ object GjGuide {
      */
     fun forMechanic(m: GameMechanic): GjGuideEntry = when (m) {
         GameMechanic.GRAVITY_ROTATE -> gravityRotate
-        GameMechanic.CLEAR_ROW -> clearRow
-        GameMechanic.CLEAR_COLUMN -> clearColumn
+        GameMechanic.CLEAR_LINE -> clearLine
         GameMechanic.GRAVITY_DROP -> gravityDrop
         GameMechanic.STICKY_CLUSTER -> stickyCluster
         GameMechanic.FORM_SUPER1 -> formSuper1
@@ -180,6 +202,15 @@ object GjGuide {
         GameMechanic.DETONATE_RAINBOW2 -> detonateRainbow2
     }
 }
+
+/** Màu nhấn icon-chip theo nhóm ở màn Cẩm nang (bám TINT của cam-nang-screen.jsx). */
+val GuideGroup.tint: Color
+    get() = when (this) {
+        GuideGroup.BASIC -> GjPalette.Text
+        GuideGroup.SUPER -> GjPalette.Warning
+        GuideGroup.BLAST -> GjPalette.Primary
+        GuideGroup.COMBO -> GjPalette.Gravity
+    }
 
 /** Dựng [AnnotatedString]: chuỗi [String] giữ nguyên, hoặc `text to color` để bôi đậm phần nhấn. */
 private fun body(vararg parts: Any): AnnotatedString = buildAnnotatedString {

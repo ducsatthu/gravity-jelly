@@ -6,7 +6,7 @@ Hướng dẫn cho Claude khi làm việc trong repo này.
 
 **Gravity Jelly** (tên tạm) — game puzzle casual block-fit cho Android, một người, chơi offline. Cơ chế chữ ký: người chơi **xoay được hướng trọng lực 90°** để dồn cả cụm khối đổ theo ý mình. Free-to-play, doanh thu từ AdMob.
 
-Trạng thái hiện tại: **giai đoạn tài liệu** — repo mới chỉ có `docs/`, chưa có code. Tài liệu định hướng nằm ở `docs/business-understanding.md` (nghiệp vụ) và `docs/technical-approach.md` (kỹ thuật).
+Trạng thái hiện tại (cập nhật 01/07/2026 — **latest**): **đã có code, đang phát triển MVP**. Ba module `:core` / `:game` / `:app` đã dựng; chơi được trọn vòng Home ⇄ Endless. Đã có: màn Home (nền `home_world_1_bg`, menu 5 icon PNG, hiệu ứng cánh hoa bay), màn Endless (board 9×9, khay 3 mảnh, đặt mảnh tự do, physics cụm, cascade combo, xoay trọng lực, siêu khối nổ v2, combo hồi lượt xoay), màn Cài đặt, màn Cẩm nang + hệ Guide dạy luật, DataStore lưu best/seed/settings/seenGuides. Tài liệu định hướng gốc vẫn ở `docs/business-understanding.md` (nghiệp vụ) và `docs/technical-approach.md` (kỹ thuật).
 
 ## Nền tảng & quyết định kỹ thuật chốt
 

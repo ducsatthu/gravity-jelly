@@ -67,37 +67,22 @@ private fun BeforeAfter(
     }
 }
 
-// ── 1. Xóa hàng ──────────────────────────────────────────────────────────────────
+// ── 1. Xóa hàng / cột (cùng một luật) — hàng VÀ cột đầy đều biến mất ─────────────
 @Composable
-internal fun ClearRowDemo() = BeforeAfter(
+internal fun ClearLineDemo() = BeforeAfter(
     before = listOf(
-        listOf(E, E, E, E, E),
-        listOf(J(P), E, E, E, J(B)),
-        listOf(J(Y), J(M), J(P), J(B), J(Y)),  // hàng đáy đầy
+        listOf(E, E, J(Y), E, E),
+        listOf(E, E, J(M), E, E),
+        listOf(J(P), J(B), J(Y), J(M), J(P)),    // HÀNG đầy
+        listOf(E, E, J(B), E, E),
+        listOf(E, E, J(P), E, E),                // CỘT giữa cũng đầy
     ),
     after = listOf(
         listOf(E, E, E, E, E),
         listOf(E, E, E, E, E),
-        listOf(J(P), E, E, E, J(B)),            // hàng đầy biến mất, 2 ô lẻ rơi xuống
-    ),
-)
-
-// ── 2. Xóa cột ───────────────────────────────────────────────────────────────────
-@Composable
-internal fun ClearColumnDemo() = BeforeAfter(
-    before = listOf(
-        listOf(E, J(Y), E),
-        listOf(E, J(M), E),
-        listOf(E, J(P), E),
-        listOf(J(B), J(B), E),
-        listOf(E, J(Y), E),                      // cột giữa đầy
-    ),
-    after = listOf(
-        listOf(E, E, E),
-        listOf(E, E, E),
-        listOf(E, E, E),
-        listOf(E, E, E),
-        listOf(J(B), E, E),                      // cột giữa biến mất, ô lẻ rơi xuống
+        listOf(E, E, E, E, E),                    // cả hàng VÀ cột đều biến mất
+        listOf(E, E, E, E, E),
+        listOf(E, E, E, E, E),
     ),
 )
 
@@ -212,7 +197,7 @@ internal fun FormSuper2Demo() = BeforeAfter(
     ),
 )
 
-// ── 6. Ghép 2 kíp nổ khác màu → cầu vồng siêu cấp ────────────────────────────────
+// ── 6. Ghép 2 khối giải phóng khác màu → cầu vồng siêu cấp ───────────────────────
 @Composable
 internal fun FormRainbow2Demo() = BeforeAfter(
     before = listOf(
@@ -227,22 +212,23 @@ internal fun FormRainbow2Demo() = BeforeAfter(
     ),
 )
 
-// ── 7. Nổ siêu khối cấp 1 — quét sạch cùng màu toàn bàn ──────────────────────────
+// ── 7. Nổ siêu khối cấp 1 — quét sạch MỌI ô CÙNG MÀU siêu khối trên toàn bàn ─────
+//     (kể cả ô vàng ở xa; ô khác màu — mint — KHÔNG bị quét, chỉ rơi xuống)
 @Composable
 internal fun DetonateSuper1Demo() = BeforeAfter(
     before = listOf(
-        listOf(E, J(Y), E, E, E),
-        listOf(E, E, E, J(Y), E),
-        listOf(J(M), E, E, E, J(B)),
-        listOf(E, E, J(Y), E, E),
-        listOf(J(M), J(B), S1(Y), J(P), J(B)),   // siêu khối bị cuốn vào hàng xóa
+        listOf(J(Y), E, E, E, J(Y)),             // vàng ở 4 góc XA
+        listOf(E, E, J(M), E, E),
+        listOf(E, J(M), S1(Y), J(M), E),         // siêu khối VÀNG, mint vây quanh
+        listOf(E, E, J(M), E, E),
+        listOf(J(Y), E, E, E, J(Y)),
     ),
     after = listOf(
+        listOf(E, E, E, E, E),                   // mọi ô VÀNG + siêu khối biến mất
         listOf(E, E, E, E, E),
         listOf(E, E, E, E, E),
-        listOf(E, E, E, E, E),
-        listOf(E, E, E, E, E),
-        listOf(J(M), E, E, E, J(B)),             // chỉ ô khác màu còn sót
+        listOf(E, E, J(M), E, E),
+        listOf(E, J(M), J(M), J(M), E),          // chỉ mint còn lại, rơi xuống đáy
     ),
 )
 

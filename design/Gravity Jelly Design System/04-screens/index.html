@@ -163,7 +163,7 @@
         body = <Splash progress={0.72} />;
         // auto-advance after a beat (kept manual-friendly: tap anywhere)
       } else if (screen === 'home') {
-        body = <Home best={best} onPlay={goIntro} onSettings={() => setScreen('settings')} onDaily={() => setScreen('daily')} />;
+        body = <Home best={best} onCampaign={goIntro} onPlay={startGame} onGuide={() => setScreen('daily')} onTools={() => setScreen('settings')} />;
       } else if (screen === 'levelIntro') {
         body = <LevelIntro level={level} world="Sông & Thác" accent="var(--color-info)"
           onStart={startGame} onClose={() => setScreen('home')} />;

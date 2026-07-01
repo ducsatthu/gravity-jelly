@@ -25,12 +25,15 @@ fun GuideTeachDialog(
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
     confirmLabel: String = "Đã hiểu",
+    dismissable: Boolean = false,
+    onClose: (() -> Unit)? = null,
 ) {
     GjDialog(
         open        = open,
         title       = entry.title,
         icon        = entry.icon,
-        dismissable = false,
+        dismissable = dismissable,
+        onClose     = onClose,
         modifier    = modifier,
         content     = { GuideCardContent(entry) },
         actions     = {

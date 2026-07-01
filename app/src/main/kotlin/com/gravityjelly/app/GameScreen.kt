@@ -423,10 +423,13 @@ private val TrayDivider   = Color(0xFFE6DAC9)
 private val TrayShadow    = Color(0x265C6B4E)   // feDropShadow @0.15
 private val TrayHi        = Color(0x99FFFFFF)   // highlight @0.6
 
-/** Cỡ ô dùng chung cho mảnh khay (mảnh lớn nhất quyết định, kẹp 12–22dp — mirror GjTray). */
-private fun List<Piece?>.trayCellDp(): Float {
-    var maxDim = 1
-    for (p in this) if (p != null) maxDim = maxOf(maxDim, p.shape.width, p.shape.height)
+/**
+ * Cỡ ô cho MỘT mảnh khay (chính mảnh đó quyết định, kẹp 12–22dp).
+ * Tính RIÊNG từng mảnh: mảnh dài/rộng hơn bình thường tự thu nhỏ ô của nó,
+ * KHÔNG ép hai mảnh còn lại trong khay co theo. Vị trí giếng không đổi.
+ */
+private fun Piece.trayCellDp(): Float {
+    val maxDim = maxOf(shape.width, shape.height)
     return ((64f - (maxDim - 1) * 2f) / maxDim).coerceIn(12f, 22f)
 }
 
@@ -443,7 +446,6 @@ private fun GameTray(
     slotModifier: (Int) -> Modifier,
     modifier: Modifier = Modifier,
 ) {
-    val cellDp = remember(pieces) { pieces.trayCellDp() }
     Box(
         modifier = modifier
             .aspectRatio(770f / 260f)
@@ -468,7 +470,7 @@ private fun GameTray(
                         val lifted = selectedIndex == i
                         PieceThumbnail(
                             piece    = piece,
-                            cellDp   = cellDp,
+                            cellDp   = piece.trayCellDp(),
                             gapFrac  = TRAY_GAP_FRAC,
                             modifier = Modifier
                                 .fillMaxSize()
@@ -539,7 +541,7 @@ private fun GameScreenPreview() {
             score         = shell.score,
             direction     = holder.boardRender.gravity,
             turnsLeft     = shell.budget,
-            pieces        = shell.tray.map { it as Piece? },
+            pieces        = shell.tray,
             selectedIndex = -1,
             onPause       = {},
             onSelectPiece = {},

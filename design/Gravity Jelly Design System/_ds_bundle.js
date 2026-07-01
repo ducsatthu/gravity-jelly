@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"GravityJellyDesignSystem_3e0487","components":[{"name":"JellyBlock","sourcePath":"02-foundations/01-jelly-block/JellyBlock.jsx"},{"name":"Eyes","sourcePath":"02-foundations/02-eyes/Eyes.jsx"},{"name":"Icon","sourcePath":"02-foundations/03-icon/Icon.jsx"},{"name":"Button","sourcePath":"03-components/01-button/Button.jsx"},{"name":"Hud","sourcePath":"03-components/02-hud/Hud.jsx"},{"name":"TrayPiece","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"Tray","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"GravityRotateButton","sourcePath":"03-components/04-gravity-rotate-button/GravityRotateButton.jsx"},{"name":"ComboPopup","sourcePath":"03-components/05-combo-popup/ComboPopup.jsx"},{"name":"Dialog","sourcePath":"03-components/06-dialog/Dialog.jsx"},{"name":"JellyScene","sourcePath":"03-components/07-jelly-scene/JellyScene.jsx"}],"sourceHashes":{"02-foundations/01-jelly-block/JellyBlock.jsx":"99d676a3206c","02-foundations/02-eyes/Eyes.jsx":"d4762b606971","02-foundations/03-icon/Icon.jsx":"1d501e149f2f","03-components/01-button/Button.jsx":"ff24f7c456d7","03-components/02-hud/Hud.jsx":"b68bb167fc30","03-components/03-tray/Tray.jsx":"e425b7cd5eed","03-components/04-gravity-rotate-button/GravityRotateButton.jsx":"09df27eb60e6","03-components/05-combo-popup/ComboPopup.jsx":"3430e5b0f130","03-components/06-dialog/Dialog.jsx":"d5e802d0a1db","03-components/07-jelly-scene/JellyScene.jsx":"0967aa6a5b67","04-screens/board-design.jsx":"4363b5b0e102","04-screens/board.jsx":"a2c1742d1301","04-screens/boss-intro-screen.jsx":"5b7d158f2415","04-screens/daily-reward-screen.jsx":"0309b17c4056","04-screens/home-screen.jsx":"097aea6b25d2","04-screens/leaderboard-screen.jsx":"82c8413c65d7","04-screens/level-intro-screen.jsx":"16abe8e32f95","04-screens/level-win-screen.jsx":"b88ddcf6bfa8","04-screens/map-ftue.jsx":"8f55f3b0c394","04-screens/map-hud.jsx":"7ba182f3789f","04-screens/map-just-completed.jsx":"13c691476df2","04-screens/map-nodes.jsx":"5496d0923f15","04-screens/missions-screen.jsx":"a2cb834bcb3d","04-screens/out-of-lives-screen.jsx":"c5661499a9aa","04-screens/pause-screen.jsx":"edd558af8897","04-screens/phone-frame.jsx":"18e22e60b390","04-screens/play/jelly-play.jsx":"90bcd0f1ca70","04-screens/result-screen.jsx":"775264ed1cbe","04-screens/screen-extras.jsx":"b6a2513dd24c","04-screens/settings-screen.jsx":"a5cbe4af2727","04-screens/shop-screen.jsx":"454bf4d67682","04-screens/splash-screen.jsx":"6b0e750c020b","04-screens/world-gate-locked.jsx":"4d32d0ac3bad","04-screens/world-gate.jsx":"6db94465e8f2","04-screens/world-transition.jsx":"2c01ac267a6a","04-screens/world1-strip.jsx":"e550ab2d58f2","04-screens/world10-strip.jsx":"86352e2ce593","04-screens/world2-forest-draft.jsx":"759336f74f0e","04-screens/world2-strip.jsx":"b8f1f5775dd1","04-screens/world2-transition.jsx":"3c401cae8a6b","04-screens/world3-strip.jsx":"c37017b94d01","04-screens/world3-transition.jsx":"562e934bc9b0","04-screens/world4-strip.jsx":"a23a292882cb","04-screens/world4-transition.jsx":"92f05343cefa","04-screens/world5-strip.jsx":"31ce848e45ea","04-screens/world5-transition.jsx":"88b6358dffeb","04-screens/world6-strip.jsx":"3479dadec253","04-screens/world6-transition.jsx":"d1e8205ae7ac","04-screens/world7-strip.jsx":"e0b64525e7fa","04-screens/world7-transition.jsx":"32759ee57874","04-screens/world8-strip.jsx":"444f9855082e","04-screens/world8-transition.jsx":"dea1a55ba8eb","04-screens/world9-strip.jsx":"aea09bf6b901","04-screens/world9-transition.jsx":"3fcce03107b5","07-mechanics/mechanics-cards.js":"ce4f6defa8dd","07-mechanics/mechanics-kit.jsx":"f52efab2af43","07-mechanics/mechanics-widgets.jsx":"59dbeacaab30","08-brand/gravity-jelly-logo.js":"6df76113eb29","board.jsx":"8dfa6c252a92","game-screen.jsx":"275dda3a6546","jelly-play.jsx":"1fd71f5475a0","world4-strip.jsx":"912d0bdb9c6d"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":3,"namespace":"GravityJellyDesignSystem_3e0487","components":[{"name":"JellyBlock","sourcePath":"02-foundations/01-jelly-block/JellyBlock.jsx"},{"name":"Eyes","sourcePath":"02-foundations/02-eyes/Eyes.jsx"},{"name":"Icon","sourcePath":"02-foundations/03-icon/Icon.jsx"},{"name":"Button","sourcePath":"03-components/01-button/Button.jsx"},{"name":"Hud","sourcePath":"03-components/02-hud/Hud.jsx"},{"name":"TrayPiece","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"Tray","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"GravityRotateButton","sourcePath":"03-components/04-gravity-rotate-button/GravityRotateButton.jsx"},{"name":"ComboPopup","sourcePath":"03-components/05-combo-popup/ComboPopup.jsx"},{"name":"Dialog","sourcePath":"03-components/06-dialog/Dialog.jsx"},{"name":"JellyScene","sourcePath":"03-components/07-jelly-scene/JellyScene.jsx"}],"sourceHashes":{"02-foundations/01-jelly-block/JellyBlock.jsx":"99d676a3206c","02-foundations/02-eyes/Eyes.jsx":"d4762b606971","02-foundations/03-icon/Icon.jsx":"1d501e149f2f","03-components/01-button/Button.jsx":"ff24f7c456d7","03-components/02-hud/Hud.jsx":"b68bb167fc30","03-components/03-tray/Tray.jsx":"e425b7cd5eed","03-components/04-gravity-rotate-button/GravityRotateButton.jsx":"09df27eb60e6","03-components/05-combo-popup/ComboPopup.jsx":"3430e5b0f130","03-components/06-dialog/Dialog.jsx":"d5e802d0a1db","03-components/07-jelly-scene/JellyScene.jsx":"0967aa6a5b67","04-screens/board-design.jsx":"4363b5b0e102","04-screens/board.jsx":"a2c1742d1301","04-screens/boss-intro-screen.jsx":"5b7d158f2415","04-screens/cam-nang-illus.jsx":"fc3bcb10a740","04-screens/cam-nang-screen.jsx":"e75a1708e1db","04-screens/daily-reward-screen.jsx":"0309b17c4056","04-screens/home-screen.jsx":"6e91733096f9","04-screens/leaderboard-screen.jsx":"82c8413c65d7","04-screens/level-intro-screen.jsx":"16abe8e32f95","04-screens/level-win-screen.jsx":"b88ddcf6bfa8","04-screens/map-ftue.jsx":"8f55f3b0c394","04-screens/map-hud.jsx":"7ba182f3789f","04-screens/map-just-completed.jsx":"13c691476df2","04-screens/map-nodes.jsx":"5496d0923f15","04-screens/missions-screen.jsx":"a2cb834bcb3d","04-screens/out-of-lives-screen.jsx":"c5661499a9aa","04-screens/pause-screen.jsx":"edd558af8897","04-screens/phone-frame.jsx":"18e22e60b390","04-screens/play/jelly-play.jsx":"90bcd0f1ca70","04-screens/result-screen.jsx":"775264ed1cbe","04-screens/screen-extras.jsx":"b6a2513dd24c","04-screens/settings-screen.jsx":"a5cbe4af2727","04-screens/shop-screen.jsx":"454bf4d67682","04-screens/splash-screen.jsx":"6b0e750c020b","04-screens/tweaks-panel.jsx":"6591467622ed","04-screens/world-gate-locked.jsx":"4d32d0ac3bad","04-screens/world-gate.jsx":"6db94465e8f2","04-screens/world-transition.jsx":"2c01ac267a6a","04-screens/world1-strip.jsx":"e550ab2d58f2","04-screens/world10-strip.jsx":"86352e2ce593","04-screens/world2-forest-draft.jsx":"759336f74f0e","04-screens/world2-strip.jsx":"b8f1f5775dd1","04-screens/world2-transition.jsx":"3c401cae8a6b","04-screens/world3-strip.jsx":"c37017b94d01","04-screens/world3-transition.jsx":"562e934bc9b0","04-screens/world4-strip.jsx":"a23a292882cb","04-screens/world4-transition.jsx":"92f05343cefa","04-screens/world5-strip.jsx":"31ce848e45ea","04-screens/world5-transition.jsx":"88b6358dffeb","04-screens/world6-strip.jsx":"3479dadec253","04-screens/world6-transition.jsx":"d1e8205ae7ac","04-screens/world7-strip.jsx":"e0b64525e7fa","04-screens/world7-transition.jsx":"32759ee57874","04-screens/world8-strip.jsx":"444f9855082e","04-screens/world8-transition.jsx":"dea1a55ba8eb","04-screens/world9-strip.jsx":"aea09bf6b901","04-screens/world9-transition.jsx":"3fcce03107b5","07-mechanics/mechanics-cards.js":"ce4f6defa8dd","07-mechanics/mechanics-kit.jsx":"f52efab2af43","07-mechanics/mechanics-widgets.jsx":"59dbeacaab30","08-brand/gravity-jelly-logo.js":"6df76113eb29","board.jsx":"8dfa6c252a92","game-screen.jsx":"275dda3a6546","jelly-play.jsx":"1fd71f5475a0","world4-strip.jsx":"912d0bdb9c6d"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
@@ -2771,6 +2771,1191 @@ try { (() => {
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "04-screens/boss-intro-screen.jsx", error: String((e && e.message) || e) }); }
 
+// 04-screens/cam-nang-illus.jsx
+try { (() => {
+/* cam-nang-illus.jsx — "hình thật của game" illustrations for the Handbook
+   detail popup. A shared MiniBoard + SpecialBlock built straight from the DS
+   JellyBlock, plus a per-mechanic demo renderer. Exposes window.GJCamNangIllus.
+   Style is INLINE var(--token) to match the kit. */
+
+(function () {
+  const NS = window.GravityJellyDesignSystem_3e0487;
+  const {
+    JellyBlock,
+    Icon
+  } = NS;
+  const Extras = window.GJExtras || {};
+  const COL = {
+    Y: 'yellow',
+    M: 'mint',
+    P: 'pink',
+    B: 'blue',
+    S: 'stone'
+  };
+
+  /* one 9-or-smaller grid drawn in the sunken board well. `rows` is an array
+     of strings; chars: '.' empty · Y/M/P/B/S jelly · lowercase = same block
+     but dimmed (faded, for "swept away" after-states). */
+  function MiniBoard({
+    rows,
+    cell = 20,
+    glow = null,
+    dimColor = null
+  }) {
+    const gap = Math.max(2, Math.round(cell * 0.12));
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'inline-grid',
+        gap,
+        padding: gap + 2,
+        gridTemplateColumns: `repeat(${rows[0].length}, ${cell}px)`,
+        background: 'var(--color-surface-sunken)',
+        borderRadius: 'var(--radius-md)',
+        boxShadow: 'inset 0 1px 3px var(--color-shadow-soft)'
+      }
+    }, rows.flatMap((row, y) => row.split('').map((ch, x) => {
+      const key = `${y}-${x}`;
+      if (ch === '.') {
+        return /*#__PURE__*/React.createElement("span", {
+          key: key,
+          style: {
+            width: cell,
+            height: cell,
+            borderRadius: Math.round(cell * 0.28),
+            background: 'var(--color-cell-empty)',
+            boxShadow: 'inset 0 0 0 1.5px var(--color-cell-line)'
+          }
+        });
+      }
+      const faded = ch === ch.toLowerCase() && ch !== ch.toUpperCase();
+      const color = COL[ch.toUpperCase()] || 'yellow';
+      const isGlow = glow && glow.has(key);
+      return /*#__PURE__*/React.createElement("div", {
+        key: key,
+        style: {
+          width: cell,
+          height: cell,
+          opacity: faded ? 0.22 : 1,
+          position: 'relative',
+          filter: isGlow ? 'brightness(1.12)' : 'none'
+        }
+      }, isGlow && /*#__PURE__*/React.createElement("span", {
+        style: {
+          position: 'absolute',
+          inset: -3,
+          borderRadius: Math.round(cell * 0.4),
+          boxShadow: `0 0 0 2.5px var(--color-warning), 0 0 10px var(--color-warning)`,
+          pointerEvents: 'none'
+        }
+      }), /*#__PURE__*/React.createElement(JellyBlock, {
+        color: color,
+        size: cell,
+        showEyes: cell >= 22
+      }));
+    })));
+  }
+
+  /* A power-cell: super (★ badge), rainbow (conic block), or crowned rainbow.
+     `lvl` 2 adds a small "2" pip. Built to sit in a MiniBoard footprint. */
+  function SpecialBlock({
+    type = 'super',
+    color = 'pink',
+    size = 40,
+    lvl = 1
+  }) {
+    const r = Math.round(size * 0.28);
+    const rainbow = type === 'rainbow' || type === 'crown';
+    const pal = {
+      yellow: ['#FFE3A3', '#E8B85C'],
+      mint: ['#A3E5D9', '#5FC3B2'],
+      pink: ['#F7A9C0', '#E576A0'],
+      blue: ['#B3C7F7', '#7E9CE8']
+    }[color] || ['#F7A9C0', '#E576A0'];
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        width: size,
+        height: size
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: size,
+        height: size,
+        borderRadius: r,
+        boxSizing: 'border-box',
+        background: rainbow ? 'conic-gradient(from 210deg, #F7A9C0, #FFE3A3, #A3E5D9, #B3C7F7, #F7A9C0)' : pal[0],
+        border: `3px solid ${rainbow ? '#E576A0' : pal[1]}`,
+        boxShadow: '0 0 0 3px var(--color-warning), var(--shadow-md)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        top: 2,
+        left: '14%',
+        right: '14%',
+        height: '32%',
+        background: 'rgba(255,255,255,0.7)',
+        borderRadius: '50%',
+        filter: 'blur(0.5px)'
+      }
+    }), !rainbow && /*#__PURE__*/React.createElement("svg", {
+      width: size * 0.5,
+      height: size * 0.5,
+      viewBox: "0 0 24 24",
+      style: {
+        position: 'relative',
+        filter: 'drop-shadow(0 1px 0 rgba(90,70,54,0.25))'
+      }
+    }, /*#__PURE__*/React.createElement("path", {
+      d: "M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z",
+      fill: "#FFF6DD",
+      stroke: "#E2A82E",
+      strokeWidth: "1.6",
+      strokeLinejoin: "round"
+    })), rainbow && /*#__PURE__*/React.createElement("span", {
+      style: {
+        width: size * 0.34,
+        height: size * 0.34,
+        borderRadius: '50%',
+        background: 'rgba(255,255,255,0.92)',
+        boxShadow: '0 0 8px rgba(255,255,255,0.9)'
+      }
+    })), lvl === 2 && /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        bottom: -5,
+        right: -5,
+        width: 19,
+        height: 19,
+        borderRadius: '50%',
+        background: 'var(--color-surface)',
+        border: '2px solid var(--color-warning)',
+        color: 'var(--color-text)',
+        fontFamily: 'var(--font-display)',
+        fontWeight: 800,
+        fontSize: 11,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        boxShadow: 'var(--shadow-sm)'
+      }
+    }, "2"), type === 'crown' && Extras.Crown && /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: -size * 0.42,
+        left: '50%',
+        transform: 'translateX(-50%)'
+      }
+    }, /*#__PURE__*/React.createElement(Extras.Crown, {
+      size: size * 0.6
+    })));
+  }
+
+  /* the gravity-flow arrow between a before & after state */
+  function Flow({
+    vertical = false
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'var(--color-gravity)',
+        flexShrink: 0,
+        padding: vertical ? '2px 0' : '0 2px'
+      }
+    }, /*#__PURE__*/React.createElement("svg", {
+      width: "26",
+      height: "26",
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: "currentColor",
+      strokeWidth: "2.6",
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      style: {
+        transform: vertical ? 'rotate(90deg)' : 'none'
+      }
+    }, /*#__PURE__*/React.createElement("path", {
+      d: "M4 12h13M12 6l6 6-6 6"
+    })));
+  }
+  function Stage({
+    children,
+    label
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 6
+      }
+    }, children, label && /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-body)',
+        fontWeight: 700,
+        fontSize: 'var(--text-caption)',
+        color: 'var(--color-text-muted)'
+      }
+    }, label));
+  }
+  function Wrap({
+    children
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 4,
+        flexWrap: 'wrap'
+      }
+    }, children);
+  }
+
+  // small D-Pad + gravity FAB cluster for the rotate explainer
+  function GravityCluster({
+    dir = 'left'
+  }) {
+    const arrow = {
+      left: '←',
+      right: '→',
+      up: '↑',
+      down: '↓'
+    };
+    const cellOf = d => /*#__PURE__*/React.createElement("span", {
+      style: {
+        width: 22,
+        height: 22,
+        borderRadius: 7,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontWeight: 800,
+        fontSize: 14,
+        background: d === dir ? 'var(--color-surface)' : 'transparent',
+        color: d === dir ? 'var(--color-gravity)' : 'rgba(255,255,255,0.85)',
+        boxShadow: d === dir ? 'var(--shadow-sm)' : 'none',
+        fontFamily: 'var(--font-display)'
+      }
+    }, arrow[d]);
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 14
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 2,
+        padding: '4px 8px',
+        borderRadius: 'var(--radius-full)',
+        background: 'var(--color-gravity)',
+        boxShadow: '0 4px 0 var(--color-gravity-edge), var(--shadow-sm)'
+      }
+    }, cellOf('left'), cellOf('up'), cellOf('down'), cellOf('right')), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        width: 46,
+        height: 46,
+        borderRadius: '50%',
+        background: 'var(--color-gravity)',
+        boxShadow: '0 5px 0 var(--color-gravity-edge), var(--shadow-md)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        top: 5,
+        left: '26%',
+        right: '26%',
+        height: '22%',
+        background: 'var(--color-gravity-shine)',
+        opacity: 0.6,
+        borderRadius: 999
+      }
+    }), /*#__PURE__*/React.createElement(Icon, {
+      name: "rotateCw",
+      size: 24,
+      color: "var(--color-text-invert)",
+      strokeWidth: 2.4
+    })));
+  }
+
+  // ── per-mechanic demos, keyed by entry id ──────────────────────────────
+  const DEMOS = {
+    rotate: () => /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 12
+      }
+    }, /*#__PURE__*/React.createElement(Wrap, null, /*#__PURE__*/React.createElement(Stage, {
+      label: "Tr\u01B0\u1EDBc"
+    }, /*#__PURE__*/React.createElement(MiniBoard, {
+      cell: 18,
+      rows: ['....', '.P..', 'YP..', 'YMB.']
+    })), /*#__PURE__*/React.createElement(Flow, null), /*#__PURE__*/React.createElement(Stage, {
+      label: "Xoay \u2190"
+    }, /*#__PURE__*/React.createElement(MiniBoard, {
+      cell: 18,
+      rows: ['....', '....', 'PP..', 'YPYM', '...B'].slice(0, 4)
+    }))), /*#__PURE__*/React.createElement(GravityCluster, {
+      dir: "left"
+    })),
+    clearLine: () => /*#__PURE__*/React.createElement(Wrap, null, /*#__PURE__*/React.createElement(Stage, {
+      label: "\u0110\u1EA7y 1 h\xE0ng"
+    }, /*#__PURE__*/React.createElement(MiniBoard, {
+      cell: 20,
+      rows: ['.....', 'M.P.B', 'YMPBY']
+    })), /*#__PURE__*/React.createElement(Flow, null), /*#__PURE__*/React.createElement(Stage, {
+      label: "Bi\u1EBFn m\u1EA5t + \u0111i\u1EC3m"
+    }, /*#__PURE__*/React.createElement(MiniBoard, {
+      cell: 20,
+      rows: ['.....', 'M.P.B', '.....']
+    }))),
+    fall: () => /*#__PURE__*/React.createElement(Wrap, null, /*#__PURE__*/React.createElement(Stage, {
+      label: "Sau khi x\xF3a"
+    }, /*#__PURE__*/React.createElement(MiniBoard, {
+      cell: 20,
+      rows: ['Y.M.', '....', 'B.P.', '....']
+    })), /*#__PURE__*/React.createElement(Flow, null), /*#__PURE__*/React.createElement(Stage, {
+      label: "R\u01A1i xu\u1ED1ng"
+    }, /*#__PURE__*/React.createElement(MiniBoard, {
+      cell: 20,
+      rows: ['....', '....', 'Y.M.', 'B.P.']
+    }))),
+    sticky: () => /*#__PURE__*/React.createElement(Stage, {
+      label: "C\xF9ng m\xE0u \u2192 d\xEDnh th\xE0nh c\u1EE5m"
+    }, /*#__PURE__*/React.createElement(MiniBoard, {
+      cell: 22,
+      rows: ['.MM.', 'MMM.', '.M.S']
+    })),
+    super: () => /*#__PURE__*/React.createElement(Wrap, null, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 4,
+        alignItems: 'center'
+      }
+    }, /*#__PURE__*/React.createElement(MiniBoard, {
+      cell: 13,
+      rows: ['PPPP']
+    }), /*#__PURE__*/React.createElement(MiniBoard, {
+      cell: 13,
+      rows: ['P', 'P', 'P', 'P']
+    }), /*#__PURE__*/React.createElement(MiniBoard, {
+      cell: 13,
+      rows: ['PPP', 'PPP', 'PPP']
+    })), /*#__PURE__*/React.createElement(Flow, null), /*#__PURE__*/React.createElement(Stage, {
+      label: "Si\xEAu kh\u1ED1i"
+    }, /*#__PURE__*/React.createElement(SpecialBlock, {
+      type: "super",
+      color: "pink",
+      size: 46
+    }))),
+    rainbow: () => /*#__PURE__*/React.createElement(Wrap, null, /*#__PURE__*/React.createElement(Stage, {
+      label: "3\xD73 \u0111\u1EE7 ba m\xE0u"
+    }, /*#__PURE__*/React.createElement(MiniBoard, {
+      cell: 18,
+      rows: ['YYY', 'MMM', 'BBB']
+    })), /*#__PURE__*/React.createElement(Flow, null), /*#__PURE__*/React.createElement(Stage, {
+      label: "C\u1EA7u v\u1ED3ng"
+    }, /*#__PURE__*/React.createElement(SpecialBlock, {
+      type: "rainbow",
+      size: 46
+    }))),
+    superL2: () => /*#__PURE__*/React.createElement(Wrap, null, /*#__PURE__*/React.createElement(Stage, {
+      label: "2 si\xEAu kh\u1ED1i"
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        gap: 4
+      }
+    }, /*#__PURE__*/React.createElement(SpecialBlock, {
+      type: "super",
+      color: "blue",
+      size: 36
+    }), /*#__PURE__*/React.createElement(SpecialBlock, {
+      type: "super",
+      color: "blue",
+      size: 36
+    }))), /*#__PURE__*/React.createElement(Flow, null), /*#__PURE__*/React.createElement(Stage, {
+      label: "C\u1EA5p 2"
+    }, /*#__PURE__*/React.createElement(SpecialBlock, {
+      type: "super",
+      color: "blue",
+      size: 48,
+      lvl: 2
+    }))),
+    rainbowSuper: () => /*#__PURE__*/React.createElement(Wrap, null, /*#__PURE__*/React.createElement(Stage, {
+      label: "2 k\xEDp n\u1ED5"
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        gap: 4
+      }
+    }, /*#__PURE__*/React.createElement(SpecialBlock, {
+      type: "rainbow",
+      size: 34
+    }), /*#__PURE__*/React.createElement(SpecialBlock, {
+      type: "super",
+      color: "yellow",
+      size: 34
+    }))), /*#__PURE__*/React.createElement(Flow, null), /*#__PURE__*/React.createElement(Stage, {
+      label: "Si\xEAu c\u1EA5p"
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        paddingTop: 12
+      }
+    }, /*#__PURE__*/React.createElement(SpecialBlock, {
+      type: "crown",
+      size: 48
+    })))),
+    blastSuper: () => /*#__PURE__*/React.createElement(Wrap, null, /*#__PURE__*/React.createElement(Stage, {
+      label: "Qu\xE9t to\xE0n b\xE0n"
+    }, /*#__PURE__*/React.createElement(MiniBoard, {
+      cell: 16,
+      glow: new Set(['0-1', '1-0', '1-3', '2-1', '3-2']),
+      rows: ['.P.B', 'P.MP', 'BPYP', 'MMPB']
+    })), /*#__PURE__*/React.createElement(Flow, null), /*#__PURE__*/React.createElement(Stage, {
+      label: "S\u1EA1ch m\xE0u h\u1ED3ng"
+    }, /*#__PURE__*/React.createElement(MiniBoard, {
+      cell: 16,
+      rows: ['...B', '..M.', 'B.Y.', 'MM.B']
+    }))),
+    blastSuperL2: () => /*#__PURE__*/React.createElement(Wrap, null, /*#__PURE__*/React.createElement(Stage, {
+      label: "C\xF9ng m\xE0u + v\xF9ng 5\xD75"
+    }, /*#__PURE__*/React.createElement(MiniBoard, {
+      cell: 15,
+      glow: new Set(['1-1', '1-2', '1-3', '2-1', '2-2', '2-3', '3-1', '3-2', '3-3']),
+      rows: ['BMPYB', 'BYBPM', 'MYBYP', 'PBMBY', 'YPBMP']
+    })), /*#__PURE__*/React.createElement(Flow, null), /*#__PURE__*/React.createElement(Stage, {
+      label: "Qu\xE9t s\u1EA1ch"
+    }, /*#__PURE__*/React.createElement(MiniBoard, {
+      cell: 15,
+      rows: ['BMPYB', 'B....', 'M....', 'P....', 'YPBMP']
+    }))),
+    blastRainbow: () => /*#__PURE__*/React.createElement(Wrap, null, /*#__PURE__*/React.createElement(Stage, {
+      label: "C\xE1c m\xE0u K\u1EC0 n\xF3"
+    }, /*#__PURE__*/React.createElement(MiniBoard, {
+      cell: 18,
+      glow: new Set(['0-1', '1-0', '1-2', '2-1']),
+      rows: ['.Y.', 'M*P', '.B.'].map(r => r.replace('*', 'P'))
+    })), /*#__PURE__*/React.createElement(Flow, null), /*#__PURE__*/React.createElement(Stage, {
+      label: "Qu\xE9t s\u1EA1ch m\xE0u k\u1EC1"
+    }, /*#__PURE__*/React.createElement(MiniBoard, {
+      cell: 18,
+      rows: ['...', '...', '...']
+    }))),
+    blastRainbowSuper: () => /*#__PURE__*/React.createElement(Wrap, null, /*#__PURE__*/React.createElement(Stage, {
+      label: "B\xE0n \u0111\u1EA7y"
+    }, /*#__PURE__*/React.createElement(MiniBoard, {
+      cell: 15,
+      rows: ['PMBYP', 'MPSYB', 'BYPMS', 'YBMPY', 'PMYBP']
+    })), /*#__PURE__*/React.createElement(Flow, null), /*#__PURE__*/React.createElement(Stage, {
+      label: "S\u1EA1ch tr\u01A1n (c\u1EA3 \u0111\xE1)"
+    }, /*#__PURE__*/React.createElement(MiniBoard, {
+      cell: 15,
+      rows: ['.....', '.....', '.....', '.....', '.....']
+    }))),
+    comboTurn: () => /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 14,
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 6,
+        padding: '8px 16px',
+        borderRadius: 'var(--radius-full)',
+        background: 'var(--color-gravity)',
+        color: 'var(--color-text-invert)',
+        fontFamily: 'var(--font-display)',
+        fontWeight: 800,
+        fontSize: 22,
+        boxShadow: '0 5px 0 var(--color-gravity-edge), var(--shadow-md)'
+      }
+    }, "Combo \xD72"), /*#__PURE__*/React.createElement(Flow, null), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: 46,
+        height: 46,
+        borderRadius: '50%',
+        background: 'var(--color-gravity)',
+        boxShadow: '0 5px 0 var(--color-gravity-edge), var(--shadow-md)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement(Icon, {
+      name: "rotateCw",
+      size: 24,
+      color: "var(--color-text-invert)",
+      strokeWidth: 2.4
+    })), /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        top: -7,
+        right: -10,
+        padding: '0 6px',
+        height: 22,
+        borderRadius: 999,
+        background: 'var(--color-success)',
+        color: 'var(--color-text-invert)',
+        fontFamily: 'var(--font-display)',
+        fontWeight: 800,
+        fontSize: 13,
+        display: 'flex',
+        alignItems: 'center',
+        boxShadow: 'var(--shadow-sm)'
+      }
+    }, "+1")))
+  };
+  function Illus({
+    id
+  }) {
+    const fn = DEMOS[id] || DEMOS.sticky;
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        justifyContent: 'center',
+        padding: '4px 0'
+      }
+    }, fn());
+  }
+  window.GJCamNangIllus = {
+    Illus,
+    MiniBoard,
+    SpecialBlock
+  };
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "04-screens/cam-nang-illus.jsx", error: String((e && e.message) || e) }); }
+
+// 04-screens/cam-nang-screen.jsx
+try { (() => {
+/* cam-nang-screen.jsx — CẨM NANG (Handbook). A collectible list of the
+   game's rules grouped in 4 sections; tapping an UNLOCKED entry opens a
+   teach-style detail popup with a "real game" illustration. Locked entries
+   stay dimmed & un-tappable. Two list layouts via `variant` ('rows'|'cards').
+   Exposes window.GJCamNangScreen. Inline var(--token) per screen convention. */
+
+(function () {
+  const NS = window.GravityJellyDesignSystem_3e0487;
+  const {
+    Icon
+  } = NS;
+  const {
+    Illus
+  } = window.GJCamNangIllus;
+
+  /* group → accent tint for icon-chips */
+  const TINT = {
+    'CƠ BẢN': 'var(--color-text)',
+    'SIÊU KHỐI': 'var(--color-warning)',
+    'KÍCH NỔ': 'var(--color-primary)',
+    COMBO: 'var(--color-gravity)'
+  };
+
+  // ── progress pill in the header ────────────────────────────────────────
+  function ProgressPill({
+    count,
+    total
+  }) {
+    const frac = Math.max(0, Math.min(1, count / total));
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 8,
+        padding: '6px 12px 6px 10px',
+        borderRadius: 'var(--radius-full)',
+        background: 'var(--color-surface-sunken)',
+        flexShrink: 0
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        width: 40,
+        height: 6,
+        borderRadius: 999,
+        background: '#E6D7BE',
+        overflow: 'hidden',
+        flexShrink: 0
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        display: 'block',
+        width: `${frac * 100}%`,
+        height: '100%',
+        borderRadius: 999,
+        background: 'var(--color-gravity)'
+      }
+    })), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-display)',
+        fontWeight: 800,
+        fontSize: 'var(--text-caption)',
+        color: 'var(--color-gravity)',
+        whiteSpace: 'nowrap'
+      }
+    }, "\u0110\xE3 m\u1EDF ", count, "/", total));
+  }
+
+  // ── locked placeholder ─────────────────────────────────────────────────
+  function LockedRow({
+    last
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 'var(--space-md)',
+        minHeight: 56,
+        padding: '0 var(--space-lg)',
+        opacity: 0.45,
+        borderBottom: last ? 'none' : '1.5px solid var(--color-cell-line)'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        width: 36,
+        height: 36,
+        flexShrink: 0,
+        borderRadius: 'var(--radius-md)',
+        background: 'var(--color-surface-sunken)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'var(--color-text-muted)'
+      }
+    }, /*#__PURE__*/React.createElement(LockGlyph, {
+      size: 19
+    })), /*#__PURE__*/React.createElement("span", {
+      style: {
+        flex: 1,
+        fontFamily: 'var(--font-body)',
+        fontWeight: 700,
+        fontSize: 'var(--text-body)',
+        color: 'var(--color-text-muted)'
+      }
+    }, "Ch\u01B0a m\u1EDF kho\xE1"));
+  }
+  const LockGlyph = ({
+    size = 20
+  }) => /*#__PURE__*/React.createElement("svg", {
+    width: size,
+    height: size,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }, /*#__PURE__*/React.createElement("rect", {
+    x: "4.5",
+    y: "10.5",
+    width: "15",
+    height: "10",
+    rx: "3"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M8 10.5V7a4 4 0 0 1 8 0v3.5"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "12",
+    cy: "15",
+    r: "1.3",
+    fill: "currentColor",
+    stroke: "none"
+  }));
+
+  // ── compact row (variant 'rows') ───────────────────────────────────────
+  function ItemRow({
+    entry,
+    last,
+    onOpen
+  }) {
+    if (!entry.unlocked) return /*#__PURE__*/React.createElement(LockedRow, {
+      last: last
+    });
+    return /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      onClick: () => onOpen(entry.id),
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 'var(--space-md)',
+        minHeight: 64,
+        width: '100%',
+        textAlign: 'left',
+        padding: '0 var(--space-lg)',
+        background: 'transparent',
+        border: 'none',
+        borderBottom: last ? 'none' : '1.5px solid var(--color-cell-line)',
+        cursor: 'pointer'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        width: 36,
+        height: 36,
+        flexShrink: 0,
+        borderRadius: 'var(--radius-md)',
+        background: 'var(--color-surface-sunken)',
+        color: TINT[entry.group],
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement(Icon, {
+      name: entry.icon,
+      size: 20
+    })), /*#__PURE__*/React.createElement("span", {
+      style: {
+        flex: 1,
+        minWidth: 0
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        display: 'block',
+        fontFamily: 'var(--font-body)',
+        fontWeight: 700,
+        fontSize: 'var(--text-body)',
+        color: 'var(--color-text)'
+      }
+    }, entry.title), /*#__PURE__*/React.createElement("span", {
+      style: {
+        display: 'block',
+        fontFamily: 'var(--font-body)',
+        fontWeight: 600,
+        fontSize: 'var(--text-caption)',
+        color: 'var(--color-text-muted)',
+        lineHeight: 1.35,
+        marginTop: 2,
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap'
+      }
+    }, entry.desc)), /*#__PURE__*/React.createElement(Icon, {
+      name: "chevron",
+      size: 20,
+      color: "var(--color-text-muted)"
+    }));
+  }
+  function GroupBlock({
+    title,
+    children
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginBottom: 'var(--space-lg)'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
+        margin: '0 var(--space-sm) var(--space-sm)'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        width: 8,
+        height: 8,
+        borderRadius: 2,
+        background: TINT[title],
+        flexShrink: 0,
+        opacity: 0.9
+      }
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-display)',
+        fontWeight: 700,
+        fontSize: 'var(--text-caption)',
+        letterSpacing: 'var(--tracking-wide)',
+        color: 'var(--color-text-muted)',
+        whiteSpace: 'nowrap'
+      }
+    }, title)), /*#__PURE__*/React.createElement("div", {
+      style: {
+        background: 'var(--color-surface)',
+        borderRadius: 'var(--radius-lg)',
+        boxShadow: 'var(--shadow-sm)',
+        overflow: 'hidden'
+      }
+    }, children));
+  }
+
+  // ── detail popup ───────────────────────────────────────────────────────
+  function DetailDialog({
+    entry,
+    hasNext,
+    onNext,
+    onClose
+  }) {
+    if (!entry) return null;
+    const hiColor = entry.group === 'COMBO' || entry.id === 'rotate' ? 'var(--color-gravity)' : 'var(--color-primary)';
+    const parts = entry.hi && entry.body.includes(entry.hi) ? entry.body.split(entry.hi) : [entry.body];
+    return /*#__PURE__*/React.createElement("div", {
+      onClick: onClose,
+      style: {
+        position: 'absolute',
+        inset: 0,
+        background: 'var(--color-overlay)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 'var(--space-xl)',
+        zIndex: 50,
+        boxSizing: 'border-box'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      onClick: e => e.stopPropagation(),
+      style: {
+        width: '100%',
+        maxWidth: 320,
+        background: 'var(--color-surface)',
+        borderRadius: 'var(--radius-2xl)',
+        padding: 'var(--space-xl)',
+        boxShadow: 'var(--shadow-lg)',
+        boxSizing: 'border-box',
+        animation: 'gj-cn-pop 300ms var(--ease-jelly) both'
+      }
+    }, /*#__PURE__*/React.createElement("style", null, `@keyframes gj-cn-pop{0%{transform:scale(0.85) translateY(8px);opacity:0}60%{transform:scale(1.03) translateY(0);opacity:1}100%{transform:scale(1)}}`), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 'var(--space-sm)',
+        marginBottom: 'var(--space-lg)'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        width: 36,
+        height: 36,
+        flexShrink: 0,
+        borderRadius: 'var(--radius-md)',
+        background: 'var(--color-surface-sunken)',
+        color: 'var(--color-gravity)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement(Icon, {
+      name: entry.icon,
+      size: 22
+    })), /*#__PURE__*/React.createElement("h2", {
+      style: {
+        flex: 1,
+        margin: 0,
+        fontFamily: 'var(--font-display)',
+        fontWeight: 700,
+        fontSize: 'var(--text-heading)',
+        color: 'var(--color-text)'
+      }
+    }, entry.title), /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      onClick: onClose,
+      "aria-label": "\u0110\xF3ng",
+      style: {
+        width: 32,
+        height: 32,
+        borderRadius: 'var(--radius-md)',
+        border: 'none',
+        background: 'transparent',
+        color: 'var(--color-text-muted)',
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement(Icon, {
+      name: "close",
+      size: 20
+    }))), /*#__PURE__*/React.createElement("div", {
+      style: {
+        background: 'var(--color-bg)',
+        borderRadius: 'var(--radius-lg)',
+        padding: 'var(--space-lg) var(--space-md)',
+        marginBottom: 'var(--space-lg)',
+        minHeight: 110,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement(Illus, {
+      id: entry.id
+    })), /*#__PURE__*/React.createElement("p", {
+      style: {
+        margin: '0 0 var(--space-lg)',
+        fontFamily: 'var(--font-body)',
+        fontWeight: 600,
+        fontSize: 'var(--text-body)',
+        lineHeight: 'var(--leading-body)',
+        color: 'var(--color-text)',
+        textWrap: 'pretty'
+      }
+    }, parts[0], parts.length > 1 && /*#__PURE__*/React.createElement("strong", {
+      style: {
+        color: hiColor,
+        fontWeight: 800
+      }
+    }, entry.hi), parts[1]), /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      onClick: hasNext ? onNext : onClose,
+      style: {
+        position: 'relative',
+        width: '100%',
+        minHeight: 'var(--dim-cta-h)',
+        border: 'none',
+        borderRadius: 'var(--radius-xl)',
+        background: 'var(--color-gravity)',
+        color: 'var(--color-text-invert)',
+        fontFamily: 'var(--font-display)',
+        fontWeight: 700,
+        fontSize: 'var(--text-heading)',
+        cursor: 'pointer',
+        boxShadow: '0 5px 0 var(--color-gravity-edge), var(--shadow-sm)',
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 'var(--space-sm)'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        top: 3,
+        left: '16%',
+        right: '16%',
+        height: '32%',
+        background: 'var(--color-gravity-shine)',
+        opacity: 0.45,
+        borderRadius: 999
+      }
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'relative'
+      }
+    }, hasNext ? 'Tiếp theo' : 'Đã hiểu'), hasNext && /*#__PURE__*/React.createElement(Icon, {
+      name: "chevron",
+      size: 22,
+      color: "var(--color-text-invert)",
+      style: {
+        position: 'relative'
+      }
+    }))));
+  }
+  const ORDER = ['CƠ BẢN', 'SIÊU KHỐI', 'KÍCH NỔ', 'COMBO'];
+  function CamNangScreen({
+    entries = [],
+    unlockedCount = 0,
+    defaultOpenId = null,
+    onOpen,
+    onBack
+  }) {
+    const [openId, setOpenId] = React.useState(defaultOpenId);
+    const total = entries.length;
+    const open = id => {
+      setOpenId(id);
+      onOpen && onOpen(id);
+    };
+
+    // next unlocked entry after the current one (for "Tiếp theo")
+    const unlocked = entries.filter(e => e.unlocked);
+    const curIdx = unlocked.findIndex(e => e.id === openId);
+    const next = curIdx >= 0 && curIdx < unlocked.length - 1 ? unlocked[curIdx + 1] : null;
+    const cur = entries.find(e => e.id === openId) || null;
+    const grouped = ORDER.map(g => [g, entries.filter(e => e.group === g)]).filter(([, list]) => list.length);
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        height: 'var(--dim-hud-h)',
+        flexShrink: 0,
+        display: 'flex',
+        alignItems: 'center',
+        gap: 'var(--space-sm)',
+        padding: '0 var(--space-md)'
+      }
+    }, /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      onClick: onBack,
+      "aria-label": "Quay l\u1EA1i",
+      style: {
+        width: 'var(--dim-icon-btn)',
+        height: 'var(--dim-icon-btn)',
+        flexShrink: 0,
+        borderRadius: 'var(--radius-lg)',
+        border: 'none',
+        background: 'transparent',
+        color: 'var(--color-text)',
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement(Icon, {
+      name: "back",
+      size: 24
+    })), /*#__PURE__*/React.createElement("h1", {
+      style: {
+        flex: 1,
+        margin: 0,
+        fontFamily: 'var(--font-display)',
+        fontWeight: 800,
+        fontSize: 'var(--text-title)',
+        color: 'var(--color-text)',
+        whiteSpace: 'nowrap'
+      }
+    }, "C\u1EA9m nang"), /*#__PURE__*/React.createElement(ProgressPill, {
+      count: unlockedCount,
+      total: total
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        flex: 1,
+        overflowY: 'auto',
+        padding: 'var(--space-sm) var(--space-lg) var(--space-xl)'
+      }
+    }, grouped.map(([g, list]) => /*#__PURE__*/React.createElement(GroupBlock, {
+      key: g,
+      title: g
+    }, list.map((entry, i) => /*#__PURE__*/React.createElement(ItemRow, {
+      key: entry.id,
+      entry: entry,
+      last: i === list.length - 1,
+      onOpen: open
+    }))))), /*#__PURE__*/React.createElement(DetailDialog, {
+      entry: cur,
+      hasNext: !!next,
+      onNext: () => next && open(next.id),
+      onClose: () => setOpenId(null)
+    }));
+  }
+
+  // canonical 13-entry data (id matches the illustration demo keys)
+  CamNangScreen.ENTRIES = [{
+    id: 'rotate',
+    icon: 'rotate',
+    group: 'CƠ BẢN',
+    title: 'Xoay trọng lực',
+    desc: 'Đổi hướng trọng lực 90°; D-Pad chỉ hướng, cả cụm đổ theo',
+    body: 'Bấm nút xoay để đổi hướng trọng lực 90°. D-Pad chỉ hướng sẽ rơi — toàn bộ khối trên bàn đổ theo.',
+    hi: 'đổi hướng trọng lực 90°'
+  }, {
+    id: 'clearLine',
+    icon: 'check',
+    group: 'CƠ BẢN',
+    title: 'Xóa hàng / cột',
+    desc: 'Lấp đầy 1 hàng hoặc cột → biến mất + điểm',
+    body: 'Lấp đầy trọn một hàng hoặc một cột — 9 ô, màu nào cũng được — để cả dãy biến mất và cộng điểm.',
+    hi: '9 ô, màu nào cũng được'
+  }, {
+    id: 'fall',
+    icon: 'chevron',
+    group: 'CƠ BẢN',
+    title: 'Trọng lực rơi',
+    desc: 'Khối rơi xuống, dừng khi gặp khối khác / đáy',
+    body: 'Sau mỗi lần xóa, các khối phía trên rơi xuống theo trọng lực, dừng khi chạm khối khác hoặc đáy bàn.',
+    hi: 'rơi xuống theo trọng lực'
+  }, {
+    id: 'sticky',
+    icon: 'heart',
+    group: 'CƠ BẢN',
+    title: 'Thạch dính',
+    desc: 'Thạch cùng màu dính thành cụm; 1 ô bị chặn → cả cụm dừng',
+    body: 'Các khối thạch cùng màu dính lại thành một cụm. Chỉ cần một ô bị chặn, cả cụm cùng dừng.',
+    hi: 'dính lại thành một cụm'
+  }, {
+    id: 'super',
+    icon: 'star',
+    group: 'SIÊU KHỐI',
+    title: 'Siêu khối',
+    desc: 'Lấp 1 hàng / cột / khối 3×3 cùng màu → siêu khối',
+    body: 'Lấp đầy một hàng, một cột hoặc một khối 3×3 toàn cùng một màu để tạo ra siêu khối.',
+    hi: 'siêu khối'
+  }, {
+    id: 'rainbow',
+    icon: 'heart',
+    group: 'SIÊU KHỐI',
+    title: 'Khối cầu vồng',
+    desc: '3×3 đủ ba màu (mỗi màu 1 hàng / cột) → cầu vồng',
+    body: 'Xếp khối 3×3 đủ ba màu — mỗi màu một hàng hoặc một cột — để tạo khối cầu vồng.',
+    hi: 'khối cầu vồng'
+  }, {
+    id: 'superL2',
+    icon: 'trophy',
+    group: 'SIÊU KHỐI',
+    title: 'Siêu khối cấp 2',
+    desc: 'Ghép 2 siêu khối cùng màu dính nhau → cấp 2',
+    body: 'Đặt hai siêu khối cùng màu dính cạnh nhau, chúng hợp thành siêu khối cấp 2 mạnh hơn.',
+    hi: 'siêu khối cấp 2'
+  }, {
+    id: 'rainbowSuper',
+    icon: 'trophy',
+    group: 'SIÊU KHỐI',
+    title: 'Cầu vồng siêu cấp',
+    desc: 'Ghép 2 kíp nổ khác màu → cầu vồng siêu cấp (đội vương miện)',
+    body: 'Ghép hai kíp nổ khác màu để tạo cầu vồng siêu cấp đội vương miện — sức mạnh tối thượng.',
+    hi: 'cầu vồng siêu cấp'
+  }, {
+    id: 'blastSuper',
+    icon: 'star',
+    group: 'KÍCH NỔ',
+    title: 'Nổ siêu khối',
+    desc: 'Cuốn vào hàng / cột bị xóa → quét sạch mọi ô cùng màu',
+    body: 'Khi siêu khối bị cuốn vào hàng hoặc cột đang xóa, nó quét sạch mọi ô cùng màu trên toàn bàn.',
+    hi: 'quét sạch mọi ô cùng màu'
+  }, {
+    id: 'blastSuperL2',
+    icon: 'trophy',
+    group: 'KÍCH NỔ',
+    title: 'Nổ siêu khối cấp 2',
+    desc: 'Quét cùng màu + cả vùng 5×5 quanh tâm',
+    body: 'Siêu khối cấp 2 quét sạch toàn bộ ô cùng màu và cả vùng 5×5 quanh tâm điểm nổ.',
+    hi: 'vùng 5×5 quanh tâm'
+  }, {
+    id: 'blastRainbow',
+    icon: 'heart',
+    group: 'KÍCH NỔ',
+    title: 'Nổ cầu vồng',
+    desc: 'Quét sạch mọi ô thuộc các màu đang KỀ nó',
+    body: 'Khối cầu vồng khi nổ sẽ quét sạch mọi ô thuộc các màu đang kề ngay cạnh nó.',
+    hi: 'các màu đang kề'
+  }, {
+    id: 'blastRainbowSuper',
+    icon: 'trophy',
+    group: 'KÍCH NỔ',
+    title: 'Nổ cầu vồng siêu cấp',
+    desc: 'Kỹ năng tối thượng: xóa sạch TOÀN BÀN (kể cả đá)',
+    body: 'Kỹ năng tối thượng — cầu vồng siêu cấp xóa sạch toàn bàn, kể cả những khối đá cố định.',
+    hi: 'xóa sạch toàn bàn'
+  }, {
+    id: 'comboTurn',
+    icon: 'rotateCw',
+    group: 'COMBO',
+    title: 'Combo hồi lượt xoay',
+    desc: 'Combo ×2 trở lên → +1 lượt xoay (combo dài hồi càng nhiều)',
+    body: 'Đạt combo ×2 trở lên sẽ hồi +1 lượt xoay; combo càng dài, số lượt xoay hồi lại càng nhiều.',
+    hi: '+1 lượt xoay'
+  }];
+  window.GJCamNangScreen = CamNangScreen;
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "04-screens/cam-nang-screen.jsx", error: String((e && e.message) || e) }); }
+
 // 04-screens/daily-reward-screen.jsx
 try { (() => {
 /* daily-reward-screen.jsx — DAILY REWARD. 7-day streak: claimed days, today
@@ -3008,148 +4193,421 @@ try { (() => {
 
 // 04-screens/home-screen.jsx
 try { (() => {
-/* home-screen.jsx — HOME. Logo (jelly characters + wordmark), best score,
-   Play CTA, Settings + Daily. Exposes window.GJHomeScreen. */
+/* home-screen.jsx — HOME = painted meadow art (home-camp-bg.png, logo baked in)
+   + slim top HUD (KỶ LỤC + hearts/life-regen) + twinkling sparkles over the
+   arch gate, the guidebook and the ancient stone disc. Exposes window.GJHomeScreen. */
 
 (function () {
   const NS = window.GravityJellyDesignSystem_3e0487;
   const {
-    Button,
-    JellyBlock,
     Icon
   } = NS;
-  function Logo() {
-    const tile = (color, count, dir, rot, mt) => /*#__PURE__*/React.createElement("div", {
+  const BG = '../06-svg-assets/backgrounds/home-world-1-bg.png';
+  const BTN = '../06-svg-assets/ui/button-frame.png';
+  const BTN_GREEN = '../06-svg-assets/ui/button-frame-green.png';
+  const BTN_ORANGE = '../06-svg-assets/ui/button-frame-orange.png';
+  const IC_CAMPAIGN = '../06-svg-assets/ui/btn-campaign.png';
+  const IC_INFINITE = '../06-svg-assets/ui/btn-infinite.png';
+  const IC_GUIDE = '../06-svg-assets/ui/btn-guide.png';
+  const IC_SETTING = '../06-svg-assets/ui/btn-setting.png';
+  const IC_LEADER = '../06-svg-assets/ui/btn-leaderboard.png';
+
+  /* Icon button: painted PNG that depresses on press. Sized by HEIGHT (`h`, a CSS
+     length) so the near-square icons fit the short panel; width follows art aspect. */
+  function IconButton({
+    icon,
+    label,
+    onClick,
+    h
+  }) {
+    const [press, setPress] = React.useState(false);
+    return /*#__PURE__*/React.createElement("button", {
+      onClick: onClick,
+      onPointerDown: () => setPress(true),
+      onPointerUp: () => setPress(false),
+      onPointerLeave: () => setPress(false),
+      "aria-label": label,
       style: {
-        transform: `rotate(${rot}deg)`,
-        marginTop: mt
-      }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: color,
-      size: 52,
-      count: count,
-      direction: dir
-    }));
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
+        height: h,
         display: 'flex',
-        flexDirection: 'column',
         alignItems: 'center',
-        gap: 'var(--space-md)'
+        justifyContent: 'center',
+        padding: 0,
+        border: 'none',
+        background: 'none',
+        cursor: 'pointer',
+        transform: `scale(${press ? 0.93 : 1})`,
+        transition: 'transform .12s cubic-bezier(.34,1.56,.64,1)'
       }
-    }, /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("img", {
+      src: icon,
+      alt: "",
       style: {
+        height: '100%',
+        width: 'auto',
+        display: 'block',
+        userSelect: 'none',
+        filter: 'drop-shadow(0 4px 6px rgba(120,92,52,0.3))'
+      }
+    }));
+  }
+  const STAR = 'M12 0c.9 6.6 4.4 10.1 11 11-6.6.9-10.1 4.4-11 11-.9-6.6-4.4-10.1-11-11 6.6-.9 10.1-4.4 11-11z';
+  const fmt = s => {
+    const m = Math.floor(s / 60),
+      r = s % 60;
+    return m + ':' + String(r).padStart(2, '0');
+  };
+
+  /* tiny deterministic PRNG so sparkles are stable across re-renders */
+  function rng(seed) {
+    return function () {
+      seed = seed + 0x6D2B79F5 | 0;
+      let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+
+  /* A twinkling cluster of sparkles scattered around (cx,cy) within ±rx/±ry (%). */
+  function Sparkles({
+    cx,
+    cy,
+    rx,
+    ry,
+    count,
+    seed
+  }) {
+    const r = rng(seed);
+    const items = [];
+    for (let i = 0; i < count; i++) {
+      const x = cx + (r() * 2 - 1) * rx;
+      const y = cy + (r() * 2 - 1) * ry;
+      const size = 7 + r() * 11;
+      const delay = (r() * 2.6).toFixed(2);
+      const dur = (1.5 + r() * 1.4).toFixed(2);
+      const gold = r() < 0.5;
+      const glow = gold ? '#FFD46B' : '#FFFFFF';
+      items.push(/*#__PURE__*/React.createElement("span", {
+        key: i,
+        className: "gj-spk",
+        style: {
+          position: 'absolute',
+          left: x + '%',
+          top: y + '%',
+          width: size,
+          height: size,
+          marginLeft: -size / 2,
+          marginTop: -size / 2,
+          animationDelay: delay + 's',
+          animationDuration: dur + 's'
+        }
+      }, /*#__PURE__*/React.createElement("svg", {
+        viewBox: "0 0 24 24",
+        width: size,
+        height: size,
+        style: {
+          display: 'block',
+          filter: `drop-shadow(0 0 ${Math.round(size * 0.45)}px ${glow})`
+        }
+      }, /*#__PURE__*/React.createElement("path", {
+        d: STAR,
+        fill: gold ? '#FFF1CE' : '#FFFFFF'
+      }))));
+    }
+    return /*#__PURE__*/React.createElement("div", {
+      "aria-hidden": "true",
+      style: {
+        position: 'absolute',
+        inset: 0,
+        pointerEvents: 'none'
+      }
+    }, items);
+  }
+
+  /* Cánh hoa bay — petals drifting down across the meadow. Each petal falls
+     vertically (outer) while swaying + tumbling (inner). Deterministic via seed. */
+  const PETAL_COLORS = [['#FFFFFF', '#FBE7EF'],
+  // white daisy
+  ['#FBD0DF', '#F7A9C0'],
+  // pink
+  ['#FFF1CE', '#FFE3A3'],
+  // butter yellow
+  ['#F7A9C0', '#E576A0'] // deep pink
+  ];
+  function Petals({
+    count = 24,
+    seed = 7
+  }) {
+    const r = rng(seed);
+    const items = [];
+    for (let i = 0; i < count; i++) {
+      const left = (r() * 100).toFixed(1);
+      const w = 13 + r() * 13; // petal width px
+      const fallDur = (5.5 + r() * 5).toFixed(2); // drift speed
+      const swayDur = (1.8 + r() * 1.6).toFixed(2);
+      const delay = (-r() * parseFloat(fallDur)).toFixed(2); // start mid-flight
+      const [c1, c2] = PETAL_COLORS[Math.floor(r() * PETAL_COLORS.length)];
+      const drift = (r() < 0.5 ? -1 : 1) * (10 + r() * 16);
+      items.push(/*#__PURE__*/React.createElement("span", {
+        key: i,
+        className: "gj-petal-fall",
+        style: {
+          position: 'absolute',
+          left: left + '%',
+          top: 0,
+          animationDuration: fallDur + 's',
+          animationDelay: delay + 's',
+          '--gj-drift': drift + 'px'
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        className: "gj-petal-sway",
+        style: {
+          display: 'block',
+          animationDuration: swayDur + 's'
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        style: {
+          display: 'block',
+          width: w,
+          height: w * 1.35,
+          background: `radial-gradient(120% 120% at 30% 20%, ${c1}, ${c2})`,
+          borderRadius: '52% 52% 52% 8%',
+          boxShadow: 'inset 0 -2px 3px rgba(0,0,0,0.08)',
+          filter: 'drop-shadow(0 2px 3px rgba(90,70,54,0.28))',
+          opacity: 0.96
+        }
+      }))));
+    }
+    return /*#__PURE__*/React.createElement("div", {
+      "aria-hidden": "true",
+      style: {
+        position: 'absolute',
+        inset: 0,
+        overflow: 'hidden',
+        pointerEvents: 'none',
+        zIndex: 3
+      }
+    }, items);
+  }
+  function GateButton({
+    label,
+    x,
+    y,
+    width,
+    frame = BTN,
+    edge = '#0B4E7A',
+    onClick
+  }) {
+    const [press, setPress] = React.useState(false);
+    return /*#__PURE__*/React.createElement("button", {
+      onClick: onClick,
+      onPointerDown: () => setPress(true),
+      onPointerUp: () => setPress(false),
+      onPointerLeave: () => setPress(false),
+      "aria-label": label,
+      style: {
+        position: 'absolute',
+        left: x + '%',
+        top: y + '%',
+        width,
+        transform: `translate(-50%,-50%) scale(${press ? 0.95 : 1})`,
+        transition: 'transform .1s ease',
+        padding: 0,
+        border: 'none',
+        background: 'none',
+        cursor: 'pointer',
+        filter: 'drop-shadow(0 7px 11px rgba(30,55,80,0.38))'
+      }
+    }, /*#__PURE__*/React.createElement("img", {
+      src: frame,
+      alt: "",
+      style: {
+        width: '100%',
+        display: 'block',
+        userSelect: 'none'
+      }
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        left: '13%',
+        right: '13%',
+        top: 0,
+        bottom: '4%',
         display: 'flex',
-        gap: 6,
-        alignItems: 'flex-start'
-      }
-    }, tile('pink', 2, 'left', -8, 8), tile('yellow', 4, 'down', 4, 0), tile('mint', 3, 'right', -4, 10), tile('blue', 5, 'down', 8, 2)), /*#__PURE__*/React.createElement("div", {
-      style: {
-        textAlign: 'center',
-        lineHeight: 0.92
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
+        alignItems: 'center',
+        justifyContent: 'center',
         fontFamily: 'var(--font-display)',
-        fontWeight: 'var(--weight-semibold)',
-        fontSize: 24,
-        letterSpacing: '0.18em',
-        color: 'var(--color-text-muted)'
+        fontWeight: 700,
+        fontSize: '3.3cqw',
+        lineHeight: 1,
+        letterSpacing: '0.02em',
+        color: '#fff',
+        whiteSpace: 'nowrap',
+        textShadow: `0 2px 0 ${edge}, 0 0 1px ${edge}, 0 3px 6px rgba(8,45,75,0.5)`
       }
-    }, "GRAVITY"), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontFamily: 'var(--font-display)',
-        fontWeight: 'var(--weight-extra)',
-        fontSize: 56,
-        color: 'var(--color-block-pink)',
-        WebkitTextStroke: '2px var(--color-block-pink-edge)',
-        textShadow: '0 4px 0 var(--color-block-pink-edge)'
-      }
-    }, "JELLY")));
+    }, label));
+  }
+  const fmtChip = (children, key) => /*#__PURE__*/React.createElement("div", {
+    key: key,
+    style: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 6,
+      padding: '5px 11px',
+      background: 'rgba(255,255,255,0.9)',
+      borderRadius: 999,
+      boxShadow: '0 3px 9px rgba(60,44,24,0.22)',
+      whiteSpace: 'nowrap',
+      fontFamily: 'var(--font-display)',
+      fontWeight: 800,
+      fontSize: 14,
+      color: 'var(--color-text)'
+    }
+  }, children);
+  function Clock({
+    size = 13,
+    color
+  }) {
+    return /*#__PURE__*/React.createElement("svg", {
+      width: size,
+      height: size,
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: color,
+      strokeWidth: "2.6",
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      "aria-hidden": "true"
+    }, /*#__PURE__*/React.createElement("circle", {
+      cx: "12",
+      cy: "12",
+      r: "8.5"
+    }), /*#__PURE__*/React.createElement("path", {
+      d: "M12 7.5v5l3 1.8"
+    }));
   }
   function HomeScreen({
     best = 28640,
+    hearts = 4,
+    maxHearts = 5,
+    regenSeconds = 750,
+    petals = true,
+    onCampaign,
     onPlay,
-    onSettings,
-    onDaily
+    onGuide,
+    onTools
   }) {
+    const [hp, setHp] = React.useState(Math.min(hearts, maxHearts));
+    const [left, setLeft] = React.useState(regenSeconds);
+    React.useEffect(() => {
+      if (hp >= maxHearts) return;
+      const id = setInterval(() => {
+        setLeft(s => {
+          if (s <= 1) {
+            setHp(h => Math.min(h + 1, maxHearts));
+            return regenSeconds;
+          }
+          return s - 1;
+        });
+      }, 1000);
+      return () => clearInterval(id);
+    }, [hp, maxHearts, regenSeconds]);
+    const full = hp >= maxHearts;
     return /*#__PURE__*/React.createElement("div", {
       style: {
-        display: 'flex',
-        flexDirection: 'column',
+        position: 'relative',
         height: '100%',
-        padding: 'var(--space-xl)',
-        boxSizing: 'border-box'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: 'flex',
-        justifyContent: 'center'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: 'inline-flex',
-        alignItems: 'center',
-        gap: 'var(--space-sm)',
-        padding: '8px 16px',
-        background: 'var(--color-surface)',
-        borderRadius: 'var(--radius-full)',
-        boxShadow: 'var(--shadow-sm)',
-        color: 'var(--color-text)'
-      }
-    }, /*#__PURE__*/React.createElement(Icon, {
-      name: "trophy",
-      size: 18,
-      color: "var(--color-warning)"
-    }), /*#__PURE__*/React.createElement("span", {
-      style: {
+        width: '100%',
+        overflow: 'hidden',
         fontFamily: 'var(--font-body)',
-        fontWeight: 700,
-        fontSize: 'var(--text-caption)',
-        color: 'var(--color-text-muted)',
-        letterSpacing: 'var(--tracking-wide)'
+        background: 'linear-gradient(180deg,#8ecdf3,#bce5fb)'
       }
-    }, "K\u1EF6 L\u1EE4C"), /*#__PURE__*/React.createElement("span", {
+    }, /*#__PURE__*/React.createElement("style", null, `
+          @keyframes gj-spk{0%,100%{opacity:0;transform:scale(.25) rotate(0deg)}45%{opacity:1;transform:scale(1) rotate(35deg)}55%{opacity:1;transform:scale(1) rotate(45deg)}}
+          .gj-spk{display:block;animation-name:gj-spk;animation-timing-function:ease-in-out;animation-iteration-count:infinite;transform-origin:center}
+          @keyframes gj-petal-fall{0%{transform:translateY(-12%) translateX(0);opacity:0}8%{opacity:1}90%{opacity:1}100%{transform:translateY(112%) translateX(var(--gj-drift,0px));opacity:0}}
+          @keyframes gj-petal-sway{0%{transform:translateX(-7px) rotate(-32deg)}100%{transform:translateX(7px) rotate(34deg)}}
+          .gj-petal-fall{animation-name:gj-petal-fall;animation-timing-function:linear;animation-iteration-count:infinite;will-change:transform}
+          .gj-petal-sway{animation-name:gj-petal-sway;animation-timing-function:ease-in-out;animation-iteration-count:infinite;animation-direction:alternate;will-change:transform}
+          @media (prefers-reduced-motion: reduce){.gj-spk{animation:none!important;opacity:.85}.gj-petal-fall,.gj-petal-sway{animation:none!important;opacity:0}}
+        `), /*#__PURE__*/React.createElement("div", {
       style: {
-        fontFamily: 'var(--font-display)',
-        fontWeight: 800,
-        fontSize: 'var(--text-body)'
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: '100%',
+        aspectRatio: '821 / 1916',
+        containerType: 'inline-size'
       }
-    }, best.toLocaleString('vi-VN')))), /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("img", {
+      src: BG,
+      alt: "Gravity Jelly",
       style: {
-        flex: 1,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
+        position: 'absolute',
+        inset: 0,
+        width: '100%',
+        height: '100%',
+        display: 'block',
+        userSelect: 'none',
+        pointerEvents: 'none'
       }
-    }, /*#__PURE__*/React.createElement(Logo, null)), /*#__PURE__*/React.createElement("div", {
+    }), petals && /*#__PURE__*/React.createElement(Petals, {
+      count: 24,
+      seed: 7
+    }), /*#__PURE__*/React.createElement("div", {
       style: {
+        position: 'absolute',
+        left: '12%',
+        right: '12%',
+        top: '77.5%',
+        bottom: '4.9%',
         display: 'flex',
         flexDirection: 'column',
-        gap: 'var(--space-md)'
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '2cqw'
       }
-    }, /*#__PURE__*/React.createElement(Button, {
-      variant: "primary",
-      size: "cta",
-      icon: "play",
-      fullWidth: true,
-      onClick: onPlay
-    }, "CH\u01A0I \xB7 ENDLESS"), /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("div", {
       style: {
         display: 'flex',
-        gap: 'var(--space-md)'
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '4cqw'
       }
-    }, /*#__PURE__*/React.createElement(Button, {
-      variant: "secondary",
-      icon: "settings",
-      fullWidth: true,
-      onClick: onSettings
-    }, "C\xE0i \u0111\u1EB7t"), /*#__PURE__*/React.createElement(Button, {
-      variant: "secondary",
-      icon: "star",
-      fullWidth: true,
-      onClick: onDaily
-    }, "Daily"))));
+    }, /*#__PURE__*/React.createElement(IconButton, {
+      icon: IC_CAMPAIGN,
+      label: "Chi\u1EBFn d\u1ECBch",
+      onClick: onCampaign,
+      h: "18.4cqw"
+    }), /*#__PURE__*/React.createElement(IconButton, {
+      icon: IC_INFINITE,
+      label: "Endless",
+      onClick: onPlay,
+      h: "18.4cqw"
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '3.5cqw'
+      }
+    }, /*#__PURE__*/React.createElement(IconButton, {
+      icon: IC_GUIDE,
+      label: "C\u1EA9m nang",
+      onClick: onGuide,
+      h: "15.2cqw"
+    }), /*#__PURE__*/React.createElement(IconButton, {
+      icon: IC_LEADER,
+      label: "B\u1EA3ng x\u1EBFp h\u1EA1ng",
+      onClick: onTools,
+      h: "15.2cqw"
+    }), /*#__PURE__*/React.createElement(IconButton, {
+      icon: IC_SETTING,
+      label: "C\xE0i \u0111\u1EB7t",
+      onClick: onTools,
+      h: "15.2cqw"
+    })))));
   }
   window.GJHomeScreen = HomeScreen;
 })();
@@ -10768,6 +12226,672 @@ try { (() => {
   window.GJSplashScreen = SplashScreen;
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "04-screens/splash-screen.jsx", error: String((e && e.message) || e) }); }
+
+// 04-screens/tweaks-panel.jsx
+try { (() => {
+// @ds-adherence-ignore -- omelette starter scaffold (raw elements/hex/px by design)
+
+/* BEGIN USAGE */
+// tweaks-panel.jsx
+// Reusable Tweaks shell + form-control helpers.
+// Exports (to window): useTweaks, TweaksPanel, TweakSection, TweakRow, TweakSlider,
+//   TweakToggle, TweakRadio, TweakSelect, TweakText, TweakNumber, TweakColor, TweakButton.
+//
+// Owns the host protocol (listens for __activate_edit_mode / __deactivate_edit_mode,
+// posts __edit_mode_available / __edit_mode_set_keys / __edit_mode_dismissed) so
+// individual prototypes don't re-roll it. Ships a consistent set of controls so you
+// don't hand-draw <input type="range">, segmented radios, steppers, etc.
+//
+// Usage (in an HTML file that loads React + Babel):
+//
+//   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+//     "primaryColor": "#D97757",
+//     "palette": ["#D97757", "#29261b", "#f6f4ef"],
+//     "fontSize": 16,
+//     "density": "regular",
+//     "dark": false
+//   }/*EDITMODE-END*/;
+//
+//   function App() {
+//     const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+//     return (
+//       <div style={{ fontSize: t.fontSize, color: t.primaryColor }}>
+//         Hello
+//         <TweaksPanel>
+//           <TweakSection label="Typography" />
+//           <TweakSlider label="Font size" value={t.fontSize} min={10} max={32} unit="px"
+//                        onChange={(v) => setTweak('fontSize', v)} />
+//           <TweakRadio  label="Density" value={t.density}
+//                        options={['compact', 'regular', 'comfy']}
+//                        onChange={(v) => setTweak('density', v)} />
+//           <TweakSection label="Theme" />
+//           <TweakColor  label="Primary" value={t.primaryColor}
+//                        options={['#D97757', '#2A6FDB', '#1F8A5B', '#7A5AE0']}
+//                        onChange={(v) => setTweak('primaryColor', v)} />
+//           <TweakColor  label="Palette" value={t.palette}
+//                        options={[['#D97757', '#29261b', '#f6f4ef'],
+//                                  ['#475569', '#0f172a', '#f1f5f9']]}
+//                        onChange={(v) => setTweak('palette', v)} />
+//           <TweakToggle label="Dark mode" value={t.dark}
+//                        onChange={(v) => setTweak('dark', v)} />
+//         </TweaksPanel>
+//       </div>
+//     );
+//   }
+//
+// TweakRadio is the segmented control for 2–3 short options (auto-falls-back to
+// TweakSelect past ~16/~10 chars per label); reach for TweakSelect directly when
+// options are many or long. For color tweaks always curate 3-4 options rather than
+// a free picker; an option can also be a whole 2–5 color palette (the stored value
+// is the array). The Tweak* controls are a floor, not a ceiling — build custom
+// controls inside the panel if a tweak calls for UI they don't cover.
+/* END USAGE */
+// ─────────────────────────────────────────────────────────────────────────────
+
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    transform:scale(var(--dc-inv-zoom,1));transform-origin:bottom right;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
+    overflow-y:auto;overflow-x:hidden;min-height:0;
+    scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+  .twk-body::-webkit-scrollbar{width:8px}
+  .twk-body::-webkit-scrollbar-track{background:transparent;margin:2px}
+  .twk-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:4px;
+    border:2px solid transparent;background-clip:content-box}
+  .twk-body::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.25);
+    border:2px solid transparent;background-clip:content-box}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;
+    color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
+
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+
+  .twk-field{appearance:none;box-sizing:border-box;width:100%;min-width:0;height:26px;padding:0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;
+    background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+  .twk-field:focus{border-color:rgba(0,0,0,.25);background:rgba(255,255,255,.85)}
+  select.twk-field{padding-right:22px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");
+    background-repeat:no-repeat;background-position:right 8px center}
+
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;
+    border-radius:999px;background:rgba(0,0,0,.12);outline:none}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:14px;height:14px;border-radius:50%;background:#fff;
+    border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;
+    background:#fff;border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;
+    background:rgba(0,0,0,.06);user-select:none}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;
+    background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);
+    transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+  .twk-seg.dragging .twk-seg-thumb{transition:none}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;
+    background:transparent;color:inherit;font:inherit;font-weight:500;min-height:22px;
+    border-radius:6px;cursor:default;padding:4px 6px;line-height:1.2;
+    overflow-wrap:anywhere}
+
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+
+  .twk-num{display:flex;align-items:center;box-sizing:border-box;min-width:0;height:26px;padding:0 0 0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;background:rgba(255,255,255,.6)}
+  .twk-num-lbl{font-weight:500;color:rgba(41,38,27,.6);cursor:ew-resize;
+    user-select:none;padding-right:8px}
+  .twk-num input{flex:1;min-width:0;height:100%;border:0;background:transparent;
+    font:inherit;font-variant-numeric:tabular-nums;text-align:right;padding:0 8px 0 0;
+    outline:none;color:inherit;-moz-appearance:textfield}
+  .twk-num input::-webkit-inner-spin-button,.twk-num input::-webkit-outer-spin-button{
+    -webkit-appearance:none;margin:0}
+  .twk-num-unit{padding-right:8px;color:rgba(41,38,27,.45)}
+
+  .twk-btn{appearance:none;height:26px;padding:0 12px;border:0;border-radius:7px;
+    background:rgba(0,0,0,.78);color:#fff;font:inherit;font-weight:500;cursor:default}
+  .twk-btn:hover{background:rgba(0,0,0,.88)}
+  .twk-btn.secondary{background:rgba(0,0,0,.06);color:inherit}
+  .twk-btn.secondary:hover{background:rgba(0,0,0,.1)}
+
+  .twk-swatch{appearance:none;-webkit-appearance:none;width:56px;height:22px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:6px;padding:0;cursor:default;
+    background:transparent;flex-shrink:0}
+  .twk-swatch::-webkit-color-swatch-wrapper{padding:0}
+  .twk-swatch::-webkit-color-swatch{border:0;border-radius:5.5px}
+  .twk-swatch::-moz-color-swatch{border:0;border-radius:5.5px}
+
+  .twk-chips{display:flex;gap:6px}
+  .twk-chip{position:relative;appearance:none;flex:1;min-width:0;height:46px;
+    padding:0;border:0;border-radius:6px;overflow:hidden;cursor:default;
+    box-shadow:0 0 0 .5px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.06);
+    transition:transform .12s cubic-bezier(.3,.7,.4,1),box-shadow .12s}
+  .twk-chip:hover{transform:translateY(-1px);
+    box-shadow:0 0 0 .5px rgba(0,0,0,.18),0 4px 10px rgba(0,0,0,.12)}
+  .twk-chip[data-on="1"]{box-shadow:0 0 0 1.5px rgba(0,0,0,.85),
+    0 2px 6px rgba(0,0,0,.15)}
+  .twk-chip>span{position:absolute;top:0;bottom:0;right:0;width:34%;
+    display:flex;flex-direction:column;box-shadow:-1px 0 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i{flex:1;box-shadow:0 -1px 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i:first-child{box-shadow:none}
+  .twk-chip svg{position:absolute;top:6px;left:6px;width:13px;height:13px;
+    filter:drop-shadow(0 1px 1px rgba(0,0,0,.3))}
+`;
+
+// ── useTweaks ───────────────────────────────────────────────────────────────
+// Single source of truth for tweak values. setTweak persists via the host
+// (__edit_mode_set_keys → host rewrites the EDITMODE block on disk).
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  // Accepts either setTweak('key', value) or setTweak({ key: value, ... }) so a
+  // useState-style call doesn't write a "[object Object]" key into the persisted
+  // JSON block.
+  const setTweak = React.useCallback((keyOrEdits, val) => {
+    const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null ? keyOrEdits : {
+      [keyOrEdits]: val
+    };
+    setValues(prev => ({
+      ...prev,
+      ...edits
+    }));
+    window.parent.postMessage({
+      type: '__edit_mode_set_keys',
+      edits
+    }, '*');
+    // Same-window signal so in-page listeners (deck-stage rail thumbnails)
+    // can react — the parent message only reaches the host, not peers.
+    window.dispatchEvent(new CustomEvent('tweakchange', {
+      detail: edits
+    }));
+  }, []);
+  return [values, setTweak];
+}
+
+// ── TweaksPanel ─────────────────────────────────────────────────────────────
+// Floating shell. Registers the protocol listener BEFORE announcing
+// availability — if the announce ran first, the host's activate could land
+// before our handler exists and the toolbar toggle would silently no-op.
+// The close button posts __edit_mode_dismissed so the host's toolbar toggle
+// flips off in lockstep; the host echoes __deactivate_edit_mode back which
+// is what actually hides the panel.
+function TweaksPanel({
+  title = 'Tweaks',
+  children
+}) {
+  const [open, setOpen] = React.useState(false);
+  const dragRef = React.useRef(null);
+  const offsetRef = React.useRef({
+    x: 16,
+    y: 16
+  });
+  const PAD = 16;
+  const clampToViewport = React.useCallback(() => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const w = panel.offsetWidth,
+      h = panel.offsetHeight;
+    const maxRight = Math.max(PAD, window.innerWidth - w - PAD);
+    const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
+    offsetRef.current = {
+      x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)),
+      y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y))
+    };
+    panel.style.right = offsetRef.current.x + 'px';
+    panel.style.bottom = offsetRef.current.y + 'px';
+  }, []);
+  React.useEffect(() => {
+    if (!open) return;
+    clampToViewport();
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', clampToViewport);
+      return () => window.removeEventListener('resize', clampToViewport);
+    }
+    const ro = new ResizeObserver(clampToViewport);
+    ro.observe(document.documentElement);
+    return () => ro.disconnect();
+  }, [open, clampToViewport]);
+  React.useEffect(() => {
+    const onMsg = e => {
+      const t = e?.data?.type;
+      if (t === '__activate_edit_mode') setOpen(true);else if (t === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({
+      type: '__edit_mode_available'
+    }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+  const dismiss = () => {
+    setOpen(false);
+    window.parent.postMessage({
+      type: '__edit_mode_dismissed'
+    }, '*');
+  };
+  const onDragStart = e => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX,
+      sy = e.clientY;
+    const startRight = window.innerWidth - r.right;
+    const startBottom = window.innerHeight - r.bottom;
+    const move = ev => {
+      offsetRef.current = {
+        x: startRight - (ev.clientX - sx),
+        y: startBottom - (ev.clientY - sy)
+      };
+      clampToViewport();
+    };
+    const up = () => {
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  };
+  if (!open) return null;
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("style", null, __TWEAKS_STYLE), /*#__PURE__*/React.createElement("div", {
+    ref: dragRef,
+    className: "twk-panel",
+    "data-omelette-chrome": "",
+    style: {
+      right: offsetRef.current.x,
+      bottom: offsetRef.current.y
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "twk-hd",
+    onMouseDown: onDragStart
+  }, /*#__PURE__*/React.createElement("b", null, title), /*#__PURE__*/React.createElement("button", {
+    className: "twk-x",
+    "aria-label": "Close tweaks",
+    onMouseDown: e => e.stopPropagation(),
+    onClick: dismiss
+  }, "\u2715")), /*#__PURE__*/React.createElement("div", {
+    className: "twk-body"
+  }, children)));
+}
+
+// ── Layout helpers ──────────────────────────────────────────────────────────
+
+function TweakSection({
+  label,
+  children
+}) {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    className: "twk-sect"
+  }, label), children);
+}
+function TweakRow({
+  label,
+  value,
+  children,
+  inline = false
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: inline ? 'twk-row twk-row-h' : 'twk-row'
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "twk-lbl"
+  }, /*#__PURE__*/React.createElement("span", null, label), value != null && /*#__PURE__*/React.createElement("span", {
+    className: "twk-val"
+  }, value)), children);
+}
+
+// ── Controls ────────────────────────────────────────────────────────────────
+
+function TweakSlider({
+  label,
+  value,
+  min = 0,
+  max = 100,
+  step = 1,
+  unit = '',
+  onChange
+}) {
+  return /*#__PURE__*/React.createElement(TweakRow, {
+    label: label,
+    value: `${value}${unit}`
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "range",
+    className: "twk-slider",
+    min: min,
+    max: max,
+    step: step,
+    value: value,
+    onChange: e => onChange(Number(e.target.value))
+  }));
+}
+function TweakToggle({
+  label,
+  value,
+  onChange
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "twk-row twk-row-h"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "twk-lbl"
+  }, /*#__PURE__*/React.createElement("span", null, label)), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "twk-toggle",
+    "data-on": value ? '1' : '0',
+    role: "switch",
+    "aria-checked": !!value,
+    onClick: () => onChange(!value)
+  }, /*#__PURE__*/React.createElement("i", null)));
+}
+function TweakRadio({
+  label,
+  value,
+  options,
+  onChange
+}) {
+  const trackRef = React.useRef(null);
+  const [dragging, setDragging] = React.useState(false);
+  // The active value is read by pointer-move handlers attached for the lifetime
+  // of a drag — ref it so a stale closure doesn't fire onChange for every move.
+  const valueRef = React.useRef(value);
+  valueRef.current = value;
+
+  // Segments wrap mid-word once per-segment width runs out. The track is
+  // ~248px (280 panel − 28 body pad − 4 seg pad), each button loses 12px
+  // to its own padding, and 11.5px system-ui averages ~6.3px/char — so 2
+  // options fit ~16 chars each, 3 fit ~10. Past that (or >3 options), fall
+  // back to a dropdown rather than wrap.
+  const labelLen = o => String(typeof o === 'object' ? o.label : o).length;
+  const maxLen = options.reduce((m, o) => Math.max(m, labelLen(o)), 0);
+  const fitsAsSegments = maxLen <= ({
+    2: 16,
+    3: 10
+  }[options.length] ?? 0);
+  if (!fitsAsSegments) {
+    // <select> emits strings — map back to the original option value so the
+    // fallback stays type-preserving (numbers, booleans) like the segment path.
+    const resolve = s => {
+      const m = options.find(o => String(typeof o === 'object' ? o.value : o) === s);
+      return m === undefined ? s : typeof m === 'object' ? m.value : m;
+    };
+    return /*#__PURE__*/React.createElement(TweakSelect, {
+      label: label,
+      value: value,
+      options: options,
+      onChange: s => onChange(resolve(s))
+    });
+  }
+  const opts = options.map(o => typeof o === 'object' ? o : {
+    value: o,
+    label: o
+  });
+  const idx = Math.max(0, opts.findIndex(o => o.value === value));
+  const n = opts.length;
+  const segAt = clientX => {
+    const r = trackRef.current.getBoundingClientRect();
+    const inner = r.width - 4;
+    const i = Math.floor((clientX - r.left - 2) / inner * n);
+    return opts[Math.max(0, Math.min(n - 1, i))].value;
+  };
+  const onPointerDown = e => {
+    setDragging(true);
+    const v0 = segAt(e.clientX);
+    if (v0 !== valueRef.current) onChange(v0);
+    const move = ev => {
+      if (!trackRef.current) return;
+      const v = segAt(ev.clientX);
+      if (v !== valueRef.current) onChange(v);
+    };
+    const up = () => {
+      setDragging(false);
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+  return /*#__PURE__*/React.createElement(TweakRow, {
+    label: label
+  }, /*#__PURE__*/React.createElement("div", {
+    ref: trackRef,
+    role: "radiogroup",
+    onPointerDown: onPointerDown,
+    className: dragging ? 'twk-seg dragging' : 'twk-seg'
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "twk-seg-thumb",
+    style: {
+      left: `calc(2px + ${idx} * (100% - 4px) / ${n})`,
+      width: `calc((100% - 4px) / ${n})`
+    }
+  }), opts.map(o => /*#__PURE__*/React.createElement("button", {
+    key: o.value,
+    type: "button",
+    role: "radio",
+    "aria-checked": o.value === value
+  }, o.label))));
+}
+function TweakSelect({
+  label,
+  value,
+  options,
+  onChange
+}) {
+  return /*#__PURE__*/React.createElement(TweakRow, {
+    label: label
+  }, /*#__PURE__*/React.createElement("select", {
+    className: "twk-field",
+    value: value,
+    onChange: e => onChange(e.target.value)
+  }, options.map(o => {
+    const v = typeof o === 'object' ? o.value : o;
+    const l = typeof o === 'object' ? o.label : o;
+    return /*#__PURE__*/React.createElement("option", {
+      key: v,
+      value: v
+    }, l);
+  })));
+}
+function TweakText({
+  label,
+  value,
+  placeholder,
+  onChange
+}) {
+  return /*#__PURE__*/React.createElement(TweakRow, {
+    label: label
+  }, /*#__PURE__*/React.createElement("input", {
+    className: "twk-field",
+    type: "text",
+    value: value,
+    placeholder: placeholder,
+    onChange: e => onChange(e.target.value)
+  }));
+}
+function TweakNumber({
+  label,
+  value,
+  min,
+  max,
+  step = 1,
+  unit = '',
+  onChange
+}) {
+  const clamp = n => {
+    if (min != null && n < min) return min;
+    if (max != null && n > max) return max;
+    return n;
+  };
+  const startRef = React.useRef({
+    x: 0,
+    val: 0
+  });
+  const onScrubStart = e => {
+    e.preventDefault();
+    startRef.current = {
+      x: e.clientX,
+      val: value
+    };
+    const decimals = (String(step).split('.')[1] || '').length;
+    const move = ev => {
+      const dx = ev.clientX - startRef.current.x;
+      const raw = startRef.current.val + dx * step;
+      const snapped = Math.round(raw / step) * step;
+      onChange(clamp(Number(snapped.toFixed(decimals))));
+    };
+    const up = () => {
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    className: "twk-num"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "twk-num-lbl",
+    onPointerDown: onScrubStart
+  }, label), /*#__PURE__*/React.createElement("input", {
+    type: "number",
+    value: value,
+    min: min,
+    max: max,
+    step: step,
+    onChange: e => onChange(clamp(Number(e.target.value)))
+  }), unit && /*#__PURE__*/React.createElement("span", {
+    className: "twk-num-unit"
+  }, unit));
+}
+
+// Relative-luminance contrast pick — checkmarks drawn over a swatch need to
+// read on both #111 and #fafafa without per-option configuration. Hex input
+// only (#rgb / #rrggbb); named or rgb()/hsl() colors fall through to "light".
+function __twkIsLight(hex) {
+  const h = String(hex).replace('#', '');
+  const x = h.length === 3 ? h.replace(/./g, c => c + c) : h.padEnd(6, '0');
+  const n = parseInt(x.slice(0, 6), 16);
+  if (Number.isNaN(n)) return true;
+  const r = n >> 16 & 255,
+    g = n >> 8 & 255,
+    b = n & 255;
+  return r * 299 + g * 587 + b * 114 > 148000;
+}
+const __TwkCheck = ({
+  light
+}) => /*#__PURE__*/React.createElement("svg", {
+  viewBox: "0 0 14 14",
+  "aria-hidden": "true"
+}, /*#__PURE__*/React.createElement("path", {
+  d: "M3 7.2 5.8 10 11 4.2",
+  fill: "none",
+  strokeWidth: "2.2",
+  strokeLinecap: "round",
+  strokeLinejoin: "round",
+  stroke: light ? 'rgba(0,0,0,.78)' : '#fff'
+}));
+
+// TweakColor — curated color/palette picker. Each option is either a single
+// hex string or an array of 1-5 hex strings; the card adapts — a lone color
+// renders solid, a palette renders colors[0] as the hero (left ~2/3) with the
+// rest stacked in a sharp column on the right. onChange emits the
+// option in the shape it was passed (string stays string, array stays array).
+// Without options it falls back to the native color input for back-compat.
+function TweakColor({
+  label,
+  value,
+  options,
+  onChange
+}) {
+  if (!options || !options.length) {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "twk-row twk-row-h"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "twk-lbl"
+    }, /*#__PURE__*/React.createElement("span", null, label)), /*#__PURE__*/React.createElement("input", {
+      type: "color",
+      className: "twk-swatch",
+      value: value,
+      onChange: e => onChange(e.target.value)
+    }));
+  }
+  // Native <input type=color> emits lowercase hex per the HTML spec, so
+  // compare case-insensitively. String() guards JSON.stringify(undefined),
+  // which returns the primitive undefined (no .toLowerCase).
+  const key = o => String(JSON.stringify(o)).toLowerCase();
+  const cur = key(value);
+  return /*#__PURE__*/React.createElement(TweakRow, {
+    label: label
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "twk-chips",
+    role: "radiogroup"
+  }, options.map((o, i) => {
+    const colors = Array.isArray(o) ? o : [o];
+    const [hero, ...rest] = colors;
+    const sup = rest.slice(0, 4);
+    const on = key(o) === cur;
+    return /*#__PURE__*/React.createElement("button", {
+      key: i,
+      type: "button",
+      className: "twk-chip",
+      role: "radio",
+      "aria-checked": on,
+      "data-on": on ? '1' : '0',
+      "aria-label": colors.join(', '),
+      title: colors.join(' · '),
+      style: {
+        background: hero
+      },
+      onClick: () => onChange(o)
+    }, sup.length > 0 && /*#__PURE__*/React.createElement("span", null, sup.map((c, j) => /*#__PURE__*/React.createElement("i", {
+      key: j,
+      style: {
+        background: c
+      }
+    }))), on && /*#__PURE__*/React.createElement(__TwkCheck, {
+      light: __twkIsLight(hero)
+    }));
+  })));
+}
+function TweakButton({
+  label,
+  onClick,
+  secondary = false
+}) {
+  return /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: secondary ? 'twk-btn secondary' : 'twk-btn',
+    onClick: onClick
+  }, label);
+}
+Object.assign(window, {
+  useTweaks,
+  TweaksPanel,
+  TweakSection,
+  TweakRow,
+  TweakSlider,
+  TweakToggle,
+  TweakRadio,
+  TweakSelect,
+  TweakText,
+  TweakNumber,
+  TweakColor,
+  TweakButton
+});
+})(); } catch (e) { __ds_ns.__errors.push({ path: "04-screens/tweaks-panel.jsx", error: String((e && e.message) || e) }); }
 
 // 04-screens/world-gate-locked.jsx
 try { (() => {

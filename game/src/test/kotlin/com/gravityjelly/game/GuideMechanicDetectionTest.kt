@@ -54,12 +54,13 @@ class GuideMechanicDetectionTest {
     }
 
     @Test
-    fun linesCleared_rowAndCol_enqueueBoth() {
+    fun linesCleared_rowOrCol_enqueuesSingleClearLine() {
+        // Xóa hàng & cột là CÙNG một luật → chỉ một mục CLEAR_LINE (không tách hàng/cột).
         val h = holder()
         h.detectGuideMechanics(
             listOf(GameEvent.LinesCleared(ClearedLines(rows = listOf(3), cols = listOf(5)), 17, 1, 17)),
         )
-        assertEquals(listOf(GameMechanic.CLEAR_ROW, GameMechanic.CLEAR_COLUMN), h.guideQueue)
+        assertEquals(listOf(GameMechanic.CLEAR_LINE), h.guideQueue)
     }
 
     @Test
@@ -86,7 +87,7 @@ class GuideMechanicDetectionTest {
         )
         assertEquals(
             listOf(
-                GameMechanic.CLEAR_ROW,
+                GameMechanic.CLEAR_LINE,
                 GameMechanic.DETONATE_SUPER1,
                 GameMechanic.GRAVITY_DROP,
                 GameMechanic.STICKY_CLUSTER,

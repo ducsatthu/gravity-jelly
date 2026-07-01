@@ -1,0 +1,53 @@
+<!-- @dsCard group="Screens" viewport="812x900" name="Cẩm nang (Handbook)" subtitle="Collectible rule book · list + detail popup" -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  html, body { margin: 0; }
+  body { background: radial-gradient(120% 90% at 50% 0%, #FFF7EC 0%, #F3E3CC 100%); display: flex; justify-content: center; padding: 20px; }
+  .stage { display: flex; gap: 36px; align-items: flex-start; }
+  .cap { text-align: center; margin-top: 12px; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 13px; color: #9B886F; letter-spacing: 0.04em; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script src="../_ds_bundle.js"></script>
+  <script type="text/babel" src="phone-frame.jsx"></script>
+  <script type="text/babel" src="screen-extras.jsx"></script>
+  <script type="text/babel" src="cam-nang-illus.jsx"></script>
+  <script type="text/babel" src="cam-nang-screen.jsx"></script>
+  <script type="text/babel">
+    const PhoneFrame = window.GJPhoneFrame, CamNang = window.GJCamNangScreen;
+
+    // sample save: basics + a few power blocks unlocked, advanced ones still locked
+    const UNLOCKED = new Set(['rotate','clearLine','fall','sticky','super','rainbow','blastSuper','comboTurn']);
+    const entries = CamNang.ENTRIES.map(e => ({ ...e, unlocked: UNLOCKED.has(e.id) }));
+    const unlockedCount = entries.filter(e => e.unlocked).length;
+
+    function Demo(){
+      return (
+        <div className="stage">
+          <div>
+            <PhoneFrame>
+              <CamNang entries={entries} unlockedCount={unlockedCount} onBack={()=>{}} onOpen={()=>{}} />
+            </PhoneFrame>
+            <div className="cap">DANH SÁCH · GỌN THEO NHÓM</div>
+          </div>
+          <div>
+            <PhoneFrame>
+              <CamNang entries={entries} unlockedCount={unlockedCount} defaultOpenId="super" onBack={()=>{}} onOpen={()=>{}} />
+            </PhoneFrame>
+            <div className="cap">POPUP CHI TIẾT</div>
+          </div>
+        </div>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<Demo/>);
+  </script>
+</body>
+</html>

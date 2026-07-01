@@ -55,7 +55,7 @@ fun Modifier.excludeSystemGestures(): Modifier {
  */
 @Composable
 fun TrayBar(
-    tray: List<Piece>,
+    tray: List<Piece?>,
     holder: EndlessGameHolder,
     modifier: Modifier = Modifier,
 ) {

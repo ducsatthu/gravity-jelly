@@ -59,6 +59,8 @@ moved.
 | 13 | `04-screens/shop-screen.jsx` | **Shop** — coin balance, booster shelf, coin packs (tabbed) | ✅ |
 | 14 | `04-screens/missions-screen.jsx` | **Missions / Achievements** — daily/achv tabs, progress bars, claim | ✅ |
 | 15 | `04-screens/leaderboard-screen.jsx` | **Leaderboard** — friends/global tabs, top-3 podium, ranked rows | ✅ |
+| 16 | `04-screens/cam-nang-screen.jsx` | **Cẩm nang (Handbook)** — collectible 13-rule book in 4 groups; locked/unlocked entries; teach-style detail popup with "real game" illustration | ✅ |
+| — | `04-screens/cam-nang-illus.jsx` | Helper: Handbook popup illustrations — `MiniBoard`, `SpecialBlock` (super/rainbow/crown), per-mechanic before→after demos (`window.GJCamNangIllus`) | ✅ |
 | — | `04-screens/board.jsx` | Helper: char-map → clustered 9×9 board | ✅ |
 | — | `04-screens/phone-frame.jsx` | Helper: Android device shell | ✅ |
 | — | `04-screens/screen-extras.jsx` | Helper: extra glyphs (lock/clock/gift/coin/bomb/crown…) + Stars/CoinChip/AdBadge | ✅ |

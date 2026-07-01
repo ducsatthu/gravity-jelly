@@ -40,27 +40,32 @@ private val BgEdge   = GjPalette.Bg                                      // #FFF
  *
  * [applyGutter]: true → padding horizontal 16dp (GjSpace.lg); false → toàn màn (canvas bàn, v.v.).
  * [contentAlignment]: canh lề nội dung bên trong Box; mặc định TopCenter.
+ * [drawBackground]: true → vẽ nền gradient cream mặc định; false → để màn tự cấp nền
+ *   (vd Home dùng ảnh raster full-bleed phía sau).
  */
 @Composable
 fun GjScreenScaffold(
     modifier: Modifier = Modifier,
     applyGutter: Boolean = true,
     contentAlignment: Alignment = Alignment.TopCenter,
+    drawBackground: Boolean = true,
     content: @Composable BoxScope.() -> Unit,
 ) {
     Box(
         modifier = modifier
             .fillMaxSize()
-            .drawBehind {
-                // radial gradient — tâm warmest, cạnh cream bình thường
-                drawRect(
-                    brush = Brush.radialGradient(
-                        colors = listOf(BgCenter, BgEdge),
-                        center = Offset(size.width / 2f, size.height * 0.38f),
-                        radius = size.width * 0.85f,
-                    ),
-                )
-            }
+            .then(
+                if (drawBackground) Modifier.drawBehind {
+                    // radial gradient — tâm warmest, cạnh cream bình thường
+                    drawRect(
+                        brush = Brush.radialGradient(
+                            colors = listOf(BgCenter, BgEdge),
+                            center = Offset(size.width / 2f, size.height * 0.38f),
+                            radius = size.width * 0.85f,
+                        ),
+                    )
+                } else Modifier
+            )
             .windowInsetsPadding(WindowInsets.safeDrawing)
             .then(
                 if (applyGutter) Modifier.padding(horizontal = GjSpace.lg)

@@ -44,7 +44,7 @@ class DeferredPlacementTest {
         val holder = EndlessGameHolder(seed = 42L)
         holder.density = 1f
         holder.setBoardBounds(0f, 0f, 900f)   // cell = 100px
-        val tray0 = holder.shell.tray.size
+        val tray0 = holder.shell.tray.count { it != null }
         assertEquals("bàn khởi tạo rỗng", 0, filledCells(holder.boardRender.grid))
 
         forceCascade(holder)
@@ -60,7 +60,7 @@ class DeferredPlacementTest {
         assertNull("ngón nhả → bỏ mảnh nổi", holder.dragPiece)
         assertNotNull("ghost giữ tại chỗ dự kiến (đánh dấu nước chờ)", holder.boardRender.ghost)
         assertEquals("chưa đặt: bàn chưa đổi", 0, filledCells(holder.boardRender.grid))
-        assertEquals("chưa đặt: khay chưa rút", tray0, holder.shell.tray.size)
+        assertEquals("chưa đặt: khay chưa rút", tray0, holder.shell.tray.count { it != null })
 
         // Còn nước chờ → kéo tiếp bị khoan (giữ một nước chờ mỗi lúc).
         assertFalse("đang có nước chờ → khoan kéo tiếp", holder.beginDrag(1))
@@ -69,6 +69,6 @@ class DeferredPlacementTest {
         repeat(1200) { holder.animator.step(GameClock.STEP_NANOS) }
         assertNull("đã áp → ghost dọn", holder.boardRender.ghost)
         assertTrue("đặt thành công: bàn có khối", filledCells(holder.boardRender.grid) > 0)
-        assertEquals("đặt thành công: khay rút 1", tray0 - 1, holder.shell.tray.size)
+        assertEquals("đặt thành công: khay rút 1", tray0 - 1, holder.shell.tray.count { it != null })
     }
 }
