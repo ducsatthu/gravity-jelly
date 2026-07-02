@@ -155,22 +155,80 @@
     return <LockedRegularNode n={n} size={size} />;
   }
 
-  function BossNode({ n, size = 76 }) {
+  // ─── BOSS GATE ───────────────────────────────────────────────────────
+  // Ornate framed gate node marking the world's boss level (10/20/30…).
+  // Three states: locked (gold + padlock) · current (amethyst, playable)
+  // · cleared (gold + ruby, beaten). Sized by width; height follows the art.
+  const BOSS_SRC = {
+    locked:  '../06-svg-assets/ui/boss-gate-locked.png',
+    current: '../06-svg-assets/ui/boss-gate-current.png',
+    cleared: '../06-svg-assets/ui/boss-gate-cleared.png',
+  };
+  // aspect (h/w) + panel-centre anchor (fraction of image) + number colour
+  const BOSS_META = {
+    locked:  { ar: 1.1118, vx: 0.477, vy: 0.423, num: '#8A6A2E' },
+    current: { ar: 1.0404, vx: 0.498, vy: 0.502, num: '#6A4A2E' },
+    cleared: { ar: 1.0266, vx: 0.500, vy: 0.501, num: '#B67A16' },
+  };
+
+  function BossGateNode({ n, variant = 'locked', stars = 3, width = 104 }) {
+    const m = BOSS_META[variant];
+    const w = width, h = Math.round(width * m.ar);
+    const shadow = variant === 'current'
+      ? '0 7px 14px rgba(126,108,240,0.40)'
+      : variant === 'cleared'
+        ? '0 7px 13px rgba(200,150,40,0.36)'
+        : '0 7px 12px rgba(120,92,52,0.30)';
+    const numSize = Math.round(w * (String(n).length >= 2 ? 0.34 : 0.42));
     return (
-      <div style={{ position: 'relative', width: size, height: size }}>
-        <Tile src={LOCK_SRC} size={size} shadow="0 6px 10px rgba(126,108,240,0.32)" />
-        <CenterNum n={n} size={size} color="#6353D6" vy={0.33} scale={0.4}
-                   shadow="0 1px 0 rgba(255,255,255,0.85)" />
+      <div style={{ position: 'relative', width: w, height: h }}>
+        {variant === 'current' &&
+        <div style={{
+          position: 'absolute', left: -18, top: -14, right: -18, bottom: -14,
+          borderRadius: '50%',
+          background: 'radial-gradient(closest-side, rgba(169,156,246,0.60) 0%, rgba(126,108,240,0.28) 55%, rgba(126,108,240,0) 80%)',
+          animation: 'gj-strip-pulse 1800ms ease-in-out infinite',
+        }} />}
+        <img src={BOSS_SRC[variant]} alt="" draggable="false" style={{
+          position: 'relative', width: w, height: h, display: 'block',
+          userSelect: 'none', pointerEvents: 'none',
+          filter: `drop-shadow(${shadow})`,
+        }} />
+        {variant === 'cleared' &&
+        <div style={{ position: 'absolute', left: 0, right: 0, top: `${(m.vy - 0.30) * 100}%` }}>
+          <StarArc stars={stars} size={16} width={62} />
+        </div>}
+        <div style={{
+          position: 'absolute', left: '50%', top: '50%',
+          transform: 'translate(-50%, -50%)',
+          fontFamily: 'var(--font-display)', fontWeight: 700,
+          fontSize: numSize, lineHeight: 1, color: m.num,
+          textShadow: '0 1px 0 rgba(255,255,255,0.7)', pointerEvents: 'none',
+        }}>{n}</div>
       </div>
     );
   }
 
   function PlaceNode({ node }) {
-    let inner = null;
     const half = NODE / 2;
     if (node.kind === 'boss') {
-      inner = <BossNode n={node.id} size={NODE} />;
-    } else if (node.kind === 'breather') {
+      const variant = node.state === 'done' ? 'cleared'
+                    : node.state === 'open' ? 'current' : 'locked';
+      const BW = 66;
+      const m = BOSS_META[variant];
+      const bh = Math.round(BW * m.ar);
+      return (
+        <div style={{
+          position: 'absolute', zIndex: 3,
+          left: Math.round(node.x - m.vx * BW),
+          top: Math.round(node.y - m.vy * bh),
+        }}>
+          <BossGateNode n={node.id} variant={variant} stars={node.stars || 3} width={BW} />
+        </div>
+      );
+    }
+    let inner = null;
+    if (node.kind === 'breather') {
       inner = <BreatherNode n={node.id} size={NODE} />;
     } else if (node.state === 'open') {
       inner = <OpenNode n={node.id} size={NODE} />;

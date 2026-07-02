@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Prototype — Phá Giọt nước (W3)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  html, body { margin: 0; height: 100%; }
+  body {
+    background: radial-gradient(120% 90% at 50% 0%, #E1F1F4 0%, #BFDDE6 100%);
+    font-family: var(--font-body, 'Nunito', sans-serif);
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; overflow: hidden;
+  }
+  @keyframes gjpop { 0% { transform: scale(0.3); opacity: 0; } 40% { transform: scale(1.15); opacity: 1; } 100% { transform: scale(1); opacity: 0.9; } }
+  @keyframes gjrise { from { transform: translateY(16px) scale(0.94); opacity: 0; } to { transform: none; opacity: 1; } }
+  @keyframes gjpulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script src="../_ds_bundle.js"></script>
+  <script src="proto-engine.js"></script>
+  <script type="text/babel" src="proto-ui.jsx"></script>
+  <script type="text/babel" src="proto-game.jsx"></script>
+  <script type="text/babel">
+    const E = window.GJProtoEngine;
+
+    // ---- drop mechanic helpers ----
+    function dropApplyClear(cells, lines) {
+      const posSet = E.linePositions(lines);
+      const removeIds = new Set();
+      cells.forEach((cl) => {
+        // a clear removes jelly + drops it passes through; stone stays put
+        if (posSet.has(cl.r + '-' + cl.c) && (cl.kind === 'jelly' || cl.kind === 'drop')) removeIds.add(cl.id);
+      });
+      return { next: cells.filter((c) => !removeIds.has(c.id)) };
+    }
+    // mark a drop "buried/locked" while it's still covered by stone and not yet
+    // resting on the gravity-facing edge — cascade must dig it out first.
+    function decorateBuried(cells, dir) {
+      return cells.map((c) => {
+        if (c.kind !== 'drop') return c;
+        let atFloor, covered;
+        if (dir === 'down') { atFloor = c.r === E.N - 1; covered = cells.some((s) => s.kind === 'stone' && s.c === c.c && s.r < c.r); }
+        else if (dir === 'up') { atFloor = c.r === 0; covered = cells.some((s) => s.kind === 'stone' && s.c === c.c && s.r > c.r); }
+        else if (dir === 'right') { atFloor = c.c === E.N - 1; covered = cells.some((s) => s.kind === 'stone' && s.r === c.r && s.c < c.c); }
+        else { atFloor = c.c === 0; covered = cells.some((s) => s.kind === 'stone' && s.r === c.r && s.c > c.c); }
+        return { ...c, buried: covered && !atFloor };
+      });
+    }
+
+    const config = {
+      seed: 20240301,
+      charges: 3,
+      title: 'PHÁ GIỌT NƯỚC',
+      subtitle: 'World 3 · Sông & Thác',
+      bg: 'radial-gradient(130% 70% at 50% 0%, #ECF8FA 0%, #CDE7EE 55%, #B4DAE4 100%)',
+      accent: '#2F8091',
+      goalWord: 'giọt',
+      goalGlyph: { kind: 'drop' },
+      grows: false,
+      isFixed: () => false, // drops & stones both obey gravity
+      initCells: () => ([
+        { id: E.uid(), kind: 'drop', r: 8, c: 2 },   // exposed
+        { id: E.uid(), kind: 'drop', r: 8, c: 6 },   // exposed
+        { id: E.uid(), kind: 'stone', r: 4, c: 4 },  // buried stack: 2 stones…
+        { id: E.uid(), kind: 'stone', r: 5, c: 4 },
+        { id: E.uid(), kind: 'drop', r: 6, c: 4 },   // …over a trapped drop
+      ]),
+      applyClear: dropApplyClear,
+      countTargets: (cells) => cells.filter((c) => c.kind === 'drop').length,
+      decorate: decorateBuried,
+      hint: 'Xoá 1 cột bất kỳ để dòng chảy (cascade) hạ giọt bị chôn xuống đáy.',
+      winTitle: 'HOÀN THÀNH!',
+      winBody: 'Cả 3 giọt nước đã vỡ tan.',
+    };
+
+    ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(window.GJProtoGame(config)));
+  </script>
+</body>
+</html>

@@ -1,14 +1,19 @@
 package com.gravityjelly.app
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsPadding
@@ -46,6 +51,7 @@ import com.gravityjelly.app.ui.components.BtnVariant
 import com.gravityjelly.app.ui.components.GjButton
 import com.gravityjelly.app.ui.components.GjDialog
 import com.gravityjelly.app.ui.components.GjPauseToggleRow
+import com.gravityjelly.app.ui.components.ObjectiveBar
 import com.gravityjelly.app.ui.guide.GjGuide
 import com.gravityjelly.app.ui.icons.GjIcons
 import com.gravityjelly.app.ui.theme.GjPalette
@@ -185,6 +191,19 @@ fun CampaignPlayScreen(
             onSelectPiece = {},
             onRotate = { holder.rotate(cw = true) },
             world = level.world,
+            // Cụm MỤC TIÊU sống ngay dưới HUD (screen-1e-game-objective) — chỉ Campaign.
+            objective = {
+                ObjectiveBar(
+                    goal = level.goal,
+                    world = level.world,
+                    score = shell.score,
+                    targetsCleared = holder.targetsCleared,
+                    initialTargets = holder.initialTargets,
+                    bossDamage = holder.bossHpDamage,
+                    bossHpMax = holder.bossHpMax,
+                    tutorialLabel = goalLabel(level.goal, level.world),
+                )
+            },
             traySlotModifier = { i ->
                 Modifier
                     .onGloballyPositioned { slotWin[i] = it.positionInWindow() }
@@ -220,13 +239,7 @@ fun CampaignPlayScreen(
         // Mảnh đang kéo (floating).
         DragPieceOverlay(holder, parentWin, renderTick.value, Modifier.fillMaxSize())
 
-        // Banner mục tiêu (dưới HUD) — nhắc "Dọn sạch" + số nước đã dùng.
-        GoalBanner(
-            title = "Màn ${level.id} · ${level.name}",
-            goalLabel = goalLabel(level.goal),
-            moves = holder.movesUsed,
-            modifier = Modifier.align(Alignment.TopCenter),
-        )
+        // (Cụm MỤC TIÊU nay là hàng trong bố cục GameScreen — slot `objective` ở trên, không còn overlay.)
 
         // Dialog Tạm dừng — bám pause-screen.jsx (như Endless): toggle nhanh Âm thanh·Nhạc → TIẾP TỤC
         // (CTA) → hàng Chơi lại·Cài đặt → Danh sách màn (ghost). dismissable=false: chỉ thoát bằng nút/Back.
@@ -292,33 +305,36 @@ fun CampaignPlayScreen(
             )
         }
 
-        // Overlay THUA (bí nước — không đặt được mảnh nào).
-        GjDialog(
-            open = shell.gameOver && !holder.levelComplete,
-            title = "Bí nước rồi!",
-            icon = GjIcons.Info,
-            dismissable = false,
-            onClose = {},
-            content = {
-                Text(
-                    text = "Không còn chỗ đặt mảnh. Thử lại nhé!",
-                    style = MaterialTheme.typography.bodyLarge.copy(color = GjPalette.TextMuted),
-                )
-            },
-            actions = {
-                GjButton(onClick = { replayKey++ }, variant = BtnVariant.Primary, fullWidth = true,
-                    icon = GjIcons.Refresh) { Text("Chơi lại") }
-                GjButton(onClick = onExit, variant = BtnVariant.Ghost, fullWidth = true,
-                    icon = GjIcons.Home) { Text("Danh sách màn") }
-            },
-        )
+        // Overlay THUA (bí nước — không đặt được mảnh nào): popup card + mascot buồn (đồng bộ
+        // Result Endless / Win), thay cho GjDialog thô trước đây. Nhắc lại MỤC TIÊU chưa đạt + tiến độ.
+        if (shell.gameOver && !holder.levelComplete) {
+            val goalProgress = when (level.goal.type) {
+                GoalType.CLEAR_TARGETS -> "${holder.targetsCleared}/${holder.initialTargets}"
+                GoalType.REACH_SCORE -> "${shell.score}/${level.goal.score}đ"
+                GoalType.MIXED ->
+                    "${holder.targetsCleared}/${holder.initialTargets} · ${shell.score}/${level.goal.score}đ"
+                GoalType.BOSS_COMBO -> "Máu boss ${holder.bossHpMax - holder.bossHpDamage}/${holder.bossHpMax}"
+                else -> null   // CLEAR_ALL / COMBO_CHAIN / TUTORIAL: không có số tiến độ gọn
+            }
+            LevelFailScreen(
+                onReplay = { replayKey++ },
+                onHome = onExit,
+                objective = goalLabel(level.goal, level.world),
+                objectiveProgress = goalProgress,
+            )
+        }
     }
 }
 
-internal fun goalLabel(goal: Goal): String = when (goal.type) {
+/** Nhãn mục tiêu; ô đích tuỳ world: World 2 = "gốc dây leo", World 3 = "giọt nước". */
+internal fun goalLabel(goal: Goal, world: Int = 2): String = when (goal.type) {
     GoalType.CLEAR_ALL -> "Dọn sạch bàn"
-    GoalType.CLEAR_TARGETS -> "Xóa ô đích"
+    GoalType.CLEAR_TARGETS ->
+        if (world == 3) "Phá ${goal.count} giọt nước" else "Phá ${goal.count} gốc dây leo"
     GoalType.REACH_SCORE -> "Đạt ${goal.score} điểm"
+    GoalType.MIXED ->
+        if (world == 3) "Phá ${goal.count} giọt + ${goal.score} điểm"
+        else "Phá ${goal.count} gốc + ${goal.score} điểm"
     GoalType.COMBO_CHAIN -> "Chuỗi combo"
     GoalType.BOSS_COMBO -> "Hạ boss bằng combo (máu ${goal.bossHP})"
     GoalType.TUTORIAL -> when (goal.trigger) {
@@ -345,28 +361,3 @@ internal fun winStat(metric: StarMetric, goal: Goal, moves: Int, rotations: Int)
         StarMetric.SCORE -> "MỤC TIÊU" to "${goal.score}+"
         StarMetric.COMBO -> "BOSS" to "Hạ gục!"
     }
-
-@Composable
-private fun GoalBanner(title: String, goalLabel: String, moves: Int, modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier
-            .windowInsetsPadding(WindowInsets.safeDrawing)
-            .padding(top = 72.dp)
-            .clip(RoundedCornerShape(14.dp))
-            .background(Color(0xF2FFFFFF))
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-    ) {
-        androidx.compose.foundation.layout.Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleSmall.copy(
-                    color = GjPalette.Text, fontWeight = FontWeight.Black,
-                ),
-            )
-            Text(
-                text = "🎯 $goalLabel   ·   Nước: $moves",
-                style = MaterialTheme.typography.bodySmall.copy(color = GjPalette.TextMuted),
-            )
-        }
-    }
-}

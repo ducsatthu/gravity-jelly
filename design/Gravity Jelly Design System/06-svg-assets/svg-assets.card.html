@@ -38,6 +38,9 @@
   .boards figure:nth-child(1) img { width: 200px; height: 200px; }
   .boards figure:nth-child(2) img { width: 240px; height: 81px; }
   .boards figure:nth-child(3) img { width: 96px; height: 96px; }
+  .boss-gate { display: flex; gap: 18px; flex-wrap: wrap; align-items: flex-end; }
+  .boss-gate figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .boss-gate img { width: 128px; height: auto; display: block; filter: drop-shadow(0 5px 10px rgba(60,44,24,0.22)); }
   cap { display: block; font-size: 11px; font-weight: 700; color: var(--color-text-muted); letter-spacing: .03em; }
   .note { font-size: 12px; font-weight: 600; color: var(--color-text-muted); line-height: 1.5; max-width: 660px; }
   code { font-family: ui-monospace, monospace; background: var(--color-surface-sunken); padding: 1px 5px; border-radius: 5px; font-size: 11px; }
@@ -164,6 +167,16 @@
       <figure><img src="ui/unlocked-tile.png" alt="unlocked tile" style="width:88px;height:88px" /><cap>unlocked-tile.png · mở, chưa chơi</cap></figure>
       <figure><img src="ui/completed-tile.png" alt="completed tile" style="width:88px;height:88px" /><cap>completed-tile.png · đã chơi xong</cap></figure>
     </div>
+  </section>
+
+  <section>
+    <h2>Ô BOSS giữ cửa · màn 10/20/30… (3 trạng thái)</h2>
+    <div class="boss-gate">
+      <figure><img src="ui/boss-gate-locked.png" alt="boss gate locked" /><cap>boss-gate-locked.png · đang khoá</cap></figure>
+      <figure><img src="ui/boss-gate-current.png" alt="boss gate current" /><cap>boss-gate-current.png · mở · lượt boss</cap></figure>
+      <figure><img src="ui/boss-gate-cleared.png" alt="boss gate cleared" /><cap>boss-gate-cleared.png · đã hạ boss</cap></figure>
+    </div>
+    <p class="note" style="margin-top:12px">Node cổng boss thay cho ô màn thường ở cuối mỗi thế giới (màn 10, 20, 30…). Trạng thái: <code>locked</code> ổ khoá bạc → <code>current</code> khung tím-vàng amethyst đang chờ đánh → <code>cleared</code> khung vàng ruby sau khi hạ boss. Đặt số màn / ngôi sao chồng lên vùng sáng giữa khung.</p>
   </section>
 
   <p class="note">SVG vector — nhúng thẳng vào game (Android: dùng làm Drawable/asset, hoặc convert sang VectorDrawable). 1 file co giãn mọi mật độ (mdpi→xxxhdpi) không vỡ. Icon stroke mặc định <code>#5B4636</code> — đổi <code>stroke</code> để recolor.</p>

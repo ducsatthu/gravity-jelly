@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"GravityJellyDesignSystem_3e0487","components":[{"name":"JellyBlock","sourcePath":"02-foundations/01-jelly-block/JellyBlock.jsx"},{"name":"Eyes","sourcePath":"02-foundations/02-eyes/Eyes.jsx"},{"name":"Icon","sourcePath":"02-foundations/03-icon/Icon.jsx"},{"name":"Button","sourcePath":"03-components/01-button/Button.jsx"},{"name":"Hud","sourcePath":"03-components/02-hud/Hud.jsx"},{"name":"TrayPiece","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"Tray","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"GravityRotateButton","sourcePath":"03-components/04-gravity-rotate-button/GravityRotateButton.jsx"},{"name":"ComboPopup","sourcePath":"03-components/05-combo-popup/ComboPopup.jsx"},{"name":"Dialog","sourcePath":"03-components/06-dialog/Dialog.jsx"},{"name":"JellyScene","sourcePath":"03-components/07-jelly-scene/JellyScene.jsx"},{"name":"ObjectiveBar","sourcePath":"03-components/08-objective-bar/ObjectiveBar.jsx"},{"name":"BossHud","sourcePath":"03-components/09-boss-hud/BossHud.jsx"}],"sourceHashes":{"02-foundations/01-jelly-block/JellyBlock.jsx":"99d676a3206c","02-foundations/02-eyes/Eyes.jsx":"d4762b606971","02-foundations/03-icon/Icon.jsx":"1d501e149f2f","03-components/01-button/Button.jsx":"ff24f7c456d7","03-components/02-hud/Hud.jsx":"b68bb167fc30","03-components/03-tray/Tray.jsx":"e425b7cd5eed","03-components/04-gravity-rotate-button/GravityRotateButton.jsx":"09df27eb60e6","03-components/05-combo-popup/ComboPopup.jsx":"3430e5b0f130","03-components/06-dialog/Dialog.jsx":"d5e802d0a1db","03-components/07-jelly-scene/JellyScene.jsx":"0967aa6a5b67","03-components/08-objective-bar/ObjectiveBar.jsx":"8b7181ee526a","03-components/09-boss-hud/BossHud.jsx":"0860005d04e4","04-screens/board-boss.jsx":"fe9ea9512869","04-screens/board-campaign.jsx":"db93679ac719","04-screens/board-design.jsx":"5163f27516da","04-screens/board.jsx":"a2c1742d1301","04-screens/boss-intro-screen.jsx":"5b7d158f2415","04-screens/cam-nang-illus.jsx":"fc3bcb10a740","04-screens/cam-nang-screen.jsx":"eca5070751be","04-screens/daily-reward-screen.jsx":"0309b17c4056","04-screens/home-screen.jsx":"6e91733096f9","04-screens/leaderboard-screen.jsx":"82c8413c65d7","04-screens/level-intro-screen.jsx":"fd21e1426a23","04-screens/level-win-screen.jsx":"b88ddcf6bfa8","04-screens/map-hud.jsx":"7ba182f3789f","04-screens/missions-screen.jsx":"a2cb834bcb3d","04-screens/out-of-lives-screen.jsx":"c5661499a9aa","04-screens/pause-screen.jsx":"edd558af8897","04-screens/phone-frame.jsx":"18e22e60b390","04-screens/play/jelly-play.jsx":"90bcd0f1ca70","04-screens/result-screen.jsx":"775264ed1cbe","04-screens/screen-extras.jsx":"b6a2513dd24c","04-screens/settings-screen.jsx":"a5cbe4af2727","04-screens/shop-screen.jsx":"454bf4d67682","04-screens/splash-screen.jsx":"6b0e750c020b","04-screens/tweaks-panel.jsx":"6591467622ed","04-screens/world-gate-locked.jsx":"4d32d0ac3bad","04-screens/world-gate.jsx":"6db94465e8f2","04-screens/world-transition.jsx":"2c01ac267a6a","04-screens/world1-strip.jsx":"07e086330087","04-screens/world10-strip.jsx":"86352e2ce593","04-screens/world2-forest-draft.jsx":"759336f74f0e","04-screens/world2-strip.jsx":"b8f1f5775dd1","04-screens/world2-transition.jsx":"3c401cae8a6b","04-screens/world3-strip.jsx":"c37017b94d01","04-screens/world3-transition.jsx":"562e934bc9b0","04-screens/world4-strip.jsx":"a23a292882cb","04-screens/world4-transition.jsx":"92f05343cefa","04-screens/world5-strip.jsx":"31ce848e45ea","04-screens/world5-transition.jsx":"88b6358dffeb","04-screens/world6-strip.jsx":"3479dadec253","04-screens/world6-transition.jsx":"d1e8205ae7ac","04-screens/world7-strip.jsx":"e0b64525e7fa","04-screens/world7-transition.jsx":"32759ee57874","04-screens/world8-strip.jsx":"444f9855082e","04-screens/world8-transition.jsx":"dea1a55ba8eb","04-screens/world9-strip.jsx":"aea09bf6b901","04-screens/world9-transition.jsx":"3fcce03107b5","07-mechanics/mechanics-cards.js":"ce4f6defa8dd","07-mechanics/mechanics-kit.jsx":"f52efab2af43","07-mechanics/mechanics-widgets.jsx":"59dbeacaab30","08-brand/gravity-jelly-logo.js":"6df76113eb29","board.jsx":"8dfa6c252a92","game-screen.jsx":"275dda3a6546","jelly-play.jsx":"1fd71f5475a0","world4-strip.jsx":"912d0bdb9c6d"},"inlinedExternals":[],"unexposedExports":[{"name":"comboDamage","sourcePath":"03-components/09-boss-hud/BossHud.jsx"}]} */
+/* @ds-bundle: {"format":3,"namespace":"GravityJellyDesignSystem_3e0487","components":[{"name":"JellyBlock","sourcePath":"02-foundations/01-jelly-block/JellyBlock.jsx"},{"name":"Eyes","sourcePath":"02-foundations/02-eyes/Eyes.jsx"},{"name":"Icon","sourcePath":"02-foundations/03-icon/Icon.jsx"},{"name":"Button","sourcePath":"03-components/01-button/Button.jsx"},{"name":"Hud","sourcePath":"03-components/02-hud/Hud.jsx"},{"name":"TrayPiece","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"Tray","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"GravityRotateButton","sourcePath":"03-components/04-gravity-rotate-button/GravityRotateButton.jsx"},{"name":"ComboPopup","sourcePath":"03-components/05-combo-popup/ComboPopup.jsx"},{"name":"Dialog","sourcePath":"03-components/06-dialog/Dialog.jsx"},{"name":"ObjectiveBar","sourcePath":"03-components/08-objective-bar/ObjectiveBar.jsx"},{"name":"BossHud","sourcePath":"03-components/09-boss-hud/BossHud.jsx"}],"sourceHashes":{"02-foundations/01-jelly-block/JellyBlock.jsx":"99d676a3206c","02-foundations/02-eyes/Eyes.jsx":"d4762b606971","02-foundations/03-icon/Icon.jsx":"1d501e149f2f","03-components/01-button/Button.jsx":"ff24f7c456d7","03-components/02-hud/Hud.jsx":"b68bb167fc30","03-components/03-tray/Tray.jsx":"e425b7cd5eed","03-components/04-gravity-rotate-button/GravityRotateButton.jsx":"09df27eb60e6","03-components/05-combo-popup/ComboPopup.jsx":"3430e5b0f130","03-components/06-dialog/Dialog.jsx":"d5e802d0a1db","03-components/08-objective-bar/ObjectiveBar.jsx":"8b7181ee526a","03-components/09-boss-hud/BossHud.jsx":"0860005d04e4","04-screens/board-boss.jsx":"fe9ea9512869","04-screens/board-campaign.jsx":"db93679ac719","04-screens/board-design.jsx":"5163f27516da","04-screens/board.jsx":"a2c1742d1301","04-screens/boss-intro-screen.jsx":"5b7d158f2415","04-screens/cam-nang-illus.jsx":"fc3bcb10a740","04-screens/cam-nang-screen.jsx":"eca5070751be","04-screens/daily-reward-screen.jsx":"0309b17c4056","04-screens/home-screen.jsx":"7d45b68edee5","04-screens/leaderboard-screen.jsx":"82c8413c65d7","04-screens/level-intro-screen.jsx":"fd21e1426a23","04-screens/level-win-screen.jsx":"b88ddcf6bfa8","04-screens/map-hud.jsx":"7ba182f3789f","04-screens/missions-screen.jsx":"a2cb834bcb3d","04-screens/out-of-lives-screen.jsx":"c5661499a9aa","04-screens/pause-screen.jsx":"edd558af8897","04-screens/phone-frame.jsx":"18e22e60b390","04-screens/play/jelly-play.jsx":"90bcd0f1ca70","04-screens/result-screen.jsx":"775264ed1cbe","04-screens/screen-extras.jsx":"b6a2513dd24c","04-screens/settings-screen.jsx":"a5cbe4af2727","04-screens/shop-screen.jsx":"454bf4d67682","04-screens/splash-screen.jsx":"6b0e750c020b","04-screens/tweaks-panel.jsx":"6591467622ed","04-screens/world-gate-locked.jsx":"4d32d0ac3bad","04-screens/world-gate.jsx":"6db94465e8f2","04-screens/world-transition.jsx":"2c01ac267a6a","04-screens/world1-strip.jsx":"2c816bdee51c","04-screens/world10-strip.jsx":"86352e2ce593","04-screens/world2-forest-draft.jsx":"759336f74f0e","04-screens/world2-strip.jsx":"442d24cbb43f","04-screens/world2-transition.jsx":"3c401cae8a6b","04-screens/world3-strip.jsx":"43895f789f0d","04-screens/world3-transition.jsx":"562e934bc9b0","04-screens/world4-strip.jsx":"a23a292882cb","04-screens/world4-transition.jsx":"92f05343cefa","04-screens/world5-strip.jsx":"31ce848e45ea","04-screens/world5-transition.jsx":"88b6358dffeb","04-screens/world6-strip.jsx":"3479dadec253","04-screens/world6-transition.jsx":"d1e8205ae7ac","04-screens/world7-strip.jsx":"e0b64525e7fa","04-screens/world7-transition.jsx":"32759ee57874","04-screens/world8-strip.jsx":"444f9855082e","04-screens/world8-transition.jsx":"dea1a55ba8eb","04-screens/world9-strip.jsx":"aea09bf6b901","04-screens/world9-transition.jsx":"3fcce03107b5","07-mechanics/mechanics-cards.js":"ce4f6defa8dd","07-mechanics/mechanics-kit.jsx":"f52efab2af43","07-mechanics/mechanics-widgets.jsx":"59dbeacaab30","08-brand/gravity-jelly-logo.js":"6df76113eb29","board.jsx":"8dfa6c252a92","game-screen.jsx":"275dda3a6546","jelly-play.jsx":"1fd71f5475a0","prototypes/proto-engine.js":"6887737568ba","prototypes/proto-game.jsx":"75954a4bee0a","prototypes/proto-ui.jsx":"138d35a58082","world4-strip.jsx":"912d0bdb9c6d"},"inlinedExternals":[],"unexposedExports":[{"name":"comboDamage","sourcePath":"03-components/09-boss-hud/BossHud.jsx"}]} */
 
 (() => {
 
@@ -1557,384 +1557,6 @@ function Dialog({
 }
 Object.assign(__ds_scope, { Dialog });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "03-components/06-dialog/Dialog.jsx", error: String((e && e.message) || e) }); }
-
-// 03-components/07-jelly-scene/JellyScene.jsx
-try { (() => {
-/**
- * JellyScene — the decorative "garden stage" that dresses the band below the
- * board: a jelly dish/plate (the surface cleared blocks tumble into), grassy
- * ground, mushrooms, plants, a swaying flower and a few resident jelly
- * characters. Fills its positioned parent (position:absolute, inset:0).
- *
- *   showDish  render the catching dish/plate (default false — the game has no dish)
- *   showCast  render the resident jelly characters (default true)
- *   band      paint a soft band background behind the scene (default true)
- */
-function JellyScene({
-  showDish = false,
-  showCast = true,
-  band = true,
-  style = {}
-}) {
-  const orb = s => /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      borderRadius: '50%',
-      boxShadow: 'inset 5px -5px 0 rgba(255,255,255,0.38)',
-      ...s
-    }
-  });
-  const blade = s => /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      width: 6,
-      borderRadius: '3px 3px 2px 2px',
-      background: 'linear-gradient(180deg,var(--color-block-mint-shine),var(--color-block-mint))',
-      transformOrigin: 'bottom center',
-      ...s
-    }
-  });
-  const bush = (left, sc, col) => /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      left,
-      bottom: 14,
-      width: 56 * sc,
-      height: 30 * sc,
-      filter: 'drop-shadow(0 3px 2px rgba(120,92,52,0.12))'
-    }
-  }, orb({
-    left: 0,
-    bottom: 0,
-    width: 24 * sc,
-    height: 24 * sc,
-    background: `var(--color-block-${col})`,
-    opacity: 0.92
-  }), orb({
-    left: 16 * sc,
-    bottom: 2,
-    width: 30 * sc,
-    height: 30 * sc,
-    background: `var(--color-block-${col}-shine)`
-  }), orb({
-    left: 34 * sc,
-    bottom: 0,
-    width: 22 * sc,
-    height: 22 * sc,
-    background: `var(--color-block-${col})`,
-    opacity: 0.92
-  }));
-  const mushroom = (pos, w, col) => /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      bottom: 13,
-      ...pos,
-      width: w,
-      height: w * 1.05,
-      filter: 'drop-shadow(0 3px 2px rgba(120,92,52,0.14))'
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      left: w * 0.32,
-      bottom: 0,
-      width: w * 0.36,
-      height: w * 0.5,
-      borderRadius: '5px 5px 7px 7px',
-      background: 'linear-gradient(180deg,#FCF1DC,#F3E3C4)'
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      left: 0,
-      bottom: w * 0.36,
-      width: w,
-      height: w * 0.6,
-      borderRadius: '50% 50% 42% 42% / 84% 84% 26% 26%',
-      background: `linear-gradient(180deg,var(--color-block-${col}-shine),var(--color-block-${col}))`,
-      boxShadow: 'inset 0 3px 0 rgba(255,255,255,0.45)'
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      left: w * 0.24,
-      bottom: w * 0.62,
-      width: w * 0.16,
-      height: w * 0.16,
-      borderRadius: '50%',
-      background: 'rgba(255,255,255,0.8)'
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      left: w * 0.56,
-      bottom: w * 0.52,
-      width: w * 0.12,
-      height: w * 0.12,
-      borderRadius: '50%',
-      background: 'rgba(255,255,255,0.8)'
-    }
-  }));
-  return /*#__PURE__*/React.createElement("div", {
-    "aria-hidden": "true",
-    style: {
-      position: 'absolute',
-      inset: 0,
-      overflow: 'hidden',
-      borderRadius: 18,
-      background: band ? 'linear-gradient(180deg,#FFFCF5 0%, var(--color-bg) 60%)' : 'transparent',
-      ...style
-    }
-  }, /*#__PURE__*/React.createElement("style", null, `@keyframes gj-scn-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}@keyframes gj-scn-sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}@media (prefers-reduced-motion: reduce){.gj-scn-fl,.gj-scn-sw{animation:none!important}}`), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      left: '32%',
-      bottom: 14,
-      width: '46%',
-      height: 32,
-      borderRadius: '50% 50% 0 0 / 100% 100% 0 0',
-      background: 'linear-gradient(180deg,#DCEFD4,#C6E4BD)'
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      left: '-8%',
-      bottom: 14,
-      width: '58%',
-      height: 44,
-      borderRadius: '50% 50% 0 0 / 100% 100% 0 0',
-      background: 'linear-gradient(180deg,#E6F3E2,#D3EACE)'
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      right: '-10%',
-      bottom: 14,
-      width: '54%',
-      height: 38,
-      borderRadius: '50% 50% 0 0 / 100% 100% 0 0',
-      background: 'linear-gradient(180deg,#EAF1FA,#DAE6F4)'
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      left: 0,
-      right: 0,
-      bottom: 0,
-      height: 16,
-      background: 'linear-gradient(180deg,#F1E4CB,#E8D6B6)'
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      left: 0,
-      right: 0,
-      bottom: 15,
-      height: 3,
-      background: 'rgba(150,170,120,0.45)'
-    }
-  }), blade({
-    left: '4%',
-    bottom: 13,
-    height: 16,
-    transform: 'rotate(-12deg)'
-  }), blade({
-    left: '6%',
-    bottom: 13,
-    height: 22
-  }), blade({
-    left: '8%',
-    bottom: 13,
-    height: 15,
-    transform: 'rotate(12deg)'
-  }), blade({
-    left: '90%',
-    bottom: 13,
-    height: 14,
-    transform: 'rotate(-10deg)'
-  }), blade({
-    left: '92%',
-    bottom: 13,
-    height: 19
-  }), bush('5%', 0.9, 'mint'), /*#__PURE__*/React.createElement("div", {
-    className: "gj-scn-sw",
-    style: {
-      position: 'absolute',
-      left: '20%',
-      bottom: 14,
-      width: 26,
-      height: 40,
-      transformOrigin: 'bottom center',
-      animation: 'gj-scn-sway 4.2s ease-in-out infinite',
-      filter: 'drop-shadow(0 2px 2px rgba(120,92,52,0.12))'
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      left: 11,
-      bottom: 0,
-      width: 4,
-      height: 26,
-      borderRadius: 3,
-      background: 'linear-gradient(180deg,var(--color-block-mint-shine),var(--color-block-mint))'
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      left: 2,
-      bottom: 10,
-      width: 9,
-      height: 7,
-      borderRadius: '0 60% 60% 60%',
-      background: 'var(--color-block-mint)',
-      transform: 'rotate(20deg)'
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      left: 14,
-      bottom: 14,
-      width: 9,
-      height: 7,
-      borderRadius: '60% 0 60% 60%',
-      background: 'var(--color-block-mint)',
-      transform: 'rotate(-20deg)'
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      left: 4,
-      bottom: 22,
-      width: 18,
-      height: 16,
-      borderRadius: '50% 50% 46% 46% / 64% 64% 36% 36%',
-      background: 'linear-gradient(180deg,var(--color-block-pink-shine),var(--color-block-pink))',
-      boxShadow: 'inset 0 2px 0 rgba(255,255,255,0.5)'
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      left: 10,
-      bottom: 27,
-      width: 6,
-      height: 6,
-      borderRadius: '50%',
-      background: 'var(--color-block-yellow)'
-    }
-  })), mushroom({
-    right: '20%'
-  }, 28, 'pink'), mushroom({
-    right: '11%'
-  }, 20, 'yellow'), bush('80%', 0.8, 'mint'), showDish && /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      bottom: 8,
-      left: '50%',
-      transform: 'translateX(-50%)',
-      width: 150,
-      height: 34
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      left: '50%',
-      bottom: 0,
-      transform: 'translateX(-50%)',
-      width: 150,
-      height: 30,
-      borderRadius: '50%',
-      background: 'linear-gradient(180deg,#FBEFD8,#ECD9B4)',
-      border: '2px solid #E2C896',
-      boxShadow: '0 4px 7px rgba(120,92,52,0.22)'
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      left: '50%',
-      top: 1,
-      transform: 'translateX(-50%)',
-      width: 124,
-      height: 19,
-      borderRadius: '50%',
-      background: 'radial-gradient(120% 140% at 50% 18%, #E7D2A6, #D8BE8A)',
-      boxShadow: 'inset 0 4px 5px rgba(120,92,52,0.28), inset 0 -2px 0 rgba(255,255,255,0.4)'
-    }
-  })), showCast && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      left: '13%',
-      bottom: 19,
-      filter: 'drop-shadow(0 4px 3px rgba(120,92,52,0.16))'
-    }
-  }, /*#__PURE__*/React.createElement(__ds_scope.JellyBlock, {
-    color: "pink",
-    size: 22,
-    showEyes: true
-  })), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      right: '30%',
-      bottom: 18,
-      filter: 'drop-shadow(0 4px 3px rgba(120,92,52,0.16))'
-    }
-  }, /*#__PURE__*/React.createElement(__ds_scope.JellyBlock, {
-    color: "blue",
-    size: 24,
-    showEyes: true
-  }))), /*#__PURE__*/React.createElement("div", {
-    className: "gj-scn-fl",
-    style: {
-      position: 'absolute',
-      left: '28%',
-      bottom: 54,
-      animation: 'gj-scn-float 3.6s ease-in-out infinite'
-    }
-  }, orb({
-    position: 'relative',
-    width: 12,
-    height: 12,
-    background: 'var(--color-block-yellow)',
-    opacity: 0.55
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "gj-scn-fl",
-    style: {
-      position: 'absolute',
-      left: '84%',
-      bottom: 50,
-      animation: 'gj-scn-float 4.4s ease-in-out infinite'
-    }
-  }, orb({
-    position: 'relative',
-    width: 14,
-    height: 14,
-    background: 'var(--color-block-pink)',
-    opacity: 0.5
-  })), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      left: '46%',
-      top: 10,
-      width: 6,
-      height: 6,
-      borderRadius: '50%',
-      background: 'var(--color-block-yellow-shine)',
-      opacity: 0.7
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      left: '70%',
-      top: 8,
-      width: 4,
-      height: 4,
-      borderRadius: '50%',
-      background: 'var(--color-block-pink-shine)',
-      opacity: 0.7
-    }
-  }));
-}
-Object.assign(__ds_scope, { JellyScene });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "03-components/07-jelly-scene/JellyScene.jsx", error: String((e && e.message) || e) }); }
 
 // 03-components/08-objective-bar/ObjectiveBar.jsx
 try { (() => {
@@ -6842,7 +6464,13 @@ try { (() => {
   const {
     Icon
   } = NS;
-  const BG = '../06-svg-assets/backgrounds/home-world-1-bg.png';
+  const BG_BY_WORLD = {
+    1: '../06-svg-assets/backgrounds/home-world-1-bg.png',
+    2: '../06-svg-assets/backgrounds/home-world-2-bg.png',
+    3: '../06-svg-assets/backgrounds/home-world-3-bg.png'
+  };
+  const BG = BG_BY_WORLD[1];
+  const PANEL = '../06-svg-assets/ui/home-panel.png';
   const BTN = '../06-svg-assets/ui/button-frame.png';
   const BTN_GREEN = '../06-svg-assets/ui/button-frame-green.png';
   const BTN_ORANGE = '../06-svg-assets/ui/button-frame-orange.png';
@@ -6857,8 +6485,7 @@ try { (() => {
   function IconButton({
     icon,
     label,
-    onClick,
-    h
+    onClick
   }) {
     const [press, setPress] = React.useState(false);
     return /*#__PURE__*/React.createElement("button", {
@@ -6868,7 +6495,8 @@ try { (() => {
       onPointerLeave: () => setPress(false),
       "aria-label": label,
       style: {
-        height: h,
+        flex: '1 1 0',
+        minWidth: 0,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -6883,8 +6511,8 @@ try { (() => {
       src: icon,
       alt: "",
       style: {
-        height: '100%',
-        width: 'auto',
+        width: '100%',
+        height: 'auto',
         display: 'block',
         userSelect: 'none',
         filter: 'drop-shadow(0 4px 6px rgba(120,92,52,0.3))'
@@ -7132,11 +6760,13 @@ try { (() => {
     maxHearts = 5,
     regenSeconds = 750,
     petals = true,
+    world = 1,
     onCampaign,
     onPlay,
     onGuide,
     onTools
   }) {
+    const bg = BG_BY_WORLD[world] || BG;
     const [hp, setHp] = React.useState(Math.min(hearts, maxHearts));
     const [left, setLeft] = React.useState(regenSeconds);
     React.useEffect(() => {
@@ -7181,7 +6811,7 @@ try { (() => {
         containerType: 'inline-size'
       }
     }, /*#__PURE__*/React.createElement("img", {
-      src: BG,
+      src: bg,
       alt: "Gravity Jelly",
       style: {
         position: 'absolute',
@@ -7195,22 +6825,39 @@ try { (() => {
     }), petals && /*#__PURE__*/React.createElement(Petals, {
       count: 24,
       seed: 7
+    }), /*#__PURE__*/React.createElement("img", {
+      src: PANEL,
+      alt: "",
+      "aria-hidden": "true",
+      style: {
+        position: 'absolute',
+        left: '6%',
+        right: '6%',
+        top: '72.5%',
+        bottom: '2.5%',
+        width: '88%',
+        height: '25%',
+        display: 'block',
+        userSelect: 'none',
+        pointerEvents: 'none',
+        filter: 'drop-shadow(0 8px 16px rgba(120,92,52,0.28))'
+      }
     }), /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'absolute',
-        left: '12%',
-        right: '12%',
-        top: '77.5%',
-        bottom: '4.9%',
+        left: '6%',
+        right: '6%',
+        top: '75%',
+        bottom: '5%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
-        gap: '2cqw'
+        justifyContent: 'space-evenly'
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
         display: 'flex',
+        width: '66cqw',
         alignItems: 'center',
         justifyContent: 'center',
         gap: '4cqw'
@@ -7218,35 +6865,31 @@ try { (() => {
     }, /*#__PURE__*/React.createElement(IconButton, {
       icon: IC_CAMPAIGN,
       label: "Chi\u1EBFn d\u1ECBch",
-      onClick: onCampaign,
-      h: "18.4cqw"
+      onClick: onCampaign
     }), /*#__PURE__*/React.createElement(IconButton, {
       icon: IC_INFINITE,
       label: "Endless",
-      onClick: onPlay,
-      h: "18.4cqw"
+      onClick: onPlay
     })), /*#__PURE__*/React.createElement("div", {
       style: {
         display: 'flex',
+        width: '66cqw',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: '3.5cqw'
+        gap: '4cqw'
       }
     }, /*#__PURE__*/React.createElement(IconButton, {
       icon: IC_GUIDE,
       label: "C\u1EA9m nang",
-      onClick: onGuide,
-      h: "15.2cqw"
+      onClick: onGuide
     }), /*#__PURE__*/React.createElement(IconButton, {
       icon: IC_LEADER,
       label: "B\u1EA3ng x\u1EBFp h\u1EA1ng",
-      onClick: onTools,
-      h: "15.2cqw"
+      onClick: onTools
     }), /*#__PURE__*/React.createElement(IconButton, {
       icon: IC_SETTING,
       label: "C\xE0i \u0111\u1EB7t",
-      onClick: onTools,
-      h: "15.2cqw"
+      onClick: onTools
     })))));
   }
   window.GJHomeScreen = HomeScreen;
@@ -16876,40 +16519,130 @@ try { (() => {
       size: size
     });
   }
-  function BossNode({
+
+  // ─── BOSS GATE ───────────────────────────────────────────────────────
+  // Ornate framed gate node marking the world's boss level (10/20/30…).
+  // Three states: locked (gold + padlock) · current (amethyst, playable)
+  // · cleared (gold + ruby, beaten). Sized by width; height follows the art.
+  const BOSS_SRC = {
+    locked: '../06-svg-assets/ui/boss-gate-locked.png',
+    current: '../06-svg-assets/ui/boss-gate-current.png',
+    cleared: '../06-svg-assets/ui/boss-gate-cleared.png'
+  };
+  // aspect (h/w) + panel-centre anchor (fraction of image) + number colour
+  const BOSS_META = {
+    locked: {
+      ar: 1.1118,
+      vx: 0.477,
+      vy: 0.423,
+      num: '#8A6A2E'
+    },
+    current: {
+      ar: 1.0404,
+      vx: 0.498,
+      vy: 0.502,
+      num: '#6A4A2E'
+    },
+    cleared: {
+      ar: 1.0266,
+      vx: 0.500,
+      vy: 0.501,
+      num: '#B67A16'
+    }
+  };
+  function BossGateNode({
     n,
-    size = 76
+    variant = 'locked',
+    stars = 3,
+    width = 104
   }) {
+    const m = BOSS_META[variant];
+    const w = width,
+      h = Math.round(width * m.ar);
+    const shadow = variant === 'current' ? '0 7px 14px rgba(126,108,240,0.40)' : variant === 'cleared' ? '0 7px 13px rgba(200,150,40,0.36)' : '0 7px 12px rgba(120,92,52,0.30)';
+    const numSize = Math.round(w * (String(n).length >= 2 ? 0.34 : 0.42));
     return /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'relative',
-        width: size,
-        height: size
+        width: w,
+        height: h
       }
-    }, /*#__PURE__*/React.createElement(Tile, {
-      src: LOCK_SRC,
-      size: size,
-      shadow: "0 6px 10px rgba(126,108,240,0.32)"
-    }), /*#__PURE__*/React.createElement(CenterNum, {
-      n: n,
-      size: size,
-      color: "#6353D6",
-      vy: 0.33,
-      scale: 0.4,
-      shadow: "0 1px 0 rgba(255,255,255,0.85)"
-    }));
+    }, variant === 'current' && /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        left: -18,
+        top: -14,
+        right: -18,
+        bottom: -14,
+        borderRadius: '50%',
+        background: 'radial-gradient(closest-side, rgba(169,156,246,0.60) 0%, rgba(126,108,240,0.28) 55%, rgba(126,108,240,0) 80%)',
+        animation: 'gj-strip-pulse 1800ms ease-in-out infinite'
+      }
+    }), /*#__PURE__*/React.createElement("img", {
+      src: BOSS_SRC[variant],
+      alt: "",
+      draggable: "false",
+      style: {
+        position: 'relative',
+        width: w,
+        height: h,
+        display: 'block',
+        userSelect: 'none',
+        pointerEvents: 'none',
+        filter: `drop-shadow(${shadow})`
+      }
+    }), variant === 'cleared' && /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: `${(m.vy - 0.30) * 100}%`
+      }
+    }, /*#__PURE__*/React.createElement(StarArc, {
+      stars: stars,
+      size: 16,
+      width: 62
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        transform: 'translate(-50%, -50%)',
+        fontFamily: 'var(--font-display)',
+        fontWeight: 700,
+        fontSize: numSize,
+        lineHeight: 1,
+        color: m.num,
+        textShadow: '0 1px 0 rgba(255,255,255,0.7)',
+        pointerEvents: 'none'
+      }
+    }, n));
   }
   function PlaceNode({
     node
   }) {
-    let inner = null;
     const half = NODE / 2;
     if (node.kind === 'boss') {
-      inner = /*#__PURE__*/React.createElement(BossNode, {
+      const variant = node.state === 'done' ? 'cleared' : node.state === 'open' ? 'current' : 'locked';
+      const BW = 66;
+      const m = BOSS_META[variant];
+      const bh = Math.round(BW * m.ar);
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'absolute',
+          zIndex: 3,
+          left: Math.round(node.x - m.vx * BW),
+          top: Math.round(node.y - m.vy * bh)
+        }
+      }, /*#__PURE__*/React.createElement(BossGateNode, {
         n: node.id,
-        size: NODE
-      });
-    } else if (node.kind === 'breather') {
+        variant: variant,
+        stars: node.stars || 3,
+        width: BW
+      }));
+    }
+    let inner = null;
+    if (node.kind === 'breather') {
       inner = /*#__PURE__*/React.createElement(BreatherNode, {
         n: node.id,
         size: NODE
@@ -20719,1555 +20452,595 @@ try { (() => {
 
 // 04-screens/world2-strip.jsx
 try { (() => {
-/* world2-strip.jsx — Dải cuộn ĐẦY ĐỦ World 2 "Rừng rậm" (màn 11–20).
-   ---------------------------------------------------------------------
-   Artboard 360 × 2600dp, KHÔNG có HUD (HUD là lớp dính riêng). Đọc từ
-   DƯỚI lên TRÊN, một con đường mòn LIÊN TỤC uốn lượn, số node 11→20:
-     • đáy: đường vào từ mép dưới
-     • 11–15 : node thường (JellyBlock luân phiên 4 màu, có số, 3-sao arc;
-               tô vài node đã hoàn thành, vài node khoá đá)
-     • 16    : BREATHER (nhỏ, nhạt, tag "Nghỉ")
-     • 17–19 : node thường (khoá)
-     • 20    : BOSS (to 1.2×, hào quang gravity tím #7E6CF0, tag "BOSS")
-     • trên 20: CỔNG sang World 3 "Sông & Thác" (banner pill + huy hiệu +
-               tên + chip ★ 36); nền trên cổng blend sang palette World 3
-               (#D6EEF1→#B4E0EA)
-     • đỉnh  : đường tiếp tục ra mép trên (vào World 3)
-   Biome World 2: trời #CFE6CE→#B2D3AC, rừng thông + cây tán tròn, thân
-   #6D4C32, dương xỉ, gỗ mục accent #C9A06A, sương mờ.
-   Exposes window.GJWorld2Strip.                                          */
-(function () {
-  const W = 360;
-  const H = 2600;
-  const NS = window.GravityJellyDesignSystem_3e0487 || {};
-  const {
-    JellyBlock
-  } = NS;
+/* world2-strip.jsx — Level-Map SCROLL STRIP for World 2 "Rừng rậm".
+   ----------------------------------------------------------------
+   Same approach as World 1: pure painted artboard 360 × 1280dp, NO HUD.
+   The scenery + winding jungle road + locked gate are a single painted
+   PNG backdrop (06-svg-assets/backgrounds/world2-map-bg-v3.png, 665×2365
+   → exact 1:~3.55, scaled to 360 wide = 360×1280, no distortion). We do
+   NOT draw trees/bushes/path in SVG — we just DROP the ten level nodes
+   onto the painted trail. Reads bottom→top:
 
-  // node positions bottom→top (same pitch as World 1 strip)
+     • L11 → L15 : regular nodes (L11–L13 done w/ stars, L14 open, L15 locked)
+     • L16       : BREATHER
+     • L17 → L19 : regular nodes (stone-locked)
+     • L20       : BOSS
+     • top       : the painted locked GATE → World 3 "Sông & Thác"
+                   (a compact stars-required chip labels it)
+
+   Reuses DS tokens & tile art. Exposes window.GJWorld2Strip.
+   ---------------------------------------------------------------- */
+(function () {
+  const BG_SRC = '../06-svg-assets/backgrounds/world2-map-bg-v3.png';
+  const LOCK_SRC = '../06-svg-assets/ui/locked-tile.png';
+  const OPEN_SRC = '../06-svg-assets/ui/unlocked-tile.png';
+  const DONE_SRC = '../06-svg-assets/ui/completed-tile.png';
+  const STAR_ON = '../06-svg-assets/ui/star-on.png'; // earned (yellow)
+  const STAR_OFF = '../06-svg-assets/ui/star-off.png'; // empty (grey)
+
+  // ─── Geometry ──────────────────────────────────────────────────────────
+  const W = 360;
+  const H = 1280; // 665×2365 backdrop scaled to 360 wide (exact 360×1280)
+
+  // One uniform node size across every node type.
+  const NODE = 62;
+
+  // Node positions: 11 on the straight bottom, 12→20 snapped to the CURVE
+  // CORNERS of the painted trail (alternating left/right bends), bottom→top.
   const NODES = [{
     id: 11,
-    x: 130,
-    y: 2440,
+    x: 200,
+    y: 1170,
     kind: 'reg',
     state: 'done',
     stars: 3,
     color: 'yellow'
-  }, {
+  },
+  // straight
+  {
     id: 12,
-    x: 240,
-    y: 2250,
+    x: 122,
+    y: 1061,
     kind: 'reg',
     state: 'done',
     stars: 3,
     color: 'mint'
-  }, {
+  },
+  // L bend
+  {
     id: 13,
-    x: 110,
-    y: 2060,
+    x: 238,
+    y: 968,
     kind: 'reg',
     state: 'done',
     stars: 2,
     color: 'pink'
-  }, {
+  },
+  // R bend
+  {
     id: 14,
-    x: 240,
-    y: 1870,
+    x: 125,
+    y: 872,
     kind: 'reg',
-    state: 'current'
-  }, {
+    state: 'open'
+  },
+  // L bend
+  {
     id: 15,
-    x: 120,
-    y: 1680,
+    x: 240,
+    y: 782,
     kind: 'reg',
     state: 'locked'
-  }, {
+  },
+  // R bend
+  {
     id: 16,
-    x: 240,
-    y: 1490,
+    x: 116,
+    y: 687,
     kind: 'breather',
     state: 'locked'
-  }, {
+  },
+  // L bend
+  {
     id: 17,
-    x: 110,
-    y: 1290,
+    x: 231,
+    y: 606,
     kind: 'reg',
     state: 'locked'
-  }, {
+  },
+  // R bend
+  {
     id: 18,
-    x: 240,
-    y: 1090,
+    x: 139,
+    y: 541,
     kind: 'reg',
     state: 'locked'
-  }, {
+  },
+  // L bend
+  {
     id: 19,
-    x: 150,
-    y: 880,
+    x: 232,
+    y: 478,
     kind: 'reg',
     state: 'locked'
-  }, {
+  },
+  // R bend
+  {
     id: 20,
-    x: 180,
-    y: 620,
+    x: 140,
+    y: 415,
     kind: 'boss',
     state: 'locked'
-  }];
-  const ENTRY = {
-    x: 180,
-    y: 2620
-  };
-  const GATE = {
-    x: 180,
-    y: 360
-  };
-  const EXIT = {
-    x: 180,
-    y: -40
-  };
-  function pathD(points) {
-    let d = `M ${points[0].x} ${points[0].y}`;
-    for (let i = 1; i < points.length; i++) {
-      const a = points[i - 1],
-        b = points[i];
-      const my = (a.y + b.y) / 2;
-      d += ` C ${a.x} ${my}, ${b.x} ${my}, ${b.x} ${b.y}`;
-    }
-    return d;
-  }
-  const ALL_PTS = [ENTRY, ...NODES.map(n => ({
-    x: n.x,
-    y: n.y
-  })), GATE, EXIT];
-  const FULL_PATH = pathD(ALL_PTS);
-  // walked: entry → 11 → 12 → 13 (13 last cleared; 14 is current)
-  const WALKED = pathD([ENTRY, NODES[0], NODES[1], NODES[2]]);
+  } // L bend (below gate)
+  ];
 
-  // ─── background scene ─────────────────────────────────────────────
-  function Scene() {
-    return /*#__PURE__*/React.createElement("svg", {
-      width: W,
-      height: H,
-      viewBox: `0 0 ${W} ${H}`,
-      style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'block'
-      }
-    }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("linearGradient", {
-      id: "w2s-sky",
-      x1: "0",
-      y1: "0",
-      x2: "0",
-      y2: "1"
-    }, /*#__PURE__*/React.createElement("stop", {
-      offset: "0",
-      stopColor: "#B4E0EA"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "0.06",
-      stopColor: "#C2E5EC"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "0.13",
-      stopColor: "#D6EEF1"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "0.19",
-      stopColor: "#D2EBDA"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "0.24",
-      stopColor: "#CFE6CE"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "0.60",
-      stopColor: "#C2DDBC"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "1",
-      stopColor: "#B2D3AC"
-    })), /*#__PURE__*/React.createElement("radialGradient", {
-      id: "w2s-shaft",
-      cx: "0.74",
-      cy: "0.30",
-      r: "0.45"
-    }, /*#__PURE__*/React.createElement("stop", {
-      offset: "0",
-      stopColor: "#FBF3D2",
-      stopOpacity: "0.5"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "1",
-      stopColor: "#FBF3D2",
-      stopOpacity: "0"
-    })), /*#__PURE__*/React.createElement("linearGradient", {
-      id: "w2s-mist",
-      x1: "0",
-      y1: "0",
-      x2: "0",
-      y2: "1"
-    }, /*#__PURE__*/React.createElement("stop", {
-      offset: "0",
-      stopColor: "#FFFFFF",
-      stopOpacity: "0"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "1",
-      stopColor: "#FFFFFF",
-      stopOpacity: "0.5"
-    }))), /*#__PURE__*/React.createElement("rect", {
-      x: "0",
-      y: "0",
-      width: W,
-      height: H,
-      fill: "url(#w2s-sky)"
-    }), /*#__PURE__*/React.createElement("rect", {
-      x: "0",
-      y: "500",
-      width: W,
-      height: "1300",
-      fill: "url(#w2s-shaft)"
-    }), /*#__PURE__*/React.createElement(River, {
-      y: -10
-    }), /*#__PURE__*/React.createElement(River, {
-      y: 120
-    }), /*#__PURE__*/React.createElement(Cobble, {
-      x: 60,
-      y: 70,
-      r: 14
-    }), /*#__PURE__*/React.createElement(Cobble, {
-      x: 300,
-      y: 84,
-      r: 16
-    }), /*#__PURE__*/React.createElement(Cobble, {
-      x: 180,
-      y: 150,
-      r: 18
-    }), /*#__PURE__*/React.createElement(Reed, {
-      x: 36,
-      y: 120,
-      s: 26
-    }), /*#__PURE__*/React.createElement(Reed, {
-      x: 326,
-      y: 108,
-      s: 24
-    }), /*#__PURE__*/React.createElement(Reed, {
-      x: 70,
-      y: 170,
-      s: 22
-    }), /*#__PURE__*/React.createElement(Reed, {
-      x: 292,
-      y: 176,
-      s: 24
-    }), [[120, 60], [250, 40], [90, 150], [300, 140], [180, 90]].map(([x, y], i) => /*#__PURE__*/React.createElement("g", {
-      key: i
-    }, /*#__PURE__*/React.createElement("path", {
-      d: `M ${x} ${y - 5} L ${x + 1.6} ${y} L ${x} ${y + 5} L ${x - 1.6} ${y} Z`,
-      fill: "#FFFFFF",
-      opacity: "0.9"
-    }))), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "40",
-      cy: "300",
-      rx: "130",
-      ry: "50",
-      fill: "#B6D9B0"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "320",
-      cy: "312",
-      rx: "150",
-      ry: "56",
-      fill: "#ADD2A8"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "180",
-      cy: "368",
-      rx: "220",
-      ry: "68",
-      fill: "#B2D3AC"
-    }), [[60, 500, '#A8CFA2'], [290, 520, '#9CC79B'], [180, 564, '#A2CB9E'], [50, 720, '#9CC79B'], [320, 742, '#92BD92'], [170, 792, '#A2CB9E'], [60, 940, '#94C094'], [300, 962, '#8BBA8B'], [190, 1020, '#94C094'], [40, 1180, '#8FBE8C'], [320, 1202, '#86B586'], [180, 1260, '#8FBE8C'], [60, 1420, '#86B586'], [300, 1442, '#7CAE7E'], [170, 1500, '#86B586'], [40, 1660, '#7CAE7E'], [320, 1682, '#74A776'], [190, 1740, '#7CAE7E'], [60, 1900, '#74A776'], [300, 1922, '#6CA06F'], [180, 1980, '#74A776'], [40, 2150, '#6CA06F'], [320, 2172, '#669A6A'], [180, 2232, '#6CA06F'], [40, 2380, '#669A6A'], [320, 2402, '#5E9263'], [180, 2470, '#669A6A']].map(([cx, cy, fill], i) => /*#__PURE__*/React.createElement("ellipse", {
-      key: i,
-      cx: cx,
-      cy: cy,
-      rx: i % 3 === 2 ? 240 : 160,
-      ry: i % 3 === 2 ? 80 : 60,
-      fill: fill
-    })), /*#__PURE__*/React.createElement("rect", {
-      x: "0",
-      y: H - 28,
-      width: W,
-      height: "28",
-      fill: "#5E9263"
-    }), (() => {
-      const els = [];
-      const shades = ['#264F2E', '#2A5C34', '#2E6238', '#356E40', '#3F7D49'];
-      // rows every ~95px → đủ dày suốt 2600
-      for (let row = 0, y = 280; y <= 2560; y += 95, row++) {
-        // LEFT band — 3 overlapping pine columns (đẩy ra xa đường)
-        const lx = [2, 22, 42];
-        lx.forEach((x, c) => {
-          const h = 48 + (row * 7 + c * 11) % 30;
-          els.push(/*#__PURE__*/React.createElement(Pine, {
-            key: `lp-${row}-${c}`,
-            x: x + (row % 2 ? 6 : 0),
-            y: y,
-            h: h,
-            canopy: shades[(row + c) % shades.length]
-          }));
-        });
-        // RIGHT band — 3 overlapping pine columns (đẩy ra xa đường)
-        const rx = [318, 338, 358];
-        rx.forEach((x, c) => {
-          const h = 48 + (row * 5 + c * 9) % 30;
-          els.push(/*#__PURE__*/React.createElement(Pine, {
-            key: `rp-${row}-${c}`,
-            x: x - (row % 2 ? 6 : 0),
-            y: y,
-            h: h,
-            canopy: shades[(row + c + 2) % shades.length]
-          }));
-        });
-      }
-      // round-canopy trees nestled into the bands (alternate sides)
-      for (let row = 0, y = 360; y <= 2520; y += 150, row++) {
-        const x = row % 2 ? 38 : 322;
-        els.push(/*#__PURE__*/React.createElement(RoundTree, {
-          key: `rt-${row}`,
-          x: x,
-          y: y,
-          h: 40 + row % 3 * 4,
-          canopy: row % 2 ? '#6FA86F' : '#5F9C66'
-        }));
-        const x2 = row % 2 ? 320 : 40;
-        els.push(/*#__PURE__*/React.createElement(RoundTree, {
-          key: `rt2-${row}`,
-          x: x2,
-          y: y + 70,
-          h: 36 + row % 2 * 6,
-          canopy: row % 2 ? '#5F9C66' : '#6FA86F'
-        }));
-      }
-      // underbrush bushes hugging both edges
-      for (let row = 0, y = 420; y <= 2540; y += 130, row++) {
-        els.push(/*#__PURE__*/React.createElement(Bush, {
-          key: `bl-${row}`,
-          x: row % 2 ? 48 : 30,
-          y: y,
-          r: 14 + row % 3 * 3,
-          c: row % 2 ? '#5F9C66' : '#6FA86F'
-        }));
-        els.push(/*#__PURE__*/React.createElement(Bush, {
-          key: `br-${row}`,
-          x: row % 2 ? 316 : 332,
-          y: y + 60,
-          r: 14 + row % 2 * 4,
-          c: row % 2 ? '#6FA86F' : '#5F9C66'
-        }));
-      }
-      // MID-GROUND trees filling the open hill pockets on the INNER side
-      // of each curve (opposite the path) so empty green areas read as
-      // forest too. Path stays clear — these only sit where the road is
-      // on the far side at that height.
-      // right-inner pockets (path is LEFT at these y):
-      [[286, 2380, 38], [290, 2150, 40], [284, 1760, 38], [288, 1380, 40], [282, 1000, 38], [286, 660, 40]].forEach(([x, y, h], i) => els.push(/*#__PURE__*/React.createElement(RoundTree, {
-        key: `mr-${i}`,
-        x: x,
-        y: y,
-        h: h,
-        canopy: i % 2 ? '#5F9C66' : '#6FA86F'
-      })));
-      [[300, 2300, 46], [304, 1660, 48], [300, 1200, 46], [302, 800, 48]].forEach(([x, y, h], i) => els.push(/*#__PURE__*/React.createElement(Pine, {
-        key: `mrp-${i}`,
-        x: x,
-        y: y,
-        h: h,
-        canopy: i % 2 ? '#356E40' : '#3F7D49'
-      })));
-      // left-inner pockets (path is RIGHT at these y):
-      [[86, 2300, 40], [90, 1920, 38], [84, 1540, 40], [88, 1160, 38], [86, 760, 40]].forEach(([x, y, h], i) => els.push(/*#__PURE__*/React.createElement(RoundTree, {
-        key: `ml-${i}`,
-        x: x,
-        y: y,
-        h: h,
-        canopy: i % 2 ? '#6FA86F' : '#5F9C66'
-      })));
-      [[72, 2080, 46], [76, 1740, 48], [72, 1340, 46], [74, 940, 48]].forEach(([x, y, h], i) => els.push(/*#__PURE__*/React.createElement(Pine, {
-        key: `mlp-${i}`,
-        x: x,
-        y: y,
-        h: h,
-        canopy: i % 2 ? '#3F7D49' : '#356E40'
-      })));
-      return els;
-    })(), [[300, 520], [60, 760], [306, 1180], [58, 1560], [300, 1980], [60, 2360]].map(([x, y], i) => /*#__PURE__*/React.createElement(Log, {
-      key: i,
-      x: x,
-      y: y,
-      w: 32
-    })), [[44, 300], [320, 282], [40, 500], [324, 520], [48, 720], [316, 742], [44, 960], [320, 982], [40, 1240], [324, 1262], [48, 1520], [316, 1542], [44, 1800], [320, 1822], [40, 2100], [324, 2122], [48, 2400], [316, 2422]].map(([x, y], i) => /*#__PURE__*/React.createElement(Fern, {
-      key: i,
-      x: x,
-      y: y,
-      s: 22
-    })), /*#__PURE__*/React.createElement(Mushroom, {
-      x: 70,
-      y: 1100,
-      w: 22,
-      color: "pink"
-    }), /*#__PURE__*/React.createElement(Mushroom, {
-      x: 300,
-      y: 1640,
-      w: 20,
-      color: "yellow"
-    }), /*#__PURE__*/React.createElement(Mushroom, {
-      x: 66,
-      y: 2120,
-      w: 24,
-      color: "mint"
-    }), [300, 560, 900, 1300, 1700, 2100, 2400].map((y, i) => /*#__PURE__*/React.createElement("ellipse", {
-      key: i,
-      cx: i % 2 ? 260 : 110,
-      cy: y,
-      rx: "120",
-      ry: "14",
-      fill: "#FFFFFF",
-      opacity: "0.34"
-    })), /*#__PURE__*/React.createElement(FloatJelly, {
-      x: 300,
-      y: 1170,
-      size: 20,
-      color: "mint",
-      delay: "0s"
-    }), /*#__PURE__*/React.createElement(FloatJelly, {
-      x: 56,
-      y: 2000,
-      size: 22,
-      color: "yellow",
-      delay: "0.8s"
-    }), /*#__PURE__*/React.createElement(FloatJelly, {
-      x: 300,
-      y: 2280,
-      size: 18,
-      color: "pink",
-      delay: "1.4s"
-    }));
-  }
-  function River({
-    y
-  }) {
-    return /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("ellipse", {
-      cx: "60",
-      cy: y,
-      rx: "130",
-      ry: "42",
-      fill: "#8FD0DB",
-      opacity: "0.85"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "280",
-      cy: y - 6,
-      rx: "150",
-      ry: "44",
-      fill: "#7FC6D3",
-      opacity: "0.85"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "180",
-      cy: y + 30,
-      rx: "220",
-      ry: "52",
-      fill: "#A6DCE5",
-      opacity: "0.8"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: `M 20 ${y + 20} q 80 -14 160 0 t 160 0`,
-      fill: "none",
-      stroke: "#FFFFFF",
-      strokeWidth: "2",
-      opacity: "0.5"
-    }));
-  }
-  function Cobble({
-    x,
-    y,
-    r = 14
-  }) {
-    return /*#__PURE__*/React.createElement("g", {
-      style: {
-        filter: 'drop-shadow(0 2px 1.5px rgba(60,80,90,0.25))'
-      }
-    }, /*#__PURE__*/React.createElement("ellipse", {
-      cx: x,
-      cy: y,
-      rx: r,
-      ry: r * 0.72,
-      fill: "#B9B2A6",
-      stroke: "#9A9184",
-      strokeWidth: "1.4"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x - r * 0.28,
-      cy: y - r * 0.26,
-      rx: r * 0.32,
-      ry: r * 0.2,
-      fill: "#D6D0C5",
-      opacity: "0.8"
-    }));
-  }
-  function Reed({
-    x,
-    y,
-    s = 24
-  }) {
-    return /*#__PURE__*/React.createElement("g", {
-      stroke: "#5FA06A",
-      strokeWidth: "2.4",
-      strokeLinecap: "round",
-      fill: "none"
-    }, [-10, 0, 10].map((a, i) => /*#__PURE__*/React.createElement("path", {
-      key: i,
-      d: `M ${x + a * 0.4} ${y} q ${a * 0.5} ${-s * 0.6} ${a * 0.3} ${-s}`
-    })), [-10, 0, 10].map((a, i) => /*#__PURE__*/React.createElement("ellipse", {
-      key: `t-${i}`,
-      cx: x + a * 0.3,
-      cy: y - s,
-      rx: "2.4",
-      ry: "5",
-      fill: "#C9A06A",
-      stroke: "none"
-    })));
-  }
-  function Pine({
-    x,
-    y,
-    h = 56,
-    canopy = '#3F7D49',
-    trunk = '#6D4C32'
-  }) {
-    const w = h * 0.66;
-    return /*#__PURE__*/React.createElement("g", {
-      style: {
-        filter: 'drop-shadow(0 2px 2px rgba(50,60,40,0.28))'
-      }
-    }, /*#__PURE__*/React.createElement("rect", {
-      x: x - 2.5,
-      y: y,
-      width: "5",
-      height: h * 0.32,
-      rx: "1.5",
-      fill: trunk
-    }), /*#__PURE__*/React.createElement("path", {
-      d: `M ${x - w} ${y} L ${x + w} ${y} L ${x} ${y - h * 0.55} Z`,
-      fill: canopy
-    }), /*#__PURE__*/React.createElement("path", {
-      d: `M ${x - w * 0.82} ${y - h * 0.32} L ${x + w * 0.82} ${y - h * 0.32} L ${x} ${y - h * 0.78} Z`,
-      fill: canopy
-    }), /*#__PURE__*/React.createElement("path", {
-      d: `M ${x - w * 0.62} ${y - h * 0.6} L ${x + w * 0.62} ${y - h * 0.6} L ${x} ${y - h * 1.02} Z`,
-      fill: canopy
-    }), /*#__PURE__*/React.createElement("path", {
-      d: `M ${x - w * 0.4} ${y - h * 0.5} L ${x - w * 0.12} ${y - h * 0.95} L ${x - w * 0.02} ${y - h * 0.92} L ${x - w * 0.28} ${y - h * 0.48} Z`,
-      fill: "#FFFFFF",
-      opacity: "0.16"
-    }));
-  }
-  function RoundTree({
-    x,
-    y,
-    h = 40,
-    canopy = '#5F9C66',
-    trunk = '#6D4C32'
-  }) {
-    const r = h * 0.6;
-    return /*#__PURE__*/React.createElement("g", {
-      style: {
-        filter: 'drop-shadow(0 2px 2px rgba(50,60,40,0.22))'
-      }
-    }, /*#__PURE__*/React.createElement("rect", {
-      x: x - 3,
-      y: y,
-      width: "6",
-      height: h * 0.5,
-      rx: "3",
-      fill: trunk
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x - r * 0.5,
-      cy: y - r * 0.2,
-      rx: r * 0.72,
-      ry: r * 0.66,
-      fill: canopy,
-      opacity: "0.95"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x + r * 0.5,
-      cy: y - r * 0.3,
-      rx: r * 0.72,
-      ry: r * 0.66,
-      fill: canopy,
-      opacity: "0.95"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x,
-      cy: y - r * 0.74,
-      rx: r,
-      ry: r * 0.82,
-      fill: canopy
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x - r * 0.34,
-      cy: y - r * 0.94,
-      rx: r * 0.26,
-      ry: r * 0.16,
-      fill: "#FFFFFF",
-      opacity: "0.24"
-    }));
-  }
-  function Log({
-    x,
-    y,
-    w = 32
-  }) {
-    return /*#__PURE__*/React.createElement("g", {
-      style: {
-        filter: 'drop-shadow(0 2px 2px rgba(60,44,24,0.22))'
-      }
-    }, /*#__PURE__*/React.createElement("rect", {
-      x: x - w / 2,
-      y: y,
-      width: w,
-      height: w * 0.42,
-      rx: w * 0.21,
-      fill: "#C9A06A",
-      stroke: "#A07A48",
-      strokeWidth: "1.5"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x - w / 2 + 2,
-      cy: y + w * 0.21,
-      rx: w * 0.12,
-      ry: w * 0.18,
-      fill: "#E0C29A",
-      stroke: "#A07A48",
-      strokeWidth: "1.2"
-    }), /*#__PURE__*/React.createElement("circle", {
-      cx: x - w / 2 + 2,
-      cy: y + w * 0.21,
-      r: w * 0.05,
-      fill: "#A07A48"
-    }));
-  }
-  function Bush({
-    x,
-    y,
-    r = 16,
-    c = '#5F9C66'
-  }) {
-    return /*#__PURE__*/React.createElement("g", {
-      style: {
-        filter: 'drop-shadow(0 2px 2px rgba(50,60,40,0.20))'
-      }
-    }, /*#__PURE__*/React.createElement("ellipse", {
-      cx: x - r * 0.55,
-      cy: y,
-      rx: r * 0.72,
-      ry: r * 0.56,
-      fill: c
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x + r * 0.55,
-      cy: y,
-      rx: r * 0.72,
-      ry: r * 0.56,
-      fill: c
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x,
-      cy: y - r * 0.24,
-      rx: r * 0.84,
-      ry: r * 0.62,
-      fill: c
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x - r * 0.22,
-      cy: y - r * 0.4,
-      rx: r * 0.2,
-      ry: r * 0.11,
-      fill: "#FFFFFF",
-      opacity: "0.22"
-    }));
-  }
-  function Fern({
-    x,
-    y,
-    s = 22
-  }) {
-    return /*#__PURE__*/React.createElement("g", {
-      stroke: "#5F9C66",
-      strokeWidth: "2",
-      strokeLinecap: "round",
-      fill: "none",
-      style: {
-        filter: 'drop-shadow(0 1px 1px rgba(50,60,40,0.20))'
-      }
-    }, [-32, -16, 0, 16, 32].map((a, i) => /*#__PURE__*/React.createElement("path", {
-      key: i,
-      d: `M ${x} ${y} q ${Math.sin(a * Math.PI / 180) * s * 0.7} ${-s * 0.5} ${Math.sin(a * Math.PI / 180) * s} ${-s}`
-    })));
-  }
-  function Mushroom({
-    x,
-    y,
-    w = 22,
-    color = 'pink'
-  }) {
-    const p = {
-      pink: {
-        fill: '#F7A9C0',
-        shine: '#FBD0DF',
-        edge: '#E576A0'
-      },
-      yellow: {
-        fill: '#FFE3A3',
-        shine: '#FFF1CE',
-        edge: '#E8B85C'
-      },
-      mint: {
-        fill: '#A3E5D9',
-        shine: '#CBF2EB',
-        edge: '#5FC3B2'
-      }
-    }[color] || {
-      fill: '#F7A9C0',
-      shine: '#FBD0DF',
-      edge: '#E576A0'
-    };
-    return /*#__PURE__*/React.createElement("g", {
-      style: {
-        filter: 'drop-shadow(0 3px 2px rgba(60,44,24,0.20))'
-      }
-    }, /*#__PURE__*/React.createElement("rect", {
-      x: x - w * 0.18,
-      y: y - w * 0.10,
-      width: w * 0.36,
-      height: w * 0.55,
-      rx: w * 0.16,
-      fill: "#FCF1DC",
-      stroke: "#E2C896",
-      strokeWidth: "1.2"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x,
-      cy: y - w * 0.12,
-      rx: w * 0.55,
-      ry: w * 0.4,
-      fill: p.fill,
-      stroke: p.edge,
-      strokeWidth: "1.6"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x - w * 0.16,
-      cy: y - w * 0.26,
-      rx: w * 0.22,
-      ry: w * 0.12,
-      fill: p.shine,
-      opacity: "0.92"
-    }), /*#__PURE__*/React.createElement("circle", {
-      cx: x - w * 0.2,
-      cy: y - w * 0.1,
-      r: w * 0.07,
-      fill: "#FFFFFF",
-      opacity: "0.85"
-    }));
-  }
-  function FloatJelly({
-    x,
-    y,
-    size,
-    color,
-    delay
-  }) {
-    const p = {
-      yellow: {
-        f: '#FFE3A3',
-        e: '#E8B85C',
-        s: '#FFF1CE'
-      },
-      mint: {
-        f: '#A3E5D9',
-        e: '#5FC3B2',
-        s: '#CBF2EB'
-      },
-      pink: {
-        f: '#F7A9C0',
-        e: '#E576A0',
-        s: '#FBD0DF'
-      }
-    }[color] || {
-      f: '#FFE3A3',
-      e: '#E8B85C',
-      s: '#FFF1CE'
-    };
-    return /*#__PURE__*/React.createElement("g", {
-      style: {
-        animation: 'gj-w2s-float 3.6s ease-in-out infinite',
-        animationDelay: delay,
-        transformOrigin: `${x}px ${y}px`,
-        filter: 'drop-shadow(0 4px 3px rgba(60,44,24,0.22))'
-      }
-    }, /*#__PURE__*/React.createElement("rect", {
-      x: x - size / 2,
-      y: y - size / 2,
-      width: size,
-      height: size,
-      rx: Math.round(size * 0.28),
-      fill: p.f,
-      stroke: p.e,
-      strokeWidth: "2"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x,
-      cy: y - size * 0.18,
-      rx: size * 0.34,
-      ry: size * 0.12,
-      fill: p.s,
-      opacity: "0.95"
-    }), /*#__PURE__*/React.createElement("circle", {
-      cx: x - size * 0.18,
-      cy: y - size * 0.04,
-      r: size * 0.07,
-      fill: "#3B2A18"
-    }), /*#__PURE__*/React.createElement("circle", {
-      cx: x + size * 0.18,
-      cy: y - size * 0.04,
-      r: size * 0.07,
-      fill: "#3B2A18"
-    }));
-  }
-
-  // ─── path layer ───────────────────────────────────────────────────
-  function PathLayer() {
-    return /*#__PURE__*/React.createElement("svg", {
-      width: W,
-      height: H,
-      viewBox: `0 0 ${W} ${H}`,
-      style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'block',
-        pointerEvents: 'none'
-      }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: FULL_PATH,
-      fill: "none",
-      stroke: "rgba(120,92,52,0.22)",
-      strokeWidth: "34",
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-      transform: "translate(0,4)"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: FULL_PATH,
-      fill: "none",
-      stroke: "#EAD8B7",
-      strokeWidth: "30",
-      strokeLinecap: "round",
-      strokeLinejoin: "round"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: FULL_PATH,
-      fill: "none",
-      stroke: "#FFFFFF",
-      strokeWidth: "26",
-      strokeLinecap: "round",
-      strokeLinejoin: "round"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: FULL_PATH,
-      fill: "none",
-      stroke: "#EFE0C9",
-      strokeWidth: "3.5",
-      strokeLinecap: "round",
-      strokeDasharray: "7 11"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: WALKED,
-      fill: "none",
-      stroke: "#FF9F68",
-      strokeWidth: "20",
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-      opacity: "0.95"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: WALKED,
-      fill: "none",
-      stroke: "#FFC59A",
-      strokeWidth: "6",
-      strokeLinecap: "round",
-      strokeDasharray: "4 9",
-      opacity: "0.9"
-    }));
-  }
-
-  // ─── stars ────────────────────────────────────────────────────────
+  // ─── Stars ────────────────────────────────────────────────────────────
   function Star({
     filled = false,
     size = 14
   }) {
-    return /*#__PURE__*/React.createElement("svg", {
-      width: size,
-      height: size,
-      viewBox: "0 0 24 24",
+    return /*#__PURE__*/React.createElement("img", {
+      src: filled ? STAR_ON : STAR_OFF,
+      alt: "",
+      draggable: "false",
       style: {
-        display: 'block'
+        width: size,
+        height: size,
+        display: 'block',
+        userSelect: 'none',
+        pointerEvents: 'none',
+        filter: filled ? 'drop-shadow(0 1px 1.5px rgba(190,120,20,0.5))' : 'drop-shadow(0 1px 1.5px rgba(120,92,52,0.32))'
       }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: "M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.1l1-5.8L3.5 9.2l5.9-.9L12 3z",
-      fill: filled ? '#FFC23D' : '#D9CDB5',
-      stroke: filled ? '#E0A21F' : '#B6A892',
-      strokeWidth: "1.6",
-      strokeLinejoin: "round"
-    }));
+    });
   }
   function StarArc({
     stars = 3,
-    size = 14,
-    width = 64
+    size = 15,
+    width = 46
   }) {
     return /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'absolute',
         left: '50%',
-        top: -size - 6,
+        top: Math.round(size * 0.18),
         transform: 'translateX(-50%)',
         width,
-        height: size + 8,
+        height: size + 6,
         display: 'flex',
         alignItems: 'flex-end',
         justifyContent: 'space-between',
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        zIndex: 2
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
-        transform: 'translateY(5px) rotate(-22deg)'
+        transform: 'translateY(2px) rotate(-18deg)'
       }
     }, /*#__PURE__*/React.createElement(Star, {
       filled: stars >= 1,
       size: size
     })), /*#__PURE__*/React.createElement("div", {
       style: {
-        transform: 'translateY(-2px)'
+        transform: 'translateY(-3px)'
       }
     }, /*#__PURE__*/React.createElement(Star, {
       filled: stars >= 2,
-      size: size + 2
+      size: size + 3
     })), /*#__PURE__*/React.createElement("div", {
       style: {
-        transform: 'translateY(5px) rotate(22deg)'
+        transform: 'translateY(2px) rotate(18deg)'
       }
     }, /*#__PURE__*/React.createElement(Star, {
       filled: stars >= 3,
       size: size
     })));
   }
-  function NumberBadge({
+
+  // ─── Node primitives ─────────────────────────────────────────────────
+  function CenterNum({
     n,
     size,
-    color = '#6A4A2E'
+    color = '#6A4A2E',
+    vy = 0.5,
+    scale = 0.34,
+    shadow = '0 1px 0 rgba(255,255,255,0.65)'
   }) {
+    const digits = String(n).length;
+    const dscale = digits >= 3 ? 0.66 : digits === 2 ? 0.82 : 1;
     return /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'absolute',
-        inset: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        left: 0,
+        right: 0,
+        top: `${vy * 100}%`,
+        transform: 'translateY(-50%)',
+        textAlign: 'center',
         fontFamily: 'var(--font-display)',
         fontWeight: 700,
-        fontSize: Math.round(size * 0.38),
+        fontSize: Math.round(size * scale * dscale),
         lineHeight: 1,
         color,
-        textShadow: '0 1px 0 rgba(255,255,255,0.55)',
+        textShadow: shadow,
         pointerEvents: 'none'
       }
     }, n);
   }
-  function LockGlyph({
-    size = 18
+  function Tile({
+    src,
+    size,
+    shadow
   }) {
-    return /*#__PURE__*/React.createElement("svg", {
-      width: size,
-      height: size,
-      viewBox: "0 0 24 24",
-      "aria-hidden": "true",
-      style: {
-        display: 'block'
-      }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: "M8 11V8.5a4 4 0 1 1 8 0V11",
-      fill: "none",
-      stroke: "#FFFFFF",
-      strokeWidth: "2.6",
-      strokeLinecap: "round"
-    }), /*#__PURE__*/React.createElement("rect", {
-      x: "5",
-      y: "11",
-      width: "14",
-      height: "9",
-      rx: "2.5",
-      fill: "#FFFFFF"
-    }), /*#__PURE__*/React.createElement("circle", {
-      cx: "12",
-      cy: "15",
-      r: "1.4",
-      fill: "#A89A82"
-    }), /*#__PURE__*/React.createElement("rect", {
-      x: "11.3",
-      y: "15",
-      width: "1.4",
-      height: "3",
-      rx: "0.6",
-      fill: "#A89A82"
-    }));
-  }
-  function DoneNode({
-    n,
-    color,
-    stars,
-    size = 64
-  }) {
-    return /*#__PURE__*/React.createElement("div", {
+    return /*#__PURE__*/React.createElement("img", {
+      src: src,
+      alt: "",
+      draggable: "false",
       style: {
         position: 'relative',
         width: size,
         height: size,
-        filter: 'drop-shadow(0 5px 7px rgba(120,92,52,0.24))'
+        display: 'block',
+        userSelect: 'none',
+        pointerEvents: 'none',
+        filter: `drop-shadow(${shadow})`
       }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: color,
-      size: size,
-      showEyes: false
-    }), /*#__PURE__*/React.createElement(NumberBadge, {
-      n: n,
-      size: size
-    }), /*#__PURE__*/React.createElement(StarArc, {
-      stars: stars,
-      size: 14,
-      width: size + 14
-    }));
+    });
   }
-  function LockedRegularNode({
+  function DoneNode({
     n,
+    stars,
     size = 60
   }) {
     return /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'relative',
         width: size,
-        height: size,
-        filter: 'drop-shadow(0 4px 5px rgba(120,92,52,0.20))'
+        height: size
       }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: "stone",
+    }, /*#__PURE__*/React.createElement(Tile, {
+      src: DONE_SRC,
       size: size,
-      showEyes: false
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: Math.round(size * 0.38),
-        lineHeight: 1,
-        color: '#7A6A50',
-        textShadow: '0 1px 0 rgba(255,255,255,0.40)',
-        pointerEvents: 'none'
-      }
-    }, n), /*#__PURE__*/React.createElement(StarArc, {
-      stars: 0,
-      size: 12,
-      width: size + 8
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        right: -4,
-        bottom: -4,
-        width: 24,
-        height: 24,
-        borderRadius: '50%',
-        background: '#8A7B62',
-        border: '2px solid #FFFFFF',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        boxShadow: '0 2px 4px rgba(120,92,52,0.32)'
-      }
-    }, /*#__PURE__*/React.createElement(LockGlyph, {
-      size: 13
-    })));
+      shadow: "0 5px 7px rgba(120,92,52,0.30)"
+    }), /*#__PURE__*/React.createElement(CenterNum, {
+      n: n,
+      size: size,
+      color: "#B67A16",
+      vy: 0.56,
+      scale: 0.36
+    }), /*#__PURE__*/React.createElement(StarArc, {
+      stars: stars,
+      size: 15,
+      width: 54
+    }));
   }
-  function CurrentNode({
+
+  // Unlocked-but-not-yet-played: bright yellow tile, prominent centred number, pulse.
+  function OpenNode({
     n,
     size = 64
   }) {
     return /*#__PURE__*/React.createElement("div", {
       style: {
-        position: 'relative'
+        position: 'relative',
+        width: size,
+        height: size
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'absolute',
         left: -16,
         top: -16,
-        width: size + 32,
-        height: size + 32,
+        right: -16,
+        bottom: -16,
         borderRadius: '50%',
-        background: 'rgba(255,159,104,0.24)',
-        animation: 'gj-w2s-pulse 1600ms ease-out infinite'
+        background: 'radial-gradient(closest-side, rgba(255,159,104,0.55) 0%, rgba(255,159,104,0.22) 55%, rgba(255,159,104,0) 78%)',
+        animation: 'gj-strip-pulse 1800ms ease-in-out infinite'
       }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: -5,
-        top: -5,
-        width: size + 10,
-        height: size + 10,
-        borderRadius: '50%',
-        background: 'rgba(255,159,104,0.34)',
-        animation: 'gj-w2s-pulse 1600ms ease-out infinite',
-        animationDelay: '320ms'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        width: size,
-        height: size,
-        borderRadius: '50%',
-        background: '#FFFFFF',
-        border: '3px solid #FF9F68',
-        boxShadow: '0 6px 14px rgba(120,92,52,0.24), inset 0 -4px 0 rgba(255,159,104,0.16), inset 0 3px 0 rgba(255,255,255,0.85)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }
-    }, /*#__PURE__*/React.createElement("svg", {
-      width: size - 16,
-      height: size - 16,
-      viewBox: "0 0 40 40",
-      "aria-hidden": "true"
-    }, /*#__PURE__*/React.createElement("circle", {
-      cx: "20",
-      cy: "20",
-      r: "18",
-      fill: "none",
-      stroke: "#FFC59A",
-      strokeWidth: "2",
-      strokeDasharray: "3 4"
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 24,
-        color: '#E97E45'
-      }
-    }, n)), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: '50%',
-        top: -40,
-        transform: 'translateX(-50%)',
-        animation: 'gj-w2s-hop 1400ms ease-in-out infinite',
-        filter: 'drop-shadow(0 4px 4px rgba(120,92,52,0.30))'
-      }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: "pink",
-      size: 38,
-      direction: "down",
-      expression: "happy"
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: '50%',
-        top: size + 10,
-        transform: 'translateX(-50%)',
-        background: 'linear-gradient(180deg, #FFB07F 0%, #FF9F68 60%, #F58A4E 100%)',
-        color: '#FFFFFF',
-        border: '2px solid #E97E45',
-        borderBottom: '3px solid #C8662F',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 13,
-        padding: '5px 14px 6px',
-        borderRadius: 999,
-        boxShadow: '0 6px 12px rgba(201,102,47,0.35), inset 0 2px 0 rgba(255,197,154,0.6)',
-        whiteSpace: 'nowrap'
-      }
-    }, "Ch\u01A1i ngay"));
+    }), /*#__PURE__*/React.createElement(Tile, {
+      src: OPEN_SRC,
+      size: size,
+      shadow: "0 6px 9px rgba(120,92,52,0.30)"
+    }), /*#__PURE__*/React.createElement(CenterNum, {
+      n: n,
+      size: size,
+      color: "#B67A16",
+      vy: 0.52,
+      scale: 0.38
+    }));
   }
-  function BreatherNode({
+
+  // Locked cream tile — the padlock is painted at the bottom, so the number
+  // sits in the empty upper area.
+  function LockedRegularNode({
     n,
-    size = 48
+    size = 58
   }) {
     return /*#__PURE__*/React.createElement("div", {
       style: {
-        position: 'relative'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        top: -10,
-        left: size + 8,
-        background: '#FFFFFF',
-        color: '#8C7458',
-        border: '1.5px solid #E6D8BD',
-        fontFamily: 'var(--font-body)',
-        fontWeight: 800,
-        fontSize: 11,
-        letterSpacing: '0.10em',
-        padding: '4px 10px',
-        borderRadius: 999,
-        boxShadow: '0 3px 8px rgba(120,92,52,0.20)',
-        whiteSpace: 'nowrap'
-      }
-    }, "NGH\u1EC8"), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        top: -6,
-        left: size + 4,
-        width: 10,
-        height: 10,
-        borderRadius: '50%',
-        background: '#FFD074',
-        border: '1.5px solid #E0A21F'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
         position: 'relative',
         width: size,
-        height: size,
-        filter: 'drop-shadow(0 4px 5px rgba(120,92,52,0.22))',
-        opacity: 0.92
+        height: size
       }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: "stone",
+    }, /*#__PURE__*/React.createElement(Tile, {
+      src: LOCK_SRC,
       size: size,
-      showEyes: false
-    }), /*#__PURE__*/React.createElement("svg", {
-      width: size,
-      height: size,
-      viewBox: `0 0 ${size} ${size}`,
+      shadow: "0 5px 7px rgba(120,92,52,0.26)"
+    }), /*#__PURE__*/React.createElement(CenterNum, {
+      n: n,
+      size: size,
+      color: "#8A7A63",
+      vy: 0.33,
+      scale: 0.34
+    }));
+  }
+  function BreatherNode({
+    n,
+    size = 52
+  }) {
+    return /*#__PURE__*/React.createElement(LockedRegularNode, {
+      n: n,
+      size: size
+    });
+  }
+
+  // ─── BOSS GATE ───────────────────────────────────────────────────────
+  // Ornate framed gate node marking the world's boss level (10/20/30…).
+  // Three states: locked (gold + padlock) · current (amethyst, playable)
+  // · cleared (gold + ruby, beaten). Sized by width; height follows the art.
+  const BOSS_SRC = {
+    locked: '../06-svg-assets/ui/boss-gate-locked.png',
+    current: '../06-svg-assets/ui/boss-gate-current.png',
+    cleared: '../06-svg-assets/ui/boss-gate-cleared.png'
+  };
+  // aspect (h/w) + panel-centre anchor (fraction of image) + number colour
+  const BOSS_META = {
+    locked: {
+      ar: 1.1118,
+      vx: 0.477,
+      vy: 0.423,
+      num: '#8A6A2E'
+    },
+    current: {
+      ar: 1.0404,
+      vx: 0.498,
+      vy: 0.502,
+      num: '#6A4A2E'
+    },
+    cleared: {
+      ar: 1.0266,
+      vx: 0.500,
+      vy: 0.501,
+      num: '#B67A16'
+    }
+  };
+  function BossGateNode({
+    n,
+    variant = 'locked',
+    stars = 3,
+    width = 104
+  }) {
+    const m = BOSS_META[variant];
+    const w = width,
+      h = Math.round(width * m.ar);
+    const shadow = variant === 'current' ? '0 7px 14px rgba(126,108,240,0.40)' : variant === 'cleared' ? '0 7px 13px rgba(200,150,40,0.36)' : '0 7px 12px rgba(120,92,52,0.30)';
+    const numSize = Math.round(w * (String(n).length >= 2 ? 0.34 : 0.42));
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        width: w,
+        height: h
+      }
+    }, variant === 'current' && /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'absolute',
-        inset: 0,
-        pointerEvents: 'none'
+        left: -18,
+        top: -14,
+        right: -18,
+        bottom: -14,
+        borderRadius: '50%',
+        background: 'radial-gradient(closest-side, rgba(169,156,246,0.60) 0%, rgba(126,108,240,0.28) 55%, rgba(126,108,240,0) 80%)',
+        animation: 'gj-strip-pulse 1800ms ease-in-out infinite'
       }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: `M ${size * 0.30} ${size * 0.45} q 4 4 8 0`,
-      fill: "none",
-      stroke: "#6A5A40",
-      strokeWidth: "2",
-      strokeLinecap: "round"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: `M ${size * 0.55} ${size * 0.45} q 4 4 8 0`,
-      fill: "none",
-      stroke: "#6A5A40",
-      strokeWidth: "2",
-      strokeLinecap: "round"
-    })), /*#__PURE__*/React.createElement("div", {
+    }), /*#__PURE__*/React.createElement("img", {
+      src: BOSS_SRC[variant],
+      alt: "",
+      draggable: "false",
+      style: {
+        position: 'relative',
+        width: w,
+        height: h,
+        display: 'block',
+        userSelect: 'none',
+        pointerEvents: 'none',
+        filter: `drop-shadow(${shadow})`
+      }
+    }), variant === 'cleared' && /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'absolute',
         left: 0,
         right: 0,
-        bottom: size * 0.15,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        top: `${(m.vy - 0.30) * 100}%`
+      }
+    }, /*#__PURE__*/React.createElement(StarArc, {
+      stars: stars,
+      size: 16,
+      width: 62
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        transform: 'translate(-50%, -50%)',
         fontFamily: 'var(--font-display)',
         fontWeight: 700,
-        fontSize: Math.round(size * 0.28),
+        fontSize: numSize,
         lineHeight: 1,
-        color: '#7A6A50',
-        textShadow: '0 1px 0 rgba(255,255,255,0.40)',
+        color: m.num,
+        textShadow: '0 1px 0 rgba(255,255,255,0.7)',
         pointerEvents: 'none'
       }
-    }, n)));
-  }
-  function BossNode({
-    n,
-    size = 80
-  }) {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        width: size,
-        height: size,
-        filter: 'drop-shadow(0 8px 14px rgba(126,108,240,0.40))'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: -28,
-        top: -28,
-        right: -28,
-        bottom: -28,
-        borderRadius: '50%',
-        background: 'radial-gradient(closest-side, rgba(169,156,246,0.55) 0%, rgba(126,108,240,0.30) 55%, rgba(126,108,240,0) 78%)',
-        animation: 'gj-w2s-halo 2400ms ease-in-out infinite'
-      }
-    }), /*#__PURE__*/React.createElement("svg", {
-      width: size + 56,
-      height: size + 56,
-      viewBox: "0 0 200 200",
-      style: {
-        position: 'absolute',
-        left: -28,
-        top: -28,
-        pointerEvents: 'none',
-        animation: 'gj-w2s-spin 8s linear infinite',
-        transformOrigin: '50% 50%'
-      }
-    }, [0, 60, 120, 180, 240, 300].map(a => {
-      const rad = a * Math.PI / 180;
-      const cx = 100 + Math.cos(rad) * 84;
-      const cy = 100 + Math.sin(rad) * 84;
-      return /*#__PURE__*/React.createElement("g", {
-        key: a
-      }, /*#__PURE__*/React.createElement("circle", {
-        cx: cx,
-        cy: cy,
-        r: "4.5",
-        fill: "#FFFFFF",
-        opacity: "0.95"
-      }), /*#__PURE__*/React.createElement("circle", {
-        cx: cx,
-        cy: cy,
-        r: "2.5",
-        fill: "#A99CF6"
-      }));
-    })), /*#__PURE__*/React.createElement(JellyBlock, {
-      color: "stone",
-      size: size,
-      showEyes: false
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        width: size * 0.5,
-        height: size * 0.5,
-        borderRadius: '50%',
-        background: 'linear-gradient(180deg,#8E7CF4 0%, #6353D6 100%)',
-        border: '3px solid #FFFFFF',
-        boxShadow: '0 4px 10px rgba(83,68,196,0.5), inset 0 2px 0 rgba(255,255,255,0.4)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }
-    }, /*#__PURE__*/React.createElement(LockGlyph, {
-      size: Math.round(size * 0.28)
-    }))), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        top: -22,
-        left: '50%',
-        transform: 'translateX(-50%)',
-        background: 'linear-gradient(180deg, #8E7CF4 0%, #7E6CF0 60%, #5F4ECB 100%)',
-        color: '#FFFFFF',
-        border: '2px solid #6353D6',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 13,
-        letterSpacing: '0.16em',
-        padding: '4px 14px',
-        borderRadius: 999,
-        boxShadow: '0 4px 10px rgba(83,68,196,0.45), inset 0 1.5px 0 rgba(255,255,255,0.45)',
-        whiteSpace: 'nowrap'
-      }
-    }, "BOSS"), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        bottom: -22,
-        left: '50%',
-        transform: 'translateX(-50%)',
-        background: '#FFFFFF',
-        color: '#5B4636',
-        border: '1.5px solid #EFE0C9',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 13,
-        padding: '2px 10px',
-        borderRadius: 999,
-        boxShadow: '0 3px 6px rgba(120,92,52,0.20)'
-      }
-    }, "m\xE0n ", n));
+    }, n));
   }
   function PlaceNode({
     node
   }) {
-    let inner = null,
-      half = 32;
+    const half = NODE / 2;
     if (node.kind === 'boss') {
-      inner = /*#__PURE__*/React.createElement(BossNode, {
+      const variant = node.state === 'done' ? 'cleared' : node.state === 'open' ? 'current' : 'locked';
+      const BW = 66;
+      const m = BOSS_META[variant];
+      const bh = Math.round(BW * m.ar);
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'absolute',
+          zIndex: 3,
+          left: Math.round(node.x - m.vx * BW),
+          top: Math.round(node.y - m.vy * bh)
+        }
+      }, /*#__PURE__*/React.createElement(BossGateNode, {
         n: node.id,
-        size: 80
-      });
-      half = 40;
-    } else if (node.kind === 'breather') {
+        variant: variant,
+        stars: node.stars || 3,
+        width: BW
+      }));
+    }
+    let inner = null;
+    if (node.kind === 'breather') {
       inner = /*#__PURE__*/React.createElement(BreatherNode, {
         n: node.id,
-        size: 48
+        size: NODE
       });
-      half = 24;
-    } else if (node.state === 'current') {
-      inner = /*#__PURE__*/React.createElement(CurrentNode, {
+    } else if (node.state === 'open') {
+      inner = /*#__PURE__*/React.createElement(OpenNode, {
         n: node.id,
-        size: 64
+        size: NODE
       });
-      half = 32;
     } else if (node.state === 'done') {
       inner = /*#__PURE__*/React.createElement(DoneNode, {
         n: node.id,
         color: node.color,
         stars: node.stars,
-        size: 64
+        size: NODE
       });
-      half = 32;
     } else {
       inner = /*#__PURE__*/React.createElement(LockedRegularNode, {
         n: node.id,
-        size: 60
+        size: NODE
       });
-      half = 30;
     }
     return /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'absolute',
         left: node.x - half,
-        top: node.y - half,
-        zIndex: node.kind === 'boss' ? 14 : node.state === 'current' ? 12 : 5
+        top: node.y - half
       }
     }, inner);
   }
 
-  // ─── world gate (to World 3) ──────────────────────────────────────
-  function GateBanner() {
+  // ─── Gate chip (labels the painted locked gate → World 3) ───────────
+  function GateChip() {
     return /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'absolute',
         left: '50%',
-        top: GATE.y - 38,
+        top: 110,
         transform: 'translateX(-50%)',
-        width: 312,
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 8,
         background: '#FFFFFF',
         border: '1.5px solid #E6D8BD',
         borderRadius: 999,
-        padding: '8px 14px 8px 8px',
-        display: 'flex',
-        alignItems: 'center',
-        gap: 12,
-        boxShadow: '0 12px 28px rgba(60,90,95,0.30), 0 4px 8px rgba(120,92,52,0.14)',
-        zIndex: 16
+        padding: '5px 12px 5px 6px',
+        boxShadow: '0 8px 20px rgba(120,92,52,0.28), 0 3px 6px rgba(120,92,52,0.14)',
+        whiteSpace: 'nowrap'
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
-        width: 56,
-        height: 56,
+        width: 30,
+        height: 30,
         borderRadius: '50%',
         flexShrink: 0,
         background: 'radial-gradient(circle at 35% 25%, #C8ECF2 0%, #5FB7C9 60%, #3E94A8 100%)',
-        border: '2.5px solid #3E94A8',
-        boxShadow: 'inset 0 -3px 0 rgba(0,0,0,0.10), inset 0 3px 0 rgba(255,255,255,0.45), 0 2px 4px rgba(50,120,140,0.32)',
+        border: '2px solid #3E94A8',
+        boxShadow: 'inset 0 -2px 0 rgba(0,0,0,0.12), inset 0 2px 0 rgba(255,255,255,0.45)',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
-        position: 'relative'
+        justifyContent: 'center'
       }
     }, /*#__PURE__*/React.createElement("svg", {
-      width: "34",
-      height: "34",
+      width: "18",
+      height: "18",
       viewBox: "0 0 24 24",
       "aria-hidden": "true"
     }, /*#__PURE__*/React.createElement("path", {
-      d: "M4 13c2.5-2 4.5-2 7 0s4.5 2 7 0",
+      d: "M4 12c2.5-2 4.5-2 7 0s4.5 2 7 0",
       fill: "none",
       stroke: "#FFFFFF",
       strokeWidth: "2.4",
       strokeLinecap: "round"
     }), /*#__PURE__*/React.createElement("path", {
-      d: "M4 17c2.5-2 4.5-2 7 0s4.5 2 7 0",
+      d: "M4 16c2.5-2 4.5-2 7 0s4.5 2 7 0",
       fill: "none",
       stroke: "#FFFFFF",
       strokeWidth: "2.4",
       strokeLinecap: "round",
-      opacity: "0.7"
-    }), /*#__PURE__*/React.createElement("circle", {
-      cx: "15",
-      cy: "7.5",
-      r: "2.2",
-      fill: "#FFFFFF"
-    })), /*#__PURE__*/React.createElement("div", {
+      opacity: "0.75"
+    }))), /*#__PURE__*/React.createElement("div", {
       style: {
-        position: 'absolute',
-        top: -6,
-        right: -4,
-        background: '#FFCA66',
-        border: '1.5px solid #E0A21F',
-        color: '#6A4A2E',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 11,
-        padding: '2px 6px',
-        borderRadius: 999,
-        lineHeight: 1,
-        boxShadow: '0 2px 3px rgba(120,92,52,0.20)'
-      }
-    }, "W3")), /*#__PURE__*/React.createElement("div", {
-      style: {
-        flex: 1,
-        minWidth: 0,
         display: 'flex',
         flexDirection: 'column',
         lineHeight: 1.05,
-        gap: 2
+        gap: 1
       }
-    }, /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("span", {
       style: {
         fontFamily: 'var(--font-body)',
         fontWeight: 800,
-        fontSize: 10,
+        fontSize: 8.5,
         letterSpacing: '0.12em',
-        color: '#9B886F',
-        whiteSpace: 'nowrap'
+        color: '#9B886F'
       }
-    }, "C\u1ED4NG \xB7 TH\u1EBE GI\u1EDAI 3"), /*#__PURE__*/React.createElement("div", {
+    }, "C\u1ED4NG \xB7 TH\u1EBE GI\u1EDAI 3"), /*#__PURE__*/React.createElement("span", {
       style: {
         fontFamily: 'var(--font-display)',
         fontWeight: 700,
-        fontSize: 22,
+        fontSize: 15,
         color: '#2C7C8E',
-        whiteSpace: 'nowrap',
         lineHeight: 1.05
       }
     }, "S\xF4ng & Th\xE1c")), /*#__PURE__*/React.createElement("div", {
       style: {
         display: 'inline-flex',
         alignItems: 'center',
-        gap: 4,
+        gap: 3,
         background: 'linear-gradient(180deg, #FFE6A8 0%, #FFD074 100%)',
         border: '1.5px solid #E0A21F',
-        padding: '6px 11px 7px 8px',
+        padding: '4px 9px 5px 6px',
         borderRadius: 999,
-        boxShadow: '0 3px 6px rgba(200,150,40,0.28), inset 0 1.5px 0 rgba(255,255,255,0.6)',
-        flexShrink: 0
+        boxShadow: '0 3px 6px rgba(200,150,40,0.28), inset 0 1.5px 0 rgba(255,255,255,0.6)'
       }
     }, /*#__PURE__*/React.createElement(Star, {
       filled: true,
-      size: 14
+      size: 13
     }), /*#__PURE__*/React.createElement("span", {
       style: {
         fontFamily: 'var(--font-display)',
         fontWeight: 700,
-        fontSize: 15,
+        fontSize: 14,
         color: '#6A4A2E',
         lineHeight: 1
       }
     }, "36")));
   }
+
+  // Small start marker at the very bottom.
   function StartSign() {
     return /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'absolute',
         left: '50%',
-        top: H - 90,
-        transform: 'translateX(-50%)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: 4
+        top: H - 44,
+        transform: 'translateX(-50%)'
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -22280,11 +21053,13 @@ try { (() => {
         letterSpacing: '0.12em',
         padding: '6px 14px',
         borderRadius: 999,
-        boxShadow: '0 4px 10px rgba(120,92,52,0.20)',
+        boxShadow: '0 4px 10px rgba(120,92,52,0.24)',
         textTransform: 'uppercase'
       }
-    }, "R\u1EEBng r\u1EADm \xB7 ti\u1EBFp t\u1EE5c"));
+    }, "R\u1EEBng r\u1EADm \xB7 Ti\u1EBFp t\u1EE5c"));
   }
+
+  // ─── Top-level component ─────────────────────────────────────────────
   function World2Strip() {
     return /*#__PURE__*/React.createElement("div", {
       style: {
@@ -22297,16 +21072,31 @@ try { (() => {
         overflow: 'hidden'
       }
     }, /*#__PURE__*/React.createElement("style", null, `
-          @keyframes gj-w2s-pulse { 0%{transform:scale(0.9);opacity:0.8} 70%{transform:scale(1.5);opacity:0} 100%{transform:scale(1.5);opacity:0} }
-          @keyframes gj-w2s-hop   { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(-6px)} }
-          @keyframes gj-w2s-halo  { 0%,100%{transform:scale(1.00);opacity:1} 50%{transform:scale(1.12);opacity:0.85} }
-          @keyframes gj-w2s-spin  { from{transform:rotate(0)} to{transform:rotate(360deg)} }
-          @keyframes gj-w2s-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
-          @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
-        `), /*#__PURE__*/React.createElement(Scene, null), /*#__PURE__*/React.createElement(PathLayer, null), /*#__PURE__*/React.createElement(GateBanner, null), NODES.map(n => /*#__PURE__*/React.createElement(PlaceNode, {
+          @keyframes gj-strip-pulse {
+            0%,100% { transform: scale(1);    opacity: 0.75; }
+            50%     { transform: scale(1.10); opacity: 0.35; }
+          }
+          @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; }
+          }
+        `), /*#__PURE__*/React.createElement("img", {
+      src: BG_SRC,
+      alt: "",
+      draggable: "false",
+      style: {
+        position: 'absolute',
+        inset: 0,
+        width: W,
+        height: H,
+        objectFit: 'cover',
+        display: 'block',
+        pointerEvents: 'none',
+        userSelect: 'none'
+      }
+    }), /*#__PURE__*/React.createElement(GateChip, null), NODES.map(n => /*#__PURE__*/React.createElement(PlaceNode, {
       key: n.id,
       node: n
-    })), /*#__PURE__*/React.createElement(StartSign, null));
+    })));
   }
   window.GJWorld2Strip = World2Strip;
 })();
@@ -23504,1448 +22294,589 @@ try { (() => {
 
 // 04-screens/world3-strip.jsx
 try { (() => {
-/* world3-strip.jsx — Dải cuộn ĐẦY ĐỦ World 3 "Sông & Thác" (màn 21–30).
-   ---------------------------------------------------------------------
-   Artboard 360 × 2600dp, KHÔNG có HUD. Đọc DƯỚI→TRÊN, đường mòn liên tục
-   uốn lượn, số node 21→30:
-     • 21–25 node thường · 26 BREATHER · 27–29 thường · 30 BOSS
-     • trên 30: CỔNG sang World 4 "Sa mạc" (chip ★ 54); nền trên cổng
-       blend sang palette Sa mạc (#FBEBCB→#F4D69D)
-   Biome World 3: trời #D6EEF1→#B4E0EA, suối/thác nước xanh ngọc hai bên,
-   đá cuội, lau sậy, lá súng, giọt nước lấp lánh, accent #EAFAFB. Hành lang
-   giữa (x 72–290) để TRỐNG cho đường + node.
-   Exposes window.GJWorld3Strip.                                          */
+/* world3-strip.jsx — Level-Map SCROLL STRIP for World 3 "Sông & Thác".
+   ----------------------------------------------------------------
+   Same approach as World 2: pure painted artboard 360 × 1280dp, NO HUD.
+   The scenery + winding river road + locked gate are a single painted
+   PNG backdrop (06-svg-assets/backgrounds/world3-map-bg.png, 665×2365
+   → exact 1:~3.556, scaled to 360 wide = 360×1280, no distortion). We do
+   NOT draw rocks/waterfalls/path in SVG — we just DROP the ten level nodes
+   onto the painted trail. Reads bottom→top:
+
+     • L21 → L25 : regular nodes (L21–L23 done w/ stars, L24 open, L25 locked)
+     • L26       : BREATHER
+     • L27 → L29 : regular nodes (stone-locked)
+     • L30       : BOSS
+     • top       : the painted locked GATE → World 4 "Sa mạc"
+                   (a compact stars-required chip labels it)
+
+   Reuses DS tokens & tile art. Exposes window.GJWorld3Strip.
+   ---------------------------------------------------------------- */
 (function () {
+  const BG_SRC = '../06-svg-assets/backgrounds/world3-map-bg.png';
+  const LOCK_SRC = '../06-svg-assets/ui/locked-tile.png';
+  const OPEN_SRC = '../06-svg-assets/ui/unlocked-tile.png';
+  const DONE_SRC = '../06-svg-assets/ui/completed-tile.png';
+  const STAR_ON = '../06-svg-assets/ui/star-on.png'; // earned (yellow)
+  const STAR_OFF = '../06-svg-assets/ui/star-off.png'; // empty (grey)
+
+  // ─── Geometry ──────────────────────────────────────────────────────────
   const W = 360;
-  const H = 2600;
-  const NS = window.GravityJellyDesignSystem_3e0487 || {};
-  const {
-    JellyBlock
-  } = NS;
+  const H = 1280; // 665×2365 backdrop scaled to 360 wide (exact 360×1280)
+
+  // One uniform node size across every node type.
+  const NODE = 62;
+
+  // Node positions snapped to the CURVE CORNERS of the painted winding
+  // trail (alternating left/right bends), bottom→top. x/y measured from the
+  // painted path centerline of world3-map-bg.png.
   const NODES = [{
     id: 21,
-    x: 130,
-    y: 2440,
+    x: 220,
+    y: 1080,
     kind: 'reg',
     state: 'done',
     stars: 3,
     color: 'yellow'
-  }, {
+  },
+  // first R bend
+  {
     id: 22,
-    x: 240,
-    y: 2250,
+    x: 108,
+    y: 990,
     kind: 'reg',
     state: 'done',
     stars: 3,
     color: 'mint'
-  }, {
+  },
+  // L bend
+  {
     id: 23,
-    x: 110,
-    y: 2060,
+    x: 243,
+    y: 890,
     kind: 'reg',
     state: 'done',
     stars: 2,
     color: 'pink'
-  }, {
+  },
+  // R bend
+  {
     id: 24,
-    x: 240,
-    y: 1870,
+    x: 116,
+    y: 800,
     kind: 'reg',
-    state: 'current'
-  }, {
+    state: 'open'
+  },
+  // L bend
+  {
     id: 25,
-    x: 120,
-    y: 1680,
+    x: 250,
+    y: 695,
     kind: 'reg',
     state: 'locked'
-  }, {
+  },
+  // R bend
+  {
     id: 26,
-    x: 240,
-    y: 1490,
+    x: 112,
+    y: 600,
     kind: 'breather',
     state: 'locked'
-  }, {
+  },
+  // L bend
+  {
     id: 27,
-    x: 110,
-    y: 1290,
+    x: 248,
+    y: 505,
     kind: 'reg',
     state: 'locked'
-  }, {
+  },
+  // R bend
+  {
     id: 28,
-    x: 240,
-    y: 1090,
+    x: 112,
+    y: 435,
     kind: 'reg',
     state: 'locked'
-  }, {
+  },
+  // L bend
+  {
     id: 29,
-    x: 150,
-    y: 880,
+    x: 248,
+    y: 375,
     kind: 'reg',
     state: 'locked'
-  }, {
+  },
+  // R bend
+  {
     id: 30,
-    x: 180,
-    y: 620,
+    x: 118,
+    y: 298,
     kind: 'boss',
     state: 'locked'
-  }];
-  const ENTRY = {
-    x: 180,
-    y: 2620
-  };
-  const GATE = {
-    x: 180,
-    y: 360
-  };
-  const EXIT = {
-    x: 180,
-    y: -40
-  };
-  function pathD(points) {
-    let d = `M ${points[0].x} ${points[0].y}`;
-    for (let i = 1; i < points.length; i++) {
-      const a = points[i - 1],
-        b = points[i];
-      const my = (a.y + b.y) / 2;
-      d += ` C ${a.x} ${my}, ${b.x} ${my}, ${b.x} ${b.y}`;
-    }
-    return d;
-  }
-  const ALL_PTS = [ENTRY, ...NODES.map(n => ({
-    x: n.x,
-    y: n.y
-  })), GATE, EXIT];
-  const FULL_PATH = pathD(ALL_PTS);
-  const WALKED = pathD([ENTRY, NODES[0], NODES[1], NODES[2]]);
+  } // last bend, closer to gate
+  ];
 
-  // ─── scene ────────────────────────────────────────────────────────
-  function Scene() {
-    return /*#__PURE__*/React.createElement("svg", {
-      width: W,
-      height: H,
-      viewBox: `0 0 ${W} ${H}`,
-      style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'block'
-      }
-    }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("linearGradient", {
-      id: "w3s-sky",
-      x1: "0",
-      y1: "0",
-      x2: "0",
-      y2: "1"
-    }, /*#__PURE__*/React.createElement("stop", {
-      offset: "0",
-      stopColor: "#F4D69D"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "0.06",
-      stopColor: "#F8E1B4"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "0.13",
-      stopColor: "#FBEBCB"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "0.19",
-      stopColor: "#E6EFD8"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "0.24",
-      stopColor: "#D6EEF1"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "0.60",
-      stopColor: "#C5E7EE"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "1",
-      stopColor: "#B4E0EA"
-    })), /*#__PURE__*/React.createElement("radialGradient", {
-      id: "w3s-shimmer",
-      cx: "0.5",
-      cy: "0.5",
-      r: "0.6"
-    }, /*#__PURE__*/React.createElement("stop", {
-      offset: "0",
-      stopColor: "#EAFAFB",
-      stopOpacity: "0.55"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "1",
-      stopColor: "#EAFAFB",
-      stopOpacity: "0"
-    })), /*#__PURE__*/React.createElement("linearGradient", {
-      id: "w3s-fall",
-      x1: "0",
-      y1: "0",
-      x2: "0",
-      y2: "1"
-    }, /*#__PURE__*/React.createElement("stop", {
-      offset: "0",
-      stopColor: "#CFEFF3"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "0.5",
-      stopColor: "#9FD9E2"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "1",
-      stopColor: "#7FC6D3"
-    }))), /*#__PURE__*/React.createElement("rect", {
-      x: "0",
-      y: "0",
-      width: W,
-      height: H,
-      fill: "url(#w3s-sky)"
-    }), /*#__PURE__*/React.createElement(Dune, {
-      y: 20,
-      fill: "#EBC987"
-    }), /*#__PURE__*/React.createElement(Dune, {
-      y: 70,
-      fill: "#F0D49A"
-    }), /*#__PURE__*/React.createElement(Cactus, {
-      x: 60,
-      y: 120,
-      h: 48
-    }), /*#__PURE__*/React.createElement(Cactus, {
-      x: 300,
-      y: 108,
-      h: 42
-    }), /*#__PURE__*/React.createElement(Rock, {
-      x: 180,
-      y: 150,
-      r: 20,
-      c: "#D9C49A",
-      edge: "#BBA376"
-    }), /*#__PURE__*/React.createElement(Rock, {
-      x: 120,
-      y: 120,
-      r: 13,
-      c: "#E0CDA6",
-      edge: "#BBA376"
-    }), [[80, 60], [250, 40], [300, 150], [150, 90]].map(([x, y], i) => /*#__PURE__*/React.createElement("circle", {
-      key: i,
-      cx: x,
-      cy: y,
-      r: "2",
-      fill: "#FFF4D6",
-      opacity: "0.8"
-    })), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "40",
-      cy: "300",
-      rx: "130",
-      ry: "50",
-      fill: "#C6E3E6"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "320",
-      cy: "312",
-      rx: "150",
-      ry: "56",
-      fill: "#BCDEE6"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "180",
-      cy: "368",
-      rx: "220",
-      ry: "68",
-      fill: "#B4E0EA"
-    }), [520, 900, 1300, 1700, 2100, 2470].map((y, i) => /*#__PURE__*/React.createElement("g", {
-      key: i
-    }, /*#__PURE__*/React.createElement("ellipse", {
-      cx: "180",
-      cy: y,
-      rx: "250",
-      ry: "70",
-      fill: "#A6DCE5",
-      opacity: "0.45"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "180",
-      cy: y,
-      rx: "200",
-      ry: "48",
-      fill: "url(#w3s-shimmer)"
-    }))), [[60, 500, '#A6DCE5'], [300, 520, '#97D2DD'], [50, 720, '#97D2DD'], [320, 742, '#8AC9D6'], [60, 940, '#8AC9D6'], [300, 962, '#7FC0CF'], [40, 1180, '#8AC9D6'], [320, 1202, '#7FC0CF'], [60, 1420, '#7FC0CF'], [300, 1442, '#74B7C8'], [40, 1660, '#7FC0CF'], [320, 1682, '#74B7C8'], [60, 1900, '#74B7C8'], [300, 1922, '#69AEC0'], [40, 2150, '#69AEC0'], [320, 2172, '#5FA5B8'], [40, 2380, '#5FA5B8'], [320, 2402, '#579FB2']].map(([cx, cy, fill], i) => /*#__PURE__*/React.createElement("ellipse", {
-      key: i,
-      cx: cx,
-      cy: cy,
-      rx: "160",
-      ry: "58",
-      fill: fill
-    })), /*#__PURE__*/React.createElement("rect", {
-      x: "0",
-      y: H - 28,
-      width: W,
-      height: "28",
-      fill: "#579FB2"
-    }), (() => {
-      const els = [];
-      // vách đá LIỀN KHỐI 2 bên + cây leo (giữa đã là sông xanh — không thêm sông bên)
-      els.push(/*#__PURE__*/React.createElement(CliffWall, {
-        key: "wl",
-        side: "l"
-      }));
-      els.push(/*#__PURE__*/React.createElement(CliffWall, {
-        key: "wr",
-        side: "r"
-      }));
-      // đá cuội + lau sậy ở chân vách (chỉ vùng còn vách, y > 560)
-      for (let row = 0, y = 380; y <= 2540; y += 220, row++) {
-        if (y > 560) els.push(/*#__PURE__*/React.createElement(Rock, {
-          key: `bl-${row}`,
-          x: row % 2 ? 82 : 76,
-          y: y,
-          r: 12 + row % 3 * 3,
-          c: "#C9BCA8",
-          edge: "#A89A82"
-        }));
-        if (y + 110 > 560) els.push(/*#__PURE__*/React.createElement(Rock, {
-          key: `br-${row}`,
-          x: row % 2 ? 278 : 284,
-          y: y + 110,
-          r: 12 + row % 2 * 3,
-          c: "#C9BCA8",
-          edge: "#A89A82"
-        }));
-      }
-      for (let row = 0, y = 320; y <= 2540; y += 240, row++) {
-        if (y > 560) els.push(/*#__PURE__*/React.createElement(Reed, {
-          key: `lr-${row}`,
-          x: 78,
-          y: y,
-          s: 24
-        }));
-        if (y + 120 > 560) els.push(/*#__PURE__*/React.createElement(Reed, {
-          key: `rr-${row}`,
-          x: 282,
-          y: y + 120,
-          s: 24
-        }));
-      }
-      return els;
-    })(), [[286, 2380, 18], [290, 2150, 20], [284, 1760, 18], [288, 1380, 20], [282, 1000, 18], [286, 660, 20]].map(([x, y, r], i) => /*#__PURE__*/React.createElement(Rock, {
-      key: `mr-${i}`,
-      x: x,
-      y: y,
-      r: r
-    })), [[86, 2300, 16], [90, 1920, 18], [84, 1540, 16], [88, 1160, 18], [86, 760, 16]].map(([x, y, r], i) => /*#__PURE__*/React.createElement(Rock, {
-      key: `ml-${i}`,
-      x: x,
-      y: y,
-      r: r
-    })), [300, 560, 900, 1300, 1700, 2100, 2400].map((y, i) => /*#__PURE__*/React.createElement("ellipse", {
-      key: i,
-      cx: i % 2 ? 260 : 110,
-      cy: y,
-      rx: "120",
-      ry: "13",
-      fill: "#FFFFFF",
-      opacity: "0.34"
-    })), /*#__PURE__*/React.createElement(FloatJelly, {
-      x: 300,
-      y: 1170,
-      size: 20,
-      color: "mint",
-      delay: "0s"
-    }), /*#__PURE__*/React.createElement(FloatJelly, {
-      x: 56,
-      y: 2000,
-      size: 22,
-      color: "yellow",
-      delay: "0.8s"
-    }), /*#__PURE__*/React.createElement(FloatJelly, {
-      x: 300,
-      y: 2280,
-      size: 18,
-      color: "pink",
-      delay: "1.4s"
-    }));
-  }
-  function Dune({
-    y,
-    fill
-  }) {
-    return /*#__PURE__*/React.createElement("path", {
-      d: `M 0 ${y + 30} q 90 -34 180 0 t 180 0 L 360 200 L 0 200 Z`,
-      fill: fill,
-      opacity: "0.85"
-    });
-  }
-  function Cactus({
-    x,
-    y,
-    h = 44
-  }) {
-    return /*#__PURE__*/React.createElement("g", {
-      style: {
-        filter: 'drop-shadow(0 2px 2px rgba(120,100,40,0.22))'
-      }
-    }, /*#__PURE__*/React.createElement("rect", {
-      x: x - 5,
-      y: y - h,
-      width: "10",
-      height: h,
-      rx: "5",
-      fill: "#7FA86A",
-      stroke: "#5F8A4E",
-      strokeWidth: "1.5"
-    }), /*#__PURE__*/React.createElement("rect", {
-      x: x - 16,
-      y: y - h * 0.66,
-      width: "8",
-      height: h * 0.4,
-      rx: "4",
-      fill: "#7FA86A",
-      stroke: "#5F8A4E",
-      strokeWidth: "1.5"
-    }), /*#__PURE__*/React.createElement("rect", {
-      x: x - 16,
-      y: y - h * 0.66,
-      width: "8",
-      height: "8",
-      rx: "4",
-      fill: "#7FA86A"
-    }), /*#__PURE__*/React.createElement("rect", {
-      x: x + 8,
-      y: y - h * 0.78,
-      width: "8",
-      height: h * 0.5,
-      rx: "4",
-      fill: "#7FA86A",
-      stroke: "#5F8A4E",
-      strokeWidth: "1.5"
-    }));
-  }
-  function CliffWall({
-    side
-  }) {
-    // VÁCH ĐÁ LIỀN KHỐI một mép — KẾT THÚC DỨT KHOÁT ở rìa trên (yEnd), lộ sa
-    // mạc phía trên. Màu đá hệ thống, vân đá ngang + cây leo rủ + rìa đá trên.
-    const isL = side === 'l';
-    const yEnd = 580; // điểm kết thúc vách (rìa)
-    const insetAt = i => [74, 58, 66][i % 3]; // lượn nhẹ, không lùi
-    // điểm mép trong từ rìa (yEnd) xuống đáy
-    const pts = [];
-    for (let y = yEnd, i = 0; y <= H + 40; y += 150, i++) {
-      pts.push([isL ? insetAt(i) : W - insetAt(i), y, i]);
-    }
-    const outerX = isL ? -24 : W + 24;
-    const innerTop = pts[0][0];
-    // path: góc ngoài-trên → rìa đá trên → theo mép trong xuống đáy → đáy → đóng
-    let d = `M ${outerX} ${yEnd} `;
-    d += `Q ${(outerX + innerTop) / 2} ${yEnd - 14} ${innerTop} ${yEnd} `; // rìa cong
-    for (let i = 1; i < pts.length; i++) {
-      const [px, py] = pts[i - 1],
-        [x, y] = pts[i];
-      const my = (py + y) / 2;
-      d += `Q ${px} ${my} ${x} ${y} `;
-    }
-    d += `L ${outerX} ${H + 40} Z`;
-    // vân đá ngang (texture)
-    const strata = [];
-    for (let y = yEnd + 40; y < H; y += 84) {
-      const inset = insetAt(Math.round((y - yEnd) / 150));
-      strata.push(/*#__PURE__*/React.createElement("line", {
-        key: `st${y}`,
-        x1: outerX,
-        y1: y,
-        x2: isL ? inset - 10 : W - inset + 10,
-        y2: y + 5,
-        stroke: "#A89A82",
-        strokeWidth: "1.6",
-        opacity: "0.30"
-      }));
-    }
-    // rêu + CÂY LEO rủ xuống dọc mép trong
-    const deco = [];
-    pts.forEach(([x, y, i]) => {
-      if (i % 2 === 0) {
-        deco.push(/*#__PURE__*/React.createElement("ellipse", {
-          key: `mo${i}`,
-          cx: isL ? x - 8 : x + 8,
-          cy: y,
-          rx: "15",
-          ry: "6",
-          fill: "#6FA86F",
-          opacity: "0.5"
-        }));
-      }
-      if (i % 3 === 1) {
-        deco.push(/*#__PURE__*/React.createElement(Vine, {
-          key: `vn${i}`,
-          x: isL ? x - 4 : x + 4,
-          y: y - 6,
-          len: 46 + i % 4 * 14,
-          dir: isL ? -1 : 1
-        }));
-      }
-    });
-    return /*#__PURE__*/React.createElement("g", {
-      style: {
-        filter: 'drop-shadow(0 0 7px rgba(90,78,60,0.18))'
-      }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: d,
-      fill: "#C9BCA8",
-      stroke: "#A89A82",
-      strokeWidth: "2.5"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: `M ${outerX} ${yEnd} Q ${(outerX + innerTop) / 2} ${yEnd - 14} ${innerTop} ${yEnd}`,
-      fill: "none",
-      stroke: "#DBD0BF",
-      strokeWidth: "4",
-      strokeLinecap: "round",
-      opacity: "0.9"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: d,
-      fill: "none",
-      stroke: "rgba(120,108,90,0.14)",
-      strokeWidth: "12"
-    }), strata, deco);
-  }
-  function Vine({
-    x,
-    y,
-    len = 50,
-    dir = 1
-  }) {
-    // cây leo rủ: thân uốn + lá nhỏ + chùm ngọn
-    const segs = Math.max(3, Math.round(len / 18));
-    let d = `M ${x} ${y}`;
-    const leaves = [];
-    let cy = y;
-    for (let i = 1; i <= segs; i++) {
-      const ny = y + len / segs * i;
-      const sway = (i % 2 === 0 ? 1 : -1) * 6 * dir;
-      d += ` Q ${x + sway} ${(cy + ny) / 2} ${x} ${ny}`;
-      leaves.push([x + sway * 0.7, (cy + ny) / 2, i % 2 ? 26 : -26]);
-      cy = ny;
-    }
-    return /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
-      d: d,
-      fill: "none",
-      stroke: "#5F9C66",
-      strokeWidth: "2.2",
-      strokeLinecap: "round"
-    }), leaves.map(([lx, ly, rot], i) => /*#__PURE__*/React.createElement("ellipse", {
-      key: i,
-      cx: lx,
-      cy: ly,
-      rx: "5.5",
-      ry: "3",
-      fill: "#6FA86F",
-      transform: `rotate(${rot} ${lx} ${ly})`
-    })), /*#__PURE__*/React.createElement("circle", {
-      cx: x,
-      cy: y + len,
-      r: "3",
-      fill: "#7FB37F"
-    }), /*#__PURE__*/React.createElement("circle", {
-      cx: x - 3 * dir,
-      cy: y + len - 3,
-      r: "2",
-      fill: "#8FC59A"
-    }));
-  }
-  function Cobble({
-    x,
-    y,
-    r = 14
-  }) {
-    return /*#__PURE__*/React.createElement("g", {
-      style: {
-        filter: 'drop-shadow(0 2px 1.5px rgba(60,80,90,0.25))'
-      }
-    }, /*#__PURE__*/React.createElement("ellipse", {
-      cx: x,
-      cy: y,
-      rx: r,
-      ry: r * 0.72,
-      fill: "#B9B2A6",
-      stroke: "#9A9184",
-      strokeWidth: "1.4"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x - r * 0.28,
-      cy: y - r * 0.26,
-      rx: r * 0.32,
-      ry: r * 0.2,
-      fill: "#D6D0C5",
-      opacity: "0.8"
-    }));
-  }
-  function Rock({
-    x,
-    y,
-    r = 16,
-    c = '#AEB7B2',
-    edge = '#8F9892'
-  }) {
-    return /*#__PURE__*/React.createElement("g", {
-      style: {
-        filter: 'drop-shadow(0 2px 2px rgba(60,80,90,0.22))'
-      }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: `M ${x - r} ${y + r * 0.5} Q ${x - r} ${y - r * 0.5} ${x - r * 0.3} ${y - r * 0.7}
-                  Q ${x + r * 0.4} ${y - r * 0.9} ${x + r} ${y - r * 0.2}
-                  Q ${x + r * 1.05} ${y + r * 0.5} ${x} ${y + r * 0.6} Z`,
-      fill: c,
-      stroke: edge,
-      strokeWidth: "1.5"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: `M ${x - r * 0.5} ${y - r * 0.3} Q ${x} ${y - r * 0.6} ${x + r * 0.4} ${y - r * 0.3}`,
-      fill: "none",
-      stroke: "#FFFFFF",
-      strokeWidth: "1.5",
-      opacity: "0.4"
-    }));
-  }
-  function Reed({
-    x,
-    y,
-    s = 24
-  }) {
-    return /*#__PURE__*/React.createElement("g", {
-      stroke: "#5FA06A",
-      strokeWidth: "2.4",
-      strokeLinecap: "round",
-      fill: "none"
-    }, [-10, 0, 10].map((a, i) => /*#__PURE__*/React.createElement("path", {
-      key: i,
-      d: `M ${x + a * 0.4} ${y} q ${a * 0.5} ${-s * 0.6} ${a * 0.3} ${-s}`
-    })), [-10, 0, 10].map((a, i) => /*#__PURE__*/React.createElement("ellipse", {
-      key: `t-${i}`,
-      cx: x + a * 0.3,
-      cy: y - s,
-      rx: "2.4",
-      ry: "5",
-      fill: "#C9A06A",
-      stroke: "none"
-    })));
-  }
-  function LilyPad({
-    x,
-    y,
-    r = 16
-  }) {
-    return /*#__PURE__*/React.createElement("g", {
-      style: {
-        filter: 'drop-shadow(0 2px 1.5px rgba(40,90,80,0.18))'
-      }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: `M ${x} ${y} A ${r} ${r * 0.66} 0 1 1 ${x - 0.1} ${y} Z`,
-      fill: "#6FB48A",
-      stroke: "#4F946A",
-      strokeWidth: "1.2"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: `M ${x} ${y} L ${x + r * 0.9} ${y - r * 0.3}`,
-      fill: "none",
-      stroke: "#B4E0EA",
-      strokeWidth: "2"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x - r * 0.2,
-      cy: y - r * 0.18,
-      rx: r * 0.3,
-      ry: r * 0.16,
-      fill: "#8FC9A4",
-      opacity: "0.7"
-    }));
-  }
-  function FloatJelly({
-    x,
-    y,
-    size,
-    color,
-    delay
-  }) {
-    const p = {
-      yellow: {
-        f: '#FFE3A3',
-        e: '#E8B85C',
-        s: '#FFF1CE'
-      },
-      mint: {
-        f: '#A3E5D9',
-        e: '#5FC3B2',
-        s: '#CBF2EB'
-      },
-      pink: {
-        f: '#F7A9C0',
-        e: '#E576A0',
-        s: '#FBD0DF'
-      }
-    }[color] || {
-      f: '#FFE3A3',
-      e: '#E8B85C',
-      s: '#FFF1CE'
-    };
-    return /*#__PURE__*/React.createElement("g", {
-      style: {
-        animation: 'gj-w3s-float 3.6s ease-in-out infinite',
-        animationDelay: delay,
-        transformOrigin: `${x}px ${y}px`,
-        filter: 'drop-shadow(0 4px 3px rgba(40,90,90,0.22))'
-      }
-    }, /*#__PURE__*/React.createElement("rect", {
-      x: x - size / 2,
-      y: y - size / 2,
-      width: size,
-      height: size,
-      rx: Math.round(size * 0.28),
-      fill: p.f,
-      stroke: p.e,
-      strokeWidth: "2"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x,
-      cy: y - size * 0.18,
-      rx: size * 0.34,
-      ry: size * 0.12,
-      fill: p.s,
-      opacity: "0.95"
-    }), /*#__PURE__*/React.createElement("circle", {
-      cx: x - size * 0.18,
-      cy: y - size * 0.04,
-      r: size * 0.07,
-      fill: "#3B2A18"
-    }), /*#__PURE__*/React.createElement("circle", {
-      cx: x + size * 0.18,
-      cy: y - size * 0.04,
-      r: size * 0.07,
-      fill: "#3B2A18"
-    }));
-  }
-
-  // ─── path ─────────────────────────────────────────────────────────
-  function PathLayer() {
-    return /*#__PURE__*/React.createElement("svg", {
-      width: W,
-      height: H,
-      viewBox: `0 0 ${W} ${H}`,
-      style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'block',
-        pointerEvents: 'none'
-      }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: FULL_PATH,
-      fill: "none",
-      stroke: "rgba(60,90,95,0.22)",
-      strokeWidth: "34",
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-      transform: "translate(0,4)"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: FULL_PATH,
-      fill: "none",
-      stroke: "#EAD8B7",
-      strokeWidth: "30",
-      strokeLinecap: "round",
-      strokeLinejoin: "round"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: FULL_PATH,
-      fill: "none",
-      stroke: "#FFFFFF",
-      strokeWidth: "26",
-      strokeLinecap: "round",
-      strokeLinejoin: "round"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: FULL_PATH,
-      fill: "none",
-      stroke: "#EFE0C9",
-      strokeWidth: "3.5",
-      strokeLinecap: "round",
-      strokeDasharray: "7 11"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: WALKED,
-      fill: "none",
-      stroke: "#FF9F68",
-      strokeWidth: "20",
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-      opacity: "0.95"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: WALKED,
-      fill: "none",
-      stroke: "#FFC59A",
-      strokeWidth: "6",
-      strokeLinecap: "round",
-      strokeDasharray: "4 9",
-      opacity: "0.9"
-    }));
-  }
-
-  // ─── stars / node primitives (shared) ────────────────────────────
+  // ─── Stars ────────────────────────────────────────────────────────────
   function Star({
     filled = false,
     size = 14
   }) {
-    return /*#__PURE__*/React.createElement("svg", {
-      width: size,
-      height: size,
-      viewBox: "0 0 24 24",
+    return /*#__PURE__*/React.createElement("img", {
+      src: filled ? STAR_ON : STAR_OFF,
+      alt: "",
+      draggable: "false",
       style: {
-        display: 'block'
+        width: size,
+        height: size,
+        display: 'block',
+        userSelect: 'none',
+        pointerEvents: 'none',
+        filter: filled ? 'drop-shadow(0 1px 1.5px rgba(190,120,20,0.5))' : 'drop-shadow(0 1px 1.5px rgba(120,92,52,0.32))'
       }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: "M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.1l1-5.8L3.5 9.2l5.9-.9L12 3z",
-      fill: filled ? '#FFC23D' : '#D9CDB5',
-      stroke: filled ? '#E0A21F' : '#B6A892',
-      strokeWidth: "1.6",
-      strokeLinejoin: "round"
-    }));
+    });
   }
   function StarArc({
     stars = 3,
-    size = 14,
-    width = 64
+    size = 15,
+    width = 46,
+    top
   }) {
     return /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'absolute',
         left: '50%',
-        top: -size - 6,
+        top: top != null ? top : Math.round(size * 0.18),
         transform: 'translateX(-50%)',
         width,
-        height: size + 8,
+        height: size + 6,
         display: 'flex',
         alignItems: 'flex-end',
         justifyContent: 'space-between',
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        zIndex: 2
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
-        transform: 'translateY(5px) rotate(-22deg)'
+        transform: 'translateY(2px) rotate(-18deg)'
       }
     }, /*#__PURE__*/React.createElement(Star, {
       filled: stars >= 1,
       size: size
     })), /*#__PURE__*/React.createElement("div", {
       style: {
-        transform: 'translateY(-2px)'
+        transform: 'translateY(-3px)'
       }
     }, /*#__PURE__*/React.createElement(Star, {
       filled: stars >= 2,
-      size: size + 2
+      size: size + 3
     })), /*#__PURE__*/React.createElement("div", {
       style: {
-        transform: 'translateY(5px) rotate(22deg)'
+        transform: 'translateY(2px) rotate(18deg)'
       }
     }, /*#__PURE__*/React.createElement(Star, {
       filled: stars >= 3,
       size: size
     })));
   }
-  function NumberBadge({
+
+  // ─── Node primitives ─────────────────────────────────────────────────
+  function CenterNum({
     n,
     size,
-    color = '#6A4A2E'
+    color = '#6A4A2E',
+    vy = 0.5,
+    scale = 0.34,
+    shadow = '0 1px 0 rgba(255,255,255,0.65)'
   }) {
+    const digits = String(n).length;
+    const dscale = digits >= 3 ? 0.66 : digits === 2 ? 0.82 : 1;
     return /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'absolute',
-        inset: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        left: 0,
+        right: 0,
+        top: `${vy * 100}%`,
+        transform: 'translateY(-50%)',
+        textAlign: 'center',
         fontFamily: 'var(--font-display)',
         fontWeight: 700,
-        fontSize: Math.round(size * 0.36),
+        fontSize: Math.round(size * scale * dscale),
         lineHeight: 1,
         color,
-        textShadow: '0 1px 0 rgba(255,255,255,0.55)',
+        textShadow: shadow,
         pointerEvents: 'none'
       }
     }, n);
   }
-  function LockGlyph({
-    size = 18
+  function Tile({
+    src,
+    size,
+    shadow
   }) {
-    return /*#__PURE__*/React.createElement("svg", {
-      width: size,
-      height: size,
-      viewBox: "0 0 24 24",
-      "aria-hidden": "true",
-      style: {
-        display: 'block'
-      }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: "M8 11V8.5a4 4 0 1 1 8 0V11",
-      fill: "none",
-      stroke: "#FFFFFF",
-      strokeWidth: "2.6",
-      strokeLinecap: "round"
-    }), /*#__PURE__*/React.createElement("rect", {
-      x: "5",
-      y: "11",
-      width: "14",
-      height: "9",
-      rx: "2.5",
-      fill: "#FFFFFF"
-    }), /*#__PURE__*/React.createElement("circle", {
-      cx: "12",
-      cy: "15",
-      r: "1.4",
-      fill: "#A89A82"
-    }), /*#__PURE__*/React.createElement("rect", {
-      x: "11.3",
-      y: "15",
-      width: "1.4",
-      height: "3",
-      rx: "0.6",
-      fill: "#A89A82"
-    }));
-  }
-  function DoneNode({
-    n,
-    color,
-    stars,
-    size = 64
-  }) {
-    return /*#__PURE__*/React.createElement("div", {
+    return /*#__PURE__*/React.createElement("img", {
+      src: src,
+      alt: "",
+      draggable: "false",
       style: {
         position: 'relative',
         width: size,
         height: size,
-        filter: 'drop-shadow(0 5px 7px rgba(40,90,95,0.24))'
+        display: 'block',
+        userSelect: 'none',
+        pointerEvents: 'none',
+        filter: `drop-shadow(${shadow})`
       }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: color,
-      size: size,
-      showEyes: false
-    }), /*#__PURE__*/React.createElement(NumberBadge, {
-      n: n,
-      size: size
-    }), /*#__PURE__*/React.createElement(StarArc, {
-      stars: stars,
-      size: 14,
-      width: size + 14
-    }));
+    });
   }
-  function LockedRegularNode({
+  function DoneNode({
     n,
+    stars,
     size = 60
   }) {
     return /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'relative',
         width: size,
-        height: size,
-        filter: 'drop-shadow(0 4px 5px rgba(40,90,95,0.20))'
+        height: size
       }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: "stone",
+    }, /*#__PURE__*/React.createElement(Tile, {
+      src: DONE_SRC,
       size: size,
-      showEyes: false
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: Math.round(size * 0.36),
-        lineHeight: 1,
-        color: '#7A6A50',
-        textShadow: '0 1px 0 rgba(255,255,255,0.40)',
-        pointerEvents: 'none'
-      }
-    }, n), /*#__PURE__*/React.createElement(StarArc, {
-      stars: 0,
-      size: 12,
-      width: size + 8
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        right: -4,
-        bottom: -4,
-        width: 24,
-        height: 24,
-        borderRadius: '50%',
-        background: '#8A7B62',
-        border: '2px solid #FFFFFF',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        boxShadow: '0 2px 4px rgba(40,90,95,0.32)'
-      }
-    }, /*#__PURE__*/React.createElement(LockGlyph, {
-      size: 13
-    })));
+      shadow: "0 5px 7px rgba(120,92,52,0.30)"
+    }), /*#__PURE__*/React.createElement(CenterNum, {
+      n: n,
+      size: size,
+      color: "#B67A16",
+      vy: 0.56,
+      scale: 0.36
+    }), /*#__PURE__*/React.createElement(StarArc, {
+      stars: stars,
+      size: 15,
+      width: 54
+    }));
   }
-  function CurrentNode({
+
+  // Unlocked-but-not-yet-played: bright yellow tile, prominent centred number, pulse.
+  function OpenNode({
     n,
     size = 64
   }) {
     return /*#__PURE__*/React.createElement("div", {
       style: {
-        position: 'relative'
+        position: 'relative',
+        width: size,
+        height: size
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'absolute',
         left: -16,
         top: -16,
-        width: size + 32,
-        height: size + 32,
+        right: -16,
+        bottom: -16,
         borderRadius: '50%',
-        background: 'rgba(255,159,104,0.24)',
-        animation: 'gj-w3s-pulse 1600ms ease-out infinite'
+        background: 'radial-gradient(closest-side, rgba(255,159,104,0.55) 0%, rgba(255,159,104,0.22) 55%, rgba(255,159,104,0) 78%)',
+        animation: 'gj-strip-pulse 1800ms ease-in-out infinite'
       }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: -5,
-        top: -5,
-        width: size + 10,
-        height: size + 10,
-        borderRadius: '50%',
-        background: 'rgba(255,159,104,0.34)',
-        animation: 'gj-w3s-pulse 1600ms ease-out infinite',
-        animationDelay: '320ms'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
+    }), /*#__PURE__*/React.createElement(Tile, {
+      src: OPEN_SRC,
+      size: size,
+      shadow: "0 6px 9px rgba(120,92,52,0.30)"
+    }), /*#__PURE__*/React.createElement(CenterNum, {
+      n: n,
+      size: size,
+      color: "#B67A16",
+      vy: 0.52,
+      scale: 0.38
+    }));
+  }
+
+  // Locked cream tile — the padlock is painted at the bottom, so the number
+  // sits in the empty upper area.
+  function LockedRegularNode({
+    n,
+    size = 58
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'relative',
         width: size,
-        height: size,
-        borderRadius: '50%',
-        background: '#FFFFFF',
-        border: '3px solid #FF9F68',
-        boxShadow: '0 6px 14px rgba(40,90,95,0.24), inset 0 -4px 0 rgba(255,159,104,0.16), inset 0 3px 0 rgba(255,255,255,0.85)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
+        height: size
       }
-    }, /*#__PURE__*/React.createElement("svg", {
-      width: size - 16,
-      height: size - 16,
-      viewBox: "0 0 40 40",
-      "aria-hidden": "true"
-    }, /*#__PURE__*/React.createElement("circle", {
-      cx: "20",
-      cy: "20",
-      r: "18",
-      fill: "none",
-      stroke: "#FFC59A",
-      strokeWidth: "2",
-      strokeDasharray: "3 4"
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 22,
-        color: '#E97E45'
-      }
-    }, n)), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: '50%',
-        top: -40,
-        transform: 'translateX(-50%)',
-        animation: 'gj-w3s-hop 1400ms ease-in-out infinite',
-        filter: 'drop-shadow(0 4px 4px rgba(40,90,95,0.30))'
-      }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: "pink",
-      size: 38,
-      direction: "down",
-      expression: "happy"
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: '50%',
-        top: size + 10,
-        transform: 'translateX(-50%)',
-        background: 'linear-gradient(180deg, #FFB07F 0%, #FF9F68 60%, #F58A4E 100%)',
-        color: '#FFFFFF',
-        border: '2px solid #E97E45',
-        borderBottom: '3px solid #C8662F',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 13,
-        padding: '5px 14px 6px',
-        borderRadius: 999,
-        boxShadow: '0 6px 12px rgba(201,102,47,0.35), inset 0 2px 0 rgba(255,197,154,0.6)',
-        whiteSpace: 'nowrap'
-      }
-    }, "Ch\u01A1i ngay"));
+    }, /*#__PURE__*/React.createElement(Tile, {
+      src: LOCK_SRC,
+      size: size,
+      shadow: "0 5px 7px rgba(120,92,52,0.26)"
+    }), /*#__PURE__*/React.createElement(CenterNum, {
+      n: n,
+      size: size,
+      color: "#8A7A63",
+      vy: 0.33,
+      scale: 0.34
+    }));
   }
   function BreatherNode({
     n,
-    size = 48
+    size = 52
   }) {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        top: -10,
-        left: size + 8,
-        background: '#FFFFFF',
-        color: '#8C7458',
-        border: '1.5px solid #E6D8BD',
-        fontFamily: 'var(--font-body)',
-        fontWeight: 800,
-        fontSize: 11,
-        letterSpacing: '0.10em',
-        padding: '4px 10px',
-        borderRadius: 999,
-        boxShadow: '0 3px 8px rgba(40,90,95,0.20)',
-        whiteSpace: 'nowrap'
-      }
-    }, "NGH\u1EC8"), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        top: -6,
-        left: size + 4,
-        width: 10,
-        height: 10,
-        borderRadius: '50%',
-        background: '#FFD074',
-        border: '1.5px solid #E0A21F'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        width: size,
-        height: size,
-        filter: 'drop-shadow(0 4px 5px rgba(40,90,95,0.22))',
-        opacity: 0.92
-      }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: "stone",
-      size: size,
-      showEyes: false
-    }), /*#__PURE__*/React.createElement("svg", {
-      width: size,
-      height: size,
-      viewBox: `0 0 ${size} ${size}`,
-      style: {
-        position: 'absolute',
-        inset: 0,
-        pointerEvents: 'none'
-      }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: `M ${size * 0.30} ${size * 0.45} q 4 4 8 0`,
-      fill: "none",
-      stroke: "#6A5A40",
-      strokeWidth: "2",
-      strokeLinecap: "round"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: `M ${size * 0.55} ${size * 0.45} q 4 4 8 0`,
-      fill: "none",
-      stroke: "#6A5A40",
-      strokeWidth: "2",
-      strokeLinecap: "round"
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        bottom: size * 0.15,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: Math.round(size * 0.28),
-        lineHeight: 1,
-        color: '#7A6A50',
-        textShadow: '0 1px 0 rgba(255,255,255,0.40)',
-        pointerEvents: 'none'
-      }
-    }, n)));
+    return /*#__PURE__*/React.createElement(LockedRegularNode, {
+      n: n,
+      size: size
+    });
   }
-  function BossNode({
+
+  // ─── BOSS GATE ───────────────────────────────────────────────────────
+  // Ornate framed gate node marking the world's boss level (10/20/30…).
+  // Three states: locked (gold + padlock) · current (amethyst, playable)
+  // · cleared (gold + ruby, beaten). Sized by width; height follows the art.
+  const BOSS_SRC = {
+    locked: '../06-svg-assets/ui/boss-gate-locked.png',
+    current: '../06-svg-assets/ui/boss-gate-current.png',
+    cleared: '../06-svg-assets/ui/boss-gate-cleared.png'
+  };
+  // aspect (h/w) + panel-centre anchor (fraction of image) + number colour
+  const BOSS_META = {
+    locked: {
+      ar: 1.1118,
+      vx: 0.477,
+      vy: 0.423,
+      num: '#8A6A2E'
+    },
+    current: {
+      ar: 1.0404,
+      vx: 0.498,
+      vy: 0.502,
+      num: '#6A4A2E'
+    },
+    cleared: {
+      ar: 1.0266,
+      vx: 0.500,
+      vy: 0.501,
+      num: '#B67A16'
+    }
+  };
+  function BossGateNode({
     n,
-    size = 80
+    variant = 'locked',
+    stars = 3,
+    width = 104
   }) {
+    const m = BOSS_META[variant];
+    const w = width,
+      h = Math.round(width * m.ar);
+    const shadow = variant === 'current' ? '0 7px 14px rgba(126,108,240,0.40)' : variant === 'cleared' ? '0 7px 13px rgba(200,150,40,0.36)' : '0 7px 12px rgba(120,92,52,0.30)';
+    const numSize = Math.round(w * (String(n).length >= 2 ? 0.34 : 0.42));
     return /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'relative',
-        width: size,
-        height: size,
-        filter: 'drop-shadow(0 8px 14px rgba(126,108,240,0.40))'
+        width: w,
+        height: h
       }
-    }, /*#__PURE__*/React.createElement("div", {
+    }, variant === 'current' && /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'absolute',
-        left: -28,
-        top: -28,
-        right: -28,
-        bottom: -28,
+        left: -18,
+        top: -14,
+        right: -18,
+        bottom: -14,
         borderRadius: '50%',
-        background: 'radial-gradient(closest-side, rgba(169,156,246,0.55) 0%, rgba(126,108,240,0.30) 55%, rgba(126,108,240,0) 78%)',
-        animation: 'gj-w3s-halo 2400ms ease-in-out infinite'
+        background: 'radial-gradient(closest-side, rgba(169,156,246,0.60) 0%, rgba(126,108,240,0.28) 55%, rgba(126,108,240,0) 80%)',
+        animation: 'gj-strip-pulse 1800ms ease-in-out infinite'
       }
-    }), /*#__PURE__*/React.createElement("svg", {
-      width: size + 56,
-      height: size + 56,
-      viewBox: "0 0 200 200",
+    }), /*#__PURE__*/React.createElement("img", {
+      src: BOSS_SRC[variant],
+      alt: "",
+      draggable: "false",
       style: {
-        position: 'absolute',
-        left: -28,
-        top: -28,
+        position: 'relative',
+        width: w,
+        height: h,
+        display: 'block',
+        userSelect: 'none',
         pointerEvents: 'none',
-        animation: 'gj-w3s-spin 8s linear infinite',
-        transformOrigin: '50% 50%'
+        filter: `drop-shadow(${shadow})`
       }
-    }, [0, 60, 120, 180, 240, 300].map(a => {
-      const rad = a * Math.PI / 180;
-      const cx = 100 + Math.cos(rad) * 84;
-      const cy = 100 + Math.sin(rad) * 84;
-      return /*#__PURE__*/React.createElement("g", {
-        key: a
-      }, /*#__PURE__*/React.createElement("circle", {
-        cx: cx,
-        cy: cy,
-        r: "4.5",
-        fill: "#FFFFFF",
-        opacity: "0.95"
-      }), /*#__PURE__*/React.createElement("circle", {
-        cx: cx,
-        cy: cy,
-        r: "2.5",
-        fill: "#A99CF6"
-      }));
-    })), /*#__PURE__*/React.createElement(JellyBlock, {
-      color: "stone",
-      size: size,
-      showEyes: false
+    }), variant === 'cleared' && /*#__PURE__*/React.createElement(StarArc, {
+      stars: stars,
+      size: 15,
+      width: 54,
+      top: Math.round(h * 0.16)
     }), /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'absolute',
-        inset: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        width: size * 0.5,
-        height: size * 0.5,
-        borderRadius: '50%',
-        background: 'linear-gradient(180deg,#8E7CF4 0%, #6353D6 100%)',
-        border: '3px solid #FFFFFF',
-        boxShadow: '0 4px 10px rgba(83,68,196,0.5), inset 0 2px 0 rgba(255,255,255,0.4)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }
-    }, /*#__PURE__*/React.createElement(LockGlyph, {
-      size: Math.round(size * 0.28)
-    }))), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        top: -22,
         left: '50%',
-        transform: 'translateX(-50%)',
-        background: 'linear-gradient(180deg, #8E7CF4 0%, #7E6CF0 60%, #5F4ECB 100%)',
-        color: '#FFFFFF',
-        border: '2px solid #6353D6',
+        top: '50%',
+        transform: 'translate(-50%, -50%)',
         fontFamily: 'var(--font-display)',
         fontWeight: 700,
-        fontSize: 13,
-        letterSpacing: '0.16em',
-        padding: '4px 14px',
-        borderRadius: 999,
-        boxShadow: '0 4px 10px rgba(83,68,196,0.45), inset 0 1.5px 0 rgba(255,255,255,0.45)',
-        whiteSpace: 'nowrap'
+        fontSize: numSize,
+        lineHeight: 1,
+        color: m.num,
+        textShadow: '0 1px 0 rgba(255,255,255,0.7)',
+        pointerEvents: 'none'
       }
-    }, "BOSS"), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        bottom: -22,
-        left: '50%',
-        transform: 'translateX(-50%)',
-        background: '#FFFFFF',
-        color: '#5B4636',
-        border: '1.5px solid #EFE0C9',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 13,
-        padding: '2px 10px',
-        borderRadius: 999,
-        boxShadow: '0 3px 6px rgba(40,90,95,0.20)'
-      }
-    }, "m\xE0n ", n));
+    }, n));
   }
   function PlaceNode({
     node
   }) {
-    let inner = null,
-      half = 32;
+    const half = NODE / 2;
     if (node.kind === 'boss') {
-      inner = /*#__PURE__*/React.createElement(BossNode, {
+      const variant = node.state === 'done' ? 'cleared' : node.state === 'open' ? 'current' : 'locked';
+      const BW = 60;
+      const m = BOSS_META[variant];
+      const bh = Math.round(BW * m.ar);
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'absolute',
+          zIndex: 3,
+          left: Math.round(node.x - m.vx * BW),
+          top: Math.round(node.y - m.vy * bh)
+        }
+      }, /*#__PURE__*/React.createElement(BossGateNode, {
         n: node.id,
-        size: 80
-      });
-      half = 40;
-    } else if (node.kind === 'breather') {
+        variant: variant,
+        stars: node.stars || 3,
+        width: BW
+      }));
+    }
+    let inner = null;
+    if (node.kind === 'breather') {
       inner = /*#__PURE__*/React.createElement(BreatherNode, {
         n: node.id,
-        size: 48
+        size: NODE
       });
-      half = 24;
-    } else if (node.state === 'current') {
-      inner = /*#__PURE__*/React.createElement(CurrentNode, {
+    } else if (node.state === 'open') {
+      inner = /*#__PURE__*/React.createElement(OpenNode, {
         n: node.id,
-        size: 64
+        size: NODE
       });
-      half = 32;
     } else if (node.state === 'done') {
       inner = /*#__PURE__*/React.createElement(DoneNode, {
         n: node.id,
         color: node.color,
         stars: node.stars,
-        size: 64
+        size: NODE
       });
-      half = 32;
     } else {
       inner = /*#__PURE__*/React.createElement(LockedRegularNode, {
         n: node.id,
-        size: 60
+        size: NODE
       });
-      half = 30;
     }
     return /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'absolute',
         left: node.x - half,
-        top: node.y - half,
-        zIndex: node.kind === 'boss' ? 14 : node.state === 'current' ? 12 : 5
+        top: node.y - half
       }
     }, inner);
   }
 
-  // ─── gate to World 4 (Sa mạc) ─────────────────────────────────────
-  function GateBanner() {
+  // ─── Gate chip (labels the painted locked gate → World 4 Sa mạc) ─────
+  function GateChip() {
     return /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'absolute',
         left: '50%',
-        top: GATE.y - 38,
+        top: 78,
         transform: 'translateX(-50%)',
-        width: 312,
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 8,
         background: '#FFFFFF',
         border: '1.5px solid #E6D8BD',
         borderRadius: 999,
-        padding: '8px 14px 8px 8px',
-        display: 'flex',
-        alignItems: 'center',
-        gap: 12,
-        boxShadow: '0 12px 28px rgba(150,120,60,0.30), 0 4px 8px rgba(120,92,52,0.14)',
-        zIndex: 16
+        padding: '5px 12px 5px 6px',
+        boxShadow: '0 8px 20px rgba(120,92,52,0.28), 0 3px 6px rgba(120,92,52,0.14)',
+        whiteSpace: 'nowrap'
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
-        width: 56,
-        height: 56,
+        width: 30,
+        height: 30,
         borderRadius: '50%',
         flexShrink: 0,
         background: 'radial-gradient(circle at 35% 25%, #FBE6B6 0%, #E8B85C 60%, #C8923E 100%)',
-        border: '2.5px solid #C8923E',
-        boxShadow: 'inset 0 -3px 0 rgba(0,0,0,0.10), inset 0 3px 0 rgba(255,255,255,0.45), 0 2px 4px rgba(150,110,40,0.32)',
+        border: '2px solid #C8923E',
+        boxShadow: 'inset 0 -2px 0 rgba(0,0,0,0.12), inset 0 2px 0 rgba(255,255,255,0.45)',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
-        position: 'relative'
+        justifyContent: 'center'
       }
     }, /*#__PURE__*/React.createElement("svg", {
-      width: "34",
-      height: "34",
+      width: "18",
+      height: "18",
       viewBox: "0 0 24 24",
       "aria-hidden": "true"
     }, /*#__PURE__*/React.createElement("path", {
-      d: "M3 18c3-4 5-4 9 0s6 0 9-4",
+      d: "M3 17c3-3.5 5-3.5 8.5 0s5.5 0 8.5-3.5",
       fill: "none",
       stroke: "#FFFFFF",
       strokeWidth: "2.4",
       strokeLinecap: "round"
     }), /*#__PURE__*/React.createElement("circle", {
       cx: "17",
-      cy: "7",
-      r: "3",
+      cy: "7.5",
+      r: "2.6",
       fill: "#FFFFFF"
-    })), /*#__PURE__*/React.createElement("div", {
+    }))), /*#__PURE__*/React.createElement("div", {
       style: {
-        position: 'absolute',
-        top: -6,
-        right: -4,
-        background: '#FFCA66',
-        border: '1.5px solid #E0A21F',
-        color: '#6A4A2E',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 11,
-        padding: '2px 6px',
-        borderRadius: 999,
-        lineHeight: 1,
-        boxShadow: '0 2px 3px rgba(120,92,52,0.20)'
-      }
-    }, "W4")), /*#__PURE__*/React.createElement("div", {
-      style: {
-        flex: 1,
-        minWidth: 0,
         display: 'flex',
         flexDirection: 'column',
         lineHeight: 1.05,
-        gap: 2
+        gap: 1
       }
-    }, /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("span", {
       style: {
         fontFamily: 'var(--font-body)',
         fontWeight: 800,
-        fontSize: 10,
+        fontSize: 8.5,
         letterSpacing: '0.12em',
-        color: '#9B886F',
-        whiteSpace: 'nowrap'
+        color: '#9B886F'
       }
-    }, "C\u1ED4NG \xB7 TH\u1EBE GI\u1EDAI 4"), /*#__PURE__*/React.createElement("div", {
+    }, "C\u1ED4NG \xB7 TH\u1EBE GI\u1EDAI 4"), /*#__PURE__*/React.createElement("span", {
       style: {
         fontFamily: 'var(--font-display)',
         fontWeight: 700,
-        fontSize: 22,
+        fontSize: 15,
         color: '#B9802E',
-        whiteSpace: 'nowrap',
         lineHeight: 1.05
       }
     }, "Sa m\u1EA1c")), /*#__PURE__*/React.createElement("div", {
       style: {
         display: 'inline-flex',
         alignItems: 'center',
-        gap: 4,
+        gap: 3,
         background: 'linear-gradient(180deg, #FFE6A8 0%, #FFD074 100%)',
         border: '1.5px solid #E0A21F',
-        padding: '6px 11px 7px 8px',
+        padding: '4px 9px 5px 6px',
         borderRadius: 999,
-        boxShadow: '0 3px 6px rgba(200,150,40,0.28), inset 0 1.5px 0 rgba(255,255,255,0.6)',
-        flexShrink: 0
+        boxShadow: '0 3px 6px rgba(200,150,40,0.28), inset 0 1.5px 0 rgba(255,255,255,0.6)'
       }
     }, /*#__PURE__*/React.createElement(Star, {
       filled: true,
-      size: 14
+      size: 13
     }), /*#__PURE__*/React.createElement("span", {
       style: {
         fontFamily: 'var(--font-display)',
         fontWeight: 700,
-        fontSize: 15,
+        fontSize: 14,
         color: '#6A4A2E',
         lineHeight: 1
       }
     }, "54")));
   }
+
+  // Small start marker at the very bottom.
   function StartSign() {
     return /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'absolute',
         left: '50%',
-        top: H - 90,
-        transform: 'translateX(-50%)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: 4
+        top: H - 44,
+        transform: 'translateX(-50%)'
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -24958,11 +22889,13 @@ try { (() => {
         letterSpacing: '0.12em',
         padding: '6px 14px',
         borderRadius: 999,
-        boxShadow: '0 4px 10px rgba(40,90,95,0.20)',
+        boxShadow: '0 4px 10px rgba(120,92,52,0.24)',
         textTransform: 'uppercase'
       }
-    }, "S\xF4ng & Th\xE1c \xB7 ti\u1EBFp t\u1EE5c"));
+    }, "S\xF4ng & Th\xE1c \xB7 Ti\u1EBFp t\u1EE5c"));
   }
+
+  // ─── Top-level component ─────────────────────────────────────────────
   function World3Strip() {
     return /*#__PURE__*/React.createElement("div", {
       style: {
@@ -24975,16 +22908,31 @@ try { (() => {
         overflow: 'hidden'
       }
     }, /*#__PURE__*/React.createElement("style", null, `
-          @keyframes gj-w3s-pulse { 0%{transform:scale(0.9);opacity:0.8} 70%{transform:scale(1.5);opacity:0} 100%{transform:scale(1.5);opacity:0} }
-          @keyframes gj-w3s-hop   { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(-6px)} }
-          @keyframes gj-w3s-halo  { 0%,100%{transform:scale(1.00);opacity:1} 50%{transform:scale(1.12);opacity:0.85} }
-          @keyframes gj-w3s-spin  { from{transform:rotate(0)} to{transform:rotate(360deg)} }
-          @keyframes gj-w3s-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
-          @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
-        `), /*#__PURE__*/React.createElement(Scene, null), /*#__PURE__*/React.createElement(PathLayer, null), /*#__PURE__*/React.createElement(GateBanner, null), NODES.map(n => /*#__PURE__*/React.createElement(PlaceNode, {
+          @keyframes gj-strip-pulse {
+            0%,100% { transform: scale(1);    opacity: 0.75; }
+            50%     { transform: scale(1.10); opacity: 0.35; }
+          }
+          @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; }
+          }
+        `), /*#__PURE__*/React.createElement("img", {
+      src: BG_SRC,
+      alt: "",
+      draggable: "false",
+      style: {
+        position: 'absolute',
+        inset: 0,
+        width: W,
+        height: H,
+        objectFit: 'cover',
+        display: 'block',
+        pointerEvents: 'none',
+        userSelect: 'none'
+      }
+    }), /*#__PURE__*/React.createElement(GateChip, null), NODES.map(n => /*#__PURE__*/React.createElement(PlaceNode, {
       key: n.id,
       node: n
-    })), /*#__PURE__*/React.createElement(StartSign, null));
+    })));
   }
   window.GJWorld3Strip = World3Strip;
 })();
@@ -49226,6 +47174,1359 @@ try { (() => {
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "jelly-play.jsx", error: String((e && e.message) || e) }); }
 
+// prototypes/proto-engine.js
+try { (() => {
+/* proto-engine.js — pure gameplay logic shared by the Vine (W2) and Drop (W3)
+   playable prototypes. Block-fit placement + gravity-rotate slide + cascade.
+   No React here — everything hangs off window.GJProtoEngine. */
+(function () {
+  const N = 9;
+  const DIRS = ['down', 'left', 'up', 'right']; // clockwise rotate order
+  const COLORS = ['yellow', 'mint', 'pink', 'blue'];
+
+  // tray shapes (normalized, origin 0,0): I3 horizontal, V3 vertical, O4 2x2, single
+  const SHAPES = [{
+    name: 'I3',
+    cells: [[0, 0], [0, 1], [0, 2]]
+  }, {
+    name: 'V3',
+    cells: [[0, 0], [1, 0], [2, 0]]
+  }, {
+    name: 'O4',
+    cells: [[0, 0], [0, 1], [1, 0], [1, 1]]
+  }, {
+    name: 'ONE',
+    cells: [[0, 0]]
+  }];
+  const uid = () => Math.random().toString(36).slice(2, 9);
+  const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+  const inb = (r, c) => r >= 0 && r < N && c >= 0 && c < N;
+  const key = (r, c) => r + '-' + c;
+
+  // seeded RNG (mulberry32) so trays are reproducible per prototype run
+  function makeRng(seed) {
+    let a = seed >>> 0;
+    return function () {
+      a |= 0;
+      a = a + 0x6D2B79F5 | 0;
+      let t = Math.imul(a ^ a >>> 15, 1 | a);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  function randomPiece(rng) {
+    const s = SHAPES[Math.floor(rng() * SHAPES.length)];
+    return {
+      shape: s.name,
+      cells: s.cells,
+      color: COLORS[Math.floor(rng() * COLORS.length)]
+    };
+  }
+  const newTray = rng => [randomPiece(rng), randomPiece(rng), randomPiece(rng)];
+
+  // ---- grid helpers ----
+  const emptyGrid = () => Array.from({
+    length: N
+  }, () => Array(N).fill(null));
+  function cellsToGrid(cells) {
+    const g = emptyGrid();
+    cells.forEach(c => {
+      if (inb(c.r, c.c)) g[c.r][c.c] = c;
+    });
+    return g;
+  }
+  function gridToCells(g) {
+    const out = [];
+    for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) {
+      if (g[r][c]) {
+        g[r][c].r = r;
+        g[r][c].c = c;
+        out.push(g[r][c]);
+      }
+    }
+    return out;
+  }
+  function pieceExtent(piece) {
+    const rs = piece.cells.map(p => p[0]);
+    const cs = piece.cells.map(p => p[1]);
+    return {
+      h: Math.max(...rs) + 1,
+      w: Math.max(...cs) + 1
+    };
+  }
+  function canPlaceGrid(g, piece, ar, ac) {
+    return piece.cells.every(([r, c]) => {
+      const rr = ar + r,
+        cc = ac + c;
+      return inb(rr, cc) && !g[rr][cc];
+    });
+  }
+  function canPlace(cells, piece, ar, ac) {
+    return canPlaceGrid(cellsToGrid(cells), piece, ar, ac);
+  }
+  function existsPlacement(cells, piece) {
+    const g = cellsToGrid(cells);
+    const {
+      h,
+      w
+    } = pieceExtent(piece);
+    for (let r = 0; r <= N - h; r++) for (let c = 0; c <= N - w; c++) if (canPlaceGrid(g, piece, r, c)) return true;
+    return false;
+  }
+
+  // gravity-drop landing: player targets lane (pr,pc); piece slides along `dir`
+  // to first contact. Returns {ar,ac} or null.
+  function landing(cells, piece, dir, pr, pc) {
+    const g = cellsToGrid(cells);
+    const {
+      h,
+      w
+    } = pieceExtent(piece);
+    if (dir === 'down' || dir === 'up') {
+      const ac = clamp(pc - (w - 1 >> 1), 0, N - w);
+      if (dir === 'down') {
+        for (let ar = N - h; ar >= 0; ar--) if (canPlaceGrid(g, piece, ar, ac)) return {
+          ar,
+          ac
+        };
+      } else {
+        for (let ar = 0; ar <= N - h; ar++) if (canPlaceGrid(g, piece, ar, ac)) return {
+          ar,
+          ac
+        };
+      }
+    } else {
+      const ar = clamp(pr - (h - 1 >> 1), 0, N - h);
+      if (dir === 'right') {
+        for (let ac = N - w; ac >= 0; ac--) if (canPlaceGrid(g, piece, ar, ac)) return {
+          ar,
+          ac
+        };
+      } else {
+        for (let ac = 0; ac <= N - w; ac++) if (canPlaceGrid(g, piece, ar, ac)) return {
+          ar,
+          ac
+        };
+      }
+    }
+    return null;
+  }
+
+  // full rows / cols (all 9 cells occupied, stones included)
+  function fullLines(cells) {
+    const g = cellsToGrid(cells);
+    const rows = [],
+      cols = [];
+    for (let r = 0; r < N; r++) if (g[r].every(x => x)) rows.push(r);
+    for (let c = 0; c < N; c++) {
+      let full = true;
+      for (let r = 0; r < N; r++) if (!g[r][c]) {
+        full = false;
+        break;
+      }
+      if (full) cols.push(c);
+    }
+    return {
+      rows,
+      cols
+    };
+  }
+  function linePositions(lines) {
+    const set = new Set();
+    lines.rows.forEach(r => {
+      for (let c = 0; c < N; c++) set.add(key(r, c));
+    });
+    lines.cols.forEach(c => {
+      for (let r = 0; r < N; r++) set.add(key(r, c));
+    });
+    return set;
+  }
+
+  // ---- gravity settle with fixed obstacles ----
+  function settleDown(g, isFixed) {
+    const ng = emptyGrid();
+    for (let c = 0; c < N; c++) {
+      let start = 0;
+      for (let r = 0; r <= N; r++) {
+        const cell = r < N ? g[r][c] : null;
+        const fixedHere = r < N && cell && isFixed(cell);
+        if (r === N || fixedHere) {
+          const movable = [];
+          for (let rr = start; rr < r; rr++) {
+            const x = g[rr][c];
+            if (x && !isFixed(x)) movable.push(x);
+          }
+          let put = r - 1;
+          for (let i = movable.length - 1; i >= 0; i--) {
+            ng[put][c] = movable[i];
+            put--;
+          }
+          if (fixedHere) ng[r][c] = cell;
+          start = r + 1;
+        }
+      }
+    }
+    return ng;
+  }
+  function transpose(g) {
+    const t = emptyGrid();
+    for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) t[c][r] = g[r][c];
+    return t;
+  }
+  function vflip(g) {
+    const t = emptyGrid();
+    for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) t[N - 1 - r][c] = g[r][c];
+    return t;
+  }
+  function settle(cells, dir, isFixed) {
+    isFixed = isFixed || (() => false);
+    let g = cellsToGrid(cells);
+    if (dir === 'down') g = settleDown(g, isFixed);else if (dir === 'up') g = vflip(settleDown(vflip(g), isFixed));else if (dir === 'right') g = transpose(settleDown(transpose(g), isFixed));else if (dir === 'left') g = transpose(vflip(settleDown(vflip(transpose(g)), isFixed)));
+    return gridToCells(g);
+  }
+  window.GJProtoEngine = {
+    N,
+    DIRS,
+    COLORS,
+    SHAPES,
+    uid,
+    clamp,
+    inb,
+    key,
+    makeRng,
+    randomPiece,
+    newTray,
+    cellsToGrid,
+    gridToCells,
+    pieceExtent,
+    canPlace,
+    existsPlacement,
+    landing,
+    fullLines,
+    linePositions,
+    settle
+  };
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "prototypes/proto-engine.js", error: String((e && e.message) || e) }); }
+
+// prototypes/proto-game.jsx
+try { (() => {
+/* proto-game.jsx — the shared playable controller. Both prototypes call
+   window.GJProtoGame(config) to get a mounted React app; config supplies the
+   mechanic-specific bits (initial board, clear rules, targets, growth).
+   window.GJProtoGame. */
+(function () {
+  const E = window.GJProtoEngine;
+  const U = window.GJProtoUI;
+  const {
+    useState,
+    useRef,
+    useLayoutEffect,
+    useEffect
+  } = React;
+  const DIRS = E.DIRS;
+  const CELL = 32;
+  function makeGame(config) {
+    return function GameApp() {
+      const [, force] = useState(0);
+      const rerender = () => force(n => n + 1);
+
+      // refs hold the source of truth (async turn loop reads these), state used for render
+      const rng = useRef(E.makeRng(config.seed));
+      const cellsRef = useRef(config.initCells());
+      const trayRef = useRef(E.newTray(rng.current));
+      const dirIdxRef = useRef(0);
+      const chargesRef = useRef(config.charges);
+      const movesRef = useRef(0);
+      const statusRef = useRef(null);
+      const busy = useRef(false);
+      const [cells, setCells] = useState(cellsRef.current);
+      const [tray, setTray] = useState(trayRef.current);
+      const [dirIdx, setDirIdx] = useState(0);
+      const [charges, setCharges] = useState(config.charges);
+      const [moves, setMoves] = useState(0);
+      const [status, setStatus] = useState(null);
+      const [targets, setTargets] = useState(config.countTargets(cellsRef.current));
+      const [selected, setSelected] = useState(-1);
+      const [hover, setHover] = useState(null);
+      const [clearing, setClearing] = useState(new Set());
+      const [combo, setCombo] = useState(null);
+      const [flash, setFlash] = useState(null);
+      const dir = DIRS[dirIdx];
+      const delay = ms => new Promise(r => setTimeout(r, ms));
+
+      // ---- responsive phone scaling ----
+      const [scale, setScale] = useState(1);
+      useLayoutEffect(() => {
+        const fit = () => {
+          const s = Math.min((window.innerWidth - 24) / 360, (window.innerHeight - 24) / 800, 1.15);
+          setScale(s);
+        };
+        fit();
+        window.addEventListener('resize', fit);
+        return () => window.removeEventListener('resize', fit);
+      }, []);
+      function finalize(cs) {
+        const t = config.countTargets(cs);
+        setTargets(t);
+        let tr = trayRef.current;
+        if (tr.every(p => !p)) {
+          tr = E.newTray(rng.current);
+          trayRef.current = tr;
+          setTray(tr);
+        }
+        if (t <= 0) {
+          statusRef.current = 'win';
+          setStatus('win');
+          return;
+        }
+        const placeable = tr.some(p => p && E.existsPlacement(cs, p));
+        if (!placeable) {
+          statusRef.current = 'lose';
+          setStatus('lose');
+        }
+      }
+      async function resolveTurn(cs, isPlacement) {
+        busy.current = true;
+        let comboTier = 0,
+          refunded = false;
+        while (!statusRef.current) {
+          const lines = E.fullLines(cs);
+          const tot = lines.rows.length + lines.cols.length;
+          if (tot === 0) break;
+          comboTier += tot;
+          const posSet = E.linePositions(lines);
+          const clearIds = new Set();
+          cs.forEach(cl => {
+            if (posSet.has(cl.r + '-' + cl.c) && cl.kind !== 'stone') clearIds.add(cl.id);
+          });
+          setClearing(clearIds);
+          setCells(cs);
+          await delay(360);
+          const res = config.applyClear(cs, lines);
+          if (res.flash) {
+            setFlash({
+              msg: res.flash,
+              key: Date.now()
+            });
+            setTimeout(() => setFlash(null), 1000);
+          }
+          const settled = E.settle(res.next, DIRS[dirIdxRef.current], config.isFixed);
+          setClearing(new Set());
+          cellsRef.current = settled;
+          setCells(settled);
+          if (comboTier >= 2) {
+            setCombo({
+              n: comboTier,
+              key: Date.now()
+            });
+            if (!refunded) {
+              chargesRef.current = chargesRef.current + 1;
+              setCharges(chargesRef.current);
+              refunded = true;
+            }
+            setTimeout(() => setCombo(null), 850);
+          }
+          await delay(330);
+          cs = settled;
+        }
+        if (isPlacement && !statusRef.current) {
+          const m = movesRef.current + 1;
+          movesRef.current = m;
+          setMoves(m);
+          if (config.grows && m % 2 === 0) {
+            await delay(160);
+            const grown = config.growth(cs);
+            cellsRef.current = grown;
+            setCells(grown);
+            cs = grown;
+            await delay(300);
+            busy.current = false;
+            return resolveTurn(cs, false); // growth may complete a line
+          }
+        }
+        finalize(cs);
+        busy.current = false;
+      }
+      function doPlace(piece, ar, ac, idx) {
+        if (busy.current || statusRef.current) return;
+        const added = piece.cells.map(([r, c]) => ({
+          id: E.uid(),
+          kind: 'jelly',
+          color: piece.color,
+          r: ar + r,
+          c: ac + c
+        }));
+        const tr = trayRef.current.slice();
+        tr[idx] = null;
+        trayRef.current = tr;
+        setTray(tr);
+        setSelected(-1);
+        setHover(null);
+        const next = cellsRef.current.concat(added);
+        cellsRef.current = next;
+        setCells(next);
+        resolveTurn(next, true);
+      }
+      function doRotate() {
+        if (busy.current || statusRef.current || chargesRef.current <= 0) return;
+        const nd = (dirIdxRef.current + 1) % 4;
+        dirIdxRef.current = nd;
+        setDirIdx(nd);
+        chargesRef.current -= 1;
+        setCharges(chargesRef.current);
+        setSelected(-1);
+        setHover(null);
+        const settled = E.settle(cellsRef.current, DIRS[nd], config.isFixed);
+        cellsRef.current = settled;
+        setCells(settled);
+        resolveTurn(settled, false);
+      }
+      function restart() {
+        busy.current = false;
+        statusRef.current = null;
+        setStatus(null);
+        rng.current = E.makeRng(config.seed);
+        const c = config.initCells();
+        cellsRef.current = c;
+        setCells(c);
+        const tr = E.newTray(rng.current);
+        trayRef.current = tr;
+        setTray(tr);
+        dirIdxRef.current = 0;
+        setDirIdx(0);
+        chargesRef.current = config.charges;
+        setCharges(config.charges);
+        movesRef.current = 0;
+        setMoves(0);
+        setSelected(-1);
+        setHover(null);
+        setClearing(new Set());
+        setCombo(null);
+        setTargets(config.countTargets(c));
+      }
+      function selectPiece(i) {
+        if (busy.current || statusRef.current || !tray[i]) return;
+        setSelected(s => s === i ? -1 : i);
+      }
+      function onCellMove(rc) {
+        if (selected >= 0) setHover(rc);
+      }
+      function onCellClick(rc) {
+        if (selected < 0 || busy.current || statusRef.current) return;
+        const piece = tray[selected];
+        const L = E.landing(cellsRef.current, piece, dir, rc.r, rc.c);
+        if (L) doPlace(piece, L.ar, L.ac, selected);
+      }
+
+      // ---- derived render values ----
+      const piece = selected >= 0 ? tray[selected] : null;
+      let previewCells = [],
+        previewValid = false;
+      if (piece && hover) {
+        const L = E.landing(cells, piece, dir, hover.r, hover.c);
+        if (L) {
+          previewCells = piece.cells.map(([r, c]) => [L.ar + r, L.ac + c]);
+          previewValid = true;
+        }
+      }
+      const displayCells = config.decorate ? config.decorate(cells, dir) : cells;
+      const warn = config.grows && !status && movesRef.current % 2 === 1;
+      const remaining = targets;
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          width: 360 * scale,
+          height: 800 * scale
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          width: 360,
+          height: 800,
+          transform: `scale(${scale})`,
+          transformOrigin: 'top left',
+          position: 'relative',
+          borderRadius: 40,
+          overflow: 'hidden',
+          background: config.bg,
+          boxShadow: '0 30px 60px rgba(60,44,24,0.4)',
+          display: 'flex',
+          flexDirection: 'column',
+          fontFamily: 'var(--font-body,sans-serif)'
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          padding: '16px 18px 6px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 8
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          background: 'rgba(255,255,255,0.9)',
+          borderRadius: 16,
+          padding: '8px 14px',
+          boxShadow: '0 3px 8px rgba(120,92,52,0.16)'
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          fontFamily: 'var(--font-display,sans-serif)',
+          fontWeight: 700,
+          fontSize: 14,
+          color: config.accent,
+          letterSpacing: '0.01em',
+          whiteSpace: 'nowrap',
+          lineHeight: 1.1
+        }
+      }, config.title), /*#__PURE__*/React.createElement("div", {
+        style: {
+          fontSize: 11,
+          color: '#9B886F',
+          fontWeight: 700,
+          whiteSpace: 'nowrap'
+        }
+      }, config.subtitle)), /*#__PURE__*/React.createElement("div", {
+        style: {
+          background: 'rgba(255,255,255,0.9)',
+          borderRadius: 16,
+          padding: '6px 12px',
+          textAlign: 'center',
+          boxShadow: '0 3px 8px rgba(120,92,52,0.16)'
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          fontSize: 10,
+          color: '#9B886F',
+          fontWeight: 800,
+          letterSpacing: '0.06em'
+        }
+      }, "L\u01AF\u1EE2T"), /*#__PURE__*/React.createElement("div", {
+        style: {
+          fontFamily: 'var(--font-display,sans-serif)',
+          fontWeight: 700,
+          fontSize: 20,
+          color: '#5B4636',
+          lineHeight: 1
+        }
+      }, moves))), /*#__PURE__*/React.createElement("div", {
+        style: {
+          padding: '2px 18px 6px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+          background: '#fff',
+          borderRadius: 999,
+          padding: '7px 14px 7px 10px',
+          boxShadow: '0 3px 8px rgba(120,92,52,0.16)'
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          transform: 'scale(0.82)'
+        }
+      }, /*#__PURE__*/React.createElement(U.CellArt, {
+        cell: config.goalGlyph,
+        size: 26,
+        dir: "down"
+      })), /*#__PURE__*/React.createElement("span", {
+        style: {
+          fontFamily: 'var(--font-display,sans-serif)',
+          fontWeight: 700,
+          fontSize: 15,
+          color: '#5B4636',
+          whiteSpace: 'nowrap'
+        }
+      }, "C\xF2n: ", remaining, " ", config.goalWord)), warn && /*#__PURE__*/React.createElement("div", {
+        style: {
+          background: '#FFCA66',
+          borderRadius: 999,
+          padding: '6px 12px',
+          fontFamily: 'var(--font-display,sans-serif)',
+          fontWeight: 700,
+          fontSize: 12,
+          color: '#6A4A2E',
+          boxShadow: '0 3px 0 #E3A63A',
+          animation: 'gjpulse 900ms ease-in-out infinite'
+        }
+      }, config.warnText)), /*#__PURE__*/React.createElement("div", {
+        style: {
+          flex: 1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'relative',
+          padding: '4px 0'
+        }
+      }, /*#__PURE__*/React.createElement(U.BoardView, {
+        cells: displayCells,
+        cell: CELL,
+        dir: dir,
+        previewCells: previewCells,
+        previewValid: previewValid,
+        clearing: clearing,
+        onCellMove: onCellMove,
+        onCellLeave: () => setHover(null),
+        onCellClick: onCellClick
+      }), combo && /*#__PURE__*/React.createElement("div", {
+        key: combo.key,
+        style: {
+          position: 'absolute',
+          top: '28%',
+          left: 0,
+          right: 0,
+          display: 'flex',
+          justifyContent: 'center',
+          pointerEvents: 'none'
+        }
+      }, /*#__PURE__*/React.createElement(U.ComboPopup, {
+        combo: combo.n
+      })), flash && /*#__PURE__*/React.createElement("div", {
+        key: flash.key,
+        style: {
+          position: 'absolute',
+          bottom: '8%',
+          left: 0,
+          right: 0,
+          display: 'flex',
+          justifyContent: 'center',
+          pointerEvents: 'none'
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          animation: 'gjrise 320ms cubic-bezier(.34,1.4,.5,1)',
+          background: '#4E8C3F',
+          color: '#fff',
+          borderRadius: 999,
+          padding: '8px 18px',
+          fontFamily: 'var(--font-display,sans-serif)',
+          fontWeight: 700,
+          fontSize: 16,
+          boxShadow: '0 5px 0 #356328, 0 8px 16px rgba(53,99,40,0.35)'
+        }
+      }, flash.msg))), /*#__PURE__*/React.createElement("div", {
+        style: {
+          padding: '0 20px 6px',
+          textAlign: 'center',
+          fontSize: 12,
+          color: config.hintColor || '#7A6A54',
+          fontWeight: 700,
+          minHeight: 30
+        }
+      }, selected >= 0 ? 'Chạm vào cột trên bàn để thả khối ↓' : config.hint), /*#__PURE__*/React.createElement("div", {
+        style: {
+          padding: '0 20px 8px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between'
+        }
+      }, /*#__PURE__*/React.createElement("button", {
+        type: "button",
+        onClick: restart,
+        style: {
+          display: 'flex',
+          alignItems: 'center',
+          gap: 6,
+          background: '#fff',
+          border: 'none',
+          borderRadius: 999,
+          padding: '10px 16px',
+          boxShadow: '0 3px 8px rgba(120,92,52,0.16)',
+          cursor: 'pointer',
+          fontFamily: 'var(--font-display,sans-serif)',
+          fontWeight: 700,
+          fontSize: 14,
+          color: '#5B4636'
+        }
+      }, /*#__PURE__*/React.createElement("svg", {
+        width: "18",
+        height: "18",
+        viewBox: "0 0 24 24",
+        fill: "none",
+        stroke: "#5B4636",
+        strokeWidth: "2.4",
+        strokeLinecap: "round",
+        strokeLinejoin: "round"
+      }, /*#__PURE__*/React.createElement("path", {
+        d: "M4 12a8 8 0 1 1 2.3 5.6"
+      }), /*#__PURE__*/React.createElement("path", {
+        d: "M4 20v-4h4"
+      })), "Ch\u01A1i l\u1EA1i"), /*#__PURE__*/React.createElement(U.RotateButton, {
+        turnsLeft: charges,
+        onRotate: doRotate,
+        disabled: busy.current
+      })), /*#__PURE__*/React.createElement("div", {
+        style: {
+          padding: '0 16px 16px'
+        }
+      }, /*#__PURE__*/React.createElement(U.Tray, {
+        tray: tray,
+        selected: selected,
+        onSelect: selectPiece,
+        disabled: !!status
+      })), /*#__PURE__*/React.createElement(U.Dialog, {
+        open: status === 'win',
+        tone: "win",
+        title: config.winTitle,
+        body: config.winBody,
+        actions: /*#__PURE__*/React.createElement(U.BigButton, {
+          tone: "gravity",
+          onClick: restart
+        }, "Ch\u01A1i l\u1EA1i")
+      }), /*#__PURE__*/React.createElement(U.Dialog, {
+        open: status === 'lose',
+        tone: "lose",
+        title: "K\u1EB8T!",
+        body: "Kh\xF4ng c\xF2n ch\u1ED7 \u0111\u1EB7t kh\u1ED1i.",
+        actions: /*#__PURE__*/React.createElement(U.BigButton, {
+          onClick: restart
+        }, "Ch\u01A1i l\u1EA1i")
+      })));
+    };
+  }
+  window.GJProtoGame = makeGame;
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "prototypes/proto-game.jsx", error: String((e && e.message) || e) }); }
+
+// prototypes/proto-ui.jsx
+try { (() => {
+/* proto-ui.jsx — shared presentational parts for the two mechanic prototypes.
+   Reads JellyBlock from the DS bundle for jelly/stone cells; draws the special
+   mechanic cells (drop / vine root / vine segment) inline. window.GJProtoUI. */
+(function () {
+  const NS = window.GravityJellyDesignSystem_3e0487 || {};
+  const JellyBlock = NS.JellyBlock;
+  const E = window.GJProtoEngine;
+  const N = E.N;
+  const {
+    useState,
+    useEffect
+  } = React;
+
+  // ---------- special mechanic cell art ----------
+  function DropCell({
+    size,
+    buried
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: size,
+        height: size,
+        borderRadius: Math.round(size * 0.28),
+        boxSizing: 'border-box',
+        background: '#5FC3B2',
+        border: `3px solid #3E9E8E`,
+        boxShadow: '0 2px 6px rgba(120,92,52,0.16)',
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+        opacity: buried ? 0.9 : 1
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: 2,
+        left: '14%',
+        right: '14%',
+        height: '32%',
+        background: '#CBF2EB',
+        borderRadius: '50%',
+        opacity: 0.8
+      }
+    }), /*#__PURE__*/React.createElement("svg", {
+      width: size * 0.5,
+      height: size * 0.5,
+      viewBox: "0 0 24 24",
+      style: {
+        position: 'relative'
+      }
+    }, /*#__PURE__*/React.createElement("path", {
+      d: "M12 3.2c4 5 6 8 6 11a6 6 0 1 1-12 0c0-3 2-6 6-11z",
+      fill: "#EAFBF7",
+      stroke: "#3E9E8E",
+      strokeWidth: "1.8",
+      strokeLinejoin: "round"
+    })), buried && /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        inset: 0,
+        background: 'rgba(90,70,54,0.34)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement("svg", {
+      width: size * 0.42,
+      height: size * 0.42,
+      viewBox: "0 0 24 24"
+    }, /*#__PURE__*/React.createElement("path", {
+      d: "M6 11V8a6 6 0 1 1 12 0v3",
+      fill: "none",
+      stroke: "#FFF",
+      strokeWidth: "2.2",
+      strokeLinecap: "round"
+    }), /*#__PURE__*/React.createElement("rect", {
+      x: "4.5",
+      y: "11",
+      width: "15",
+      height: "10",
+      rx: "2.4",
+      fill: "#FFF"
+    }))));
+  }
+  function VineCell({
+    size,
+    root,
+    head,
+    connect
+  }) {
+    connect = connect || {};
+    const fill = root ? '#4E8C3F' : '#7FBE5C';
+    const edge = root ? '#356328' : '#4E8C3F';
+    const stem = root ? '#2C5321' : '#3C6E30';
+    const leaf = '#E4F7CE';
+    const t = Math.max(5, Math.round(size * 0.26)); // stem thickness
+    const c0 = size / 2;
+    const bar = (k, st) => /*#__PURE__*/React.createElement("div", {
+      key: k,
+      style: Object.assign({
+        position: 'absolute',
+        background: stem,
+        borderRadius: t / 2
+      }, st)
+    });
+    const conns = [];
+    if (connect.up) conns.push(bar('u', {
+      left: c0 - t / 2,
+      top: -2,
+      width: t,
+      height: c0 + t / 2 + 2
+    }));
+    if (connect.down) conns.push(bar('d', {
+      left: c0 - t / 2,
+      top: c0 - t / 2,
+      width: t,
+      height: c0 + t / 2 + 2
+    }));
+    if (connect.left) conns.push(bar('l', {
+      top: c0 - t / 2,
+      left: -2,
+      width: c0 + t / 2 + 2,
+      height: t
+    }));
+    if (connect.right) conns.push(bar('r', {
+      top: c0 - t / 2,
+      left: c0 - t / 2,
+      width: c0 + t / 2 + 2,
+      height: t
+    }));
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: size,
+        height: size,
+        borderRadius: Math.round(size * 0.28),
+        boxSizing: 'border-box',
+        background: fill,
+        border: `3px solid ${edge}`,
+        boxShadow: head ? '0 0 0 3px #C6F0A6, 0 2px 8px rgba(53,99,40,0.5)' : root ? '0 2px 8px rgba(53,99,40,0.4)' : '0 2px 6px rgba(120,92,52,0.16)',
+        position: 'relative',
+        overflow: 'hidden'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: 2,
+        left: '14%',
+        right: '14%',
+        height: '26%',
+        background: root ? '#7CB86A' : '#A9D98F',
+        borderRadius: '50%',
+        opacity: 0.5
+      }
+    }), conns, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        left: c0 - t * 0.62,
+        top: c0 - t * 0.62,
+        width: t * 1.24,
+        height: t * 1.24,
+        borderRadius: '50%',
+        background: stem
+      }
+    }), /*#__PURE__*/React.createElement("svg", {
+      width: size,
+      height: size,
+      viewBox: "0 0 24 24",
+      style: {
+        position: 'absolute',
+        inset: 0,
+        pointerEvents: 'none'
+      }
+    }, root ? /*#__PURE__*/React.createElement("g", {
+      fill: leaf,
+      stroke: edge,
+      strokeWidth: "1"
+    }, /*#__PURE__*/React.createElement("path", {
+      d: "M12 17c-3.4 0-5.6-2.2-5.6-5.6C9.8 11.4 12 13.6 12 17z"
+    }), /*#__PURE__*/React.createElement("path", {
+      d: "M12 17c3.4 0 5.6-2.2 5.6-5.6C14.2 11.4 12 13.6 12 17z"
+    })) : head ? /*#__PURE__*/React.createElement("g", {
+      fill: "none",
+      stroke: leaf,
+      strokeWidth: "2.1",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    }, /*#__PURE__*/React.createElement("path", {
+      d: "M12 16c0-3.4 1.4-6 4.6-7.4C17.4 6 15.2 4 12.4 4"
+    }), /*#__PURE__*/React.createElement("circle", {
+      cx: "16.6",
+      cy: "8.6",
+      r: "0.4"
+    })) : /*#__PURE__*/React.createElement("path", {
+      d: "M6.6 6.4c3.6.2 5.8 2.4 5.6 6-3.6-.2-5.8-2.4-5.6-6z",
+      fill: leaf,
+      stroke: edge,
+      strokeWidth: "0.8",
+      strokeLinejoin: "round"
+    })));
+  }
+  function CellArt({
+    cell,
+    size,
+    dir
+  }) {
+    if (cell.kind === 'jelly') return /*#__PURE__*/React.createElement(JellyBlock, {
+      color: cell.color,
+      size: size,
+      showEyes: size >= 24,
+      direction: dir
+    });
+    if (cell.kind === 'stone') return /*#__PURE__*/React.createElement(JellyBlock, {
+      color: "stone",
+      size: size
+    });
+    if (cell.kind === 'drop') return /*#__PURE__*/React.createElement(DropCell, {
+      size: size,
+      buried: cell.buried
+    });
+    if (cell.kind === 'root') return /*#__PURE__*/React.createElement(VineCell, {
+      size: size,
+      root: true,
+      head: cell.isHead,
+      connect: cell.connect
+    });
+    if (cell.kind === 'seg') return /*#__PURE__*/React.createElement(VineCell, {
+      size: size,
+      head: cell.isHead,
+      connect: cell.connect
+    });
+    return null;
+  }
+
+  // ---------- board ----------
+  function BoardView({
+    cells,
+    cell,
+    dir,
+    previewCells,
+    previewValid,
+    clearing,
+    onCellMove,
+    onCellLeave,
+    onCellClick
+  }) {
+    const pad = 7,
+      gap = 2,
+      step = cell + gap;
+    const boardPx = pad * 2 + N * cell + (N - 1) * gap;
+    const pos = i => pad + i * step;
+    const coordFrom = e => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const scale = rect.width / boardPx;
+      const c = Math.floor(((e.clientX - rect.left) / scale - pad) / step);
+      const r = Math.floor(((e.clientY - rect.top) / scale - pad) / step);
+      return {
+        r: E.clamp(r, 0, N - 1),
+        c: E.clamp(c, 0, N - 1)
+      };
+    };
+    const previewSet = new Set((previewCells || []).map(p => p[0] + '-' + p[1]));
+    const clearingSet = clearing || new Set();
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        padding: pad,
+        borderRadius: 24,
+        background: 'linear-gradient(180deg,#FFFFFF 0%,#FBF1DF 100%)',
+        border: '2px solid #F1E3C9',
+        boxShadow: '0 8px 0 #E9D7BA, 0 20px 30px -12px rgba(120,92,52,0.24), inset 0 3px 0 rgba(255,255,255,0.95)'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      onMouseMove: e => onCellMove && onCellMove(coordFrom(e)),
+      onMouseLeave: () => onCellLeave && onCellLeave(),
+      onClick: e => onCellClick && onCellClick(coordFrom(e)),
+      style: {
+        position: 'relative',
+        width: boardPx - pad * 2,
+        height: boardPx - pad * 2,
+        background: 'var(--color-surface-sunken,#F4E9D8)',
+        borderRadius: 18,
+        boxShadow: 'inset 0 2px 6px rgba(120,92,52,0.12)',
+        cursor: 'pointer',
+        margin: 0
+      }
+    }, Array.from({
+      length: N
+    }).map((_, r) => Array.from({
+      length: N
+    }).map((_, c) => /*#__PURE__*/React.createElement("div", {
+      key: r + '-' + c,
+      style: {
+        position: 'absolute',
+        left: pos(c) - pad,
+        top: pos(r) - pad,
+        width: cell,
+        height: cell,
+        borderRadius: Math.round(cell * 0.28),
+        background: 'rgba(120,92,52,0.05)',
+        boxShadow: 'inset 0 0 0 1px rgba(120,92,52,0.08)'
+      }
+    }))), (previewCells || []).map(([r, c], i) => /*#__PURE__*/React.createElement("div", {
+      key: 'pv' + i,
+      style: {
+        position: 'absolute',
+        left: pos(c) - pad,
+        top: pos(r) - pad,
+        width: cell,
+        height: cell,
+        borderRadius: Math.round(cell * 0.28),
+        background: previewValid ? 'rgba(111,207,127,0.55)' : 'rgba(240,138,126,0.5)',
+        boxShadow: `inset 0 0 0 2px ${previewValid ? '#6FCF7F' : '#F08A7E'}`,
+        pointerEvents: 'none'
+      }
+    })), cells.map(cl => {
+      const isClearing = clearingSet.has(cl.id);
+      return /*#__PURE__*/React.createElement("div", {
+        key: cl.id,
+        style: {
+          position: 'absolute',
+          left: pos(cl.c) - pad,
+          top: pos(cl.r) - pad,
+          transition: 'left 300ms cubic-bezier(.34,1.4,.5,1), top 300ms cubic-bezier(.34,1.4,.5,1), transform 260ms ease, opacity 260ms ease',
+          transform: isClearing ? 'scale(0.2)' : cl.fresh ? 'scale(0.62)' : 'scale(1)',
+          opacity: isClearing ? 0 : 1,
+          zIndex: isClearing ? 3 : 1
+        }
+      }, /*#__PURE__*/React.createElement(CellArt, {
+        cell: cl,
+        size: cell,
+        dir: dir
+      }));
+    })));
+  }
+
+  // ---------- tray ----------
+  function TrayThumb({
+    piece,
+    cell
+  }) {
+    const {
+      h,
+      w
+    } = E.pieceExtent(piece);
+    const g = 2;
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        width: w * (cell + g) - g,
+        height: h * (cell + g) - g
+      }
+    }, piece.cells.map(([r, c], i) => /*#__PURE__*/React.createElement("div", {
+      key: i,
+      style: {
+        position: 'absolute',
+        left: c * (cell + g),
+        top: r * (cell + g)
+      }
+    }, /*#__PURE__*/React.createElement(JellyBlock, {
+      color: piece.color,
+      size: cell,
+      showEyes: false
+    }))));
+  }
+  function Tray({
+    tray,
+    selected,
+    onSelect,
+    disabled
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        gap: 8,
+        padding: '10px 12px',
+        background: 'var(--color-surface,#fff)',
+        borderRadius: 24,
+        boxShadow: '0 6px 16px rgba(120,92,52,0.16)'
+      }
+    }, tray.map((p, i) => {
+      const sel = selected === i && p;
+      return /*#__PURE__*/React.createElement("button", {
+        key: i,
+        type: "button",
+        disabled: !p || disabled,
+        onClick: () => onSelect(i),
+        style: {
+          width: 92,
+          height: 80,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          border: 'none',
+          borderRadius: 16,
+          background: sel ? 'var(--color-surface-sunken,#F4E9D8)' : 'transparent',
+          boxShadow: sel ? 'inset 0 0 0 3px #FF9F68' : 'none',
+          transform: sel ? 'translateY(-4px)' : 'none',
+          opacity: p ? 1 : 0.3,
+          transition: 'transform 200ms cubic-bezier(.34,1.4,.5,1), box-shadow 140ms',
+          cursor: p && !disabled ? 'pointer' : 'default'
+        }
+      }, p ? /*#__PURE__*/React.createElement(TrayThumb, {
+        piece: p,
+        cell: Math.min(20, Math.floor(64 / Math.max(E.pieceExtent(p).w, E.pieceExtent(p).h)))
+      }) : /*#__PURE__*/React.createElement("div", {
+        style: {
+          width: 44,
+          height: 44,
+          borderRadius: 10,
+          border: '2px dashed rgba(120,92,52,0.25)'
+        }
+      }));
+    }));
+  }
+
+  // ---------- rotate button + charges ----------
+  function RotateButton({
+    turnsLeft,
+    onRotate,
+    disabled
+  }) {
+    const dead = disabled || turnsLeft <= 0;
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 4
+      }
+    }, /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      onClick: onRotate,
+      disabled: dead,
+      style: {
+        position: 'relative',
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        border: 'none',
+        cursor: dead ? 'default' : 'pointer',
+        background: dead ? '#C9BCA8' : '#7E6CF0',
+        boxShadow: dead ? '0 3px 0 #A89A82' : '0 5px 0 #6353D6',
+        color: '#fff',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        transition: 'transform 120ms, box-shadow 120ms'
+      },
+      onMouseDown: e => {
+        if (!dead) {
+          e.currentTarget.style.transform = 'translateY(3px)';
+          e.currentTarget.style.boxShadow = '0 2px 0 #6353D6';
+        }
+      },
+      onMouseUp: e => {
+        e.currentTarget.style.transform = '';
+        e.currentTarget.style.boxShadow = dead ? '0 3px 0 #A89A82' : '0 5px 0 #6353D6';
+      }
+    }, /*#__PURE__*/React.createElement("svg", {
+      width: "30",
+      height: "30",
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: "#fff",
+      strokeWidth: "2.4",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    }, /*#__PURE__*/React.createElement("path", {
+      d: "M4 12a8 8 0 1 1 2.3 5.6"
+    }), /*#__PURE__*/React.createElement("path", {
+      d: "M4 20v-4h4"
+    })), /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        top: -6,
+        right: -6,
+        minWidth: 22,
+        height: 22,
+        padding: '0 5px',
+        borderRadius: 11,
+        background: '#FF9F68',
+        color: '#fff',
+        fontFamily: 'var(--font-display,sans-serif)',
+        fontWeight: 700,
+        fontSize: 13,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        boxShadow: '0 2px 0 #E97E45'
+      }
+    }, turnsLeft)), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-display,sans-serif)',
+        fontSize: 11,
+        fontWeight: 700,
+        color: '#6353D6',
+        letterSpacing: '0.06em'
+      }
+    }, "XOAY"));
+  }
+
+  // ---------- combo popup ----------
+  function ComboPopup({
+    combo
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        animation: 'gjpop 700ms cubic-bezier(.34,1.56,.5,1)',
+        fontFamily: 'var(--font-display,sans-serif)',
+        fontWeight: 700,
+        fontSize: 46,
+        color: '#fff',
+        textShadow: '0 3px 0 #E97E45, 0 6px 12px rgba(120,92,52,0.4)',
+        WebkitTextStroke: '2px #E97E45'
+      }
+    }, "\xD7", combo);
+  }
+
+  // ---------- dialog ----------
+  function Dialog({
+    open,
+    title,
+    body,
+    tone,
+    actions
+  }) {
+    if (!open) return null;
+    const accent = tone === 'win' ? '#6FCF7F' : tone === 'lose' ? '#F08A7E' : '#7E6CF0';
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        inset: 0,
+        background: 'rgba(60,44,24,0.42)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 40,
+        padding: 24
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: '100%',
+        maxWidth: 300,
+        background: '#fff',
+        borderRadius: 32,
+        padding: '28px 24px 22px',
+        textAlign: 'center',
+        boxShadow: '0 24px 48px rgba(120,92,52,0.34)',
+        animation: 'gjrise 300ms cubic-bezier(.34,1.4,.5,1)'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        margin: '0 auto 14px',
+        background: accent,
+        boxShadow: `0 5px 0 ${accent}99`,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 30
+      }
+    }, tone === 'win' ? '🎉' : tone === 'lose' ? '🌀' : '⏸')), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontFamily: 'var(--font-display,sans-serif)',
+        fontWeight: 700,
+        fontSize: 24,
+        color: '#5B4636',
+        lineHeight: 1.1
+      }
+    }, title), body && /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontFamily: 'var(--font-body,sans-serif)',
+        fontSize: 15,
+        color: '#9B886F',
+        marginTop: 8,
+        lineHeight: 1.4
+      }
+    }, body), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 10,
+        marginTop: 20
+      }
+    }, actions)));
+  }
+  function BigButton({
+    children,
+    onClick,
+    tone
+  }) {
+    const bg = tone === 'ghost' ? '#F4E9D8' : tone === 'gravity' ? '#7E6CF0' : '#FF9F68';
+    const edge = tone === 'ghost' ? '#E0D2BC' : tone === 'gravity' ? '#6353D6' : '#E97E45';
+    const col = tone === 'ghost' ? '#5B4636' : '#fff';
+    return /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      onClick: onClick,
+      style: {
+        width: '100%',
+        height: 52,
+        border: 'none',
+        borderRadius: 26,
+        background: bg,
+        color: col,
+        boxShadow: `0 4px 0 ${edge}`,
+        fontFamily: 'var(--font-display,sans-serif)',
+        fontWeight: 700,
+        fontSize: 16,
+        cursor: 'pointer'
+      }
+    }, children);
+  }
+  window.GJProtoUI = {
+    BoardView,
+    Tray,
+    RotateButton,
+    ComboPopup,
+    Dialog,
+    BigButton,
+    CellArt
+  };
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "prototypes/proto-ui.jsx", error: String((e && e.message) || e) }); }
+
 // world4-strip.jsx
 try { (() => {
 /* world4-strip.jsx — Dải cuộn ĐẦY ĐỦ World 4 "Sa mạc" (màn 31–40).
@@ -50902,8 +50203,6 @@ __ds_ns.GravityRotateButton = __ds_scope.GravityRotateButton;
 __ds_ns.ComboPopup = __ds_scope.ComboPopup;
 
 __ds_ns.Dialog = __ds_scope.Dialog;
-
-__ds_ns.JellyScene = __ds_scope.JellyScene;
 
 __ds_ns.ObjectiveBar = __ds_scope.ObjectiveBar;
 

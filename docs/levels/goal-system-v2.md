@@ -129,17 +129,18 @@ Khó 3.5.
 
 # World 2 · Rừng rậm (màn 11–20)
 
-Cập nhật 01/07/2026. W2 **không dạy mới** (W1 đã dạy hết) — đây là **world thực chiến đầu
-tiên**: luyện xoay + vật lý cụm kẹt cho nhuyễn, dưới áp lực của **cơ chế chữ ký mới của
-world: DÂY LEO mọc lan**. Kết world bằng **boss Kẻ Đổ Rác**.
+Cập nhật 02/07/2026 (v2 — redesign). W2 **không dạy mới** (W1 đã dạy hết) — đây là **world
+thực chiến đầu tiên**. Bản sắc: **rừng rậm = dây leo siết bàn**. Cơ chế chữ ký **DÂY LEO**
+có mặt trong **9/10 màn** (duy nhất L16 breather không có) — vừa là mục tiêu, vừa là trở ngại
+tuỳ màn. Mỗi màn khai thác 1 khía cạnh mới của vine, KHÔNG lặp công thức.
 
-## 8. Cơ chế mới: Dây leo mọc lan (Creeping Vine)
+## 8. Cơ chế chữ ký: Dây leo mọc lan (Creeping Vine)
 
 Bản sắc "rừng rậm = rối & kẹt". Dây leo là chướng ngại **tự lan**, cộng hưởng trực tiếp với
 xoay trọng lực + cụm cứng — điểm độc nhất so với Woodoku/Block Blast.
 
 **Cấu trúc.** Mỗi dây leo có 1 **gốc** (root) + chuỗi **đốt** (segment). Gốc là *target* của
-màn. Đề xuất `:core`: thêm `CellType.VINE` với cờ `isRoot`.
+màn. `:core`: `CellType.VINE` với cờ `isRoot` (đã implement).
 
 **Luật (deterministic — bắt buộc cho solver/Daily):**
 
@@ -151,112 +152,431 @@ màn. Đề xuất `:core`: thêm `CellType.VINE` với cờ `isRoot`.
    - `growEveryN = 2` (mọc chậm, màn giới thiệu) hoặc `1` (mọc nhanh, màn áp lực).
 2. **Bám cứng khi xoay:** ô dây leo **KHÔNG rơi** theo trọng lực/xoay — nó là rễ, đứng yên
    trong khi mọi thứ khác đổ. → xoay vừa lợi (gỡ cụm khác) vừa hại (mở khe trống cho dây mọc).
-3. **Diệt:**
-   - Xóa hàng/cột **đi qua GỐC** → **cả dây tan** (gốc + mọi đốt). Đây là cách hoàn thành mục tiêu.
-   - Xóa qua **đốt thường** → chỉ đốt trên line đó mất. Đốt nào **mất kết nối với gốc** sẽ
-     **khô héo → biến thành ô trống** ở cuối lượt (thưởng cho việc cắt gần gốc).
+3. **Diệt — CHỈ THẠCH LÁ (MINT) MỚI PHÁ GỐC:** *(quy tắc áp dụng mọi nơi có vine, không
+   riêng W2)*
+   - Xóa hàng/cột **đi qua GỐC** → gốc chỉ bị phá nếu hàng/cột đó chứa **ít nhất 1 khối
+     màu MINT (xanh lá)**. Nếu không có khối MINT → hàng vẫn clear bình thường nhưng **gốc sống
+     sót**. Khi gốc bị phá → **cả dây tan** (gốc + mọi đốt).
+   - **Siêu khối MINT nổ** (quét cùng màu toàn bàn / vùng 5×5): nếu vùng nổ đi qua gốc → gốc
+     **bị phá** (tính là "xanh lá xoá"). Siêu khối màu khác nổ qua gốc → gốc sống sót.
+   - Xóa qua **đốt thường** → chỉ đốt trên line đó mất (không cần MINT). Đốt nào **mất kết
+     nối với gốc** sẽ **khô héo → biến thành ô trống** ở cuối lượt (thưởng cho việc cắt gần gốc).
 4. **Tính vào clear:** đốt/gốc là ô cứng, **được tính** khi xét hàng/cột đầy → có thể chủ
-   động lấp đầy hàng chứa gốc để xóa diệt dây.
+   động lấp đầy hàng chứa gốc để xóa diệt dây (nhớ cần MINT trong hàng đó).
 5. **Thua:** nếu dây mọc bịt bàn khiến **kẹt khay** → thua theo luật chuẩn (không cần luật riêng).
 
+**Hệ quả thiết kế của quy tắc MINT:**
+- Khối MINT trở thành **tài nguyên kép**: vừa ghi điểm vừa là "thuốc diệt rễ". Người chơi
+  phải cân nhắc đặt MINT ở đâu — phí MINT cho score hay giữ cho hàng chứa gốc.
+- Siêu khối MINT = **vũ khí chống vine mạnh nhất** (quét toàn bàn, phá mọi gốc gặp phải).
+  Tạo mục tiêu ngầm "xây 3×3 MINT" trong các màn vine khó.
+- Pool mảnh cần đảm bảo đủ MINT (không quá hiếm gây bất khả thi, không quá nhiều gây dễ).
+
 **Mục tiêu vine =** `CLEAR_TARGETS` với target = tập hợp **gốc** ("Phá hết N gốc dây leo").
-Cột *Số ô đích* trong Excel mang **số gốc**.
 
-## 9. Boss L20: Kẻ Đổ Rác (DPS race), máu = 8
+## 9. Boss L20: Thần Rừng (Vine Boss), máu = 8
 
-- Mỗi lượt (sau khi bạn thả mảnh + resolve), boss **rải một dải lá mục/cành khô** (ô rác cứng)
-  chèn vào một cạnh bàn theo **kịch bản cố định** → dồn bàn, ép dọn nhanh. *Ân hạn 2 lượt đầu*
-  không đổ để bạn setup. Rác rơi/xoay như ô thường (khác dây leo), xóa được như ô thường.
-- **Bào máu:** giữ **nhất quán với boss L10** — mỗi lần combo *chạm mức mới ≥ ×2* gây sát
-  thương = `bậc − 1` (×2→1, ×3→2, ×4→3…). Máu boss = **8**.
-- **Thắng:** máu → 0 trước khi kẹt khay. **Thua:** kẹt khay. Ngân sách xoay = 3.
-- Sao (số nhịp combo để hạ): 3★ ≤4 · 2★ ≤6 · 1★ ≤8 (hạ bằng toàn ×2 = 8 nhịp).
+Archetype **Vine Siege** — boss LÀ hiện thân của dây leo, khác hẳn boss W1 (combo thuần).
+
+- **Bàn khởi:** 2 gốc dây leo ở hai mép `(1,8)` + `(7,8)`, mọc **nhanh N=1** (mỗi lượt mọc).
+- **Đòn boss:** cứ mỗi **3 lượt** (sau ân hạn 2 lượt đầu), boss **mọc thêm 1 gốc mới** tại
+  vị trí cạnh bàn ngẫu nhiên (deterministic theo seed). Gốc mới cũng mọc N=1.
+  → Nếu không chặt kịp, bàn bị siết bởi mạng lưới dây leo ngày càng dày.
+- **Bào máu:** combo *chạm mức mới ≥ ×2* gây `bậc − 1` sát thương (nhất quán boss L10).
+  Máu = **8**.
+- **Chiến thuật:** phải **xen kẽ** combo (gây sát thương) và chặt rễ bằng MINT (giữ bàn thở).
+  Siêu khối MINT = đòn lật kèo (vừa ghi combo vừa quét gốc).
+- **Thắng:** máu → 0. **Thua:** kẹt khay. Ngân sách xoay = 3.
+- Sao (số nhịp combo): 3★ ≤4 · 2★ ≤6 · 1★ ≤8.
+
+**Code mới cần cho boss:** `bossVineSpawnEveryN` — cứ mỗi N lượt, spawn 1 gốc mới (vị trí
+deterministic từ PRNG seed). Khác `debrisPerTurn` (đó rải khối, không vine). Có thể dùng chung
+hạ tầng nhưng output là `CellType.VINE` + `vineRoot=true`.
 
 ## 10. Spec chi tiết màn 11–20
 
-Ngưỡng điểm nối tiếp W1 (kết ở 200) → leo 250…400. Khó ~2.0 → 3.5, "thở" ở L16, boss L20.
+Vine có mặt 9/10 màn. Mỗi màn khai thác 1 khía cạnh mới. Arc cảm xúc:
+`gặp vine → vine nền → hiệu quả → xoay chiến thuật → tốc độ ↑ → thở → ưu tiên tầng →
+mixed áp lực → gauntlet → boss`.
+
 `MIXED` = phải đạt **cả hai** điều kiện (phá gốc **và** đủ điểm) mới qua màn.
 
-| Màn | Tên | Node | goal_type | Điều kiện qua | Xoay | Gốc dây | Sao (3/2/1) | Khó |
-|---|---|---|---|---|---|---|---|---|
-| 11 | Rừng 1 | Thường | `REACH_SCORE` | 250 điểm | 1 | – | 450/320/250 | 2.0 |
-| 12 | Rừng 2 | Thường | `REACH_SCORE` | 300 điểm | 1 | – | 520/400/300 | 2.0 |
-| 13 | Rừng 3 | Thường | `CLEAR_TARGETS` | Phá 1 gốc (mọc chậm N=2) | 1 | 1 | 6/8/10 nước | 2.5 |
-| 14 | Rừng 4 | Thường | `CLEAR_TARGETS` | Phá 2 gốc | 1 | 2 | 8/10/12 nước | 2.5 |
-| 15 | Rừng 5 | Thường | `MIXED` | 1 gốc + 300 điểm | 2 | 1 | 480/380/300 | 3.0 |
-| 16 | Rừng 6 | Breather | `MAKE_SUPER1` | Ghép 1 siêu khối | 2 | – | 3/4/5 nước | 1.5 |
-| 17 | Rừng 7 | Thường | `CLEAR_TARGETS` | Phá 2 gốc (mọc nhanh N=1) | 2 | 2 | 9/11/13 nước | 3.0 |
-| 18 | Rừng 8 | Thường | `REACH_SCORE` | 400 điểm | 2 | – | 620/500/400 | 3.0 |
-| 19 | Rừng 9 | Thường | `MIXED` | 2 gốc + 350 điểm | 2 | 2 | 560/450/350 | 3.5 |
-| 20 | Rừng 10 | Boss | `BOSS_COMBO` | Kẻ Đổ Rác (máu 8) | 3 | – | 4/6/8 combo | 3.5 |
+| Màn | Tên | Node | goal_type | Điều kiện qua | Xoay | Vine | Sao (3/2/1) |
+|---|---|---|---|---|---|---|---|
+| 11 | Mầm Đầu Tiên | Thường | `CLEAR_TARGETS` | Phá 1 gốc | ⚠ | 1 gốc đáy (4,8) · chậm N=2 | TBD (bot) |
+| 12 | Dây Leo Lan | Thường | `REACH_SCORE` | ⚠ điểm (bot verify) | ⚠ | 1 gốc đáy (4,8) · chậm N=2 | TBD (bot) |
+| 13 | Hai Rễ | Thường | `CLEAR_TARGETS` | Phá 2 gốc | ⚠ | 2 gốc cùng hàng đáy (2,8)+(6,8) · chậm N=2 | TBD (bot) |
+| 14 | Rễ Khuất | Thường | `CLEAR_TARGETS` | Phá 1 gốc | ⚠ | 1 gốc giữa bàn (4,5) + 2 đá chắn (3,6)+(5,6) · chậm N=2 | TBD (bot) |
+| 15 | Rừng Nhanh | Thường | `CLEAR_TARGETS` | Phá 2 gốc | ⚠ | 2 gốc đáy (3,8)+(5,8) · **nhanh N=1** | TBD (bot) |
+| 16 | Bãi Trống | Breather | `REACH_SCORE` | ⚠ điểm (bot verify) | ⚠ | **Không vine** — khoảng nghỉ giữa rừng | TBD (bot) |
+| 17 | Tầng Rễ | Thường | `CLEAR_TARGETS` | Phá 2 gốc | ⚠ | 1 gốc đáy (4,8) + 1 gốc giữa (4,4) · chậm N=2 | TBD (bot) |
+| 18 | Rừng & Điểm | Thường | `MIXED` | 1 gốc + ⚠ điểm | ⚠ | 1 gốc giữa (4,5) · **nhanh N=1** | TBD (bot) |
+| 19 | Rừng Rậm | Thường | `CLEAR_TARGETS` | Phá 3 gốc | ⚠ | 3 gốc ba tầng (2,8)+(4,5)+(6,2) · nhanh N=1 | TBD (bot) |
+| 20 | Thần Rừng | Boss | `BOSS_COMBO` | Thần Rừng (máu ⚠) | ⚠ | 2 gốc (1,8)+(7,8) · nhanh N=1 · boss spawn thêm gốc mỗi 3 lượt | TBD (bot) |
+
+> **⚠ = cần solver xác định.** Ngưỡng điểm, ngân sách xoay, máu boss, và sao đều phải được
+> tính từ bot greedy chạy trên board+pool cụ thể (xem §20 Phương pháp tính ngưỡng).
+
+### Chi tiết thiết kế từng màn
+
+**L11 — Mầm Đầu Tiên.** Gặp vine lần đầu. 1 gốc ở hàng đáy chính giữa, mọc chậm. Dạy: "lấp
+đầy hàng chứa gốc bằng khối XANH LÁ (MINT) để diệt dây". Khay đảm bảo đủ mảnh MINT. Đây là
+màn **dạy quy tắc MINT** — guide popup giải thích rõ.
+
+**L12 — Dây Leo Lan.** Vine là **trở ngại, không phải mục tiêu**. Gốc vẫn mọc và lấn bàn,
+nhưng goal là ghi điểm. Người chơi học cách **sống chung với vine**: hoặc phá gốc (tốn MINT +
+nước) hoặc chấp nhận mất không gian mà tập trung score. Dạy: vine không phải lúc nào cũng cần
+diệt ngay.
+
+**L13 — Hai Rễ.** Hai gốc **cùng hàng đáy** — 1 clear hàng đáy có MINT giết cả hai. Dạy hiệu
+quả: đặt MINT đúng hàng = diệt gọn.
+
+**L14 — Rễ Khuất.** Gốc **KHÔNG ở đáy** — nằm ở giữa bàn (y=5), bên dưới có 2 đá chặn. Với
+trọng lực mặc định DOWN, không thể lấp đầy hàng y=5 từ trên xuống. **Phải xoay trọng lực** để
+lùa khối vào hàng chứa gốc. Turning point của W2: xoay + vine kết hợp lần đầu.
+
+**L15 — Rừng Nhanh.** Vine mọc **nhanh (N=1)**: mỗi lượt mọc thêm 1 đốt. Áp lực thời gian —
+phải hành động nhanh, đặt MINT vào hàng gốc trước khi dây siết hết bàn.
+
+**L16 — Bãi Trống.** Breather — khoảng trống giữa rừng. Không vine, bàn thoáng, chỉ cần ghi
+điểm nhẹ. Để người chơi thở trước nửa sau khó hơn.
+
+**L17 — Tầng Rễ.** Hai gốc ở **hai tầng khác nhau** (đáy y=8 + giữa y=4). Phải chọn chặt gốc
+nào trước — gốc dưới dễ tiếp cận hơn nhưng gốc trên mọc vào vùng quan trọng. Dạy: ưu tiên
+chiến thuật.
+
+**L18 — Rừng & Điểm.** Goal MIXED: phá 1 gốc ở giữa bàn **VÀ** ghi 350 điểm. Vine mọc nhanh.
+Phải cân bằng: dùng MINT cho diệt gốc hay cho score? Áp lực kép.
+
+**L19 — Rừng Rậm.** Tên world = tên màn = đỉnh cao. **3 gốc ở 3 tầng** (đáy + giữa + trên),
+mọc nhanh. Gauntlet — cần xoay + MINT management tổng lực. Phải xoay trọng lực để tiếp cận
+từng tầng gốc, vừa giữ board sống.
+
+**L20 — Thần Rừng (Boss).** Boss combo + vine siege. Bắt đầu với 2 gốc mọc nhanh. Cứ 3 lượt
+boss spawn thêm 1 gốc mới → mạng vine ngày càng dày. Phải xen kẽ: combo để bào máu + chặt gốc
+bằng MINT để giữ bàn thở. Siêu khối MINT = đòn lật kèo.
 
 ## 11. Hệ quả cần lưu ý (W2)
 
-1. **Code `:core` mới cần có trước khi chơi được:** `CellType.VINE` + bước mọc deterministic +
-   tương tác diệt/bám-cứng-khi-xoay; và cho boss: bước "đổ rác" theo kịch bản + thanh `bossHP`.
-   Render dây leo/rác trong `:game`. Thêm cờ `growEveryN`, `debrisScript` vào `campaignTuning`.
-2. **Ripple với W3 (Sông):** khung cũ cho W3 sở hữu "ô đích + cascade". Nay ô đích đã xuất hiện
-   ở W2 dưới dạng *gốc dây leo*. **Cần quyết** bản sắc mới cho W3 (gợi ý: ô đích "giọt nước"
-   kiểu khác + nhấn cascade dài) — ngoài phạm vi lần này.
-3. **Cân bằng dây leo** là rủi ro lớn nhất: `growEveryN` quá nhỏ → nghẹt bàn ức chế. Cần bot
-   greedy chạy thử để chốt nhịp mọc + độ phủ ban đầu cho từng màn.
+1. **Code `:core` — đã có:** `CellType.VINE` + mọc deterministic + bám cứng + diệt/héo. **CẦN
+   BỔ SUNG:** (a) quy tắc MINT-only khi phá gốc (trong `Resolve.kt` bước diệt vine, check có
+   MINT trong hàng/cột clear); (b) Super Block MINT nổ qua gốc → phá gốc; (c) boss
+   `bossVineSpawnEveryN` — spawn gốc mới theo nhịp.
+2. **Quy tắc MINT áp dụng TOÀN CỤC** (mọi nơi có vine): cần cập nhật `Vine.kt` /
+   `Resolve.kt` một lần, tự động áp dụng cho W2, W3+ nếu dùng lại vine.
+3. **Ripple với W3 (Sông):** ô đích W3 là "giọt nước" (`CellType.TARGET`), KHÔNG phải vine →
+   quy tắc MINT **không ảnh hưởng** W3. Bản sắc khác biệt: vine = chặt bằng MINT, giọt = phá
+   bằng line clear thường.
+4. **Cân bằng:** (a) pool mảnh phải có đủ MINT — quá hiếm → bất khả thi, quá nhiều → dễ;
+   (b) `growEveryN` quá nhỏ → nghẹt bàn; (c) boss spawn gốc quá dày → bất khả thi. Cần bot
+   greedy chạy thử.
 
 ---
 
 # World 3 · Sông & Thác (màn 21–30)
 
-Cập nhật 02/07/2026. **Bản nháp để duyệt.** Bản sắc: **nước chảy = phản ứng dây chuyền**. W3 giải
-quyết ripple đã nêu (ô đích xuất hiện sớm ở W2) bằng cách cho ô đích một *vai trò khác*: **giọt
-nước** phải được **cascade cuốn trôi**, kèm cơ chế chữ ký mới **DÒNG CHẢY**.
+Cập nhật 02/07/2026 (v3 — redesign thác nước). Bản sắc: **thác đổ = dẫn nước phá giọt**. Khác
+hẳn W2 (dây leo = tĩnh + mọc + cần MINT): ở W3 nước chảy **tự nhiên như thác thật** — đổ từ
+nguồn, tách khi gặp vật cản, ngập ô trống. Người chơi **xây kênh dẫn nước** tới giọt bằng cách
+đặt mảnh + xoay trọng lực. Thác + giọt có mặt **9/10 màn** (trừ breather L26).
 
-## 12. Cơ chế mới: Dòng chảy (Current / ô trượt)
+**Đối sánh W2 vs W3 — hai triết lý đối lập:**
 
-Thác đổ = có "dòng". Một hoặc hai **dải dòng chảy** (hàng/cột đánh dấu) đẩy mọi ô nằm trên đó
-**trôi 1 bước theo hướng dòng sau mỗi lượt** người chơi. Xoay trọng lực để **lái dòng** → dựng
-cascade dài hoặc đẩy giọt nước tới chỗ xóa.
+| | W2 Rừng rậm | W3 Sông & Thác |
+|---|---|---|
+| Cơ chế chữ ký | Dây leo — **mọc lan** từ gốc | Thác nước — **chảy xuống** từ nguồn |
+| Áp lực board | Dây mọc lấn ô → hẹp dần | Nước ngập ô trống → không đặt được |
+| Target | Gốc vine — **phá bằng MINT** | Giọt nước — **phá bằng nước chạm** |
+| Kiểu câu đố | **Tính toán** — đặt MINT đúng hàng | **Kỹ sư nước** — xây kênh dẫn thác tới giọt |
+| Xoay trọng lực | Tiếp cận gốc từ hướng khác | **Xoay cả thác** — nước đổ từ mép mới |
+| Vũ khí mạnh | Siêu khối MINT (quét gốc) | Xoay trọng lực (đổi hướng toàn bộ thác) |
 
-**Luật (deterministic):**
-1. **Trôi:** sau mỗi lượt thả mảnh + resolve, mọi ô trên dải dòng dịch 1 ô theo hướng dòng; ô ra
-   khỏi mép dải thì dừng (nhập vào phần bàn thường, rồi chịu trọng lực). Hàm thuần của state → ok.
-2. **Tương tác xoay:** khi xoay trọng lực, dòng vẫn theo hướng *cố định của dải* (dòng không xoay)
-   → tạo thế "trọng lực một đằng, dòng một nẻo" = câu đố đặc trưng W3.
-3. **Cường độ:** `flowLanes` = 1 (giới thiệu) → 2 (mạnh). Cờ trong `campaignTuning`.
+## 12. Cơ chế chữ ký: Thác Nước (Waterfall Flow)
 
-**Ô đích "giọt nước" (`CLEAR_TARGETS`):** phá bằng cách xóa hàng/cột đi qua nó. Một số màn **chôn
-sâu** (E2): giọt nằm dưới lớp khối/đá → phải cascade nhiều tầng mới lộ & xóa được.
+Bản sắc "sông & thác = nước tự nhiên". Thác đổ từ nguồn, chảy theo trọng lực, tách khi gặp
+vật cản, ngập ô trống — người chơi trở thành **kỹ sư thủy lợi**: đặt mảnh để xây tường/kênh
+dẫn nước tới giọt mục tiêu.
 
-> **Phương án nhẹ code (nếu muốn):** bỏ "dòng chảy", giữ W3 = *cascade dài + ô đích giọt nước
-> (có chôn sâu)*. Vẫn thuần cơ chế lõi, không cần `:core` mới. Dòng chảy là phần tăng "chất" —
-> đánh dấu ⚠ để bạn chọn khi duyệt.
+### 12.1. Cấu trúc
 
-## 13. Boss L30: "Thần Thác" (Tham Trọng Lực), máu = 10
+- **Nguồn thác (source):** 1–3 ô ở mép **"trên"** bàn (tính theo hướng trọng lực hiện tại).
+  Nước bắt đầu chảy từ đây. Config trong level preset: `waterSources: List<Int>` = danh sách
+  cột (khi gravity DOWN/UP) hoặc hàng (khi gravity LEFT/RIGHT) có nguồn.
+- **Dòng chảy (flow):** nước chảy từ nguồn theo hướng trọng lực qua các ô trống, tạo **đường
+  nước** (water path). Ô trên đường nước = **ngập** (flooded).
+- **Giọt nước (drop):** `CellType.TARGET` — mục tiêu cần phá. Nước chạm giọt → **giọt vỡ**
+  (phá luôn, không cần line clear).
 
-Archetype **Tham Trọng Lực** (mechanics A6/F1) — khác boss W2 (Kẻ Đổ Rác). Boss **tự đảo hướng
-trọng lực/dòng mỗi 3 lượt**, ép người chơi tiêu ngân sách xoay giành lại nhịp + biến đòn của boss
-thành combo cho mình. Bào máu bằng combo: mỗi lần combo *chạm mức mới ≥ ×2* gây `bậc − 1` sát
-thương. **Máu = 10.** Sao (số nhịp combo): 3★ ≤5 · 2★ ≤7 · 1★ ≤10 (toàn ×2 = 10 nhịp).
+### 12.2. Luật chảy (deterministic — bắt buộc cho solver/Daily)
+
+Thuật toán tính đường nước = **BFS theo trọng lực** từ các nguồn:
+
+1. **Chảy xuống:** từ mỗi nguồn, nước chảy theo hướng trọng lực, ô này sang ô kế tiếp.
+   - Ô **TRỐNG** → nước chảy qua, ô bị **ngập** (flooded). Tiếp tục chảy xuống.
+   - Ô **BLOCK / STONE / VINE** → nước bị chặn, **tách sang 2 bên** (vuông góc với trọng lực).
+   - Ô **TARGET** (giọt) → nước chạm → **giọt vỡ** (phá, goal progress). Nước tiếp tục chảy
+     qua (ô giọt vỡ trở thành ô trống ngập).
+2. **Tách dòng:** khi gặp vật cản, nước thử 2 ô kề vuông góc (trái + phải tính theo hướng
+   trọng lực). Nếu ô kề trống hoặc là TARGET → nước chảy vào đó rồi **tiếp tục xuống** từ vị
+   trí mới. Nếu ô kề cũng bị chặn → nước dừng (tắc).
+3. **Đa nhánh:** mỗi lần tách = 2 nhánh độc lập. Nước có thể tách nhiều lần → hình cây thác.
+   Tất cả các nhánh xử lý BFS cùng lúc → deterministic (quét theo thứ tự ô cố định).
+4. **Ô ngập (flooded):** ô trống mà nước chảy qua trở thành **ngập** → **KHÔNG đặt mảnh được**
+   lượt kế tiếp. Thu hẹp không gian đặt = áp lực board. Ngập tính lại mỗi lượt nên thay đổi
+   theo board state.
+5. **Mép bàn:** nước chảy tới mép dưới (theo trọng lực) → dừng (không tràn ra ngoài).
+
+### 12.3. Timing trong vòng lặp game
+
+1. Người chơi đặt mảnh (chỉ đặt được trên ô KHÔNG ngập)
+2. Resolve (line clear, cascade, cluster physics)
+3. **Tính lại đường nước** từ nguồn: BFS theo board state mới
+4. Giọt nào nằm trên đường nước → **vỡ** (emit `DropsCleared`, goal progress)
+5. Cập nhật ô ngập (render gợn nước)
+6. Lượt kế tiếp → người chơi thấy ô ngập mới, chọn vị trí đặt
+
+> Đặt mảnh (xây tường) → thay đổi board → nước chảy khác → giọt mới có thể bị chạm.
+> Xóa hàng (phá tường) → mở đường cho nước → ngập thêm HOẶC nước tới giọt mới.
+> → Mỗi nước đi đều thay đổi cả bản đồ nước.
+
+### 12.4. Tương tác xoay trọng lực
+
+**Xoay = xoay cả thác.** Khi người chơi xoay trọng lực 90°:
+- Nguồn thác dời sang mép mới (mép "trên" theo hướng gravity mới). Ví dụ: gravity DOWN →
+  nguồn ở row 0. Xoay sang LEFT → nguồn ở col 8 (mép phải = "trên" khi gravity LEFT).
+- Nước chảy theo hướng mới → **toàn bộ đường nước thay đổi**.
+- Giọt trước đó ngoài tầm nước có thể **vào tầm** sau khi xoay → phá giọt bằng xoay!
+
+> Đây là vũ khí mạnh nhất W3: xoay trọng lực = **lái cả con thác** sang hướng mới.
+> Giọt ở vị trí mà nước DOWN không tới → xoay LEFT → nước chảy ngang qua giọt → vỡ.
+
+### 12.5. Hệ quả thiết kế
+
+- **Xây tường = dẫn nước:** đặt mảnh ở vị trí chiến lược để nước tách đúng hướng, chảy tới
+  giọt. Mảnh vừa là tường dẫn nước vừa là khối xây cho line clear.
+- **Xóa hàng = mở đường:** line clear phá tường → nước tràn vào vùng mới. Có thể tốt (nước
+  tới giọt mới) hoặc xấu (ngập thêm vùng cần đặt).
+- **Ô ngập = áp lực board:** nhiều nguồn / ít tường → nước ngập rộng → ít chỗ đặt → dễ thua.
+  Phải cân bằng: xây tường (chặn nước, giữ chỗ đặt) vs để nước chảy (phá giọt).
+- **Cascade tự nhiên:** nước chảy qua giọt → giọt vỡ (ô thành trống) → nước có thể chảy
+  tiếp qua ô vừa trống → tới giọt kế tiếp. **Chuỗi giọt vỡ** nếu xếp đúng.
+
+**Mục tiêu giọt =** `CLEAR_TARGETS` với target = số giọt ("Phá hết N giọt nước"). Giọt bị phá
+khi **nước chạm** (không cần line clear). Line clear vẫn phá giọt nếu clear đi qua giọt (giữ
+tương thích với engine hiện có).
+
+## 13. Boss L30: Thần Thác (Gravity Chaos), máu = 10
+
+Archetype **Hỗn loạn trọng lực** — boss kiểm soát hướng trọng lực, làm thác liên tục đổi
+hướng. Khác boss W2 (Thần Rừng — vine siege, spawn gốc).
+
+- **Bàn khởi:** 2 nguồn thác (col 3 + col 5), 2 giọt ở vị trí khó tới (2,4)+(6,4), 3 đá tạo
+  địa hình. Nước ngập áp lực board ngay từ đầu.
+- **Đòn boss:** cứ mỗi **3 lượt** (ân hạn 2 lượt đầu), boss **đảo hướng trọng lực 180°**
+  (DOWN ↔ UP). Mọi khối **rơi ngược** → bàn đảo lộn. Thác **đổi mép nguồn** (row 0 ↔ row 8)
+  → toàn bộ đường nước thay đổi, vùng ngập mới hoàn toàn.
+- **Bào máu:** combo *chạm mức mới ≥ ×2* gây `bậc − 1` sát thương (nhất quán 3 boss).
+  Máu = **10**.
+- **Chiến thuật:** mỗi đòn đảo → cả bàn sụp → tự tạo cascade → **biến đòn boss thành combo**.
+  Nhưng đảo cũng thay đổi đường nước → vùng ngập mới → phải thích ứng chỗ đặt. Giọt trên bàn
+  = van giảm ngập (nước chảy qua giọt → giọt vỡ → mở đường, giảm ngập).
+- **Thắng:** máu → 0. **Thua:** kẹt khay (ô ngập + khối = hết chỗ đặt).
+- Ngân sách xoay = 4. Sao (combo): 3★ ≤5 · 2★ ≤7 · 1★ ≤10.
 
 ## 14. Spec chi tiết màn 21–30
 
-Điểm nối tiếp W2 (kết ~400) → leo 450…550. Ô đích 2→4. Khó ~2.5 → 4.0, "thở" ở L26, boss L30.
-`MIXED` = phá đủ giọt **và** đủ điểm.
+Thác + giọt có mặt 9/10 màn. Mỗi màn khai thác 1 khía cạnh mới của cơ chế thác.
+Arc cảm xúc:
+`gặp thác → nước=áp lực → dẫn nước phá giọt → xoay thác → giọt sau đá → thở →
+hai nguồn → mixed → gauntlet → boss đảo thác`.
 
-| Màn | Tên | Node | goal_type | Điều kiện qua | Xoay | Giọt | Sao (3/2/1) | Khó |
+`MIXED` = phải đạt **cả hai** điều kiện (phá giọt **và** đủ điểm) mới qua màn.
+
+| Màn | Tên | Node | goal_type | Điều kiện qua | Xoay | Thác & Giọt | Sao (3/2/1) |
+|---|---|---|---|---|---|---|---|
+| 21 | Suối Nhỏ | Thường | `CLEAR_TARGETS` | Phá 2 giọt | ⚠ | 1 nguồn (col 4) · 2 giọt gần đường nước (3,6)+(5,6) | TBD (bot) |
+| 22 | Nước Tràn | Thường | `REACH_SCORE` | ⚠ điểm (bot verify) | ⚠ | 1 nguồn (col 4) · 2 giọt xa (1,3)+(7,3) · ngập tạo áp lực board | TBD (bot) |
+| 23 | Thác Tách | Thường | `CLEAR_TARGETS` | Phá 3 giọt | ⚠ | 1 nguồn (col 4) · 3 giọt ở 2 bên (1,7)+(4,8)+(7,7) · cần xây tường tách dòng | TBD (bot) |
+| 24 | Xoay Thác | Thường | `CLEAR_TARGETS` | Phá 2 giọt | ⚠ | 1 nguồn · 2 giọt ngoài tầm nước DOWN (0,4)+(8,4) · **phải xoay** gravity để thác tới | TBD (bot) |
+| 25 | Giọt Sau Đá | Thường | `CLEAR_TARGETS` | Phá 3 giọt | ⚠ | 1 nguồn · 3 giọt sau đá · nước bị đá chặn, cần xoay+xây kênh vòng qua | TBD (bot) |
+| 26 | Bến Nghỉ | Breather | `REACH_SCORE` | ⚠ điểm (bot verify) | ⚠ | **Không nguồn, không giọt** — bến nghỉ ven sông | TBD (bot) |
+| 27 | Hai Nguồn | Thường | `CLEAR_TARGETS` | Phá 4 giọt | ⚠ | **2 nguồn** (col 2 + col 6) · 4 giọt rải · ngập rộng hơn, quản lý 2 dòng | TBD (bot) |
+| 28 | Thác & Điểm | Thường | `MIXED` | 2 giọt + ⚠ điểm | ⚠ | 2 nguồn · 2 giọt khó tới · vừa dẫn nước vừa score | TBD (bot) |
+| 29 | Thác Lớn | Thường | `CLEAR_TARGETS` | Phá 5 giọt | ⚠ | 2 nguồn · 5 giọt + 4 đá · gauntlet — dẫn nước qua mê cung đá | TBD (bot) |
+| 30 | Thần Thác | Boss | `BOSS_COMBO` | Thần Thác (máu ⚠) | ⚠ | 2 nguồn · 2 giọt + 3 đá · boss đảo gravity mỗi 3 lượt → thác đổi hướng | TBD (bot) |
+
+> **⚠ = cần solver xác định.** Ngưỡng điểm, ngân sách xoay, máu boss, và sao đều phải được
+> tính từ bot greedy chạy trên board+pool cụ thể (xem §20 Phương pháp tính ngưỡng).
+
+### Chi tiết thiết kế từng màn
+
+**L21 — Suối Nhỏ.** Gặp thác lần đầu. 1 nguồn ở giữa (col 4), nước chảy xuống qua ô trống.
+2 giọt đặt **gần đường nước** — nước gần như tự chảy tới, chỉ cần xây 1–2 tường nhỏ để dẫn
+đúng hướng. Guide popup giải thích: "nước chảy từ nguồn, gặp khối thì tách, chạm giọt thì
+phá". Nhập môn nhẹ nhàng — hiểu cơ chế trước, khó sau.
+
+**L22 — Nước Tràn.** Nước là **áp lực, không phải công cụ** ở màn này. 2 giọt xa đường nước
+(ở góc bàn), goal là score. Nước ngập ô trống → ít chỗ đặt → phải xây tường chặn nước để giữ
+chỗ. Dạy: nước ngập = mất không gian. Cân bằng giữa chặn nước (giữ chỗ) và xây cho line
+clear (score).
+
+**L23 — Thác Tách.** 3 giọt ở **2 bên** nguồn. Nước chảy thẳng xuống chỉ tới giọt giữa. Để
+tới 2 giọt bên → phải **đặt khối chặn giữa đường nước** → nước tách 2 nhánh trái phải → mỗi
+nhánh chảy tới 1 giọt bên. Dạy: đặt tường = dẫn nước. Lần đầu chủ động xây kênh.
+
+**L24 — Xoay Thác.** Giọt ở vị trí mà nước DOWN **KHÔNG tới được** (ở 2 bên mép, hàng giữa).
+Phải **xoay trọng lực** → thác đổi hướng → nước từ mép mới chảy qua giọt. **Turning point**
+của W3: xoay = lái thác lần đầu. Aha moment khi xoay → nước đổ hướng mới → giọt vỡ.
+
+**L25 — Giọt Sau Đá.** 3 giọt bị **đá vây xung quanh**. Nước chảy tới nhưng bị đá chặn. Phải
+xoay trọng lực để tìm góc nước lọt qua kẽ đá, HOẶC xây kênh vòng qua đá dẫn nước vào. Khó
+nhất nửa đầu — kết hợp xoay + xây kênh + đọc địa hình đá.
+
+**L26 — Bến Nghỉ.** Breather — bến dừng. Không nguồn, không giọt, không ngập. Bàn thoáng, ghi
+điểm nhẹ. Thở trước nửa sau khó hơn.
+
+**L27 — Hai Nguồn.** **2 nguồn** lần đầu (col 2 + col 6). Nước ngập rộng hơn nhiều — 2 dòng
+thác cùng đổ. 4 giọt rải ở 4 góc. Phải quản lý 2 luồng nước: chặn 1 luồng (giữ chỗ đặt),
+dẫn luồng kia tới giọt. Áp lực board tăng mạnh.
+
+**L28 — Thác & Điểm.** Goal MIXED: phá 2 giọt khó tới VÀ ghi 450 điểm. 2 nguồn. Áp lực kép:
+xây tường dẫn nước (phá giọt) vs xây cho line clear (score). Tường dẫn nước có thể cản line
+clear và ngược lại — phải tìm layout phục vụ cả hai.
+
+**L29 — Thác Lớn.** Tên "Thác Lớn" = đỉnh cao W3. **5 giọt** rải sau **4 đá** + 2 nguồn →
+bàn như mê cung. Phải dẫn nước qua kẽ đá, xoay nhiều hướng, xây nhiều kênh. Gauntlet — tổng
+lực mọi kỹ năng thác.
+
+**L30 — Thần Thác (Boss).** Boss đảo trọng lực 180° mỗi 3 lượt → **thác đổi hướng hoàn toàn**
+(nguồn dời từ row 0 sang row 8). Kênh dẫn nước bạn xây bỗng trở thành vô dụng (nước chảy từ
+hướng ngược). Phải **thích ứng liên tục**: (a) combo mỗi lần bàn sụp do đảo (biến đòn boss
+thành vũ khí), (b) nhanh chóng xây kênh mới sau mỗi đảo, (c) 2 giọt trên bàn = van giảm ngập
+(nước tới giọt → giọt vỡ → bớt ngập → thêm chỗ đặt).
+
+## 15. Hệ quả cần lưu ý (W3)
+
+1. **Code `:core` CẦN BỔ SUNG:**
+   - (a) `WaterfallFlow` module: `calculateFlow(grid, sources, gravity) → Set<Vec>` trả về tập
+     ô ngập. BFS từ nguồn theo gravity, tách khi gặp obstacle, phá TARGET gặp trên đường.
+     Thuần Kotlin/JVM, deterministic, không phụ thuộc Android.
+   - (b) `waterSources: List<Int>` trong `Level` config — danh sách cột/hàng nguồn.
+   - (c) Tích hợp vào `EndlessEngine`: sau resolve, gọi `calculateFlow` → phá giọt gặp trên
+     đường → emit `DropsCleared`. Cập nhật `floodedCells` cho `:game` biết ô nào ngập.
+   - (d) `EndlessEngine.canPlace(x, y)` check thêm `!floodedCells.contains(Vec(x,y))`.
+   - (e) `CellType.TARGET` đã có. Giọt vẫn rơi theo trọng lực, vẫn phá được bằng line clear
+     (giữ tương thích). Thêm cách phá mới: nước chạm.
+2. **Render `:game`:**
+   - Ô ngập: gợn nước xanh nhạt / sóng nhẹ (overlay, không che khối bên dưới nếu có).
+   - Nguồn: hiệu ứng nước đổ ở mép bàn.
+   - Đường nước: animation chảy từ nguồn xuống, tách khi gặp vật cản (visual thác).
+   - Giọt vỡ: splash effect khi nước chạm giọt.
+3. **Boss Thần Thác** dùng `bossGravityEveryN = 3` (đã implement). Khi đảo → nguồn dời mép
+   → flow tính lại → ngập mới. Giọt trên bàn boss = van giảm ngập (goal vẫn BOSS_COMBO).
+4. **Tương tác cross-world:** vine (W2) = STONE-like đối với nước (nước bị chặn, tách quanh
+   vine). Quy tắc MINT phá gốc vine không ảnh hưởng.
+5. **Cân bằng:** (a) số nguồn + mật độ đá quyết định % ô ngập — quá ngập → bất khả thi;
+   (b) giọt quá gần nguồn = quá dễ, quá xa + sau đá = có thể bất khả thi; (c) cần bot greedy
+   verify mọi giọt đều reachable bằng ≤ bộ xoay cho phép.
+
+---
+
+# World 4 · Sa mạc (màn 31–40)
+
+Cập nhật 02/07/2026. **Bản nháp để duyệt.** Bản sắc: **địa hình đá chia bàn**. Sau 2 world thêm cơ
+chế mới (dây leo W2, dòng chảy W3), W4 cố tình dùng cơ chế **NHẸ CODE**: **đá cố định** — đã có sẵn
+`CellType.STONE` trong `:core` + design system (token `stone`, card C·pool). W4 = luyện *xoay khéo
+để lách địa hình*.
+
+## 16. Cơ chế của W4: Đá cố định (Stone terrain)
+
+**Đá** = ô xám bất động: **không rơi, không xoay, không xóa được bằng đầy hàng** (chỉ là vật cản
+chiếm chỗ). Vai trò ở W4: **cắt/chia bàn** thành khoang, ép người chơi (1) đặt mảnh khéo quanh đá,
+(2) **xoay trọng lực để lùa cụm vòng qua đá** tạo hàng/cột xóa được. Mật độ đá tăng dần theo màn.
+
+Không cần code mới — chỉ preset nhiều ô `STONE` hơn. *(Tuỳ chọn tăng chất về sau: "đá nở" C-pool,
+nhưng mặc định W4 dùng đá tĩnh cho nhẹ.)*
+
+**Ô đích "Cổ vật" (`CLEAR_TARGETS`):** một số màn có **cổ vật** (viên ngọc/bình cổ) bị **đá vây
+quanh** — phá bằng cách xóa hàng/cột đi qua nó, nhưng đá chắn nên phải xoay/đặt khéo mới lập được
+dòng xóa. Khác W3 (giọt chôn dưới khối mềm, moi bằng cascade) — ở đây đá **không** sụp, là câu đố
+*lách địa hình cứng*. Cột *Số ô đích* mang số cổ vật.
+
+## 17. Boss L40: "Tượng Cát Cổ" (Lõi Giáp)
+
+Archetype **Lõi Giáp** (level-design.md mục 11, archetype C) — khác W2 (Thần Rừng) & W3 (Thần Thác).
+Tượng có **giáp đá**: bào máu bằng combo (mỗi lần combo chạm mức mới ≥ ×2 gây `bậc − 1` sát
+thương), **nhưng cứ N lượt không bị đánh, giáp hồi +1 máu** → ép người chơi combo **đều tay**, không
+được chần chừ. **Máu = ⚠ (bot).** Nhịp hồi giáp = ⚠ (bot).
+
+## 18. Spec chi tiết màn 31–40
+
+W4 chưa redesign kỹ (chờ W2/W3 chốt + solver sẵn sàng). Bảng dưới giữ cấu trúc thiết kế,
+**mọi số liệu = ⚠ TBD**.
+
+| Màn | Tên | Node | goal_type | Điều kiện qua | Xoay | Đá | Cổ vật | Sao (3/2/1) |
 |---|---|---|---|---|---|---|---|---|
-| 21 | Sông 1 | Thường | `CLEAR_TARGETS` | Phá 2 giọt (dòng nhẹ 1 dải) | 2 | 2 | 7/9/11 nước | 2.5 |
-| 22 | Sông 2 | Thường | `REACH_SCORE` | 450 điểm (cascade dòng) | 2 | – | 700/560/450 | 2.5 |
-| 23 | Sông 3 | Thường | `CLEAR_TARGETS` | Phá 3 giọt | 2 | 3 | 8/10/12 nước | 3.0 |
-| 24 | Sông 4 | Thường | `MIXED` | 2 giọt + 400 điểm | 2 | 2 | 640/520/400 | 3.0 |
-| 25 | Sông 5 | Thường | `CLEAR_TARGETS` | Phá 3 giọt **chôn sâu** (E2) | 3 | 3 | 10/12/14 nước | 3.5 |
-| 26 | Sông 6 | Breather | `REACH_SCORE` | 300 điểm (thở) | 2 | – | 480/380/300 | 2.0 |
-| 27 | Sông 7 | Thường | `CLEAR_TARGETS` | Phá 4 giọt (dòng mạnh 2 dải) | 3 | 4 | 11/13/15 nước | 3.5 |
-| 28 | Sông 8 | Thường | `REACH_SCORE` | 550 điểm | 3 | – | 850/700/550 | 3.5 |
-| 29 | Sông 9 | Thường | `MIXED` | 3 giọt + 450 điểm | 3 | 3 | 720/580/450 | 4.0 |
-| 30 | Sông 10 | Boss | `BOSS_COMBO` | Thần Thác (máu 10) | 4 | – | 5/7/10 combo | 4.0 |
+| 31 | Cát 1 | Thường | `REACH_SCORE` | ⚠ điểm | ⚠ | 2 | – | TBD (bot) |
+| 32 | Cát 2 | Thường | `CLEAR_TARGETS` | Phá 2 cổ vật | ⚠ | 3 | 2 | TBD (bot) |
+| 33 | Cát 3 | Thường | `REACH_SCORE` | ⚠ điểm | ⚠ | 4 | – | TBD (bot) |
+| 34 | Cát 4 | Thường | `MIXED` | 2 cổ vật + ⚠ điểm | ⚠ | 4 | 2 | TBD (bot) |
+| 35 | Cát 5 | Thường | `CLEAR_TARGETS` | Phá 3 cổ vật | ⚠ | 5 | 3 | TBD (bot) |
+| 36 | Cát 6 | Breather | `REACH_SCORE` | ⚠ điểm | ⚠ | 2 | – | TBD (bot) |
+| 37 | Cát 7 | Thường | `CLEAR_TARGETS` | Phá 3 cổ vật | ⚠ | 6 | 3 | TBD (bot) |
+| 38 | Cát 8 | Thường | `REACH_SCORE` | ⚠ điểm | ⚠ | 6 | – | TBD (bot) |
+| 39 | Cát 9 | Thường | `MIXED` | 3 cổ vật + ⚠ điểm | ⚠ | 6 | 3 | TBD (bot) |
+| 40 | Cát 10 | Boss | `BOSS_COMBO` | Tượng Cát Cổ (máu ⚠, giáp hồi) | ⚠ | 8 | – | TBD (bot) |
 
-## 15. Hệ quả W3 (cần lưu ý)
-1. **Code `:core`:** nếu giữ dòng chảy → thêm dải `flowLanes` + bước trôi deterministic + render.
-   Ô đích chôn sâu chỉ cần preset (ô đích dưới lớp khối) — engine đã hỗ trợ.
-2. **Boss Thần Thác** cần đòn "đảo trọng lực mỗi N lượt" (A6) — đã có nền `GravityRotation`, chỉ
-   cần lịch tự động + thanh `bossHP` (dùng chung với boss W2).
-3. **Cân bằng:** cường độ dòng + số giọt chôn sâu cần bot greedy chạy thử.
+> **⚠ = cần solver xác định** (xem §20).
+
+## 19. Hệ quả W4 (nhẹ)
+1. **Code:** không cần cơ chế mới — chỉ preset thêm ô `STONE`. Boss cần thêm luật "giáp hồi +1 mỗi N
+   lượt không bị đánh" (một biến của `bossHP`). N = ⚠ (bot).
+2. **Cân bằng:** mật độ đá quá cao dễ gây kẹt → bot greedy kiểm tra còn đường thắng; giáp boss hồi
+   quá nhanh thì giảm nhịp hồi.
+
+---
+
+# §20. Phương pháp tính ngưỡng (Solver / Bot Greedy)
+
+Mọi con số ⚠ trong bảng trên PHẢI được tính bằng solver chạy trên `:core`, KHÔNG ước lượng tay.
+
+## 20.1. Solver cần gì
+
+Solver là một **bot greedy** chạy headless trên `:core` (thuần Kotlin/JVM, không cần Android).
+Input: `Level` config (board preset + pool mảnh + seed). Output: thống kê qua N lần chơi.
+
+**Chiến lược bot:** mỗi lượt, bot đánh giá mọi vị trí đặt hợp lệ cho mỗi mảnh trong khay,
+chấm heuristic (ưu tiên: line clear > combo > MINT gần gốc > giảm lỗ hổng > …), chọn nước tốt
+nhất. Xoay trọng lực = thêm 4× branch (mỗi hướng). Không cần tối ưu — greedy đủ cho ước lượng.
+
+## 20.2. Quy trình cho mỗi màn
+
+1. **Feasibility check:** bot chạy 100 seed. Nếu tỉ lệ thắng < 80% → điều chỉnh preset/pool/xoay
+   cho đến khi đạt ≥ 80%. Nếu tỉ lệ thắng 100% quá dễ → tăng khó (giảm xoay, tăng vine speed…).
+2. **Phân bố kết quả:** từ 100 lần thắng, thu thập:
+   - **Số nước** dùng để hoàn thành (cho CLEAR_TARGETS)
+   - **Điểm đạt được** (cho REACH_SCORE)
+   - **Số nhịp combo** (cho BOSS_COMBO)
+   - **Số lần xoay** dùng
+3. **Đặt ngưỡng:**
+   - **Goal (điều kiện qua):** phân vị P75 (75% bot thắng đạt được) → đặt làm ngưỡng qua màn.
+     Người chơi trung bình phải cố gắng nhưng chắc chắn có thể qua.
+   - **Ngân sách xoay:** số xoay tối đa bot dùng khi thắng (P95) + 1 dự phòng.
+   - **Sao 1★:** = ngưỡng qua màn (P75).
+   - **Sao 2★:** P50 (trung vị — chơi khá).
+   - **Sao 3★:** P25 (top 25% — chơi tốt).
+   - **Máu boss:** P50 combo damage tổng ÷ 0.8 (đảm bảo bot thắng ~50%, người chơi cần khéo hơn).
+4. **Golden test:** khoá 1 seed + đường giải mẫu → cùng chuỗi state (bảo vệ deterministic khi
+   refactor).
+
+## 20.3. Khi nào chạy được
+
+| World | Cơ chế cần implement trước solver | Trạng thái |
+|---|---|---|
+| W1 (L1–10) | Tất cả đã có (tray script) | ✅ Chạy được ngay |
+| W2 (L11–20) | MINT-only phá gốc + boss vine spawn | ⚠ Cần bổ sung |
+| W3 (L21–30) | WaterfallFlow module | ❌ Chưa code |
+| W4 (L31–40) | Boss giáp hồi | ⚠ Cần bổ sung |
+
+**Ưu tiên:** implement MINT-only rule (nhỏ, trong `Resolve.kt`) → chạy solver W2 → chốt ngưỡng
+W2 → implement WaterfallFlow → chạy solver W3 → W4 cuối cùng.

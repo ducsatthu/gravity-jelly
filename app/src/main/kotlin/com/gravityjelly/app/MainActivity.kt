@@ -89,6 +89,9 @@ private fun GravityJellyApp() {
     // Đọc state bền bất đồng bộ; mặc định an toàn cho khung hình đầu (lần đầu chưa có file).
     val settings by repo.settings.collectAsState(initial = GjSettings())
 
+    // World người chơi đang tiến tới → nền Home & Endless đổi cảnh theo tiến độ (Đồng cỏ→Rừng→Sông).
+    val currentWorld = campaignCurrentWorld(settings.campaignStars)
+
     // Init SDK quảng cáo lazy ở luồng nền (một lần) rồi preload.
     LaunchedEffect(Unit) { ads.initialize() }
 
@@ -144,6 +147,7 @@ private fun GravityJellyApp() {
                 onPlayCampaign = { route = Route.Campaign },
                 onSettings = { route = Route.Settings },
                 onHandbook = { route = Route.Handbook },
+                world = currentWorld,
                 reducedMotion = reducedMotion,
                 modifier = Modifier.fillMaxSize(),
             )
@@ -163,6 +167,7 @@ private fun GravityJellyApp() {
                 reducedMotion = reducedMotion,
                 seenGuides = settings.seenGuides,
                 onGuideSeen = { id -> scope.launch { repo.markGuideSeen(id) } },
+                world = currentWorld,
                 modifier = Modifier.fillMaxSize(),
             )
 

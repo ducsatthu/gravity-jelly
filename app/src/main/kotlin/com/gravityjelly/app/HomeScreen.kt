@@ -14,9 +14,11 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.selectable
@@ -50,17 +52,19 @@ import kotlin.math.floor
 import kotlin.math.sin
 
 /**
- * Màn Home — RE-SKIN 01/07 sang nền **`home_world_1_bg.png`** + **menu icon PNG**
+ * Màn Home — RE-SKIN 01/07 sang nền **`home_world_N_bg.png`** (đổi theo [world]) + **menu icon PNG**
  * (design/04-screens/home-screen.jsx, bản mới).
  *
- *  · Nền tranh vẽ `home_world_1_bg.png` (821×1916): trời + LOGO + bàn cỏ + **panel kem trống**
- *    ở đáy để chứa menu. Neo ĐÁY full-width; phần dư phía trên là trời (lấp bằng [SkyTop]).
- *  · **Menu icon 2 hàng** đặt trong panel kem (JSX: left/right 12%, top 77.5%, bottom 4.9%):
- *      – Hàng trên (to, h=18.4cqw): CHIẾN DỊCH · ENDLESS (2 nút chơi chính).
- *      – Hàng dưới (nhỏ, h=15.2cqw): CẨM NANG · BẢNG XẾP HẠNG · CÀI ĐẶT.
- *    Mỗi nút là 1 ảnh PNG tự chứa (khung + icon), cao theo cqw, rộng theo tỉ lệ art, nhấn nén .93.
- *  · **Cánh hoa bay** ([PetalLayer]) trôi khắp màn (JSX Petals count=24 seed=7, zIndex 3 → đè
- *    lên cả menu). Ẩn khi reduced-motion (JSX @media reduced → opacity 0).
+ *  · Nền tranh vẽ `home_world_{world}_bg.png` (821×1916): trời + LOGO + bàn biome (bản 02/07 **KHÔNG
+ *    còn bake panel** — đáy chỉ còn cảnh biome). Neo ĐÁY full-width; phần dư trên là trời ([WorldTheme.homeSky]).
+ *    [world] = world người chơi đang tiến tới → Home đổi cảnh theo tiến độ (Đồng cỏ → Rừng → Sông).
+ *  · **Panel kem `home_panel.png` TÁCH RỜI** (dùng chung mọi world) phủ lên nền ở đáy (JSX top 72.5%,
+ *    height 25%), chứa **menu icon 2 hàng** (JSX khối top 75%, bottom 5%):
+ *      – Hàng trên: CHIẾN DỊCH · ENDLESS (2 nút chơi chính, rộng 31cqw/nút).
+ *      – Hàng dưới: CẨM NANG · BẢNG XẾP HẠNG · CÀI ĐẶT (3 nút, rộng ~19.3cqw/nút).
+ *    Mỗi nút là 1 ảnh PNG tự chứa (khung + icon), flex ĐỀU BỀ NGANG, cao theo tỉ lệ art, nhấn nén .93.
+ *  · **Hạt bay theo world** ([PetalLayer]) trôi ngang như gió: Đồng cỏ = cánh hoa · Rừng rậm = LÁ ·
+ *    Sông & Thác = GIỌT NƯỚC (đổi hình + palette theo [world]). Ẩn khi reduced-motion.
  *  · **KHÔNG HUD trên** (user 01/07: bỏ chip KỶ LỤC; hearts/life của JSX cũng không dựng).
  *
  * CHIẾN DỊCH + BẢNG XẾP HẠNG chưa có màn → coi là "sắp có": làm mờ (alpha .6) + khoá bấm
@@ -73,11 +77,12 @@ fun HomeScreen(
     onSettings: () -> Unit,
     onPlayCampaign: () -> Unit = {},
     onHandbook: () -> Unit = {},
+    world: Int = 1,
     reducedMotion: Boolean = false,
     modifier: Modifier = Modifier,
 ) {
-    // Nền trời lấp dải trên ảnh (đỉnh home_world_1_bg ~ #8ECDF3, khớp gradient trời JSX).
-    Box(modifier = modifier.fillMaxSize().background(SkyTop)) {
+    // Nền + trời đổi theo world người chơi đang tiến tới (WorldTheme). Trời lấp dải trên khi màn cao hơn ảnh.
+    Box(modifier = modifier.fillMaxSize().background(WorldTheme.homeSky(world))) {
         BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
             // Khung = MÀN HÌNH. Ảnh nền NEO ĐÁY, phủ full bề ngang, tỉ lệ 821/1916 (HOME_AR);
             // dư phía trên (máy cao) lộ trời. Menu là con TRỰC TIẾP của khung, neo từ ĐÁY →
@@ -89,7 +94,7 @@ fun HomeScreen(
             // Nền: NEO ĐÁY bằng ContentScale.Crop + BottomCenter — cover ghim đáy (art cao hơn
             // màn → cắt bớt TRỜI ở trên), đáy art luôn trùng đáy màn.
             Image(
-                painter            = painterResource(R.drawable.home_world_1_bg),
+                painter            = painterResource(WorldTheme.homeBackground(world)),
                 contentDescription = "Gravity Jelly",
                 modifier           = Modifier.fillMaxSize(),
                 contentScale       = ContentScale.Crop,
@@ -99,10 +104,10 @@ fun HomeScreen(
             // ── Cánh hoa bay NGANG trong dải giữa (dưới logo, trên panel) — vẽ TRƯỚC menu để
             // KHÔNG đè lên nút (user 01/07). Ẩn khi reduced-motion.
             if (!reducedMotion) {
-                PetalLayer(artHeightPx = artHpx, modifier = Modifier.fillMaxSize())
+                PetalLayer(world = world, artHeightPx = artHpx, modifier = Modifier.fillMaxSize())
             }
 
-            // ── Menu icon trong panel kem (JSX: khối left 12% right 12% top 77.5% bottom 4.9%) ──
+            // ── Panel kem tách rời + menu icon 2 hàng (JSX: panel top 72.5% h25%, khối nút top 75% bottom 5%).
             HomeMenu(
                 boxW = boxW, imgH = imgH,
                 onCampaign = onPlayCampaign,    // prototype đã mở
@@ -115,23 +120,33 @@ fun HomeScreen(
     }
 }
 
-// Tỉ lệ ảnh nền home_world_1_bg.png (821×1916) — cao/rộng.
+// Tỉ lệ ảnh nền home-world-N-bg.png (821×1916, mọi world cùng khổ) — cao/rộng.
 private const val HOME_AR = 1916f / 821f
 
-// Trời ở đỉnh ảnh (gradient JSX #8ecdf3 → #bce5fb, lấy điểm đỉnh).
-private val SkyTop = Color(0xFF8ECDF3)
+// (Trời đỉnh ảnh nay lấy theo world qua WorldTheme.homeSky — xem HomeScreen.)
 
-// Tỉ lệ RỘNG/CAO từng icon PNG (px nguồn) — width = height × aspect.
-private const val AR_CAMPAIGN = 1113f / 772f
-private const val AR_INFINITE = 1071f / 762f
-private const val AR_GUIDE = 1136f / 877f
-private const val AR_LEADER = 1036f / 876f
-private const val AR_SETTING = 972f / 1007f
+// Panel kem `home_panel.png` (1448×1086): tỉ lệ RỘNG/CAO + phần viền cream (fraction, đo PIL 02/07:
+// ngang cream bắt đầu ~4.6% mỗi bên, dọc ~11.3% trên/dưới) — dùng để pad nút vào đúng vùng cream.
+private const val PANEL_AR = 1448f / 1086f
+private const val PANEL_CREAM_H = 0.046f
+private const val PANEL_CREAM_V = 0.113f
+// Thu nhỏ cụm nút so với vùng cream (canh giữa) — chỉnh cỡ nút Home bằng đúng knob này (user 03/07).
+private const val BTN_ROW_SCALE = 0.85f
 
-// ── Menu 2 hàng trong panel kem ────────────────────────────────────────────────────────
-// JSX: khối menu absolute (left 12%, right 12%, top 77.5%, bottom 4.9% của stage), column
-// canh giữa, gap 2cqw. cqw = 1% bề rộng stage = boxW/100. Chiều cao icon theo cqw; hàng trên
-// 18.4cqw, hàng dưới 15.2cqw; gap hàng trên 4cqw, hàng dưới 3.5cqw.
+// Tỉ lệ RỘNG/CAO từng icon PNG (px nguồn bản mới 02/07) — height = width / aspect.
+private const val AR_CAMPAIGN = 1244f / 722f
+private const val AR_INFINITE = 1386f / 696f
+private const val AR_GUIDE = 918f / 884f
+private const val AR_LEADER = 1052f / 1043f
+private const val AR_SETTING = 962f / 964f
+
+// ── Panel kem TÁCH RỜI + menu 2 hàng ─────────────────────────────────────────────────────
+// Bản 02/07: nền `home_world_N_bg.png` KHÔNG còn bake panel — panel là ảnh riêng `home_panel.png`
+// phủ lên (dùng chung mọi world). Bám JSX home-screen.jsx:
+//   · panel: left/right 6% (width 88%), top 72.5%, height 25% → đáy cách stage 2.5%.
+//   · khối menu: left/right 6%, top 75%, bottom 5% (height 20%), column space-evenly.
+//   · 2 hàng, mỗi hàng rộng 66cqw, gap 4cqw; nút flex ĐỀU BỀ NGANG (width = slot), cao theo aspect.
+// cqw = 1% bề rộng stage = boxW/100.
 @Composable
 private fun BoxScope.HomeMenu(
     boxW: Dp,
@@ -143,51 +158,82 @@ private fun BoxScope.HomeMenu(
     onSettings: () -> Unit,
 ) {
     val cqw = boxW / 100f
-    val panelW = boxW * 0.76f            // left 12% + right 12%
-    val panelH = imgH * (1f - 0.775f - 0.049f) // top 77.5% → bottom 4.9%
-    val panelBottomUp = imgH * 0.049f     // đáy panel cách đáy stage 4.9%
+
+    // Panel kem tách rời — RỘNG 90% (user 02/07), GIỮ ĐÚNG TỈ LỆ GỐC (không stretch): height =
+    // width / aspect. Neo đáy cách stage 3%. x canh giữa (mỗi bên (1-.90)/2 = 5%).
+    val panelW = boxW * 0.85f            // thu nhỏ (user 02/07: panel hơi lớn so design)
+    val panelH = panelW / PANEL_AR
+    val panelX = (boxW - panelW) / 2f    // canh giữa ngang
+    val panelBottomUp = imgH * 0.02f     // hạ thấp hơn → lộ rõ bàn đá phía trên
+
+    Image(
+        painter = painterResource(R.drawable.home_panel),
+        contentDescription = null,
+        contentScale = ContentScale.Fit,
+        modifier = Modifier
+            .align(Alignment.BottomStart)
+            .offset(x = panelX, y = -panelBottomUp)
+            .size(width = panelW, height = panelH),
+    )
+
+    // Khối menu TRÙNG panel. Viền cream panel KHÔNG đều (ngang ~4.6% · dọc ~11.3%) → pad bù theo viền
+    // rồi cộng khe M=4cqw ĐỀU 4 phía (user 02/07: lề trên/dưới/2 bên tới bờ panel bằng nhau).
+    // MỌI số đo là fraction của boxW/panel (không px cứng) → co giãn TỈ LỆ mọi máy, không vỡ layout.
+    val padH = panelW * PANEL_CREAM_H + cqw * 4f
+    val padV = panelH * PANEL_CREAM_V + cqw * 4f
+    // Bề ngang tối đa (tới sát khe cream) rồi THU NHỎ theo hệ số, canh giữa → nút nhỏ lại ĐỀU cả
+    // rộng lẫn cao (weight+aspect), 2 hàng vẫn dài bằng nhau, khoảng dọc tự giãn qua space-evenly.
+    // (user 03/07: nút hơi lớn.) BTN_ROW_SCALE là knob tỉ lệ duy nhất để chỉnh cỡ nút.
+    val contentW = (panelW - padH * 2f) * BTN_ROW_SCALE
+    val gap = cqw * 4f                   // khe giữa nút = 4cqw (JSX gap:4cqw)
 
     Box(
         modifier = Modifier
             .align(Alignment.BottomStart)
-            .offset(x = boxW * 0.12f, y = -panelBottomUp)
+            .offset(x = panelX, y = -panelBottomUp)
             .size(width = panelW, height = panelH),
-        contentAlignment = Alignment.Center,
     ) {
         Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = padH, vertical = padV),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(cqw * 2f),
+            // JSX justify-content:space-evenly → lề trên = giữa = dưới, tự cân, KHÔNG tràn màn thấp.
+            verticalArrangement = Arrangement.SpaceEvenly,
         ) {
-            // Hàng trên — 2 nút chơi chính (to hơn).
+            // Hàng trên — 2 nút chơi chính. Nút weight(1f) → chia ĐỀU bề ngang contentW (JSX flex:1);
+            // cao = rộng/aspect (JSX img width:100% height:auto). 2 hàng cùng contentW → DÀI BẰNG NHAU.
             Row(
-                horizontalArrangement = Arrangement.spacedBy(cqw * 4f),
+                modifier = Modifier.width(contentW),
+                horizontalArrangement = Arrangement.spacedBy(gap),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 IconButton(
                     icon = painterResource(R.drawable.btn_campaign), contentDescription = "Chiến dịch",
-                    heightDp = cqw * 18.4f, aspect = AR_CAMPAIGN, onClick = onCampaign,
+                    aspect = AR_CAMPAIGN, onClick = onCampaign,
                 )
                 IconButton(
                     icon = painterResource(R.drawable.btn_infinite), contentDescription = "Chơi Endless",
-                    heightDp = cqw * 18.4f, aspect = AR_INFINITE, onClick = onPlay,
+                    aspect = AR_INFINITE, onClick = onPlay,
                 )
             }
-            // Hàng dưới — phụ trợ (nhỏ hơn).
+            // Hàng dưới — 3 nút phụ trợ, cũng weight(1f) trên contentW = hàng trên.
             Row(
-                horizontalArrangement = Arrangement.spacedBy(cqw * 3.5f),
+                modifier = Modifier.width(contentW),
+                horizontalArrangement = Arrangement.spacedBy(gap),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 IconButton(
                     icon = painterResource(R.drawable.btn_guide), contentDescription = "Cẩm nang",
-                    heightDp = cqw * 15.2f, aspect = AR_GUIDE, onClick = onGuide,
+                    aspect = AR_GUIDE, onClick = onGuide,
                 )
                 IconButton(
                     icon = painterResource(R.drawable.btn_leaderboard), contentDescription = "Bảng xếp hạng",
-                    heightDp = cqw * 15.2f, aspect = AR_LEADER, comingSoon = true, onClick = onLeaderboard,
+                    aspect = AR_LEADER, comingSoon = true, onClick = onLeaderboard,
                 )
                 IconButton(
                     icon = painterResource(R.drawable.btn_setting), contentDescription = "Cài đặt",
-                    heightDp = cqw * 15.2f, aspect = AR_SETTING, onClick = onSettings,
+                    aspect = AR_SETTING, onClick = onSettings,
                 )
             }
         }
@@ -195,16 +241,17 @@ private fun BoxScope.HomeMenu(
 }
 
 /**
- * Nút icon PNG (JSX IconButton): ảnh tự chứa (khung + icon), cao [heightDp], rộng theo tỉ lệ
- * art [aspect]. Nhấn nén scale .93 với ease nảy (JSX cubic-bezier(.34,1.56,.64,1) → spring nảy,
- * đúng motion token "gentle jelly bounce"). comingSoon = làm mờ + khoá bấm (design coming-soon).
- * Bóng đổ đã bake sẵn trong PNG (alpha), nên không thêm shadow chữ nhật giả.
+ * Nút icon PNG (JSX IconButton): ảnh tự chứa (khung + icon). Đặt trong Row → dùng `weight(1f)` để
+ * CHIA ĐỀU bề ngang hàng (JSX flex:1), rồi `aspectRatio(aspect)` suy CHIỀU CAO theo tỉ lệ art
+ * (JSX img width:100% height:auto). Nhờ vậy 2 hàng luôn trải đúng contentW ở MỌI kích thước máy,
+ * KHÔNG cần số cao "ma thuật" → co giãn tỉ lệ, không vỡ layout.
+ * Nhấn nén scale .93 với ease nảy (JSX cubic-bezier(.34,1.56,.64,1) → spring nảy, đúng motion token
+ * "gentle jelly bounce"). comingSoon = làm mờ + khoá bấm. Bóng đổ đã bake sẵn trong PNG (alpha).
  */
 @Composable
-private fun IconButton(
+private fun RowScope.IconButton(
     icon: Painter,
     contentDescription: String,
-    heightDp: Dp,
     aspect: Float,
     onClick: () -> Unit,
     comingSoon: Boolean = false,
@@ -221,8 +268,8 @@ private fun IconButton(
         contentDescription = contentDescription,
         contentScale = ContentScale.Fit,
         modifier = Modifier
-            .height(heightDp)
-            .width(heightDp * aspect)
+            .weight(1f)              // flex:1 → mỗi nút một phần bằng nhau của contentW
+            .aspectRatio(aspect)     // cao = rộng / aspect (width:100% height:auto)
             .graphicsLayer {
                 scaleX = scale
                 scaleY = scale
@@ -260,6 +307,38 @@ private val PetalColors = arrayOf(
     Color(0xFFFFF1CE) to Color(0xFFFFE3A3), // vàng bơ
     Color(0xFFF7A9C0) to Color(0xFFE576A0), // hồng đậm
 )
+
+// World 2 · Rừng rậm — LÁ bay (xanh lá theo palette rừng, đỉnh sáng → đáy đậm).
+private val LeafColors = arrayOf(
+    Color(0xFFD8F0C0) to Color(0xFFA9D98A), // lá non
+    Color(0xFFCBF2EB) to Color(0xFF5FC3B2), // mint (design)
+    Color(0xFFBCE3A0) to Color(0xFF7FB069), // xanh lá
+    Color(0xFFA3E5D9) to Color(0xFF4F9D5A), // rừng đậm
+)
+
+// World 3 · Sông & Thác — GIỌT/TIA nước bay (xanh nước theo palette info, đỉnh sáng → đáy đậm).
+private val DropColors = arrayOf(
+    Color(0xFFFFFFFF) to Color(0xFFC5E7EE), // bọt trắng
+    Color(0xFFEAFAFB) to Color(0xFFB4E0EA), // nước sáng
+    Color(0xFFD6EEF1) to Color(0xFF8FB6F2), // info xanh
+    Color(0xFFCFEFF3) to Color(0xFFA6DCE5), // ngọc lam
+)
+
+/** Loại hạt bay trên Home theo world: cánh hoa (Đồng cỏ) · lá (Rừng) · giọt nước (Sông). */
+private enum class HomeParticle { PETAL, LEAF, DROP }
+
+private fun homeParticle(world: Int): HomeParticle = when (world) {
+    2    -> HomeParticle.LEAF
+    3    -> HomeParticle.DROP
+    else -> HomeParticle.PETAL
+}
+
+/** 4 cặp màu gradient của hạt theo world (mọi mảng cùng cỡ 4 để [PetalSpec.colorIdx] hợp lệ). */
+private fun homeParticleColors(kind: HomeParticle): Array<Pair<Color, Color>> = when (kind) {
+    HomeParticle.LEAF -> LeafColors
+    HomeParticle.DROP -> DropColors
+    HomeParticle.PETAL -> PetalColors
+}
 
 // Dải cho phép cánh hoa bay — theo tỉ lệ ART (821×1916): DƯỚI logo (~.38), TRÊN panel (~.78).
 // Cánh clamp cứng trong [BAND_TOP, BAND_BOT] → KHÔNG BAO GIỜ đè logo hay panel nút (user 01/07).
@@ -328,14 +407,40 @@ private fun unitPetalPath(): Path = Path().apply {
     )
 }
 
+/** LÁ đơn vị (World 2): hình lá thuôn nhọn 2 đầu (hai cung quад) hơi lệch → dáng lá tự nhiên. */
+private fun unitLeafPath(): Path = Path().apply {
+    val w = PETAL_HALF_W * 0.86f
+    moveTo(0f, -PETAL_HALF_H)                                   // ngọn trên
+    quadraticBezierTo(w, -PETAL_HALF_H * 0.10f, 0.06f, PETAL_HALF_H)  // mép phải phình xuống cuống
+    quadraticBezierTo(-w, PETAL_HALF_H * 0.10f, 0f, -PETAL_HALF_H)    // mép trái về ngọn
+    close()
+}
+
+/** GIỌT nước đơn vị (World 3): teardrop — đỉnh nhọn, đáy tròn (giống ô đích giọt nước in-game). */
+private fun unitDropPath(): Path = Path().apply {
+    val w = PETAL_HALF_W * 0.82f
+    moveTo(0f, -PETAL_HALF_H)                                   // đỉnh nhọn
+    cubicTo(w, -PETAL_HALF_H * 0.15f, w, PETAL_HALF_H * 0.55f, 0f, PETAL_HALF_H)   // phải xuống đáy tròn
+    cubicTo(-w, PETAL_HALF_H * 0.55f, -w, -PETAL_HALF_H * 0.15f, 0f, -PETAL_HALF_H) // trái về đỉnh
+    close()
+}
+
+private fun unitParticlePath(kind: HomeParticle): Path = when (kind) {
+    HomeParticle.LEAF -> unitLeafPath()
+    HomeParticle.DROP -> unitDropPath()
+    HomeParticle.PETAL -> unitPetalPath()
+}
+
 @Composable
-private fun PetalLayer(artHeightPx: Float, modifier: Modifier = Modifier) {
+private fun PetalLayer(world: Int, artHeightPx: Float, modifier: Modifier = Modifier) {
     val petals = remember { buildPetals(count = 12, seed = 7) }
-    val petal = remember { unitPetalPath() }
-    // Brush gradient đơn-vị cho 4 cặp màu (đỉnh sáng → đáy đậm); toạ độ theo trục cánh, CTM sẽ
-    // scale theo cánh khi vẽ → không cấp phát mỗi frame.
-    val brushes = remember {
-        PetalColors.map { (c1, c2) ->
+    // Hình + màu hạt đổi theo world: cánh hoa (Đồng cỏ) · lá (Rừng) · giọt nước (Sông).
+    val kind = homeParticle(world)
+    val petal = remember(kind) { unitParticlePath(kind) }
+    // Brush gradient đơn-vị cho 4 cặp màu (đỉnh sáng → đáy đậm); toạ độ theo trục hạt, CTM sẽ
+    // scale theo hạt khi vẽ → không cấp phát mỗi frame.
+    val brushes = remember(kind) {
+        homeParticleColors(kind).map { (c1, c2) ->
             Brush.verticalGradient(listOf(c1, c2), startY = -PETAL_HALF_H, endY = PETAL_HALF_H)
         }
     }

@@ -1,6 +1,7 @@
 package com.gravityjelly.app
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -263,7 +264,7 @@ private fun ObjectiveCard(level: Level, isBoss: Boolean) {
             fontFamily = MaterialTheme.typography.headlineMedium.fontFamily,
         )
         Text(
-            text = goalLabel(level.goal),
+            text = goalLabel(level.goal, level.world),
             color = GjPalette.Text,
             style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold, fontSize = 18.sp),
             textAlign = TextAlign.Center,
@@ -287,6 +288,12 @@ private fun ObjectiveHero(level: Level) {
     when (level.goal.type) {
         GoalType.REACH_SCORE -> ScoreHero(level.goal.score)
         GoalType.BOSS_COMBO -> BossHero(level.goal.bossHP)
+        // Ô đích tuỳ world: World 3 = giọt nước, còn lại (World 2) = gốc dây leo.
+        GoalType.CLEAR_TARGETS ->
+            if (level.world == 3) DropHero(level.goal.count) else VineHero(level.goal.count)
+        GoalType.MIXED ->
+            if (level.world == 3) DropHero(level.goal.count, level.goal.score)
+            else VineHero(level.goal.count, level.goal.score)
         GoalType.TUTORIAL -> when (level.goal.trigger) {
             // Đầy 1 HÀNG (màu bất kỳ) → hàng giữa lấp đủ.
             TriggerKind.ROW -> HeroBoard(
@@ -442,6 +449,127 @@ private fun BossHero(hp: Int) {
                 fontFamily = MaterialTheme.typography.headlineMedium.fontFamily,
             )
         }
+    }
+}
+
+/**
+ * Hero mục tiêu World 2 — phá [count] GỐC dây leo (bám ObjectiveBar VineGlyph). MIXED: kèm badge
+ * điểm [score] cần đạt thêm.
+ */
+@Composable
+private fun VineHero(count: Int, score: Int = 0) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(6.dp),
+    ) {
+        Row(horizontalArrangement = Arrangement.spacedBy(GjSpace.sm)) {
+            repeat(count.coerceAtLeast(1)) { VineHeroGlyph() }
+        }
+        if (score > 0) {
+            Row(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(GjRadius.full))
+                    .background(GjPalette.Primary.copy(alpha = 0.16f))
+                    .padding(horizontal = GjSpace.sm, vertical = 2.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(3.dp),
+            ) {
+                Image(
+                    painter = painterResource(R.drawable.star_on),
+                    contentDescription = null,
+                    modifier = Modifier.size(13.dp),
+                )
+                Text(
+                    text = "+$score điểm",
+                    color = Color(0xFFB9821C),
+                    fontSize = 13.sp,
+                    fontWeight = FontWeight.Black,
+                    fontFamily = MaterialTheme.typography.headlineMedium.fontFamily,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun VineHeroGlyph() {
+    Canvas(Modifier.size(44.dp)) {
+        val w = size.width
+        val stem = Color(0xFF5FC3B2)
+        val leaf = Color(0xFFA3E5D9)
+        drawOval(
+            Color(0xFFC7A97E),
+            topLeft = androidx.compose.ui.geometry.Offset(w * 0.2f, w * 0.72f),
+            size = androidx.compose.ui.geometry.Size(w * 0.6f, w * 0.18f),
+        )
+        drawLine(
+            stem,
+            androidx.compose.ui.geometry.Offset(w / 2f, w * 0.78f),
+            androidx.compose.ui.geometry.Offset(w / 2f, w * 0.4f),
+            w * 0.1f,
+        )
+        drawOval(leaf, androidx.compose.ui.geometry.Offset(w * 0.14f, w * 0.3f), androidx.compose.ui.geometry.Size(w * 0.34f, w * 0.2f))
+        drawOval(leaf, androidx.compose.ui.geometry.Offset(w * 0.52f, w * 0.26f), androidx.compose.ui.geometry.Size(w * 0.34f, w * 0.2f))
+    }
+}
+
+/**
+ * Hero mục tiêu World 3 — phá [count] GIỌT NƯỚC (bám ObjectiveBar drop glyph). MIXED: kèm badge điểm
+ * [score] cần đạt thêm. Tái dùng khung của [VineHero], chỉ đổi glyph sang giọt nước.
+ */
+@Composable
+private fun DropHero(count: Int, score: Int = 0) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(6.dp),
+    ) {
+        Row(horizontalArrangement = Arrangement.spacedBy(GjSpace.sm)) {
+            repeat(count.coerceAtLeast(1)) { DropHeroGlyph() }
+        }
+        if (score > 0) {
+            Row(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(GjRadius.full))
+                    .background(GjPalette.Primary.copy(alpha = 0.16f))
+                    .padding(horizontal = GjSpace.sm, vertical = 2.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(3.dp),
+            ) {
+                Image(
+                    painter = painterResource(R.drawable.star_on),
+                    contentDescription = null,
+                    modifier = Modifier.size(13.dp),
+                )
+                Text(
+                    text = "+$score điểm",
+                    color = Color(0xFFB9821C),
+                    fontSize = 13.sp,
+                    fontWeight = FontWeight.Black,
+                    fontFamily = MaterialTheme.typography.headlineMedium.fontFamily,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun DropHeroGlyph() {
+    val water = Color(0xFF8FB6F2)
+    val shine = Color(0xFFEAFAFB)
+    Canvas(Modifier.size(44.dp)) {
+        val w = size.width
+        val cx = w / 2f
+        val drop = androidx.compose.ui.graphics.Path().apply {
+            moveTo(cx, w * 0.14f)
+            cubicTo(w * 0.84f, w * 0.44f, w * 0.84f, w * 0.72f, cx, w * 0.86f)
+            cubicTo(w * 0.16f, w * 0.72f, w * 0.16f, w * 0.44f, cx, w * 0.14f)
+            close()
+        }
+        drawPath(drop, water)
+        drawCircle(
+            shine, radius = w * 0.10f,
+            center = androidx.compose.ui.geometry.Offset(cx - w * 0.08f, w * 0.56f),
+        )
     }
 }
 

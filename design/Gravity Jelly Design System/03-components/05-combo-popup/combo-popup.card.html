@@ -1,4 +1,4 @@
-<!-- @dsCard group="Components" viewport="940x880" name="Combo Popup" subtitle="Anatomy: combo badge (×1–10), falling blocks, the dish + scenery, and the two combined" -->
+<!-- @dsCard group="Components" viewport="940x560" name="Combo Popup" subtitle="Anatomy: combo badge (×1–10) and the falling-blocks effect" -->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -28,7 +28,7 @@
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
   <script src="../../_ds_bundle.js"></script>
   <script type="text/babel">
-    const { ComboPopup, JellyScene } = window.GravityJellyDesignSystem_3e0487;
+    const { ComboPopup } = window.GravityJellyDesignSystem_3e0487;
 
     function Panel({ n, title, desc, children, full }) {
       return (
@@ -62,31 +62,10 @@
           </Panel>
 
           {/* 2 — falling blocks effect (no dish, no text) */}
-          <Panel n="2" title="Hiệu ứng block rơi" desc="Vài khối jelly rơi xuống & nảy">
-            <div className="stage" style={{ height: 150 }}>
-              <div key={'fall'+k} style={{ position: 'absolute', inset: 0, display: 'flex', justifyContent: 'center', alignItems: 'flex-end' }}>
-                <ComboPopup combo={5} showText={false} showDish={false} floor={14} height={150} />
-              </div>
-            </div>
-          </Panel>
-
-          {/* 3 — the dish + mushrooms / plants / characters */}
-          <Panel n="3" title="Đĩa jelly & nấm, cây cối" desc="Sân khấu khối rơi vào">
-            <div className="stage" style={{ height: 150 }}>
-              <JellyScene band={false} />
-            </div>
-          </Panel>
-
-          {/* 4 — combined: falling from above INTO the dish */}
-          <Panel n="4" title="Ghép: rơi từ trên vào đĩa" desc="Block rơi xuống đáp vào đĩa của cảnh" full>
+          <Panel n="2" title="Hiệu ứng block rơi" desc="Vài khối jelly rơi xuống & nảy" full>
             <div className="stage" style={{ height: 160 }}>
-              <JellyScene band={false} showCast={false} />
-              <div key={'combo'+k} style={{ position: 'absolute', inset: 0, display: 'flex', justifyContent: 'center', alignItems: 'flex-end' }}>
-                <ComboPopup combo={6} showDish={false} showText={false} floor={20} height={200} />
-              </div>
-              {/* combo text rides above the combined scene */}
-              <div key={'txt'+k} style={{ position: 'absolute', top: 8, left: '50%', transform: 'translateX(-50%)' }}>
-                <ComboPopup combo={6} showDish={false} showPieces={false} />
+              <div key={'fall'+k} style={{ position: 'absolute', inset: 0, display: 'flex', justifyContent: 'center', alignItems: 'flex-end' }}>
+                <ComboPopup combo={5} showText={false} showDish={false} floor={14} height={160} />
               </div>
             </div>
           </Panel>

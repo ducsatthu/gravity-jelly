@@ -83,6 +83,8 @@ fun EndlessPlayScreen(
     reducedMotion: Boolean = false,
     seenGuides: Set<String> = emptySet(),
     onGuideSeen: (String) -> Unit = {},
+    /** World để chọn nền in-game (đổi theo world người chơi đang tiến tới). Mặc định 1 (Đồng cỏ). */
+    world: Int = 1,
 ) {
     val renderTick = rememberGameDriver(holder.animator)
     val shell = holder.shell
@@ -206,9 +208,8 @@ fun EndlessPlayScreen(
             onPause       = { paused = true },
             onSelectPiece = { /* live game dùng kéo-thả, không tap-select */ },
             onRotate      = { if (shell.budget > 0 && !shell.gameOver) holder.rotate(cw = true) },
-            // Luyện tập (Endless) đổi nền theo world — hiện world 1 (Đồng cỏ); sau này lấy từ
-            // world người chơi đã mở khoá / đang chọn.
-            world         = 1,
+            // Luyện tập (Endless) đổi nền theo world người chơi đang tiến tới (truyền từ MainActivity).
+            world         = world,
             // Combo hiếm → overlay ăn mừng ×N nổ TẠI vùng resolve trên bàn (ComboBurstOverlay bên
             // dưới). Thiết kế mới (board-design.jsx) dùng nền PNG, KHÔNG còn band vườn để mảnh rơi.
             // mỗi slot khay: theo dõi vị trí window + kéo-thả → holder (như drag cũ, visual design)

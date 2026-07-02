@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Prototype — Phá gốc Dây leo (W2)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  html, body { margin: 0; height: 100%; }
+  body {
+    background: radial-gradient(120% 90% at 50% 0%, #EAF6E0 0%, #CFE7BE 100%);
+    font-family: var(--font-body, 'Nunito', sans-serif);
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; overflow: hidden;
+  }
+  @keyframes gjpop { 0% { transform: scale(0.3); opacity: 0; } 40% { transform: scale(1.15); opacity: 1; } 100% { transform: scale(1); opacity: 0.9; } }
+  @keyframes gjrise { from { transform: translateY(16px) scale(0.94); opacity: 0; } to { transform: none; opacity: 1; } }
+  @keyframes gjpulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script src="../_ds_bundle.js"></script>
+  <script src="proto-engine.js"></script>
+  <script type="text/babel" src="proto-ui.jsx"></script>
+  <script type="text/babel" src="proto-game.jsx"></script>
+  <script type="text/babel">
+    const E = window.GJProtoEngine;
+
+    // ---- vine mechanic helpers ----
+    function pruneVines(cells) {
+      const byVid = {};
+      cells.forEach((c) => { if (c.vid != null) { (byVid[c.vid] = byVid[c.vid] || []).push(c); } });
+      const keep = new Set(cells.filter((c) => c.vid == null).map((c) => c.id));
+      Object.keys(byVid).forEach((vid) => {
+        const group = byVid[vid];
+        const root = group.find((c) => c.kind === 'root');
+        if (!root) return; // no root left → the whole strand withers
+        const pos = new Map(group.map((c) => [c.r + '-' + c.c, c]));
+        const seen = new Set([root.id]); const stack = [root];
+        const nbs = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+        while (stack.length) {
+          const cur = stack.pop();
+          nbs.forEach(([dr, dc]) => { const nb = pos.get((cur.r + dr) + '-' + (cur.c + dc)); if (nb && !seen.has(nb.id)) { seen.add(nb.id); stack.push(nb); } });
+        }
+        group.forEach((c) => { if (seen.has(c.id)) keep.add(c.id); });
+      });
+      return cells.filter((c) => keep.has(c.id));
+    }
+    function vineApplyClear(cells, lines) {
+      const posSet = E.linePositions(lines);
+      const beforeVine = cells.filter((c) => c.vid != null).length;
+      const removeVids = new Set(); const removeIds = new Set();
+      cells.forEach((cl) => {
+        if (posSet.has(cl.r + '-' + cl.c)) {
+          if (cl.kind === 'root') removeVids.add(cl.vid);       // clear through a ROOT → whole vine dies
+          else if (cl.kind === 'seg') removeIds.add(cl.id);    // clear through a segment → just that segment
+          else if (cl.kind === 'jelly') removeIds.add(cl.id);
+        }
+      });
+      let next = cells.filter((c) => !removeVids.has(c.vid) && !removeIds.has(c.id));
+      next = pruneVines(next); // orphaned segments wither
+      const afterVine = next.filter((c) => c.vid != null).length;
+      const cut = beforeVine - afterVine;
+      let flash = null;
+      if (removeVids.size > 0) flash = 'Nhổ ' + removeVids.size + ' gốc! 🌿';
+      else if (cut > 0) flash = 'Cắt ' + cut + ' đốt dây! ✂';
+      return { next, flash };
+    }
+    // flag the growth head + compute stem connections between adjacent vine cells
+    function decorateVineHead(cells) {
+      const vine = cells.filter((c) => c.vid != null);
+      const occ = new Set(vine.map((c) => c.vid + ':' + c.r + '-' + c.c));
+      const byVid = {};
+      vine.forEach((c) => { (byVid[c.vid] = byVid[c.vid] || []).push(c); });
+      const headId = {};
+      Object.keys(byVid).forEach((vid) => { let h = byVid[vid][0]; byVid[vid].forEach((c) => { if ((c.order || 0) > (h.order || 0)) h = c; }); headId[vid] = h.id; });
+      return cells.map((c) => {
+        if (c.vid == null) return c;
+        const has = (dr, dc) => occ.has(c.vid + ':' + (c.r + dr) + '-' + (c.c + dc));
+        return Object.assign({}, c, {
+          isHead: c.kind === 'seg' && headId[c.vid] === c.id,
+          connect: { up: has(-1, 0), down: has(1, 0), left: has(0, -1), right: has(0, 1) },
+        });
+      });
+    }
+    function growVines(cells) {
+      const grid = E.cellsToGrid(cells);
+      const byVid = {};
+      cells.forEach((c) => { if (c.vid != null) { (byVid[c.vid] = byVid[c.vid] || []).push(c); } });
+      const additions = [];
+      const order = [[-1, 0], [0, 1], [1, 0], [0, -1]]; // UP → RIGHT → DOWN → LEFT
+      Object.keys(byVid).forEach((vid) => {
+        const group = byVid[vid];
+        if (!group.some((c) => c.kind === 'root')) return;
+        let head = group[0]; group.forEach((c) => { if ((c.order || 0) > (head.order || 0)) head = c; });
+        for (const [dr, dc] of order) {
+          const rr = head.r + dr, cc = head.c + dc;
+          if (E.inb(rr, cc) && !grid[rr][cc]) {
+            const seg = { id: E.uid(), kind: 'seg', vid: Number(vid), order: (head.order || 0) + 1, r: rr, c: cc };
+            additions.push(seg); grid[rr][cc] = seg; break;
+          }
+        }
+      });
+      return cells.concat(additions);
+    }
+
+    const config = {
+      seed: 20240201,
+      charges: 2,
+      title: 'PHÁ GỐC DÂY LEO',
+      subtitle: 'World 2 · Rừng rậm',
+      bg: 'radial-gradient(130% 70% at 50% 0%, #F3FBEC 0%, #DDEFC9 55%, #C6E3AE 100%)',
+      accent: '#3C6E30',
+      goalWord: 'gốc',
+      goalGlyph: { kind: 'root' },
+      warnText: '⚠ Sắp mọc!',
+      grows: true,
+      isFixed: (c) => c.kind === 'root' || c.kind === 'seg',
+      initCells: () => ([
+        // vine 0 — a connected strand climbing from the bottom-left root
+        { id: E.uid(), kind: 'root', vid: 0, order: 0, r: 8, c: 1 },
+        { id: E.uid(), kind: 'seg', vid: 0, order: 1, r: 7, c: 1 },
+        { id: E.uid(), kind: 'seg', vid: 0, order: 2, r: 6, c: 1 },
+        { id: E.uid(), kind: 'seg', vid: 0, order: 3, r: 6, c: 2 },
+        { id: E.uid(), kind: 'seg', vid: 0, order: 4, r: 5, c: 2 },
+        // vine 1 — a connected strand coiling from the bottom-right root
+        { id: E.uid(), kind: 'root', vid: 1, order: 0, r: 8, c: 7 },
+        { id: E.uid(), kind: 'seg', vid: 1, order: 1, r: 7, c: 7 },
+        { id: E.uid(), kind: 'seg', vid: 1, order: 2, r: 7, c: 6 },
+        { id: E.uid(), kind: 'seg', vid: 1, order: 3, r: 6, c: 6 },
+        { id: E.uid(), kind: 'seg', vid: 1, order: 4, r: 6, c: 5 },
+      ]),
+      applyClear: vineApplyClear,
+      countTargets: (cells) => cells.filter((c) => c.kind === 'root').length,
+      growth: growVines,
+      decorate: decorateVineHead,
+      hint: 'Cắt hàng/cột ngang thân dây — cắt gần gốc để cả nhánh rụng. Xoá qua GỐC là nhổ sạch cả dây!',
+      winTitle: 'HOÀN THÀNH!',
+      winBody: 'Bạn đã phá sạch dây leo. Rễ không còn bám bàn nữa.',
+    };
+
+    ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(window.GJProtoGame(config)));
+  </script>
+</body>
+</html>

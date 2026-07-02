@@ -27,10 +27,17 @@ fun shapeByName(name: String): Shape = when (name.uppercase()) {
 
 fun TrayPiece.toPiece(): Piece = Piece(shapeByName(shape), color)
 
-/** Preset màn → cặp (vị trí, ô lưới) cho [EndlessEngine]. BLOCK không màu → vàng cho hiển thị. */
+/**
+ * Preset màn → cặp (vị trí, ô lưới) cho [EndlessEngine]. BLOCK không màu → vàng; TARGET (giọt nước)
+ * không màu → xanh dương (rơi & đếm-đầy như ô thường, cần màu để hiển thị/tính cụm).
+ */
 fun Level.toPresetCells(): List<Pair<Vec, Grid.Cell>> = preset.map { c ->
-    val color = c.color ?: if (c.type == CellType.BLOCK) JellyColor.YELLOW else null
-    Vec(c.x, c.y) to Grid.Cell(c.type, color)
+    val color = c.color ?: when (c.type) {
+        CellType.BLOCK -> JellyColor.YELLOW
+        CellType.TARGET -> JellyColor.BLUE
+        else -> null
+    }
+    Vec(c.x, c.y) to Grid.Cell(c.type, color, vineRoot = c.vineRoot)
 }
 
 /** Khay phẳng của màn → chuỗi đợt 3 mảnh (deterministic). */
@@ -46,6 +53,10 @@ fun Level.toTrayScript(): List<List<Piece>> =
 fun campaignTuning(level: Level): EndlessTuning = EndlessTuning(
     superMergeEnabled = true,
     replenishBudget = false,
+    vineGrowEveryN = level.vineGrowEveryN,
+    debrisPerTurn = level.debrisPerTurn,
+    bossGravityEveryN = level.bossGravityEveryN,
+    bossVineSpawnEveryN = level.bossVineSpawnEveryN,
 )
 
 /** Dựng engine đã cấu hình theo [level] (preset + khay cố định + trọng lực + ngân sách + tuning). */
@@ -56,4 +67,5 @@ fun EndlessEngine.Companion.forLevel(level: Level): EndlessEngine = EndlessEngin
     preset = level.toPresetCells(),
     trayScript = level.toTrayScript(),
     initialGravity = level.gravity,
+    waterSources = level.waterSources,
 )

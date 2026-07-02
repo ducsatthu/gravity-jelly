@@ -9,9 +9,11 @@ package com.gravityjelly.core
  * - [TUTORIAL]: qua màn khi một HÀNH ĐỘNG xảy ra ([Goal.trigger]) — luôn khả thi, kiểm chứng bằng event.
  * - [REACH_SCORE]: đạt ngưỡng điểm ([Goal.score]).
  * - [BOSS_COMBO]: bào đủ [Goal.bossHP] sát thương bằng combo (mỗi lần combo chạm mức mới ≥×2 = bậc−1).
- * - [CLEAR_ALL]/[CLEAR_TARGETS]/[COMBO_CHAIN]: giữ cho tương thích/khác world.
+ * - [CLEAR_TARGETS]: phá đủ [Goal.count] ô đích (World 2 = GỐC dây leo).
+ * - [MIXED]: phải đạt CẢ HAI — phá đủ [Goal.count] gốc VÀ đạt [Goal.score] điểm (World 2).
+ * - [CLEAR_ALL]/[COMBO_CHAIN]: giữ cho tương thích/khác world.
  */
-enum class GoalType { CLEAR_ALL, CLEAR_TARGETS, REACH_SCORE, COMBO_CHAIN, TUTORIAL, BOSS_COMBO }
+enum class GoalType { CLEAR_ALL, CLEAR_TARGETS, REACH_SCORE, COMBO_CHAIN, TUTORIAL, BOSS_COMBO, MIXED }
 
 /**
  * Hành động tutorial cần thực hiện để qua màn (dùng với [GoalType.TUTORIAL]).
@@ -21,7 +23,14 @@ enum class TriggerKind { ROW, COL, ROTATE, SUPER1, SUPER2, RAINBOW, RAINBOW_SUPE
 
 enum class StarMetric { MOVES, SCORE, COMBO, ROTATIONS }
 
-data class PresetCell(val x: Int, val y: Int, val type: CellType, val color: JellyColor? = null)
+data class PresetCell(
+    val x: Int,
+    val y: Int,
+    val type: CellType,
+    val color: JellyColor? = null,
+    /** Chỉ dùng khi [type] = [CellType.VINE]: true = GỐC dây leo (target của màn). */
+    val vineRoot: Boolean = false,
+)
 
 data class StarThresholds(val three: Int, val two: Int, val one: Int, val metric: StarMetric)
 
@@ -52,4 +61,14 @@ data class Level(
     val goal: Goal,
     val stars: StarThresholds,
     val difficulty: Double = 1.0,
+    /** World 2 — nhịp mọc dây leo (0 = tắt). Chuyển vào [EndlessTuning.vineGrowEveryN]. */
+    val vineGrowEveryN: Int = 0,
+    /** World 2 boss — số ô rác chèn mỗi lượt sau ân hạn (0 = tắt). */
+    val debrisPerTurn: Int = 0,
+    /** World 3 boss "Thần Thác" — tự đảo trọng lực mỗi N lượt (0 = tắt). [EndlessTuning.bossGravityEveryN]. */
+    val bossGravityEveryN: Int = 0,
+    /** World 2 boss "Thần Rừng" — spawn gốc vine mới mỗi N lượt (0 = tắt). */
+    val bossVineSpawnEveryN: Int = 0,
+    /** World 3 — vị trí nguồn thác nước (lateral index 0..8 trên cạnh "trên" theo gravity). Rỗng = tắt. */
+    val waterSources: List<Int> = emptyList(),
 )

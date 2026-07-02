@@ -110,6 +110,11 @@ fun GameScreen(
     modifier: Modifier = Modifier,
     world: Int = 1,
     traySlotModifier: (Int) -> Modifier = { Modifier },
+    /**
+     * Cụm MỤC TIÊU (ObjectiveBar) chèn NGAY DƯỚI HUD, TRÊN bàn — CHỈ Campaign truyền (screen-1e-
+     * game-objective). Endless để `null` → bàn dính sát HUD như card "① Game" gốc (không regress).
+     */
+    objective: (@Composable () -> Unit)? = null,
     board: @Composable (Modifier) -> Unit,
 ) {
     Box(modifier = modifier.fillMaxSize().background(GjPalette.Bg)) {
@@ -141,8 +146,15 @@ fun GameScreen(
                 PauseRound(onPause = onPause)
             }
 
-            // HUD marginBottom 16 + board paddingTop 24 (board-design.jsx).
-            Spacer(Modifier.height(40.dp))
+            if (objective != null) {
+                // Campaign: HUD → (10dp) → cụm mục tiêu → (12dp) → bàn (screen-1e-game-objective).
+                Spacer(Modifier.height(10.dp))
+                objective()
+                Spacer(Modifier.height(12.dp))
+            } else {
+                // Endless: HUD marginBottom 16 + board paddingTop 24 (board-design.jsx).
+                Spacer(Modifier.height(40.dp))
+            }
 
             // ── Bàn 9×9 trong khung kem (board-frame.svg) ─────────────────────────────
             BoardFrame(modifier = Modifier.fillMaxWidth().aspectRatio(1f)) { inner ->

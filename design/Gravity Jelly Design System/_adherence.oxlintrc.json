@@ -25,7 +25,6 @@
               "03-components/04-gravity-rotate-button/**",
               "03-components/05-combo-popup/**",
               "03-components/06-dialog/**",
-              "03-components/07-jelly-scene/**",
               "03-components/08-objective-bar/**",
               "03-components/09-boss-hud/**",
               "04-screens/**",
@@ -35,6 +34,7 @@
               "board.jsx",
               "game-screen.jsx",
               "jelly-play.jsx",
+              "prototypes/**",
               "world4-strip.jsx"
             ],
             "message": "Import design-system components from 'index.js', not component internals."
@@ -97,10 +97,6 @@
         "message": "<JellyConnect> doesn't accept that prop. Declared props: top, right, bottom, left."
       },
       {
-        "selector": "JSXOpeningElement[name.name='JellyScene'] > JSXAttribute > JSXIdentifier[name!=/^(?:showDish|showCast|band|style|key|ref|className|style|children)$/]",
-        "message": "<JellyScene> doesn't accept that prop. Declared props: showDish, showCast, band, style."
-      },
-      {
         "selector": "JSXOpeningElement[name.name='TutorialGoal'] > JSXAttribute > JSXIdentifier[name!=/^(?:kind|variant|label|current|target|status|key|ref|className|style|children)$/]",
         "message": "<TutorialGoal> doesn't accept that prop. Declared props: kind, variant, label, current, target, status."
       },
@@ -151,9 +147,6 @@
         "replaces": []
       },
       "JellyConnect": {
-        "replaces": []
-      },
-      "JellyScene": {
         "replaces": []
       },
       "TutorialGoal": {

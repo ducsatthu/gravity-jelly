@@ -349,6 +349,14 @@ fun expandDetonations(grid: Grid, initial: Set<Vec>): Pair<Set<Vec>, List<SuperD
             }
             detonations.add(SuperDetonation(s, color, cell.superLevel, footprint))
         }
+        // Dây leo MIỄN NHIỄM nổ — NGOẠI TRỪ gốc bị MINT super quét (§8 goal-system-v2.md):
+        // siêu khối MINT nổ qua gốc → phá gốc (cho phép diệt dây bằng kíp nổ MINT). Đốt (không
+        // phải gốc) và vine bị nổ non-MINT vẫn miễn nhiễm như cũ.
+        val isMintSuper = !cell.rainbow && cell.color == JellyColor.MINT
+        footprint.removeAll { v ->
+            val vc = grid.get(v.x, v.y)
+            vc?.type == CellType.VINE && !(isMintSuper && vc.vineRoot)
+        }
         for (v in footprint) {
             if (grid.get(v.x, v.y) != null) toClear.add(v)
             enqueueDetonator(v)

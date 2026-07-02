@@ -1,7 +1,15 @@
 package com.gravityjelly.core
 
-/** Loại nội dung một ô lưới. Khớp schema JSON màn (level-design.md). */
-enum class CellType { EMPTY, BLOCK, STONE, TARGET }
+/**
+ * Loại nội dung một ô lưới. Khớp schema JSON màn (level-design.md).
+ * [VINE] = dây leo (World 2): ô cứng **không rơi** theo trọng lực/xoay (bám như rễ, xem
+ * [isJelly]); mọc lan mỗi vài lượt ([growVines]); xoá dòng đi qua GỐC ([Grid.Cell.vineRoot]) →
+ * diệt cả dây ([destroyVineOfRoot]); đốt mất kết nối với gốc thì khô héo ([wiltDisconnectedVines]).
+ * [TARGET] = ô đích "giọt nước" (World 3 · Sông & Thác): ô mềm **rơi & đếm-đầy như ô thường**
+ * (khác VINE), nhưng khi bị xoá hàng/cột (hoặc kíp nổ cuốn qua) thì vỡ → chấm CLEAR_TARGETS/MIXED
+ * ([ResolveEvent.DropsCleared]). Một số màn chôn sâu dưới lớp khối → phải cascade nhiều tầng mới xoá.
+ */
+enum class CellType { EMPTY, BLOCK, STONE, TARGET, VINE }
 
 /** Màu khối jelly (4 nhân vật chữ ký). Dùng cho hiển thị + cụm cùng màu. */
 enum class JellyColor { YELLOW, MINT, PINK, BLUE }
@@ -24,9 +32,12 @@ class Grid(val size: Int = SIZE) {
         val color: JellyColor? = null,
         val superLevel: Int = 0,
         val rainbow: Boolean = false,
+        /** Chỉ dùng khi [type] = [CellType.VINE]: true = GỐC dây (target của màn); false = đốt thường. */
+        val vineRoot: Boolean = false,
     ) {
         val isSuper: Boolean get() = superLevel > 0
         val isRainbow: Boolean get() = rainbow
+        val isVineRoot: Boolean get() = type == CellType.VINE && vineRoot
     }
 
     fun get(x: Int, y: Int): Cell? = cells.getOrNull(y)?.getOrNull(x)
@@ -50,4 +61,12 @@ class Grid(val size: Int = SIZE) {
     companion object {
         const val SIZE = 9
     }
+}
+
+/** Số ô đích "giọt nước" ([CellType.TARGET]) còn trên bàn (tiến độ CLEAR_TARGETS World 3). */
+fun countTargetCells(grid: Grid): Int {
+    var n = 0
+    for (y in 0 until grid.size) for (x in 0 until grid.size)
+        if (grid.get(x, y)?.type == CellType.TARGET) n++
+    return n
 }

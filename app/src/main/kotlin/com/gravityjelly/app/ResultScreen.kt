@@ -7,8 +7,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -29,11 +31,15 @@ import com.gravityjelly.app.ui.components.BtnVariant
 import com.gravityjelly.app.ui.components.GjButton
 import com.gravityjelly.app.ui.icons.GjIcon
 import com.gravityjelly.app.ui.icons.GjIcons
-import com.gravityjelly.app.ui.layout.GjScreenScaffold
 import com.gravityjelly.app.ui.theme.GjPalette
 import com.gravityjelly.app.ui.theme.GjRadius
 import com.gravityjelly.app.ui.theme.GjSpace
 import com.gravityjelly.app.ui.theme.GravityJellyTheme
+import com.gravityjelly.core.JellyColor
+import com.gravityjelly.core.Piece
+import com.gravityjelly.core.PieceLibrary
+import com.gravityjelly.game.EyeExpression
+import com.gravityjelly.game.LivingJellyThumbnail
 
 // ── format số kiểu Việt Nam (1.234.567) ────────────────────────────────────────
 
@@ -83,9 +89,14 @@ private fun ScoreStat(
 /**
  * Màn Result — kết thúc một ván Endless.
  *
- * Card mềm canh giữa (theo `result-screen.jsx`): tiêu đề "Hết chỗ đặt!",
- * badge "KỶ LỤC MỚI!" khi đạt kỷ lục, hàng điểm cuối / kỷ lục, rồi các nút
- * hành động xếp dọc (hồi sinh · xem QC, x2 điểm · xem QC, chơi lại, về Home).
+ * **Popup** (scrim mờ bàn phía sau, KHÔNG phải màn hình đục) — như [LevelWinScreen]. Card mềm canh
+ * giữa (theo `result-screen.jsx`): **mascot jelly hồng** nhô lên nửa trên mép card, tiêu đề
+ * "Hết chỗ đặt!", badge "KỶ LỤC MỚI!" khi đạt kỷ lục, hàng điểm cuối / kỷ lục, rồi hàng nút
+ * Chơi lại · Về Home.
+ *
+ * Rewarded actions (Hồi sinh · x2 điểm) — **tạm ẩn**: design mới đã bỏ nút x2, còn cơ chế "hồi
+ * sinh" (chơi tiếp cùng bàn) chưa chốt nên chưa hiện nút. Callback [onReviveAd]/[onDoubleAd] giữ
+ * nguyên trong chữ ký + luồng ad ở [EndlessGameScreen] để bật lại khi cơ chế được định nghĩa.
  *
  * Luồng một chiều: nút → callback đẩy lên :app (shell) đổi màn / gọi Services (AdMob).
  *
@@ -95,8 +106,8 @@ private fun ScoreStat(
 fun ResultScreen(
     score: Int,
     best: Int,
-    onReviveAd: () -> Unit,
-    onDoubleAd: () -> Unit,
+    @Suppress("UNUSED_PARAMETER") onReviveAd: () -> Unit,   // giữ cho revive tương lai (đang ẩn)
+    @Suppress("UNUSED_PARAMETER") onDoubleAd: () -> Unit,   // x2 đã bỏ theo design (giữ để bật lại)
     onReplay: () -> Unit,
     onHome: () -> Unit,
     modifier: Modifier = Modifier,
@@ -104,107 +115,138 @@ fun ResultScreen(
     // Kỷ lục mới khi điểm ván này chạm/vượt kỷ lục (best đã được cập nhật trước đó).
     val isNewBest = score >= best && score > 0
 
-    GjScreenScaffold(modifier = modifier, contentAlignment = Alignment.Center) {
-        // Card mềm: nền trắng, bo card lớn, shadow lg, canh giữa.
-        Column(
+    // POPUP: scrim mờ (GjPalette.Overlay) phủ bàn phía sau — không phải màn hình đục. Card canh giữa.
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .background(GjPalette.Overlay),
+        contentAlignment = Alignment.Center,
+    ) {
+        // Bọc ngoài để mascot là SIBLING chồm lên đỉnh card (background CÓ shape, KHÔNG .clip →
+        // không cắt mascot). Bám result-screen.jsx: JellyBlock hồng nhô trên mép card.
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .widthIn(max = 360.dp)
-                .shadow(
-                    elevation = 18.dp,
-                    shape = RoundedCornerShape(GjRadius.xxl),
-                    ambientColor = GjPalette.ShadowSoft,
-                    spotColor = GjPalette.ShadowKey,
-                )
-                .background(GjPalette.Surface, RoundedCornerShape(GjRadius.xxl))
-                .padding(GjSpace.xl),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(GjSpace.lg),
+                .padding(horizontal = GjSpace.lg),
         ) {
-            // ── Tiêu đề + badge kỷ lục ──────────────────────────────────────────
+            // Card mềm: nền trắng, bo card lớn, shadow lg. padding(top) chừa chỗ mascot chồm lên.
             Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 30.dp)                 // chừa chỗ cho mascot nhô lên trên
+                    .shadow(
+                        elevation = 18.dp,
+                        shape = RoundedCornerShape(GjRadius.xxl),
+                        ambientColor = GjPalette.ShadowSoft,
+                        spotColor = GjPalette.ShadowKey,
+                    )
+                    .background(GjPalette.Surface, RoundedCornerShape(GjRadius.xxl))
+                    // top rộng hơn: mascot chìm ~32dp vào card (tâm ở mép) → chữ phải nằm DƯỚI đáy
+                    // mascot, không bị che. 44dp = 32 (mascot) + ~12 khoảng thở.
+                    .padding(start = GjSpace.xl, end = GjSpace.xl, bottom = GjSpace.xl, top = 44.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(GjSpace.sm),
+                verticalArrangement = Arrangement.spacedBy(GjSpace.lg),
             ) {
-                Text(
-                    text = "Hết chỗ đặt!",
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = GjPalette.Text,
-                    textAlign = TextAlign.Center,
-                )
-                if (isNewBest) {
-                    NewBestBadge()
+                // ── Tiêu đề + badge kỷ lục ──────────────────────────────────────────
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(GjSpace.sm),
+                ) {
+                    Text(
+                        text = "Hết chỗ đặt!",
+                        // design result-screen.jsx: --text-title (28) weight 800; đồng bộ với
+                        // LevelWinScreen "Hoàn thành!" (extrabold 24) cho hai popup cùng tông.
+                        style = MaterialTheme.typography.headlineMedium.copy(
+                            fontWeight = FontWeight.ExtraBold, fontSize = 24.sp,
+                        ),
+                        color = GjPalette.Text,
+                        textAlign = TextAlign.Center,
+                    )
+                    if (isNewBest) {
+                        NewBestBadge()
+                    }
+                }
+
+                // ── Hàng điểm: ĐIỂM (lớn) | divider | KỶ LỤC ───────────────────────
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(IntrinsicSize.Min),
+                    verticalAlignment = Alignment.Bottom,
+                    horizontalArrangement = Arrangement.spacedBy(GjSpace.md),
+                ) {
+                    ScoreStat(
+                        label = "ĐIỂM",
+                        value = score,
+                        accent = true,
+                        modifier = Modifier.weight(1f),
+                    )
+                    // Vạch ngăn dọc mảnh
+                    Box(
+                        modifier = Modifier
+                            .width(1.dp)
+                            .fillMaxHeight()
+                            .background(GjPalette.CellLine),
+                    )
+                    ScoreStat(
+                        label = "KỶ LỤC",
+                        value = best,
+                        accent = false,
+                        modifier = Modifier.weight(1f),
+                    )
+                }
+
+                // ── Nút điều hướng — Chơi lại | Về Home cạnh nhau (result-screen.jsx nav row) ──
+                // Nhãn 1 dòng (softWrap=false) + gap sm để "Về Home" không bị xuống hàng khi chia đôi.
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(GjSpace.sm),
+                ) {
+                    // Chơi lại ngay một ván mới.
+                    GjButton(
+                        onClick = onReplay,
+                        variant = BtnVariant.Secondary,
+                        icon = GjIcons.Refresh,
+                        fullWidth = true,
+                        modifier = Modifier.weight(1f),
+                    ) { Text("Chơi lại", maxLines = 1, softWrap = false) }
+
+                    // Quay về màn Home.
+                    GjButton(
+                        onClick = onHome,
+                        variant = BtnVariant.Ghost,
+                        icon = GjIcons.Home,
+                        fullWidth = true,
+                        modifier = Modifier.weight(1f),
+                    ) { Text("Về Home", maxLines = 1, softWrap = false) }
                 }
             }
 
-            // ── Hàng điểm: ĐIỂM (lớn) | divider | KỶ LỤC ───────────────────────
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(IntrinsicSize.Min),
-                verticalAlignment = Alignment.Bottom,
-                horizontalArrangement = Arrangement.spacedBy(GjSpace.md),
-            ) {
-                ScoreStat(
-                    label = "ĐIỂM",
-                    value = score,
-                    accent = true,
-                    modifier = Modifier.weight(1f),
-                )
-                // Vạch ngăn dọc mảnh
-                Box(
-                    modifier = Modifier
-                        .width(1.dp)
-                        .fillMaxHeight()
-                        .background(GjPalette.CellLine),
-                )
-                ScoreStat(
-                    label = "KỶ LỤC",
-                    value = best,
-                    accent = false,
-                    modifier = Modifier.weight(1f),
-                )
-            }
-
-            // ── Nút hành động — xếp dọc, full-width, gap sm ──────────────────────
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(GjSpace.sm),
-            ) {
-                // Hồi sinh qua quảng cáo thưởng (rewarded) — nhấn nhất, dùng Gravity (accent chữ ký).
-                GjButton(
-                    onClick = onReviveAd,
-                    variant = BtnVariant.Gravity,
-                    icon = GjIcons.Heart,
-                    fullWidth = true,
-                ) { Text("Hồi sinh · xem QC") }
-
-                // Nhân đôi điểm qua quảng cáo thưởng.
-                GjButton(
-                    onClick = onDoubleAd,
-                    variant = BtnVariant.Primary,
-                    icon = GjIcons.X2,
-                    fullWidth = true,
-                ) { Text("x2 điểm · xem QC") }
-
-                // Chơi lại ngay một ván mới.
-                GjButton(
-                    onClick = onReplay,
-                    variant = BtnVariant.Secondary,
-                    icon = GjIcons.Refresh,
-                    fullWidth = true,
-                ) { Text("Chơi lại") }
-
-                // Quay về màn Home.
-                GjButton(
-                    onClick = onHome,
-                    variant = BtnVariant.Ghost,
-                    icon = GjIcons.Home,
-                    fullWidth = true,
-                ) { Text("Về Home") }
-            }
+            // ── Mascot jelly hồng — sibling chồm lên nửa trên đỉnh card ──────────────
+            DefeatedMascot(Modifier.align(Alignment.TopCenter))
         }
     }
+}
+
+// ── DefeatedMascot: khối jelly hồng mặt buồn nhô lên mép đỉnh card ────────────────
+//
+// Bám result-screen.jsx: <JellyBlock color="pink" size={64} /> ở đỉnh card. KHÔNG dùng pose
+// squashed của design (nén méo mắt — phản hồi người chơi). Mặt TĨNH buồn (animate=false, SAD).
+// offset -2: nửa trên nhô ra ngoài, TÂM nằm ngay trên đường mép trên của card (card padding top 30
+// ⇒ mép ở y=30; mascot 64, tâm = offset+32 = 30).
+@Composable
+private fun DefeatedMascot(modifier: Modifier = Modifier) {
+    LivingJellyThumbnail(
+        piece = Piece(PieceLibrary.DOT, JellyColor.PINK),
+        seed = 3,
+        animate = false,                             // khung tĩnh, không chớp/nháy/liếc
+        staticExpression = EyeExpression.SAD,        // mặt xịu buồn "hết chỗ"
+        cellDp = 60f,
+        modifier = modifier
+            .size(64.dp)
+            .offset(y = (-2).dp),
+    )
 }
 
 // ── NewBestBadge: pill "KỶ LỤC MỚI!" ───────────────────────────────────────────

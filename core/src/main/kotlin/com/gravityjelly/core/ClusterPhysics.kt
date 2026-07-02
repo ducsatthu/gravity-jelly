@@ -37,9 +37,14 @@ fun findClusters(grid: Grid): List<List<Vec>> {
     return clusters
 }
 
-/** Ô jelly = ô đầy không phải STONE (STONE đứng yên, không thuộc cụm). */
-private fun isJelly(grid: Grid, x: Int, y: Int): Boolean =
-    !grid.isEmpty(x, y) && grid.get(x, y)?.type != CellType.STONE
+/**
+ * Ô jelly = ô đầy KHÔNG bất động. STONE (đá cản) và VINE (dây leo, bám như rễ) đứng yên: không
+ * thuộc cụm, không rơi theo trọng lực/xoay — nhưng vẫn là vật cản chặn cụm khác (grid.isEmpty=false).
+ */
+private fun isJelly(grid: Grid, x: Int, y: Int): Boolean {
+    val t = grid.get(x, y)?.type ?: return false
+    return t != CellType.STONE && t != CellType.VINE
+}
 
 /**
  * Trọng lực CỤC BỘ sau khi xóa hàng/cột: CHỈ các ô jelly **nối liền** (chuỗi 4-kề,

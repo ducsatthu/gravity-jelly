@@ -120,6 +120,22 @@ class EndlessGameHolder(
     private var comboHits = 0
     private var bossComboBefore = 0   // bậc combo VÀO nước hiện tại (cộng dồn qua các nước có ích)
 
+    // ── CLEAR_TARGETS/MIXED: số ô đích đã phá + tổng ban đầu (World 2 = gốc dây leo, World 3 = giọt nước). ──
+    /** Tổng ô đích màn đặt sẵn (preset): gốc dây leo (W2) + giọt nước (W3). Dùng cho "còn N/total". */
+    val initialTargets: Int = level?.preset?.count {
+        (it.type == CellType.VINE && it.vineRoot) || it.type == CellType.TARGET
+    } ?: 0
+    /** Số ô đích đã phá (gốc dây leo [GameEvent.VineRootsCleared] + giọt [GameEvent.DropsCleared]). */
+    var targetsCleared by mutableStateOf(0)
+        private set
+    /** Số gốc còn lại cần phá (cho ObjectiveBar biến thể targets/mixed). */
+    val targetsRemaining: Int get() = (initialTargets - targetsCleared).coerceAtLeast(0)
+
+    /** Sát thương boss tích luỹ / máu boss (cho BossHud in-game). 0 = không phải màn boss. */
+    var bossHpDamage by mutableStateOf(0)
+        private set
+    val bossHpMax: Int = level?.goal?.takeIf { it.type == GoalType.BOSS_COMBO }?.bossHP ?: 0
+
     /**
      * Callback phản hồi haptic (đặt mảnh / xóa / combo≥3). Lớp vỏ ([EndlessScreen]) cấp,
      * gate bằng cờ vibration của Settings. Giữ luồng một chiều: holder phát sự kiện, không tự rung.
@@ -304,13 +320,6 @@ class EndlessGameHolder(
         val originCellY = (liftedY - boardWinY) / cell - piece.shape.height / 2f
         val desiredOx = stickyCell(originCellX, lastOx)
         val desiredOy = stickyCell(originCellY, lastOy)
-        android.util.Log.d(
-            "DRAGDBG",
-            "cell=$cell lift=$lift boardWin=($boardWinX,$boardWinY) " +
-                "finger=($windowX,$windowY) lifted=$liftedY " +
-                "origin=(${"%.2f".format(originCellX)},${"%.2f".format(originCellY)}) " +
-                "prev=($lastOx,$lastOy) desired=($desiredOx,$desiredOy)",
-        )
         lastOx = desiredOx; lastOy = desiredOy
         // Mảnh ra hẳn ngoài bàn (margin 1 ô) → không có ý định thả.
         val shape = piece.shape
@@ -468,12 +477,14 @@ class EndlessGameHolder(
                     if (e.level >= 2) trigRainbowSuper = true else trigRainbow = true
                     if (e.comboLevel > peakCombo) peakCombo = e.comboLevel
                 }
+                is GameEvent.VineRootsCleared -> targetsCleared += e.roots.size   // World 2 · CLEAR_TARGETS
+                is GameEvent.DropsCleared -> targetsCleared += e.drops.size       // World 3 · CLEAR_TARGETS
                 else -> {}
             }
         }
         if (peakCombo >= 2) trigCombo2 = true    // combo ×2 lần đầu (L8)
         val dmg = ComboReward.rotationRefund(bossComboBefore, peakCombo)
-        if (dmg > 0) { bossDamage += dmg; comboHits++ }
+        if (dmg > 0) { bossDamage += dmg; comboHits++; bossHpDamage = bossDamage }
         bossComboBefore = shell.combo
     }
 
@@ -495,7 +506,10 @@ class EndlessGameHolder(
                 TriggerKind.COMBO_X2 -> trigCombo2
                 null -> false
             }
-            GoalType.CLEAR_TARGETS, GoalType.COMBO_CHAIN -> false   // chưa hỗ trợ
+            // World 2: phá đủ N gốc dây leo (CLEAR_TARGETS) / phá đủ gốc VÀ đủ điểm (MIXED).
+            GoalType.CLEAR_TARGETS -> targetsCleared >= g.count
+            GoalType.MIXED -> targetsCleared >= g.count && shell.score >= g.score
+            GoalType.COMBO_CHAIN -> false   // chưa hỗ trợ
         }
         if (done) {
             starsEarned = computeStars()

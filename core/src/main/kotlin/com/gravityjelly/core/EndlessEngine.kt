@@ -10,6 +10,8 @@ data class EndlessState(
     val combo: Int,
     val stage: Int,
     val isGameOver: Boolean,
+    /** World 3: ô trống bị nước ngập — KHÔNG đặt mảnh được. Rỗng nếu tắt thác. */
+    val floodedCells: Set<Vec> = emptySet(),
 )
 
 sealed class GameEvent {
@@ -58,6 +60,16 @@ sealed class GameEvent {
     /** Combo leo thang đã hồi [amount] lượt xoay; [budgetAfter] là ngân sách sau khi cộng. */
     data class RotationRefunded(val amount: Int, val budgetAfter: Int) : GameEvent()
     data class StonesAdded(val positions: List<Vec>) : GameEvent()
+    /** Dây leo mọc lan thêm các đốt tại [cells] (World 2). */
+    data class VineGrew(val cells: List<Vec>) : GameEvent()
+    /** Xoá dòng qua GỐC → dây tan. [roots] = gốc bị diệt (chấm CLEAR_TARGETS); [cells] = mọi ô dây mất. */
+    data class VineRootsCleared(val roots: List<Vec>, val cells: List<Vec>) : GameEvent()
+    /** Vỡ ô đích "giọt nước" tại [drops] (World 3 · chấm CLEAR_TARGETS/MIXED). */
+    data class DropsCleared(val drops: List<Vec>) : GameEvent()
+    /** Boss "Kẻ Đổ Rác" chèn ô rác cứng tại [positions] (World 2 · L20). */
+    data class DebrisAdded(val positions: List<Vec>) : GameEvent()
+    /** Boss "Thần Thác" (World 3 · L30) tự ĐẢO hướng trọng lực 180° → [newGravity]. */
+    data class BossGravityFlipped(val newGravity: Direction) : GameEvent()
     data class TrayDealt(val tray: List<Piece?>) : GameEvent()
     data object GameOver : GameEvent()
 }
@@ -80,6 +92,8 @@ class EndlessEngine(
      */
     private val trayScript: List<List<Piece>> = emptyList(),
     initialGravity: Direction = Direction.DOWN,
+    /** World 3 — vị trí nguồn thác nước (lateral 0..8). Rỗng = tắt thác. */
+    private val waterSources: List<Int> = emptyList(),
 ) {
     private val rng = Rng(seed)
     private val grid = Grid()
@@ -91,10 +105,17 @@ class EndlessEngine(
     private var score = 0
     private var combo = 0
     private var gameOver = false
+    /** Số lượt THẢ mảnh kể từ lần dây leo mọc gần nhất (nhịp mọc = [EndlessTuning.vineGrowEveryN]). */
+    private var placesSinceGrow = 0
+    /** Tổng số lượt THẢ mảnh (boss "Kẻ Đổ Rác": qua ân hạn mới bắt đầu đổ rác). */
+    private var placeTurns = 0
+    /** World 3: ô trống bị thác ngập — cấm đặt mảnh. Tính lại mỗi lượt. */
+    private var floodedCells: Set<Vec> = emptySet()
 
     init {
         for ((pos, cell) in preset) grid.set(pos.x, pos.y, cell)
         tray = dealTray()
+        recalculateWaterfall(mutableListOf())
     }
 
     fun state(): EndlessState = EndlessState(
@@ -106,6 +127,7 @@ class EndlessEngine(
         combo = combo,
         stage = stage,
         isGameOver = gameOver,
+        floodedCells = floodedCells.toSet(),
     )
 
     /**
@@ -119,6 +141,8 @@ class EndlessEngine(
         if (trayIndex !in tray.indices) return emptyList()
 
         val piece = tray[trayIndex] ?: return emptyList()
+        val cells = piece.shape.at(ox, oy)
+        if (cells.any { it in floodedCells }) return emptyList()
         val placeResult = freePlace(grid, piece, ox, oy)
         if (placeResult !is PlacementResult.Success) return emptyList()
 
@@ -159,6 +183,13 @@ class EndlessEngine(
         applyComboRefund(prevCombo, resolveResult.endCombo, events)
         resolveResult.events.mapTo(events) { it.toGameEvent() }
 
+        placeTurns++
+        growVinesIfDue(events)
+        spawnBossVineIfDue(events)
+        dropDebrisIfDue(events)
+        flipBossGravityIfDue(events)
+        recalculateWaterfall(events)
+
         // Set null tại đúng ô vừa đặt — GIỮ vị trí các ô còn lại (không dồn trái).
         tray = tray.toMutableList().also { it[trayIndex] = null }
 
@@ -170,6 +201,107 @@ class EndlessEngine(
             gameOver = true
             events.add(GameEvent.GameOver)
         }
+    }
+
+    /**
+     * Dây leo mọc lan (World 2): mỗi [EndlessTuning.vineGrowEveryN] lượt THẢ, mọc 1 đốt/dây. Đốt mới
+     * (đếm vào ô đầy) có thể lấp đầy dòng → resolve tiếp, cộng dồn điểm/combo như một nhịp bình thường.
+     */
+    private fun growVinesIfDue(events: MutableList<GameEvent>) {
+        if (tuning.vineGrowEveryN <= 0 || !hasVines(grid)) return
+        placesSinceGrow++
+        if (placesSinceGrow < tuning.vineGrowEveryN) return
+        placesSinceGrow = 0
+        val grown = growVines(grid, gravity)
+        if (grown.isEmpty()) return
+        events.add(GameEvent.VineGrew(grown))
+        foldResolve(events)
+    }
+
+    /**
+     * Boss "Kẻ Đổ Rác" (L20): sau [EndlessTuning.debrisGraceTurns] lượt ân hạn, mỗi lượt chèn
+     * [EndlessTuning.debrisPerTurn] ô rác cứng (BLOCK — rơi/xoay/xoá như ô thường, §9) vào các ô
+     * trống gần "trần" (cạnh ngược hướng trọng lực). Deterministic theo lưới + số lượt.
+     */
+    private fun dropDebrisIfDue(events: MutableList<GameEvent>) {
+        if (tuning.debrisPerTurn <= 0 || placeTurns <= tuning.debrisGraceTurns) return
+        val empties = ArrayList<Vec>()
+        for (y in 0 until grid.size) for (x in 0 until grid.size)
+            if (grid.isEmpty(x, y)) empties.add(Vec(x, y))
+        // Gần trần nhất trước: rank theo hình chiếu lên hướng trọng lực (nhỏ = sát trần), rồi (y,x).
+        empties.sortWith(compareBy({ it.x * gravity.dx + it.y * gravity.dy }, { it.y }, { it.x }))
+        val n = minOf(tuning.debrisPerTurn, empties.size)
+        if (n == 0) return
+        val placed = ArrayList<Vec>(n)
+        for (i in 0 until n) {
+            val v = empties[i]
+            val color = JellyColor.entries[(placeTurns + i) % JellyColor.entries.size]
+            grid.set(v.x, v.y, Grid.Cell(CellType.BLOCK, color))
+            placed.add(v)
+        }
+        // Rác vừa chèn có thể tạo cụm/lấp dòng → resolve tiếp.
+        foldResolve(events)
+        events.add(GameEvent.DebrisAdded(placed))
+    }
+
+    /**
+     * Boss "Thần Thác" (World 3 · L30, archetype Tham Trọng Lực): cứ mỗi [EndlessTuning.bossGravityEveryN]
+     * lượt THẢ, boss tự **đảo hướng trọng lực 180°** — cả bàn đổ ngược, ép người chơi giành lại nhịp bằng
+     * ngân sách xoay và biến đòn của boss thành cascade/combo cho mình (bào máu). Deterministic theo số lượt.
+     * KHÔNG tốn ngân sách xoay của người chơi. Chỉ đổi [gravity] → lớp render tự chạy hoạt cảnh xoay.
+     */
+    private fun flipBossGravityIfDue(events: MutableList<GameEvent>) {
+        if (tuning.bossGravityEveryN <= 0) return
+        if (placeTurns % tuning.bossGravityEveryN != 0) return
+        gravity = gravity.rotateCW().rotateCW()   // 180° = đảo
+        events.add(GameEvent.BossGravityFlipped(gravity))
+        val settled = applyClusterGravity(grid, gravity)
+        events.add(GameEvent.Settled(settled))
+        foldResolve(events)                       // cascade sau khi đổ ngược → cộng combo/sát thương
+    }
+
+    /**
+     * Boss "Thần Rừng" (W2 · L20): mỗi [EndlessTuning.bossVineSpawnEveryN] lượt, spawn 1 gốc vine
+     * mới tại ô trống ngẫu nhiên (deterministic qua [rng]). Gốc mới bắt đầu mọc lan bình thường.
+     */
+    private fun spawnBossVineIfDue(events: MutableList<GameEvent>) {
+        if (tuning.bossVineSpawnEveryN <= 0) return
+        if (placeTurns % tuning.bossVineSpawnEveryN != 0) return
+        val empties = ArrayList<Vec>()
+        for (y in 0 until grid.size) for (x in 0 until grid.size)
+            if (grid.isEmpty(x, y)) empties.add(Vec(x, y))
+        if (empties.isEmpty()) return
+        val pos = empties[rng.nextInt(empties.size)]
+        grid.set(pos.x, pos.y, Grid.Cell(CellType.VINE, JellyColor.MINT, vineRoot = true))
+        events.add(GameEvent.VineGrew(listOf(pos)))
+        foldResolve(events)
+    }
+
+    /**
+     * Thác nước (W3): tính lại dòng chảy từ [waterSources] theo [gravity] hiện tại. Ô trống bị ngập
+     * = cấm đặt mảnh. Giọt (TARGET) bị nước chạm = phá luôn (phát [GameEvent.DropsCleared]).
+     */
+    private fun recalculateWaterfall(events: MutableList<GameEvent>) {
+        if (waterSources.isEmpty()) { floodedCells = emptySet(); return }
+        val result = calculateWaterfallFlow(grid, waterSources, gravity)
+        floodedCells = result.floodedCells
+        if (result.dropsHit.isNotEmpty()) {
+            for (v in result.dropsHit) grid.set(v.x, v.y, null)
+            events.add(GameEvent.DropsCleared(result.dropsHit))
+            val moved = applyClusterGravity(grid, gravity)
+            if (moved) foldResolve(events)
+            floodedCells = calculateWaterfallFlow(grid, waterSources, gravity).floodedCells
+        }
+    }
+
+    /** Resolve thêm một nhịp sau khi lưới bị biến đổi ngoài lượt đặt (mọc dây / đổ rác); cộng dồn. */
+    private fun foldResolve(events: MutableList<GameEvent>) {
+        val prev = combo
+        val r = resolve(grid, gravity, combo, tuning.superMergeEnabled)
+        score += r.totalScore
+        if (r.cleared || r.formedSuper) combo = r.endCombo
+        applyComboRefund(prev, r.endCombo, events)
+        r.events.mapTo(events) { it.toGameEvent() }
     }
 
     fun rotateGravity(cw: Boolean): List<GameEvent> {
@@ -188,10 +320,11 @@ class EndlessEngine(
         val prevCombo = combo
         val resolveResult = resolve(grid, gravity, combo, tuning.superMergeEnabled)
         score += resolveResult.totalScore
-        // Xoay trọng lực không xóa được gì thì GIỮ combo (endCombo == combo cũ), không reset.
         combo = resolveResult.endCombo
         applyComboRefund(prevCombo, resolveResult.endCombo, events)
         resolveResult.events.mapTo(events) { it.toGameEvent() }
+
+        recalculateWaterfall(events)
 
         if (checkGameOver()) {
             gameOver = true
@@ -217,20 +350,32 @@ class EndlessEngine(
     }
 
     private fun checkGameOver(): Boolean {
-        // Đặt-tự-do: còn bất kỳ ô trống khít cho mảnh nào là còn nước đi (độc lập trọng lực).
-        if (tray.any { it != null && canFreePlaceAnywhere(grid, it) }) return false
+        if (tray.any { it != null && canFreePlaceNotFlooded(grid, it, floodedCells) }) return false
         if (rotBudget <= 0) return true
 
-        // Xoay trọng lực dồn cụm lại có thể mở ra khoảng trống khít → thử từng hướng.
         for (dir in Direction.entries) {
             if (dir == gravity) continue
             val testGrid = grid.copy()
             applyClusterGravity(testGrid, dir)
             resolve(testGrid, dir, mergeEnabled = tuning.superMergeEnabled)
-            if (tray.any { it != null && canFreePlaceAnywhere(testGrid, it) }) return false
+            val testFlooded = if (waterSources.isNotEmpty())
+                calculateWaterfallFlow(testGrid, waterSources, dir).floodedCells else emptySet()
+            if (tray.any { it != null && canFreePlaceNotFlooded(testGrid, it, testFlooded) }) return false
         }
 
         return true
+    }
+
+    private fun canFreePlaceNotFlooded(grid: Grid, piece: Piece, flooded: Set<Vec>): Boolean {
+        if (flooded.isEmpty()) return canFreePlaceAnywhere(grid, piece)
+        val shape = piece.shape
+        for (oy in 0..(grid.size - shape.height)) {
+            for (ox in 0..(grid.size - shape.width)) {
+                val cells = shape.at(ox, oy)
+                if (cells.all { grid.isEmpty(it.x, it.y) && it !in flooded }) return true
+            }
+        }
+        return false
     }
 
     private fun dealTray(): List<Piece> {
@@ -288,4 +433,6 @@ private fun ResolveEvent.toGameEvent(): GameEvent = when (this) {
     is ResolveEvent.SuperFormed -> GameEvent.SuperFormed(at, color, level, source, absorbed, score, comboLevel)
     is ResolveEvent.SuperDetonated -> GameEvent.SuperDetonated(at, color, level, cells, isRainbow)
     is ResolveEvent.RainbowFormed -> GameEvent.RainbowFormed(at, absorbed, score, comboLevel, level)
+    is ResolveEvent.VineRootsCleared -> GameEvent.VineRootsCleared(roots, cells)
+    is ResolveEvent.DropsCleared -> GameEvent.DropsCleared(drops)
 }

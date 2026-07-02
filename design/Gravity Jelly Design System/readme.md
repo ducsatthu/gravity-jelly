@@ -106,7 +106,7 @@ See **`00-index.md`** for the full numbered table of contents. Top level:
   foundation specimen cards in `01-tokens/cards/`.
 - **`02-foundations/`** — `JellyBlock`, `Eyes`, `Icon` (the shared atoms).
 - **`03-components/`** — `Button`, `Hud`, `Tray`, `GravityRotateButton`, `ComboPopup`,
-  `Dialog`, `JellyScene`, `ObjectiveBar` (level-objective cluster under the HUD),
+  `Dialog`, `ObjectiveBar` (level-objective cluster under the HUD),
   `BossHud` (boss-fight HUD cluster).
 - **`04-screens/`** — the UI kit: interactive `index.html` + Game / Home / Result /
   Settings, with `board.jsx` and `phone-frame.jsx` helpers.

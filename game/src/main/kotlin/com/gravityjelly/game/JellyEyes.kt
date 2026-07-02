@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.drawscope.translate
  * Expression variants cho mắt khối jelly.
  * SMUG: clip nửa dưới + xoay ±9°. FOCUS: iris tĩnh (pulsing → Prompt 05).
  */
-enum class EyeExpression { NORMAL, FRONT, HAPPY, FOCUS, SMUG, WINK }
+enum class EyeExpression { NORMAL, FRONT, HAPPY, FOCUS, SMUG, WINK, SAD }
 
 // ── màu nội bộ (INK #4A3526 từ Eyes.jsx) ────────────────────────────────────
 private val EyeInk     = Color(0xFF4A3526)
@@ -129,6 +129,31 @@ internal fun DrawScope.drawEyes(
         drawEyeBall(lc, eyeR, pupilR, sparkR, 0f, 0f, alpha)
         translate(rc.x - eyeR, rc.y - eyeR) {
             drawPath(winkArcPath, EyeInk, alpha = alpha, style = cachedArcStroke)
+        }
+        return
+    }
+
+    // ── sad "xịu buồn": con ngươi nhìn xuống + mí trên xịu chếch ra ngoài ──────
+    // Tổ hợp từ vocabulary sẵn có (drawEyeBall + mí như SMUG nhưng ở NỬA TRÊN, dốc
+    // inner-cao/outer-thấp) — design foundation chưa có mắt buồn nên dựng tối giản.
+    if (expression == EyeExpression.SAD) {
+        val lidH = eyeR * 0.55f          // mí trên phủ ~nửa trên mắt
+        val droop = eyeR * 0.34f          // con ngươi trĩ xuống
+        // mắt trái: mí dốc xuống phía ngoài (trái) ⇒ xoay CCW (âm) quanh tâm
+        drawEyeBall(lc, eyeR, pupilR, sparkR, 0f, droop, alpha)
+        rotate(-13f, pivot = lc) {
+            clipRect(lc.x - eyeR, lc.y - eyeR, lc.x + eyeR, lc.y + eyeR) {
+                drawRect(EyeInk, topLeft = Offset(lc.x - eyeR, lc.y - eyeR),
+                    size = Size(eyeDiam, lidH), alpha = alpha)
+            }
+        }
+        // mắt phải: mí dốc xuống phía ngoài (phải) ⇒ xoay CW (dương)
+        drawEyeBall(rc, eyeR, pupilR, sparkR, 0f, droop, alpha)
+        rotate(13f, pivot = rc) {
+            clipRect(rc.x - eyeR, rc.y - eyeR, rc.x + eyeR, rc.y + eyeR) {
+                drawRect(EyeInk, topLeft = Offset(rc.x - eyeR, rc.y - eyeR),
+                    size = Size(eyeDiam, lidH), alpha = alpha)
+            }
         }
         return
     }

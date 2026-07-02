@@ -48,6 +48,8 @@ fun EndlessGameScreen(
     reducedMotion: Boolean = false,
     seenGuides: Set<String> = emptySet(),
     onGuideSeen: (String) -> Unit = {},
+    /** World để chọn nền in-game (đổi theo world người chơi đang tiến tới). Mặc định 1 (Đồng cỏ). */
+    world: Int = 1,
 ) {
     val activity = LocalContext.current.findActivity()
 
@@ -95,6 +97,7 @@ fun EndlessGameScreen(
             reducedMotion = reducedMotion,
             seenGuides = seenGuides,
             onGuideSeen = onGuideSeen,
+            world = world,
             modifier = Modifier.fillMaxSize(),
         )
 

@@ -18,9 +18,27 @@ object WorldTheme {
     /** Res nền in-game cho [world]. Fallback world 1 khi world chưa có art riêng. */
     @DrawableRes
     fun ingameBackground(world: Int): Int = when (world) {
-        1    -> R.drawable.ingame_world_1_bg
-        // 2 -> R.drawable.ingame_world_2_bg   // Rừng rậm — thêm khi có art
-        else -> R.drawable.ingame_world_1_bg
+        2    -> R.drawable.ingame_world_2_bg   // Rừng rậm (forest-bg)
+        3    -> R.drawable.ingame_world_3_bg   // Sông & Thác (waterfall-bg)
+        else -> R.drawable.ingame_world_1_bg   // Đồng cỏ (meadow) — mặc định
+    }
+
+    /** Res nền màn HOME cho [world] (đổi theo world người chơi đang tiến tới). Fallback world 1. */
+    @DrawableRes
+    fun homeBackground(world: Int): Int = when (world) {
+        2    -> R.drawable.home_world_2_bg
+        3    -> R.drawable.home_world_3_bg
+        else -> R.drawable.home_world_1_bg
+    }
+
+    /**
+     * Màu TRỜI ở đỉnh ảnh nền Home (lấp dải trên khi màn cao hơn ảnh) — lấy mẫu từ mép trên từng ảnh
+     * home-world-N-bg để blend liền: W1 #8ECDF3 (JSX), W2 #A7DFD0 (rừng), W3 #64CBF1 (sông).
+     */
+    fun homeSky(world: Int): Color = when (world) {
+        2    -> Color(0xFFA7DFD0)
+        3    -> Color(0xFF64CBF1)
+        else -> Color(0xFF8ECDF3)
     }
 
     /** Tên hiển thị của [world] (bảng world trong design system / CLAUDE.md). */

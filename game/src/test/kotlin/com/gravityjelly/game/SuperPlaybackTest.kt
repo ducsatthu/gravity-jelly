@@ -37,6 +37,8 @@ class SuperPlaybackTest {
             is ResolveEvent.SuperFormed -> out.add(GameEvent.SuperFormed(e.at, e.color, e.level, e.source, e.absorbed))
             is ResolveEvent.SuperDetonated -> out.add(GameEvent.SuperDetonated(e.at, e.color, e.level, e.cells))
             is ResolveEvent.RainbowFormed -> out.add(GameEvent.RainbowFormed(e.at, e.absorbed))
+            is ResolveEvent.VineRootsCleared -> out.add(GameEvent.VineRootsCleared(e.roots, e.cells))
+            is ResolveEvent.DropsCleared -> out.add(GameEvent.DropsCleared(e.drops))
         }
         return out
     }

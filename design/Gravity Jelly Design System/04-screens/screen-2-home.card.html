@@ -1,4 +1,4 @@
-<!-- @dsCard group="Screens" viewport="392x812" name="② Home" subtitle="Meadow World 1 — panel kem với 5 nút menu (chiến dịch · vô hạn · cẩm nang · cài đặt · xếp hạng)" -->
+<!-- @dsCard group="Screens" viewport="392x812" name="② Home" subtitle="Home World 3 — Sông & Thác (đã mở khoá); Tweaks đổi nền W1/W2/W3 · panel kem 5 nút menu" -->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -20,10 +20,11 @@
   <script type="text/babel" src="home-screen.jsx"></script>
   <script type="text/babel">
     const PhoneFrame = window.GJPhoneFrame, Home = window.GJHomeScreen;
-    const { useTweaks, TweaksPanel, TweakSection, TweakToggle } = window;
+    const { useTweaks, TweaksPanel, TweakSection, TweakToggle, TweakRadio } = window;
 
     const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-      "petals": true
+      "petals": true,
+      "world": 1
     }/*EDITMODE-END*/;
 
     function App() {
@@ -33,10 +34,15 @@
           <PhoneFrame>
             <Home
               petals={t.petals}
+              world={t.world}
               onCampaign={()=>{}} onPlay={()=>{}} onGuide={()=>{}} onTools={()=>{}}
             />
           </PhoneFrame>
           <TweaksPanel>
+            <TweakSection label="Thế giới" />
+            <TweakRadio label="Nền home" value={t.world}
+              options={[{label:'W1 Đồng cỏ',value:1},{label:'W2 Rừng rậm',value:2},{label:'W3 Sông & Thác',value:3}]}
+              onChange={(v) => setTweak('world', v)} />
             <TweakSection label="Hiệu ứng" />
             <TweakToggle label="Cánh hoa bay" value={t.petals}
               onChange={(v) => setTweak('petals', v)} />

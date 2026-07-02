@@ -181,6 +181,8 @@ fun BoardCanvas(
                 val top  = y * cellSize + gap / 2f + oy
                 when (cell.type) {
                     CellType.STONE -> drawStoneBlock(left, top, blockSize, cr, borderStroke)
+                    CellType.VINE -> drawVineCell(left, top, blockSize, cr, borderStroke, root = cell.vineRoot)
+                    CellType.TARGET -> drawDropCell(left, top, blockSize, cr, borderStroke)
                     CellType.BLOCK -> {
                         // Vùng preview: viền lấp lánh SAU LƯNG block (ló ra ngoài mép, mặt block vẫn sạch).
                         if (regionActive && previewMask[y * n + x]) drawShimmerBorder(left, top, blockSize, superSpin)

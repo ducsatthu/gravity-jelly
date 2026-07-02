@@ -6,7 +6,13 @@
   const NS = window.GravityJellyDesignSystem_3e0487;
   const { Icon } = NS;
 
-  const BG = '../06-svg-assets/backgrounds/home-world-1-bg.png';
+  const BG_BY_WORLD = {
+    1: '../06-svg-assets/backgrounds/home-world-1-bg.png',
+    2: '../06-svg-assets/backgrounds/home-world-2-bg.png',
+    3: '../06-svg-assets/backgrounds/home-world-3-bg.png',
+  };
+  const BG = BG_BY_WORLD[1];
+  const PANEL = '../06-svg-assets/ui/home-panel.png';
   const BTN = '../06-svg-assets/ui/button-frame.png';
   const BTN_GREEN = '../06-svg-assets/ui/button-frame-green.png';
   const BTN_ORANGE = '../06-svg-assets/ui/button-frame-orange.png';
@@ -19,7 +25,7 @@
 
   /* Icon button: painted PNG that depresses on press. Sized by HEIGHT (`h`, a CSS
      length) so the near-square icons fit the short panel; width follows art aspect. */
-  function IconButton({ icon, label, onClick, h }) {
+  function IconButton({ icon, label, onClick }) {
     const [press, setPress] = React.useState(false);
     return (
       <button
@@ -29,14 +35,14 @@
         onPointerLeave={() => setPress(false)}
         aria-label={label}
         style={{
-          height: h, display: 'flex', alignItems: 'center', justifyContent: 'center',
+          flex: '1 1 0', minWidth: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
           padding: 0, border: 'none', background: 'none', cursor: 'pointer',
           transform: `scale(${press ? 0.93 : 1})`,
           transition: 'transform .12s cubic-bezier(.34,1.56,.64,1)',
         }}
       >
         <img src={icon} alt="" style={{
-          height: '100%', width: 'auto', display: 'block', userSelect: 'none',
+          width: '100%', height: 'auto', display: 'block', userSelect: 'none',
           filter: 'drop-shadow(0 4px 6px rgba(120,92,52,0.3))',
         }} />
       </button>
@@ -182,8 +188,9 @@
 
   function HomeScreen({
     best = 28640, hearts = 4, maxHearts = 5, regenSeconds = 750, petals = true,
-    onCampaign, onPlay, onGuide, onTools,
+    world = 1, onCampaign, onPlay, onGuide, onTools,
   }) {
+    const bg = BG_BY_WORLD[world] || BG;
     const [hp, setHp] = React.useState(Math.min(hearts, maxHearts));
     const [left, setLeft] = React.useState(regenSeconds);
 
@@ -216,7 +223,7 @@
            Top overflow (sky) is the spare area for taller screens. All home
            elements live inside here so their %-positions track the art. */}
         <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, width: '100%', aspectRatio: '821 / 1916', containerType: 'inline-size' }}>
-          <img src={BG} alt="Gravity Jelly" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', display: 'block', userSelect: 'none', pointerEvents: 'none' }} />
+          <img src={bg} alt="Gravity Jelly" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', display: 'block', userSelect: 'none', pointerEvents: 'none' }} />
 
           {/* Sparkles tạm thời ẩn — nền mới chưa có landmark tương ứng.
           {sparkle && (
@@ -229,19 +236,42 @@
           {/* Cánh hoa bay bay khắp màn hình */}
           {petals && <Petals count={24} seed={7} />}
 
-          {/* menu 2 hàng trong panel kem — hàng trên 2 nút chơi chính (to hơn) */}
+          {/* PANEL KEM + MENU — MỘT cụm khoá TỈ LỆ panel (1448/1086) neo đáy stage.
+             Mọi số đo tương đối (%, cqw) → co giãn đều mọi máy, KHÔNG stretch (aspectRatio
+             giữ hình panel), KHÔNG tràn (nội dung nằm trong padding + space-evenly).
+             Stage có aspectRatio 821/1916 cố định nên cụm này giữ nguyên vị trí/tỉ lệ ở mọi
+             chiều cao màn (màn thấp chỉ cắt bớt TRỜI phía trên, không ảnh hưởng panel). */}
           <div style={{
-            position: 'absolute', left: '12%', right: '12%', top: '77.5%', bottom: '4.9%',
-            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '2cqw',
+            position: 'absolute', left: '7.5%', right: '7.5%', bottom: '2%',
+            aspectRatio: '1448 / 1086',
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4cqw' }}>
-              <IconButton icon={IC_CAMPAIGN} label="Chiến dịch" onClick={onCampaign} h="18.4cqw" />
-              <IconButton icon={IC_INFINITE} label="Endless" onClick={onPlay} h="18.4cqw" />
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '3.5cqw' }}>
-              <IconButton icon={IC_GUIDE} label="Cẩm nang" onClick={onGuide} h="15.2cqw" />
-              <IconButton icon={IC_LEADER} label="Bảng xếp hạng" onClick={onTools} h="15.2cqw" />
-              <IconButton icon={IC_SETTING} label="Cài đặt" onClick={onTools} h="15.2cqw" />
+            {/* nền panel — phủ khít cụm, giữ tỉ lệ gốc (không méo) */}
+            <img src={PANEL} alt="" aria-hidden="true" style={{
+              position: 'absolute', inset: 0, width: '100%', height: '100%',
+              display: 'block', userSelect: 'none', pointerEvents: 'none',
+              filter: 'drop-shadow(0 8px 16px rgba(120,92,52,0.28))',
+            }} />
+
+            {/* menu 2 hàng — padding = viền cream (đo PIL: ngang 4.6% bề-rộng · dọc 11.3%
+               bề-CAO panel) + khe đều ~4.7%. Lưu ý CSS: padding % LUÔN theo bề RỘNG khối, nên
+               dọc 11.3%-cao = 8.5%-rộng → padding dọc 13.2%, ngang 9.3%. space-evenly ⇒ lề
+               trên = giữa = dưới, tự cân, không tràn trên màn thấp. */}
+            <div style={{
+              position: 'absolute', inset: 0, padding: '13.2% 9.3%',
+              display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly',
+            }}>
+              {/* 2 hàng cùng width 100% (của khối nội dung đã trừ padding) ⇒ mép trái/phải
+                 2 hàng TRÙNG nhau ở mọi máy. Nút flex:1 + img width:100% height:auto ⇒
+                 tổng ngang hàng trên (2 nút) = hàng dưới (3 nút). gap 4cqw = 4% bề rộng máy. */}
+              <div style={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'center', gap: '4cqw' }}>
+                <IconButton icon={IC_CAMPAIGN} label="Chiến dịch" onClick={onCampaign} />
+                <IconButton icon={IC_INFINITE} label="Endless" onClick={onPlay} />
+              </div>
+              <div style={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'center', gap: '4cqw' }}>
+                <IconButton icon={IC_GUIDE} label="Cẩm nang" onClick={onGuide} />
+                <IconButton icon={IC_LEADER} label="Bảng xếp hạng" onClick={onTools} />
+                <IconButton icon={IC_SETTING} label="Cài đặt" onClick={onTools} />
+              </div>
             </div>
           </div>
         </div>

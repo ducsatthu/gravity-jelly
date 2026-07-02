@@ -40,15 +40,24 @@ fun LivingJellyThumbnail(
     modifier: Modifier = Modifier,
     cellDp: Float? = null,
     glanceDir: Direction = Direction.DOWN,
+    /**
+     * true (mặc định) → mắt "sống": chớp/nháy/liếc theo nhịp. false → **khung tĩnh**: giữ nguyên
+     * [staticExpression], mắt mở, không động — dùng cho mascot chân dung (vd card Result).
+     */
+    animate: Boolean = true,
+    /** Biểu cảm khi [animate]=false. Mặc định FRONT (nhìn thẳng); vd SAD cho mascot "hết chỗ". */
+    staticExpression: EyeExpression = EyeExpression.FRONT,
 ) {
     val density = LocalDensity.current.density
     val timeMs = remember { mutableLongStateOf(0L) }
-    LaunchedEffect(Unit) {
-        var startNanos = 0L
-        while (true) {
-            withFrameNanos { now ->
-                if (startNanos == 0L) startNanos = now
-                timeMs.longValue = (now - startNanos) / 1_000_000L
+    if (animate) {
+        LaunchedEffect(Unit) {
+            var startNanos = 0L
+            while (true) {
+                withFrameNanos { now ->
+                    if (startNanos == 0L) startNanos = now
+                    timeMs.longValue = (now - startNanos) / 1_000_000L
+                }
             }
         }
     }
@@ -61,40 +70,47 @@ fun LivingJellyThumbnail(
     val gdy = glanceDir.dy.toFloat()
 
     Canvas(modifier) {
-        val t = timeMs.longValue                       // ← draw-phase read
-
-        // ── Nháy mắt (wink): front ↔ wink, ưu tiên cao nhất khi đang giữ ──
-        val winkLocal = (t + winkPhase) % WINK_PERIOD_MS
-        val winking = winkLocal < WINK_HOLD_MS
-
-        // ── Chớp mắt (blink): nhắm cả hai; 35% double-blink (deterministic theo cycle) ──
-        val blinkT = t + blinkPhase
-        val blinkLocal = blinkT % BLINK_PERIOD_MS
-        val blinkCycle = (blinkT / BLINK_PERIOD_MS).toInt()
-        var closed = blinkLocal < BLINK_CLOSE_MS
-        if (!closed && hash01(seed, blinkCycle) < DOUBLE_BLINK_PROB &&
-            blinkLocal in DOUBLE_GAP_MS until (DOUBLE_GAP_MS + DOUBLE_CLOSE_MS)
-        ) closed = true
-        val blinking = closed && !winking          // wink giữ mắt mở (một bên cung nhắm)
-
-        // ── Liếc hướng: ramp tới hướng cardinal, giữ, rồi về front (ease mềm) ──
-        val glanceLocal = (t + glancePhase) % GLANCE_PERIOD_MS
-        val frac = when {
-            glanceLocal >= GLANCE_LOOK_MS -> 0f
-            glanceLocal < GLANCE_RAMP_MS -> smoothstep(glanceLocal.toFloat() / GLANCE_RAMP_MS)
-            glanceLocal > GLANCE_LOOK_MS - GLANCE_RAMP_MS ->
-                smoothstep((GLANCE_LOOK_MS - glanceLocal).toFloat() / GLANCE_RAMP_MS)
-            else -> 1f
-        }
-
-        // Chọn expression theo design: wink > liếc(normal) > nhìn thẳng(front). Blink override qua open.
+        // Chọn expression + hướng con ngươi + trạng thái nhắm.
         val expression: EyeExpression
         val dirX: Float
         val dirY: Float
-        when {
-            winking -> { expression = EyeExpression.WINK; dirX = 0f; dirY = 0f }
-            frac > 0f -> { expression = EyeExpression.NORMAL; dirX = gdx * frac; dirY = gdy * frac }
-            else -> { expression = EyeExpression.FRONT; dirX = 0f; dirY = 0f }
+        val blinking: Boolean
+        if (!animate) {
+            // Khung tĩnh: giữ biểu cảm cố định, mắt mở, con ngươi giữa (không chớp/nháy/liếc).
+            expression = staticExpression; dirX = 0f; dirY = 0f; blinking = false
+        } else {
+            val t = timeMs.longValue                       // ← draw-phase read
+
+            // ── Nháy mắt (wink): front ↔ wink, ưu tiên cao nhất khi đang giữ ──
+            val winkLocal = (t + winkPhase) % WINK_PERIOD_MS
+            val winking = winkLocal < WINK_HOLD_MS
+
+            // ── Chớp mắt (blink): nhắm cả hai; 35% double-blink (deterministic theo cycle) ──
+            val blinkT = t + blinkPhase
+            val blinkLocal = blinkT % BLINK_PERIOD_MS
+            val blinkCycle = (blinkT / BLINK_PERIOD_MS).toInt()
+            var closed = blinkLocal < BLINK_CLOSE_MS
+            if (!closed && hash01(seed, blinkCycle) < DOUBLE_BLINK_PROB &&
+                blinkLocal in DOUBLE_GAP_MS until (DOUBLE_GAP_MS + DOUBLE_CLOSE_MS)
+            ) closed = true
+            blinking = closed && !winking          // wink giữ mắt mở (một bên cung nhắm)
+
+            // ── Liếc hướng: ramp tới hướng cardinal, giữ, rồi về front (ease mềm) ──
+            val glanceLocal = (t + glancePhase) % GLANCE_PERIOD_MS
+            val frac = when {
+                glanceLocal >= GLANCE_LOOK_MS -> 0f
+                glanceLocal < GLANCE_RAMP_MS -> smoothstep(glanceLocal.toFloat() / GLANCE_RAMP_MS)
+                glanceLocal > GLANCE_LOOK_MS - GLANCE_RAMP_MS ->
+                    smoothstep((GLANCE_LOOK_MS - glanceLocal).toFloat() / GLANCE_RAMP_MS)
+                else -> 1f
+            }
+
+            // Chọn expression theo design: wink > liếc(normal) > nhìn thẳng(front). Blink override qua open.
+            when {
+                winking -> { expression = EyeExpression.WINK; dirX = 0f; dirY = 0f }
+                frac > 0f -> { expression = EyeExpression.NORMAL; dirX = gdx * frac; dirY = gdy * frac }
+                else -> { expression = EyeExpression.FRONT; dirX = 0f; dirY = 0f }
+            }
         }
 
         // ── Vẽ (giống drawPieceShape; mắt động, không squash) ──

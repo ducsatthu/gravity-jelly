@@ -62,6 +62,92 @@ class CampaignLevelsTest {
     }
 
     @Test
+    fun `W2 cau truc - 10 man vine + boss Than Rung`() {
+        val w2 = CampaignLevels.ALL.filter { it.world == 2 }
+        assertEquals("10 màn World 2", 10, w2.size)
+        assertEquals("id 11..20", (11..20).toList(), w2.map { it.id })
+        val vineLevels = w2.filter { it.vineGrowEveryN > 0 }
+        assertEquals("9 màn có vine (trừ L16 nghỉ)", 9, vineLevels.size)
+        assertEquals("L16 nghỉ không vine", 0, CampaignLevels.L16.vineGrowEveryN)
+        assertEquals("L20 boss vine spawn", GoalType.BOSS_COMBO, CampaignLevels.L20.goal.type)
+        assertTrue("L20 có bossVineSpawnEveryN", CampaignLevels.L20.bossVineSpawnEveryN > 0)
+    }
+
+    @Test
+    fun `L13 - 2 goc cung hang day`() {
+        val l = CampaignLevels.L13
+        val roots = l.preset.filter { it.vineRoot }
+        assertEquals("2 gốc", 2, roots.size)
+        assertEquals("cùng hàng 8", setOf(8), roots.map { it.y }.toSet())
+    }
+
+    @Test
+    fun `L14 - 1 goc giua + 2 da`() {
+        val l = CampaignLevels.L14
+        assertEquals("1 gốc", 1, l.preset.count { it.vineRoot })
+        assertEquals("2 đá", 2, l.preset.count { it.type == CellType.STONE })
+    }
+
+    @Test
+    fun `L20 boss Than Rung spawn vine moi 3 luot`() {
+        val e = EndlessEngine.forLevel(CampaignLevels.L20)
+        val initRoots = (0 until 9).flatMap { x ->
+            (0 until 9).mapNotNull { y ->
+                if (e.state().grid.get(x, y)?.isVineRoot == true) Vec(x, y) else null
+            }
+        }
+        assertEquals("ban đầu 2 gốc", 2, initRoots.size)
+        // Đặt 3 mảnh (ở vùng trống trên cao) → sau lượt 3, boss spawn gốc mới
+        e.placePieceAt(0, 0, 0)
+        e.placePieceAt(1, 3, 0)
+        e.placePieceAt(2, 6, 0)
+        val rootsAfter = (0 until 9).flatMap { x ->
+            (0 until 9).mapNotNull { y ->
+                if (e.state().grid.get(x, y)?.isVineRoot == true) Vec(x, y) else null
+            }
+        }
+        assertTrue("sau 3 lượt, boss spawn thêm gốc", rootsAfter.size > initRoots.size)
+    }
+
+    @Test
+    fun `W3 cau truc - 10 man thac nuoc + boss Than Thac`() {
+        val w3 = CampaignLevels.ALL.filter { it.world == 3 }
+        assertEquals("10 màn World 3", 10, w3.size)
+        assertEquals("id 21..30", (21..30).toList(), w3.map { it.id })
+        val waterfallLevels = w3.filter { it.waterSources.isNotEmpty() }
+        assertTrue("đa số màn có thác", waterfallLevels.size >= 7)
+        assertEquals("L30 boss", GoalType.BOSS_COMBO, CampaignLevels.L30.goal.type)
+        assertEquals("L30 gravity flip", 3, CampaignLevels.L30.bossGravityEveryN)
+        assertEquals("tổng 30 màn", 30, CampaignLevels.ALL.size)
+    }
+
+    @Test
+    fun `L21 thac nuoc - co nguon va giot`() {
+        val l = CampaignLevels.L21
+        assertEquals("1 nguồn", 1, l.waterSources.size)
+        assertEquals("2 giọt", 2, l.preset.count { it.type == CellType.TARGET })
+    }
+
+    @Test
+    fun `L30 boss Than Thac tu dao trong luc moi 3 luot`() {
+        val dot = Piece(PieceLibrary.DOT, JellyColor.YELLOW)
+        val e = EndlessEngine(
+            seed = 30,
+            initialBudget = 5,
+            tuning = EndlessTuning(bossGravityEveryN = 3),
+            preset = listOf(Vec(4, 0) to Grid.Cell(CellType.STONE), Vec(4, 8) to Grid.Cell(CellType.STONE)),
+            trayScript = listOf(listOf(dot, dot, dot), listOf(dot, dot, dot)),
+        )
+        val t1 = e.placePieceAt(0, 0, 1)
+        val t2 = e.placePieceAt(1, 0, 2)
+        val t3 = e.placePieceAt(2, 0, 3)
+        assertTrue("lượt 1 chưa đảo", t1.none { it is GameEvent.BossGravityFlipped })
+        assertTrue("lượt 2 chưa đảo", t2.none { it is GameEvent.BossGravityFlipped })
+        assertTrue("lượt 3 đảo trọng lực", t3.any { it is GameEvent.BossGravityFlipped })
+        assertEquals(Direction.UP, e.state().gravity)
+    }
+
+    @Test
     fun `khay co dinh dung thu tu thiet ke L1`() {
         val tray = EndlessEngine.forLevel(CampaignLevels.L1).state().tray
         assertEquals(PieceLibrary.I5H, tray[0]?.shape)
