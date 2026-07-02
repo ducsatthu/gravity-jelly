@@ -24,6 +24,8 @@ data class GjSettings(
     val lastSeed: Long = 0L,
     /** Id các mục hướng dẫn người chơi đã xem (mỗi luật/thành tựu = 1 id) — xem [com.gravityjelly.app.ui.guide.GjGuide]. */
     val seenGuides: Set<String> = emptySet(),
+    /** Sao đạt được mỗi màn Campaign: levelId → sao (1–3). Màn chưa có key = chưa hoàn thành. */
+    val campaignStars: Map<Int, Int> = emptyMap(),
 )
 
 /** DataStore preferences gắn vào Context (một instance/quy trình). */
@@ -51,6 +53,7 @@ class SettingsRepository(private val dataStore: DataStore<Preferences>) {
                 vibrate = p[KEY_VIBRATE] ?: true,
                 lastSeed = p[KEY_LAST_SEED] ?: 0L,
                 seenGuides = p[KEY_SEEN_GUIDES] ?: emptySet(),
+                campaignStars = decodeStars(p[KEY_CAMPAIGN_STARS] ?: emptySet()),
             )
         }
 
@@ -74,6 +77,15 @@ class SettingsRepository(private val dataStore: DataStore<Preferences>) {
         }
     }
 
+    /** Lưu sao một màn Campaign (chỉ NÂNG, không hạ). Encode map thành set "levelId:stars". */
+    suspend fun saveCampaignStar(levelId: Int, stars: Int) {
+        dataStore.edit { p ->
+            val cur = decodeStars(p[KEY_CAMPAIGN_STARS] ?: emptySet()).toMutableMap()
+            if (stars > (cur[levelId] ?: 0)) cur[levelId] = stars
+            p[KEY_CAMPAIGN_STARS] = cur.entries.map { "${it.key}:${it.value}" }.toSet()
+        }
+    }
+
     private suspend inline fun edit(crossinline block: (androidx.datastore.preferences.core.MutablePreferences) -> Unit) {
         dataStore.edit { block(it) }
     }
@@ -85,5 +97,16 @@ class SettingsRepository(private val dataStore: DataStore<Preferences>) {
         private val KEY_VIBRATE = booleanPreferencesKey("vibrate")
         private val KEY_LAST_SEED = longPreferencesKey("last_seed")
         private val KEY_SEEN_GUIDES = stringSetPreferencesKey("seen_guides")
+        private val KEY_CAMPAIGN_STARS = stringSetPreferencesKey("campaign_stars")
+
+        /** "levelId:stars" set → map (bỏ qua entry hỏng để không crash khi format lệch). */
+        private fun decodeStars(raw: Set<String>): Map<Int, Int> = buildMap {
+            for (e in raw) {
+                val parts = e.split(":")
+                val id = parts.getOrNull(0)?.toIntOrNull() ?: continue
+                val stars = parts.getOrNull(1)?.toIntOrNull() ?: continue
+                put(id, stars)
+            }
+        }
     }
 }

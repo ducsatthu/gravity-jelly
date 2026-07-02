@@ -44,6 +44,16 @@ private val NunitoFamily = FontFamily(
         weight = FontWeight.Bold,
         variationSettings = FontVariation.Settings(FontVariation.weight(700)),
     ),
+    Font(
+        resId = R.font.nunito_variable,
+        weight = FontWeight.ExtraBold,
+        variationSettings = FontVariation.Settings(FontVariation.weight(800)),
+    ),
+    Font(
+        resId = R.font.nunito_variable,
+        weight = FontWeight.Black,
+        variationSettings = FontVariation.Settings(FontVariation.weight(900)),
+    ),
 )
 
 /**

@@ -34,7 +34,7 @@ import com.gravityjelly.game.GameMechanic
  */
 enum class GuideGroup(val label: String) {
     BASIC("CƠ BẢN"),
-    SUPER("SIÊU KHỐI"),
+    SUPER("HOÀNG GIA"),
     BLAST("GIẢI PHÓNG"),
     COMBO("COMBO"),
 }
@@ -120,53 +120,53 @@ object GjGuide {
 
     // ── Hợp nhất: siêu khối / cầu vồng ───────────────────────────────────────────
     val formSuper1 = GjGuideEntry(
-        id = "form-super1", icon = GjIcons.Star, group = GuideGroup.SUPER, title = "Siêu khối",
-        desc = "Lấp 1 hàng / cột / khối 3×3 cùng màu → siêu khối",
-        body = body("Lấp đầy 1 hàng, 1 cột,\nhoặc khối 3×3 ", "CÙNG MÀU" to GjPalette.Primary, "\n→ tạo một ", "SIÊU KHỐI" to GjPalette.Gravity, "\nsáng lấp lánh!"),
+        id = "form-super1", icon = GjIcons.Star, group = GuideGroup.SUPER, title = "Thạch Hoàng Gia",
+        desc = "Lấp 1 hàng / cột / khối 3×3 cùng màu → Thạch Hoàng Gia",
+        body = body("Lấp đầy 1 hàng, 1 cột,\nhoặc khối 3×3 ", "CÙNG MÀU" to GjPalette.Primary, "\n→ tạo một ", "THẠCH HOÀNG GIA" to GjPalette.Gravity, "\nsáng lấp lánh!"),
         demo = { FormSuper1Demo() },
     )
     val formRainbow = GjGuideEntry(
-        id = "form-rainbow", icon = GjIcons.Heart, group = GuideGroup.SUPER, title = "Khối cầu vồng",
-        desc = "3×3 đủ ba màu (mỗi màu 1 hàng / cột) → cầu vồng",
-        body = body("Xếp 3×3 đủ ", "BA MÀU" to GjPalette.Primary, "\n(mỗi màu một hàng/cột)\n→ tạo ", "KHỐI CẦU VỒNG" to GjPalette.Gravity, "."),
+        id = "form-rainbow", icon = GjIcons.Heart, group = GuideGroup.SUPER, title = "Thạch Cầu Vồng",
+        desc = "3×3 đủ ba màu (mỗi màu 1 hàng / cột) → Thạch Cầu Vồng",
+        body = body("Xếp 3×3 đủ ", "BA MÀU" to GjPalette.Primary, "\n(mỗi màu một hàng/cột)\n→ tạo ", "THẠCH CẦU VỒNG" to GjPalette.Gravity, "."),
         demo = { FormRainbowDemo() },
     )
     val formSuper2 = GjGuideEntry(
-        id = "form-super2", icon = GjIcons.Trophy, group = GuideGroup.SUPER, title = "Siêu khối cấp 2",
-        desc = "Ghép 2 siêu khối cùng màu dính nhau → cấp 2",
-        body = body("Ghép hai siêu khối\n", "CÙNG MÀU" to GjPalette.Primary, " dính nhau\n→ lên ", "SIÊU KHỐI CẤP 2" to GjPalette.Gravity, "\nmạnh hơn nhiều!"),
+        id = "form-super2", icon = GjIcons.Trophy, group = GuideGroup.SUPER, title = "Vua Thạch",
+        desc = "Ghép 2 Thạch Hoàng Gia cùng màu dính nhau → Vua Thạch",
+        body = body("Ghép hai Thạch Hoàng Gia\n", "CÙNG MÀU" to GjPalette.Primary, " dính nhau\n→ lên ", "VUA THẠCH" to GjPalette.Gravity, "\nmạnh hơn nhiều!"),
         demo = { FormSuper2Demo() },
     )
     val formRainbow2 = GjGuideEntry(
-        id = "form-rainbow2", icon = GjIcons.Trophy, group = GuideGroup.SUPER, title = "Cầu vồng siêu cấp",
-        desc = "Ghép 2 khối giải phóng khác màu → cầu vồng siêu cấp (đội vương miện)",
-        body = body("Ghép hai khối giải phóng\n", "KHÁC MÀU" to GjPalette.Primary, " dính nhau\n→ ", "CẦU VỒNG SIÊU CẤP" to GjPalette.Gravity, "\nđội vương miện!"),
+        id = "form-rainbow2", icon = GjIcons.Trophy, group = GuideGroup.SUPER, title = "Hoàng Đế Cầu Vồng",
+        desc = "Ghép 2 khối giải phóng khác màu → Hoàng Đế Cầu Vồng (đội vương miện)",
+        body = body("Ghép hai khối giải phóng\n", "KHÁC MÀU" to GjPalette.Primary, " dính nhau\n→ ", "HOÀNG ĐẾ CẦU VỒNG" to GjPalette.Gravity, "\nđội vương miện!"),
         demo = { FormRainbow2Demo() },
     )
 
     // ── Giải phóng (kích hoạt siêu khối / cầu vồng) ──────────────────────────────
     val detonateSuper1 = GjGuideEntry(
-        id = "detonate-super1", icon = GjIcons.Star, group = GuideGroup.BLAST, title = "Giải phóng siêu khối",
+        id = "detonate-super1", icon = GjIcons.Star, group = GuideGroup.BLAST, title = "Giải phóng Thạch Hoàng Gia",
         desc = "Cuốn vào hàng / cột bị xóa → quét sạch mọi ô cùng màu",
-        body = body("Cuốn siêu khối vào\nmột hàng/cột bị xóa\nsẽ giải phóng, quét sạch\n", "MỌI Ô CÙNG MÀU" to GjPalette.Gravity, " trên bàn!"),
+        body = body("Cuốn Thạch Hoàng Gia vào\nmột hàng/cột bị xóa\nsẽ giải phóng, quét sạch\n", "MỌI Ô CÙNG MÀU" to GjPalette.Gravity, " trên bàn!"),
         demo = { DetonateSuper1Demo() },
     )
     val detonateSuper2 = GjGuideEntry(
-        id = "detonate-super2", icon = GjIcons.Trophy, group = GuideGroup.BLAST, title = "Giải phóng siêu khối cấp 2",
+        id = "detonate-super2", icon = GjIcons.Trophy, group = GuideGroup.BLAST, title = "Giải phóng Vua Thạch",
         desc = "Quét cùng màu + cả vùng 5×5 quanh tâm",
-        body = body("Siêu khối cấp 2 giải phóng:\nquét sạch cùng màu\n+ cả ", "vùng 5×5" to GjPalette.Gravity, "\nquanh tâm!"),
+        body = body("Vua Thạch giải phóng:\nquét sạch cùng màu\n+ cả ", "vùng 5×5" to GjPalette.Gravity, "\nquanh tâm!"),
         demo = { DetonateSuper2Demo() },
     )
     val detonateRainbow1 = GjGuideEntry(
-        id = "detonate-rainbow1", icon = GjIcons.Heart, group = GuideGroup.BLAST, title = "Giải phóng cầu vồng",
+        id = "detonate-rainbow1", icon = GjIcons.Heart, group = GuideGroup.BLAST, title = "Giải phóng Thạch Cầu Vồng",
         desc = "Quét sạch mọi ô thuộc các màu đang KỀ nó",
-        body = body("Cầu vồng giải phóng:\nquét sạch mọi ô thuộc\n", "các MÀU đang KỀ" to GjPalette.Gravity, " nó."),
+        body = body("Thạch Cầu Vồng giải phóng:\nquét sạch mọi ô thuộc\n", "các MÀU đang KỀ" to GjPalette.Gravity, " nó."),
         demo = { DetonateRainbow1Demo() },
     )
     val detonateRainbow2 = GjGuideEntry(
-        id = "detonate-rainbow2", icon = GjIcons.Trophy, group = GuideGroup.BLAST, title = "Giải phóng cầu vồng siêu cấp",
+        id = "detonate-rainbow2", icon = GjIcons.Trophy, group = GuideGroup.BLAST, title = "Giải phóng Hoàng Đế Cầu Vồng",
         desc = "Kỹ năng tối thượng: xóa sạch TOÀN BÀN (kể cả đá)",
-        body = body("Kỹ năng tối thượng:\ncầu vồng siêu cấp giải phóng\n→ ", "XÓA SẠCH TOÀN BÀN" to GjPalette.Gravity, "\n(kể cả đá)!"),
+        body = body("Kỹ năng tối thượng:\nHoàng Đế Cầu Vồng giải phóng\n→ ", "XÓA SẠCH TOÀN BÀN" to GjPalette.Gravity, "\n(kể cả đá)!"),
         demo = { DetonateRainbow2Demo() },
     )
 

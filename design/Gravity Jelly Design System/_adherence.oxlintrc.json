@@ -26,6 +26,8 @@
               "03-components/05-combo-popup/**",
               "03-components/06-dialog/**",
               "03-components/07-jelly-scene/**",
+              "03-components/08-objective-bar/**",
+              "03-components/09-boss-hud/**",
               "04-screens/**",
               "04-screens/play/**",
               "07-mechanics/**",
@@ -51,8 +53,16 @@
         "message": "Raw px value — use a design-system spacing token via var()."
       },
       {
-        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Fredoka|Nunito))/i]",
-        "message": "Font not provided by the design system. Available: Fredoka, Nunito."
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Baloo 2|Fredoka|Nunito))/i]",
+        "message": "Font not provided by the design system. Available: Baloo 2, Fredoka, Nunito."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='BossTell'] > JSXAttribute > JSXIdentifier[name!=/^(?:kind|label|countdown|key|ref|className|style|children)$/]",
+        "message": "<BossTell> doesn't accept that prop. Declared props: kind, label, countdown."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='BossTell'] > JSXAttribute[name.name='kind'] > Literal[value!=/^(?:trash|gravity)$/]",
+        "message": "<BossTell> kind must be one of 'trash' | 'gravity'."
       },
       {
         "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|variant|size|icon|iconRight|fullWidth|disabled|comingSoon|onClick|style|key|ref|className|style|children)$/]",
@@ -91,6 +101,14 @@
         "message": "<JellyScene> doesn't accept that prop. Declared props: showDish, showCast, band, style."
       },
       {
+        "selector": "JSXOpeningElement[name.name='TutorialGoal'] > JSXAttribute > JSXIdentifier[name!=/^(?:kind|variant|label|current|target|status|key|ref|className|style|children)$/]",
+        "message": "<TutorialGoal> doesn't accept that prop. Declared props: kind, variant, label, current, target, status."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TutorialGoal'] > JSXAttribute[name.name='kind'] > Literal[value!=/^(?:tutorial)$/]",
+        "message": "<TutorialGoal> kind must be one of 'tutorial'."
+      },
+      {
         "selector": "JSXOpeningElement[name.name='TrayPieceModel'] > JSXAttribute > JSXIdentifier[name!=/^(?:cells|color|count|key|ref|className|style|children)$/]",
         "message": "<TrayPieceModel> doesn't accept that prop. Declared props: cells, color, count."
       }
@@ -108,6 +126,9 @@
   ],
   "x-omelette": {
     "components": {
+      "BossTell": {
+        "replaces": []
+      },
       "Button": {
         "replaces": []
       },
@@ -133,6 +154,9 @@
         "replaces": []
       },
       "JellyScene": {
+        "replaces": []
+      },
+      "TutorialGoal": {
         "replaces": []
       },
       "TrayPieceModel": {
@@ -366,6 +390,7 @@
       "--t-rotate": "color"
     },
     "fontFamilies": [
+      "Baloo 2",
       "Fredoka",
       "Nunito"
     ]

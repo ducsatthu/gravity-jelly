@@ -34,6 +34,7 @@ import com.gravityjelly.app.data.GjSettings
 import com.gravityjelly.app.data.SettingsRepository
 import com.gravityjelly.app.ui.layout.ProvideDesignDensity
 import com.gravityjelly.app.ui.theme.GravityJellyTheme
+import com.gravityjelly.core.CampaignLevels
 import com.gravityjelly.game.GjEase
 import com.gravityjelly.game.GjMotion
 import kotlinx.coroutines.launch
@@ -74,7 +75,9 @@ private sealed interface Route {
     data object Game : Route
     data object Settings : Route
     data object Handbook : Route   // Cẩm nang (tạm thay Daily)
-    // data object LevelMap : Route  // sau MVP
+    data object Campaign : Route   // Chọn màn Campaign (prototype)
+    data class CampaignIntro(val index: Int) : Route  // Giới thiệu màn trước khi chơi
+    data class CampaignPlay(val index: Int) : Route   // Chơi một màn Campaign
 }
 
 @Composable
@@ -104,7 +107,10 @@ private fun GravityJellyApp() {
     // Back hệ thống: từ Settings/Handbook → Home; ở Home/Splash để hệ thống thoát app.
     // Route.Game KHÔNG xử lý ở đây — EndlessPlayScreen tự bắt back để mở Tạm dừng (chống back nhầm
     // mất ván); muốn về Home phải bấm "Về Home" trong dialog.
-    BackHandler(enabled = route != Route.Home && route != Route.Splash && route != Route.Game) {
+    BackHandler(
+        enabled = route != Route.Home && route != Route.Splash && route != Route.Game &&
+            route !is Route.CampaignPlay,
+    ) {
         route = Route.Home
     }
 
@@ -135,6 +141,7 @@ private fun GravityJellyApp() {
 
             Route.Home -> HomeScreen(
                 onPlayEndless = { route = Route.Game },
+                onPlayCampaign = { route = Route.Campaign },
                 onSettings = { route = Route.Settings },
                 onHandbook = { route = Route.Handbook },
                 reducedMotion = reducedMotion,
@@ -148,6 +155,10 @@ private fun GravityJellyApp() {
                 onBest = { score -> scope.launch { repo.updateBest(score) } },
                 onSeedUsed = { seed -> scope.launch { repo.setLastSeed(seed) } },
                 onHome = { route = Route.Home },
+                settings = settings,
+                onSound = { v -> scope.launch { repo.setSound(v) } },
+                onMusic = { v -> scope.launch { repo.setMusic(v) } },
+                onVibrate = { v -> scope.launch { repo.setVibrate(v) } },
                 vibrate = settings.vibrate,
                 reducedMotion = reducedMotion,
                 seenGuides = settings.seenGuides,
@@ -169,16 +180,55 @@ private fun GravityJellyApp() {
                 onBack = { route = Route.Home },
                 modifier = Modifier.fillMaxSize(),
             )
+
+            Route.Campaign -> CampaignScreen(
+                stars = settings.campaignStars,
+                onPlay = { index -> route = Route.CampaignIntro(index) },
+                onBack = { route = Route.Home },
+                reducedMotion = reducedMotion,
+                modifier = Modifier.fillMaxSize(),
+            )
+
+            is Route.CampaignIntro -> CampaignIntroScreen(
+                levelIndex = current.index,
+                earnedStars = settings.campaignStars[CampaignLevels.ALL[current.index].id] ?: 0,
+                onStart = { route = Route.CampaignPlay(current.index) },
+                onClose = { route = Route.Campaign },
+                modifier = Modifier.fillMaxSize(),
+            )
+
+            is Route.CampaignPlay -> CampaignPlayScreen(
+                levelIndex = current.index,
+                onExit = { route = Route.Campaign },
+                onWin = { levelId, stars -> scope.launch { repo.saveCampaignStar(levelId, stars) } },
+                onOpenLevel = { index -> route = Route.CampaignIntro(index) },
+                settings = settings,
+                onSound = { v -> scope.launch { repo.setSound(v) } },
+                onMusic = { v -> scope.launch { repo.setMusic(v) } },
+                onVibrate = { v -> scope.launch { repo.setVibrate(v) } },
+                vibrate = settings.vibrate,
+                reducedMotion = reducedMotion,
+                seenGuides = settings.seenGuides,
+                onGuideSeen = { id -> scope.launch { repo.markGuideSeen(id) } },
+                modifier = Modifier.fillMaxSize(),
+            )
         }
     }
 }
 
-// rememberSaveable cần khoá nguyên thuỷ cho sealed route.
+// rememberSaveable cần khoá nguyên thuỷ cho sealed route. CampaignPlay mã hoá index vào 1000+index.
 private fun Route.routeKey(): Int = when (this) {
     Route.Home -> 0; Route.Game -> 1; Route.Settings -> 2; Route.Splash -> 3; Route.Handbook -> 4
+    Route.Campaign -> 5
+    is Route.CampaignIntro -> 2000 + index
+    is Route.CampaignPlay -> 1000 + index
 }
-private fun routeFromKey(key: Int): Route = when (key) {
-    1 -> Route.Game; 2 -> Route.Settings; 3 -> Route.Splash; 4 -> Route.Handbook; else -> Route.Home
+private fun routeFromKey(key: Int): Route = when {
+    key == 1 -> Route.Game; key == 2 -> Route.Settings; key == 3 -> Route.Splash
+    key == 4 -> Route.Handbook; key == 5 -> Route.Campaign
+    key >= 2000 -> Route.CampaignIntro(key - 2000)
+    key >= 1000 -> Route.CampaignPlay(key - 1000)
+    else -> Route.Home
 }
 
 private val DEFAULT_SEED = 0x9E3779B97F4A7C15uL.toLong()

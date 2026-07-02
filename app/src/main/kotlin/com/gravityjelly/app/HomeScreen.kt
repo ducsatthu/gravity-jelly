@@ -71,6 +71,7 @@ import kotlin.math.sin
 fun HomeScreen(
     onPlayEndless: () -> Unit,
     onSettings: () -> Unit,
+    onPlayCampaign: () -> Unit = {},
     onHandbook: () -> Unit = {},
     reducedMotion: Boolean = false,
     modifier: Modifier = Modifier,
@@ -104,7 +105,7 @@ fun HomeScreen(
             // ── Menu icon trong panel kem (JSX: khối left 12% right 12% top 77.5% bottom 4.9%) ──
             HomeMenu(
                 boxW = boxW, imgH = imgH,
-                onCampaign = {},               // SẮP CÓ (dimmed + khoá)
+                onCampaign = onPlayCampaign,    // prototype đã mở
                 onPlay = onPlayEndless,
                 onGuide = onHandbook,
                 onLeaderboard = {},            // SẮP CÓ (dimmed + khoá)
@@ -164,7 +165,7 @@ private fun BoxScope.HomeMenu(
             ) {
                 IconButton(
                     icon = painterResource(R.drawable.btn_campaign), contentDescription = "Chiến dịch",
-                    heightDp = cqw * 18.4f, aspect = AR_CAMPAIGN, comingSoon = true, onClick = onCampaign,
+                    heightDp = cqw * 18.4f, aspect = AR_CAMPAIGN, onClick = onCampaign,
                 )
                 IconButton(
                     icon = painterResource(R.drawable.btn_infinite), contentDescription = "Chơi Endless",

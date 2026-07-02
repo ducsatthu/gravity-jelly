@@ -236,4 +236,8 @@
 
   window.GJBoardDesign = BoardDesign;
   window.GJGameScreen = BoardDesign;
+
+  /* Chrome building blocks reused by the campaign & boss in-game boards.
+     Additive export — does NOT change the canonical "① Game" (endless) screen. */
+  window.GJBoardParts = { ScoreCard, GravityPad, PauseCard, BoardPanel, PieceView, TrayDock, RefreshFab, PAL, BG_SRC, SCORE_SRC };
 })();

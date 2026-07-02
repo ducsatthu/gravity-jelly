@@ -4,7 +4,9 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.material3.MaterialTheme
@@ -33,15 +35,19 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import com.gravityjelly.app.data.GjSettings
+import com.gravityjelly.app.ui.components.BtnSize
 import com.gravityjelly.app.ui.components.BtnVariant
 import com.gravityjelly.app.ui.components.ComboPopup
 import com.gravityjelly.app.ui.components.GjButton
 import com.gravityjelly.app.ui.components.GjDialog
+import com.gravityjelly.app.ui.components.GjPauseToggleRow
 import com.gravityjelly.app.ui.guide.GjGuide
 import com.gravityjelly.app.ui.guide.GjGuideEntry
 import com.gravityjelly.app.ui.guide.GuideTeachDialog
 import com.gravityjelly.app.ui.icons.GjIcons
 import com.gravityjelly.app.ui.theme.GjPalette
+import com.gravityjelly.app.ui.theme.GjSpace
 import com.gravityjelly.game.BOARD_PAD_DP
 import com.gravityjelly.game.BoardCanvas
 import com.gravityjelly.game.ComboBurst
@@ -58,6 +64,8 @@ import kotlin.math.roundToInt
  * được từ :game). Input kéo-thả vẫn dùng [EndlessGameHolder] (một chiều: kéo → holder → engine).
  *
  * @param onHome thoát về Home (từ dialog Tạm dừng).
+ * @param onRestart chơi lại (ván Endless mới) — từ dialog Tạm dừng.
+ * @param settings + onSound/onMusic/onVibrate: cho toggle nhanh trong Tạm dừng + màn Cài đặt phủ.
  * @param vibrate / reducedMotion: tôn trọng Settings + a11y (haptic + bỏ juice).
  */
 @Composable
@@ -66,6 +74,11 @@ fun EndlessPlayScreen(
     best: Int,
     onHome: () -> Unit,
     modifier: Modifier = Modifier,
+    onRestart: () -> Unit = {},
+    settings: GjSettings = GjSettings(),
+    onSound: (Boolean) -> Unit = {},
+    onMusic: (Boolean) -> Unit = {},
+    onVibrate: (Boolean) -> Unit = {},
     vibrate: Boolean = true,
     reducedMotion: Boolean = false,
     seenGuides: Set<String> = emptySet(),
@@ -78,6 +91,8 @@ fun EndlessPlayScreen(
 
     var parentWin by remember { mutableStateOf(Offset.Zero) }
     var paused by remember { mutableStateOf(false) }
+    // "Cài đặt" trong overlay Tạm dừng mở màn Cài đặt PHỦ LÊN (không đổi route → giữ nguyên ván).
+    var showSettings by remember { mutableStateOf(false) }
 
     // Chuyển app / cuộc gọi đến / xem recents → Activity nhận ON_PAUSE: tự bật dialog Tạm dừng để
     // ván không chạy tiếp lúc người chơi không nhìn. Frame loop (withFrameNanos) tự ngưng khi ra nền;
@@ -169,10 +184,11 @@ fun EndlessPlayScreen(
     // chơi. Còn lại (đang chơi) → mở Tạm dừng; muốn về Home phải bấm "Về Home" trong dialog.
     BackHandler {
         when {
-            activeGuide != null -> Unit          // dialog dạy luật: bắt buộc bấm xác nhận
-            shell.gameOver      -> onHome()        // đã thua → về Home
-            paused              -> paused = false  // đang Tạm dừng → tiếp tục
-            else                -> paused = true   // đang chơi → mở Tạm dừng
+            activeGuide != null -> Unit                 // dialog dạy luật: bắt buộc bấm xác nhận
+            shell.gameOver      -> onHome()               // đã thua → về Home
+            showSettings        -> showSettings = false   // Cài đặt phủ → về lại Tạm dừng
+            paused              -> paused = false         // đang Tạm dừng → tiếp tục
+            else                -> paused = true          // đang chơi → mở Tạm dừng
         }
     }
 
@@ -190,6 +206,9 @@ fun EndlessPlayScreen(
             onPause       = { paused = true },
             onSelectPiece = { /* live game dùng kéo-thả, không tap-select */ },
             onRotate      = { if (shell.budget > 0 && !shell.gameOver) holder.rotate(cw = true) },
+            // Luyện tập (Endless) đổi nền theo world — hiện world 1 (Đồng cỏ); sau này lấy từ
+            // world người chơi đã mở khoá / đang chọn.
+            world         = 1,
             // Combo hiếm → overlay ăn mừng ×N nổ TẠI vùng resolve trên bàn (ComboBurstOverlay bên
             // dưới). Thiết kế mới (board-design.jsx) dùng nền PNG, KHÔNG còn band vườn để mảnh rơi.
             // mỗi slot khay: theo dõi vị trí window + kéo-thả → holder (như drag cũ, visual design)
@@ -233,26 +252,52 @@ fun EndlessPlayScreen(
             ComboBurstOverlay(burst, parentWin, Modifier.fillMaxSize())
         }
 
-        // Dialog Tạm dừng (design-faithful).
+        // Dialog Tạm dừng — bám pause-screen.jsx: toggle nhanh Âm thanh·Nhạc → TIẾP TỤC (CTA) →
+        // hàng Chơi lại·Cài đặt → Về Home (ghost). dismissable=false (không đóng khi chạm nền, ẩn X):
+        // chỉ thoát bằng nút hoặc Back. Endless: "Thoát ra bản đồ" của design → "Về Home".
         GjDialog(
-            open        = paused,
+            open        = paused && !showSettings,
             title       = "Tạm dừng",
             icon        = GjIcons.Pause,
-            dismissable = true,
-            onClose     = { paused = false },
+            dismissable = false,
             content     = {
                 Text(
-                    text  = "Điểm hiện tại: ${shell.score}",
+                    text  = "Trò chơi đang tạm dừng. Tiến độ ván này được giữ nguyên.",
                     style = MaterialTheme.typography.bodyLarge.copy(color = GjPalette.TextMuted),
                 )
             },
             actions     = {
-                GjButton(onClick = { paused = false }, variant = BtnVariant.Primary, fullWidth = true,
-                    icon = GjIcons.Play) { Text("Tiếp tục") }
+                GjPauseToggleRow(
+                    sound   = settings.sound,
+                    music   = settings.music,
+                    onSound = onSound,
+                    onMusic = onMusic,
+                )
+                GjButton(onClick = { paused = false }, variant = BtnVariant.Primary,
+                    btnSize = BtnSize.Cta, fullWidth = true, icon = GjIcons.Play) { Text("TIẾP TỤC") }
+                Row(horizontalArrangement = Arrangement.spacedBy(GjSpace.sm)) {
+                    GjButton(onClick = { paused = false; onRestart() }, variant = BtnVariant.Secondary,
+                        icon = GjIcons.Refresh, modifier = Modifier.weight(1f)) { Text("Chơi lại") }
+                    GjButton(onClick = { showSettings = true }, variant = BtnVariant.Secondary,
+                        icon = GjIcons.Settings, modifier = Modifier.weight(1f)) { Text("Cài đặt") }
+                }
                 GjButton(onClick = { paused = false; onHome() }, variant = BtnVariant.Ghost, fullWidth = true,
                     icon = GjIcons.Home) { Text("Về Home") }
             },
         )
+
+        // "Cài đặt" trong Tạm dừng → màn Cài đặt PHỦ toàn màn (giữ nguyên ván bên dưới, KHÔNG đổi
+        // route). Back / "Về Home" trong màn này chỉ đóng lớp phủ, quay lại overlay Tạm dừng.
+        if (showSettings) {
+            SettingsScreen(
+                settings  = settings,
+                onSound   = onSound,
+                onMusic   = onMusic,
+                onVibrate = onVibrate,
+                onBack    = { showSettings = false },
+                modifier  = Modifier.fillMaxSize(),
+            )
+        }
 
         // Popup dạy luật (combo-refill HOẶC cơ chế gặp-lần-đầu) — bắt buộc xác nhận. Đóng → đánh dấu
         // đã xem; nếu hàng đợi còn cơ chế khác (nút "Tiếp theo") → hiện NGAY popup kế (không chờ lại).
@@ -331,7 +376,8 @@ private fun ComboBurstOverlay(
 }
 
 // Chờ thêm sau khi bàn lắng trước khi mở popup dạy cơ chế — để người chơi thấy KẾT QUẢ đã ổn định.
-private const val GUIDE_SETTLE_GRACE_MS = 450L
+// internal: CampaignPlayScreen tái dùng cùng nhịp dạy luật.
+internal const val GUIDE_SETTLE_GRACE_MS = 450L
 
 private const val COMBO_HOLD_MS  = 1300L   // giữ trước khi tan (gj-combo-life ~66% của ~2s)
 private const val COMBO_FADE_MS  = 700     // thời gian mờ dần

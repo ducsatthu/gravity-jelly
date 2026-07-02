@@ -106,7 +106,8 @@ See **`00-index.md`** for the full numbered table of contents. Top level:
   foundation specimen cards in `01-tokens/cards/`.
 - **`02-foundations/`** — `JellyBlock`, `Eyes`, `Icon` (the shared atoms).
 - **`03-components/`** — `Button`, `Hud`, `Tray`, `GravityRotateButton`, `ComboPopup`,
-  `Dialog`, `JellyScene`.
+  `Dialog`, `JellyScene`, `ObjectiveBar` (level-objective cluster under the HUD),
+  `BossHud` (boss-fight HUD cluster).
 - **`04-screens/`** — the UI kit: interactive `index.html` + Game / Home / Result /
   Settings, with `board.jsx` and `phone-frame.jsx` helpers.
 - **`05-effects/`** — motion specs (drop/squash, gravity rotate, line clear, collapse/
@@ -115,3 +116,16 @@ See **`00-index.md`** for the full numbered table of contents. Top level:
 
 **Bundle namespace** (for `@dsCard` HTML): `window.GravityJellyDesignSystem_3e0487`.
 The compiled `_ds_bundle.js`, `_ds_manifest.json` are generated automatically — don't edit.
+
+---
+
+## VIEW CARDS (campaign objective & boss work)
+
+Open any of these directly to preview:
+
+- **Cụm mục tiêu** — [`ObjectiveBar`](03-components/08-objective-bar/objective-bar.card.html) — đủ goal_type (tutorial · điểm · ô đích · hỗn hợp) + trạng thái đang làm / gần xong / hoàn thành.
+- **HUD boss** — [`BossHud`](03-components/09-boss-hud/boss-hud.card.html) — chân dung + thanh máu (giật/nháy khi trúng) + số sát thương theo combo + nhắc luật + tell; 3 boss trên nền tối/sáng.
+- **Level Intro** — [`⑥ Level Intro`](04-screens/screen-06-level-intro.card.html) — popup trước màn theo hệ mục tiêu mới; 3 ví dụ: tutorial · ô đích · boss.
+- **Màn chơi · chiến dịch** — [`① Game · Chiến dịch`](04-screens/screen-1b-game-campaign.card.html) — LƯỢT đi + tiến độ MỤC TIÊU + số SAO hiện tại.
+- **Màn chơi · boss** — [`① Game · Boss`](04-screens/screen-1c-game-boss.card.html) — thanh máu boss + pha + LƯỢT + bàn vỏ đá.
+- **Màn chơi · mục tiêu (ráp thật)** — [`① Game · Mục tiêu`](04-screens/screen-1e-game-objective.card.html) — ObjectiveBar ráp vào màn GAME thật (HUD · cụm mục tiêu · bàn · khay).

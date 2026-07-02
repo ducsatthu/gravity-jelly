@@ -1,4 +1,4 @@
-<!-- @dsCard group="Screens" viewport="392x812" name="⑥ Level Intro" subtitle="Mục tiêu màn, lượt xoay, sao, Bắt đầu" -->
+<!-- @dsCard group="Screens" viewport="1240x812" name="⑥ Level Intro" subtitle="Popup trước màn — theo hệ mục tiêu mới: khối mục tiêu lớn + 3 sao ngưỡng + ngân sách xoay. 3 ví dụ: tutorial · ô đích · boss" -->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -6,7 +6,9 @@
 <link rel="stylesheet" href="../styles.css" />
 <style>
   html, body { margin: 0; }
-  body { background: radial-gradient(120% 90% at 50% 0%, #FFF7EC 0%, #F3E3CC 100%); display: flex; justify-content: center; padding: 16px; }
+  body { background: #E9DAC0; display: flex; justify-content: center; gap: 28px; padding: 20px; flex-wrap: wrap; }
+  .ex { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .cap { font-family: var(--font-body); font-weight: 800; font-size: 13px; color: #7A6650; letter-spacing: 0.02em; }
 </style>
 </head>
 <body>
@@ -19,10 +21,41 @@
   <script type="text/babel" src="screen-extras.jsx"></script>
   <script type="text/babel" src="level-intro-screen.jsx"></script>
   <script type="text/babel">
-    const PhoneFrame = window.GJPhoneFrame;
-    const S=window.GJLevelIntroScreen;
-    function Demo(){return <PhoneFrame><S onStart={()=>{}} onClose={()=>{}}/></PhoneFrame>;}
-    ReactDOM.createRoot(document.getElementById('root')).render(<Demo/>);
+    const PhoneFrame = window.GJPhoneFrame, S = window.GJLevelIntroScreen;
+    const Ex = ({ cap, children }) => (
+      <div className="ex"><div className="cap">{cap}</div><PhoneFrame statusBar={false}>{children}</PhoneFrame></div>
+    );
+    function Demo() {
+      return (
+        <>
+          <Ex cap="(a) Tutorial — L6 Cầu vồng">
+            <S level={6} name="Cầu vồng 1" world="Đồng cỏ"
+               goal={{ kind: 'tutorial', variant: 'rainbow', title: 'Tạo 1 ô Cầu vồng' }}
+               stars={{ unit: 'nước', prefix3: '≤', values: [3, 4, 5] }}
+               rotations={20}
+               preview={['..PPMM.', 'YY.PP.B', 'YYMM.BB', '.MM.YBB']}
+               onStart={() => {}} onClose={() => {}} />
+          </Ex>
+          <Ex cap="(b) Ô đích — L23 Phá 3 giọt">
+            <S level={23} name="Suối trong" world="Sông & Thác"
+               goal={{ kind: 'targets', target: 'drop', total: 3, title: 'Phá 3 giọt nước' }}
+               stars={{ unit: 'nước', prefix3: '≤', values: [10, 13, 16] }}
+               rotations={16} mechanic={{ key: 'flow' }}
+               preview={['MM..PP.', '.YY.PPB', 'YY.MMBB', '..MM.BB']}
+               onStart={() => {}} onClose={() => {}} />
+          </Ex>
+          <Ex cap="(c) Boss — L30 Thần Thác">
+            <S level={30} name="Thần Thác" world="Sông & Thác"
+               goal={{ kind: 'boss', name: 'Thần Thác', hp: 10, title: 'Hạ Thần Thác' }}
+               stars={{ unit: 'đ', values: [700, 560, 450] }}
+               rotations={24} mechanic={{ key: 'boss' }}
+               preview={['..SSS..', '.SSSSS.', 'YY.S.BB', '.YY.BB.']}
+               onStart={() => {}} onClose={() => {}} />
+          </Ex>
+        </>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
   </script>
 </body>
 </html>

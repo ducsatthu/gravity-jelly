@@ -193,6 +193,14 @@ object GjIcons {
     val Check: ImageVector by lazy {
         strokeIcon("M5 12.5l4 4L19 7")
     }
+
+    val Lock: ImageVector by lazy {
+        strokeIcon(
+            "M8 11V8.5a4 4 0 1 1 8 0V11",
+            rrectPath(5f, 11f, 19f, 20f, 2.5f),
+            "M12 14.5v2.5",
+        )
+    }
 }
 
 // ── composable ────────────────────────────────────────────────────────────────

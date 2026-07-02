@@ -1,0 +1,95 @@
+<!-- @dsCard group="Components" viewport="820x1520" name="ObjectiveBar" subtitle="Cụm mục tiêu dưới HUD — đủ goal_type (tutorial · điểm · ô đích · hỗn hợp) + trạng thái đang làm / gần xong / hoàn thành" -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<style>
+  html, body { margin: 0; }
+  body { background: var(--color-bg); font-family: var(--font-body); padding: 28px; }
+  #root { display: flex; flex-wrap: wrap; gap: 34px; align-items: flex-start; }
+  .col { width: 360px; display: flex; flex-direction: column; gap: 14px; }
+  .sec { font-family: var(--font-display); font-weight: 700; font-size: 14px; letter-spacing: 0.04em; color: var(--color-text-muted); text-transform: uppercase; margin: 6px 0 -4px; }
+  .lbl { font-family: var(--font-body); font-weight: 700; font-size: 11px; color: var(--color-text-muted); margin-bottom: -8px; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script src="../../_ds_bundle.js"></script>
+  <script type="text/babel">
+    const { ObjectiveBar } = window.GravityJellyDesignSystem_3e0487;
+    const L = ({children}) => <div className="lbl">{children}</div>;
+
+    function Grid() {
+      return (
+        <>
+          {/* ── Column 1 : Tutorial (World 1, dạy 1 hành động) ── */}
+          <div className="col">
+            <div className="sec">A · Tutorial — 0/1</div>
+            <L>CLEAR_ROW_FIRST (L1)</L>
+            <ObjectiveBar goal={{ kind:'tutorial', variant:'clearRow', label:'Xóa 1 hàng', current:0, target:1 }} />
+            <L>CLEAR_COL_FIRST (L2)</L>
+            <ObjectiveBar goal={{ kind:'tutorial', variant:'clearCol', label:'Xóa 1 cột', current:0, target:1 }} />
+            <L>ROTATE_FIRST (L3)</L>
+            <ObjectiveBar goal={{ kind:'tutorial', variant:'rotate', label:'Xoay 1 lần', current:0, target:1 }} />
+            <L>MAKE_SUPER1 (L4)</L>
+            <ObjectiveBar goal={{ kind:'tutorial', variant:'super1', label:'Tạo Siêu khối', current:0, target:1 }} />
+            <L>MAKE_SUPER2 (L5)</L>
+            <ObjectiveBar goal={{ kind:'tutorial', variant:'super2', label:'Siêu khối cấp 2', current:0, target:1 }} />
+            <L>MAKE_RAINBOW (L6)</L>
+            <ObjectiveBar goal={{ kind:'tutorial', variant:'rainbow', label:'Tạo Cầu vồng', current:0, target:1 }} />
+            <L>MAKE_RAINBOW_SUPER (L7)</L>
+            <ObjectiveBar goal={{ kind:'tutorial', variant:'rainbowSuper', label:'Cầu vồng Super', current:0, target:1 }} />
+            <L>COMBO_X2 — hiện ×N (L8)</L>
+            <ObjectiveBar goal={{ kind:'tutorial', variant:'combo', label:'Đạt Combo ×2', current:1, target:2 }} />
+          </div>
+
+          {/* ── Column 2 : Score + Targets ── */}
+          <div className="col">
+            <div className="sec">B · Đạt điểm (REACH_SCORE)</div>
+            <L>Đang làm — 120 / 450</L>
+            <ObjectiveBar goal={{ kind:'score', score:120, target:450 }} rotations={12} />
+            <L>Gần xong — nhấn nhá</L>
+            <ObjectiveBar goal={{ kind:'score', score:360, target:450 }} rotations={6} />
+            <L>Hoàn thành — glow + xanh</L>
+            <ObjectiveBar goal={{ kind:'score', score:470, target:450 }} rotations={4} />
+
+            <div className="sec">C · Ô đích (CLEAR_TARGETS)</div>
+            <L>Gốc dây leo (W2) — còn 2</L>
+            <ObjectiveBar goal={{ kind:'targets', target:'vine', total:2, remaining:2 }} />
+            <L>Giọt nước (W3) — 1 chôn sâu</L>
+            <ObjectiveBar goal={{ kind:'targets', target:'drop', total:4, remaining:3, buried:1 }} />
+            <L>Giọt nước — sắp xong (còn 1)</L>
+            <ObjectiveBar goal={{ kind:'targets', target:'drop', total:4, remaining:1 }} />
+            <L>Hoàn thành</L>
+            <ObjectiveBar goal={{ kind:'targets', target:'vine', total:2, remaining:0 }} />
+          </div>
+
+          {/* ── Column 3 : Mixed + trạng thái ── */}
+          <div className="col">
+            <div className="sec">D · Hỗn hợp (MIXED — 2 dòng)</div>
+            <L>Gốc dây + điểm (L15)</L>
+            <ObjectiveBar goal={{ kind:'mixed', targets:{ target:'vine', total:2, remaining:1 }, score:{ score:210, target:450 } }} rotations={9} />
+            <L>Giọt + điểm (L24) — điểm gần xong</L>
+            <ObjectiveBar goal={{ kind:'mixed', targets:{ target:'drop', total:3, remaining:2, buried:1 }, score:{ score:400, target:550 } }} rotations={5} />
+
+            <div className="sec">E · Trạng thái (tutorial)</div>
+            <L>Đang làm</L>
+            <ObjectiveBar goal={{ kind:'tutorial', variant:'super1', label:'Tạo Siêu khối', current:0, target:1, status:'active' }} />
+            <L>Gần xong — pulse</L>
+            <ObjectiveBar goal={{ kind:'tutorial', variant:'combo', label:'Đạt Combo ×3', current:2, target:3, status:'near' }} />
+            <L>Hoàn thành — tick + pop</L>
+            <ObjectiveBar goal={{ kind:'tutorial', variant:'clearRow', label:'Xóa 1 hàng', current:1, target:1 }} />
+            <L>+ chip Lượt xoay (gravity)</L>
+            <ObjectiveBar goal={{ kind:'tutorial', variant:'rotate', label:'Xoay 1 lần', current:0, target:1 }} rotations={3} />
+          </div>
+        </>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<Grid />);
+  </script>
+</body>
+</html>

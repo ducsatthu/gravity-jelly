@@ -5,11 +5,13 @@
    Compose target: text/<role> -> TextStyle in Type.kt
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800&display=swap');
 
 :root {
   /* --- Families --- */
-  --font-display: 'Fredoka', system-ui, sans-serif; /* font/display titles, numbers */
+  /* Fredoka renders Latin + numbers; Baloo 2 (rounded, matching) covers the
+     Vietnamese-only glyphs Fredoka lacks (ừ, ậm…) so accents don't fall to serif. */
+  --font-display: 'Fredoka', 'Baloo 2', system-ui, sans-serif; /* font/display titles, numbers */
   --font-body:    'Nunito', system-ui, sans-serif;  /* font/body  UI, labels, copy */
 
   /* --- Weights --- */

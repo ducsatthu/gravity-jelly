@@ -311,7 +311,7 @@ private fun RowDivider() {
 private val ProgressTrack = Color(0xFFE6D7BE)
 
 /** TẠM (review): mở khoá MỌI mục cẩm nang để soi popup không cần chơi. Đặt false để trả về thường. */
-private const val UNLOCK_ALL_FOR_REVIEW = true
+private const val UNLOCK_ALL_FOR_REVIEW = false
 
 // ── preview ─────────────────────────────────────────────────────────────────────
 

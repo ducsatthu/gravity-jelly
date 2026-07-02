@@ -13,3 +13,7 @@ local.properties
 
 # Kotlin compiler session files
 .kotlin/
+
+# IDE (Eclipse/BuildShip) compiled output
+bin/
+core/bin/

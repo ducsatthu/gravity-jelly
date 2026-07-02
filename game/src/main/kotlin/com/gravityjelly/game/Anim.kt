@@ -10,9 +10,9 @@ internal object Anim {
     const val MS = 1_000_000L
     const val SQUASH_NANOS = 300 * MS      // squash + settle (150 + 150)
     const val SQUASH_PEAK_NANOS = 150 * MS // mốc chia 2 pha: nén-vào-đỉnh → giãn
-    const val CLEAR_NANOS = 400 * MS       // flash 150 + pop 250
-    const val CLEAR_LEAD_NANOS = 200 * MS  // bắt đầu rơi giữa nhịp xóa (ô đã pop gần hết)
-    const val CLEAR_STAGGER_NANOS = 20 * MS // quét ~20ms/khối dọc dòng (spec line-clear)
+    const val CLEAR_NANOS = 340 * MS       // pop/tan của MỘT khối — ngắn để sóng chạm tới đâu khối mất nhanh tới đó
+    const val CLEAR_LEAD_NANOS = 180 * MS  // khoảng chờ sau khi ô XA NHẤT bắt đầu tan rồi mới rơi (bám đuôi sóng)
+    const val CLEAR_STAGGER_NANOS = 72 * MS // độ trễ / khoảng-cách-ô: sóng LAN RỘNG + chậm, đầu sóng gọn
     const val COLLAPSE_NANOS = 350 * MS    // cluster collapse slide
     const val CASCADE_GAP_NANOS = 300 * MS // nghỉ sau khi rơi+nhún xong rồi mới flash nhịp combo kế
     const val ROTATE_NANOS = 350 * MS      // gravity-rotate slide + pupil
@@ -20,8 +20,8 @@ internal object Anim {
     const val SCORE_POP_NANOS = 450 * MS   // score "+N" float (≤ 450ms theo token)
     const val PARTICLE_NANOS = 420 * MS    // ≤ 450ms (rule juice)
 
-    /** Tỉ lệ pha flash trong tổng thời gian xóa (150ms / 400ms). */
-    const val CLEAR_FLASH_FRAC = 0.375f
+    /** Tỉ lệ pha flash trong tổng thời gian xóa (~177ms / 520ms). */
+    const val CLEAR_FLASH_FRAC = 0.34f
 
     fun lerp(a: Float, b: Float, t: Float): Float = a + (b - a) * t
 

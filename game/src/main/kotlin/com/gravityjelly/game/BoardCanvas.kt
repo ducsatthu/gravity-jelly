@@ -11,6 +11,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.translate
@@ -59,6 +60,17 @@ class BoardRender {
     var gravity: Direction = Direction.DOWN
     val clusterSizes: Array<IntArray> = Array(Grid.SIZE) { IntArray(Grid.SIZE) }
     var ghost: GhostPreview? = null
+
+    // Highlight "thả xuống sẽ ăn điểm / merge" — holder populate KHI ghost đổi ô (không mỗi frame).
+    // Vùng sẽ nổ vẽ như MỘT khu vực liền: [previewRegion] (index-truy cập) + [previewMask] tra ô-kề
+    // O(1) khi vẽ chu vi (allocation-free). Rỗng = thả trơn, không sáng gì.
+    var previewRegion: List<Vec> = emptyList()
+    val previewMask = BooleanArray(Grid.SIZE * Grid.SIZE)
+
+    // Đường BAO của vùng — mỗi phần tử là 1 contour kín (mảng điểm lưới encode py·(SIZE+1)+px, đã gộp
+    // đỉnh thẳng hàng). Hỗ trợ MỌI hình: nhiều vùng rời, chữ thập, L, blob nổ super, cả lỗ thủng. Dải
+    // viền chạy vẽ dọc từng contour. Trace bằng holder khi preview đổi (không mỗi frame).
+    var previewLoops: List<IntArray> = emptyList()
 }
 
 /** Vị trí hard-drop preview của mảnh đang kéo (cells tính từ :core hardDrop). */
@@ -104,6 +116,9 @@ fun BoardCanvas(
         val gravity = r.gravity
         val clusterSizes = r.clusterSizes
         val ghost = r.ghost
+        val previewRegion = r.previewRegion
+        val previewMask = r.previewMask
+        val previewLoops = r.previewLoops
 
         val n = Grid.SIZE
         val padPx = BOARD_PAD_DP * density
@@ -154,6 +169,9 @@ fun BoardCanvas(
                 drawRoundRect(JellyTheme.cellLine, off, sz, cr, style = cellLineStroke)
             }
 
+            // Block trong vùng sẽ nổ → khoác VIỀN LẤP LÁNH kiểu siêu khối (viền nhiều màu chạy).
+            val regionActive = ghost != null && previewRegion.isNotEmpty()
+
             // ô đầy (áp slide offset + squash từ animator)
             for (y in 0 until n) for (x in 0 until n) {
                 val cell = grid.get(x, y) ?: continue
@@ -164,6 +182,8 @@ fun BoardCanvas(
                 when (cell.type) {
                     CellType.STONE -> drawStoneBlock(left, top, blockSize, cr, borderStroke)
                     CellType.BLOCK -> {
+                        // Vùng preview: viền lấp lánh SAU LƯNG block (ló ra ngoài mép, mặt block vẫn sạch).
+                        if (regionActive && previewMask[y * n + x]) drawShimmerBorder(left, top, blockSize, superSpin)
                         val eyeColor = cell.color ?: JellyColor.YELLOW   // cầu vồng (color null) → mắt trung tính
                         val palette = JellyTheme.forColor(eyeColor)
                         val cs      = clusterSizes[y][x]
@@ -206,6 +226,12 @@ fun BoardCanvas(
                 }
             }
 
+            // highlight "sẽ ăn điểm / merge": DẢI VIỀN NHIỀU MÀU CHẠY bám ĐƯỜNG BAO thật của vùng (mọi
+            // hình: nhiều vùng rời, chữ thập, L, blob nổ). Vẽ TRÊN block để dải liền mạch, không bị che.
+            for (i in previewLoops.indices) {
+                drawRegionLoop(previewLoops[i], cellSize, blockSize, superSpin)
+            }
+
             // ghost preview (điểm rơi)
             if (ghost != null) {
                 val palette = JellyTheme.forColor(ghost.color)
@@ -223,6 +249,49 @@ fun BoardCanvas(
             animator?.drawOverlays(this, cellSize, gap, textMeasurer, now)
         }
     }
+}
+
+/**
+ * Vẽ highlight cho CẢ VÙNG [cells] (các ô sẽ nổ khi thả) như MỘT khu vực liền, màu [palette] của mảnh.
+ * KHÔNG tô fill phủ ô (giữ block SÁNG NGUYÊN, không làm mờ) — chỉ HÀO QUANG VIỀN quanh chu vi:
+ * cạnh nào KHÔNG giáp ô cùng vùng (tra [mask]) thì vẽ, chồng 3 lớp từ quầng rộng-mờ → nét sắc để tạo
+ * glow toả. Quầng dùng `shine` (màu SÁNG → thêm ánh sáng, không làm tối block); nét sắc dùng `fill`
+ * (đúng màu mảnh, nổi trên cả nền kem lẫn block). StrokeCap.Round bo góc + trám mối nối.
+ * Allocation-nhẹ: tra mask O(1) (không dựng set/frame), Offset value-class, Color.copy inline.
+ */
+// Scratch Path dựng lại mỗi contour (reset, không cấp phát Path mới) — vẽ 1 luồng nên an toàn.
+private val regionLoopPath = Path()
+
+/**
+ * Dải viền nhiều màu chạy dọc MỘT contour [loop] (mảng điểm lưới encode py·(SIZE+1)+px, đã gộp đỉnh
+ * thẳng hàng). Dựng Path bo góc (bán kính = cellSize·CORNER_FRAC, kẹp ≤ nửa cạnh ngắn nhất) rồi chạy
+ * dash 2 lớp bloom + sắc. Bám đúng đường bao mọi hình (chữ thập/L/blob nổ).
+ */
+private fun DrawScope.drawRegionLoop(loop: IntArray, cellSize: Float, blockSize: Float, spin: Float) {
+    val m = loop.size
+    if (m < 3) return
+    val p = Grid.SIZE + 1
+    val radius = cellSize * CORNER_FRAC
+    val path = regionLoopPath
+    path.reset()
+    var perim = 0f
+    for (i in 0 until m) {
+        val prev = loop[(i - 1 + m) % m]; val curr = loop[i]; val next = loop[(i + 1) % m]
+        val cx = (curr % p) * cellSize; val cy = (curr / p) * cellSize
+        val px = (prev % p) * cellSize; val py = (prev / p) * cellSize
+        val nx = (next % p) * cellSize; val ny = (next / p) * cellSize
+        val inLen  = kotlin.math.hypot(cx - px, cy - py)
+        val outLen = kotlin.math.hypot(nx - cx, ny - cy)
+        val r = minOf(radius, inLen * 0.5f, outLen * 0.5f)
+        val entryX = cx - (cx - px) / inLen * r;  val entryY = cy - (cy - py) / inLen * r
+        val exitX  = cx + (nx - cx) / outLen * r; val exitY  = cy + (ny - cy) / outLen * r
+        if (i == 0) path.moveTo(entryX, entryY) else path.lineTo(entryX, entryY)
+        path.quadraticBezierTo(cx, cy, exitX, exitY)
+        perim += outLen
+    }
+    path.close()
+    drawRunningPath(path, perim, blockSize * 0.16f, spin, 0.42f)
+    drawRunningPath(path, perim, blockSize * 0.06f, spin, 0.98f)
 }
 
 /** Tính kích thước cụm chứa mỗi ô vào [out] (tái dùng mảng; gọi khi grid đổi, KHÔNG mỗi frame). */

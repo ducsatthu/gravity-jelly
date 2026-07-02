@@ -4,15 +4,28 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.geometry.Offset
+import com.gravityjelly.core.CellType
+import com.gravityjelly.core.ComboReward
 import com.gravityjelly.core.EndlessEngine
 import com.gravityjelly.core.EndlessState
 import com.gravityjelly.core.EndlessTuning
 import com.gravityjelly.core.GameEvent
+import com.gravityjelly.core.Goal
+import com.gravityjelly.core.GoalType
 import com.gravityjelly.core.Grid
+import com.gravityjelly.core.Level
 import com.gravityjelly.core.Piece
 import com.gravityjelly.core.PlacementResult
+import com.gravityjelly.core.StarMetric
+import com.gravityjelly.core.StarThresholds
+import com.gravityjelly.core.TriggerKind
+import com.gravityjelly.core.forLevel
+import com.gravityjelly.core.PlacementOutcome
+import com.gravityjelly.core.Vec
+import com.gravityjelly.core.freePlace
 import com.gravityjelly.core.nearestFreePlacement
-import kotlin.math.floor
+import com.gravityjelly.core.previewPlaced
+import kotlin.math.roundToInt
 
 /** Loại phản hồi haptic theo sự kiện (lớp vỏ map sang rung, tôn trọng Settings.vibrate). */
 enum class EffectKind { PLACE, CLEAR, COMBO }
@@ -59,11 +72,53 @@ class EndlessGameHolder(
     seed: Long,
     initialBudget: Int = EndlessEngine.DEFAULT_ROTATION_BUDGET,
     tuning: EndlessTuning = EndlessTuning(),
+    /** Màn Campaign đang chơi (null = chế độ Endless, không có mục tiêu/thắng). */
+    val level: Level? = null,
 ) {
-    private val engine = EndlessEngine(seed, initialBudget, tuning)
+    private val engine = if (level != null) EndlessEngine.forLevel(level)
+        else EndlessEngine(seed, initialBudget, tuning)
 
     val boardRender = BoardRender()
     val animator = BoardAnimator()
+
+    // ── mục tiêu Campaign (null ở Endless) ──
+    /** Mục tiêu của màn (null = Endless). Lớp vỏ đọc để hiện HUD "Dọn sạch"… */
+    val goal: Goal? = level?.goal
+    private val starThresholds: StarThresholds? = level?.stars
+
+    /** Số nước đã đặt (đơn vị sao MOVES). Compose observe để HUD hiện. */
+    var movesUsed by mutableStateOf(0)
+        private set
+
+    /** Đã HOÀN THÀNH mục tiêu màn chưa (chỉ Campaign). Lớp vỏ hiện overlay thắng khi true. */
+    var levelComplete by mutableStateOf(false)
+        private set
+
+    /** Sao đạt được khi hoàn thành (1–3); 0 khi chưa xong. */
+    var starsEarned by mutableStateOf(0)
+        private set
+
+    // Đã xảy ra ÍT NHẤT một lần xóa trong màn — chặn "thắng rỗng" khi bàn vốn đã trống (L1/L2).
+    private var anyCleared = false
+
+    /** Số cú xoay đã dùng (đơn vị sao ROTATIONS — L3). */
+    var rotationsUsed by mutableStateOf(0)
+        private set
+
+    // ── Trigger tutorial đã xảy ra (hệ mục tiêu v2) — bám EVENT stream, tích luỹ cả màn. ──
+    private var trigRow = false
+    private var trigCol = false
+    private var trigRotate = false
+    private var trigSuper1 = false
+    private var trigSuper2 = false
+    private var trigRainbow = false
+    private var trigRainbowSuper = false
+    private var trigCombo2 = false   // đã đạt combo ≥×2 lần nào chưa (L8)
+
+    // ── Boss combo: sát thương tích luỹ + số nhịp combo (đơn vị sao COMBO). ──
+    private var bossDamage = 0
+    private var comboHits = 0
+    private var bossComboBefore = 0   // bậc combo VÀO nước hiện tại (cộng dồn qua các nước có ích)
 
     /**
      * Callback phản hồi haptic (đặt mảnh / xóa / combo≥3). Lớp vỏ ([EndlessScreen]) cấp,
@@ -133,11 +188,16 @@ class EndlessGameHolder(
     private var pendingDirY = 0
     private var pendingDirSinceNanos = 0L
 
-    // Ô lưới dưới con trỏ, có HYSTERESIS: giữ ô hiện tại tới khi con trỏ vượt hẳn mép ô thêm dải đệm
-    // [CELL_HYST] mới lật sang ô mới. Chống ghost nhảy ô do rung tay (chỉ nhích nhẹ KHÔNG đổi chỗ thả),
-    // và buộc phải kéo đủ xa mới đổi ô gợi ý. Int.MIN_VALUE = chưa có mốc (đầu cú kéo) → dùng floor.
-    private var lastCol = Int.MIN_VALUE
-    private var lastRow = Int.MIN_VALUE
+    // Offset (ô góc trên-trái) của mảnh, có HYSTERESIS: giữ offset hiện tại tới khi tâm mảnh vượt hẳn
+    // nửa ô thêm dải đệm [CELL_HYST] mới lật sang ô mới. Chống ghost nhảy ô do rung tay (chỉ nhích nhẹ
+    // KHÔNG đổi chỗ thả). Int.MIN_VALUE = chưa có mốc (đầu cú kéo) → làm tròn thẳng.
+    private var lastOx = Int.MIN_VALUE
+    private var lastOy = Int.MIN_VALUE
+
+    // Chỗ ghost đã tính preview "sẽ ăn điểm / merge" gần nhất — chỉ tính lại khi ghost ĐỔI Ô
+    // (không mỗi lần dragTo). Int.MIN_VALUE = chưa tính.
+    private var lastPreviewOx = Int.MIN_VALUE
+    private var lastPreviewOy = Int.MIN_VALUE
 
     // bounds bàn (toạ độ window, px) để quy đổi con trỏ → ô lưới
     private var boardWinX = 0f
@@ -151,10 +211,11 @@ class EndlessGameHolder(
 
     /**
      * "Nhấc mảnh" khi kéo (px): mảnh + ghost hiện CAO HƠN ngón tay để ngón không che chỗ thả.
-     * Quy theo kích thước VẬT LÝ ~[DRAG_LIFT_MM]mm (cỡ ngón tay thật), độc lập kích thước bàn —
-     * 1mm ≈ 160/25.4 dp. Con trỏ → ô lưới quy theo điểm đã nhấc.
+     * Quy theo CỠ Ô ([DRAG_LIFT_CELLS] ô) chứ KHÔNG theo mm cố định: bàn thật chỉ ~4.5cm nên lift
+     * mm-cố-định (15mm) hoá ra gần 3 ô — ghost lệch xa ngón, khó canh. Theo cỡ ô thì khoảng cách
+     * ngón↔ghost luôn ~[DRAG_LIFT_CELLS] ô, dời ngón 1 ô là ghost dời 1 ô đúng như mắt thấy.
      */
-    private val dragLiftPx: Float get() = DRAG_LIFT_MM * (160f / 25.4f) * density
+    private val dragLiftPx: Float get() = boardCellPx * DRAG_LIFT_CELLS
 
     init {
         // Playback combo tuần tự: animator phát combo + haptic theo TỪNG nhịp (không dồn một lần).
@@ -162,8 +223,13 @@ class EndlessGameHolder(
         animator.onClearStep = { comboLevel ->
             onEffect?.invoke(if (comboLevel >= 3) EffectKind.COMBO else EffectKind.CLEAR)
         }
-        // Cascade vừa chiếu xong → áp nước người chơi đã thả trong lúc đó (đặt-hoãn).
-        animator.onPlaybackEnd = { flushPendingPlacement() }
+        // Cascade vừa chiếu xong → áp nước người chơi đã thả trong lúc đó (đặt-hoãn); nếu không
+        // có nước chờ, bàn đã ổn định = đúng lúc CHẤM mục tiêu màn (hiện overlay thắng sau clear).
+        animator.onPlaybackEnd = {
+            val hadPending = pendingPlacement != null
+            flushPendingPlacement()
+            if (!hadPending) evaluateGoal()
+        }
         sync()
     }
 
@@ -174,13 +240,14 @@ class EndlessGameHolder(
     // ── input ──
 
     fun rotate(cw: Boolean) {
-        if (shell.gameOver) return
+        if (shell.gameOver || levelComplete) return
         if (animator.isPlaying) return   // khoá input khi bàn đang chiếu cascade (tránh lệch thấy/truth)
         val pre = boardRender.grid.copy()
         val preGravity = boardRender.gravity
         val events = engine.rotateGravity(cw)
         sync()
         if (events.isNotEmpty()) {
+            trackGoalEvents(events)
             animator.ingest(events, pre, preGravity, boardRender.grid, boardRender.gravity)
             dispatchFeedback(events)
             detectRotationRefill(events)
@@ -195,7 +262,7 @@ class EndlessGameHolder(
      * Trả false khi đã thua, hoặc còn MỘT nước chờ chưa áp (giữ một nước chờ mỗi lúc).
      */
     fun beginDrag(trayIndex: Int): Boolean {
-        if (shell.gameOver) return false
+        if (shell.gameOver || levelComplete) return false
         if (pendingPlacement != null) return false   // còn nước chờ áp khi cascade xong → khoan kéo tiếp
         val p = shell.tray.getOrNull(trayIndex) ?: return false
         dragIndex = trayIndex
@@ -203,15 +270,19 @@ class EndlessGameHolder(
         dragOx = -1; dragOy = -1
         dragDirX = 0; dragDirY = 0; hasDirSample = false
         pendingDirX = 0; pendingDirY = 0; pendingDirSinceNanos = 0L
-        lastCol = Int.MIN_VALUE; lastRow = Int.MIN_VALUE
+        lastOx = Int.MIN_VALUE; lastOy = Int.MIN_VALUE
         boardRender.ghost = null
+        clearPreview()
         return true
     }
 
     /**
-     * Con trỏ tại (window) → "hít" ghost về chỗ khít HỢP LỆ gần ô dưới con trỏ nhất, trong bán
-     * kính [SNAP_RADIUS] ô (xem [nearestFreePlacement]). Người chơi không phải kéo tới đúng ô:
-     * vừa lại gần là ghost đã hiện vị trí sẽ thả → thả sớm, đỡ mất nhịp. KHÔNG hard-drop.
+     * Con trỏ tại (window) → chọn chỗ đặt cho ghost theo HAI BƯỚC:
+     *  1. Nếu mảnh đang nằm ĐÚNG ô (offset khớp mảnh nổi đang vẽ) mà chỗ đó ĐẶT ĐƯỢC → dùng chính
+     *     chỗ đó, KHÔNG gợi ý dời. Người chơi đã canh tới nơi thì tôn trọng vị trí họ chọn.
+     *  2. Chỉ khi chỗ chính xác đó KHÔNG đặt được (mảnh chưa tới khu vực đủ khít) → mới "hít" ghost
+     *     về chỗ khít HỢP LỆ gần nhất trong bán kính [SNAP_RADIUS] ô (xem [nearestFreePlacement]).
+     * KHÔNG hard-drop.
      */
     fun dragTo(windowX: Float, windowY: Float) {
         if (dragIndex < 0) return
@@ -225,25 +296,42 @@ class EndlessGameHolder(
 
         updateDragDirection(windowX, liftedY)
 
-        // Quy con trỏ → ô có hysteresis: ô chỉ đổi khi con trỏ vượt hẳn mép ô (dải đệm [CELL_HYST]).
-        // Nhờ đó rung tay nhẹ KHÔNG lệch chỗ thả, và phải kéo đủ xa mới đổi ô gợi ý (xem [stickyCell]).
-        val col = stickyCell((windowX - boardWinX) / cell, lastCol)
-        val row = stickyCell((liftedY - boardWinY) / cell, lastRow)
-        lastCol = col; lastRow = row
-        // Con trỏ ra hẳn ngoài bàn (margin 1 ô) → không có ý định thả.
-        if (col < -1 || row < -1 || col > Grid.SIZE || row > Grid.SIZE) { clearGhost(); return }
-
+        // Offset (ô góc trên-trái) KHỚP ĐÚNG mảnh nổi đang vẽ: mảnh vẽ tâm trên con trỏ (origin =
+        // con trỏ − nửa-cỡ mảnh), nên offset ô = làm tròn cùng biểu thức. Có hysteresis để rung tay
+        // nhẹ không lật ô (xem [stickyCell]). Nhờ khớp mảnh nổi, ghost bám đúng chỗ mắt thấy — kể cả
+        // mảnh cỡ chẵn (trước đây floor ô-con-trỏ lệch tới ~1 ô, khiến gợi ý sai chỗ).
+        val originCellX = (windowX - boardWinX) / cell - piece.shape.width / 2f
+        val originCellY = (liftedY - boardWinY) / cell - piece.shape.height / 2f
+        val desiredOx = stickyCell(originCellX, lastOx)
+        val desiredOy = stickyCell(originCellY, lastOy)
+        android.util.Log.d(
+            "DRAGDBG",
+            "cell=$cell lift=$lift boardWin=($boardWinX,$boardWinY) " +
+                "finger=($windowX,$windowY) lifted=$liftedY " +
+                "origin=(${"%.2f".format(originCellX)},${"%.2f".format(originCellY)}) " +
+                "prev=($lastOx,$lastOy) desired=($desiredOx,$desiredOy)",
+        )
+        lastOx = desiredOx; lastOy = desiredOy
+        // Mảnh ra hẳn ngoài bàn (margin 1 ô) → không có ý định thả.
         val shape = piece.shape
-        val desiredOx = col - shape.width / 2
-        val desiredOy = row - shape.height / 2
+        if (desiredOx < -1 || desiredOy < -1 ||
+            desiredOx + shape.width > Grid.SIZE + 1 || desiredOy + shape.height > Grid.SIZE + 1) {
+            clearGhost(); return
+        }
 
+        // BƯỚC 1: mảnh đã nằm đúng chỗ hợp lệ → dùng chính chỗ đó, không gợi ý dời.
+        val exact = freePlace(boardRender.grid, piece, desiredOx, desiredOy)
+        if (exact is PlacementResult.Success) {
+            setGhostAndPreview(exact.cells, piece, desiredOx, desiredOy)
+            return
+        }
+
+        // BƯỚC 2: chỗ chính xác không đặt được → gợi ý chỗ khít gần nhất (theo hướng kéo).
         when (val res = nearestFreePlacement(boardRender.grid, piece, desiredOx, desiredOy, SNAP_RADIUS, dragDirX, dragDirY)) {
             is PlacementResult.Success -> {
                 // Shape chuẩn hoá gốc (0,0) → offset = min toạ độ của cells đã hít.
                 val cells = res.cells
-                dragOx = cells.minOf { it.x }
-                dragOy = cells.minOf { it.y }
-                boardRender.ghost = GhostPreview(cells, piece.color)
+                setGhostAndPreview(cells, piece, cells.minOf { it.x }, cells.minOf { it.y })
             }
             PlacementResult.Invalid -> clearGhost()
         }
@@ -258,16 +346,16 @@ class EndlessGameHolder(
      *     thả tay, ghost không nhảy. Nhờ đó "đẩy lên rồi nhích xuống thả" không lật hướng tức thì.
      */
     /**
-     * Lượng tử hoá toạ độ ô có HYSTERESIS. [f] là toạ độ ô phân số của con trỏ (px / cell). Giữ ô cũ
-     * [prev] chừng nào con trỏ còn trong khoảng [prev − CELL_HYST, prev + 1 + CELL_HYST]; ra khỏi dải
-     * mới nhảy sang ô mới ([floor]). Hai ô kề nhau chia sẻ vùng chồng lấn rộng 2·[CELL_HYST] nên rung
-     * quanh mép ô không lật đi lật lại — đứng yên đủ lâu để thả, và phải kéo hẳn > ~(0.5 + CELL_HYST) ô
-     * mới đổi ô (không đổi vì nhích tay). [prev] = Int.MIN_VALUE (đầu cú kéo) → chưa có mốc, lấy floor.
+     * Lượng tử hoá offset ô có HYSTERESIS. [f] là offset ô PHÂN SỐ (đã trừ nửa-cỡ mảnh nên khớp tâm
+     * mảnh nổi). Giữ offset cũ [prev] chừng nào [f] còn trong [prev − 0.5 − CELL_HYST, prev + 0.5 +
+     * CELL_HYST]; ra khỏi dải mới làm tròn lại. Vùng giữ rộng 2·(0.5 + CELL_HYST) quanh tâm ô nên rung
+     * tay không lật đi lật lại — đứng yên đủ lâu để thả, phải kéo hẳn > ~(0.5 + CELL_HYST) ô mới đổi.
+     * [prev] = Int.MIN_VALUE (đầu cú kéo) → chưa có mốc, làm tròn thẳng.
      */
     private fun stickyCell(f: Float, prev: Int): Int = when {
-        prev == Int.MIN_VALUE -> floor(f).toInt()
-        f < prev - CELL_HYST -> floor(f).toInt()
-        f >= prev + 1 + CELL_HYST -> floor(f).toInt()
+        prev == Int.MIN_VALUE -> f.roundToInt()
+        f < prev - 0.5f - CELL_HYST -> f.roundToInt()
+        f > prev + 0.5f + CELL_HYST -> f.roundToInt()
         else -> prev
     }
 
@@ -339,10 +427,112 @@ class EndlessGameHolder(
         val events = engine.placePieceAt(index, ox, oy)
         sync()
         if (events.isNotEmpty()) {
+            if (events.any { it is GameEvent.PiecePlaced }) movesUsed++
+            if (events.any { it is GameEvent.LinesCleared }) anyCleared = true
+            trackGoalEvents(events)
             animator.ingest(events, pre, preGravity, boardRender.grid, boardRender.gravity)
             dispatchFeedback(events)
             detectRotationRefill(events)
             detectGuideMechanics(events)
+        }
+    }
+
+    // ── mục tiêu màn Campaign ──
+
+    /**
+     * Chấm mục tiêu màn khi bàn ĐÃ ổn định (gọi từ [BoardAnimator.onPlaybackEnd]). Chỉ Campaign
+     * (goal != null). CLEAR_ALL = đã xóa ít nhất 1 lần VÀ bàn không còn ô cần dọn. Đặt sao +
+     * [levelComplete] → lớp vỏ hiện overlay thắng.
+     */
+    /**
+     * Ghi nhận TRIGGER tutorial + sát thương boss từ chuỗi event MỖI nước (hệ mục tiêu v2). Cộng dồn
+     * cả màn — [evaluateGoal] đọc lại khi bàn ổn định. Boss: sát thương = bậc−1 mỗi lần combo chạm mức
+     * mới ≥×2 ([ComboReward.rotationRefund] trên đỉnh combo nước này).
+     */
+    private fun trackGoalEvents(events: List<GameEvent>) {
+        var peakCombo = bossComboBefore
+        for (e in events) {
+            when (e) {
+                is GameEvent.LinesCleared -> {
+                    if (e.lines.rows.isNotEmpty()) trigRow = true
+                    if (e.lines.cols.isNotEmpty()) trigCol = true
+                    if (e.comboLevel > peakCombo) peakCombo = e.comboLevel
+                }
+                is GameEvent.GravityRotated -> { trigRotate = true; rotationsUsed++ }
+                is GameEvent.SuperFormed -> {
+                    if (e.level >= 2) trigSuper2 = true else trigSuper1 = true
+                    if (e.comboLevel > peakCombo) peakCombo = e.comboLevel
+                }
+                is GameEvent.SuperDetonated -> if (e.level >= 2) trigSuper2 = true
+                is GameEvent.RainbowFormed -> {
+                    if (e.level >= 2) trigRainbowSuper = true else trigRainbow = true
+                    if (e.comboLevel > peakCombo) peakCombo = e.comboLevel
+                }
+                else -> {}
+            }
+        }
+        if (peakCombo >= 2) trigCombo2 = true    // combo ×2 lần đầu (L8)
+        val dmg = ComboReward.rotationRefund(bossComboBefore, peakCombo)
+        if (dmg > 0) { bossDamage += dmg; comboHits++ }
+        bossComboBefore = shell.combo
+    }
+
+    private fun evaluateGoal() {
+        val g = goal ?: return
+        if (levelComplete) return
+        val done = when (g.type) {
+            GoalType.CLEAR_ALL -> anyCleared && !hasBlocks(boardRender.grid)
+            GoalType.REACH_SCORE -> shell.score >= g.score
+            GoalType.BOSS_COMBO -> bossDamage >= g.bossHP
+            GoalType.TUTORIAL -> when (g.trigger) {
+                TriggerKind.ROW -> trigRow
+                TriggerKind.COL -> trigCol
+                TriggerKind.ROTATE -> trigRotate
+                TriggerKind.SUPER1 -> trigSuper1
+                TriggerKind.SUPER2 -> trigSuper2
+                TriggerKind.RAINBOW -> trigRainbow
+                TriggerKind.RAINBOW_SUPER -> trigRainbowSuper
+                TriggerKind.COMBO_X2 -> trigCombo2
+                null -> false
+            }
+            GoalType.CLEAR_TARGETS, GoalType.COMBO_CHAIN -> false   // chưa hỗ trợ
+        }
+        if (done) {
+            starsEarned = computeStars()
+            levelComplete = true
+        }
+    }
+
+    /** Còn ô cần dọn (BLOCK/TARGET)? STONE là chướng ngại, không tính vào clear_all. */
+    private fun hasBlocks(grid: Grid): Boolean {
+        for (y in 0 until grid.size) for (x in 0 until grid.size) {
+            val t = grid.get(x, y)?.type
+            if (t == CellType.BLOCK || t == CellType.TARGET) return true
+        }
+        return false
+    }
+
+    private fun computeStars(): Int {
+        val s = starThresholds ?: return 1
+        // MOVES/ROTATIONS/COMBO: ÍT hơn = tốt hơn (≤ ngưỡng). SCORE: NHIỀU hơn = tốt hơn (≥ ngưỡng).
+        return when (s.metric) {
+            StarMetric.SCORE -> when {
+                shell.score >= s.three -> 3
+                shell.score >= s.two -> 2
+                else -> 1
+            }
+            else -> {
+                val used = when (s.metric) {
+                    StarMetric.ROTATIONS -> rotationsUsed
+                    StarMetric.COMBO -> comboHits
+                    else -> movesUsed   // MOVES
+                }
+                when {
+                    used <= s.three -> 3
+                    used <= s.two -> 2
+                    else -> 1
+                }
+            }
         }
     }
 
@@ -355,7 +545,8 @@ class EndlessGameHolder(
         val p = pendingPlacement ?: return
         pendingPlacement = null
         boardRender.ghost = null
-        if (shell.gameOver) return
+        clearPreview()
+        if (shell.gameOver || levelComplete) return
         applyPlacement(p.index, p.ox, p.oy)
     }
 
@@ -454,12 +645,98 @@ class EndlessGameHolder(
     private fun clearGhost() {
         dragOx = -1; dragOy = -1
         boardRender.ghost = null
+        clearPreview()
+    }
+
+    /**
+     * Đặt ghost tại ([ox],[oy]) + tính preview "sẽ ăn điểm / merge". Preview CHỈ tính lại khi ghost
+     * đổi ô (so [lastPreviewOx]/[lastPreviewOy]) — kéo trong cùng ô không tính lại. Bàn luôn đã resolve
+     * giữa các nước nên [previewPlaced] đọc [boardRender].grid (truth cuối, kể cả lúc đang chiếu cascade).
+     */
+    private fun setGhostAndPreview(cells: List<Vec>, piece: Piece, ox: Int, oy: Int) {
+        dragOx = ox; dragOy = oy
+        boardRender.ghost = GhostPreview(cells, piece.color)
+        if (ox == lastPreviewOx && oy == lastPreviewOy) return
+        lastPreviewOx = ox; lastPreviewOy = oy
+        applyPreview(previewPlaced(boardRender.grid, piece, cells))
+    }
+
+    private fun applyPreview(o: PlacementOutcome) {
+        // Nhịp đầu chỉ có 1 trong 2 (xóa HOẶC merge). Có thể GỒM NHIỀU vùng rời (vd 2 hàng cách nhau).
+        val region = if (o.clearCells.isNotEmpty()) o.clearCells else o.mergeCells
+        val mask = boardRender.previewMask
+        java.util.Arrays.fill(mask, false)
+        for (v in region) mask[v.y * Grid.SIZE + v.x] = true
+        boardRender.previewRegion = if (region.isEmpty()) emptyList() else region.toList()
+        boardRender.previewLoops = if (region.isEmpty()) emptyList() else regionLoops(mask)
+    }
+
+    private fun clearPreview() {
+        lastPreviewOx = Int.MIN_VALUE; lastPreviewOy = Int.MIN_VALUE
+        boardRender.previewRegion = emptyList()
+        boardRender.previewLoops = emptyList()
+        java.util.Arrays.fill(boardRender.previewMask, false)
+    }
+
+    /**
+     * Trace ĐƯỜNG BAO vùng [mask] thành các contour kín (đa giác trực giao BẤT KỲ: nhiều vùng rời, chữ
+     * thập, L, blob nổ, cả lỗ thủng). Mỗi cạnh biên (ô-trong giáp ô-ngoài) phát 1 cạnh có HƯỚNG THEO
+     * CHIỀU KIM ĐỒNG HỒ quanh ô → nối đầu-cuối thành vòng. Điểm lưới encode `py·(SIZE+1)+px`. Đỉnh thẳng
+     * hàng được GỘP để chỉ còn góc thật. Chạy khi preview đổi (không mỗi frame), bàn 9×9 nên rẻ.
+     */
+    private fun regionLoops(mask: BooleanArray): List<IntArray> {
+        val n = Grid.SIZE
+        val p = n + 1
+        val out = HashMap<Int, MutableList<Int>>()   // điểm-đầu → các điểm-cuối (thường 1; ≥2 ở điểm kẹp)
+        fun edge(sx: Int, sy: Int, ex: Int, ey: Int) {
+            out.getOrPut(sy * p + sx) { ArrayList(2) }.add(ey * p + ex)
+        }
+        for (y in 0 until n) for (x in 0 until n) {
+            if (!mask[y * n + x]) continue
+            // Cạnh biên phát theo chiều kim đồng hồ (y hướng xuống): TL→TR→BR→BL→TL.
+            if (y == 0 || !mask[(y - 1) * n + x])     edge(x, y, x + 1, y)         // trên
+            if (x == n - 1 || !mask[y * n + (x + 1)]) edge(x + 1, y, x + 1, y + 1) // phải
+            if (y == n - 1 || !mask[(y + 1) * n + x]) edge(x + 1, y + 1, x, y + 1) // dưới
+            if (x == 0 || !mask[y * n + (x - 1)])     edge(x, y + 1, x, y)         // trái
+        }
+        val loops = ArrayList<IntArray>()
+        val starts = out.keys.toIntArray().also { it.sort() }
+        for (s0 in starts) {
+            while (out[s0]?.isNotEmpty() == true) {
+                val loop = ArrayList<Int>()
+                var cur = s0
+                var guard = 0
+                while (guard++ < 4 * n * n) {
+                    loop.add(cur)
+                    val ends = out[cur]
+                    if (ends.isNullOrEmpty()) break
+                    val nxt = ends.removeAt(ends.size - 1)   // deterministic
+                    if (nxt == s0) break
+                    cur = nxt
+                }
+                if (loop.size >= 4) loops.add(collapseCollinear(loop, p))
+            }
+        }
+        return loops
+    }
+
+    /** Bỏ các đỉnh nằm THẲNG HÀNG (giữ góc thật) — vòng lặp có wrap-around. */
+    private fun collapseCollinear(pts: List<Int>, p: Int): IntArray {
+        val m = pts.size
+        val keep = ArrayList<Int>(m)
+        for (i in 0 until m) {
+            val a = pts[(i - 1 + m) % m]; val b = pts[i]; val c = pts[(i + 1) % m]
+            val cross = (b % p - a % p) * (c / p - b / p) - (b / p - a / p) * (c % p - b % p)
+            if (cross != 0) keep.add(b)
+        }
+        return keep.toIntArray()
     }
 
     private fun endDragState() {
         dragIndex = -1; dragOx = -1; dragOy = -1
         dragPiece = null; dragWindowPos = null
         boardRender.ghost = null
+        clearPreview()
     }
 
     private fun sync() {
@@ -480,8 +757,9 @@ class EndlessGameHolder(
     )
 
     companion object {
-        /** Khoảng "nhấc mảnh" khi kéo, tính theo mm vật lý (~cỡ đốt ngón tay) để ngón không che chỗ thả. */
-        private const val DRAG_LIFT_MM = 15f
+        /** Khoảng "nhấc mảnh" khi kéo, tính theo SỐ Ô: ngón↔ghost cách ~1.5 ô — đủ để ngón không che
+         *  chỗ thả, đủ gần để dời ngón 1 ô là ghost dời 1 ô (không lệch xa gây khó canh). */
+        private const val DRAG_LIFT_CELLS = 1.5f
 
         /**
          * Bán kính "hít" ghost (ô) quanh ô dưới con trỏ: trong phạm vi này, ghost tự nhảy tới chỗ
@@ -492,12 +770,12 @@ class EndlessGameHolder(
         private const val SNAP_RADIUS = 2
 
         /**
-         * Dải đệm hysteresis (đơn vị Ô) khi quy con trỏ → ô lưới. Giữ ghost dính ở một ô tới khi con
-         * trỏ vượt mép ô thêm dải này mới lật sang ô kế → cần kéo ~(0.5 + dải) ≈ 0.85 ô mới đổi chỗ
-         * gợi ý. Chống "chỉ nhích nhẹ đã lệch": rung quanh mép ô không đổi ghost, người chơi có đủ
-         * vùng đứng yên để thả. Tăng → dính hơn (khó lệch, nhưng khó chỉnh tinh); giảm → nhạy hơn.
+         * Dải đệm hysteresis (đơn vị Ô) quanh TÂM ô khi quy offset mảnh → ô lưới. Giữ ghost ở ô hiện
+         * tại tới khi tâm mảnh lệch quá (0.5 + dải) ô mới lật sang ô kế. Chỉ đủ nhỏ để chống rung tay
+         * ngay mép ô, KHÔNG tạo vùng chết cả ô (0.35 cũ khiến kéo gần trọn 1 ô mới đổi → cảm giác kẹt).
+         * Tăng → dính hơn (khó lệch, khó chỉnh tinh); giảm → nhạy hơn, bám sát mảnh.
          */
-        private const val CELL_HYST = 0.35f
+        private const val CELL_HYST = 0.12f
 
         /**
          * Quãng dời tối thiểu (dp) trước khi tính một hướng kéo ứng viên — lọc rung tay, tránh đảo

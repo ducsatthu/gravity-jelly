@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"GravityJellyDesignSystem_3e0487","components":[{"name":"JellyBlock","sourcePath":"02-foundations/01-jelly-block/JellyBlock.jsx"},{"name":"Eyes","sourcePath":"02-foundations/02-eyes/Eyes.jsx"},{"name":"Icon","sourcePath":"02-foundations/03-icon/Icon.jsx"},{"name":"Button","sourcePath":"03-components/01-button/Button.jsx"},{"name":"Hud","sourcePath":"03-components/02-hud/Hud.jsx"},{"name":"TrayPiece","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"Tray","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"GravityRotateButton","sourcePath":"03-components/04-gravity-rotate-button/GravityRotateButton.jsx"},{"name":"ComboPopup","sourcePath":"03-components/05-combo-popup/ComboPopup.jsx"},{"name":"Dialog","sourcePath":"03-components/06-dialog/Dialog.jsx"},{"name":"JellyScene","sourcePath":"03-components/07-jelly-scene/JellyScene.jsx"}],"sourceHashes":{"02-foundations/01-jelly-block/JellyBlock.jsx":"99d676a3206c","02-foundations/02-eyes/Eyes.jsx":"d4762b606971","02-foundations/03-icon/Icon.jsx":"1d501e149f2f","03-components/01-button/Button.jsx":"ff24f7c456d7","03-components/02-hud/Hud.jsx":"b68bb167fc30","03-components/03-tray/Tray.jsx":"e425b7cd5eed","03-components/04-gravity-rotate-button/GravityRotateButton.jsx":"09df27eb60e6","03-components/05-combo-popup/ComboPopup.jsx":"3430e5b0f130","03-components/06-dialog/Dialog.jsx":"d5e802d0a1db","03-components/07-jelly-scene/JellyScene.jsx":"0967aa6a5b67","04-screens/board-design.jsx":"4363b5b0e102","04-screens/board.jsx":"a2c1742d1301","04-screens/boss-intro-screen.jsx":"5b7d158f2415","04-screens/cam-nang-illus.jsx":"fc3bcb10a740","04-screens/cam-nang-screen.jsx":"e75a1708e1db","04-screens/daily-reward-screen.jsx":"0309b17c4056","04-screens/home-screen.jsx":"6e91733096f9","04-screens/leaderboard-screen.jsx":"82c8413c65d7","04-screens/level-intro-screen.jsx":"16abe8e32f95","04-screens/level-win-screen.jsx":"b88ddcf6bfa8","04-screens/map-ftue.jsx":"8f55f3b0c394","04-screens/map-hud.jsx":"7ba182f3789f","04-screens/map-just-completed.jsx":"13c691476df2","04-screens/map-nodes.jsx":"5496d0923f15","04-screens/missions-screen.jsx":"a2cb834bcb3d","04-screens/out-of-lives-screen.jsx":"c5661499a9aa","04-screens/pause-screen.jsx":"edd558af8897","04-screens/phone-frame.jsx":"18e22e60b390","04-screens/play/jelly-play.jsx":"90bcd0f1ca70","04-screens/result-screen.jsx":"775264ed1cbe","04-screens/screen-extras.jsx":"b6a2513dd24c","04-screens/settings-screen.jsx":"a5cbe4af2727","04-screens/shop-screen.jsx":"454bf4d67682","04-screens/splash-screen.jsx":"6b0e750c020b","04-screens/tweaks-panel.jsx":"6591467622ed","04-screens/world-gate-locked.jsx":"4d32d0ac3bad","04-screens/world-gate.jsx":"6db94465e8f2","04-screens/world-transition.jsx":"2c01ac267a6a","04-screens/world1-strip.jsx":"e550ab2d58f2","04-screens/world10-strip.jsx":"86352e2ce593","04-screens/world2-forest-draft.jsx":"759336f74f0e","04-screens/world2-strip.jsx":"b8f1f5775dd1","04-screens/world2-transition.jsx":"3c401cae8a6b","04-screens/world3-strip.jsx":"c37017b94d01","04-screens/world3-transition.jsx":"562e934bc9b0","04-screens/world4-strip.jsx":"a23a292882cb","04-screens/world4-transition.jsx":"92f05343cefa","04-screens/world5-strip.jsx":"31ce848e45ea","04-screens/world5-transition.jsx":"88b6358dffeb","04-screens/world6-strip.jsx":"3479dadec253","04-screens/world6-transition.jsx":"d1e8205ae7ac","04-screens/world7-strip.jsx":"e0b64525e7fa","04-screens/world7-transition.jsx":"32759ee57874","04-screens/world8-strip.jsx":"444f9855082e","04-screens/world8-transition.jsx":"dea1a55ba8eb","04-screens/world9-strip.jsx":"aea09bf6b901","04-screens/world9-transition.jsx":"3fcce03107b5","07-mechanics/mechanics-cards.js":"ce4f6defa8dd","07-mechanics/mechanics-kit.jsx":"f52efab2af43","07-mechanics/mechanics-widgets.jsx":"59dbeacaab30","08-brand/gravity-jelly-logo.js":"6df76113eb29","board.jsx":"8dfa6c252a92","game-screen.jsx":"275dda3a6546","jelly-play.jsx":"1fd71f5475a0","world4-strip.jsx":"912d0bdb9c6d"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":3,"namespace":"GravityJellyDesignSystem_3e0487","components":[{"name":"JellyBlock","sourcePath":"02-foundations/01-jelly-block/JellyBlock.jsx"},{"name":"Eyes","sourcePath":"02-foundations/02-eyes/Eyes.jsx"},{"name":"Icon","sourcePath":"02-foundations/03-icon/Icon.jsx"},{"name":"Button","sourcePath":"03-components/01-button/Button.jsx"},{"name":"Hud","sourcePath":"03-components/02-hud/Hud.jsx"},{"name":"TrayPiece","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"Tray","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"GravityRotateButton","sourcePath":"03-components/04-gravity-rotate-button/GravityRotateButton.jsx"},{"name":"ComboPopup","sourcePath":"03-components/05-combo-popup/ComboPopup.jsx"},{"name":"Dialog","sourcePath":"03-components/06-dialog/Dialog.jsx"},{"name":"JellyScene","sourcePath":"03-components/07-jelly-scene/JellyScene.jsx"},{"name":"ObjectiveBar","sourcePath":"03-components/08-objective-bar/ObjectiveBar.jsx"},{"name":"BossHud","sourcePath":"03-components/09-boss-hud/BossHud.jsx"}],"sourceHashes":{"02-foundations/01-jelly-block/JellyBlock.jsx":"99d676a3206c","02-foundations/02-eyes/Eyes.jsx":"d4762b606971","02-foundations/03-icon/Icon.jsx":"1d501e149f2f","03-components/01-button/Button.jsx":"ff24f7c456d7","03-components/02-hud/Hud.jsx":"b68bb167fc30","03-components/03-tray/Tray.jsx":"e425b7cd5eed","03-components/04-gravity-rotate-button/GravityRotateButton.jsx":"09df27eb60e6","03-components/05-combo-popup/ComboPopup.jsx":"3430e5b0f130","03-components/06-dialog/Dialog.jsx":"d5e802d0a1db","03-components/07-jelly-scene/JellyScene.jsx":"0967aa6a5b67","03-components/08-objective-bar/ObjectiveBar.jsx":"8b7181ee526a","03-components/09-boss-hud/BossHud.jsx":"0860005d04e4","04-screens/board-boss.jsx":"fe9ea9512869","04-screens/board-campaign.jsx":"db93679ac719","04-screens/board-design.jsx":"5163f27516da","04-screens/board.jsx":"a2c1742d1301","04-screens/boss-intro-screen.jsx":"5b7d158f2415","04-screens/cam-nang-illus.jsx":"fc3bcb10a740","04-screens/cam-nang-screen.jsx":"eca5070751be","04-screens/daily-reward-screen.jsx":"0309b17c4056","04-screens/home-screen.jsx":"6e91733096f9","04-screens/leaderboard-screen.jsx":"82c8413c65d7","04-screens/level-intro-screen.jsx":"fd21e1426a23","04-screens/level-win-screen.jsx":"b88ddcf6bfa8","04-screens/map-hud.jsx":"7ba182f3789f","04-screens/missions-screen.jsx":"a2cb834bcb3d","04-screens/out-of-lives-screen.jsx":"c5661499a9aa","04-screens/pause-screen.jsx":"edd558af8897","04-screens/phone-frame.jsx":"18e22e60b390","04-screens/play/jelly-play.jsx":"90bcd0f1ca70","04-screens/result-screen.jsx":"775264ed1cbe","04-screens/screen-extras.jsx":"b6a2513dd24c","04-screens/settings-screen.jsx":"a5cbe4af2727","04-screens/shop-screen.jsx":"454bf4d67682","04-screens/splash-screen.jsx":"6b0e750c020b","04-screens/tweaks-panel.jsx":"6591467622ed","04-screens/world-gate-locked.jsx":"4d32d0ac3bad","04-screens/world-gate.jsx":"6db94465e8f2","04-screens/world-transition.jsx":"2c01ac267a6a","04-screens/world1-strip.jsx":"07e086330087","04-screens/world10-strip.jsx":"86352e2ce593","04-screens/world2-forest-draft.jsx":"759336f74f0e","04-screens/world2-strip.jsx":"b8f1f5775dd1","04-screens/world2-transition.jsx":"3c401cae8a6b","04-screens/world3-strip.jsx":"c37017b94d01","04-screens/world3-transition.jsx":"562e934bc9b0","04-screens/world4-strip.jsx":"a23a292882cb","04-screens/world4-transition.jsx":"92f05343cefa","04-screens/world5-strip.jsx":"31ce848e45ea","04-screens/world5-transition.jsx":"88b6358dffeb","04-screens/world6-strip.jsx":"3479dadec253","04-screens/world6-transition.jsx":"d1e8205ae7ac","04-screens/world7-strip.jsx":"e0b64525e7fa","04-screens/world7-transition.jsx":"32759ee57874","04-screens/world8-strip.jsx":"444f9855082e","04-screens/world8-transition.jsx":"dea1a55ba8eb","04-screens/world9-strip.jsx":"aea09bf6b901","04-screens/world9-transition.jsx":"3fcce03107b5","07-mechanics/mechanics-cards.js":"ce4f6defa8dd","07-mechanics/mechanics-kit.jsx":"f52efab2af43","07-mechanics/mechanics-widgets.jsx":"59dbeacaab30","08-brand/gravity-jelly-logo.js":"6df76113eb29","board.jsx":"8dfa6c252a92","game-screen.jsx":"275dda3a6546","jelly-play.jsx":"1fd71f5475a0","world4-strip.jsx":"912d0bdb9c6d"},"inlinedExternals":[],"unexposedExports":[{"name":"comboDamage","sourcePath":"03-components/09-boss-hud/BossHud.jsx"}]} */
 
 (() => {
 
@@ -1936,6 +1936,2010 @@ function JellyScene({
 Object.assign(__ds_scope, { JellyScene });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "03-components/07-jelly-scene/JellyScene.jsx", error: String((e && e.message) || e) }); }
 
+// 03-components/08-objective-bar/ObjectiveBar.jsx
+try { (() => {
+/**
+ * ObjectiveBar — the always-on "what do I need to do" cluster that sits right
+ * under the 56dp HUD and above the 9×9 board. One component, one `goal`
+ * descriptor, covering every goal_type in the catalogue:
+ *   • tutorial   — single action, "0/1" chip (or "×N" for combo)
+ *   • score      — REACH_SCORE progress bar (current / N), primary fill
+ *   • targets    — CLEAR_TARGETS counter: target glyphs that dim as destroyed
+ *                  (buried variant adds a layer-lock)
+ *   • mixed      — MIXED: two stacked progress rows (targets + score)
+ * States: active · near (gentle pulse) · done (success + tick, glow).
+ * Optional gravity `rotations` chip on the right when it isn't on the FAB.
+ *
+ * Sizes in dp: single-row bar 52 · two-row (mixed) 72 · padding 16 · radius 20
+ * · shadow sm · progress track 12 · target/tutorial glyph 26–30.
+ */
+
+/* ---- one-time keyframes (pop / pulse), reduced-motion aware ---- */
+if (typeof document !== 'undefined' && !document.getElementById('gj-objective-kf')) {
+  const s = document.createElement('style');
+  s.id = 'gj-objective-kf';
+  s.textContent = `
+    @keyframes gj-obj-pop { 0% { transform: scale(0.5) } 60% { transform: scale(1.16) } 100% { transform: scale(1) } }
+    @keyframes gj-obj-nudge { 0%,100% { transform: scale(1) } 50% { transform: scale(1.06) } }
+    @media (prefers-reduced-motion: reduce) { [data-gj-anim] { animation: none !important } }
+  `;
+  document.head.appendChild(s);
+}
+const CAPTION = {
+  fontFamily: 'var(--font-body)',
+  fontSize: 'var(--text-caption)',
+  fontWeight: 'var(--weight-bold)',
+  letterSpacing: 'var(--tracking-wide)',
+  color: 'var(--color-text-muted)',
+  lineHeight: 1,
+  whiteSpace: 'nowrap'
+};
+const NUM = {
+  fontFamily: 'var(--font-display)',
+  fontWeight: 'var(--weight-bold)',
+  lineHeight: 1
+};
+const JPAL = {
+  yellow: ['#FFE3A3', '#E8B85C'],
+  mint: ['#A3E5D9', '#5FC3B2'],
+  pink: ['#F7A9C0', '#E576A0'],
+  blue: ['#B3C7F7', '#7E9CE8']
+};
+
+/* ── glyphs ─────────────────────────────────────────────────────────── */
+
+// 3×3 mini grid with one row / column lit — CLEAR_ROW / CLEAR_COL.
+function GridGlyph({
+  axis = 'row',
+  size = 26
+}) {
+  const cells = [];
+  for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) {
+    const hot = axis === 'row' ? r === 1 : c === 1;
+    cells.push(/*#__PURE__*/React.createElement("rect", {
+      key: `${r}-${c}`,
+      x: c * 8.5 + 1.5,
+      y: r * 8.5 + 1.5,
+      width: "6.5",
+      height: "6.5",
+      rx: "2",
+      fill: hot ? 'var(--color-primary)' : 'var(--color-surface-sunken)',
+      stroke: hot ? 'var(--color-primary-edge)' : '#E7D8BF',
+      strokeWidth: "1"
+    }));
+  }
+  return /*#__PURE__*/React.createElement("svg", {
+    width: size,
+    height: size,
+    viewBox: "0 0 27 27",
+    "aria-hidden": "true"
+  }, cells);
+}
+const CrownMini = ({
+  size = 18
+}) => /*#__PURE__*/React.createElement("svg", {
+  width: size,
+  height: size,
+  viewBox: "0 0 24 24",
+  "aria-hidden": "true"
+}, /*#__PURE__*/React.createElement("path", {
+  d: "M3.5 18l-1-9 5 3.5L12 5l4.5 7.5 5-3.5-1 9z",
+  fill: "#FFCA66",
+  stroke: "#E2A82E",
+  strokeWidth: "1.6",
+  strokeLinejoin: "round"
+}), /*#__PURE__*/React.createElement("path", {
+  d: "M3.5 18h17",
+  stroke: "#E2A82E",
+  strokeWidth: "1.6",
+  strokeLinecap: "round"
+}));
+
+// super / rainbow / crown power-cell glyph — MAKE_SUPER1/2, RAINBOW, RAINBOW_SUPER.
+function SpecialGlyph({
+  type = 'super',
+  color = 'pink',
+  size = 30,
+  lvl = 1
+}) {
+  const r = Math.round(size * 0.28);
+  const rainbow = type === 'rainbow' || type === 'crown';
+  const pal = JPAL[color] || JPAL.pink;
+  return /*#__PURE__*/React.createElement("span", {
+    style: {
+      position: 'relative',
+      display: 'inline-flex',
+      flexShrink: 0
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: size,
+      height: size,
+      borderRadius: r,
+      boxSizing: 'border-box',
+      position: 'relative',
+      background: rainbow ? 'conic-gradient(from 210deg,#F7A9C0,#FFE3A3,#A3E5D9,#B3C7F7,#F7A9C0)' : pal[0],
+      border: `3px solid ${rainbow ? '#E576A0' : pal[1]}`,
+      boxShadow: '0 0 0 2px var(--color-warning), var(--shadow-sm)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      position: 'absolute',
+      top: 2,
+      left: '14%',
+      right: '14%',
+      height: '32%',
+      background: 'rgba(255,255,255,0.7)',
+      borderRadius: '50%'
+    }
+  }), !rainbow && /*#__PURE__*/React.createElement("svg", {
+    width: size * 0.5,
+    height: size * 0.5,
+    viewBox: "0 0 24 24",
+    style: {
+      position: 'relative'
+    }
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z",
+    fill: "#FFF6DD",
+    stroke: "#E2A82E",
+    strokeWidth: "1.6",
+    strokeLinejoin: "round"
+  })), rainbow && /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: size * 0.32,
+      height: size * 0.32,
+      borderRadius: '50%',
+      background: 'rgba(255,255,255,0.94)',
+      boxShadow: '0 0 6px rgba(255,255,255,0.9)'
+    }
+  })), lvl === 2 && /*#__PURE__*/React.createElement("span", {
+    style: {
+      position: 'absolute',
+      bottom: -5,
+      right: -5,
+      minWidth: 17,
+      height: 17,
+      padding: '0 3px',
+      boxSizing: 'border-box',
+      borderRadius: 999,
+      background: 'var(--color-surface)',
+      border: '2px solid var(--color-warning)',
+      color: '#B9821C',
+      fontFamily: 'var(--font-display)',
+      fontWeight: 800,
+      fontSize: 10,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      lineHeight: 1
+    }
+  }, "2"), type === 'crown' && /*#__PURE__*/React.createElement("span", {
+    style: {
+      position: 'absolute',
+      top: -size * 0.44,
+      left: '50%',
+      transform: 'translateX(-50%)'
+    }
+  }, /*#__PURE__*/React.createElement(CrownMini, {
+    size: size * 0.62
+  })));
+}
+
+// vine root (World 2) — sprout on a mound.
+function VineGlyph({
+  size = 24,
+  dim = false
+}) {
+  return /*#__PURE__*/React.createElement("svg", {
+    width: size,
+    height: size,
+    viewBox: "0 0 24 24",
+    "aria-hidden": "true",
+    style: {
+      opacity: dim ? 0.3 : 1,
+      transition: 'opacity var(--motion-base) var(--ease-out)'
+    }
+  }, /*#__PURE__*/React.createElement("ellipse", {
+    cx: "12",
+    cy: "20.2",
+    rx: "7",
+    ry: "2.3",
+    fill: "#C7A97E"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M12 20 C12 15.5 12 13 12 10.5",
+    stroke: "#5FC3B2",
+    strokeWidth: "2.4",
+    fill: "none",
+    strokeLinecap: "round"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M12 13.5 C9 13.5 7 11.5 6.4 8.8 C9.6 8.8 11.6 10.4 12 13.5Z",
+    fill: "#A3E5D9",
+    stroke: "#5FC3B2",
+    strokeWidth: "1.2",
+    strokeLinejoin: "round"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M12 11.5 C15 11.5 17 9.5 17.6 6.8 C14.4 6.8 12.4 8.4 12 11.5Z",
+    fill: "#A3E5D9",
+    stroke: "#5FC3B2",
+    strokeWidth: "1.2",
+    strokeLinejoin: "round"
+  }));
+}
+
+// water drop (World 3) — teal droplet, optional layer-lock for buried targets.
+function DropGlyph({
+  size = 24,
+  dim = false,
+  locked = false
+}) {
+  return /*#__PURE__*/React.createElement("span", {
+    style: {
+      position: 'relative',
+      display: 'inline-flex',
+      opacity: dim ? 0.4 : 1,
+      transition: 'opacity var(--motion-base) var(--ease-out)'
+    }
+  }, /*#__PURE__*/React.createElement("svg", {
+    width: size,
+    height: size,
+    viewBox: "0 0 24 24",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M12 3.2c4 5 6 8 6 11a6 6 0 1 1-12 0c0-3 2-6 6-11z",
+    fill: "#A3E5D9",
+    stroke: "#5FC3B2",
+    strokeWidth: "1.6",
+    strokeLinejoin: "round"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M9.4 15.4a2.6 2.6 0 0 0 2 2.4",
+    stroke: "#CBF2EB",
+    strokeWidth: "1.6",
+    fill: "none",
+    strokeLinecap: "round"
+  })), locked && /*#__PURE__*/React.createElement("span", {
+    style: {
+      position: 'absolute',
+      bottom: -3,
+      right: -4,
+      width: 15,
+      height: 15,
+      borderRadius: '50%',
+      background: 'var(--color-stone)',
+      border: '1.5px solid var(--color-stone-edge)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }
+  }, /*#__PURE__*/React.createElement("svg", {
+    width: "9",
+    height: "9",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "#6B5B45",
+    strokeWidth: "2.6",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }, /*#__PURE__*/React.createElement("rect", {
+    x: "5",
+    y: "10.5",
+    width: "14",
+    height: "9",
+    rx: "2.4"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M8 10.5V7.5a4 4 0 0 1 8 0v3"
+  }))));
+}
+
+/* ── progress atoms ─────────────────────────────────────────────────── */
+
+function ProgressChip({
+  text,
+  done,
+  near
+}) {
+  return /*#__PURE__*/React.createElement("span", {
+    "data-gj-anim": true,
+    style: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 4,
+      height: 28,
+      padding: '0 12px',
+      borderRadius: 'var(--radius-full)',
+      flexShrink: 0,
+      boxSizing: 'border-box',
+      background: done ? 'var(--color-success)' : 'var(--color-surface-sunken)',
+      color: done ? 'var(--color-text-invert)' : 'var(--color-text)',
+      boxShadow: done ? '0 3px 0 color-mix(in srgb, var(--color-success) 72%, #000 18%)' : 'inset 0 1px 3px rgba(120,92,52,0.14)',
+      ...NUM,
+      fontSize: 'var(--text-score)',
+      animation: done ? 'gj-obj-pop 420ms var(--ease-jelly) both' : near ? 'gj-obj-nudge 900ms var(--ease-inout) infinite' : 'none'
+    }
+  }, done && /*#__PURE__*/React.createElement(__ds_scope.Icon, {
+    name: "check",
+    size: 16,
+    color: "currentColor",
+    strokeWidth: 3
+  }), text);
+}
+function ScoreBar({
+  score,
+  target,
+  done,
+  near,
+  compact
+}) {
+  const pct = Math.max(0, Math.min(1, score / target));
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1,
+      minWidth: 0
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: compact ? 4 : 5,
+      gap: 10
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: CAPTION
+  }, "\u0110I\u1EC2M"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...NUM,
+      fontSize: 'var(--text-score)',
+      color: done ? 'var(--color-success)' : 'var(--color-primary)',
+      whiteSpace: 'nowrap'
+    }
+  }, score.toLocaleString('vi-VN'), /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--color-text-muted)',
+      fontSize: 'var(--text-caption)'
+    }
+  }, " / ", target.toLocaleString('vi-VN')))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      height: 12,
+      borderRadius: 'var(--radius-full)',
+      background: 'var(--color-surface-sunken)',
+      overflow: 'hidden',
+      position: 'relative',
+      boxShadow: done ? '0 0 0 2px color-mix(in srgb, var(--color-success) 55%, transparent), 0 0 12px color-mix(in srgb, var(--color-success) 60%, transparent)' : 'inset 0 1px 3px rgba(120,92,52,0.16)'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    "data-gj-anim": true,
+    style: {
+      width: `${pct * 100}%`,
+      height: '100%',
+      borderRadius: 'var(--radius-full)',
+      background: done ? 'linear-gradient(180deg,#8FE0A0,var(--color-success))' : 'linear-gradient(180deg,var(--color-primary-shine),var(--color-primary))',
+      boxShadow: 'inset 0 1.5px 0 rgba(255,255,255,0.5)',
+      transition: 'width var(--motion-medium) var(--ease-out)',
+      animation: near ? 'gj-obj-nudge 900ms var(--ease-inout) infinite' : 'none'
+    }
+  })));
+}
+
+// dimming counter of target glyphs + "còn N" pill.
+function TargetCounter({
+  kind,
+  total,
+  remaining,
+  buried = 0
+}) {
+  const done = remaining <= 0;
+  const gone = total - remaining;
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1,
+      minWidth: 0,
+      display: 'flex',
+      alignItems: 'center',
+      gap: 'var(--space-md)'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 5,
+      flexWrap: 'wrap'
+    }
+  }, Array.from({
+    length: total
+  }).map((_, i) => {
+    const destroyed = i < gone;
+    const isBuried = !destroyed && i - gone < buried;
+    return kind === 'vine' ? /*#__PURE__*/React.createElement(VineGlyph, {
+      key: i,
+      size: 24,
+      dim: destroyed
+    }) : /*#__PURE__*/React.createElement(DropGlyph, {
+      key: i,
+      size: 24,
+      dim: destroyed,
+      locked: isBuried
+    });
+  })), /*#__PURE__*/React.createElement("span", {
+    "data-gj-anim": true,
+    style: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 4,
+      height: 26,
+      padding: '0 11px',
+      flexShrink: 0,
+      borderRadius: 'var(--radius-full)',
+      boxSizing: 'border-box',
+      background: done ? 'var(--color-success)' : 'var(--color-surface-sunken)',
+      color: done ? 'var(--color-text-invert)' : 'var(--color-text)',
+      boxShadow: done ? '0 3px 0 color-mix(in srgb, var(--color-success) 72%, #000 18%)' : 'none',
+      ...NUM,
+      fontSize: 'var(--text-label)',
+      animation: done ? 'gj-obj-pop 420ms var(--ease-jelly) both' : 'none'
+    }
+  }, done ? /*#__PURE__*/React.createElement(__ds_scope.Icon, {
+    name: "check",
+    size: 15,
+    color: "currentColor",
+    strokeWidth: 3
+  }) : /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...CAPTION,
+      color: 'inherit',
+      fontWeight: 800
+    }
+  }, "c\xF2n"), done ? 'Xong' : remaining));
+}
+
+/* gravity turns-left chip (when not shown on the FAB) */
+function RotationsChip({
+  n
+}) {
+  const low = n <= 3;
+  return /*#__PURE__*/React.createElement("span", {
+    title: "L\u01B0\u1EE3t xoay c\xF2n l\u1EA1i",
+    style: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 4,
+      height: 30,
+      padding: '0 10px',
+      flexShrink: 0,
+      borderRadius: 'var(--radius-full)',
+      boxSizing: 'border-box',
+      background: 'var(--color-gravity)',
+      color: 'var(--color-text-invert)',
+      boxShadow: `0 3px 0 var(--color-gravity-edge)`
+    }
+  }, /*#__PURE__*/React.createElement(__ds_scope.Icon, {
+    name: "rotateCw",
+    size: 17,
+    color: "currentColor",
+    strokeWidth: 2.6
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...NUM,
+      fontSize: 'var(--text-score)',
+      color: low ? '#FFE4A0' : 'inherit'
+    }
+  }, n));
+}
+
+/* ── tutorial glyph picker ──────────────────────────────────────────── */
+function TutorialGlyph({
+  variant
+}) {
+  switch (variant) {
+    case 'clearRow':
+      return /*#__PURE__*/React.createElement(GridGlyph, {
+        axis: "row",
+        size: 28
+      });
+    case 'clearCol':
+      return /*#__PURE__*/React.createElement(GridGlyph, {
+        axis: "col",
+        size: 28
+      });
+    case 'rotate':
+      return /*#__PURE__*/React.createElement("span", {
+        style: {
+          width: 30,
+          height: 30,
+          borderRadius: '50%',
+          flexShrink: 0,
+          background: 'color-mix(in srgb, var(--color-gravity) 16%, transparent)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }
+      }, /*#__PURE__*/React.createElement(__ds_scope.Icon, {
+        name: "rotateCw",
+        size: 19,
+        color: "var(--color-gravity)",
+        strokeWidth: 2.4
+      }));
+    case 'super1':
+      return /*#__PURE__*/React.createElement(SpecialGlyph, {
+        type: "super",
+        color: "pink",
+        size: 30
+      });
+    case 'super2':
+      return /*#__PURE__*/React.createElement(SpecialGlyph, {
+        type: "super",
+        color: "blue",
+        size: 30,
+        lvl: 2
+      });
+    case 'rainbow':
+      return /*#__PURE__*/React.createElement(SpecialGlyph, {
+        type: "rainbow",
+        size: 30
+      });
+    case 'rainbowSuper':
+      return /*#__PURE__*/React.createElement(SpecialGlyph, {
+        type: "crown",
+        size: 30
+      });
+    case 'combo':
+      return /*#__PURE__*/React.createElement("span", {
+        style: {
+          width: 30,
+          height: 30,
+          borderRadius: '50%',
+          flexShrink: 0,
+          background: 'color-mix(in srgb, var(--color-warning) 26%, transparent)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }
+      }, /*#__PURE__*/React.createElement(__ds_scope.Icon, {
+        name: "x2",
+        size: 19,
+        color: "#B9821C",
+        strokeWidth: 2.4
+      }));
+    default:
+      return null;
+  }
+}
+
+/* ── the bar shell ──────────────────────────────────────────────────── */
+function Shell({
+  children,
+  tall,
+  style
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: '100%',
+      minHeight: tall ? 72 : 52,
+      boxSizing: 'border-box',
+      display: 'flex',
+      alignItems: 'center',
+      gap: 'var(--space-md)',
+      padding: tall ? '9px var(--space-lg)' : '0 var(--space-lg)',
+      background: 'var(--color-surface)',
+      borderRadius: 'var(--radius-lg)',
+      boxShadow: 'var(--shadow-sm)',
+      fontFamily: 'var(--font-body)',
+      ...style
+    }
+  }, children);
+}
+function derive(status, done, ratio) {
+  if (status) return status;
+  if (done) return 'done';
+  if (ratio >= 0.7) return 'near';
+  return 'active';
+}
+function ObjectiveBar({
+  goal,
+  rotations = null,
+  style = {}
+}) {
+  if (!goal) return null;
+  const kind = goal.kind;
+
+  // ---- MIXED : two stacked rows ----
+  if (kind === 'mixed') {
+    const t = goal.targets,
+      sc = goal.score;
+    return /*#__PURE__*/React.createElement(Shell, {
+      tall: true,
+      style: style
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        flex: 1,
+        minWidth: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 8
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 'var(--space-md)'
+      }
+    }, /*#__PURE__*/React.createElement(TargetCounter, {
+      kind: t.target,
+      total: t.total,
+      remaining: t.remaining,
+      buried: t.buried || 0
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        height: 1,
+        background: 'var(--color-cell-line)',
+        margin: '0 -2px'
+      }
+    }), /*#__PURE__*/React.createElement(ScoreBar, {
+      score: sc.score,
+      target: sc.target,
+      done: sc.score >= sc.target,
+      compact: true,
+      near: sc.score < sc.target && sc.score / sc.target >= 0.7
+    })), rotations != null && /*#__PURE__*/React.createElement(RotationsChip, {
+      n: rotations
+    }));
+  }
+
+  // ---- SCORE : single progress bar ----
+  if (kind === 'score') {
+    const done = goal.score >= goal.target;
+    const st = derive(goal.status, done, goal.score / goal.target);
+    return /*#__PURE__*/React.createElement(Shell, {
+      style: style
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        width: 30,
+        height: 30,
+        borderRadius: '50%',
+        flexShrink: 0,
+        background: 'color-mix(in srgb, var(--color-primary) 18%, transparent)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement(__ds_scope.Icon, {
+      name: "star",
+      size: 19,
+      color: "var(--color-primary)",
+      strokeWidth: 2.2
+    })), /*#__PURE__*/React.createElement(ScoreBar, {
+      score: goal.score,
+      target: goal.target,
+      done: st === 'done',
+      near: st === 'near'
+    }), rotations != null && /*#__PURE__*/React.createElement(RotationsChip, {
+      n: rotations
+    }));
+  }
+
+  // ---- TARGETS : dimming counter ----
+  if (kind === 'targets') {
+    return /*#__PURE__*/React.createElement(Shell, {
+      style: style
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        ...CAPTION
+      }
+    }, "M\u1EE4C TI\xCAU"), /*#__PURE__*/React.createElement(TargetCounter, {
+      kind: goal.target,
+      total: goal.total,
+      remaining: goal.remaining,
+      buried: goal.buried || 0
+    }), rotations != null && /*#__PURE__*/React.createElement(RotationsChip, {
+      n: rotations
+    }));
+  }
+
+  // ---- TUTORIAL : glyph + label + chip ----
+  const isCombo = goal.variant === 'combo';
+  const cur = goal.current || 0;
+  const tgt = goal.target || 1;
+  const done = isCombo ? cur >= tgt : cur >= tgt;
+  const st = derive(goal.status, done, cur / tgt);
+  const chipText = isCombo ? `×${cur}` : `${cur}/${tgt}`;
+  return /*#__PURE__*/React.createElement(Shell, {
+    style: style
+  }, /*#__PURE__*/React.createElement(TutorialGlyph, {
+    variant: goal.variant
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      flex: 1,
+      minWidth: 0,
+      fontFamily: 'var(--font-body)',
+      fontWeight: 'var(--weight-bold)',
+      fontSize: 'var(--text-body)',
+      color: 'var(--color-text)',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis'
+    }
+  }, goal.label), /*#__PURE__*/React.createElement(ProgressChip, {
+    text: done ? isCombo ? `×${tgt}` : 'Xong' : chipText,
+    done: st === 'done',
+    near: st === 'near'
+  }), rotations != null && /*#__PURE__*/React.createElement(RotationsChip, {
+    n: rotations
+  }));
+}
+Object.assign(__ds_scope, { ObjectiveBar });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "03-components/08-objective-bar/ObjectiveBar.jsx", error: String((e && e.message) || e) }); }
+
+// 03-components/09-boss-hud/BossHud.jsx
+try { (() => {
+/**
+ * BossHud — the boss-fight HUD cluster that sits at the TOP of the GAME screen
+ * on boss levels (L10/L20/L30…), replacing the normal ObjectiveBar. A dark,
+ * self-contained gravity-purple panel so it reads on both the light meadow and
+ * darker biome backdrops. Contains:
+ *   • round boss portrait (jelly-style, cute-but-opponent) + name
+ *   • HP bar — sunken track, fill danger→warning by % HP, "MÁU n/××" (Fredoka);
+ *     JERKS + FLASHES when the boss takes a hit
+ *   • floating damage numbers (−1/−2/−3) tied to the combo tier, in sync with
+ *     ComboPopup ×N (a small ×N rides along)
+ *   • rule reminder: "Combo ≥ ×2 để gây sát thương"
+ *   • optional per-boss TELL indicator (L20 "sắp đổ rác", L30 "sắp đảo trọng
+ *     lực" with a 3→0 countdown)
+ *
+ * Drive the hit animation by incrementing `hitToken` (and setting `lastHit`);
+ * the panel plays the jerk/flash and floats a −damage. Sizes (dp): panel ~112
+ * · portrait 64 · HP track 16 · radius lg 20.
+ *
+ * Damage tiers (combo → damage): ×2–3 → 1 · ×4–6 → 2 · ×7+ → 3. combo < 2 = 0.
+ */
+
+function comboDamage(combo) {
+  if (combo >= 7) return 3;
+  if (combo >= 4) return 2;
+  if (combo >= 2) return 1;
+  return 0;
+}
+
+/* one-time keyframes */
+if (typeof document !== 'undefined' && !document.getElementById('gj-bosshud-kf')) {
+  const s = document.createElement('style');
+  s.id = 'gj-bosshud-kf';
+  s.textContent = `
+    @keyframes gj-boss-shake { 0%,100%{transform:translateX(0)} 15%{transform:translateX(-4px) rotate(-2deg)} 30%{transform:translateX(4px) rotate(2deg)} 45%{transform:translateX(-3px)} 60%{transform:translateX(3px)} 80%{transform:translateX(-1px)} }
+    @keyframes gj-boss-flash { 0%{opacity:0} 20%{opacity:0.85} 100%{opacity:0} }
+    @keyframes gj-dmg-float { 0%{transform:translate(-50%,4px) scale(.6);opacity:0} 22%{transform:translate(-50%,-10px) scale(1.15);opacity:1} 100%{transform:translate(-50%,-46px) scale(1);opacity:0} }
+    @keyframes gj-boss-ring { 0%,100%{transform:scale(1);opacity:.5} 50%{transform:scale(1.12);opacity:.15} }
+    @media (prefers-reduced-motion: reduce){ [data-gj-boss]{animation:none!important} }
+  `;
+  document.head.appendChild(s);
+}
+const DISP = {
+  fontFamily: 'var(--font-display)',
+  fontWeight: 700,
+  lineHeight: 1
+};
+const CAP = {
+  fontFamily: 'var(--font-body)',
+  fontWeight: 800,
+  letterSpacing: 'var(--tracking-wide)',
+  lineHeight: 1
+};
+
+/* Round boss portrait — a circular jelly with a top gloss + menacing eyes.
+   `color`/`edge` theme the body per boss; brows make it an opponent. */
+function Portrait({
+  size = 64,
+  color = 'var(--color-gravity)',
+  edge = 'var(--color-gravity-edge)',
+  shine = 'var(--color-gravity-shine)',
+  hurt
+}) {
+  const eye = size * 0.26;
+  return /*#__PURE__*/React.createElement("span", {
+    style: {
+      position: 'relative',
+      display: 'inline-flex',
+      flexShrink: 0,
+      width: size,
+      height: size
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    "data-gj-boss": true,
+    "aria-hidden": "true",
+    style: {
+      position: 'absolute',
+      inset: -5,
+      borderRadius: '50%',
+      background: 'var(--color-danger)',
+      opacity: 0.4,
+      animation: 'gj-boss-ring 1800ms ease-in-out infinite'
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      position: 'relative',
+      width: size,
+      height: size,
+      borderRadius: '50%',
+      boxSizing: 'border-box',
+      background: color,
+      border: `3px solid ${edge}`,
+      boxShadow: 'inset 0 -4px 0 rgba(0,0,0,0.14), var(--shadow-md)',
+      overflow: 'hidden',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      position: 'absolute',
+      top: size * 0.08,
+      left: '20%',
+      right: '20%',
+      height: '26%',
+      borderRadius: '50%',
+      background: shine,
+      opacity: 0.85
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      position: 'relative',
+      display: 'flex',
+      alignItems: 'center',
+      gap: size * 0.12,
+      marginTop: size * 0.06
+    }
+  }, [0, 1].map(i => /*#__PURE__*/React.createElement("span", {
+    key: i,
+    style: {
+      position: 'relative',
+      width: eye,
+      height: eye,
+      borderRadius: '50%',
+      background: '#fff',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      boxShadow: 'inset 0 0 0 1.5px rgba(74,53,38,0.22)'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: eye * 0.5,
+      height: eye * 0.5,
+      borderRadius: '50%',
+      background: '#4A3526',
+      transform: hurt ? 'translateY(1px)' : 'none'
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      position: 'absolute',
+      top: -eye * 0.22,
+      left: i ? 'auto' : -eye * 0.16,
+      right: i ? -eye * 0.16 : 'auto',
+      width: eye * 0.9,
+      height: eye * 0.36,
+      background: edge,
+      transform: `rotate(${i ? -24 : 24}deg)`,
+      borderRadius: 2
+    }
+  })))), /*#__PURE__*/React.createElement("span", {
+    style: {
+      position: 'absolute',
+      bottom: size * 0.16,
+      left: '50%',
+      transform: 'translateX(-50%)',
+      width: size * 0.32,
+      height: size * 0.12,
+      borderBottom: `2.5px solid rgba(74,53,38,0.5)`,
+      borderRadius: hurt ? '50%/100% 100% 0 0' : '0 0 50%/0 0 100% 100%'
+    }
+  })));
+}
+
+/* the danger→warning HP fill */
+function hpColor(pct) {
+  // full = deep danger red; drains toward warning as the boss weakens
+  return `color-mix(in srgb, var(--color-danger) ${Math.round(pct * 100)}%, var(--color-warning))`;
+}
+const TRASH_GLYPH = /*#__PURE__*/React.createElement("svg", {
+  width: "15",
+  height: "15",
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: "2.2",
+  strokeLinecap: "round",
+  strokeLinejoin: "round",
+  "aria-hidden": "true"
+}, /*#__PURE__*/React.createElement("path", {
+  d: "M4 7h16M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13M10 11v6M14 11v6"
+}));
+function TellPill({
+  tell
+}) {
+  if (!tell) return null;
+  const isGrav = tell.kind === 'gravity';
+  const label = tell.label || (isGrav ? 'Sắp đảo trọng lực' : 'Sắp đổ rác');
+  return /*#__PURE__*/React.createElement("span", {
+    "data-gj-boss": true,
+    style: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 6,
+      padding: '4px 6px 4px 10px',
+      borderRadius: 'var(--radius-full)',
+      background: isGrav ? 'var(--color-gravity)' : 'var(--color-warning)',
+      color: isGrav ? '#fff' : 'var(--color-text)',
+      boxShadow: 'inset 0 0 0 1.5px rgba(255,255,255,0.25)',
+      animation: 'gj-boss-ring 1400ms ease-in-out infinite'
+    }
+  }, isGrav ? /*#__PURE__*/React.createElement(__ds_scope.Icon, {
+    name: "rotateCw",
+    size: 15,
+    color: "currentColor",
+    strokeWidth: 2.4
+  }) : /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: 'inline-flex',
+      color: 'currentColor'
+    }
+  }, TRASH_GLYPH), /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...CAP,
+      fontSize: 'var(--text-caption)',
+      color: 'inherit',
+      whiteSpace: 'nowrap'
+    }
+  }, label), isGrav && tell.countdown != null && /*#__PURE__*/React.createElement("span", {
+    style: {
+      minWidth: 20,
+      height: 20,
+      borderRadius: '50%',
+      background: 'rgba(255,255,255,0.95)',
+      color: 'var(--color-gravity)',
+      ...DISP,
+      fontWeight: 800,
+      fontSize: 13,
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }
+  }, tell.countdown));
+}
+function BossHud({
+  level = 10,
+  name = 'Chú Sâu Đồng Cỏ',
+  hp = 5,
+  maxHp = 5,
+  color = 'var(--color-gravity)',
+  edge = 'var(--color-gravity-edge)',
+  shine = 'var(--color-gravity-shine)',
+  hitToken = 0,
+  lastHit = {
+    damage: 1,
+    combo: 2
+  },
+  tell = null,
+  rule = true,
+  style = {}
+}) {
+  const [flash, setFlash] = React.useState(false);
+  const [floats, setFloats] = React.useState([]);
+  React.useEffect(() => {
+    if (!hitToken) return;
+    setFlash(true);
+    const id = hitToken + '-' + Math.random().toString(36).slice(2, 6);
+    setFloats(f => [...f, {
+      id,
+      ...lastHit
+    }]);
+    const t1 = setTimeout(() => setFlash(false), 400);
+    const t2 = setTimeout(() => setFloats(f => f.filter(x => x.id !== id)), 1000);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, [hitToken]);
+  const pct = Math.max(0, Math.min(1, hp / maxHp));
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: '100%',
+      boxSizing: 'border-box',
+      padding: '10px 14px 9px',
+      borderRadius: 'var(--radius-xl)',
+      background: 'linear-gradient(180deg, rgba(75,63,176,0.97), rgba(46,38,112,0.97))',
+      boxShadow: '0 8px 18px rgba(46,38,112,0.42), inset 0 1px 0 rgba(255,255,255,0.22)',
+      fontFamily: 'var(--font-body)',
+      ...style
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    "data-gj-boss": true,
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 12,
+      animation: flash ? 'gj-boss-shake 400ms ease-in-out' : 'none'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'relative'
+    }
+  }, /*#__PURE__*/React.createElement(Portrait, {
+    color: color,
+    edge: edge,
+    shine: shine,
+    hurt: flash
+  }), floats.map(fl => /*#__PURE__*/React.createElement("span", {
+    key: fl.id,
+    "data-gj-boss": true,
+    style: {
+      position: 'absolute',
+      top: -8,
+      left: '50%',
+      display: 'inline-flex',
+      alignItems: 'baseline',
+      gap: 2,
+      whiteSpace: 'nowrap',
+      pointerEvents: 'none',
+      animation: 'gj-dmg-float 1000ms cubic-bezier(.3,1.4,.6,1) forwards'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...DISP,
+      fontWeight: 800,
+      fontSize: 26,
+      color: '#FFE24D',
+      textShadow: '0 0 1px #B9821C, 0 2px 3px rgba(46,38,112,0.6), 0 0 8px rgba(255,196,75,0.7)'
+    }
+  }, "\u2212", fl.damage), fl.combo >= 2 && /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...DISP,
+      fontWeight: 800,
+      fontSize: 13,
+      color: '#fff',
+      opacity: 0.9
+    }
+  }, "\xD7", fl.combo)))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1,
+      minWidth: 0
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 8,
+      marginBottom: 5
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...DISP,
+      fontWeight: 800,
+      fontSize: 17,
+      color: '#fff',
+      whiteSpace: 'nowrap'
+    }
+  }, name), /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...CAP,
+      fontSize: 10,
+      color: 'var(--color-gravity-shine)',
+      flexShrink: 0,
+      whiteSpace: 'nowrap'
+    }
+  }, "M\xC0N ", level)), /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'relative',
+      height: 16,
+      borderRadius: 'var(--radius-full)',
+      background: 'rgba(0,0,0,0.34)',
+      overflow: 'hidden',
+      boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.4)'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    "data-gj-boss": true,
+    style: {
+      position: 'absolute',
+      inset: 0,
+      right: `${(1 - pct) * 100}%`,
+      borderRadius: 'var(--radius-full)',
+      background: `linear-gradient(180deg, color-mix(in srgb, ${hpColor(pct)} 78%, #fff 24%), ${hpColor(pct)})`,
+      boxShadow: 'inset 0 1.5px 0 rgba(255,255,255,0.4)',
+      transition: 'right 320ms var(--ease-out), background 320ms linear'
+    }
+  }), /*#__PURE__*/React.createElement("div", {
+    "data-gj-boss": true,
+    "aria-hidden": "true",
+    style: {
+      position: 'absolute',
+      inset: 0,
+      background: '#fff',
+      borderRadius: 'var(--radius-full)',
+      opacity: 0,
+      animation: flash ? 'gj-boss-flash 400ms ease-out' : 'none'
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      position: 'absolute',
+      inset: 0,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: 3,
+      whiteSpace: 'nowrap'
+    }
+  }, /*#__PURE__*/React.createElement(__ds_scope.Icon, {
+    name: "heart",
+    size: 11,
+    color: "#fff",
+    strokeWidth: 2.6
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...DISP,
+      fontWeight: 800,
+      fontSize: 12,
+      color: '#fff',
+      textShadow: '0 1px 2px rgba(46,38,112,0.9)'
+    }
+  }, hp, /*#__PURE__*/React.createElement("span", {
+    style: {
+      opacity: 0.75,
+      fontSize: 10
+    }
+  }, " / ", maxHp)))))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 8,
+      marginTop: 9,
+      minHeight: 22
+    }
+  }, /*#__PURE__*/React.createElement(TellPill, {
+    tell: tell
+  }), rule && /*#__PURE__*/React.createElement("span", {
+    style: {
+      marginLeft: 'auto',
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 5,
+      color: 'rgba(255,255,255,0.82)'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: 15,
+      height: 15,
+      borderRadius: '50%',
+      background: 'rgba(255,255,255,0.16)',
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexShrink: 0
+    }
+  }, /*#__PURE__*/React.createElement(__ds_scope.Icon, {
+    name: "info",
+    size: 11,
+    color: "#fff",
+    strokeWidth: 2.4
+  })), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: 'var(--font-body)',
+      fontWeight: 700,
+      fontSize: 'var(--text-caption)',
+      color: 'rgba(255,255,255,0.85)',
+      whiteSpace: 'nowrap'
+    }
+  }, "Combo \u2265 ", /*#__PURE__*/React.createElement("b", {
+    style: {
+      ...DISP,
+      fontWeight: 800,
+      fontSize: 13,
+      color: '#FFE24D'
+    }
+  }, "\xD72"), " \u0111\u1EC3 g\xE2y s\xE1t th\u01B0\u01A1ng"))));
+}
+Object.assign(__ds_scope, { comboDamage, BossHud });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "03-components/09-boss-hud/BossHud.jsx", error: String((e && e.message) || e) }); }
+
+// 04-screens/board-boss.jsx
+try { (() => {
+/* board-boss.jsx — BOSS in-game board ("① Game · Boss"), the campaign
+   boss-level fight (levels 10/20/30…). Same meadow board + gravity D-pad +
+   tray as the play screen, plus a purple danger vignette and a full-width
+   BOSS panel that carries the fight's progress readouts:
+     • boss HP bar (the objective — deplete before moves run out)
+     • PHA x/y phase pips
+     • MOVES left (top-right stat card)
+     • current STARS earned (in the boss panel header)
+   The board seeds a few STONE cells = the boss's armour to smash.
+   Exposes window.GJBoardBoss. */
+(function () {
+  const NS = window.GravityJellyDesignSystem_3e0487;
+  const {
+    JellyBlock
+  } = NS;
+  const EX = window.GJExtras;
+  const P = window.GJBoardParts;
+  const BG_SRC = '../06-svg-assets/backgrounds/meadow-bg.png';
+  const CARD_SRC = '../06-svg-assets/ui/score-card.svg';
+  function StatCard({
+    label,
+    value,
+    low = false
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        width: 76,
+        aspectRatio: '1 / 1',
+        flexShrink: 0
+      }
+    }, /*#__PURE__*/React.createElement("img", {
+      src: CARD_SRC,
+      alt: "",
+      "aria-hidden": "true",
+      style: {
+        position: 'absolute',
+        inset: 0,
+        width: '100%',
+        height: '100%',
+        display: 'block'
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        inset: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-body)',
+        fontSize: 10,
+        fontWeight: 800,
+        letterSpacing: '0.08em',
+        color: '#9B886F',
+        lineHeight: 1
+      }
+    }, label), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-display)',
+        fontSize: 24,
+        fontWeight: 700,
+        color: low ? '#E97E45' : '#5B4636',
+        lineHeight: 1.05,
+        marginTop: 1
+      }
+    }, value)));
+  }
+
+  /* BOSS banner pill — crown + BOSS + level, tangerine-warning like the intro. */
+  function BossBanner({
+    level
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 7,
+        padding: '5px 14px',
+        borderRadius: 999,
+        background: 'var(--color-warning)',
+        boxShadow: '0 4px 0 #E2A82E'
+      }
+    }, /*#__PURE__*/React.createElement(EX.Crown, {
+      size: 17
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-display)',
+        fontWeight: 800,
+        fontSize: 15,
+        letterSpacing: '0.1em',
+        color: '#5B4636',
+        whiteSpace: 'nowrap'
+      }
+    }, "BOSS \xB7 M\xC0N ", level));
+  }
+
+  /* The mini boss face — a gravity-purple block with the same menacing eyes
+     as the Boss Intro, shrunk to sit in the HP panel. */
+  function BossFace({
+    size = 46
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        flexShrink: 0,
+        filter: 'drop-shadow(0 3px 5px rgba(46,38,112,0.4))'
+      }
+    }, /*#__PURE__*/React.createElement(JellyBlock, {
+      color: "stone",
+      size: size,
+      showEyes: false,
+      style: {
+        background: 'var(--color-gravity)',
+        borderColor: 'var(--color-gravity-edge)'
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        inset: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: size * 0.14
+      }
+    }, [0, 1].map(i => /*#__PURE__*/React.createElement("div", {
+      key: i,
+      style: {
+        position: 'relative',
+        width: size * 0.28,
+        height: size * 0.28,
+        borderRadius: '50%',
+        background: '#fff',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        boxShadow: 'inset 0 0 0 1.5px rgba(74,53,38,0.25)'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: size * 0.14,
+        height: size * 0.14,
+        borderRadius: '50%',
+        background: '#4A3526'
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: -size * 0.06,
+        left: i ? 'auto' : -size * 0.04,
+        right: i ? -size * 0.04 : 'auto',
+        width: size * 0.24,
+        height: size * 0.1,
+        background: 'var(--color-gravity)',
+        transform: `rotate(${i ? -22 : 22}deg)`,
+        borderRadius: 2
+      }
+    })))));
+  }
+  function PhasePips({
+    phase,
+    phases
+  }) {
+    return /*#__PURE__*/React.createElement("span", {
+      style: {
+        display: 'inline-flex',
+        gap: 4,
+        alignItems: 'center'
+      }
+    }, Array.from({
+      length: phases
+    }).map((_, i) => /*#__PURE__*/React.createElement("span", {
+      key: i,
+      style: {
+        width: 8,
+        height: 8,
+        borderRadius: '50%',
+        background: i < phase ? 'var(--color-gravity-shine)' : 'rgba(255,255,255,0.28)',
+        boxShadow: i < phase ? '0 0 5px var(--color-gravity-shine)' : 'none'
+      }
+    })));
+  }
+
+  /* The boss panel = objective progress. Boss face · name + stars · phase,
+     then the HP bar (danger-red on a sunken purple track) with numeric. */
+  function BossPanel({
+    name,
+    hp,
+    maxHp,
+    phase,
+    phases,
+    stars
+  }) {
+    const pct = Math.max(0, Math.min(1, hp / maxHp));
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 11,
+        boxSizing: 'border-box',
+        padding: '9px 13px 9px 9px',
+        borderRadius: 22,
+        background: 'linear-gradient(180deg, rgba(99,83,214,0.96), rgba(46,38,112,0.96))',
+        boxShadow: '0 7px 16px rgba(46,38,112,0.4), inset 0 1px 0 rgba(255,255,255,0.2)'
+      }
+    }, /*#__PURE__*/React.createElement(BossFace, {
+      size: 48
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        flex: 1,
+        minWidth: 0
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: 8,
+        marginBottom: 5
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-display)',
+        fontWeight: 800,
+        fontSize: 14,
+        color: '#fff',
+        lineHeight: 1.1,
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+      }
+    }, name), /*#__PURE__*/React.createElement(EX.Stars, {
+      earned: stars,
+      size: 15,
+      gap: 2,
+      lift: false
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        flex: 1,
+        position: 'relative',
+        height: 14,
+        borderRadius: 999,
+        background: 'rgba(0,0,0,0.32)',
+        overflow: 'hidden',
+        boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.35)'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        inset: 0,
+        right: `${(1 - pct) * 100}%`,
+        borderRadius: 999,
+        background: 'linear-gradient(180deg,#FFB0A2,#F08A7E)',
+        boxShadow: 'inset 0 1.5px 0 rgba(255,255,255,0.45)',
+        transition: 'right 300ms var(--ease-out, ease)'
+      }
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        inset: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontFamily: 'var(--font-display)',
+        fontWeight: 700,
+        fontSize: 10,
+        color: '#fff',
+        textShadow: '0 1px 2px rgba(46,38,112,0.8)'
+      }
+    }, hp.toLocaleString('vi-VN'), " / ", maxHp.toLocaleString('vi-VN'))), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'inline-flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 3,
+        flexShrink: 0
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-body)',
+        fontWeight: 800,
+        fontSize: 9,
+        letterSpacing: '0.08em',
+        color: 'rgba(255,255,255,0.7)',
+        lineHeight: 1
+      }
+    }, "PHA ", phase, "/", phases), /*#__PURE__*/React.createElement(PhasePips, {
+      phase: phase,
+      phases: phases
+    })))));
+  }
+  function BoardBoss({
+    level = 20,
+    name = 'Thạch Khổng Lồ',
+    hp = 1240,
+    maxHp = 2000,
+    phase = 2,
+    phases = 3,
+    moves = 16,
+    stars = 1,
+    gravity = 'up',
+    blockDirection = 'down',
+    board,
+    pieces,
+    onPause,
+    onRotate,
+    onRefresh
+  }) {
+    // stone cells = the boss armour to smash
+    const map = board || ['.........', '...SSS...', '..SBBBS..', '..SBPBS..', '...MPM...', '.YYM.SBB.', '.YYMMSB..', 'BYYMMSPPP', 'BBYMMSPPP'];
+    const trayPieces = pieces || [{
+      cells: [[0, 0], [1, 0], [1, 1]],
+      color: 'pink'
+    }, {
+      cells: [[0, 0], [0, 1], [0, 2]],
+      color: 'blue'
+    }, {
+      cells: [[0, 0], [0, 1], [1, 0], [1, 1]],
+      color: 'mint'
+    }];
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+        overflow: 'hidden',
+        fontFamily: 'var(--font-body)'
+      }
+    }, /*#__PURE__*/React.createElement("img", {
+      src: BG_SRC,
+      alt: "",
+      "aria-hidden": "true",
+      style: {
+        position: 'absolute',
+        inset: 0,
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        objectPosition: 'center bottom',
+        display: 'block'
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      "aria-hidden": "true",
+      style: {
+        position: 'absolute',
+        inset: 0,
+        background: 'radial-gradient(130% 62% at 50% -8%, rgba(99,83,214,0.5), rgba(99,83,214,0.14) 45%, transparent 68%)',
+        pointerEvents: 'none'
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        zIndex: 1,
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '12px 6px 16px',
+        boxSizing: 'border-box'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: 6
+      }
+    }, /*#__PURE__*/React.createElement(P.PauseCard, {
+      onPause: onPause
+    }), /*#__PURE__*/React.createElement(BossBanner, {
+      level: level
+    }), /*#__PURE__*/React.createElement(StatCard, {
+      label: "L\u01AF\u1EE2T",
+      value: moves,
+      low: moves <= 5
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginTop: 10
+      }
+    }, /*#__PURE__*/React.createElement(BossPanel, {
+      name: name,
+      hp: hp,
+      maxHp: maxHp,
+      phase: phase,
+      phases: phases,
+      stars: stars
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: 12
+      }
+    }, /*#__PURE__*/React.createElement(P.GravityPad, {
+      active: gravity,
+      onRotate: onRotate
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        flex: '0 0 auto',
+        display: 'flex',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        marginTop: 10
+      }
+    }, /*#__PURE__*/React.createElement(P.BoardPanel, {
+      board: map,
+      direction: blockDirection
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
+        marginTop: 12
+      }
+    }, /*#__PURE__*/React.createElement(P.TrayDock, {
+      pieces: trayPieces
+    }), /*#__PURE__*/React.createElement(P.RefreshFab, {
+      onClick: onRefresh
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        flex: 1,
+        minHeight: 6
+      }
+    })));
+  }
+  window.GJBoardBoss = BoardBoss;
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "04-screens/board-boss.jsx", error: String((e && e.message) || e) }); }
+
+// 04-screens/board-campaign.jsx
+try { (() => {
+/* board-campaign.jsx — CAMPAIGN in-game board ("① Game · Chiến dịch").
+   Same meadow backdrop, board frame, tray + refresh FAB, and the SAME 3-slot
+   HUD structure as the canonical endless "① Game" / "① Game · Mục tiêu" screens
+   (stat · gravity D-pad · pause), reused from window.GJBoardParts — but the
+   endless SCORE slot is a LƯỢT (moves) stat card, plus two campaign-only
+   readouts a level needs:
+     • current STARS earned    — level badge under the HUD (score thresholds live)
+     • OBJECTIVE progress bar   — a cream banner of goal chips (cleared / target)
+   Exposes window.GJBoardCampaign. */
+(function () {
+  const NS = window.GravityJellyDesignSystem_3e0487;
+  const {
+    JellyBlock
+  } = NS;
+  const EX = window.GJExtras;
+  const P = window.GJBoardParts;
+  const BG_SRC = '../06-svg-assets/backgrounds/meadow-bg.png';
+  const CARD_SRC = '../06-svg-assets/ui/score-card.svg';
+
+  /* Reuse the cream score-card art for any labelled stat (here: LƯỢT). Turns
+     tangerine-warning when moves run low so the player feels the pressure. */
+  function StatCard({
+    label,
+    value,
+    low = false
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        width: 76,
+        aspectRatio: '1 / 1',
+        flexShrink: 0
+      }
+    }, /*#__PURE__*/React.createElement("img", {
+      src: CARD_SRC,
+      alt: "",
+      "aria-hidden": "true",
+      style: {
+        position: 'absolute',
+        inset: 0,
+        width: '100%',
+        height: '100%',
+        display: 'block'
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        inset: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-body)',
+        fontSize: 10,
+        fontWeight: 800,
+        letterSpacing: '0.08em',
+        color: '#9B886F',
+        lineHeight: 1
+      }
+    }, label), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-display)',
+        fontSize: 24,
+        fontWeight: 700,
+        color: low ? '#E97E45' : '#5B4636',
+        lineHeight: 1.05,
+        marginTop: 1
+      }
+    }, value)));
+  }
+
+  /* Level badge — world/level small caps + a live 3-star row (how many stars
+     the current score has secured). Sits on a soft cream lozenge over grass. */
+  function LevelBadge({
+    level,
+    world,
+    stars
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 5,
+        padding: '7px 16px',
+        borderRadius: 999,
+        background: 'rgba(255,255,255,0.9)',
+        boxShadow: '0 3px 10px rgba(120,92,52,0.18), inset 0 1px 0 rgba(255,255,255,0.95)'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-body)',
+        fontWeight: 800,
+        fontSize: 11,
+        letterSpacing: '0.05em',
+        color: '#9B886F',
+        lineHeight: 1,
+        whiteSpace: 'nowrap'
+      }
+    }, "M\xC0N ", level, " \xB7 ", world.toUpperCase()), /*#__PURE__*/React.createElement(EX.Stars, {
+      earned: stars,
+      size: 19,
+      gap: 3,
+      lift: false
+    }));
+  }
+  const CHECK = /*#__PURE__*/React.createElement("svg", {
+    width: "15",
+    height: "15",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "#fff",
+    strokeWidth: "3.4",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M5 13l4 4 10-11"
+  }));
+
+  /* One objective: a mini jelly of the target colour + "cleared / target".
+     When complete the count is swapped for a green check disc on the block. */
+  function GoalItem({
+    color,
+    cleared,
+    target
+  }) {
+    const done = cleared >= target;
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 6
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        filter: 'drop-shadow(0 2px 3px rgba(120,92,52,0.18))'
+      }
+    }, /*#__PURE__*/React.createElement(JellyBlock, {
+      color: color,
+      size: 30,
+      showEyes: true,
+      direction: "down"
+    }), done && /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        bottom: -4,
+        right: -4,
+        width: 18,
+        height: 18,
+        borderRadius: '50%',
+        background: '#6FCF7F',
+        boxShadow: '0 2px 0 #4FA95F, 0 2px 5px rgba(120,92,52,0.25)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, CHECK)), !done && /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-display)',
+        fontWeight: 800,
+        fontSize: 15,
+        lineHeight: 1,
+        color: '#5B4636',
+        whiteSpace: 'nowrap'
+      }
+    }, cleared, "/", target));
+  }
+  function ObjectiveBanner({
+    goals
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
+        padding: '8px 12px',
+        borderRadius: 20,
+        boxSizing: 'border-box',
+        background: 'rgba(255,247,236,0.94)',
+        boxShadow: '0 5px 14px rgba(120,92,52,0.16), inset 0 1px 0 rgba(255,255,255,0.85)'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 5,
+        paddingRight: 9,
+        borderRight: '2px solid #EADCC6',
+        flexShrink: 0
+      }
+    }, /*#__PURE__*/React.createElement(EX.Target, {
+      size: 16,
+      color: "#9B886F"
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-display)',
+        fontWeight: 700,
+        fontSize: 11,
+        letterSpacing: '0.06em',
+        color: '#9B886F',
+        whiteSpace: 'nowrap'
+      }
+    }, "M\u1EE4C TI\xCAU")), /*#__PURE__*/React.createElement("div", {
+      style: {
+        flex: 1,
+        display: 'flex',
+        justifyContent: 'space-around',
+        alignItems: 'center'
+      }
+    }, goals.map((g, i) => /*#__PURE__*/React.createElement(GoalItem, {
+      key: i,
+      color: g.color,
+      cleared: g.cleared,
+      target: g.target
+    }))));
+  }
+  function BoardCampaign({
+    level = 23,
+    world = 'Sông & Thác',
+    moves = 18,
+    stars = 2,
+    gravity = 'up',
+    goals,
+    blockDirection = 'down',
+    board,
+    pieces,
+    onPause,
+    onRotate,
+    onRefresh
+  }) {
+    const g = goals || [{
+      color: 'mint',
+      cleared: 18,
+      target: 18
+    }, {
+      color: 'pink',
+      cleared: 7,
+      target: 12
+    }, {
+      color: 'blue',
+      cleared: 4,
+      target: 10
+    }];
+    const map = board || ['.........', '.........', '....PP...', '....PP...', '...M..BB.', '.YYM.SBB.', '.YYMMSB..', 'BYYMMSPPP', 'BBYMMSPPP'];
+    const trayPieces = pieces || [{
+      cells: [[0, 0], [1, 0], [1, 1]],
+      color: 'mint'
+    }, {
+      cells: [[0, 0], [0, 1], [0, 2]],
+      color: 'pink'
+    }, {
+      cells: [[0, 0], [0, 1], [1, 0], [1, 1]],
+      color: 'blue'
+    }];
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+        overflow: 'hidden',
+        fontFamily: 'var(--font-body)'
+      }
+    }, /*#__PURE__*/React.createElement("img", {
+      src: BG_SRC,
+      alt: "",
+      "aria-hidden": "true",
+      style: {
+        position: 'absolute',
+        inset: 0,
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        objectPosition: 'center bottom',
+        display: 'block'
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        zIndex: 1,
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '12px 12px 16px',
+        boxSizing: 'border-box'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: 6
+      }
+    }, /*#__PURE__*/React.createElement(StatCard, {
+      label: "L\u01AF\u1EE2T",
+      value: moves,
+      low: moves <= 5
+    }), /*#__PURE__*/React.createElement(P.GravityPad, {
+      active: gravity,
+      onRotate: onRotate
+    }), /*#__PURE__*/React.createElement(P.PauseCard, {
+      onPause: onPause
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: 10
+      }
+    }, /*#__PURE__*/React.createElement(LevelBadge, {
+      level: level,
+      world: world,
+      stars: stars
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginTop: 10
+      }
+    }, /*#__PURE__*/React.createElement(ObjectiveBanner, {
+      goals: g
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        flex: '0 0 auto',
+        display: 'flex',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        marginTop: 12
+      }
+    }, /*#__PURE__*/React.createElement(P.BoardPanel, {
+      board: map,
+      direction: blockDirection
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
+        marginTop: 12
+      }
+    }, /*#__PURE__*/React.createElement(P.TrayDock, {
+      pieces: trayPieces
+    }), /*#__PURE__*/React.createElement(P.RefreshFab, {
+      onClick: onRefresh
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        flex: 1,
+        minHeight: 6
+      }
+    })));
+  }
+  window.GJBoardCampaign = BoardCampaign;
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "04-screens/board-campaign.jsx", error: String((e && e.message) || e) }); }
+
 // 04-screens/board-design.jsx
 try { (() => {
 /* board-design.jsx — the OFFICIAL play board (“① Game” screen).
@@ -2437,6 +4441,21 @@ try { (() => {
   }
   window.GJBoardDesign = BoardDesign;
   window.GJGameScreen = BoardDesign;
+
+  /* Chrome building blocks reused by the campaign & boss in-game boards.
+     Additive export — does NOT change the canonical "① Game" (endless) screen. */
+  window.GJBoardParts = {
+    ScoreCard,
+    GravityPad,
+    PauseCard,
+    BoardPanel,
+    PieceView,
+    TrayDock,
+    RefreshFab,
+    PAL,
+    BG_SRC,
+    SCORE_SRC
+  };
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "04-screens/board-design.jsx", error: String((e && e.message) || e) }); }
 
@@ -3350,110 +5369,159 @@ try { (() => {
 
 // 04-screens/cam-nang-screen.jsx
 try { (() => {
-/* cam-nang-screen.jsx — CẨM NANG (Handbook). A collectible list of the
-   game's rules grouped in 4 sections; tapping an UNLOCKED entry opens a
-   teach-style detail popup with a "real game" illustration. Locked entries
-   stay dimmed & un-tappable. Two list layouts via `variant` ('rows'|'cards').
+/* cam-nang-screen.jsx — CẨM NANG (Handbook). Collectible rule book with a
+   rich hero header (mascot + progress), filter tabs, a "NÊN XEM" spotlight,
+   and section grids of illustrated rule CARDS (board thumbnail + title +
+   desc + "Đã xem"). Tapping an unlocked card opens a teach-style popup with a
+   "real game" illustration. Locked cards stay dimmed & un-tappable.
    Exposes window.GJCamNangScreen. Inline var(--token) per screen convention. */
 
 (function () {
   const NS = window.GravityJellyDesignSystem_3e0487;
   const {
-    Icon
+    Icon,
+    JellyBlock
   } = NS;
   const {
-    Illus
+    Illus,
+    MiniBoard,
+    SpecialBlock
   } = window.GJCamNangIllus;
 
-  /* group → accent tint for icon-chips */
-  const TINT = {
-    'CƠ BẢN': 'var(--color-text)',
-    'SIÊU KHỐI': 'var(--color-warning)',
-    'KÍCH NỔ': 'var(--color-primary)',
-    COMBO: 'var(--color-gravity)'
-  };
+  // Shared card look — drawn natively (no image). White surface, soft candy
+  // shadow, thin warm border. Top-right corner is squared off so the CSS
+  // dog-ear fold sits crisply in it.
+  const cardStyle = (extra = {}) => ({
+    position: 'relative',
+    background: 'var(--color-surface)',
+    borderRadius: '20px 0 20px 20px',
+    border: '1.5px solid rgba(150,120,80,0.16)',
+    boxShadow: 'var(--shadow-md)',
+    ...extra
+  });
 
-  // ── progress pill in the header ────────────────────────────────────────
-  function ProgressPill({
-    count,
-    total
+  // Pure-CSS folded page corner (dog-ear) at the top-right. The card's own
+  // top-right corner is squared (radius 0) so the flap sits flush in it. The
+  // flap is a clip-path triangle covering exactly the corner, shaded like the
+  // paper underside (lighter at the outer corner, darker toward the crease),
+  // lifting off the card with a soft down-left shadow and a bright crease line.
+  function Peel({
+    size = 30
   }) {
-    const frac = Math.max(0, Math.min(1, count / total));
+    const diag = Math.round(size * 1.414);
     return /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        width: size,
+        height: size,
+        pointerEvents: 'none',
+        zIndex: 3
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        inset: 0,
+        clipPath: 'polygon(0 0, 100% 0, 100% 100%)',
+        background: 'linear-gradient(225deg, #F2E1C0 0%, #E7D2AE 52%, #D6BC90 100%)',
+        borderTopRightRadius: 3,
+        filter: 'drop-shadow(-2px 3px 2.5px rgba(120,92,52,0.30))'
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: diag,
+        height: 2,
+        background: 'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.85) 28%, rgba(255,255,255,0.85) 72%, rgba(255,255,255,0) 100%)',
+        borderRadius: 2,
+        transformOrigin: 'top left',
+        transform: 'rotate(45deg)'
+      }
+    }));
+  }
+  const ORDER = ['CƠ BẢN', 'SIÊU KHỐI', 'KÍCH NỔ', 'COMBO'];
+  const GROUP_LABEL = {
+    'CƠ BẢN': 'Cơ bản',
+    'SIÊU KHỐI': 'Siêu khối',
+    'KÍCH NỔ': 'Kích nổ',
+    COMBO: 'Mẹo'
+  };
+  const GROUP_JELLY = {
+    'CƠ BẢN': 'mint',
+    'SIÊU KHỐI': 'yellow',
+    'KÍCH NỔ': 'pink',
+    COMBO: 'blue'
+  };
+  const TABS = [{
+    key: 'all',
+    label: 'Tất cả',
+    color: 'yellow'
+  }].concat(ORDER.map(g => ({
+    key: g,
+    label: GROUP_LABEL[g],
+    color: GROUP_JELLY[g]
+  })));
+
+  // ── small building blocks ───────────────────────────────────────────────
+
+  // scalloped badge (Mới / Quan trọng)
+  function Seal({
+    children,
+    tone = 'warning'
+  }) {
+    return /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'relative',
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '6px 12px',
+        borderRadius: 'var(--radius-full)',
+        background: `var(--color-${tone})`,
+        color: 'var(--color-text-on-block)',
+        fontFamily: 'var(--font-display)',
+        fontWeight: 700,
+        fontSize: 12,
+        lineHeight: 1.05,
+        textAlign: 'center',
+        boxShadow: `0 3px 0 rgba(180,140,40,0.35), var(--shadow-sm)`,
+        border: '2px solid rgba(255,255,255,0.7)',
+        whiteSpace: 'pre-line'
+      }
+    }, children);
+  }
+  function SeenTag() {
+    return /*#__PURE__*/React.createElement("span", {
       style: {
         display: 'inline-flex',
         alignItems: 'center',
-        gap: 8,
-        padding: '6px 12px 6px 10px',
-        borderRadius: 'var(--radius-full)',
-        background: 'var(--color-surface-sunken)',
-        flexShrink: 0
-      }
-    }, /*#__PURE__*/React.createElement("span", {
-      style: {
-        width: 40,
-        height: 6,
-        borderRadius: 999,
-        background: '#E6D7BE',
-        overflow: 'hidden',
-        flexShrink: 0
-      }
-    }, /*#__PURE__*/React.createElement("span", {
-      style: {
-        display: 'block',
-        width: `${frac * 100}%`,
-        height: '100%',
-        borderRadius: 999,
-        background: 'var(--color-gravity)'
-      }
-    })), /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontFamily: 'var(--font-display)',
+        gap: 5,
+        fontFamily: 'var(--font-body)',
         fontWeight: 800,
-        fontSize: 'var(--text-caption)',
-        color: 'var(--color-gravity)',
+        fontSize: 12,
+        color: 'var(--color-text-muted)',
         whiteSpace: 'nowrap'
       }
-    }, "\u0110\xE3 m\u1EDF ", count, "/", total));
-  }
-
-  // ── locked placeholder ─────────────────────────────────────────────────
-  function LockedRow({
-    last
-  }) {
-    return /*#__PURE__*/React.createElement("div", {
+    }, "\u0110\xE3 xem", /*#__PURE__*/React.createElement("span", {
       style: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: 'var(--space-md)',
-        minHeight: 56,
-        padding: '0 var(--space-lg)',
-        opacity: 0.45,
-        borderBottom: last ? 'none' : '1.5px solid var(--color-cell-line)'
-      }
-    }, /*#__PURE__*/React.createElement("span", {
-      style: {
-        width: 36,
-        height: 36,
-        flexShrink: 0,
-        borderRadius: 'var(--radius-md)',
-        background: 'var(--color-surface-sunken)',
-        display: 'flex',
+        width: 18,
+        height: 18,
+        borderRadius: '50%',
+        background: 'var(--color-success)',
+        display: 'inline-flex',
         alignItems: 'center',
         justifyContent: 'center',
-        color: 'var(--color-text-muted)'
+        flexShrink: 0
       }
-    }, /*#__PURE__*/React.createElement(LockGlyph, {
-      size: 19
-    })), /*#__PURE__*/React.createElement("span", {
-      style: {
-        flex: 1,
-        fontFamily: 'var(--font-body)',
-        fontWeight: 700,
-        fontSize: 'var(--text-body)',
-        color: 'var(--color-text-muted)'
-      }
-    }, "Ch\u01B0a m\u1EDF kho\xE1"));
+    }, /*#__PURE__*/React.createElement(Icon, {
+      name: "check",
+      size: 12,
+      color: "var(--color-text-invert)",
+      strokeWidth: 3
+    })));
   }
   const LockGlyph = ({
     size = 20
@@ -3482,122 +5550,703 @@ try { (() => {
     stroke: "none"
   }));
 
-  // ── compact row (variant 'rows') ───────────────────────────────────────
-  function ItemRow({
-    entry,
-    last,
-    onOpen
+  // ── mascot holding a little book ─────────────────────────────────────────
+  function MascotBook({
+    size = 62
   }) {
-    if (!entry.unlocked) return /*#__PURE__*/React.createElement(LockedRow, {
-      last: last
-    });
-    return /*#__PURE__*/React.createElement("button", {
-      type: "button",
-      onClick: () => onOpen(entry.id),
+    return /*#__PURE__*/React.createElement("div", {
       style: {
+        position: 'relative',
+        width: size,
+        height: size,
+        flexShrink: 0,
+        filter: 'drop-shadow(0 6px 8px rgba(120,92,52,0.22))'
+      }
+    }, /*#__PURE__*/React.createElement(JellyBlock, {
+      color: "pink",
+      size: size,
+      expression: "happy"
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        right: -6,
+        bottom: 2,
+        width: size * 0.5,
+        height: size * 0.4,
+        borderRadius: 6,
+        background: 'var(--color-block-yellow)',
+        border: '2.5px solid var(--color-block-yellow-edge)',
+        transform: 'rotate(-8deg)',
         display: 'flex',
         alignItems: 'center',
-        gap: 'var(--space-md)',
-        minHeight: 64,
-        width: '100%',
-        textAlign: 'left',
-        padding: '0 var(--space-lg)',
-        background: 'transparent',
-        border: 'none',
-        borderBottom: last ? 'none' : '1.5px solid var(--color-cell-line)',
-        cursor: 'pointer'
+        justifyContent: 'center',
+        boxShadow: 'var(--shadow-sm)'
       }
     }, /*#__PURE__*/React.createElement("span", {
       style: {
-        width: 36,
-        height: 36,
+        position: 'absolute',
+        left: 3,
+        top: 3,
+        bottom: 3,
+        width: 3,
+        borderRadius: 2,
+        background: 'var(--color-block-yellow-shine)'
+      }
+    }), /*#__PURE__*/React.createElement(Icon, {
+      name: "star",
+      size: size * 0.2,
+      color: "var(--color-warning)",
+      strokeWidth: 0,
+      style: {
+        fill: 'var(--color-warning)'
+      }
+    })));
+  }
+
+  // ── header hero card ─────────────────────────────────────────────────────
+  function HeaderCard({
+    count,
+    total,
+    onBack
+  }) {
+    const frac = Math.max(0, Math.min(1, total ? count / total : 0));
+    return /*#__PURE__*/React.createElement("div", {
+      style: cardStyle({
+        padding: '14px 16px'
+      })
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'flex-start',
+        gap: 10
+      }
+    }, /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      onClick: onBack,
+      "aria-label": "Quay l\u1EA1i",
+      style: {
+        width: 44,
+        height: 44,
         flexShrink: 0,
-        borderRadius: 'var(--radius-md)',
-        background: 'var(--color-surface-sunken)',
-        color: TINT[entry.group],
+        borderRadius: '50%',
+        border: '2px solid var(--color-cell-line)',
+        background: 'var(--color-surface)',
+        color: 'var(--color-text)',
+        cursor: 'pointer',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        boxShadow: 'var(--shadow-sm)',
+        marginTop: 2
       }
     }, /*#__PURE__*/React.createElement(Icon, {
-      name: entry.icon,
-      size: 20
-    })), /*#__PURE__*/React.createElement("span", {
+      name: "back",
+      size: 22,
+      strokeWidth: 2.6
+    })), /*#__PURE__*/React.createElement("div", {
       style: {
         flex: 1,
         minWidth: 0
       }
+    }, /*#__PURE__*/React.createElement("h1", {
+      style: {
+        margin: 0,
+        fontFamily: 'var(--font-display)',
+        fontWeight: 800,
+        fontSize: 26,
+        lineHeight: 1.02,
+        color: 'var(--color-text)',
+        whiteSpace: 'nowrap'
+      }
+    }, "C\u1EA9m nang"), /*#__PURE__*/React.createElement("p", {
+      style: {
+        margin: '3px 0 0',
+        fontFamily: 'var(--font-body)',
+        fontWeight: 700,
+        fontSize: 13,
+        color: 'var(--color-text-muted)'
+      }
+    }, "M\u1EB9o nh\u1ECF \u0111\u1EC3 ph\xE1 m\xE0n kh\xF3")), /*#__PURE__*/React.createElement(MascotBook, {
+      size: 56
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        marginTop: 12,
+        display: 'flex',
+        alignItems: 'center',
+        gap: 10,
+        background: 'var(--color-surface-sunken)',
+        borderRadius: 'var(--radius-full)',
+        padding: '6px 10px'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-body)',
+        fontWeight: 800,
+        fontSize: 12.5,
+        color: 'var(--color-text-muted)',
+        whiteSpace: 'nowrap',
+        flexShrink: 0
+      }
+    }, "\u0110\xE3 m\u1EDF ", count, "/", total), /*#__PURE__*/React.createElement("span", {
+      style: {
+        flex: 1,
+        height: 12,
+        borderRadius: 999,
+        background: '#E6D7BE',
+        overflow: 'hidden'
+      }
     }, /*#__PURE__*/React.createElement("span", {
       style: {
         display: 'block',
-        fontFamily: 'var(--font-body)',
-        fontWeight: 700,
-        fontSize: 'var(--text-body)',
-        color: 'var(--color-text)'
+        width: `${frac * 100}%`,
+        height: '100%',
+        borderRadius: 999,
+        background: 'linear-gradient(180deg, var(--color-gravity-shine), var(--color-gravity))',
+        boxShadow: 'inset 0 2px 0 rgba(255,255,255,0.35)'
       }
-    }, entry.title), /*#__PURE__*/React.createElement("span", {
-      style: {
-        display: 'block',
-        fontFamily: 'var(--font-body)',
-        fontWeight: 600,
-        fontSize: 'var(--text-caption)',
-        color: 'var(--color-text-muted)',
-        lineHeight: 1.35,
-        marginTop: 2,
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        whiteSpace: 'nowrap'
-      }
-    }, entry.desc)), /*#__PURE__*/React.createElement(Icon, {
-      name: "chevron",
-      size: 20,
-      color: "var(--color-text-muted)"
-    }));
+    }))));
   }
-  function GroupBlock({
-    title,
-    children
+
+  // ── filter tabs ──────────────────────────────────────────────────────────
+  function FilterTabs({
+    value,
+    onChange
   }) {
     return /*#__PURE__*/React.createElement("div", {
       style: {
-        marginBottom: 'var(--space-lg)'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
         display: 'flex',
-        alignItems: 'center',
         gap: 8,
-        margin: '0 var(--space-sm) var(--space-sm)'
+        overflowX: 'auto',
+        padding: '2px 2px 4px',
+        margin: '0 -2px',
+        scrollbarWidth: 'none'
+      }
+    }, TABS.map(t => {
+      const active = value === t.key;
+      return /*#__PURE__*/React.createElement("button", {
+        key: t.key,
+        type: "button",
+        onClick: () => onChange(t.key),
+        style: {
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 7,
+          flexShrink: 0,
+          padding: '7px 14px 7px 8px',
+          borderRadius: 'var(--radius-full)',
+          cursor: 'pointer',
+          border: active ? 'none' : '2px solid var(--color-cell-line)',
+          background: active ? 'var(--color-primary)' : 'var(--color-surface)',
+          color: active ? 'var(--color-text-invert)' : 'var(--color-text)',
+          fontFamily: 'var(--font-display)',
+          fontWeight: 700,
+          fontSize: 14,
+          whiteSpace: 'nowrap',
+          boxShadow: active ? '0 4px 0 var(--color-primary-edge), var(--shadow-sm)' : 'var(--shadow-sm)'
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        style: {
+          width: 24,
+          height: 24,
+          flexShrink: 0,
+          display: 'inline-flex'
+        }
+      }, /*#__PURE__*/React.createElement(JellyBlock, {
+        color: t.color,
+        size: 24
+      })), t.label);
+    }));
+  }
+
+  // ── section header pill ───────────────────────────────────────────────────
+  function SectionHeader({
+    group
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 9,
+        padding: '6px 16px 6px 8px',
+        borderRadius: 'var(--radius-full)',
+        background: 'var(--color-surface)',
+        boxShadow: 'var(--shadow-sm)',
+        margin: '4px 0 12px',
+        alignSelf: 'flex-start'
       }
     }, /*#__PURE__*/React.createElement("span", {
       style: {
-        width: 8,
-        height: 8,
-        borderRadius: 2,
-        background: TINT[title],
-        flexShrink: 0,
-        opacity: 0.9
+        width: 28,
+        height: 28,
+        display: 'inline-flex'
       }
-    }), /*#__PURE__*/React.createElement("span", {
+    }, /*#__PURE__*/React.createElement(JellyBlock, {
+      color: GROUP_JELLY[group],
+      size: 28
+    })), /*#__PURE__*/React.createElement("span", {
       style: {
         fontFamily: 'var(--font-display)',
         fontWeight: 700,
-        fontSize: 'var(--text-caption)',
-        letterSpacing: 'var(--tracking-wide)',
-        color: 'var(--color-text-muted)',
+        fontSize: 19,
+        color: 'var(--color-text)',
         whiteSpace: 'nowrap'
       }
-    }, title)), /*#__PURE__*/React.createElement("div", {
-      style: {
-        background: 'var(--color-surface)',
-        borderRadius: 'var(--radius-lg)',
-        boxShadow: 'var(--shadow-sm)',
-        overflow: 'hidden'
-      }
-    }, children));
+    }, GROUP_LABEL[group]));
   }
 
-  // ── detail popup ───────────────────────────────────────────────────────
+  // ── thumbnails (a mini board / power block per rule) ──────────────────────
+  function ThumbWell({
+    children,
+    tint,
+    h = 88
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        height: h,
+        borderRadius: 'var(--radius-md)',
+        background: tint || 'var(--color-cell-empty)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+        boxShadow: 'inset 0 1px 3px var(--color-shadow-soft)'
+      }
+    }, children);
+  }
+  function Thumb({
+    id,
+    group
+  }) {
+    switch (id) {
+      case 'rotate':
+        return /*#__PURE__*/React.createElement(ThumbWell, null, /*#__PURE__*/React.createElement(MiniBoard, {
+          cell: 15,
+          rows: ['.Y..', '.PB.', 'YPBM']
+        }));
+      case 'clearLine':
+        return /*#__PURE__*/React.createElement(ThumbWell, null, /*#__PURE__*/React.createElement(MiniBoard, {
+          cell: 14,
+          glow: new Set(['1-0', '1-1', '1-2', '1-3', '1-4']),
+          rows: ['..Y..', 'MYPBM']
+        }));
+      case 'fall':
+        return /*#__PURE__*/React.createElement(ThumbWell, null, /*#__PURE__*/React.createElement(MiniBoard, {
+          cell: 15,
+          rows: ['Y.M.', '....', 'B.PY']
+        }));
+      case 'sticky':
+        return /*#__PURE__*/React.createElement(ThumbWell, null, /*#__PURE__*/React.createElement(MiniBoard, {
+          cell: 16,
+          rows: ['.MM.', 'MMM.', '.M.S']
+        }));
+      case 'rainbow':
+        return /*#__PURE__*/React.createElement(ThumbWell, null, /*#__PURE__*/React.createElement(MiniBoard, {
+          cell: 15,
+          rows: ['YYY', 'MMM', 'BBB']
+        }));
+      case 'super':
+        return /*#__PURE__*/React.createElement(ThumbWell, {
+          tint: "var(--color-block-pink-shine)"
+        }, /*#__PURE__*/React.createElement(SpecialBlock, {
+          type: "super",
+          color: "pink",
+          size: 52
+        }));
+      case 'superL2':
+        return /*#__PURE__*/React.createElement(ThumbWell, null, /*#__PURE__*/React.createElement("div", {
+          style: {
+            display: 'flex',
+            gap: 4
+          }
+        }, /*#__PURE__*/React.createElement(SpecialBlock, {
+          type: "super",
+          color: "blue",
+          size: 34
+        }), /*#__PURE__*/React.createElement(SpecialBlock, {
+          type: "super",
+          color: "blue",
+          size: 34,
+          lvl: 2
+        })));
+      case 'rainbowSuper':
+        return /*#__PURE__*/React.createElement(ThumbWell, null, /*#__PURE__*/React.createElement("div", {
+          style: {
+            paddingTop: 10
+          }
+        }, /*#__PURE__*/React.createElement(SpecialBlock, {
+          type: "crown",
+          size: 44
+        })));
+      case 'blastSuper':
+        return /*#__PURE__*/React.createElement(ThumbWell, null, /*#__PURE__*/React.createElement(MiniBoard, {
+          cell: 13,
+          glow: new Set(['0-1', '1-0', '1-3', '2-1', '3-2']),
+          rows: ['.P.B', 'P.MP', 'BPYP', 'MMPB']
+        }));
+      case 'blastSuperL2':
+        return /*#__PURE__*/React.createElement(ThumbWell, null, /*#__PURE__*/React.createElement(MiniBoard, {
+          cell: 13,
+          glow: new Set(['1-1', '1-2', '1-3', '2-1', '2-2', '2-3', '3-1', '3-2', '3-3']),
+          rows: ['BMPYB', 'BYBPM', 'MYBYP', 'PBMBY', 'YPBMP']
+        }));
+      case 'blastRainbow':
+        return /*#__PURE__*/React.createElement(ThumbWell, null, /*#__PURE__*/React.createElement("div", {
+          style: {
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6
+          }
+        }, /*#__PURE__*/React.createElement(SpecialBlock, {
+          type: "rainbow",
+          size: 38
+        }), /*#__PURE__*/React.createElement(MiniBoard, {
+          cell: 13,
+          rows: ['Y', 'M', 'B']
+        })));
+      case 'blastRainbowSuper':
+        return /*#__PURE__*/React.createElement(ThumbWell, null, /*#__PURE__*/React.createElement("div", {
+          style: {
+            paddingTop: 10
+          }
+        }, /*#__PURE__*/React.createElement(SpecialBlock, {
+          type: "crown",
+          color: "pink",
+          size: 42
+        })));
+      case 'comboTurn':
+        return /*#__PURE__*/React.createElement(ThumbWell, {
+          tint: "var(--color-block-blue-shine)"
+        }, /*#__PURE__*/React.createElement("div", {
+          style: {
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 6,
+            padding: '6px 12px',
+            borderRadius: 'var(--radius-full)',
+            background: 'var(--color-gravity)',
+            color: 'var(--color-text-invert)',
+            fontFamily: 'var(--font-display)',
+            fontWeight: 800,
+            fontSize: 18,
+            boxShadow: '0 4px 0 var(--color-gravity-edge)'
+          }
+        }, "\xD72"), /*#__PURE__*/React.createElement("span", {
+          style: {
+            marginLeft: 8,
+            padding: '3px 9px',
+            borderRadius: 999,
+            background: 'var(--color-success)',
+            color: 'var(--color-text-invert)',
+            fontFamily: 'var(--font-display)',
+            fontWeight: 800,
+            fontSize: 14
+          }
+        }, "+1"));
+      default:
+        return /*#__PURE__*/React.createElement(ThumbWell, null, /*#__PURE__*/React.createElement(MiniBoard, {
+          cell: 16,
+          rows: ['.MM.', 'MMM.', '.M.S']
+        }));
+    }
+  }
+
+  // ── the "NÊN XEM" spotlight ────────────────────────────────────────────────
+  function Spotlight({
+    entry,
+    onOpen
+  }) {
+    if (!entry) return null;
+    return /*#__PURE__*/React.createElement("div", {
+      style: cardStyle({
+        padding: '16px 18px'
+      })
+    }, /*#__PURE__*/React.createElement(Peel, {
+      size: 30
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: 10,
+        left: 10,
+        zIndex: 4
+      }
+    }, /*#__PURE__*/React.createElement(Seal, {
+      tone: "warning"
+    }, "M\u1EDBi")), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        display: 'flex',
+        gap: 14,
+        alignItems: 'center'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: 120,
+        flexShrink: 0
+      }
+    }, /*#__PURE__*/React.createElement(Thumb, {
+      id: entry.id,
+      group: entry.group
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        flex: 1,
+        minWidth: 0
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 6,
+        fontFamily: 'var(--font-display)',
+        fontWeight: 700,
+        fontSize: 12,
+        letterSpacing: 'var(--tracking-wide)',
+        color: 'var(--color-gravity)',
+        whiteSpace: 'nowrap'
+      }
+    }, /*#__PURE__*/React.createElement(Icon, {
+      name: "star",
+      size: 13,
+      color: "var(--color-gravity)",
+      style: {
+        fill: 'var(--color-gravity)'
+      },
+      strokeWidth: 0
+    }), " N\xCAN XEM"), /*#__PURE__*/React.createElement("h3", {
+      style: {
+        margin: '3px 0 4px',
+        fontFamily: 'var(--font-display)',
+        fontWeight: 700,
+        fontSize: 23,
+        lineHeight: 1.05,
+        color: 'var(--color-text)'
+      }
+    }, entry.title), /*#__PURE__*/React.createElement("p", {
+      style: {
+        margin: '0 0 12px',
+        fontFamily: 'var(--font-body)',
+        fontWeight: 600,
+        fontSize: 13.5,
+        lineHeight: 1.3,
+        color: 'var(--color-text-muted)',
+        textWrap: 'pretty'
+      }
+    }, entry.desc), /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      onClick: () => onOpen(entry.id),
+      style: {
+        position: 'relative',
+        border: 'none',
+        borderRadius: 'var(--radius-full)',
+        cursor: 'pointer',
+        padding: '10px 22px',
+        background: 'var(--color-primary)',
+        color: 'var(--color-text-invert)',
+        fontFamily: 'var(--font-display)',
+        fontWeight: 700,
+        fontSize: 16,
+        whiteSpace: 'nowrap',
+        boxShadow: '0 5px 0 var(--color-primary-edge), var(--shadow-sm)'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        top: 3,
+        left: '18%',
+        right: '18%',
+        height: '30%',
+        background: 'var(--color-primary-shine)',
+        opacity: 0.5,
+        borderRadius: 999
+      }
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'relative'
+      }
+    }, "Xem m\u1EB9o")))));
+  }
+
+  // ── wide "important" rule card (section hero) ─────────────────────────────
+  function WideCard({
+    entry,
+    seen,
+    onOpen
+  }) {
+    return /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      onClick: () => onOpen(entry.id),
+      style: cardStyle({
+        width: '100%',
+        textAlign: 'left',
+        cursor: 'pointer',
+        border: '1.5px solid rgba(150,120,80,0.16)',
+        padding: '16px 18px',
+        marginBottom: 14,
+        display: 'flex',
+        gap: 14,
+        alignItems: 'center'
+      })
+    }, /*#__PURE__*/React.createElement(Peel, {
+      size: 30
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: 10,
+        left: 10,
+        zIndex: 4
+      }
+    }, /*#__PURE__*/React.createElement(Seal, {
+      tone: "warning"
+    }, 'Quan\ntrọng')), /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: 120,
+        flexShrink: 0
+      }
+    }, /*#__PURE__*/React.createElement(Thumb, {
+      id: entry.id,
+      group: entry.group
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        flex: 1,
+        minWidth: 0
+      }
+    }, /*#__PURE__*/React.createElement("h3", {
+      style: {
+        margin: '0 0 4px',
+        fontFamily: 'var(--font-display)',
+        fontWeight: 700,
+        fontSize: 22,
+        lineHeight: 1.05,
+        color: 'var(--color-text)'
+      }
+    }, entry.title), /*#__PURE__*/React.createElement("p", {
+      style: {
+        margin: '0 0 8px',
+        fontFamily: 'var(--font-body)',
+        fontWeight: 600,
+        fontSize: 13.5,
+        lineHeight: 1.3,
+        color: 'var(--color-text-muted)',
+        textWrap: 'pretty'
+      }
+    }, entry.desc), seen && /*#__PURE__*/React.createElement(SeenTag, null)));
+  }
+
+  // ── 2-col rule card ────────────────────────────────────────────────────────
+  function EntryCard({
+    entry,
+    seen,
+    onOpen
+  }) {
+    if (!entry.unlocked) {
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'relative',
+          borderRadius: 'var(--radius-xl)',
+          padding: '14px 16px',
+          background: 'var(--color-surface-sunken)',
+          border: '1.5px solid rgba(150,120,80,0.14)',
+          opacity: 0.85
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          height: 88,
+          borderRadius: 'var(--radius-md)',
+          background: 'var(--color-surface-sunken)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 6,
+          color: 'var(--color-text-muted)'
+        }
+      }, /*#__PURE__*/React.createElement(LockGlyph, {
+        size: 26
+      })), /*#__PURE__*/React.createElement("div", {
+        style: {
+          marginTop: 10,
+          fontFamily: 'var(--font-display)',
+          fontWeight: 700,
+          fontSize: 16,
+          color: 'var(--color-text-muted)'
+        }
+      }, "Ch\u01B0a m\u1EDF kho\xE1"), /*#__PURE__*/React.createElement("div", {
+        style: {
+          marginTop: 2,
+          fontFamily: 'var(--font-body)',
+          fontWeight: 600,
+          fontSize: 12.5,
+          color: 'var(--color-text-muted)'
+        }
+      }, "Ch\u01A1i ti\u1EBFp \u0111\u1EC3 m\u1EDF"));
+    }
+    return /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      onClick: () => onOpen(entry.id),
+      style: cardStyle({
+        display: 'flex',
+        flexDirection: 'column',
+        textAlign: 'left',
+        width: '100%',
+        cursor: 'pointer',
+        border: '1.5px solid rgba(150,120,80,0.16)',
+        padding: '14px 16px'
+      })
+    }, /*#__PURE__*/React.createElement(Peel, {
+      size: 26
+    }), /*#__PURE__*/React.createElement(Thumb, {
+      id: entry.id,
+      group: entry.group
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginTop: 10,
+        fontFamily: 'var(--font-display)',
+        fontWeight: 700,
+        fontSize: 17,
+        lineHeight: 1.08,
+        color: 'var(--color-text)'
+      }
+    }, entry.title), /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginTop: 3,
+        flex: 1,
+        fontFamily: 'var(--font-body)',
+        fontWeight: 600,
+        fontSize: 12.5,
+        lineHeight: 1.3,
+        color: 'var(--color-text-muted)',
+        textWrap: 'pretty'
+      }
+    }, entry.desc), seen && /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginTop: 8,
+        display: 'flex',
+        justifyContent: 'flex-end'
+      }
+    }, /*#__PURE__*/React.createElement(SeenTag, null)));
+  }
+  function CardGrid({
+    list,
+    seenSet,
+    onOpen
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: 12,
+        marginBottom: 8
+      }
+    }, list.map(e => /*#__PURE__*/React.createElement(EntryCard, {
+      key: e.id,
+      entry: e,
+      seen: seenSet.has(e.id),
+      onOpen: onOpen
+    })));
+  }
+
+  // ── detail popup (teach card) ──────────────────────────────────────────────
   function DetailDialog({
     entry,
     hasNext,
@@ -3755,7 +6404,12 @@ try { (() => {
       }
     }))));
   }
-  const ORDER = ['CƠ BẢN', 'SIÊU KHỐI', 'KÍCH NỔ', 'COMBO'];
+
+  // ── screen ─────────────────────────────────────────────────────────────────
+  // groups whose first unlocked entry is shown as a wide "important" hero
+  const HERO_GROUP = {
+    'SIÊU KHỐI': 'super'
+  };
   function CamNangScreen({
     entries = [],
     unlockedCount = 0,
@@ -3764,81 +6418,67 @@ try { (() => {
     onBack
   }) {
     const [openId, setOpenId] = React.useState(defaultOpenId);
+    const [filter, setFilter] = React.useState('all');
     const total = entries.length;
     const open = id => {
       setOpenId(id);
       onOpen && onOpen(id);
     };
-
-    // next unlocked entry after the current one (for "Tiếp theo")
     const unlocked = entries.filter(e => e.unlocked);
+    const seenSet = new Set(unlocked.map(e => e.id)); // demo: unlocked = seen
     const curIdx = unlocked.findIndex(e => e.id === openId);
     const next = curIdx >= 0 && curIdx < unlocked.length - 1 ? unlocked[curIdx + 1] : null;
     const cur = entries.find(e => e.id === openId) || null;
-    const grouped = ORDER.map(g => [g, entries.filter(e => e.group === g)]).filter(([, list]) => list.length);
+    const spotlight = entries.find(e => e.id === 'rotate' && e.unlocked) || unlocked[0] || null;
+    const visibleGroups = (filter === 'all' ? ORDER : [filter]).map(g => [g, entries.filter(e => e.group === g)]).filter(([, list]) => list.length);
     return /*#__PURE__*/React.createElement("div", {
       style: {
         display: 'flex',
         flexDirection: 'column',
-        height: '100%'
+        height: '100%',
+        background: 'url(../06-svg-assets/backgrounds/cam-nang-bg.png) center top / cover no-repeat, var(--color-bg)'
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
-        height: 'var(--dim-hud-h)',
-        flexShrink: 0,
-        display: 'flex',
-        alignItems: 'center',
-        gap: 'var(--space-sm)',
-        padding: '0 var(--space-md)'
-      }
-    }, /*#__PURE__*/React.createElement("button", {
-      type: "button",
-      onClick: onBack,
-      "aria-label": "Quay l\u1EA1i",
-      style: {
-        width: 'var(--dim-icon-btn)',
-        height: 'var(--dim-icon-btn)',
-        flexShrink: 0,
-        borderRadius: 'var(--radius-lg)',
-        border: 'none',
-        background: 'transparent',
-        color: 'var(--color-text)',
-        cursor: 'pointer',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }
-    }, /*#__PURE__*/React.createElement(Icon, {
-      name: "back",
-      size: 24
-    })), /*#__PURE__*/React.createElement("h1", {
-      style: {
         flex: 1,
-        margin: 0,
-        fontFamily: 'var(--font-display)',
-        fontWeight: 800,
-        fontSize: 'var(--text-title)',
-        color: 'var(--color-text)',
-        whiteSpace: 'nowrap'
+        minHeight: 0,
+        overflowY: 'auto'
       }
-    }, "C\u1EA9m nang"), /*#__PURE__*/React.createElement(ProgressPill, {
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        padding: '12px 14px 28px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 14
+      }
+    }, /*#__PURE__*/React.createElement(HeaderCard, {
       count: unlockedCount,
-      total: total
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        flex: 1,
-        overflowY: 'auto',
-        padding: 'var(--space-sm) var(--space-lg) var(--space-xl)'
-      }
-    }, grouped.map(([g, list]) => /*#__PURE__*/React.createElement(GroupBlock, {
-      key: g,
-      title: g
-    }, list.map((entry, i) => /*#__PURE__*/React.createElement(ItemRow, {
-      key: entry.id,
-      entry: entry,
-      last: i === list.length - 1,
+      total: total,
+      onBack: onBack
+    }), /*#__PURE__*/React.createElement(FilterTabs, {
+      value: filter,
+      onChange: setFilter
+    }), filter === 'all' && /*#__PURE__*/React.createElement(Spotlight, {
+      entry: spotlight,
       onOpen: open
-    }))))), /*#__PURE__*/React.createElement(DetailDialog, {
+    }), visibleGroups.map(([g, list]) => {
+      const heroId = HERO_GROUP[g];
+      const hero = heroId ? list.find(e => e.id === heroId && e.unlocked) : null;
+      const rest = hero ? list.filter(e => e.id !== hero.id) : list;
+      return /*#__PURE__*/React.createElement("div", {
+        key: g
+      }, /*#__PURE__*/React.createElement(SectionHeader, {
+        group: g
+      }), hero && /*#__PURE__*/React.createElement(WideCard, {
+        entry: hero,
+        seen: seenSet.has(hero.id),
+        onOpen: open
+      }), /*#__PURE__*/React.createElement(CardGrid, {
+        list: rest,
+        seenSet: seenSet,
+        onOpen: open
+      }));
+    }))), /*#__PURE__*/React.createElement(DetailDialog, {
       entry: cur,
       hasNext: !!next,
       onNext: () => next && open(next.id),
@@ -3852,15 +6492,15 @@ try { (() => {
     icon: 'rotate',
     group: 'CƠ BẢN',
     title: 'Xoay trọng lực',
-    desc: 'Đổi hướng trọng lực 90°; D-Pad chỉ hướng, cả cụm đổ theo',
+    desc: 'Đổi hướng rơi để mở đường mới',
     body: 'Bấm nút xoay để đổi hướng trọng lực 90°. D-Pad chỉ hướng sẽ rơi — toàn bộ khối trên bàn đổ theo.',
     hi: 'đổi hướng trọng lực 90°'
   }, {
     id: 'clearLine',
     icon: 'check',
     group: 'CƠ BẢN',
-    title: 'Xóa hàng / cột',
-    desc: 'Lấp đầy 1 hàng hoặc cột → biến mất + điểm',
+    title: 'Xóa hàng/cột',
+    desc: 'Lấp đầy để dọn bàn',
     body: 'Lấp đầy trọn một hàng hoặc một cột — 9 ô, màu nào cũng được — để cả dãy biến mất và cộng điểm.',
     hi: '9 ô, màu nào cũng được'
   }, {
@@ -3868,7 +6508,7 @@ try { (() => {
     icon: 'chevron',
     group: 'CƠ BẢN',
     title: 'Trọng lực rơi',
-    desc: 'Khối rơi xuống, dừng khi gặp khối khác / đáy',
+    desc: 'Cụm jelly rơi cùng nhau',
     body: 'Sau mỗi lần xóa, các khối phía trên rơi xuống theo trọng lực, dừng khi chạm khối khác hoặc đáy bàn.',
     hi: 'rơi xuống theo trọng lực'
   }, {
@@ -3876,7 +6516,7 @@ try { (() => {
     icon: 'heart',
     group: 'CƠ BẢN',
     title: 'Thạch dính',
-    desc: 'Thạch cùng màu dính thành cụm; 1 ô bị chặn → cả cụm dừng',
+    desc: 'Cùng màu sẽ dính thành cụm',
     body: 'Các khối thạch cùng màu dính lại thành một cụm. Chỉ cần một ô bị chặn, cả cụm cùng dừng.',
     hi: 'dính lại thành một cụm'
   }, {
@@ -3884,7 +6524,7 @@ try { (() => {
     icon: 'star',
     group: 'SIÊU KHỐI',
     title: 'Siêu khối',
-    desc: 'Lấp 1 hàng / cột / khối 3×3 cùng màu → siêu khối',
+    desc: 'Ghép hàng, cột hoặc 3×3 cùng màu',
     body: 'Lấp đầy một hàng, một cột hoặc một khối 3×3 toàn cùng một màu để tạo ra siêu khối.',
     hi: 'siêu khối'
   }, {
@@ -3892,7 +6532,7 @@ try { (() => {
     icon: 'heart',
     group: 'SIÊU KHỐI',
     title: 'Khối cầu vồng',
-    desc: '3×3 đủ ba màu (mỗi màu 1 hàng / cột) → cầu vồng',
+    desc: 'Ghép đủ ba màu → cầu vồng',
     body: 'Xếp khối 3×3 đủ ba màu — mỗi màu một hàng hoặc một cột — để tạo khối cầu vồng.',
     hi: 'khối cầu vồng'
   }, {
@@ -3900,7 +6540,7 @@ try { (() => {
     icon: 'trophy',
     group: 'SIÊU KHỐI',
     title: 'Siêu khối cấp 2',
-    desc: 'Ghép 2 siêu khối cùng màu dính nhau → cấp 2',
+    desc: 'Ghép 2 siêu khối cùng màu',
     body: 'Đặt hai siêu khối cùng màu dính cạnh nhau, chúng hợp thành siêu khối cấp 2 mạnh hơn.',
     hi: 'siêu khối cấp 2'
   }, {
@@ -3908,7 +6548,7 @@ try { (() => {
     icon: 'trophy',
     group: 'SIÊU KHỐI',
     title: 'Cầu vồng siêu cấp',
-    desc: 'Ghép 2 kíp nổ khác màu → cầu vồng siêu cấp (đội vương miện)',
+    desc: 'Ghép 2 kíp nổ khác màu',
     body: 'Ghép hai kíp nổ khác màu để tạo cầu vồng siêu cấp đội vương miện — sức mạnh tối thượng.',
     hi: 'cầu vồng siêu cấp'
   }, {
@@ -3916,7 +6556,7 @@ try { (() => {
     icon: 'star',
     group: 'KÍCH NỔ',
     title: 'Nổ siêu khối',
-    desc: 'Cuốn vào hàng / cột bị xóa → quét sạch mọi ô cùng màu',
+    desc: 'Quét sạch mọi ô cùng màu',
     body: 'Khi siêu khối bị cuốn vào hàng hoặc cột đang xóa, nó quét sạch mọi ô cùng màu trên toàn bàn.',
     hi: 'quét sạch mọi ô cùng màu'
   }, {
@@ -3924,7 +6564,7 @@ try { (() => {
     icon: 'trophy',
     group: 'KÍCH NỔ',
     title: 'Nổ siêu khối cấp 2',
-    desc: 'Quét cùng màu + cả vùng 5×5 quanh tâm',
+    desc: 'Cùng màu + cả vùng 5×5',
     body: 'Siêu khối cấp 2 quét sạch toàn bộ ô cùng màu và cả vùng 5×5 quanh tâm điểm nổ.',
     hi: 'vùng 5×5 quanh tâm'
   }, {
@@ -3932,7 +6572,7 @@ try { (() => {
     icon: 'heart',
     group: 'KÍCH NỔ',
     title: 'Nổ cầu vồng',
-    desc: 'Quét sạch mọi ô thuộc các màu đang KỀ nó',
+    desc: 'Quét các màu đang kề nó',
     body: 'Khối cầu vồng khi nổ sẽ quét sạch mọi ô thuộc các màu đang kề ngay cạnh nó.',
     hi: 'các màu đang kề'
   }, {
@@ -3940,7 +6580,7 @@ try { (() => {
     icon: 'trophy',
     group: 'KÍCH NỔ',
     title: 'Nổ cầu vồng siêu cấp',
-    desc: 'Kỹ năng tối thượng: xóa sạch TOÀN BÀN (kể cả đá)',
+    desc: 'Xóa sạch toàn bàn (cả đá)',
     body: 'Kỹ năng tối thượng — cầu vồng siêu cấp xóa sạch toàn bàn, kể cả những khối đá cố định.',
     hi: 'xóa sạch toàn bàn'
   }, {
@@ -3948,7 +6588,7 @@ try { (() => {
     icon: 'rotateCw',
     group: 'COMBO',
     title: 'Combo hồi lượt xoay',
-    desc: 'Combo ×2 trở lên → +1 lượt xoay (combo dài hồi càng nhiều)',
+    desc: 'Combo ×2 trở lên → +1 lượt xoay',
     body: 'Đạt combo ×2 trở lên sẽ hồi +1 lượt xoay; combo càng dài, số lượt xoay hồi lại càng nhiều.',
     hi: '+1 lượt xoay'
   }];
@@ -4931,9 +7571,19 @@ function _extends() { return _extends = Object.assign ? Object.assign.bind() : f
 
 // 04-screens/level-intro-screen.jsx
 try { (() => {
-/* level-intro-screen.jsx — LEVEL INTRO. Pre-level sheet: world + level node,
-   goal, move/limit, star reward preview, Start CTA. Exposes
-   window.GJLevelIntroScreen. */
+/* level-intro-screen.jsx — LEVEL INTRO (updated to the new objective system).
+   Pre-level soft sheet: "Màn X · <Tên>" + world chip, a bold OBJECTIVE block
+   (big hero glyph + goal sentence from the catalogue), a 3-star THRESHOLD row
+   (per-unit), the level's gravity ROTATION BUDGET chip + optional NEW-MECHANIC
+   chip, and the BẮT ĐẦU primary CTA. Exposes window.GJLevelIntroScreen.
+
+   goal descriptor (one of):
+     { kind:'tutorial', variant, title }      // "Tạo 1 ô Cầu vồng"
+     { kind:'targets', target:'vine'|'drop', total, title } // "Phá 3 giọt nước"
+     { kind:'score', target, title }          // "Đạt 450 điểm"
+     { kind:'boss', name, hp, title }          // "Hạ Thần Thác — máu 10"
+   stars = { unit, values:[t3,t2,t1], prefix3 }  moves/score thresholds
+   mechanic = { key:'vine'|'flow'|'boss', label } */
 
 (function () {
   const NS = window.GravityJellyDesignSystem_3e0487;
@@ -4943,64 +7593,609 @@ try { (() => {
     Icon
   } = NS;
   const EX = window.GJExtras;
-  function GoalChip({
-    color,
-    count,
-    label
+  const JPAL = {
+    yellow: ['#FFE3A3', '#E8B85C'],
+    mint: ['#A3E5D9', '#5FC3B2'],
+    pink: ['#F7A9C0', '#E576A0'],
+    blue: ['#B3C7F7', '#7E9CE8']
+  };
+
+  /* ── HERO GLYPHS (≈104dp) ─────────────────────────────────────────── */
+  function SpecialHero({
+    type = 'rainbow',
+    color = 'pink',
+    size = 104,
+    lvl = 1
   }) {
-    return /*#__PURE__*/React.createElement("div", {
+    const r = Math.round(size * 0.26);
+    const rainbow = type === 'rainbow' || type === 'crown';
+    const pal = JPAL[color] || JPAL.pink;
+    return /*#__PURE__*/React.createElement("span", {
       style: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: 6
+        position: 'relative',
+        display: 'inline-flex'
       }
-    }, /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        width: size,
+        height: size,
+        borderRadius: r,
+        boxSizing: 'border-box',
+        position: 'relative',
+        background: rainbow ? 'conic-gradient(from 210deg,#F7A9C0,#FFE3A3,#A3E5D9,#B3C7F7,#F7A9C0)' : pal[0],
+        border: `4px solid ${rainbow ? '#E576A0' : pal[1]}`,
+        boxShadow: '0 0 0 3px var(--color-warning), var(--shadow-md)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        top: 4,
+        left: '15%',
+        right: '15%',
+        height: '30%',
+        background: 'rgba(255,255,255,0.7)',
+        borderRadius: '50%'
+      }
+    }), !rainbow ? /*#__PURE__*/React.createElement("svg", {
+      width: size * 0.5,
+      height: size * 0.5,
+      viewBox: "0 0 24 24",
       style: {
         position: 'relative'
       }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: color,
-      size: 46
-    }), /*#__PURE__*/React.createElement("span", {
+    }, /*#__PURE__*/React.createElement("path", {
+      d: "M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z",
+      fill: "#FFF6DD",
+      stroke: "#E2A82E",
+      strokeWidth: "1.6",
+      strokeLinejoin: "round"
+    })) : /*#__PURE__*/React.createElement("span", {
+      style: {
+        width: size * 0.34,
+        height: size * 0.34,
+        borderRadius: '50%',
+        background: 'rgba(255,255,255,0.95)',
+        boxShadow: '0 0 10px rgba(255,255,255,0.9)'
+      }
+    })), lvl === 2 && /*#__PURE__*/React.createElement("span", {
       style: {
         position: 'absolute',
         bottom: -6,
         right: -6,
-        minWidth: 22,
-        height: 22,
-        padding: '0 5px',
-        boxSizing: 'border-box',
+        width: 28,
+        height: 28,
         borderRadius: 999,
         background: 'var(--color-surface)',
-        boxShadow: 'var(--shadow-sm)',
+        border: '3px solid var(--color-warning)',
+        color: '#B9821C',
+        fontFamily: 'var(--font-display)',
+        fontWeight: 800,
+        fontSize: 15,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, "2"), type === 'crown' && /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        top: -size * 0.4,
+        left: '50%',
+        transform: 'translateX(-50%)'
+      }
+    }, /*#__PURE__*/React.createElement(EX.Crown, {
+      size: size * 0.5
+    })));
+  }
+  function DropHero({
+    size = 104,
+    count
+  }) {
+    return /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'relative',
+        display: 'inline-flex',
+        filter: 'drop-shadow(0 6px 8px rgba(95,195,178,0.35))'
+      }
+    }, /*#__PURE__*/React.createElement("svg", {
+      width: size,
+      height: size,
+      viewBox: "0 0 24 24"
+    }, /*#__PURE__*/React.createElement("path", {
+      d: "M12 3.2c4 5 6 8 6 11a6 6 0 1 1-12 0c0-3 2-6 6-11z",
+      fill: "#A3E5D9",
+      stroke: "#5FC3B2",
+      strokeWidth: "1.5",
+      strokeLinejoin: "round"
+    }), /*#__PURE__*/React.createElement("path", {
+      d: "M9.2 15.2a2.8 2.8 0 0 0 2.2 2.6",
+      stroke: "#CBF2EB",
+      strokeWidth: "1.6",
+      fill: "none",
+      strokeLinecap: "round"
+    })), count != null && /*#__PURE__*/React.createElement(CountBadge, {
+      n: count
+    }));
+  }
+  function VineHero({
+    size = 104,
+    count
+  }) {
+    return /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'relative',
+        display: 'inline-flex',
+        filter: 'drop-shadow(0 6px 8px rgba(95,195,178,0.3))'
+      }
+    }, /*#__PURE__*/React.createElement("svg", {
+      width: size,
+      height: size,
+      viewBox: "0 0 24 24"
+    }, /*#__PURE__*/React.createElement("ellipse", {
+      cx: "12",
+      cy: "20.2",
+      rx: "7.5",
+      ry: "2.4",
+      fill: "#C7A97E"
+    }), /*#__PURE__*/React.createElement("path", {
+      d: "M12 20 C12 15 12 12.5 12 9.5",
+      stroke: "#5FC3B2",
+      strokeWidth: "2.6",
+      fill: "none",
+      strokeLinecap: "round"
+    }), /*#__PURE__*/React.createElement("path", {
+      d: "M12 13.5 C8.6 13.5 6.4 11.3 5.8 8.4 C9.4 8.4 11.6 10.2 12 13.5Z",
+      fill: "#A3E5D9",
+      stroke: "#5FC3B2",
+      strokeWidth: "1.2",
+      strokeLinejoin: "round"
+    }), /*#__PURE__*/React.createElement("path", {
+      d: "M12 11 C15.4 11 17.6 8.8 18.2 5.9 C14.6 5.9 12.4 7.7 12 11Z",
+      fill: "#A3E5D9",
+      stroke: "#5FC3B2",
+      strokeWidth: "1.2",
+      strokeLinejoin: "round"
+    })), count != null && /*#__PURE__*/React.createElement(CountBadge, {
+      n: count
+    }));
+  }
+  function ScoreHero({
+    size = 104,
+    target
+  }) {
+    return /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'relative',
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: size,
+        height: size
+      }
+    }, /*#__PURE__*/React.createElement(EX.FilledStar, {
+      size: size,
+      earned: true
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        fontFamily: 'var(--font-display)',
+        fontWeight: 800,
+        fontSize: size * 0.28,
+        color: '#B9821C',
+        textShadow: '0 1px 0 rgba(255,255,255,0.6)'
+      }
+    }, target != null ? target.toLocaleString('vi-VN') : ''));
+  }
+  function BossHero({
+    size = 104,
+    hp
+  }) {
+    return /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'relative',
+        display: 'inline-flex',
+        filter: 'drop-shadow(0 6px 10px rgba(46,38,112,0.4))'
+      }
+    }, /*#__PURE__*/React.createElement(JellyBlock, {
+      color: "stone",
+      size: size,
+      showEyes: false,
+      style: {
+        background: 'var(--color-gravity)',
+        borderColor: 'var(--color-gravity-edge)'
+      }
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        inset: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: size * 0.13
+      }
+    }, [0, 1].map(i => /*#__PURE__*/React.createElement("span", {
+      key: i,
+      style: {
+        position: 'relative',
+        width: size * 0.26,
+        height: size * 0.26,
+        borderRadius: '50%',
+        background: '#fff',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        width: size * 0.13,
+        height: size * 0.13,
+        borderRadius: '50%',
+        background: '#4A3526'
+      }
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        top: -size * 0.05,
+        left: i ? 'auto' : -size * 0.03,
+        right: i ? -size * 0.03 : 'auto',
+        width: size * 0.22,
+        height: size * 0.09,
+        background: 'var(--color-gravity)',
+        transform: `rotate(${i ? -22 : 22}deg)`,
+        borderRadius: 2
+      }
+    })))), hp != null && /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        bottom: -8,
+        left: '50%',
+        transform: 'translateX(-50%)',
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 3,
+        padding: '3px 9px',
+        borderRadius: 999,
+        background: 'var(--color-danger)',
+        boxShadow: '0 3px 0 #C96155',
         fontFamily: 'var(--font-display)',
         fontWeight: 800,
         fontSize: 13,
+        color: '#fff',
+        whiteSpace: 'nowrap'
+      }
+    }, /*#__PURE__*/React.createElement(Icon, {
+      name: "heart",
+      size: 13,
+      color: "#fff",
+      strokeWidth: 2.4
+    }), hp));
+  }
+  function CountBadge({
+    n
+  }) {
+    return /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        bottom: -6,
+        right: -6,
+        minWidth: 30,
+        height: 30,
+        padding: '0 7px',
+        boxSizing: 'border-box',
+        borderRadius: 999,
+        background: 'var(--color-surface)',
+        boxShadow: 'var(--shadow-md)',
+        fontFamily: 'var(--font-display)',
+        fontWeight: 800,
+        fontSize: 17,
         color: 'var(--color-text)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
       }
-    }, count)), /*#__PURE__*/React.createElement("span", {
+    }, n);
+  }
+  function Hero({
+    goal,
+    size = 58
+  }) {
+    switch (goal.kind) {
+      case 'targets':
+        return goal.target === 'vine' ? /*#__PURE__*/React.createElement(VineHero, {
+          size: size,
+          count: goal.total
+        }) : /*#__PURE__*/React.createElement(DropHero, {
+          size: size,
+          count: goal.total
+        });
+      case 'score':
+        return /*#__PURE__*/React.createElement(ScoreHero, {
+          size: size,
+          target: goal.target
+        });
+      case 'boss':
+        return /*#__PURE__*/React.createElement(BossHero, {
+          size: size,
+          hp: goal.hp
+        });
+      default:
+        {
+          const v = goal.variant;
+          if (v === 'rainbow') return /*#__PURE__*/React.createElement(SpecialHero, {
+            type: "rainbow",
+            size: size
+          });
+          if (v === 'rainbowSuper') return /*#__PURE__*/React.createElement(SpecialHero, {
+            type: "crown",
+            size: size
+          });
+          if (v === 'super2') return /*#__PURE__*/React.createElement(SpecialHero, {
+            type: "super",
+            color: "blue",
+            size: size,
+            lvl: 2
+          });
+          if (v === 'super1') return /*#__PURE__*/React.createElement(SpecialHero, {
+            type: "super",
+            color: "pink",
+            size: size
+          });
+          return /*#__PURE__*/React.createElement(JellyBlock, {
+            color: "mint",
+            size: size
+          });
+        }
+    }
+  }
+
+  /* Compact level-board PREVIEW — the dynamic, per-level region. A miniature of
+     the level's starting board (recessed well like the real 9×9), so it's clear
+     each level shows its own layout here. `preview` = array of row strings:
+     '.' empty · Y/M/P/B jelly · S stone. */
+  const MINI_COL = {
+    Y: 'yellow',
+    M: 'mint',
+    P: 'pink',
+    B: 'blue'
+  };
+  function MiniBoard({
+    map
+  }) {
+    const cell = 24,
+      gap = 3,
+      cols = map[0].length;
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'grid',
+        gridTemplateColumns: `repeat(${cols}, ${cell}px)`,
+        gap,
+        padding: 8,
+        background: '#EFE1C9',
+        borderRadius: 'var(--radius-lg)',
+        boxShadow: 'inset 0 2px 6px rgba(120,92,52,0.22)'
+      }
+    }, map.flatMap((row, r) => [...row].map((ch, i) => {
+      const k = r + '-' + i;
+      if ('YMPB'.includes(ch)) return /*#__PURE__*/React.createElement("div", {
+        key: k,
+        style: {
+          width: cell,
+          height: cell
+        }
+      }, /*#__PURE__*/React.createElement(JellyBlock, {
+        color: MINI_COL[ch],
+        size: cell,
+        showEyes: false
+      }));
+      if (ch === 'S') return /*#__PURE__*/React.createElement("div", {
+        key: k,
+        style: {
+          width: cell,
+          height: cell
+        }
+      }, /*#__PURE__*/React.createElement(JellyBlock, {
+        color: "stone",
+        size: cell,
+        showEyes: false
+      }));
+      return /*#__PURE__*/React.createElement("div", {
+        key: k,
+        style: {
+          width: cell,
+          height: cell,
+          borderRadius: 8,
+          background: 'rgba(120,92,52,0.08)'
+        }
+      });
+    })));
+  }
+
+  /* 3-star threshold strip — uses the game's star IMAGE assets (same as the
+     level map / world strips) for a consistent star across the whole product. */
+  const STAR_ON = '../06-svg-assets/ui/star-on.png';
+  const STAR_OFF = '../06-svg-assets/ui/star-off.png';
+  function MiniStars({
+    n,
+    size = 15
+  }) {
+    return /*#__PURE__*/React.createElement("span", {
+      style: {
+        display: 'inline-flex',
+        gap: 2
+      }
+    }, [0, 1, 2].map(i => /*#__PURE__*/React.createElement("img", {
+      key: i,
+      src: i < n ? STAR_ON : STAR_OFF,
+      alt: "",
+      "aria-hidden": "true",
+      style: {
+        width: size,
+        height: size,
+        display: 'block'
+      }
+    })));
+  }
+  function StarThresholds({
+    stars
+  }) {
+    if (!stars) return null;
+    const [t3, t2, t1] = stars.values;
+    const fmt = v => typeof v === 'number' ? v.toLocaleString('vi-VN') : v;
+    const rows = [[3, `${stars.prefix3 || ''}${fmt(t3)}`], [2, fmt(t2)], [1, fmt(t1)]];
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        gap: 'var(--space-sm)',
+        padding: 'var(--space-sm) var(--space-md)',
+        background: 'var(--color-surface-sunken)',
+        borderRadius: 'var(--radius-lg)',
+        boxSizing: 'border-box'
+      }
+    }, rows.map(([n, val], i) => /*#__PURE__*/React.createElement(React.Fragment, {
+      key: n
+    }, i > 0 && /*#__PURE__*/React.createElement("span", {
+      style: {
+        width: 1,
+        height: 22,
+        background: 'var(--color-cell-line)'
+      }
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        display: 'inline-flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 3
+      }
+    }, /*#__PURE__*/React.createElement(MiniStars, {
+      n: n
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-display)',
+        fontWeight: 800,
+        fontSize: 'var(--text-body)',
+        color: 'var(--color-text)',
+        lineHeight: 1,
+        whiteSpace: 'nowrap'
+      }
+    }, val, /*#__PURE__*/React.createElement("span", {
       style: {
         fontFamily: 'var(--font-body)',
-        fontWeight: 700,
-        fontSize: 11,
-        color: 'var(--color-text-muted)'
+        fontSize: 'var(--text-caption)',
+        color: 'var(--color-text-muted)',
+        fontWeight: 700
       }
-    }, label));
+    }, " ", stars.unit))))));
   }
+  const MECH = {
+    vine: {
+      label: 'Gốc dây leo',
+      color: 'var(--color-success)',
+      glyph: s => /*#__PURE__*/React.createElement("svg", {
+        width: s,
+        height: s,
+        viewBox: "0 0 24 24",
+        fill: "none",
+        stroke: "currentColor",
+        strokeWidth: "2",
+        strokeLinecap: "round",
+        strokeLinejoin: "round"
+      }, /*#__PURE__*/React.createElement("path", {
+        d: "M12 21V9"
+      }), /*#__PURE__*/React.createElement("path", {
+        d: "M12 13c-3 0-5-2-5-5 3 0 5 2 5 5zM12 11c3 0 5-2 5-5-3 0-5 2-5 5z"
+      }))
+    },
+    flow: {
+      label: 'Dòng chảy',
+      color: 'var(--color-info)',
+      glyph: s => /*#__PURE__*/React.createElement("svg", {
+        width: s,
+        height: s,
+        viewBox: "0 0 24 24",
+        fill: "none",
+        stroke: "currentColor",
+        strokeWidth: "2",
+        strokeLinecap: "round"
+      }, /*#__PURE__*/React.createElement("path", {
+        d: "M3 8c3-2 5 2 8 0s5 2 8 0M3 14c3-2 5 2 8 0s5 2 8 0"
+      }))
+    },
+    boss: {
+      label: 'Đánh boss',
+      color: 'var(--color-gravity)',
+      glyph: s => /*#__PURE__*/React.createElement("svg", {
+        width: s,
+        height: s,
+        viewBox: "0 0 24 24",
+        fill: "none",
+        stroke: "currentColor",
+        strokeWidth: "2",
+        strokeLinecap: "round",
+        strokeLinejoin: "round"
+      }, /*#__PURE__*/React.createElement("path", {
+        d: "M12 3l2.5 5 5.5.5-4 4 1 5.5L12 20l-5 3 1-5.5-4-4 5.5-.5z"
+      }))
+    }
+  };
+  function Chip({
+    color,
+    icon,
+    children
+  }) {
+    return /*#__PURE__*/React.createElement("span", {
+      style: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 6,
+        padding: '8px 14px',
+        borderRadius: 999,
+        background: `color-mix(in srgb, ${color} 15%, transparent)`,
+        color,
+        boxSizing: 'border-box'
+      }
+    }, icon, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-body)',
+        fontWeight: 800,
+        fontSize: 'var(--text-body)',
+        color: 'var(--color-text)',
+        whiteSpace: 'nowrap'
+      }
+    }, children));
+  }
+  const WORLD_ACCENT = {
+    'Đồng cỏ': 'var(--color-success)',
+    'Rừng rậm': 'var(--color-primary)',
+    'Sông & Thác': 'var(--color-info)'
+  };
   function LevelIntroScreen({
-    level = 23,
-    world = 'Sông & Thác',
-    accent = 'var(--color-info)',
-    goals,
-    moves = 28,
+    level = 6,
+    name = 'Cầu vồng 1',
+    world = 'Đồng cỏ',
+    accent,
+    goal = {
+      kind: 'tutorial',
+      variant: 'rainbow',
+      title: 'Tạo 1 ô Cầu vồng'
+    },
+    stars = {
+      unit: 'nước',
+      values: ['≤3', 4, 5]
+    },
+    rotations = 20,
+    mechanic,
+    preview,
     onStart,
     onClose
   }) {
-    const g = goals || [['mint', 18, 'Dọn'], ['pink', 12, 'Dọn'], ['blue', 10, 'Dọn']];
+    const isBoss = goal.kind === 'boss';
+    const acc = accent || (isBoss ? 'var(--color-gravity)' : WORLD_ACCENT[world] || 'var(--color-info)');
+    const board = preview || (isBoss ? ['..SSS..', '.SSSSS.', 'YY.S.BB', '.YY.BB.'] : ['..PPMM.', 'YY.PP.B', 'YYMM.BB', '.MM.YBB']);
     return /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'relative',
@@ -5030,7 +8225,8 @@ try { (() => {
         cursor: 'pointer',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        zIndex: 2
       }
     }, /*#__PURE__*/React.createElement(Icon, {
       name: "close",
@@ -5046,120 +8242,190 @@ try { (() => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: 'var(--space-lg)'
+        gap: 'var(--space-md)'
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
-        marginTop: -56,
-        width: 84,
-        height: 84,
-        borderRadius: '50%',
-        background: accent,
-        boxShadow: `0 6px 0 color-mix(in srgb, ${accent} 70%, #000 18%), var(--shadow-md)`,
+        textAlign: 'center',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
-        border: '4px solid var(--color-surface)'
+        gap: 6
       }
     }, /*#__PURE__*/React.createElement("span", {
       style: {
-        fontFamily: 'var(--font-body)',
-        fontWeight: 800,
-        fontSize: 10,
-        letterSpacing: '0.1em',
-        color: 'var(--color-text-invert)',
-        opacity: 0.85
-      }
-    }, "M\xC0N"), /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontFamily: 'var(--font-display)',
-        fontWeight: 800,
-        fontSize: 34,
-        color: 'var(--color-text-invert)',
-        lineHeight: 1
-      }
-    }, level)), /*#__PURE__*/React.createElement("div", {
-      style: {
-        textAlign: 'center',
-        marginTop: -4
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 6,
+        padding: '4px 12px',
+        borderRadius: 999,
+        background: `color-mix(in srgb, ${acc} 16%, transparent)`,
         fontFamily: 'var(--font-body)',
         fontWeight: 800,
         fontSize: 'var(--text-caption)',
         letterSpacing: 'var(--tracking-wide)',
-        color: accent,
+        color: acc,
         whiteSpace: 'nowrap'
       }
-    }, world.toUpperCase()), /*#__PURE__*/React.createElement(EX.Stars, {
-      earned: 0,
-      size: 26,
+    }, isBoss && /*#__PURE__*/React.createElement(EX.Crown, {
+      size: 14
+    }), world.toUpperCase()), /*#__PURE__*/React.createElement("h2", {
       style: {
-        marginTop: 4
+        margin: 0,
+        fontFamily: 'var(--font-display)',
+        fontWeight: 700,
+        fontSize: 'var(--text-title)',
+        color: 'var(--color-text)',
+        lineHeight: 1.05,
+        whiteSpace: 'nowrap'
       }
-    })), /*#__PURE__*/React.createElement("div", {
+    }, "M\xE0n ", level, " \xB7 ", name)), /*#__PURE__*/React.createElement("div", {
       style: {
         width: '100%',
-        background: 'var(--color-surface-sunken)',
-        borderRadius: 'var(--radius-lg)',
-        padding: 'var(--space-md) var(--space-lg)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 'var(--space-sm)',
+        padding: 'var(--space-md)',
+        background: isBoss ? 'color-mix(in srgb, var(--color-gravity) 10%, var(--color-surface-sunken))' : 'var(--color-surface-sunken)',
+        borderRadius: 'var(--radius-xl)',
         boxSizing: 'border-box'
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
+        position: 'relative',
+        display: 'flex',
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        top: 6,
+        left: 6,
+        zIndex: 2,
+        padding: '2px 8px',
+        borderRadius: 999,
+        background: 'rgba(255,247,236,0.92)',
+        fontFamily: 'var(--font-body)',
+        fontWeight: 800,
+        fontSize: 9,
+        letterSpacing: '0.06em',
+        color: 'var(--color-text-muted)',
+        boxShadow: 'var(--shadow-sm)',
+        whiteSpace: 'nowrap'
+      }
+    }, "XEM TR\u01AF\u1EDAC B\xC0N"), /*#__PURE__*/React.createElement(MiniBoard, {
+      map: board
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        inset: 0,
         display: 'flex',
         alignItems: 'center',
-        gap: 6,
         justifyContent: 'center',
-        marginBottom: 'var(--space-md)'
+        pointerEvents: 'none'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'relative',
+        display: 'inline-flex'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      "aria-hidden": "true",
+      style: {
+        position: 'absolute',
+        inset: -18,
+        borderRadius: '50%',
+        background: 'radial-gradient(closest-side, rgba(255,247,236,0.97), rgba(255,247,236,0.6) 58%, transparent)'
+      }
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'relative'
+      }
+    }, /*#__PURE__*/React.createElement(Hero, {
+      goal: goal,
+      size: 58
+    }))))), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 6,
+        marginTop: 2
       }
     }, /*#__PURE__*/React.createElement(EX.Target, {
-      size: 16,
+      size: 15,
       color: "var(--color-text-muted)"
     }), /*#__PURE__*/React.createElement("span", {
       style: {
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
+        fontFamily: 'var(--font-body)',
+        fontWeight: 800,
         fontSize: 'var(--text-caption)',
         letterSpacing: 'var(--tracking-wide)',
         color: 'var(--color-text-muted)',
         whiteSpace: 'nowrap'
       }
-    }, "M\u1EE4C TI\xCAU")), /*#__PURE__*/React.createElement("div", {
+    }, "M\u1EE4C TI\xCAU")), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-display)',
+        fontWeight: 700,
+        fontSize: 'var(--text-heading)',
+        color: 'var(--color-text)',
+        textAlign: 'center',
+        lineHeight: 1.15
+      }
+    }, goal.title, isBoss && goal.hp != null ? /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: 'var(--color-danger)'
+      }
+    }, " \u2014 m\xE1u ", goal.hp) : '')), /*#__PURE__*/React.createElement(StarThresholds, {
+      stars: stars
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 6
+      }
+    }, /*#__PURE__*/React.createElement("div", {
       style: {
         display: 'flex',
-        justifyContent: 'space-around'
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        gap: 'var(--space-sm)'
       }
-    }, g.map(([c, n, l], i) => /*#__PURE__*/React.createElement(GoalChip, {
-      key: i,
-      color: c,
-      count: n,
-      label: l
-    })))), /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement(Chip, {
+      color: "var(--color-gravity)",
+      icon: /*#__PURE__*/React.createElement(Icon, {
+        name: "rotateCw",
+        size: 17,
+        color: "var(--color-gravity)"
+      })
+    }, "\u0110\u1EA3o tr\u1ECDng l\u1EF1c \xB7 ", /*#__PURE__*/React.createElement("b", {
       style: {
-        display: 'inline-flex',
-        alignItems: 'center',
-        gap: 'var(--space-sm)',
-        padding: '8px 16px',
-        borderRadius: 999,
-        background: 'color-mix(in srgb, var(--color-gravity) 14%, transparent)'
+        fontFamily: 'var(--font-display)',
+        fontWeight: 800,
+        color: 'var(--color-gravity)'
       }
-    }, /*#__PURE__*/React.createElement(Icon, {
-      name: "rotateCw",
-      size: 18,
-      color: "var(--color-gravity)"
-    }), /*#__PURE__*/React.createElement("span", {
+    }, rotations), " l\u01B0\u1EE3t"), mechanic && MECH[mechanic.key] && /*#__PURE__*/React.createElement(Chip, {
+      color: MECH[mechanic.key].color,
+      icon: /*#__PURE__*/React.createElement("span", {
+        style: {
+          color: MECH[mechanic.key].color,
+          display: 'inline-flex'
+        }
+      }, MECH[mechanic.key].glyph(17))
+    }, mechanic.label || MECH[mechanic.key].label)), /*#__PURE__*/React.createElement("span", {
       style: {
         fontFamily: 'var(--font-body)',
         fontWeight: 700,
-        fontSize: 'var(--text-body)',
-        color: 'var(--color-text)',
-        whiteSpace: 'nowrap'
+        fontSize: 'var(--text-caption)',
+        color: 'var(--color-text-muted)',
+        textAlign: 'center',
+        lineHeight: 1.2
       }
-    }, moves, " l\u01B0\u1EE3t xoay")), /*#__PURE__*/React.createElement(Button, {
-      variant: "primary",
+    }, "S\u1ED1 l\u1EA7n \u0111\u01B0\u1EE3c \u0111\u1EA3o tr\u1ECDng l\u1EF1c trong c\u1EA3 m\xE0n")), /*#__PURE__*/React.createElement(Button, {
+      variant: isBoss ? 'gravity' : 'primary',
       size: "cta",
       icon: "play",
       fullWidth: true,
@@ -5375,1023 +8641,6 @@ try { (() => {
   window.GJLevelWinScreen = LevelWinScreen;
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "04-screens/level-win-screen.jsx", error: String((e && e.message) || e) }); }
-
-// 04-screens/map-ftue.jsx
-try { (() => {
-/* map-ftue.jsx — FTUE "LẦN ĐẦU vào map" (B5).
-   ---------------------------------------------------------------------
-   World 1 Đồng cỏ ở đáy. Chỉ NODE 1 sáng + pulse; các node trên khoá mờ.
-   Lớp phủ scrim rgba(60,44,24,0.42) toàn màn, KHOÉT SÁNG (spotlight) quanh
-   node 1 bằng kỹ thuật box-shadow spread. HAND POINTER trỏ node 1 + caption
-   "Chạm để bắt đầu!". HUD "★ 0 · Đồng cỏ" dính trên, nổi trên scrim.
-   Exposes window.GJMapFTUE + window.GJMapFTUECard.                       */
-(function () {
-  const NS = window.GravityJellyDesignSystem_3e0487 || {};
-  const {
-    JellyBlock
-  } = NS;
-  const W = 360;
-  const H = 800;
-
-  // node 1 spotlight target (bottom, centered-ish)
-  const N1 = {
-    x: 180,
-    y: 596
-  };
-  // locked nodes climbing up
-  const NODES_UP = [{
-    id: 2,
-    x: 110,
-    y: 470
-  }, {
-    id: 3,
-    x: 244,
-    y: 356
-  }, {
-    id: 4,
-    x: 110,
-    y: 250
-  }, {
-    id: 5,
-    x: 228,
-    y: 132
-  }];
-  function pathD(points) {
-    let d = `M ${points[0].x} ${points[0].y}`;
-    for (let i = 1; i < points.length; i++) {
-      const a = points[i - 1],
-        b = points[i];
-      const my = (a.y + b.y) / 2;
-      d += ` C ${a.x} ${my}, ${b.x} ${my}, ${b.x} ${b.y}`;
-    }
-    return d;
-  }
-  const ENTRY = {
-    x: 180,
-    y: H + 40
-  };
-  const EXIT = {
-    x: 180,
-    y: -40
-  };
-  const FULL_PATH = pathD([ENTRY, N1, ...NODES_UP, EXIT]);
-
-  // ─── meadow scene ─────────────────────────────────────────────────
-  function Scene() {
-    return /*#__PURE__*/React.createElement("svg", {
-      width: W,
-      height: H,
-      viewBox: `0 0 ${W} ${H}`,
-      style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'block'
-      }
-    }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("linearGradient", {
-      id: "ft-sky",
-      x1: "0",
-      y1: "0",
-      x2: "0",
-      y2: "1"
-    }, /*#__PURE__*/React.createElement("stop", {
-      offset: "0",
-      stopColor: "#DEF0E1"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "0.55",
-      stopColor: "#DAEFD0"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "1",
-      stopColor: "#C6E8C9"
-    })), /*#__PURE__*/React.createElement("radialGradient", {
-      id: "ft-sun",
-      cx: "0.78",
-      cy: "0.30",
-      r: "0.5"
-    }, /*#__PURE__*/React.createElement("stop", {
-      offset: "0",
-      stopColor: "#FFF6CD",
-      stopOpacity: "0.55"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "1",
-      stopColor: "#FFF6CD",
-      stopOpacity: "0"
-    }))), /*#__PURE__*/React.createElement("rect", {
-      x: "0",
-      y: "0",
-      width: W,
-      height: H,
-      fill: "url(#ft-sky)"
-    }), /*#__PURE__*/React.createElement("rect", {
-      x: "0",
-      y: "0",
-      width: W,
-      height: H,
-      fill: "url(#ft-sun)"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "50",
-      cy: "150",
-      rx: "140",
-      ry: "50",
-      fill: "#BCDDB9"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "310",
-      cy: "170",
-      rx: "150",
-      ry: "54",
-      fill: "#B0D6AB"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "180",
-      cy: "220",
-      rx: "220",
-      ry: "72",
-      fill: "#B8D9B5"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "60",
-      cy: "360",
-      rx: "150",
-      ry: "58",
-      fill: "#B0D6AB"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "300",
-      cy: "380",
-      rx: "160",
-      ry: "62",
-      fill: "#A6CFA4"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "180",
-      cy: "440",
-      rx: "220",
-      ry: "78",
-      fill: "#B0D6AB"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "40",
-      cy: "580",
-      rx: "160",
-      ry: "60",
-      fill: "#A0CC9F"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "320",
-      cy: "600",
-      rx: "160",
-      ry: "62",
-      fill: "#94C297"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "180",
-      cy: "660",
-      rx: "240",
-      ry: "80",
-      fill: "#9CC79B"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "60",
-      cy: "760",
-      rx: "170",
-      ry: "64",
-      fill: "#94C297"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "300",
-      cy: "780",
-      rx: "170",
-      ry: "66",
-      fill: "#85B988"
-    }), /*#__PURE__*/React.createElement("rect", {
-      x: "0",
-      y: H - 24,
-      width: W,
-      height: "24",
-      fill: "#A4CE9E"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 28,
-      y: 170,
-      h: 28,
-      canopy: "#7FB37F"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 338,
-      y: 190,
-      h: 30,
-      canopy: "#6FA86F"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 24,
-      y: 380,
-      h: 36,
-      canopy: "#5F9C66"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 336,
-      y: 400,
-      h: 34,
-      canopy: "#6FA86F"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 28,
-      y: 600,
-      h: 40,
-      canopy: "#5F9C66"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 336,
-      y: 620,
-      h: 42,
-      canopy: "#6FA86F"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 24,
-      y: 740,
-      h: 40,
-      canopy: "#6FA86F"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 336,
-      y: 760,
-      h: 42,
-      canopy: "#5F9C66"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 50,
-      y: 240,
-      r: 18,
-      c: "#7AB07E"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 310,
-      y: 260,
-      r: 20,
-      c: "#8BBE8D"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 50,
-      y: 460,
-      r: 22,
-      c: "#7AB07E"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 310,
-      y: 480,
-      r: 20,
-      c: "#8BBE8D"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 46,
-      y: 660,
-      r: 22,
-      c: "#7AB07E"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 310,
-      y: 680,
-      r: 20,
-      c: "#8BBE8D"
-    }), [[70, 200], [298, 230], [80, 420], [300, 440], [60, 640], [300, 660], [80, 760]].map(([x, y], i) => /*#__PURE__*/React.createElement("g", {
-      key: i
-    }, [0, 72, 144, 216, 288].map(a => {
-      const rad = a * Math.PI / 180;
-      return /*#__PURE__*/React.createElement("circle", {
-        key: a,
-        cx: x + Math.cos(rad) * 3,
-        cy: y + Math.sin(rad) * 3,
-        r: "2",
-        fill: "#FFFFFF",
-        opacity: "0.92"
-      });
-    }), /*#__PURE__*/React.createElement("circle", {
-      cx: x,
-      cy: y,
-      r: "1.6",
-      fill: "#F6D86B"
-    }))));
-  }
-  function Tree({
-    x,
-    y,
-    h = 30,
-    canopy = '#7FB37F',
-    trunk = '#7B5A36'
-  }) {
-    const r = h * 0.6;
-    return /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("rect", {
-      x: x - 2.5,
-      y: y,
-      width: "5",
-      height: h * 0.46,
-      rx: "2",
-      fill: trunk
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x - r * 0.5,
-      cy: y - r * 0.2,
-      rx: r * 0.7,
-      ry: r * 0.66,
-      fill: canopy,
-      opacity: "0.94"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x + r * 0.5,
-      cy: y - r * 0.3,
-      rx: r * 0.7,
-      ry: r * 0.66,
-      fill: canopy,
-      opacity: "0.94"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x,
-      cy: y - r * 0.72,
-      rx: r,
-      ry: r * 0.82,
-      fill: canopy
-    }));
-  }
-  function Bush({
-    x,
-    y,
-    r = 16,
-    c = '#8BBE8D'
-  }) {
-    return /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("ellipse", {
-      cx: x - r * 0.55,
-      cy: y,
-      rx: r * 0.7,
-      ry: r * 0.55,
-      fill: c
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x + r * 0.55,
-      cy: y,
-      rx: r * 0.7,
-      ry: r * 0.55,
-      fill: c
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x,
-      cy: y - r * 0.22,
-      rx: r * 0.8,
-      ry: r * 0.6,
-      fill: c
-    }));
-  }
-
-  // ─── path ─────────────────────────────────────────────────────────
-  function PathLayer() {
-    return /*#__PURE__*/React.createElement("svg", {
-      width: W,
-      height: H,
-      viewBox: `0 0 ${W} ${H}`,
-      style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'block',
-        pointerEvents: 'none'
-      }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: FULL_PATH,
-      fill: "none",
-      stroke: "rgba(120,92,52,0.20)",
-      strokeWidth: "34",
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-      transform: "translate(0,4)"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: FULL_PATH,
-      fill: "none",
-      stroke: "#EAD8B7",
-      strokeWidth: "30",
-      strokeLinecap: "round",
-      strokeLinejoin: "round"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: FULL_PATH,
-      fill: "none",
-      stroke: "#FFFFFF",
-      strokeWidth: "26",
-      strokeLinecap: "round",
-      strokeLinejoin: "round"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: FULL_PATH,
-      fill: "none",
-      stroke: "#EFE0C9",
-      strokeWidth: "3.5",
-      strokeLinecap: "round",
-      strokeDasharray: "7 11"
-    }));
-  }
-
-  // ─── locked node (stone + lock) ──────────────────────────────────
-  function LockGlyph({
-    size = 16
-  }) {
-    return /*#__PURE__*/React.createElement("svg", {
-      width: size,
-      height: size,
-      viewBox: "0 0 24 24",
-      "aria-hidden": "true",
-      style: {
-        display: 'block'
-      }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: "M8 11V8.5a4 4 0 1 1 8 0V11",
-      fill: "none",
-      stroke: "#FFFFFF",
-      strokeWidth: "2.6",
-      strokeLinecap: "round"
-    }), /*#__PURE__*/React.createElement("rect", {
-      x: "5",
-      y: "11",
-      width: "14",
-      height: "9",
-      rx: "2.5",
-      fill: "#FFFFFF"
-    }), /*#__PURE__*/React.createElement("circle", {
-      cx: "12",
-      cy: "15",
-      r: "1.4",
-      fill: "#A89A82"
-    }), /*#__PURE__*/React.createElement("rect", {
-      x: "11.3",
-      y: "15",
-      width: "1.4",
-      height: "3",
-      rx: "0.6",
-      fill: "#A89A82"
-    }));
-  }
-  function LockedNode({
-    n,
-    x,
-    y,
-    size = 58
-  }) {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: x - size / 2,
-        top: y - size / 2,
-        filter: 'drop-shadow(0 4px 5px rgba(120,92,52,0.20))'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        width: size,
-        height: size
-      }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: "stone",
-      size: size,
-      showEyes: false
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }
-    }, /*#__PURE__*/React.createElement(LockGlyph, {
-      size: Math.round(size * 0.40)
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        right: -6,
-        bottom: -6,
-        minWidth: 22,
-        height: 22,
-        padding: '0 6px',
-        borderRadius: 999,
-        background: '#8A7B62',
-        border: '2px solid #FFFFFF',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: '#FFFFFF',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 11,
-        lineHeight: 1,
-        boxShadow: '0 2px 4px rgba(120,92,52,0.32)'
-      }
-    }, n)));
-  }
-
-  // ─── node 1 — current/playable (bright) ─────────────────────────
-  function Node1Current() {
-    const disc = 66;
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: N1.x - disc / 2,
-        top: N1.y - disc / 2,
-        zIndex: 30
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: -18,
-        top: -18,
-        width: disc + 36,
-        height: disc + 36,
-        borderRadius: '50%',
-        background: 'rgba(255,159,104,0.28)',
-        animation: 'gj-ft-pulse 1600ms ease-out infinite'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: -6,
-        top: -6,
-        width: disc + 12,
-        height: disc + 12,
-        borderRadius: '50%',
-        background: 'rgba(255,159,104,0.38)',
-        animation: 'gj-ft-pulse 1600ms ease-out infinite',
-        animationDelay: '320ms'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        width: disc,
-        height: disc,
-        borderRadius: '50%',
-        background: '#FFFFFF',
-        border: '3px solid #FF9F68',
-        boxShadow: '0 6px 14px rgba(120,92,52,0.24), inset 0 -4px 0 rgba(255,159,104,0.16), inset 0 3px 0 rgba(255,255,255,0.85)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }
-    }, /*#__PURE__*/React.createElement("svg", {
-      width: disc - 16,
-      height: disc - 16,
-      viewBox: "0 0 40 40",
-      "aria-hidden": "true"
-    }, /*#__PURE__*/React.createElement("circle", {
-      cx: "20",
-      cy: "20",
-      r: "18",
-      fill: "none",
-      stroke: "#FFC59A",
-      strokeWidth: "2",
-      strokeDasharray: "3 4"
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 26,
-        color: '#E97E45'
-      }
-    }, "1")), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: '50%',
-        top: -40,
-        transform: 'translateX(-50%)',
-        animation: 'gj-ft-hop 1400ms ease-in-out infinite',
-        filter: 'drop-shadow(0 4px 4px rgba(120,92,52,0.30))'
-      }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: "pink",
-      size: 40,
-      direction: "down",
-      expression: "happy"
-    }))));
-  }
-
-  // ─── scrim with spotlight cutout (box-shadow spread) ────────────
-  function ScrimSpotlight() {
-    const r = 78; // spotlight radius around node 1
-    return /*#__PURE__*/React.createElement("div", {
-      "aria-hidden": "true",
-      style: {
-        position: 'absolute',
-        inset: 0,
-        zIndex: 20,
-        pointerEvents: 'none'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: N1.x - r,
-        top: N1.y - r,
-        width: r * 2,
-        height: r * 2,
-        borderRadius: '50%',
-        background: 'transparent',
-        boxShadow: '0 0 0 9999px rgba(60,44,24,0.42)',
-        animation: 'gj-ft-spot 1600ms ease-in-out infinite'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: N1.x - r,
-        top: N1.y - r,
-        width: r * 2,
-        height: r * 2,
-        borderRadius: '50%',
-        boxShadow: 'inset 0 0 24px rgba(255,246,205,0.45)'
-      }
-    }));
-  }
-
-  // ─── hand pointer + caption ──────────────────────────────────────
-  function HandPointer() {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: N1.x + 22,
-        top: N1.y + 16,
-        zIndex: 32,
-        animation: 'gj-ft-tap 1400ms ease-in-out infinite',
-        transformOrigin: '20% 20%',
-        filter: 'drop-shadow(0 4px 5px rgba(60,44,24,0.35))'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: -26,
-        top: -26,
-        width: 40,
-        height: 40,
-        borderRadius: '50%',
-        border: '2px solid rgba(255,255,255,0.85)',
-        animation: 'gj-ft-ripple 1400ms ease-out infinite'
-      }
-    }), /*#__PURE__*/React.createElement("svg", {
-      width: "48",
-      height: "56",
-      viewBox: "0 0 48 56",
-      "aria-hidden": "true"
-    }, /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
-      d: "M18 6c2.4 0 4 1.7 4 4v14l3-1.5c2-1 4 0 5 2l5 11c1.3 3 .4 6.6-2.2 8.6l-3 2.3c-2 1.5-4.4 2.3-6.9 2.3H17c-3 0-5.8-1.5-7.5-4l-5-7.3c-1.3-2-1-4.6.8-6.1 1.7-1.5 4.3-1.4 6 .2L14 38V10c0-2.3 1.7-4 4-4z",
-      fill: "#FFFFFF",
-      stroke: "#5B4636",
-      strokeWidth: "2",
-      strokeLinejoin: "round"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: "M18 12v22",
-      stroke: "#E8D8BF",
-      strokeWidth: "2",
-      strokeLinecap: "round"
-    }))));
-  }
-  function Caption() {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: '50%',
-        top: N1.y + 96,
-        transform: 'translateX(-50%)',
-        zIndex: 32,
-        display: 'inline-flex',
-        alignItems: 'center',
-        gap: 8,
-        background: '#FFFFFF',
-        border: '1.5px solid #FFE0B8',
-        padding: '10px 18px',
-        borderRadius: 999,
-        boxShadow: '0 10px 22px rgba(0,0,0,0.30), inset 0 1.5px 0 rgba(255,255,255,0.8)',
-        whiteSpace: 'nowrap',
-        animation: 'gj-ft-capbob 1400ms ease-in-out infinite'
-      }
-    }, /*#__PURE__*/React.createElement("span", {
-      style: {
-        width: 10,
-        height: 10,
-        borderRadius: 999,
-        background: '#FF9F68',
-        boxShadow: '0 0 8px rgba(255,159,104,0.7)'
-      }
-    }), /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 18,
-        color: '#5B4636',
-        lineHeight: 1.05
-      }
-    }, "Ch\u1EA1m \u0111\u1EC3 b\u1EAFt \u0111\u1EA7u!"));
-  }
-
-  // ─── sticky HUD (★ 0 · Đồng cỏ) — above scrim ───────────────────
-  function Star({
-    size = 16
-  }) {
-    return /*#__PURE__*/React.createElement("svg", {
-      width: size,
-      height: size,
-      viewBox: "0 0 24 24",
-      style: {
-        display: 'block'
-      }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: "M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.1l1-5.8L3.5 9.2l5.9-.9L12 3z",
-      fill: "#FFC23D",
-      stroke: "#E0A21F",
-      strokeWidth: "1.6",
-      strokeLinejoin: "round"
-    }));
-  }
-  function BackArrow() {
-    return /*#__PURE__*/React.createElement("svg", {
-      width: "22",
-      height: "22",
-      viewBox: "0 0 24 24",
-      fill: "none",
-      stroke: "#5B4636",
-      strokeWidth: "2.6",
-      strokeLinecap: "round",
-      strokeLinejoin: "round"
-    }, /*#__PURE__*/React.createElement("path", {
-      d: "M15 5l-7 7 7 7"
-    }));
-  }
-  function Hud() {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 40,
-        height: 56,
-        background: '#FFFFFF',
-        borderRadius: '0 0 20px 20px',
-        boxShadow: '0 6px 14px rgba(120,92,52,0.16)',
-        display: 'flex',
-        alignItems: 'center',
-        padding: '0 14px',
-        gap: 10
-      }
-    }, /*#__PURE__*/React.createElement("button", {
-      "aria-label": "Quay l\u1EA1i",
-      style: {
-        width: 48,
-        height: 48,
-        borderRadius: 12,
-        background: '#F4E9D8',
-        border: '1.5px solid #E6D8BD',
-        boxShadow: '0 2px 0 #D8C8A8 inset',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        cursor: 'pointer',
-        padding: 0,
-        flexShrink: 0
-      }
-    }, /*#__PURE__*/React.createElement(BackArrow, null)), /*#__PURE__*/React.createElement("div", {
-      style: {
-        flex: 1,
-        minWidth: 0,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        lineHeight: 1.05,
-        gap: 2
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontFamily: 'var(--font-body)',
-        fontWeight: 800,
-        fontSize: 10,
-        letterSpacing: '0.10em',
-        color: '#9B886F',
-        whiteSpace: 'nowrap'
-      }
-    }, "TH\u1EBE GI\u1EDAI 1 \xB7 H\xC0NH TR\xCCNH"), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 20,
-        color: '#5B4636',
-        lineHeight: 1.05,
-        whiteSpace: 'nowrap'
-      }
-    }, "\u0110\u1ED3ng c\u1ECF")), /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: 'inline-flex',
-        alignItems: 'center',
-        gap: 6,
-        background: '#FFFFFF',
-        border: '1.5px solid #EFE0C9',
-        padding: '6px 12px 6px 10px',
-        borderRadius: 999,
-        boxShadow: '0 2px 6px rgba(120,92,52,0.16)',
-        flexShrink: 0
-      }
-    }, /*#__PURE__*/React.createElement(Star, {
-      size: 16
-    }), /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 16,
-        color: '#5B4636',
-        lineHeight: 1
-      }
-    }, "0")));
-  }
-
-  // ─── frame ────────────────────────────────────────────────────────
-  function MapFTUE() {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        width: W,
-        height: H,
-        background: 'var(--color-bg, #FFF7EC)',
-        fontFamily: 'var(--font-body)',
-        color: 'var(--color-text, #5B4636)',
-        overflow: 'hidden'
-      }
-    }, /*#__PURE__*/React.createElement("style", null, `
-          @keyframes gj-ft-pulse {
-            0%   { transform: scale(0.9);  opacity: 0.85; }
-            70%  { transform: scale(1.5);  opacity: 0;    }
-            100% { transform: scale(1.5);  opacity: 0;    }
-          }
-          @keyframes gj-ft-hop {
-            0%,100% { transform: translateX(-50%) translateY(0); }
-            50%     { transform: translateX(-50%) translateY(-6px); }
-          }
-          @keyframes gj-ft-spot {
-            0%,100% { box-shadow: 0 0 0 9999px rgba(60,44,24,0.42); }
-            50%     { box-shadow: 0 0 0 9999px rgba(60,44,24,0.38); }
-          }
-          @keyframes gj-ft-tap {
-            0%,100% { transform: translate(0,0) scale(1); }
-            45%     { transform: translate(-8px,-8px) scale(0.9); }
-            55%     { transform: translate(-8px,-8px) scale(0.9); }
-          }
-          @keyframes gj-ft-ripple {
-            0%   { transform: scale(0.5); opacity: 0; }
-            30%  { opacity: 0.9; }
-            100% { transform: scale(1.6); opacity: 0; }
-          }
-          @keyframes gj-ft-capbob {
-            0%,100% { transform: translateX(-50%) translateY(0); }
-            50%     { transform: translateX(-50%) translateY(-4px); }
-          }
-          @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
-        `), /*#__PURE__*/React.createElement(Scene, null), /*#__PURE__*/React.createElement(PathLayer, null), NODES_UP.map(n => /*#__PURE__*/React.createElement(LockedNode, {
-      key: n.id,
-      n: n.id,
-      x: n.x,
-      y: n.y
-    })), /*#__PURE__*/React.createElement(ScrimSpotlight, null), /*#__PURE__*/React.createElement(Node1Current, null), /*#__PURE__*/React.createElement(HandPointer, null), /*#__PURE__*/React.createElement(Caption, null), /*#__PURE__*/React.createElement(Hud, null));
-  }
-
-  // ─── documentation card ────────────────────────────────────────
-  function MapFTUECard() {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        width: 760,
-        padding: '36px 32px 32px',
-        background: 'var(--color-bg, #FFF7EC)',
-        fontFamily: 'var(--font-body)',
-        color: 'var(--color-text, #5B4636)'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: 'flex',
-        alignItems: 'baseline',
-        gap: 12,
-        marginBottom: 18
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontFamily: 'var(--font-body)',
-        fontWeight: 800,
-        fontSize: 11,
-        letterSpacing: '0.12em',
-        color: '#9B886F'
-      }
-    }, "04 \xB7 SCREENS / LEVEL MAP"), /*#__PURE__*/React.createElement("div", {
-      style: {
-        flex: 1,
-        height: 1,
-        background: '#EFE0C9'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontFamily: 'var(--font-body)',
-        fontWeight: 700,
-        fontSize: 11,
-        color: '#9B886F'
-      }
-    }, "B5 \xB7 FTUE l\u1EA7n \u0111\u1EA7u")), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 26,
-        color: '#5B4636',
-        marginBottom: 4,
-        lineHeight: 1.05
-      }
-    }, "FTUE \xB7 l\u1EA7n \u0111\u1EA7u v\xE0o b\u1EA3n \u0111\u1ED3"), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontFamily: 'var(--font-body)',
-        fontWeight: 600,
-        fontSize: 13,
-        color: '#9B886F',
-        marginBottom: 20
-      }
-    }, "Spotlight node 1 \xB7 scrim to\xE0n m\xE0n \xB7 hand pointer \xB7 \"Ch\u1EA1m \u0111\u1EC3 b\u1EAFt \u0111\u1EA7u!\""), /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: 'grid',
-        gridTemplateColumns: `${W}px 1fr`,
-        gap: 28,
-        alignItems: 'flex-start'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        width: W,
-        height: H,
-        borderRadius: 28,
-        overflow: 'hidden',
-        boxShadow: '0 16px 36px rgba(60,44,24,0.32)'
-      }
-    }, /*#__PURE__*/React.createElement(MapFTUE, null)), /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 14,
-        paddingTop: 6
-      }
-    }, /*#__PURE__*/React.createElement(Note, {
-      num: "A",
-      name: "Scrim to\xE0n m\xE0n + spotlight",
-      detail: "circle trong su\u1ED1t + box-shadow spread 9999px rgba(60,44,24,0.42) \xB7 KHO\xC9T S\xC1NG quanh node 1 \xB7 scrim breathe 0.42\u21940.38"
-    }), /*#__PURE__*/React.createElement(Note, {
-      num: "B",
-      name: "Rim \u1EA5m quanh h\u1ED1",
-      detail: "inset box-shadow #FFF6CD 0.45 \u2014 vi\u1EC1n v\xE0ng m\u1EC1m \u0111\u1EC3 v\xF9ng s\xE1ng ho\xE0 v\xE0o c\u1EA3nh"
-    }), /*#__PURE__*/React.createElement(Note, {
-      num: "C",
-      name: "Node 1 \u2014 hi\u1EC7n t\u1EA1i (s\xE1ng)",
-      detail: "\u0111\u0129a tr\u1EAFng vi\u1EC1n primary #FF9F68 \xB7 2 v\xF2ng pulse 1.6s l\u1EC7ch pha \xB7 mascot pink hop \xB7 zIndex tr\xEAn scrim"
-    }), /*#__PURE__*/React.createElement(Note, {
-      num: "D",
-      name: "Node 2\u20135 \u2014 kho\xE1 m\u1EDD",
-      detail: "stone JellyBlock + \u1ED5 kho\xE1 \xB7 n\u1EB1m D\u01AF\u1EDAI scrim n\xEAn t\u1ED1i \u0111i \xB7 v\u1EABn th\u1EA5y l\u1EDD m\u1EDD \u0111\u1EC3 g\u1EE3i 'c\xF2n nhi\u1EC1u m\xE0n'"
-    }), /*#__PURE__*/React.createElement(Note, {
-      num: "E",
-      name: "Hand pointer",
-      detail: "b\xE0n tay tr\u1EAFng vi\u1EC1n cocoa tr\u1ECF node 1 \xB7 tap \u22128px 1.4s + ripple ring tr\u1EAFng 1.4s"
-    }), /*#__PURE__*/React.createElement(Note, {
-      num: "F",
-      name: "Caption 'Ch\u1EA1m \u0111\u1EC3 b\u1EAFt \u0111\u1EA7u!'",
-      detail: "pill tr\u1EAFng vi\u1EC1n #FFE0B8 \xB7 Fredoka 18 #5B4636 \xB7 ch\u1EA5m orange glow \xB7 bob nh\u1EB9 \xB14px"
-    }), /*#__PURE__*/React.createElement(Note, {
-      num: "G",
-      name: "HUD d\xEDnh '\u2605 0 \xB7 \u0110\u1ED3ng c\u1ECF'",
-      detail: "56dp surface tr\u1EAFng \xB7 Back + ti\xEAu \u0111\u1EC1 + chip \u2605 0 \xB7 zIndex 40 tr\xEAn scrim (chrome lu\xF4n r\xF5)"
-    }), /*#__PURE__*/React.createElement(Note, {
-      num: "H",
-      name: "\u0110\u01B0\u1EDDng ch\u1EA3y 2 m\xE9p",
-      detail: "path v\xE0o t\u1EEB \u0111\xE1y, qua node 1\u21925, ra m\xE9p tr\xEAn \u2014 \u0111\xFAng quy \u01B0\u1EDBc map cu\u1ED9n"
-    }))));
-  }
-  function Note({
-    num,
-    name,
-    detail
-  }) {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: 'flex',
-        gap: 10,
-        alignItems: 'flex-start'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        width: 26,
-        height: 26,
-        borderRadius: 999,
-        background: '#FF9F68',
-        color: '#FFFFFF',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 13,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexShrink: 0,
-        boxShadow: '0 2px 0 #E97E45'
-      }
-    }, num), /*#__PURE__*/React.createElement("div", {
-      style: {
-        lineHeight: 1.25,
-        minWidth: 0
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontFamily: 'var(--font-body)',
-        fontWeight: 800,
-        fontSize: 13,
-        color: '#5B4636'
-      }
-    }, name), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontFamily: 'var(--font-body)',
-        fontWeight: 600,
-        fontSize: 11,
-        color: '#9B886F',
-        marginTop: 2
-      }
-    }, detail)));
-  }
-  window.GJMapFTUE = MapFTUE;
-  window.GJMapFTUECard = MapFTUECard;
-})();
-})(); } catch (e) { __ds_ns.__errors.push({ path: "04-screens/map-ftue.jsx", error: String((e && e.message) || e) }); }
 
 // 04-screens/map-hud.jsx
 try { (() => {
@@ -7117,2057 +9366,6 @@ try { (() => {
   window.GJMapHudCard = MapHudCard;
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "04-screens/map-hud.jsx", error: String((e && e.message) || e) }); }
-
-// 04-screens/map-just-completed.jsx
-try { (() => {
-/* map-just-completed.jsx — Biến thể "VỪA HOÀN THÀNH màn, quay lại map".
-   ---------------------------------------------------------------------
-   Kịch bản animation (cycle 2.6s, lặp):
-     0–8%   chuẩn bị: mascot fade in tại L4, mọi thứ ở vạch xuất phát
-     8–45%  ACTION (~1s):
-              · 3 sao vàng BAY OUT khỏi L4, arc vào 3 slot trên arc
-              · Đường L4→L5 SÁNG DẦN bằng orange (0→100% pathLength)
-              · Leading-edge glow CHẠY THEO leading edge của lửa cam
-              · Mascot pink JellyBlock có mắt NHẢY từ L4 sang L5 theo
-                offset-path bezier, bóng đổ đi cùng dưới đường
-              · "+3 ★" pop in tại L4
-     45–80% HELD: mascot ở L5 (đứng yên), sao đã vào arc, đường đã lit,
-              popup "+3 ★" lửng lơ rồi bay lên & mờ dần
-     80–95% L5 pulse + pill "Chơi ngay" tiếp tục, mọi thứ giữ trạng thái
-     95–100% reset: mascot/popup fade, sao/đường fade, quay về điểm 0%
-   Exposes window.GJMapJustCompleted + window.GJMapJustCompletedCard.   */
-(function () {
-  const NS = window.GravityJellyDesignSystem_3e0487 || {};
-  const {
-    JellyBlock
-  } = NS;
-
-  // ─── geometry ─────────────────────────────────────────────────────
-  const W = 360;
-  const H = 680;
-  const L3 = {
-    x: 110,
-    y: 600
-  }; // already done
-  const L4 = {
-    x: 240,
-    y: 420
-  }; // JUST FINISHED — focus
-  const L5 = {
-    x: 110,
-    y: 220
-  }; // NEXT — pulsing
-
-  function pathD(points) {
-    let d = `M ${points[0].x} ${points[0].y}`;
-    for (let i = 1; i < points.length; i++) {
-      const a = points[i - 1],
-        b = points[i];
-      const my = (a.y + b.y) / 2;
-      d += ` C ${a.x} ${my}, ${b.x} ${my}, ${b.x} ${b.y}`;
-    }
-    return d;
-  }
-  const ENTRY = {
-    x: 180,
-    y: H + 40
-  };
-  const EXIT = {
-    x: 180,
-    y: -40
-  };
-  const FULL_PATH = pathD([ENTRY, L3, L4, L5, EXIT]);
-  const WALKED = pathD([ENTRY, L3, L4]);
-  const SEG_45 = pathD([L4, L5]);
-
-  // Cycle duration (sync all motions to this).
-  const CYCLE = '2600ms';
-
-  // ─── meadow background ──────────────────────────────────────────
-  function Scene() {
-    return /*#__PURE__*/React.createElement("svg", {
-      width: W,
-      height: H,
-      viewBox: `0 0 ${W} ${H}`,
-      style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'block'
-      }
-    }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("linearGradient", {
-      id: "jc-sky",
-      x1: "0",
-      y1: "0",
-      x2: "0",
-      y2: "1"
-    }, /*#__PURE__*/React.createElement("stop", {
-      offset: "0",
-      stopColor: "#DEF0E1"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "0.55",
-      stopColor: "#DAEFD0"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "1",
-      stopColor: "#C6E8C9"
-    })), /*#__PURE__*/React.createElement("radialGradient", {
-      id: "jc-sun",
-      cx: "0.78",
-      cy: "0.36",
-      r: "0.5"
-    }, /*#__PURE__*/React.createElement("stop", {
-      offset: "0",
-      stopColor: "#FFF6CD",
-      stopOpacity: "0.55"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "1",
-      stopColor: "#FFF6CD",
-      stopOpacity: "0"
-    })), /*#__PURE__*/React.createElement("radialGradient", {
-      id: "jc-l4-glow",
-      cx: "0.5",
-      cy: "0.5",
-      r: "0.5"
-    }, /*#__PURE__*/React.createElement("stop", {
-      offset: "0",
-      stopColor: "#FFE19A",
-      stopOpacity: "0.55"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "0.55",
-      stopColor: "#FFE19A",
-      stopOpacity: "0.18"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "1",
-      stopColor: "#FFE19A",
-      stopOpacity: "0"
-    }))), /*#__PURE__*/React.createElement("rect", {
-      x: "0",
-      y: "0",
-      width: W,
-      height: H,
-      fill: "url(#jc-sky)"
-    }), /*#__PURE__*/React.createElement("rect", {
-      x: "0",
-      y: "0",
-      width: W,
-      height: H,
-      fill: "url(#jc-sun)"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "50",
-      cy: "130",
-      rx: "140",
-      ry: "50",
-      fill: "#BCDDB9"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "310",
-      cy: "150",
-      rx: "150",
-      ry: "54",
-      fill: "#B0D6AB"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "180",
-      cy: "200",
-      rx: "220",
-      ry: "72",
-      fill: "#B8D9B5"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "60",
-      cy: "330",
-      rx: "150",
-      ry: "58",
-      fill: "#B0D6AB"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "300",
-      cy: "350",
-      rx: "160",
-      ry: "62",
-      fill: "#A6CFA4"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "180",
-      cy: "400",
-      rx: "220",
-      ry: "78",
-      fill: "#B0D6AB"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "40",
-      cy: "520",
-      rx: "160",
-      ry: "60",
-      fill: "#A0CC9F"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "320",
-      cy: "540",
-      rx: "160",
-      ry: "62",
-      fill: "#94C297"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "180",
-      cy: "600",
-      rx: "240",
-      ry: "80",
-      fill: "#9CC79B"
-    }), /*#__PURE__*/React.createElement("rect", {
-      x: "0",
-      y: H - 26,
-      width: W,
-      height: "26",
-      fill: "#A4CE9E"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: L4.x,
-      cy: L4.y,
-      rx: "100",
-      ry: "100",
-      fill: "url(#jc-l4-glow)"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 28,
-      y: 150,
-      h: 28,
-      canopy: "#7FB37F"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 338,
-      y: 170,
-      h: 30,
-      canopy: "#6FA86F"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 24,
-      y: 360,
-      h: 36,
-      canopy: "#5F9C66"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 336,
-      y: 380,
-      h: 34,
-      canopy: "#6FA86F"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 28,
-      y: 560,
-      h: 40,
-      canopy: "#5F9C66"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 336,
-      y: 580,
-      h: 42,
-      canopy: "#6FA86F"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 50,
-      y: 210,
-      r: 18,
-      c: "#7AB07E"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 310,
-      y: 230,
-      r: 20,
-      c: "#8BBE8D"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 50,
-      y: 420,
-      r: 22,
-      c: "#7AB07E"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 310,
-      y: 440,
-      r: 20,
-      c: "#8BBE8D"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 46,
-      y: 620,
-      r: 22,
-      c: "#7AB07E"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 310,
-      y: 640,
-      r: 20,
-      c: "#8BBE8D"
-    }), [[70, 170], [298, 200], [80, 380], [300, 400], [60, 540], [300, 560]].map(([x, y], i) => /*#__PURE__*/React.createElement("g", {
-      key: i
-    }, [0, 72, 144, 216, 288].map(a => {
-      const rad = a * Math.PI / 180;
-      return /*#__PURE__*/React.createElement("circle", {
-        key: a,
-        cx: x + Math.cos(rad) * 3,
-        cy: y + Math.sin(rad) * 3,
-        r: "2",
-        fill: "#FFFFFF",
-        opacity: "0.92"
-      });
-    }), /*#__PURE__*/React.createElement("circle", {
-      cx: x,
-      cy: y,
-      r: "1.6",
-      fill: "#F6D86B"
-    }))));
-  }
-  function Tree({
-    x,
-    y,
-    h = 30,
-    canopy = '#7FB37F',
-    trunk = '#7B5A36'
-  }) {
-    const r = h * 0.6;
-    return /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("rect", {
-      x: x - 2.5,
-      y: y,
-      width: "5",
-      height: h * 0.46,
-      rx: "2",
-      fill: trunk
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x - r * 0.5,
-      cy: y - r * 0.2,
-      rx: r * 0.7,
-      ry: r * 0.66,
-      fill: canopy,
-      opacity: "0.94"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x + r * 0.5,
-      cy: y - r * 0.3,
-      rx: r * 0.7,
-      ry: r * 0.66,
-      fill: canopy,
-      opacity: "0.94"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x,
-      cy: y - r * 0.72,
-      rx: r,
-      ry: r * 0.82,
-      fill: canopy
-    }));
-  }
-  function Bush({
-    x,
-    y,
-    r = 16,
-    c = '#8BBE8D'
-  }) {
-    return /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("ellipse", {
-      cx: x - r * 0.55,
-      cy: y,
-      rx: r * 0.7,
-      ry: r * 0.55,
-      fill: c
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x + r * 0.55,
-      cy: y,
-      rx: r * 0.7,
-      ry: r * 0.55,
-      fill: c
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x,
-      cy: y - r * 0.22,
-      rx: r * 0.8,
-      ry: r * 0.6,
-      fill: c
-    }));
-  }
-
-  // ─── path layer: walked (L3→L4) + LIGHTING UP L4→L5 + traveling glow
-  // ─────────────────────────────────────────────────────────────────
-  function PathLayer() {
-    return /*#__PURE__*/React.createElement("svg", {
-      width: W,
-      height: H,
-      viewBox: `0 0 ${W} ${H}`,
-      style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'block',
-        pointerEvents: 'none'
-      }
-    }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("path", {
-      id: "jc-seg45-path",
-      d: SEG_45
-    })), /*#__PURE__*/React.createElement("path", {
-      d: FULL_PATH,
-      fill: "none",
-      stroke: "rgba(120,92,52,0.22)",
-      strokeWidth: "34",
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-      transform: "translate(0,4)"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: FULL_PATH,
-      fill: "none",
-      stroke: "#EAD8B7",
-      strokeWidth: "30",
-      strokeLinecap: "round",
-      strokeLinejoin: "round"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: FULL_PATH,
-      fill: "none",
-      stroke: "#FFFFFF",
-      strokeWidth: "26",
-      strokeLinecap: "round",
-      strokeLinejoin: "round"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: FULL_PATH,
-      fill: "none",
-      stroke: "#EFE0C9",
-      strokeWidth: "3.5",
-      strokeLinecap: "round",
-      strokeDasharray: "7 11"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: WALKED,
-      fill: "none",
-      stroke: "#FF9F68",
-      strokeWidth: "20",
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-      opacity: "0.95"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: WALKED,
-      fill: "none",
-      stroke: "#FFC59A",
-      strokeWidth: "6",
-      strokeLinecap: "round",
-      strokeDasharray: "4 9"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: SEG_45,
-      fill: "none",
-      stroke: "#FF9F68",
-      strokeWidth: "20",
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-      pathLength: "100",
-      strokeDasharray: "0 100",
-      opacity: "0.95"
-    }, /*#__PURE__*/React.createElement("animate", {
-      attributeName: "stroke-dasharray",
-      values: "0 100; 0 100; 100 100; 100 100; 0 100",
-      keyTimes: "0; 0.08; 0.45; 0.85; 1",
-      dur: CYCLE,
-      repeatCount: "indefinite",
-      calcMode: "spline",
-      keySplines: "0.25 0.1 0.25 1; 0.25 0.1 0.25 1; 0.25 0.1 0.25 1; 0.4 0 0.6 1"
-    })), /*#__PURE__*/React.createElement("path", {
-      d: SEG_45,
-      fill: "none",
-      stroke: "#FFC59A",
-      strokeWidth: "6",
-      strokeLinecap: "round",
-      pathLength: "100",
-      strokeDasharray: "0 100",
-      opacity: "0.9"
-    }, /*#__PURE__*/React.createElement("animate", {
-      attributeName: "stroke-dasharray",
-      values: "0 100; 0 100; 100 100; 100 100; 0 100",
-      keyTimes: "0; 0.08; 0.45; 0.85; 1",
-      dur: CYCLE,
-      repeatCount: "indefinite",
-      calcMode: "spline",
-      keySplines: "0.25 0.1 0.25 1; 0.25 0.1 0.25 1; 0.25 0.1 0.25 1; 0.4 0 0.6 1"
-    })), /*#__PURE__*/React.createElement("path", {
-      d: SEG_45,
-      fill: "none",
-      stroke: "#FFFFFF",
-      strokeWidth: "3",
-      strokeLinecap: "round",
-      strokeDasharray: "3 6",
-      opacity: "0.7"
-    }, /*#__PURE__*/React.createElement("animate", {
-      attributeName: "stroke-dashoffset",
-      from: "9",
-      to: "0",
-      dur: "900ms",
-      repeatCount: "indefinite"
-    })), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("circle", {
-      cx: "0",
-      cy: "0",
-      r: "16",
-      fill: "#FFE19A",
-      opacity: "0.55"
-    }), /*#__PURE__*/React.createElement("circle", {
-      cx: "0",
-      cy: "0",
-      r: "9",
-      fill: "#FFFFFF",
-      opacity: "0.95"
-    }), /*#__PURE__*/React.createElement("circle", {
-      cx: "0",
-      cy: "0",
-      r: "5",
-      fill: "#FFC23D"
-    }), /*#__PURE__*/React.createElement("animateMotion", {
-      dur: CYCLE,
-      repeatCount: "indefinite",
-      keyPoints: "0; 0; 1; 1; 0",
-      keyTimes: "0; 0.08; 0.45; 0.85; 1",
-      calcMode: "spline",
-      keySplines: "0.5 0 0.5 1; 0.25 0.1 0.25 1; 0.5 0 0.5 1; 0.4 0 0.6 1"
-    }, /*#__PURE__*/React.createElement("mpath", {
-      href: "#jc-seg45-path"
-    })), /*#__PURE__*/React.createElement("animate", {
-      attributeName: "opacity",
-      values: "0; 0; 1; 1; 0; 0",
-      keyTimes: "0; 0.07; 0.10; 0.85; 0.95; 1",
-      dur: CYCLE,
-      repeatCount: "indefinite"
-    })));
-  }
-
-  // ─── stars ──────────────────────────────────────────────────────
-  function Star({
-    filled = true,
-    size = 14,
-    fill = '#FFC23D',
-    edge = '#E0A21F'
-  }) {
-    return /*#__PURE__*/React.createElement("svg", {
-      width: size,
-      height: size,
-      viewBox: "0 0 24 24",
-      style: {
-        display: 'block'
-      }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: "M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.1l1-5.8L3.5 9.2l5.9-.9L12 3z",
-      fill: filled ? fill : '#D9CDB5',
-      stroke: filled ? edge : '#B6A892',
-      strokeWidth: "1.6",
-      strokeLinejoin: "round"
-    }));
-  }
-  function StarArc({
-    stars = 0,
-    size = 14,
-    width = 80
-  }) {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: '50%',
-        top: -size - 6,
-        transform: 'translateX(-50%)',
-        width,
-        height: size + 8,
-        display: 'flex',
-        alignItems: 'flex-end',
-        justifyContent: 'space-between',
-        pointerEvents: 'none'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        transform: 'translateY(5px) rotate(-22deg)'
-      }
-    }, /*#__PURE__*/React.createElement(Star, {
-      filled: stars >= 1,
-      size: size
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        transform: 'translateY(-3px)'
-      }
-    }, /*#__PURE__*/React.createElement(Star, {
-      filled: stars >= 2,
-      size: size + 2
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        transform: 'translateY(5px) rotate(22deg)'
-      }
-    }, /*#__PURE__*/React.createElement(Star, {
-      filled: stars >= 3,
-      size: size
-    })));
-  }
-  function NumberBadge({
-    n,
-    size,
-    color = '#6A4A2E'
-  }) {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: Math.round(size * 0.42),
-        lineHeight: 1,
-        color,
-        textShadow: '0 1px 0 rgba(255,255,255,0.55)',
-        pointerEvents: 'none'
-      }
-    }, n);
-  }
-
-  // ─── L3: reference done node ─────────────────────────────────
-  function L3Done() {
-    const size = 50;
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: L3.x - size / 2,
-        top: L3.y - size / 2,
-        filter: 'drop-shadow(0 4px 5px rgba(120,92,52,0.20))'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        width: size,
-        height: size
-      }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: "pink",
-      size: size,
-      showEyes: false
-    }), /*#__PURE__*/React.createElement(NumberBadge, {
-      n: 3,
-      size: size
-    }), /*#__PURE__*/React.createElement(StarArc, {
-      stars: 3,
-      size: 11,
-      width: size + 8
-    })));
-  }
-
-  // ─── L4: just-finished node — empty star arc waiting for stars ──
-  function L4JustDone() {
-    const size = 64;
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: L4.x - size / 2,
-        top: L4.y - size / 2
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        width: size,
-        height: size,
-        filter: 'drop-shadow(0 6px 8px rgba(120,92,52,0.28))',
-        animation: 'gj-jc-pop 1400ms ease-in-out infinite',
-        transformOrigin: '50% 50%'
-      }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: "blue",
-      size: size,
-      showEyes: false
-    }), /*#__PURE__*/React.createElement(NumberBadge, {
-      n: 4,
-      size: size
-    }), /*#__PURE__*/React.createElement(StarArc, {
-      stars: 0,
-      size: 14,
-      width: size + 14
-    })));
-  }
-
-  // ─── 3 yellow stars FLYING OUT of L4 into the arc slots ─────────
-  // Each star is positioned at its TARGET in the arc; CSS keyframes
-  // translate it from L4 origin (below+inside) to the slot, with a
-  // squash-pop on landing and a fade-out for the cycle reset.
-  function FlyingStars() {
-    const TARGETS = [{
-      x: L4.x - 30,
-      y: L4.y - 30,
-      rot: -22,
-      key: 'a',
-      dx: 30,
-      dy: 28
-    }, {
-      x: L4.x,
-      y: L4.y - 36,
-      rot: 0,
-      key: 'b',
-      dx: 0,
-      dy: 36
-    }, {
-      x: L4.x + 30,
-      y: L4.y - 30,
-      rot: 22,
-      key: 'c',
-      dx: -30,
-      dy: 28
-    }];
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("svg", {
-      width: W,
-      height: H,
-      viewBox: `0 0 ${W} ${H}`,
-      style: {
-        position: 'absolute',
-        inset: 0,
-        pointerEvents: 'none'
-      }
-    }, TARGETS.map((t, i) => {
-      const ox = L4.x,
-        oy = L4.y - 5;
-      const mx = (ox + t.x) / 2 + (i - 1) * 10;
-      const my = (oy + t.y) / 2 + 6;
-      const trailD = `M ${ox} ${oy} Q ${mx} ${my} ${t.x} ${t.y}`;
-      return /*#__PURE__*/React.createElement("path", {
-        key: `trail-${t.key}`,
-        d: trailD,
-        fill: "none",
-        stroke: "#FFD074",
-        strokeWidth: "2",
-        strokeLinecap: "round",
-        strokeDasharray: "2 6",
-        opacity: "0.55"
-      }, /*#__PURE__*/React.createElement("animate", {
-        attributeName: "opacity",
-        values: "0; 0; 0.55; 0.55; 0",
-        keyTimes: "0; 0.08; 0.30; 0.85; 1",
-        dur: CYCLE,
-        repeatCount: "indefinite"
-      }));
-    })), TARGETS.map((t, i) => /*#__PURE__*/React.createElement("div", {
-      key: t.key,
-      style: {
-        position: 'absolute',
-        left: t.x - 14,
-        top: t.y - 14,
-        width: 28,
-        height: 28,
-        pointerEvents: 'none',
-        animation: `gj-jc-fly-${t.key} ${CYCLE} cubic-bezier(0.34,1.56,0.50,1) infinite`,
-        animationDelay: `${i * 80}ms`
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        inset: -10,
-        borderRadius: '50%',
-        background: 'radial-gradient(closest-side, rgba(255,225,154,0.7) 0%, rgba(255,225,154,0) 70%)',
-        pointerEvents: 'none'
-      }
-    }), /*#__PURE__*/React.createElement("svg", {
-      width: "28",
-      height: "28",
-      viewBox: "0 0 24 24",
-      style: {
-        position: 'relative'
-      }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: "M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.1l1-5.8L3.5 9.2l5.9-.9L12 3z",
-      fill: "#FFC23D",
-      stroke: "#E0A21F",
-      strokeWidth: "1.8",
-      strokeLinejoin: "round"
-    })))));
-  }
-
-  // ─── sparkle particles around L4 ─────────────────────────────
-  function SparkleParticles() {
-    const pts = [[L4.x - 52, L4.y - 14, 10, 0.0], [L4.x + 58, L4.y - 8, 11, 0.5], [L4.x - 40, L4.y + 32, 9, 1.0], [L4.x + 38, L4.y + 38, 10, 0.3], [L4.x - 62, L4.y + 52, 8, 1.4], [L4.x + 66, L4.y + 52, 9, 0.7], [L4.x - 18, L4.y + 66, 8, 0.9], [L4.x + 22, L4.y - 64, 10, 1.2], [L4.x - 6, L4.y + 80, 7, 0.6]];
-    return /*#__PURE__*/React.createElement("svg", {
-      width: W,
-      height: H,
-      viewBox: `0 0 ${W} ${H}`,
-      style: {
-        position: 'absolute',
-        inset: 0,
-        pointerEvents: 'none'
-      }
-    }, pts.map(([x, y, s, d], i) => /*#__PURE__*/React.createElement("g", {
-      key: i,
-      style: {
-        animation: 'gj-jc-tw 2200ms ease-in-out infinite',
-        animationDelay: `${d}s`,
-        transformOrigin: `${x}px ${y}px`
-      }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: `M ${x} ${y - s} L ${x + s * 0.28} ${y - s * 0.28}
-                       L ${x + s} ${y} L ${x + s * 0.28} ${y + s * 0.28}
-                       L ${x} ${y + s} L ${x - s * 0.28} ${y + s * 0.28}
-                       L ${x - s} ${y} L ${x - s * 0.28} ${y - s * 0.28} Z`,
-      fill: "#FFFFFF"
-    }), /*#__PURE__*/React.createElement("circle", {
-      cx: x,
-      cy: y,
-      r: s * 0.18,
-      fill: "#FFE19A"
-    }))));
-  }
-
-  // ─── L5: NEXT node — pulse + "Chơi ngay" pill ──────────────────
-  function L5Next() {
-    const disc = 60;
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: L5.x - disc / 2,
-        top: L5.y - disc / 2
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: -14,
-        top: -14,
-        width: disc + 28,
-        height: disc + 28,
-        borderRadius: '50%',
-        background: 'rgba(255,159,104,0.22)',
-        animation: 'gj-jc-pulse 1600ms ease-out infinite'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: -4,
-        top: -4,
-        width: disc + 8,
-        height: disc + 8,
-        borderRadius: '50%',
-        background: 'rgba(255,159,104,0.32)',
-        animation: 'gj-jc-pulse 1600ms ease-out infinite',
-        animationDelay: '300ms'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        width: disc,
-        height: disc,
-        borderRadius: '50%',
-        background: '#FFFFFF',
-        border: '3px solid #FF9F68',
-        boxShadow: '0 6px 14px rgba(120,92,52,0.24), inset 0 -4px 0 rgba(255,159,104,0.16), inset 0 3px 0 rgba(255,255,255,0.85)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }
-    }, /*#__PURE__*/React.createElement("svg", {
-      width: disc - 16,
-      height: disc - 16,
-      viewBox: "0 0 40 40",
-      "aria-hidden": "true"
-    }, /*#__PURE__*/React.createElement("circle", {
-      cx: "20",
-      cy: "20",
-      r: "18",
-      fill: "none",
-      stroke: "#FFC59A",
-      strokeWidth: "2",
-      strokeDasharray: "3 4"
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 22,
-        color: '#E97E45'
-      }
-    }, "5")), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: '50%',
-        top: disc + 10,
-        transform: 'translateX(-50%)',
-        background: 'linear-gradient(180deg, #FFB07F 0%, #FF9F68 60%, #F58A4E 100%)',
-        color: '#FFFFFF',
-        border: '2px solid #E97E45',
-        borderBottom: '3px solid #C8662F',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 13,
-        padding: '5px 14px 6px',
-        borderRadius: 999,
-        boxShadow: '0 6px 12px rgba(201,102,47,0.35), inset 0 2px 0 rgba(255,197,154,0.6)',
-        whiteSpace: 'nowrap'
-      }
-    }, "Ch\u01A1i ngay")));
-  }
-
-  // ─── mascot JUMPING from L4 to L5 along the road (offset-path) ─
-  // Mascot perches ABOVE the node disc (not centered on it) so it never
-  // hides the level number. Path runs L4_top → L5_top:
-  //   L4_top ≈ (L4.x, L4.y - 38)   (just above the 64dp jelly)
-  //   L5_top ≈ (L5.x, L5.y - 38)   (just above the 60dp disc)
-  // Eyes face direction of travel (UP — mascot is climbing).
-  function MascotJumping() {
-    const L4t = {
-      x: L4.x,
-      y: L4.y - 38
-    };
-    const L5t = {
-      x: L5.x,
-      y: L5.y - 38
-    };
-    const mp = `M ${L4t.x} ${L4t.y} C ${L4t.x} ${(L4t.y + L5t.y) / 2}, ${L5t.x} ${(L4t.y + L5t.y) / 2}, ${L5t.x} ${L5t.y}`;
-    // Shadow follows L4→L5 along the road surface itself (lower path).
-    const sp = `M ${L4.x} ${L4.y + 18} C ${L4.x} ${(L4.y + L5.y) / 2 + 18}, ${L5.x} ${(L4.y + L5.y) / 2 + 18}, ${L5.x} ${L5.y + 18}`;
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        width: 36,
-        height: 8,
-        borderRadius: '50%',
-        background: 'rgba(120,92,52,0.32)',
-        filter: 'blur(2px)',
-        offsetPath: `path("${sp}")`,
-        offsetAnchor: 'center',
-        offsetRotate: '0deg',
-        offsetDistance: '0%',
-        animation: `gj-jc-trav ${CYCLE} cubic-bezier(0.34,1.56,0.50,1) infinite`,
-        willChange: 'offset-distance'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        width: 40,
-        height: 40,
-        offsetPath: `path("${mp}")`,
-        offsetAnchor: 'center',
-        offsetRotate: '0deg',
-        offsetDistance: '0%',
-        animation: `gj-jc-mascot ${CYCLE} cubic-bezier(0.34,1.56,0.50,1) infinite`,
-        willChange: 'offset-distance, opacity',
-        filter: 'drop-shadow(0 4px 4px rgba(120,92,52,0.28))',
-        zIndex: 4
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        width: '100%',
-        height: '100%',
-        animation: 'gj-jc-mhop 520ms ease-in-out infinite',
-        transformOrigin: '50% 80%'
-      }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: "pink",
-      size: 40,
-      direction: "up",
-      expression: "happy"
-    }))));
-  }
-
-  // ─── top caption ────────────────────────────────────────────
-  function CompleteCaption() {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: '50%',
-        top: 12,
-        transform: 'translateX(-50%)',
-        display: 'inline-flex',
-        alignItems: 'center',
-        gap: 6,
-        background: 'rgba(255,255,255,0.94)',
-        border: '1px solid rgba(91,70,54,0.10)',
-        backdropFilter: 'blur(4px)',
-        WebkitBackdropFilter: 'blur(4px)',
-        padding: '5px 12px 6px',
-        borderRadius: 999,
-        boxShadow: '0 6px 12px rgba(120,92,52,0.18)',
-        zIndex: 5
-      }
-    }, /*#__PURE__*/React.createElement("span", {
-      style: {
-        width: 16,
-        height: 16,
-        borderRadius: 999,
-        background: '#6FCF7F',
-        border: '1.5px solid #4FB063',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: '#FFFFFF',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 10
-      }
-    }, "\u2713"), /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontFamily: 'var(--font-body)',
-        fontWeight: 800,
-        fontSize: 11,
-        letterSpacing: '0.10em',
-        color: '#3F7D49'
-      }
-    }, "V\u1EEAA HO\xC0N TH\xC0NH M\xC0N 4"));
-  }
-
-  // ─── frame ─────────────────────────────────────────────────
-  function MapJustCompleted() {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        width: W,
-        height: H,
-        background: 'var(--color-bg, #FFF7EC)',
-        fontFamily: 'var(--font-body)',
-        color: 'var(--color-text, #5B4636)',
-        overflow: 'hidden'
-      }
-    }, /*#__PURE__*/React.createElement("style", null, `
-          /* 3 stars FLY OUT from L4 origin to their arc target slots */
-          @keyframes gj-jc-fly-a {
-            0%   { transform: translate( 30px, 28px) scale(0.30) rotate(-180deg); opacity: 0; }
-            6%   { transform: translate( 30px, 28px) scale(0.30) rotate(-180deg); opacity: 0; }
-            12%  { transform: translate( 30px, 28px) scale(0.55) rotate(-160deg); opacity: 1; }
-            38%  { transform: translate(  0px,  0px) scale(1.20) rotate( -22deg); opacity: 1; }
-            46%  { transform: translate(  0px,  0px) scale(0.92) rotate( -22deg); opacity: 1; }
-            55%  { transform: translate(  0px,  0px) scale(1.06) rotate( -22deg); opacity: 1; }
-            85%  { transform: translate(  0px,  0px) scale(1.00) rotate( -22deg); opacity: 1; }
-            95%  { transform: translate(  0px,  0px) scale(0.85) rotate( -22deg); opacity: 0; }
-            100% { transform: translate( 30px, 28px) scale(0.30) rotate(-180deg); opacity: 0; }
-          }
-          @keyframes gj-jc-fly-b {
-            0%   { transform: translate( 0px, 36px) scale(0.30) rotate(-180deg); opacity: 0; }
-            6%   { transform: translate( 0px, 36px) scale(0.30) rotate(-180deg); opacity: 0; }
-            12%  { transform: translate( 0px, 36px) scale(0.55) rotate(-160deg); opacity: 1; }
-            38%  { transform: translate( 0px,  0px) scale(1.20) rotate(   0deg); opacity: 1; }
-            46%  { transform: translate( 0px,  0px) scale(0.92) rotate(   0deg); opacity: 1; }
-            55%  { transform: translate( 0px,  0px) scale(1.06) rotate(   0deg); opacity: 1; }
-            85%  { transform: translate( 0px,  0px) scale(1.00) rotate(   0deg); opacity: 1; }
-            95%  { transform: translate( 0px,  0px) scale(0.85) rotate(   0deg); opacity: 0; }
-            100% { transform: translate( 0px, 36px) scale(0.30) rotate(-180deg); opacity: 0; }
-          }
-          @keyframes gj-jc-fly-c {
-            0%   { transform: translate(-30px, 28px) scale(0.30) rotate( 180deg); opacity: 0; }
-            6%   { transform: translate(-30px, 28px) scale(0.30) rotate( 180deg); opacity: 0; }
-            12%  { transform: translate(-30px, 28px) scale(0.55) rotate( 160deg); opacity: 1; }
-            38%  { transform: translate(  0px,  0px) scale(1.20) rotate(  22deg); opacity: 1; }
-            46%  { transform: translate(  0px,  0px) scale(0.92) rotate(  22deg); opacity: 1; }
-            55%  { transform: translate(  0px,  0px) scale(1.06) rotate(  22deg); opacity: 1; }
-            85%  { transform: translate(  0px,  0px) scale(1.00) rotate(  22deg); opacity: 1; }
-            95%  { transform: translate(  0px,  0px) scale(0.85) rotate(  22deg); opacity: 0; }
-            100% { transform: translate(-30px, 28px) scale(0.30) rotate( 180deg); opacity: 0; }
-          }
-
-          /* Mascot TRAVELS along the L4→L5 bezier; opacity fades for reset */
-          @keyframes gj-jc-mascot {
-            0%   { offset-distance:   0%; opacity: 0; }
-            6%   { offset-distance:   0%; opacity: 1; }
-            10%  { offset-distance:   0%; opacity: 1; }
-            45%  { offset-distance: 100%; opacity: 1; }
-            85%  { offset-distance: 100%; opacity: 1; }
-            93%  { offset-distance: 100%; opacity: 0; }
-            100% { offset-distance:   0%; opacity: 0; }
-          }
-          @keyframes gj-jc-trav {
-            0%   { offset-distance:   0%; opacity: 0.35; }
-            6%   { offset-distance:   0%; opacity: 0.35; }
-            10%  { offset-distance:   0%; opacity: 0.35; }
-            45%  { offset-distance: 100%; opacity: 0.35; }
-            85%  { offset-distance: 100%; opacity: 0.35; }
-            93%  { offset-distance: 100%; opacity: 0;    }
-            100% { offset-distance:   0%; opacity: 0;    }
-          }
-          /* the body hops vertically on top of offset-path translation */
-          @keyframes gj-jc-mhop {
-            0%,100% { transform: translateY(0)    scaleY(1);    }
-            45%     { transform: translateY(-12px) scaleY(1.04); }
-            55%     { transform: translateY(-12px) scaleY(1.04); }
-          }
-
-          /* sparkle twinkle (looser timing, lệch pha) */
-          @keyframes gj-jc-tw {
-            0%,100% { opacity: 0.4;  transform: scale(0.85); }
-            50%     { opacity: 1;    transform: scale(1.18); }
-          }
-          @keyframes gj-jc-pop {
-            0%,100% { transform: scale(1.00); }
-            50%     { transform: scale(1.06); }
-          }
-          @keyframes gj-jc-pulse {
-            0%   { transform: scale(0.95); opacity: 0.75; }
-            70%  { transform: scale(1.45); opacity: 0;    }
-            100% { transform: scale(1.45); opacity: 0;    }
-          }
-
-          @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
-        `), /*#__PURE__*/React.createElement(Scene, null), /*#__PURE__*/React.createElement(PathLayer, null), /*#__PURE__*/React.createElement(L3Done, null), /*#__PURE__*/React.createElement(L4JustDone, null), /*#__PURE__*/React.createElement(L5Next, null), /*#__PURE__*/React.createElement(FlyingStars, null), /*#__PURE__*/React.createElement(SparkleParticles, null), /*#__PURE__*/React.createElement(MascotJumping, null), /*#__PURE__*/React.createElement(CompleteCaption, null));
-  }
-
-  // ─── documentation card ───────────────────────────────────
-  function MapJustCompletedCard() {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        width: 760,
-        padding: '36px 32px 32px',
-        background: 'var(--color-bg, #FFF7EC)',
-        fontFamily: 'var(--font-body)',
-        color: 'var(--color-text, #5B4636)'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: 'flex',
-        alignItems: 'baseline',
-        gap: 12,
-        marginBottom: 18
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontFamily: 'var(--font-body)',
-        fontWeight: 800,
-        fontSize: 11,
-        letterSpacing: '0.12em',
-        color: '#9B886F'
-      }
-    }, "04 \xB7 SCREENS / LEVEL MAP"), /*#__PURE__*/React.createElement("div", {
-      style: {
-        flex: 1,
-        height: 1,
-        background: '#EFE0C9'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontFamily: 'var(--font-body)',
-        fontWeight: 700,
-        fontSize: 11,
-        color: '#9B886F'
-      }
-    }, "Bi\u1EBFn th\u1EC3 \xB7 v\u1EEBa ho\xE0n th\xE0nh m\xE0n \xB7 cycle 2.6s")), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 26,
-        color: '#5B4636',
-        marginBottom: 4,
-        lineHeight: 1.05
-      }
-    }, "V\u1EEBa ho\xE0n th\xE0nh m\xE0n \xB7 quay v\u1EC1 b\u1EA3n \u0111\u1ED3"), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontFamily: 'var(--font-body)',
-        fontWeight: 600,
-        fontSize: 13,
-        color: '#9B886F',
-        marginBottom: 20
-      }
-    }, "Sao th\u1EF1c s\u1EF1 BAY \xB7 \u0111\u01B0\u1EDDng th\u1EF1c s\u1EF1 S\xC1NG D\u1EA6N \xB7 mascot th\u1EF1c s\u1EF1 \u0110I L4 \u2192 L5"), /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: 'grid',
-        gridTemplateColumns: `${W}px 1fr`,
-        gap: 28,
-        alignItems: 'flex-start'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        width: W,
-        height: H,
-        borderRadius: 28,
-        overflow: 'hidden',
-        boxShadow: '0 16px 36px rgba(60,44,24,0.32)'
-      }
-    }, /*#__PURE__*/React.createElement(MapJustCompleted, null)), /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 12,
-        paddingTop: 6
-      }
-    }, /*#__PURE__*/React.createElement(Phase, {
-      t: "0\u20138 %",
-      name: "Chu\u1EA9n b\u1ECB",
-      detail: "mascot fade v\xE0o L4 \xB7 path L4\u2192L5 c\xF2n tr\u1ED1ng \xB7 sao + popup \u1EA9n"
-    }), /*#__PURE__*/React.createElement(Phase, {
-      t: "8\u201345 %",
-      name: "ACTION (~960ms)",
-      detail: "3 sao bay t\u1EEB L4 ra arc (cubic-bezier jelly) \xB7 path orange fill 0\u2192100% \xB7 leading glow ch\u1EA1y theo \xB7 mascot offset-path L4_top\u2192L5_top, eyes h\u01B0\u1EDBng UP"
-    }), /*#__PURE__*/React.createElement(Phase, {
-      t: "45\u201380 %",
-      name: "HELD (~910ms)",
-      detail: "mascot \u0111\u1EE9ng perched tr\xEAn L5 (bounce 520ms) \xB7 path \u0111\xE3 lit \xB7 3\u2605 \u0111\xE3 trong arc"
-    }), /*#__PURE__*/React.createElement(Phase, {
-      t: "80\u201395 %",
-      name: "L5 active",
-      detail: "pulse ring + 'Ch\u01A1i ngay' pill n\u1ED5i b\u1EADt \u0111\u1EC3 CTA ti\u1EBFp t\u1EE5c"
-    }), /*#__PURE__*/React.createElement(Phase, {
-      t: "95\u2013100 %",
-      name: "Reset",
-      detail: "mascot/popup fade \xB7 path retract \xB7 sao v\u1EC1 origin \u1EA9n \xB7 cycle restart"
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        height: 8
-      }
-    }), /*#__PURE__*/React.createElement(Note, {
-      num: "\u25CF",
-      name: "Sao bay ra",
-      detail: "v\u1ECB tr\xED HTML \u0111\u1EB7t t\u1EA1i target slot \xB7 keyframes translate t\u1EEB origin (L4 center) \u2192 (0,0) \xB7 scale 0.3\u21921.2\u21921 + rotate -180\xB0\u2192slot rot \xB7 stagger 80ms"
-    }), /*#__PURE__*/React.createElement(Note, {
-      num: "\u25CF",
-      name: "Mascot offset-path",
-      detail: "L4_top \u2192 L5_top (tr\xEAn \u0111\u1EC9nh disc) \u2014 kh\xF4ng che s\u1ED1 \xB7 40dp \xB7 direction='up' (m\u1EAFt nh\xECn h\u01B0\u1EDBng \u0111i) \xB7 child hops 520ms"
-    }), /*#__PURE__*/React.createElement(Note, {
-      num: "\u25CF",
-      name: "Path s\xE1ng d\u1EA7n",
-      detail: "strokeDasharray '0 100' \u2192 '100 100' qua <animate> SVG \xB7 pathLength 100 + spline easing \xB7 shimmer 900ms drift \u0111\u1ED9c l\u1EADp"
-    }), /*#__PURE__*/React.createElement(Note, {
-      num: "\u25CF",
-      name: "Leading-edge glow",
-      detail: "<animateMotion> g\u1EAFn <mpath> ref \u0111\u01B0\u1EDDng L4\u2192L5 \xB7 keyTimes kh\u1EDBp v\u1EDBi path fill timing"
-    }))));
-  }
-  function Phase({
-    t,
-    name,
-    detail
-  }) {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: 'flex',
-        gap: 10,
-        alignItems: 'flex-start'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        minWidth: 60,
-        padding: '3px 8px',
-        borderRadius: 8,
-        background: '#FFE6A8',
-        color: '#6A4A2E',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 11,
-        textAlign: 'center',
-        lineHeight: 1.2,
-        border: '1.5px solid #E0A21F'
-      }
-    }, t), /*#__PURE__*/React.createElement("div", {
-      style: {
-        lineHeight: 1.25,
-        minWidth: 0
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontFamily: 'var(--font-body)',
-        fontWeight: 800,
-        fontSize: 13,
-        color: '#5B4636'
-      }
-    }, name), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontFamily: 'var(--font-body)',
-        fontWeight: 600,
-        fontSize: 11,
-        color: '#9B886F',
-        marginTop: 2
-      }
-    }, detail)));
-  }
-  function Note({
-    num,
-    name,
-    detail
-  }) {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: 'flex',
-        gap: 10,
-        alignItems: 'flex-start'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        width: 24,
-        height: 24,
-        borderRadius: 999,
-        background: '#FF9F68',
-        color: '#FFFFFF',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 14,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexShrink: 0,
-        lineHeight: 1,
-        boxShadow: '0 2px 0 #E97E45'
-      }
-    }, num), /*#__PURE__*/React.createElement("div", {
-      style: {
-        lineHeight: 1.25,
-        minWidth: 0
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontFamily: 'var(--font-body)',
-        fontWeight: 800,
-        fontSize: 12,
-        color: '#5B4636'
-      }
-    }, name), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontFamily: 'var(--font-body)',
-        fontWeight: 600,
-        fontSize: 11,
-        color: '#9B886F',
-        marginTop: 2
-      }
-    }, detail)));
-  }
-  window.GJMapJustCompleted = MapJustCompleted;
-  window.GJMapJustCompletedCard = MapJustCompletedCard;
-})();
-})(); } catch (e) { __ds_ns.__errors.push({ path: "04-screens/map-just-completed.jsx", error: String((e && e.message) || e) }); }
-
-// 04-screens/map-nodes.jsx
-try { (() => {
-/* map-nodes.jsx — Component reference table for level-map NODE variants.
-   Renders a 2-row grid (4 + 3) on a cream board, each variant labelled in
-   Nunito below. The 7 variants:
-     1) Done 3★   2) Done 2★   3) Done 1★   4) Current
-     5) Locked    6) Breather  7) Boss
-   Documentation card — not a screen. Exposes window.GJMapNodesTable.        */
-(function () {
-  const NS = window.GravityJellyDesignSystem_3e0487 || {};
-  const {
-    JellyBlock
-  } = NS;
-
-  // ─── stars ───────────────────────────────────────────────────────────
-  function Star({
-    filled = false,
-    size = 14
-  }) {
-    return /*#__PURE__*/React.createElement("svg", {
-      width: size,
-      height: size,
-      viewBox: "0 0 24 24",
-      style: {
-        display: 'block'
-      }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: "M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.1l1-5.8L3.5 9.2l5.9-.9L12 3z",
-      fill: filled ? '#FFC23D' : '#D9CDB5',
-      stroke: filled ? '#E0A21F' : '#B6A892',
-      strokeWidth: "1.6",
-      strokeLinejoin: "round"
-    }));
-  }
-  function StarArc({
-    stars = 3,
-    size = 14,
-    width = 70
-  }) {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: '50%',
-        top: -size - 6,
-        transform: 'translateX(-50%)',
-        width,
-        height: size + 8,
-        display: 'flex',
-        alignItems: 'flex-end',
-        justifyContent: 'space-between',
-        pointerEvents: 'none'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        transform: 'translateY(5px) rotate(-22deg)'
-      }
-    }, /*#__PURE__*/React.createElement(Star, {
-      filled: stars >= 1,
-      size: size
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        transform: 'translateY(-2px)'
-      }
-    }, /*#__PURE__*/React.createElement(Star, {
-      filled: stars >= 2,
-      size: size + 2
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        transform: 'translateY(5px) rotate(22deg)'
-      }
-    }, /*#__PURE__*/React.createElement(Star, {
-      filled: stars >= 3,
-      size: size
-    })));
-  }
-  function LockGlyph({
-    size = 16,
-    color = '#FFFFFF'
-  }) {
-    return /*#__PURE__*/React.createElement("svg", {
-      width: size,
-      height: size,
-      viewBox: "0 0 24 24",
-      "aria-hidden": "true",
-      style: {
-        display: 'block'
-      }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: "M8 11V8.5a4 4 0 1 1 8 0V11",
-      fill: "none",
-      stroke: color,
-      strokeWidth: "2.6",
-      strokeLinecap: "round"
-    }), /*#__PURE__*/React.createElement("rect", {
-      x: "5",
-      y: "11",
-      width: "14",
-      height: "9",
-      rx: "2.5",
-      fill: color
-    }), /*#__PURE__*/React.createElement("circle", {
-      cx: "12",
-      cy: "15",
-      r: "1.4",
-      fill: "#A89A82"
-    }), /*#__PURE__*/React.createElement("rect", {
-      x: "11.3",
-      y: "15",
-      width: "1.4",
-      height: "3",
-      rx: "0.6",
-      fill: "#A89A82"
-    }));
-  }
-
-  // ─── node variants ───────────────────────────────────────────────────
-  function NumberBadge({
-    n,
-    size,
-    color = '#6A4A2E'
-  }) {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: Math.round(size * 0.42),
-        lineHeight: 1,
-        color,
-        textShadow: '0 1px 0 rgba(255,255,255,0.55)',
-        pointerEvents: 'none'
-      }
-    }, n);
-  }
-  function DoneNode({
-    n,
-    color,
-    stars,
-    size = 64
-  }) {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        width: size,
-        height: size,
-        filter: 'drop-shadow(0 5px 7px rgba(120,92,52,0.22))'
-      }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: color,
-      size: size,
-      showEyes: false
-    }), /*#__PURE__*/React.createElement(NumberBadge, {
-      n: n,
-      size: size
-    }), /*#__PURE__*/React.createElement(StarArc, {
-      stars: stars,
-      size: 14,
-      width: size + 14
-    }));
-  }
-  function CurrentNode({
-    n = 5
-  }) {
-    // White disc with primary border + pulse rings + a hopping pink jelly
-    // mascot (with eyes) + "Chơi ngay" pill below.
-    const disc = 64;
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: -16,
-        top: -16,
-        width: disc + 32,
-        height: disc + 32,
-        borderRadius: '50%',
-        background: 'rgba(255,159,104,0.22)',
-        animation: 'gj-nt-pulse 1600ms ease-out infinite'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: -6,
-        top: -6,
-        width: disc + 12,
-        height: disc + 12,
-        borderRadius: '50%',
-        background: 'rgba(255,159,104,0.32)',
-        animation: 'gj-nt-pulse 1600ms ease-out infinite',
-        animationDelay: '300ms'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        width: disc,
-        height: disc,
-        borderRadius: '50%',
-        background: '#FFFFFF',
-        border: '3px solid #FF9F68',
-        boxShadow: '0 6px 14px rgba(120,92,52,0.24), inset 0 -4px 0 rgba(255,159,104,0.16), inset 0 3px 0 rgba(255,255,255,0.85)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }
-    }, /*#__PURE__*/React.createElement("svg", {
-      width: disc - 16,
-      height: disc - 16,
-      viewBox: "0 0 40 40",
-      "aria-hidden": "true"
-    }, /*#__PURE__*/React.createElement("circle", {
-      cx: "20",
-      cy: "20",
-      r: "18",
-      fill: "none",
-      stroke: "#FFC59A",
-      strokeWidth: "2",
-      strokeDasharray: "3 4"
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 24,
-        color: '#E97E45'
-      }
-    }, n)), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: '50%',
-        top: -38,
-        transform: 'translateX(-50%)',
-        animation: 'gj-nt-bounce 1400ms ease-in-out infinite',
-        filter: 'drop-shadow(0 4px 4px rgba(120,92,52,0.28))'
-      }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: "pink",
-      size: 38,
-      direction: "down",
-      expression: "happy"
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: '50%',
-        top: 6,
-        transform: 'translate(-50%, 0)',
-        width: 28,
-        height: 6,
-        borderRadius: '50%',
-        background: 'rgba(120,92,52,0.22)',
-        filter: 'blur(2px)',
-        animation: 'gj-nt-shadow 1400ms ease-in-out infinite'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: '50%',
-        top: disc + 12,
-        transform: 'translateX(-50%)',
-        background: 'linear-gradient(180deg, #FFB07F 0%, #FF9F68 60%, #F58A4E 100%)',
-        color: '#FFFFFF',
-        border: '2px solid #E97E45',
-        borderBottom: '3px solid #C8662F',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 13,
-        padding: '5px 14px 6px',
-        borderRadius: 999,
-        boxShadow: '0 6px 12px rgba(201,102,47,0.35), inset 0 2px 0 rgba(255,197,154,0.6)',
-        whiteSpace: 'nowrap'
-      }
-    }, "Ch\u01A1i ngay"));
-  }
-  function LockedNode({
-    n = 7,
-    size = 60
-  }) {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        width: size,
-        height: size,
-        filter: 'drop-shadow(0 4px 5px rgba(120,92,52,0.20))'
-      }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: "stone",
-      size: size,
-      showEyes: false
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }
-    }, /*#__PURE__*/React.createElement(LockGlyph, {
-      size: Math.round(size * 0.40),
-      color: "#FFFFFF"
-    })), /*#__PURE__*/React.createElement(StarArc, {
-      stars: 0,
-      size: 12,
-      width: size + 6
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        right: -6,
-        bottom: -6,
-        minWidth: 22,
-        height: 22,
-        padding: '0 6px',
-        borderRadius: 999,
-        background: '#8A7B62',
-        border: '2px solid #FFFFFF',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: '#FFFFFF',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 11,
-        lineHeight: 1,
-        boxShadow: '0 2px 4px rgba(120,92,52,0.32)'
-      }
-    }, n));
-  }
-  function BreatherNode({
-    n = 6,
-    size = 46
-  }) {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        width: size,
-        height: size,
-        filter: 'drop-shadow(0 4px 5px rgba(120,92,52,0.22))',
-        opacity: 0.94
-      }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: "yellow",
-      size: size,
-      showEyes: false,
-      style: {
-        opacity: 0.88
-      }
-    }), /*#__PURE__*/React.createElement("svg", {
-      width: size,
-      height: size,
-      viewBox: `0 0 ${size} ${size}`,
-      style: {
-        position: 'absolute',
-        inset: 0,
-        pointerEvents: 'none'
-      }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: `M ${size * 0.30} ${size * 0.42} q 4 4 8 0`,
-      fill: "none",
-      stroke: "#6A4A2E",
-      strokeWidth: "2.2",
-      strokeLinecap: "round"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: `M ${size * 0.55} ${size * 0.42} q 4 4 8 0`,
-      fill: "none",
-      stroke: "#6A4A2E",
-      strokeWidth: "2.2",
-      strokeLinecap: "round"
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        bottom: size * 0.14,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: Math.round(size * 0.30),
-        lineHeight: 1,
-        color: '#6A4A2E',
-        textShadow: '0 1px 0 rgba(255,255,255,0.55)',
-        pointerEvents: 'none'
-      }
-    }, n)), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        top: -8,
-        left: size + 8,
-        background: '#F4E9D8',
-        color: '#8C7458',
-        border: '1.5px solid #E6D8BD',
-        fontFamily: 'var(--font-body)',
-        fontWeight: 800,
-        fontSize: 10,
-        letterSpacing: '0.10em',
-        padding: '3px 9px',
-        borderRadius: 999,
-        boxShadow: '0 2px 5px rgba(120,92,52,0.18)',
-        whiteSpace: 'nowrap'
-      }
-    }, "NGH\u1EC8"));
-  }
-  function BossNode({
-    n = 10,
-    size = 80
-  }) {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        width: size,
-        height: size,
-        filter: 'drop-shadow(0 8px 14px rgba(126,108,240,0.40))'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: -26,
-        top: -26,
-        right: -26,
-        bottom: -26,
-        borderRadius: '50%',
-        background: 'radial-gradient(closest-side, rgba(169,156,246,0.55) 0%, rgba(126,108,240,0.30) 55%, rgba(126,108,240,0) 78%)',
-        animation: 'gj-nt-halo 2400ms ease-in-out infinite'
-      }
-    }), /*#__PURE__*/React.createElement("svg", {
-      width: size + 56,
-      height: size + 56,
-      viewBox: "0 0 200 200",
-      style: {
-        position: 'absolute',
-        left: -28,
-        top: -28,
-        pointerEvents: 'none',
-        animation: 'gj-nt-spin 8s linear infinite',
-        transformOrigin: '50% 50%'
-      }
-    }, [0, 60, 120, 180, 240, 300].map(a => {
-      const rad = a * Math.PI / 180;
-      const cx = 100 + Math.cos(rad) * 84;
-      const cy = 100 + Math.sin(rad) * 84;
-      return /*#__PURE__*/React.createElement("g", {
-        key: a
-      }, /*#__PURE__*/React.createElement("circle", {
-        cx: cx,
-        cy: cy,
-        r: "4.6",
-        fill: "#FFFFFF",
-        opacity: "0.95"
-      }), /*#__PURE__*/React.createElement("circle", {
-        cx: cx,
-        cy: cy,
-        r: "2.6",
-        fill: "#A99CF6"
-      }));
-    })), /*#__PURE__*/React.createElement(JellyBlock, {
-      color: "stone",
-      size: size,
-      showEyes: false
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        width: size * 0.5,
-        height: size * 0.5,
-        borderRadius: '50%',
-        background: 'linear-gradient(180deg,#8E7CF4 0%, #6353D6 100%)',
-        border: '3px solid #FFFFFF',
-        boxShadow: '0 4px 10px rgba(83,68,196,0.5), inset 0 2px 0 rgba(255,255,255,0.4)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }
-    }, /*#__PURE__*/React.createElement(LockGlyph, {
-      size: Math.round(size * 0.26),
-      color: "#FFFFFF"
-    }))), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        top: -22,
-        left: '50%',
-        transform: 'translateX(-50%)',
-        background: 'linear-gradient(180deg, #8E7CF4 0%, #7E6CF0 60%, #5F4ECB 100%)',
-        color: '#FFFFFF',
-        border: '2px solid #6353D6',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 13,
-        letterSpacing: '0.16em',
-        padding: '4px 14px',
-        borderRadius: 999,
-        boxShadow: '0 4px 10px rgba(83,68,196,0.45), inset 0 1.5px 0 rgba(255,255,255,0.45)',
-        whiteSpace: 'nowrap'
-      }
-    }, "BOSS"), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        bottom: -20,
-        left: '50%',
-        transform: 'translateX(-50%)',
-        background: '#FFFFFF',
-        color: '#5B4636',
-        border: '1.5px solid #EFE0C9',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 13,
-        padding: '2px 10px',
-        borderRadius: 999,
-        boxShadow: '0 3px 6px rgba(120,92,52,0.18)'
-      }
-    }, "m\xE0n ", n));
-  }
-
-  // ─── cell + grid ─────────────────────────────────────────────────────
-  function Cell({
-    idx,
-    title,
-    sub,
-    children,
-    h = 200
-  }) {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        width: 168,
-        height: h,
-        padding: '0 8px'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        flex: 1,
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'relative'
-      }
-    }, children), /*#__PURE__*/React.createElement("div", {
-      style: {
-        marginTop: 6,
-        textAlign: 'center',
-        lineHeight: 1.18,
-        fontFamily: 'var(--font-body)',
-        color: '#5B4636'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontWeight: 800,
-        fontSize: 10,
-        letterSpacing: '0.10em',
-        color: '#9B886F'
-      }
-    }, `0${idx}`.slice(-2)), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontWeight: 800,
-        fontSize: 13,
-        marginTop: 2
-      }
-    }, title), sub && /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontWeight: 600,
-        fontSize: 11,
-        color: '#9B886F',
-        marginTop: 1
-      }
-    }, sub)));
-  }
-  function MapNodesTable() {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        width: 760,
-        padding: '36px 28px 32px',
-        background: 'var(--color-bg, #FFF7EC)',
-        fontFamily: 'var(--font-body)',
-        color: 'var(--color-text, #5B4636)'
-      }
-    }, /*#__PURE__*/React.createElement("style", null, `
-          @keyframes gj-nt-pulse  {
-            0%   { transform: scale(0.95); opacity: 0.75; }
-            70%  { transform: scale(1.45); opacity: 0;    }
-            100% { transform: scale(1.45); opacity: 0;    }
-          }
-          @keyframes gj-nt-bounce {
-            0%,100% { transform: translate(-50%, 0); }
-            50%     { transform: translate(-50%, -6px); }
-          }
-          @keyframes gj-nt-shadow {
-            0%,100% { width: 28px; opacity: 0.22; }
-            50%     { width: 18px; opacity: 0.32; }
-          }
-          @keyframes gj-nt-halo {
-            0%,100% { transform: scale(1.00); opacity: 1;    }
-            50%     { transform: scale(1.12); opacity: 0.88; }
-          }
-          @keyframes gj-nt-spin {
-            from { transform: rotate(0deg); }
-            to   { transform: rotate(360deg); }
-          }
-          @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
-        `), /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: 'flex',
-        alignItems: 'baseline',
-        gap: 12,
-        marginBottom: 24
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontFamily: 'var(--font-body)',
-        fontWeight: 800,
-        fontSize: 11,
-        letterSpacing: '0.12em',
-        color: '#9B886F'
-      }
-    }, "04 \xB7 SCREENS / LEVEL MAP"), /*#__PURE__*/React.createElement("div", {
-      style: {
-        flex: 1,
-        height: 1,
-        background: '#EFE0C9'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontFamily: 'var(--font-body)',
-        fontWeight: 700,
-        fontSize: 11,
-        color: '#9B886F'
-      }
-    }, "7 bi\u1EBFn th\u1EC3 \xB7 n\u1EC1n #FFF7EC")), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 24,
-        color: '#5B4636',
-        marginBottom: 4,
-        lineHeight: 1.05
-      }
-    }, "B\u1EA3ng node \xB7 level map"), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontFamily: 'var(--font-body)',
-        fontWeight: 600,
-        fontSize: 13,
-        color: '#9B886F',
-        marginBottom: 22
-      }
-    }, "Ho\xE0n th\xE0nh (3/2/1\u2605) \xB7 Hi\u1EC7n t\u1EA1i \xB7 Kho\xE1 \xB7 Breather \xB7 Boss"), /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
-        gap: 0,
-        marginBottom: 12
-      }
-    }, /*#__PURE__*/React.createElement(Cell, {
-      idx: 1,
-      title: "Ho\xE0n th\xE0nh",
-      sub: "3 sao"
-    }, /*#__PURE__*/React.createElement(DoneNode, {
-      n: 1,
-      color: "yellow",
-      stars: 3
-    })), /*#__PURE__*/React.createElement(Cell, {
-      idx: 2,
-      title: "Ho\xE0n th\xE0nh",
-      sub: "2 sao"
-    }, /*#__PURE__*/React.createElement(DoneNode, {
-      n: 2,
-      color: "mint",
-      stars: 2
-    })), /*#__PURE__*/React.createElement(Cell, {
-      idx: 3,
-      title: "Ho\xE0n th\xE0nh",
-      sub: "1 sao"
-    }, /*#__PURE__*/React.createElement(DoneNode, {
-      n: 3,
-      color: "pink",
-      stars: 1
-    })), /*#__PURE__*/React.createElement(Cell, {
-      idx: 4,
-      title: "Hi\u1EC7n t\u1EA1i",
-      sub: "\u0110ang ch\u01A1i",
-      h: 220
-    }, /*#__PURE__*/React.createElement(CurrentNode, {
-      n: 5
-    }))), /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
-        gap: 0,
-        paddingLeft: 84
-      }
-    }, /*#__PURE__*/React.createElement(Cell, {
-      idx: 5,
-      title: "Kho\xE1",
-      sub: "Ch\u01B0a m\u1EDF"
-    }, /*#__PURE__*/React.createElement(LockedNode, {
-      n: 7
-    })), /*#__PURE__*/React.createElement(Cell, {
-      idx: 6,
-      title: "Breather",
-      sub: "M\xE0n ngh\u1EC9 \xB7 v\u1ECB tr\xED 6"
-    }, /*#__PURE__*/React.createElement(BreatherNode, {
-      n: 6
-    })), /*#__PURE__*/React.createElement(Cell, {
-      idx: 7,
-      title: "Boss",
-      sub: "Cu\u1ED1i world \xB7 v\u1ECB tr\xED 10",
-      h: 220
-    }, /*#__PURE__*/React.createElement(BossNode, {
-      n: 10
-    }))), /*#__PURE__*/React.createElement("div", {
-      style: {
-        marginTop: 18,
-        paddingTop: 14,
-        borderTop: '1px dashed #E6D8BD',
-        fontFamily: 'var(--font-body)',
-        fontWeight: 600,
-        fontSize: 11,
-        color: '#9B886F',
-        letterSpacing: '0.02em',
-        lineHeight: 1.55
-      }
-    }, "T\u1EA5t c\u1EA3 kh\u1ED1i jelly d\xF9ng border 3dp, gloss inset tr\xEAn \u0111\u1EC9nh, shadow-sm. Token b\xE1m: ", /*#__PURE__*/React.createElement("b", {
-      style: {
-        color: '#5B4636'
-      }
-    }, "--color-block-*"), ",\xA0", /*#__PURE__*/React.createElement("b", {
-      style: {
-        color: '#5B4636'
-      }
-    }, "--color-stone"), ",\xA0", /*#__PURE__*/React.createElement("b", {
-      style: {
-        color: '#5B4636'
-      }
-    }, "--color-primary"), ",\xA0", /*#__PURE__*/React.createElement("b", {
-      style: {
-        color: '#5B4636'
-      }
-    }, "--color-gravity"), ".\xA0 Sao \u0111\u1EA7y ", /*#__PURE__*/React.createElement("b", {
-      style: {
-        color: '#E0A21F'
-      }
-    }, "#FFC23D"), ", sao tr\u1ED1ng x\xE1m ", /*#__PURE__*/React.createElement("b", null, "#D9CDB5"), "."));
-  }
-  window.GJMapNodesTable = MapNodesTable;
-})();
-})(); } catch (e) { __ds_ns.__errors.push({ path: "04-screens/map-nodes.jsx", error: String((e && e.message) || e) }); }
 
 // 04-screens/missions-screen.jsx
 try { (() => {
@@ -16360,18 +16558,19 @@ try { (() => {
 try { (() => {
 /* world1-strip.jsx — Level-Map SCROLL STRIP for World 1 "Đồng cỏ".
    ----------------------------------------------------------------
-   Pure artboard: 360 × 2600dp, NO HUD (the HUD is a separate sticky
-   layer added by the screen shell). Reads bottom→top:
+   Pure artboard: 360 × 1080dp, NO HUD (the HUD is a separate sticky
+   layer added by the screen shell). The scenery + winding road are a
+   single painted PNG backdrop (06-svg-assets/backgrounds/world1-map-bg.png,
+   724×2172 → exact 1:3, so no distortion at 360 wide). We no longer draw
+   trees/bushes/path in SVG — we just DROP the ten level nodes onto the
+   painted trail. Reads bottom→top:
 
-     • bottom edge: path enters from below
-     • L1 → L5    : regular nodes (alternating 4 jelly colors, with
-                    number + 3-star arc; L1–L4 done, L5 stone-locked)
-     • L6         : BREATHER ("Nghỉ" tag), smaller & dimmer
-     • L7 → L9    : regular nodes (stone-locked)
-     • L10        : BOSS (1.2× size, gravity-purple halo, "BOSS" tag)
-     • above L10  : WORLD GATE pill banner — badge + name + ★ chip
-     • top edge   : path continues out into World 2 "Rừng rậm";
-                    background blends smoothly into forest palette
+     • L1 → L5  : regular nodes (L1–L4 done w/ stars, L5 stone-locked)
+     • L6       : BREATHER ("NGHỈ")
+     • L7 → L9  : regular nodes (stone-locked)
+     • L10      : BOSS (gravity-purple halo)
+     • top      : the painted locked GATE → World 2 "Rừng rậm"
+                  (a compact stars-required chip labels it)
 
    Reuses DS tokens & JellyBlock. Exposes window.GJWorld1Strip.
    ---------------------------------------------------------------- */
@@ -16380,1152 +16579,148 @@ try { (() => {
   const {
     JellyBlock
   } = NS;
+  const BG_SRC = '../06-svg-assets/backgrounds/world1-map-bg-v3.png';
+  const LOCK_SRC = '../06-svg-assets/ui/locked-tile.png';
+  const OPEN_SRC = '../06-svg-assets/ui/unlocked-tile.png';
+  const DONE_SRC = '../06-svg-assets/ui/completed-tile.png';
+  const STAR_ON = '../06-svg-assets/ui/star-on.png'; // earned (yellow)
+  const STAR_OFF = '../06-svg-assets/ui/star-off.png'; // empty (grey)
 
   // ─── Geometry ──────────────────────────────────────────────────────────
   const W = 360;
-  const H = 2600;
+  const H = 1280; // 665×2365 backdrop scaled to 360 wide (exact 360×1280)
 
-  // Node y's are evenly spaced (~190dp pitch) bottom→top so the eye reads
-  // a steady climb; x's alternate to make a winding S-curve trail.
+  // One uniform node size across every node type.
+  const NODE = 62;
+
+  // Node positions sit ON THE BENDS of the painted winding trail, bottom→top.
+  // Consecutive nodes alternate left/right along each curve, so they zigzag
+  // up the path across the full height. L10 sits at the top bend below the gate.
   const NODES = [{
     id: 1,
-    x: 130,
-    y: 2440,
+    x: 230,
+    y: 1138,
     kind: 'reg',
     state: 'done',
     stars: 3,
     color: 'yellow'
   }, {
     id: 2,
-    x: 240,
-    y: 2250,
+    x: 147,
+    y: 1050,
     kind: 'reg',
     state: 'done',
     stars: 3,
     color: 'mint'
   }, {
     id: 3,
-    x: 110,
-    y: 2060,
+    x: 233,
+    y: 964,
     kind: 'reg',
     state: 'done',
     stars: 2,
     color: 'pink'
   }, {
     id: 4,
-    x: 240,
-    y: 1870,
+    x: 126,
+    y: 892,
     kind: 'reg',
     state: 'done',
     stars: 1,
     color: 'blue'
   }, {
     id: 5,
-    x: 120,
-    y: 1680,
+    x: 239,
+    y: 802,
     kind: 'reg',
-    state: 'locked'
+    state: 'open'
   }, {
     id: 6,
-    x: 240,
-    y: 1490,
+    x: 126,
+    y: 718,
     kind: 'breather',
     state: 'locked'
   }, {
     id: 7,
-    x: 110,
-    y: 1290,
+    x: 243,
+    y: 646,
     kind: 'reg',
     state: 'locked'
   }, {
     id: 8,
-    x: 240,
-    y: 1090,
+    x: 126,
+    y: 562,
     kind: 'reg',
     state: 'locked'
   }, {
     id: 9,
-    x: 150,
-    y: 880,
+    x: 242,
+    y: 484,
     kind: 'reg',
     state: 'locked'
   }, {
     id: 10,
-    x: 180,
-    y: 620,
+    x: 133,
+    y: 410,
     kind: 'boss',
     state: 'locked'
   }];
-
-  // Anchor points for the winding path. The trail enters the artboard
-  // from below the bottom edge, threads through L1..L10, slides under
-  // the gate banner, then leaves through the top edge into World 2.
-  const ENTRY = {
-    x: 180,
-    y: 2620
-  };
-  const GATE = {
-    x: 180,
-    y: 360
-  };
-  const EXIT = {
-    x: 180,
-    y: -40
-  };
-
-  // Smooth cubic-Bezier path through points with vertical tangents — the
-  // characteristic gentle S-curve of a candy-trail.
-  function pathD(points) {
-    let d = `M ${points[0].x} ${points[0].y}`;
-    for (let i = 1; i < points.length; i++) {
-      const a = points[i - 1],
-        b = points[i];
-      const my = (a.y + b.y) / 2;
-      d += ` C ${a.x} ${my}, ${b.x} ${my}, ${b.x} ${b.y}`;
-    }
-    return d;
-  }
-  const ALL_PTS = [ENTRY, ...NODES.map(n => ({
-    x: n.x,
-    y: n.y
-  })), GATE, EXIT];
-  const FULL_PATH = pathD(ALL_PTS);
-  // The "đã đi" (already walked) overlay covers entry → L4 (the last
-  // cleared node). L5 is the next playable, so the orange stops at L4.
-  const DONE_PATH = pathD([ENTRY, NODES[0], NODES[1], NODES[2], NODES[3]]);
-
-  // ─── Background scene ────────────────────────────────────────────────
-  // One tall SVG that paints the sky gradient, layered hills, trees,
-  // bushes, daisies and a few branded jelly characters. Top ~18% is
-  // Rừng rậm (forest) palette; rest is Đồng cỏ (meadow); a soft band
-  // around the gate cross-blends the two.
-  function Scene() {
-    return /*#__PURE__*/React.createElement("svg", {
-      width: W,
-      height: H,
-      viewBox: `0 0 ${W} ${H}`,
-      style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'block'
-      }
-    }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("linearGradient", {
-      id: "w1-sky",
-      x1: "0",
-      y1: "0",
-      x2: "0",
-      y2: "1"
-    }, /*#__PURE__*/React.createElement("stop", {
-      offset: "0",
-      stopColor: "#B2D3AC"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "0.06",
-      stopColor: "#C2DDBC"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "0.13",
-      stopColor: "#CFE6CE"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "0.19",
-      stopColor: "#D9ECDA"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "0.24",
-      stopColor: "#DEF0E1"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "0.60",
-      stopColor: "#D6ECCF"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "1",
-      stopColor: "#C6E8C9"
-    })), /*#__PURE__*/React.createElement("radialGradient", {
-      id: "w1-sun",
-      cx: "0.80",
-      cy: "0.32",
-      r: "0.40"
-    }, /*#__PURE__*/React.createElement("stop", {
-      offset: "0",
-      stopColor: "#FFF6CD",
-      stopOpacity: "0.55"
-    }), /*#__PURE__*/React.createElement("stop", {
-      offset: "1",
-      stopColor: "#FFF6CD",
-      stopOpacity: "0"
-    }))), /*#__PURE__*/React.createElement("rect", {
-      x: "0",
-      y: "0",
-      width: W,
-      height: H,
-      fill: "url(#w1-sky)"
-    }), /*#__PURE__*/React.createElement("rect", {
-      x: "0",
-      y: "600",
-      width: W,
-      height: "1300",
-      fill: "url(#w1-sun)"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "50",
-      cy: "-10",
-      rx: "120",
-      ry: "58",
-      fill: "#7BA582",
-      opacity: "0.85"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "220",
-      cy: "-14",
-      rx: "160",
-      ry: "60",
-      fill: "#6F9C76",
-      opacity: "0.85"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "350",
-      cy: "6",
-      rx: "100",
-      ry: "46",
-      fill: "#5F8E68",
-      opacity: "0.78"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "40",
-      cy: "110",
-      rx: "130",
-      ry: "58",
-      fill: "#8FB48E"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "300",
-      cy: "120",
-      rx: "150",
-      ry: "62",
-      fill: "#85AB85"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "180",
-      cy: "170",
-      rx: "220",
-      ry: "74",
-      fill: "#9BBE99"
-    }), /*#__PURE__*/React.createElement(ForestTree, {
-      x: 26,
-      y: 88,
-      h: 42,
-      canopy: "#5C8E66",
-      trunk: "#5A3F23"
-    }), /*#__PURE__*/React.createElement(ForestTree, {
-      x: 66,
-      y: 64,
-      h: 36,
-      canopy: "#6FA677",
-      trunk: "#5A3F23"
-    }), /*#__PURE__*/React.createElement(ForestTree, {
-      x: 108,
-      y: 86,
-      h: 40,
-      canopy: "#5C8E66",
-      trunk: "#5A3F23"
-    }), /*#__PURE__*/React.createElement(ForestTree, {
-      x: 236,
-      y: 70,
-      h: 38,
-      canopy: "#6FA677",
-      trunk: "#5A3F23"
-    }), /*#__PURE__*/React.createElement(ForestTree, {
-      x: 290,
-      y: 92,
-      h: 44,
-      canopy: "#5C8E66",
-      trunk: "#5A3F23"
-    }), /*#__PURE__*/React.createElement(ForestTree, {
-      x: 332,
-      y: 66,
-      h: 38,
-      canopy: "#6FA677",
-      trunk: "#5A3F23"
-    }), /*#__PURE__*/React.createElement(ForestTree, {
-      x: 170,
-      y: 104,
-      h: 36,
-      canopy: "#6FA677",
-      trunk: "#5A3F23"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "40",
-      cy: "310",
-      rx: "130",
-      ry: "50",
-      fill: "#A8D2A5"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "320",
-      cy: "320",
-      rx: "150",
-      ry: "56",
-      fill: "#A0CC9F"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "180",
-      cy: "370",
-      rx: "220",
-      ry: "68",
-      fill: "#B0D6AB"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "60",
-      cy: "500",
-      rx: "140",
-      ry: "54",
-      fill: "#BCDDB9"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "290",
-      cy: "520",
-      rx: "150",
-      ry: "58",
-      fill: "#B0D6AB"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "180",
-      cy: "560",
-      rx: "210",
-      ry: "76",
-      fill: "#B8D9B5"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "50",
-      cy: "720",
-      rx: "150",
-      ry: "58",
-      fill: "#B0D6AB"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "320",
-      cy: "740",
-      rx: "140",
-      ry: "58",
-      fill: "#A6CFA4"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "170",
-      cy: "790",
-      rx: "200",
-      ry: "76",
-      fill: "#BCDDB9"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "60",
-      cy: "940",
-      rx: "150",
-      ry: "60",
-      fill: "#A6CFA4"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "300",
-      cy: "960",
-      rx: "160",
-      ry: "62",
-      fill: "#A0CC9F"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "190",
-      cy: "1020",
-      rx: "220",
-      ry: "84",
-      fill: "#B0D6AB"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "40",
-      cy: "1180",
-      rx: "140",
-      ry: "58",
-      fill: "#A6CFA4"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "320",
-      cy: "1200",
-      rx: "160",
-      ry: "62",
-      fill: "#9FCAA1"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "180",
-      cy: "1260",
-      rx: "220",
-      ry: "80",
-      fill: "#A6CFA4"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "60",
-      cy: "1420",
-      rx: "150",
-      ry: "60",
-      fill: "#A0CC9F"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "300",
-      cy: "1440",
-      rx: "150",
-      ry: "60",
-      fill: "#94C297"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "170",
-      cy: "1500",
-      rx: "220",
-      ry: "84",
-      fill: "#A6CFA4"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "40",
-      cy: "1660",
-      rx: "140",
-      ry: "58",
-      fill: "#94C297"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "320",
-      cy: "1680",
-      rx: "150",
-      ry: "62",
-      fill: "#9CC79B"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "190",
-      cy: "1740",
-      rx: "220",
-      ry: "80",
-      fill: "#A0CC9F"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "60",
-      cy: "1900",
-      rx: "140",
-      ry: "58",
-      fill: "#94C297"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "300",
-      cy: "1920",
-      rx: "160",
-      ry: "62",
-      fill: "#8BBE8D"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "180",
-      cy: "1980",
-      rx: "220",
-      ry: "80",
-      fill: "#94C297"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "40",
-      cy: "2150",
-      rx: "160",
-      ry: "64",
-      fill: "#8BBE8D"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "320",
-      cy: "2170",
-      rx: "160",
-      ry: "66",
-      fill: "#85B988"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "180",
-      cy: "2230",
-      rx: "240",
-      ry: "84",
-      fill: "#94C297"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "40",
-      cy: "2380",
-      rx: "170",
-      ry: "70",
-      fill: "#7DB585"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "320",
-      cy: "2400",
-      rx: "170",
-      ry: "72",
-      fill: "#85B988"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: "180",
-      cy: "2470",
-      rx: "260",
-      ry: "92",
-      fill: "#9CC79B"
-    }), /*#__PURE__*/React.createElement("rect", {
-      x: "0",
-      y: H - 30,
-      width: W,
-      height: "30",
-      fill: "#A4CE9E"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 28,
-      y: 300,
-      h: 28,
-      canopy: "#7FB37F"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 336,
-      y: 290,
-      h: 30,
-      canopy: "#6FA86F"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 20,
-      y: 440,
-      h: 34,
-      canopy: "#7FB37F"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 338,
-      y: 460,
-      h: 32,
-      canopy: "#6FA86F"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 28,
-      y: 620,
-      h: 36,
-      canopy: "#7FB37F"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 332,
-      y: 640,
-      h: 38,
-      canopy: "#6FA86F"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 22,
-      y: 830,
-      h: 40,
-      canopy: "#6FA86F"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 338,
-      y: 870,
-      h: 36,
-      canopy: "#7FB37F"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 20,
-      y: 1080,
-      h: 42,
-      canopy: "#5F9C66"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 336,
-      y: 1100,
-      h: 38,
-      canopy: "#6FA86F"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 22,
-      y: 1320,
-      h: 44,
-      canopy: "#7FB37F"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 336,
-      y: 1360,
-      h: 40,
-      canopy: "#5F9C66"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 20,
-      y: 1580,
-      h: 42,
-      canopy: "#6FA86F"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 338,
-      y: 1620,
-      h: 44,
-      canopy: "#5F9C66"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 24,
-      y: 1820,
-      h: 46,
-      canopy: "#7FB37F"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 336,
-      y: 1860,
-      h: 42,
-      canopy: "#6FA86F"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 20,
-      y: 2080,
-      h: 46,
-      canopy: "#5F9C66"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 338,
-      y: 2120,
-      h: 44,
-      canopy: "#6FA86F"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 22,
-      y: 2320,
-      h: 48,
-      canopy: "#7FB37F"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 334,
-      y: 2350,
-      h: 46,
-      canopy: "#5F9C66"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 26,
-      y: 2520,
-      h: 42,
-      canopy: "#6FA86F"
-    }), /*#__PURE__*/React.createElement(Tree, {
-      x: 332,
-      y: 2540,
-      h: 44,
-      canopy: "#7FB37F"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 46,
-      y: 480,
-      r: 16,
-      c: "#8BBE8D"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 310,
-      y: 510,
-      r: 14,
-      c: "#7AB07E"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 50,
-      y: 730,
-      r: 20,
-      c: "#7AB07E"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 308,
-      y: 760,
-      r: 18,
-      c: "#8BBE8D"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 42,
-      y: 970,
-      r: 22,
-      c: "#7AB07E"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 312,
-      y: 1000,
-      r: 20,
-      c: "#8BBE8D"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 38,
-      y: 1220,
-      r: 18,
-      c: "#7AB07E"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 306,
-      y: 1250,
-      r: 22,
-      c: "#7AB07E"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 44,
-      y: 1480,
-      r: 20,
-      c: "#8BBE8D"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 310,
-      y: 1510,
-      r: 18,
-      c: "#7AB07E"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 40,
-      y: 1740,
-      r: 22,
-      c: "#7AB07E"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 306,
-      y: 1770,
-      r: 20,
-      c: "#8BBE8D"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 48,
-      y: 1990,
-      r: 20,
-      c: "#8BBE8D"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 310,
-      y: 2020,
-      r: 22,
-      c: "#7AB07E"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 40,
-      y: 2230,
-      r: 24,
-      c: "#7AB07E"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 306,
-      y: 2260,
-      r: 22,
-      c: "#8BBE8D"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 50,
-      y: 2460,
-      r: 20,
-      c: "#8BBE8D"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 304,
-      y: 2490,
-      r: 22,
-      c: "#7AB07E"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 130,
-      y: 2560,
-      r: 14,
-      c: "#A4CE9E"
-    }), /*#__PURE__*/React.createElement(Bush, {
-      x: 230,
-      y: 2570,
-      r: 12,
-      c: "#A4CE9E"
-    }), /*#__PURE__*/React.createElement(Daisy, {
-      x: 70,
-      y: 550
-    }), /*#__PURE__*/React.createElement(Daisy, {
-      x: 300,
-      y: 580
-    }), /*#__PURE__*/React.createElement(Daisy, {
-      x: 86,
-      y: 770
-    }), /*#__PURE__*/React.createElement(Daisy, {
-      x: 292,
-      y: 820
-    }), /*#__PURE__*/React.createElement(Daisy, {
-      x: 48,
-      y: 1050
-    }), /*#__PURE__*/React.createElement(Daisy, {
-      x: 296,
-      y: 1080
-    }), /*#__PURE__*/React.createElement(Daisy, {
-      x: 92,
-      y: 1300
-    }), /*#__PURE__*/React.createElement(Daisy, {
-      x: 294,
-      y: 1330
-    }), /*#__PURE__*/React.createElement(Daisy, {
-      x: 66,
-      y: 1560
-    }), /*#__PURE__*/React.createElement(Daisy, {
-      x: 300,
-      y: 1590
-    }), /*#__PURE__*/React.createElement(Daisy, {
-      x: 88,
-      y: 1820
-    }), /*#__PURE__*/React.createElement(Daisy, {
-      x: 296,
-      y: 1850
-    }), /*#__PURE__*/React.createElement(Daisy, {
-      x: 50,
-      y: 2070
-    }), /*#__PURE__*/React.createElement(Daisy, {
-      x: 302,
-      y: 2100
-    }), /*#__PURE__*/React.createElement(Daisy, {
-      x: 78,
-      y: 2310
-    }), /*#__PURE__*/React.createElement(Daisy, {
-      x: 296,
-      y: 2340
-    }), /*#__PURE__*/React.createElement(Daisy, {
-      x: 60,
-      y: 2530
-    }), /*#__PURE__*/React.createElement(Daisy, {
-      x: 312,
-      y: 2550
-    }), /*#__PURE__*/React.createElement(Mushroom, {
-      x: 48,
-      y: 1170,
-      w: 22,
-      color: "pink"
-    }), /*#__PURE__*/React.createElement(Mushroom, {
-      x: 314,
-      y: 1860,
-      w: 20,
-      color: "yellow"
-    }), /*#__PURE__*/React.createElement(Mushroom, {
-      x: 48,
-      y: 2410,
-      w: 26,
-      color: "mint"
-    }), /*#__PURE__*/React.createElement(FloatJelly, {
-      x: 300,
-      y: 1170,
-      size: 20,
-      color: "mint",
-      delay: "0s"
-    }), /*#__PURE__*/React.createElement(FloatJelly, {
-      x: 56,
-      y: 2000,
-      size: 22,
-      color: "yellow",
-      delay: "0.8s"
-    }), /*#__PURE__*/React.createElement(FloatJelly, {
-      x: 300,
-      y: 2280,
-      size: 18,
-      color: "pink",
-      delay: "1.4s"
-    }));
-  }
-  function ForestTree({
-    x,
-    y,
-    h,
-    canopy,
-    trunk
-  }) {
-    const r = h * 0.62;
-    return /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("rect", {
-      x: x - 3,
-      y: y,
-      width: "6",
-      height: h * 0.5,
-      rx: "3",
-      fill: trunk
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x - r * 0.5,
-      cy: y - r * 0.2,
-      rx: r * 0.78,
-      ry: r * 0.72,
-      fill: canopy,
-      opacity: "0.95"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x + r * 0.5,
-      cy: y - r * 0.3,
-      rx: r * 0.78,
-      ry: r * 0.72,
-      fill: canopy,
-      opacity: "0.95"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x,
-      cy: y - r * 0.78,
-      rx: r,
-      ry: r * 0.85,
-      fill: canopy
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x - r * 0.34,
-      cy: y - r * 0.96,
-      rx: r * 0.28,
-      ry: r * 0.18,
-      fill: "#FFFFFF",
-      opacity: "0.22"
-    }));
-  }
-  function Tree({
-    x,
-    y,
-    h = 32,
-    canopy = '#7FB37F',
-    trunk = '#7B5A36'
-  }) {
-    const r = h * 0.58;
-    return /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("rect", {
-      x: x - 2.5,
-      y: y,
-      width: "5",
-      height: h * 0.46,
-      rx: "2.5",
-      fill: trunk
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x - r * 0.5,
-      cy: y - r * 0.18,
-      rx: r * 0.72,
-      ry: r * 0.66,
-      fill: canopy,
-      opacity: "0.94"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x + r * 0.5,
-      cy: y - r * 0.28,
-      rx: r * 0.72,
-      ry: r * 0.66,
-      fill: canopy,
-      opacity: "0.94"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x,
-      cy: y - r * 0.72,
-      rx: r,
-      ry: r * 0.82,
-      fill: canopy
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x - r * 0.32,
-      cy: y - r * 0.9,
-      rx: r * 0.26,
-      ry: r * 0.16,
-      fill: "#FFFFFF",
-      opacity: "0.28"
-    }));
-  }
-  function Bush({
-    x,
-    y,
-    r = 16,
-    c = '#8BBE8D'
-  }) {
-    return /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("ellipse", {
-      cx: x - r * 0.55,
-      cy: y,
-      rx: r * 0.7,
-      ry: r * 0.55,
-      fill: c
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x + r * 0.55,
-      cy: y,
-      rx: r * 0.7,
-      ry: r * 0.55,
-      fill: c
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x,
-      cy: y - r * 0.22,
-      rx: r * 0.82,
-      ry: r * 0.6,
-      fill: c
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x - r * 0.2,
-      cy: y - r * 0.4,
-      rx: r * 0.18,
-      ry: r * 0.10,
-      fill: "#FFFFFF",
-      opacity: "0.32"
-    }));
-  }
-  function Daisy({
-    x,
-    y
-  }) {
-    return /*#__PURE__*/React.createElement("g", null, [0, 72, 144, 216, 288].map(a => {
-      const rad = a * Math.PI / 180;
-      return /*#__PURE__*/React.createElement("circle", {
-        key: a,
-        cx: x + Math.cos(rad) * 3.2,
-        cy: y + Math.sin(rad) * 3.2,
-        r: "2.2",
-        fill: "#FFFFFF",
-        opacity: "0.95"
-      });
-    }), /*#__PURE__*/React.createElement("circle", {
-      cx: x,
-      cy: y,
-      r: "1.7",
-      fill: "#F6D86B"
-    }));
-  }
-
-  // A foreground "mushroom": cream stem + colored jelly cap. Inline SVG
-  // so it sits on the same z-layer as the rest of the scene.
-  function Mushroom({
-    x,
-    y,
-    w = 22,
-    color = 'pink'
-  }) {
-    const palette = {
-      pink: {
-        fill: '#F7A9C0',
-        shine: '#FBD0DF',
-        edge: '#E576A0'
-      },
-      yellow: {
-        fill: '#FFE3A3',
-        shine: '#FFF1CE',
-        edge: '#E8B85C'
-      },
-      mint: {
-        fill: '#A3E5D9',
-        shine: '#CBF2EB',
-        edge: '#5FC3B2'
-      }
-    }[color] || {
-      fill: '#F7A9C0',
-      shine: '#FBD0DF',
-      edge: '#E576A0'
-    };
-    return /*#__PURE__*/React.createElement("g", {
-      style: {
-        filter: 'drop-shadow(0 3px 2px rgba(120,92,52,0.18))'
-      }
-    }, /*#__PURE__*/React.createElement("rect", {
-      x: x - w * 0.18,
-      y: y - w * 0.10,
-      width: w * 0.36,
-      height: w * 0.55,
-      rx: w * 0.16,
-      fill: "#FCF1DC",
-      stroke: "#E2C896",
-      strokeWidth: "1.2"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x,
-      cy: y - w * 0.12,
-      rx: w * 0.55,
-      ry: w * 0.4,
-      fill: palette.fill,
-      stroke: palette.edge,
-      strokeWidth: "1.6"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x - w * 0.16,
-      cy: y - w * 0.26,
-      rx: w * 0.22,
-      ry: w * 0.12,
-      fill: palette.shine,
-      opacity: "0.92"
-    }), /*#__PURE__*/React.createElement("circle", {
-      cx: x - w * 0.20,
-      cy: y - w * 0.10,
-      r: w * 0.07,
-      fill: "#FFFFFF",
-      opacity: "0.85"
-    }), /*#__PURE__*/React.createElement("circle", {
-      cx: x + w * 0.18,
-      cy: y - w * 0.16,
-      r: w * 0.05,
-      fill: "#FFFFFF",
-      opacity: "0.85"
-    }));
-  }
-  function FloatJelly({
-    x,
-    y,
-    size,
-    color,
-    delay
-  }) {
-    const palette = {
-      yellow: {
-        f: '#FFE3A3',
-        e: '#E8B85C',
-        s: '#FFF1CE'
-      },
-      mint: {
-        f: '#A3E5D9',
-        e: '#5FC3B2',
-        s: '#CBF2EB'
-      },
-      pink: {
-        f: '#F7A9C0',
-        e: '#E576A0',
-        s: '#FBD0DF'
-      },
-      blue: {
-        f: '#B3C7F7',
-        e: '#7E9CE8',
-        s: '#D6E1FB'
-      }
-    }[color] || {
-      f: '#FFE3A3',
-      e: '#E8B85C',
-      s: '#FFF1CE'
-    };
-    const r = Math.round(size * 0.28);
-    return /*#__PURE__*/React.createElement("g", {
-      style: {
-        animation: `gj-strip-float 3.6s ease-in-out infinite`,
-        animationDelay: delay,
-        transformOrigin: `${x}px ${y}px`,
-        filter: 'drop-shadow(0 4px 3px rgba(120,92,52,0.20))'
-      }
-    }, /*#__PURE__*/React.createElement("rect", {
-      x: x - size / 2,
-      y: y - size / 2,
-      width: size,
-      height: size,
-      rx: r,
-      fill: palette.f,
-      stroke: palette.e,
-      strokeWidth: "2"
-    }), /*#__PURE__*/React.createElement("ellipse", {
-      cx: x,
-      cy: y - size * 0.18,
-      rx: size * 0.34,
-      ry: size * 0.12,
-      fill: palette.s,
-      opacity: "0.95"
-    }), /*#__PURE__*/React.createElement("circle", {
-      cx: x - size * 0.18,
-      cy: y - size * 0.04,
-      r: size * 0.07,
-      fill: "#3B2A18"
-    }), /*#__PURE__*/React.createElement("circle", {
-      cx: x + size * 0.18,
-      cy: y - size * 0.04,
-      r: size * 0.07,
-      fill: "#3B2A18"
-    }));
-  }
-
-  // ─── Path layer ───────────────────────────────────────────────────────
-  function PathLayer() {
-    return /*#__PURE__*/React.createElement("svg", {
-      width: W,
-      height: H,
-      viewBox: `0 0 ${W} ${H}`,
-      style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'block',
-        pointerEvents: 'none'
-      }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: FULL_PATH,
-      fill: "none",
-      stroke: "rgba(120,92,52,0.22)",
-      strokeWidth: "34",
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-      transform: "translate(0,4)"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: FULL_PATH,
-      fill: "none",
-      stroke: "#EAD8B7",
-      strokeWidth: "30",
-      strokeLinecap: "round",
-      strokeLinejoin: "round"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: FULL_PATH,
-      fill: "none",
-      stroke: "#FFFFFF",
-      strokeWidth: "26",
-      strokeLinecap: "round",
-      strokeLinejoin: "round"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: FULL_PATH,
-      fill: "none",
-      stroke: "#EFE0C9",
-      strokeWidth: "3.5",
-      strokeLinecap: "round",
-      strokeDasharray: "7 11"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: DONE_PATH,
-      fill: "none",
-      stroke: "#FF9F68",
-      strokeWidth: "20",
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-      opacity: "0.95"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: DONE_PATH,
-      fill: "none",
-      stroke: "#FFC59A",
-      strokeWidth: "6",
-      strokeLinecap: "round",
-      strokeDasharray: "4 9",
-      opacity: "0.9"
-    }));
-  }
 
   // ─── Stars ────────────────────────────────────────────────────────────
   function Star({
     filled = false,
     size = 14
   }) {
-    return /*#__PURE__*/React.createElement("svg", {
-      width: size,
-      height: size,
-      viewBox: "0 0 24 24",
+    return /*#__PURE__*/React.createElement("img", {
+      src: filled ? STAR_ON : STAR_OFF,
+      alt: "",
+      draggable: "false",
       style: {
-        display: 'block'
+        width: size,
+        height: size,
+        display: 'block',
+        userSelect: 'none',
+        pointerEvents: 'none',
+        filter: filled ? 'drop-shadow(0 1px 1.5px rgba(190,120,20,0.5))' : 'drop-shadow(0 1px 1.5px rgba(120,92,52,0.32))'
       }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: "M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.1l1-5.8L3.5 9.2l5.9-.9L12 3z",
-      fill: filled ? '#FFC23D' : '#D9CDB5',
-      stroke: filled ? '#E0A21F' : '#B6A892',
-      strokeWidth: "1.6",
-      strokeLinejoin: "round"
-    }));
+    });
   }
   function StarArc({
     stars = 3,
-    size = 14,
-    width = 64
+    size = 15,
+    width = 46
   }) {
     return /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'absolute',
         left: '50%',
-        top: -size - 6,
+        top: Math.round(size * 0.18),
         transform: 'translateX(-50%)',
         width,
-        height: size + 8,
+        height: size + 6,
         display: 'flex',
         alignItems: 'flex-end',
         justifyContent: 'space-between',
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        zIndex: 2
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
-        transform: 'translateY(5px) rotate(-22deg)'
+        transform: 'translateY(2px) rotate(-18deg)'
       }
     }, /*#__PURE__*/React.createElement(Star, {
       filled: stars >= 1,
       size: size
     })), /*#__PURE__*/React.createElement("div", {
       style: {
-        transform: 'translateY(-2px)'
+        transform: 'translateY(-3px)'
       }
     }, /*#__PURE__*/React.createElement(Star, {
       filled: stars >= 2,
-      size: size + 2
+      size: size + 3
     })), /*#__PURE__*/React.createElement("div", {
       style: {
-        transform: 'translateY(5px) rotate(22deg)'
+        transform: 'translateY(2px) rotate(18deg)'
       }
     }, /*#__PURE__*/React.createElement(Star, {
       filled: stars >= 3,
@@ -17534,378 +16729,208 @@ try { (() => {
   }
 
   // ─── Node primitives ─────────────────────────────────────────────────
-  function NumberBadge({
+  // Level number sitting IN THE CENTRE of a painted tile. `vy` is the vertical
+  // anchor as a fraction of tile height (locked tiles push it up above the lock).
+  function CenterNum({
     n,
     size,
-    color = '#6A4A2E'
+    color = '#6A4A2E',
+    vy = 0.5,
+    scale = 0.34,
+    shadow = '0 1px 0 rgba(255,255,255,0.65)'
   }) {
+    // Shrink for wider numbers so up to 3 digits (→100) fit inside the node.
+    const digits = String(n).length;
+    const dscale = digits >= 3 ? 0.66 : digits === 2 ? 0.82 : 1;
     return /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'absolute',
-        inset: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        left: 0,
+        right: 0,
+        top: `${vy * 100}%`,
+        transform: 'translateY(-50%)',
+        textAlign: 'center',
         fontFamily: 'var(--font-display)',
         fontWeight: 700,
-        fontSize: Math.round(size * 0.42),
+        fontSize: Math.round(size * scale * dscale),
         lineHeight: 1,
         color,
-        textShadow: '0 1px 0 rgba(255,255,255,0.55)',
+        textShadow: shadow,
         pointerEvents: 'none'
       }
     }, n);
   }
-  function LockGlyph({
-    size = 18
+  function Tile({
+    src,
+    size,
+    shadow
   }) {
-    return /*#__PURE__*/React.createElement("svg", {
-      width: size,
-      height: size,
-      viewBox: "0 0 24 24",
-      "aria-hidden": "true",
-      style: {
-        display: 'block'
-      }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: "M8 11V8.5a4 4 0 1 1 8 0V11",
-      fill: "none",
-      stroke: "#FFFFFF",
-      strokeWidth: "2.6",
-      strokeLinecap: "round"
-    }), /*#__PURE__*/React.createElement("rect", {
-      x: "5",
-      y: "11",
-      width: "14",
-      height: "9",
-      rx: "2.5",
-      fill: "#FFFFFF"
-    }), /*#__PURE__*/React.createElement("circle", {
-      cx: "12",
-      cy: "15",
-      r: "1.4",
-      fill: "#A89A82"
-    }), /*#__PURE__*/React.createElement("rect", {
-      x: "11.3",
-      y: "15",
-      width: "1.4",
-      height: "3",
-      rx: "0.6",
-      fill: "#A89A82"
-    }));
-  }
-  function DoneNode({
-    n,
-    color,
-    stars,
-    size = 64
-  }) {
-    return /*#__PURE__*/React.createElement("div", {
+    return /*#__PURE__*/React.createElement("img", {
+      src: src,
+      alt: "",
+      draggable: "false",
       style: {
         position: 'relative',
         width: size,
         height: size,
-        filter: 'drop-shadow(0 5px 7px rgba(120,92,52,0.24))'
+        display: 'block',
+        userSelect: 'none',
+        pointerEvents: 'none',
+        filter: `drop-shadow(${shadow})`
       }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: color,
-      size: size,
-      showEyes: false
-    }), /*#__PURE__*/React.createElement(NumberBadge, {
-      n: n,
-      size: size
-    }), /*#__PURE__*/React.createElement(StarArc, {
-      stars: stars,
-      size: 14,
-      width: size + 14
-    }));
+    });
   }
-  function LockedRegularNode({
+  function DoneNode({
     n,
+    stars,
     size = 60
   }) {
     return /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'relative',
         width: size,
-        height: size,
-        filter: 'drop-shadow(0 4px 5px rgba(120,92,52,0.20))'
+        height: size
       }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: "stone",
+    }, /*#__PURE__*/React.createElement(Tile, {
+      src: DONE_SRC,
       size: size,
-      showEyes: false
-    }), /*#__PURE__*/React.createElement("div", {
+      shadow: "0 5px 7px rgba(120,92,52,0.30)"
+    }), /*#__PURE__*/React.createElement(CenterNum, {
+      n: n,
+      size: size,
+      color: "#B67A16",
+      vy: 0.56,
+      scale: 0.36
+    }), /*#__PURE__*/React.createElement(StarArc, {
+      stars: stars,
+      size: 15,
+      width: 54
+    }));
+  }
+
+  // Unlocked-but-not-yet-played: bright yellow tile, prominent centred number, pulse.
+  function OpenNode({
+    n,
+    size = 64
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
       style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: Math.round(size * 0.40),
-        lineHeight: 1,
-        color: '#7A6A50',
-        textShadow: '0 1px 0 rgba(255,255,255,0.40)',
-        pointerEvents: 'none'
+        position: 'relative',
+        width: size,
+        height: size
       }
-    }, n), /*#__PURE__*/React.createElement(StarArc, {
-      stars: 0,
-      size: 12,
-      width: size + 8
-    }), /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'absolute',
-        right: -4,
-        bottom: -4,
-        width: 24,
-        height: 24,
+        left: -16,
+        top: -16,
+        right: -16,
+        bottom: -16,
         borderRadius: '50%',
-        background: '#8A7B62',
-        border: '2px solid #FFFFFF',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        boxShadow: '0 2px 4px rgba(120,92,52,0.32)'
+        background: 'radial-gradient(closest-side, rgba(255,159,104,0.55) 0%, rgba(255,159,104,0.22) 55%, rgba(255,159,104,0) 78%)',
+        animation: 'gj-strip-pulse 1800ms ease-in-out infinite'
       }
-    }, /*#__PURE__*/React.createElement(LockGlyph, {
-      size: 13
-    })));
+    }), /*#__PURE__*/React.createElement(Tile, {
+      src: OPEN_SRC,
+      size: size,
+      shadow: "0 6px 9px rgba(120,92,52,0.30)"
+    }), /*#__PURE__*/React.createElement(CenterNum, {
+      n: n,
+      size: size,
+      color: "#B67A16",
+      vy: 0.52,
+      scale: 0.38
+    }));
+  }
+
+  // Locked cream tile — the padlock is painted at the bottom, so the number
+  // sits in the empty upper area.
+  function LockedRegularNode({
+    n,
+    size = 58
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        width: size,
+        height: size
+      }
+    }, /*#__PURE__*/React.createElement(Tile, {
+      src: LOCK_SRC,
+      size: size,
+      shadow: "0 5px 7px rgba(120,92,52,0.26)"
+    }), /*#__PURE__*/React.createElement(CenterNum, {
+      n: n,
+      size: size,
+      color: "#8A7A63",
+      vy: 0.33,
+      scale: 0.34
+    }));
   }
   function BreatherNode({
     n,
-    size = 48
+    size = 52
   }) {
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        top: -10,
-        left: size + 8,
-        background: '#FFFFFF',
-        color: '#8C7458',
-        border: '1.5px solid #E6D8BD',
-        fontFamily: 'var(--font-body)',
-        fontWeight: 800,
-        fontSize: 11,
-        letterSpacing: '0.10em',
-        padding: '4px 10px',
-        borderRadius: 999,
-        boxShadow: '0 3px 8px rgba(120,92,52,0.20)',
-        whiteSpace: 'nowrap'
-      }
-    }, "NGH\u1EC8"), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        top: -6,
-        left: size + 4,
-        width: 10,
-        height: 10,
-        borderRadius: '50%',
-        background: '#FFD074',
-        border: '1.5px solid #E0A21F'
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        width: size,
-        height: size,
-        filter: 'drop-shadow(0 4px 5px rgba(120,92,52,0.22))',
-        opacity: 0.92
-      }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: "stone",
-      size: size,
-      showEyes: false
-    }), /*#__PURE__*/React.createElement("svg", {
-      width: size,
-      height: size,
-      viewBox: `0 0 ${size} ${size}`,
-      style: {
-        position: 'absolute',
-        inset: 0,
-        pointerEvents: 'none'
-      }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: `M ${size * 0.30} ${size * 0.45} q 4 4 8 0`,
-      fill: "none",
-      stroke: "#6A5A40",
-      strokeWidth: "2",
-      strokeLinecap: "round"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: `M ${size * 0.55} ${size * 0.45} q 4 4 8 0`,
-      fill: "none",
-      stroke: "#6A5A40",
-      strokeWidth: "2",
-      strokeLinecap: "round"
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        bottom: size * 0.15,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: Math.round(size * 0.30),
-        lineHeight: 1,
-        color: '#7A6A50',
-        textShadow: '0 1px 0 rgba(255,255,255,0.40)',
-        pointerEvents: 'none'
-      }
-    }, n)));
+    return /*#__PURE__*/React.createElement(LockedRegularNode, {
+      n: n,
+      size: size
+    });
   }
   function BossNode({
     n,
-    size = 80
+    size = 76
   }) {
     return /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'relative',
         width: size,
-        height: size,
-        filter: 'drop-shadow(0 8px 14px rgba(126,108,240,0.40))'
+        height: size
       }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: -28,
-        top: -28,
-        right: -28,
-        bottom: -28,
-        borderRadius: '50%',
-        background: 'radial-gradient(closest-side, rgba(169,156,246,0.55) 0%, rgba(126,108,240,0.30) 55%, rgba(126,108,240,0) 78%)',
-        animation: 'gj-strip-halo 2400ms ease-in-out infinite'
-      }
-    }), /*#__PURE__*/React.createElement("svg", {
-      width: size + 56,
-      height: size + 56,
-      viewBox: "0 0 200 200",
-      style: {
-        position: 'absolute',
-        left: -28,
-        top: -28,
-        pointerEvents: 'none',
-        animation: 'gj-strip-spin 8s linear infinite',
-        transformOrigin: '50% 50%'
-      }
-    }, [0, 60, 120, 180, 240, 300].map(a => {
-      const rad = a * Math.PI / 180;
-      const cx = 100 + Math.cos(rad) * 84;
-      const cy = 100 + Math.sin(rad) * 84;
-      return /*#__PURE__*/React.createElement("g", {
-        key: a
-      }, /*#__PURE__*/React.createElement("circle", {
-        cx: cx,
-        cy: cy,
-        r: "4.5",
-        fill: "#FFFFFF",
-        opacity: "0.95"
-      }), /*#__PURE__*/React.createElement("circle", {
-        cx: cx,
-        cy: cy,
-        r: "2.5",
-        fill: "#A99CF6"
-      }));
-    })), /*#__PURE__*/React.createElement(JellyBlock, {
-      color: "stone",
+    }, /*#__PURE__*/React.createElement(Tile, {
+      src: LOCK_SRC,
       size: size,
-      showEyes: false
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        inset: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        width: size * 0.5,
-        height: size * 0.5,
-        borderRadius: '50%',
-        background: 'linear-gradient(180deg,#8E7CF4 0%, #6353D6 100%)',
-        border: '3px solid #FFFFFF',
-        boxShadow: '0 4px 10px rgba(83,68,196,0.5), inset 0 2px 0 rgba(255,255,255,0.4)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }
-    }, /*#__PURE__*/React.createElement(LockGlyph, {
-      size: Math.round(size * 0.28)
-    }))), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        top: -22,
-        left: '50%',
-        transform: 'translateX(-50%)',
-        background: 'linear-gradient(180deg, #8E7CF4 0%, #7E6CF0 60%, #5F4ECB 100%)',
-        color: '#FFFFFF',
-        border: '2px solid #6353D6',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 13,
-        letterSpacing: '0.16em',
-        padding: '4px 14px',
-        borderRadius: 999,
-        boxShadow: '0 4px 10px rgba(83,68,196,0.45), inset 0 1.5px 0 rgba(255,255,255,0.45)',
-        whiteSpace: 'nowrap'
-      }
-    }, "BOSS"), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        bottom: -22,
-        left: '50%',
-        transform: 'translateX(-50%)',
-        background: '#FFFFFF',
-        color: '#5B4636',
-        border: '1.5px solid #EFE0C9',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 13,
-        padding: '2px 10px',
-        borderRadius: 999,
-        boxShadow: '0 3px 6px rgba(120,92,52,0.20)'
-      }
-    }, "m\xE0n ", n));
+      shadow: "0 6px 10px rgba(126,108,240,0.32)"
+    }), /*#__PURE__*/React.createElement(CenterNum, {
+      n: n,
+      size: size,
+      color: "#6353D6",
+      vy: 0.33,
+      scale: 0.4,
+      shadow: "0 1px 0 rgba(255,255,255,0.85)"
+    }));
   }
   function PlaceNode({
     node
   }) {
-    let inner = null,
-      half = 32;
+    let inner = null;
+    const half = NODE / 2;
     if (node.kind === 'boss') {
       inner = /*#__PURE__*/React.createElement(BossNode, {
         n: node.id,
-        size: 80
+        size: NODE
       });
-      half = 40;
     } else if (node.kind === 'breather') {
       inner = /*#__PURE__*/React.createElement(BreatherNode, {
         n: node.id,
-        size: 48
+        size: NODE
       });
-      half = 24;
+    } else if (node.state === 'open') {
+      inner = /*#__PURE__*/React.createElement(OpenNode, {
+        n: node.id,
+        size: NODE
+      });
     } else if (node.state === 'done') {
       inner = /*#__PURE__*/React.createElement(DoneNode, {
         n: node.id,
         color: node.color,
         stars: node.stars,
-        size: 64
+        size: NODE
       });
-      half = 32;
     } else {
       inner = /*#__PURE__*/React.createElement(LockedRegularNode, {
         n: node.id,
-        size: 60
+        size: NODE
       });
-      half = 30;
     }
     return /*#__PURE__*/React.createElement("div", {
       style: {
@@ -17916,41 +16941,40 @@ try { (() => {
     }, inner);
   }
 
-  // ─── World gate banner (over the path, above L10) ───────────────────
-  function GateBanner() {
+  // ─── Gate chip (labels the painted locked gate → World 2) ───────────
+  function GateChip() {
     return /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'absolute',
         left: '50%',
-        top: GATE.y - 38,
+        top: 132,
         transform: 'translateX(-50%)',
-        width: 312,
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 8,
         background: '#FFFFFF',
         border: '1.5px solid #E6D8BD',
         borderRadius: 999,
-        padding: '8px 14px 8px 8px',
-        display: 'flex',
-        alignItems: 'center',
-        gap: 12,
-        boxShadow: '0 12px 28px rgba(120,92,52,0.30), 0 4px 8px rgba(120,92,52,0.14)'
+        padding: '5px 12px 5px 6px',
+        boxShadow: '0 8px 20px rgba(120,92,52,0.28), 0 3px 6px rgba(120,92,52,0.14)',
+        whiteSpace: 'nowrap'
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
-        width: 56,
-        height: 56,
+        width: 30,
+        height: 30,
         borderRadius: '50%',
         flexShrink: 0,
         background: 'radial-gradient(circle at 35% 25%, #B6DDB2 0%, #6FA86F 60%, #4F8C58 100%)',
-        border: '2.5px solid #4F8C58',
-        boxShadow: 'inset 0 -3px 0 rgba(0,0,0,0.12), inset 0 3px 0 rgba(255,255,255,0.45), 0 2px 4px rgba(60,90,55,0.32)',
+        border: '2px solid #4F8C58',
+        boxShadow: 'inset 0 -2px 0 rgba(0,0,0,0.12), inset 0 2px 0 rgba(255,255,255,0.45)',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
-        position: 'relative'
+        justifyContent: 'center'
       }
     }, /*#__PURE__*/React.createElement("svg", {
-      width: "34",
-      height: "34",
+      width: "18",
+      height: "18",
       viewBox: "0 0 24 24",
       "aria-hidden": "true"
     }, /*#__PURE__*/React.createElement("path", {
@@ -17963,87 +16987,62 @@ try { (() => {
       height: "4.2",
       rx: "1",
       fill: "#FFFFFF"
-    })), /*#__PURE__*/React.createElement("div", {
+    }))), /*#__PURE__*/React.createElement("div", {
       style: {
-        position: 'absolute',
-        top: -6,
-        right: -4,
-        background: '#FFCA66',
-        border: '1.5px solid #E0A21F',
-        color: '#6A4A2E',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 11,
-        padding: '2px 6px',
-        borderRadius: 999,
-        lineHeight: 1,
-        boxShadow: '0 2px 3px rgba(120,92,52,0.20)'
-      }
-    }, "W2")), /*#__PURE__*/React.createElement("div", {
-      style: {
-        flex: 1,
-        minWidth: 0,
         display: 'flex',
         flexDirection: 'column',
         lineHeight: 1.05,
-        gap: 2
+        gap: 1
       }
-    }, /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("span", {
       style: {
         fontFamily: 'var(--font-body)',
         fontWeight: 800,
-        fontSize: 10,
+        fontSize: 8.5,
         letterSpacing: '0.12em',
-        color: '#9B886F',
-        whiteSpace: 'nowrap'
+        color: '#9B886F'
       }
-    }, "C\u1ED4NG \xB7 TH\u1EBE GI\u1EDAI 2"), /*#__PURE__*/React.createElement("div", {
+    }, "C\u1ED4NG \xB7 TH\u1EBE GI\u1EDAI 2"), /*#__PURE__*/React.createElement("span", {
       style: {
         fontFamily: 'var(--font-display)',
         fontWeight: 700,
-        fontSize: 22,
+        fontSize: 15,
         color: '#3F7D49',
-        whiteSpace: 'nowrap',
         lineHeight: 1.05
       }
     }, "R\u1EEBng r\u1EADm")), /*#__PURE__*/React.createElement("div", {
       style: {
         display: 'inline-flex',
         alignItems: 'center',
-        gap: 4,
+        gap: 3,
         background: 'linear-gradient(180deg, #FFE6A8 0%, #FFD074 100%)',
         border: '1.5px solid #E0A21F',
-        padding: '6px 11px 7px 8px',
+        padding: '4px 9px 5px 6px',
         borderRadius: 999,
-        boxShadow: '0 3px 6px rgba(200,150,40,0.28), inset 0 1.5px 0 rgba(255,255,255,0.6)',
-        flexShrink: 0
+        boxShadow: '0 3px 6px rgba(200,150,40,0.28), inset 0 1.5px 0 rgba(255,255,255,0.6)'
       }
     }, /*#__PURE__*/React.createElement(Star, {
       filled: true,
-      size: 14
+      size: 13
     }), /*#__PURE__*/React.createElement("span", {
       style: {
         fontFamily: 'var(--font-display)',
         fontWeight: 700,
-        fontSize: 15,
+        fontSize: 14,
         color: '#6A4A2E',
         lineHeight: 1
       }
     }, "18")));
   }
 
-  // Small wooden signpost at the very bottom labelling the world entry.
+  // Small start marker at the very bottom.
   function StartSign() {
     return /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'absolute',
         left: '50%',
-        top: H - 90,
-        transform: 'translateX(-50%)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: 4
+        top: H - 44,
+        transform: 'translateX(-50%)'
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -18056,7 +17055,7 @@ try { (() => {
         letterSpacing: '0.12em',
         padding: '6px 14px',
         borderRadius: 999,
-        boxShadow: '0 4px 10px rgba(120,92,52,0.20)',
+        boxShadow: '0 4px 10px rgba(120,92,52,0.24)',
         textTransform: 'uppercase'
       }
     }, "\u0110\u1ED3ng c\u1ECF \xB7 Kh\u1EDFi \u0111\u1EA7u"));
@@ -18083,17 +17082,31 @@ try { (() => {
             from { transform: rotate(0deg); }
             to   { transform: rotate(360deg); }
           }
-          @keyframes gj-strip-float {
-            0%,100% { transform: translateY(0); }
-            50%     { transform: translateY(-6px); }
+          @keyframes gj-strip-pulse {
+            0%,100% { transform: scale(1);    opacity: 0.75; }
+            50%     { transform: scale(1.10); opacity: 0.35; }
           }
           @media (prefers-reduced-motion: reduce) {
             * { animation: none !important; }
           }
-        `), /*#__PURE__*/React.createElement(Scene, null), /*#__PURE__*/React.createElement(PathLayer, null), /*#__PURE__*/React.createElement(GateBanner, null), NODES.map(n => /*#__PURE__*/React.createElement(PlaceNode, {
+        `), /*#__PURE__*/React.createElement("img", {
+      src: BG_SRC,
+      alt: "",
+      draggable: "false",
+      style: {
+        position: 'absolute',
+        inset: 0,
+        width: W,
+        height: H,
+        objectFit: 'cover',
+        display: 'block',
+        pointerEvents: 'none',
+        userSelect: 'none'
+      }
+    }), /*#__PURE__*/React.createElement(GateChip, null), NODES.map(n => /*#__PURE__*/React.createElement(PlaceNode, {
       key: n.id,
       node: n
-    })), /*#__PURE__*/React.createElement(StartSign, null));
+    })));
   }
   window.GJWorld1Strip = World1Strip;
 })();
@@ -51891,5 +50904,9 @@ __ds_ns.ComboPopup = __ds_scope.ComboPopup;
 __ds_ns.Dialog = __ds_scope.Dialog;
 
 __ds_ns.JellyScene = __ds_scope.JellyScene;
+
+__ds_ns.ObjectiveBar = __ds_scope.ObjectiveBar;
+
+__ds_ns.BossHud = __ds_scope.BossHud;
 
 })();

@@ -1,5 +1,11 @@
 package com.gravityjelly.app
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.EaseOut
+import androidx.compose.animation.core.EaseOutCubic
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -25,6 +31,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -32,6 +39,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -62,6 +70,8 @@ import com.gravityjelly.game.EndlessGameHolder
 import com.gravityjelly.game.PieceThumbnail
 import com.gravityjelly.game.TRAY_GAP_FRAC
 import com.gravityjelly.game.rememberGameDriver
+import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 /**
  * Màn Game — ráp design-faithful theo `04-screens/board-design.jsx` (ưu tiên #1, là card
@@ -74,7 +84,8 @@ import com.gravityjelly.game.rememberGameDriver
  * Đây là lớp **vỏ bố cục** thuần: KHÔNG chứa luật chơi, KHÔNG tự vẽ bàn — bàn do [board] slot
  * cung cấp ([BoardCanvas] nối holder ở nơi gọi). Toàn bộ chrome (score-card, board-frame, tray)
  * vẽ lại trong Canvas theo đúng 06-svg-assets (rounded-rect lồng nhau + gradient dọc), trừ nền
- * đồng cỏ là ảnh raster `meadow_bg.png`.
+ * là ảnh raster **theo world** ([WorldTheme.ingameBackground]) — world 1 = đồng cỏ
+ * `ingame_world_1_bg.png`. Mở khoá world khác → nền đổi theo, kể cả chế độ luyện tập.
  *
  * Quyết định (lệch thiết kế ↔ gameplay đã chốt với chủ dự án):
  * - **D-pad trọng lực** ở HUD chỉ là **chỉ thị hướng** (đĩa trắng nổi = hướng hiện tại) — không
@@ -83,6 +94,7 @@ import com.gravityjelly.game.rememberGameDriver
  *
  * @param direction hướng trọng lực hiện tại (drive đĩa D-pad + mắt khối trên bàn).
  * @param turnsLeft lượt xoay còn lại — badge trên FAB xoay; 0 → FAB tắt.
+ * @param world world hiện tại (chọn nền qua [WorldTheme]); mặc định 1 (Đồng cỏ).
  * @param board slot vẽ bàn — nhận Modifier đã định cỡ (đặt trong giếng khung kem).
  */
 @Composable
@@ -96,13 +108,14 @@ fun GameScreen(
     onSelectPiece: (Int) -> Unit,
     onRotate: () -> Unit,
     modifier: Modifier = Modifier,
+    world: Int = 1,
     traySlotModifier: (Int) -> Modifier = { Modifier },
     board: @Composable (Modifier) -> Unit,
 ) {
     Box(modifier = modifier.fillMaxSize().background(GjPalette.Bg)) {
-        // ── Nền đồng cỏ PNG full-bleed (sau status bar), object-fit cover, neo đáy ──────
+        // ── Nền world PNG full-bleed (sau status bar), object-fit cover, neo đáy ──────
         Image(
-            painter            = painterResource(R.drawable.meadow_bg),
+            painter            = painterResource(WorldTheme.ingameBackground(world)),
             contentDescription = null,
             modifier           = Modifier.fillMaxSize(),
             contentScale       = ContentScale.Crop,
@@ -187,25 +200,53 @@ private fun ScoreCard(score: Int, modifier: Modifier = Modifier) {
             Text(
                 text  = "ĐIỂM",
                 style = MaterialTheme.typography.labelSmall.copy(
-                    color         = GjPalette.TextMuted,
+                    color         = GjPalette.Text,
                     fontSize      = 10.sp,
-                    fontWeight    = FontWeight.ExtraBold,
+                    fontWeight    = FontWeight.Black,
                     letterSpacing = 0.08.em,
                     lineHeight    = 1.em,
                 ),
             )
-            Text(
-                text  = score.viScore(),
-                style = MaterialTheme.typography.titleLarge.copy(
-                    fontFamily = GjLogoFontFamily,           // chữ số = Fredoka (display)
-                    color      = GjPalette.Text,
-                    fontSize   = 18.sp,
-                    fontWeight = FontWeight.Bold,
-                    lineHeight = 1.05.em,
-                ),
-            )
+            AnimatedScore(score)
         }
     }
+}
+
+/**
+ * Số điểm "sống": khi điểm tăng, số CUỘN từ giá trị cũ → mới (~360ms ease-out, motion-medium)
+ * và NẢY một nhịp (scale 1→1.16→1 bouncy) — cảm giác "ghi điểm" thay vì nhảy số khô.
+ * Điểm giảm (ván mới reset về 0) → snap ngay, không cuộn ngược.
+ */
+@Composable
+private fun AnimatedScore(score: Int, modifier: Modifier = Modifier) {
+    val counter = remember { Animatable(score.toFloat()) }
+    val pulse   = remember { Animatable(1f) }
+    LaunchedEffect(score) {
+        val target = score.toFloat()
+        when {
+            target == counter.value -> {}
+            target < counter.value  -> counter.snapTo(target)   // reset ván mới
+            else -> {
+                launch {
+                    pulse.snapTo(1f)
+                    pulse.animateTo(1.16f, tween(90, easing = EaseOut))
+                    pulse.animateTo(1f, spring(dampingRatio = Spring.DampingRatioMediumBouncy, stiffness = Spring.StiffnessMedium))
+                }
+                counter.animateTo(target, tween(360, easing = EaseOutCubic))
+            }
+        }
+    }
+    Text(
+        text = counter.value.roundToInt().viScore(),
+        modifier = modifier.graphicsLayer { scaleX = pulse.value; scaleY = pulse.value },
+        style = MaterialTheme.typography.titleLarge.copy(
+            fontFamily = GjLogoFontFamily,           // chữ số = Fredoka (display)
+            color      = GjPalette.Text,
+            fontSize   = 18.sp,
+            fontWeight = FontWeight.Bold,
+            lineHeight = 1.05.em,
+        ),
+    )
 }
 
 /** Vẽ thẻ điểm: viền gradient + nền gradient + highlight góc (score-card.svg viewBox 200). */

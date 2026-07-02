@@ -1,17 +1,21 @@
 package com.gravityjelly.app.ui.guide
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.gravityjelly.app.ui.components.ComboPopup
 import com.gravityjelly.app.ui.icons.GjIcon
 import com.gravityjelly.app.ui.icons.GjIcons
 import com.gravityjelly.app.ui.theme.GjPalette
@@ -64,6 +68,127 @@ private fun BeforeAfter(
             tint = GjPalette.Gravity,
         )
         GuideMiniBoard(after, Modifier.weight(1f))
+    }
+}
+
+/** Như [BeforeAfter] nhưng mỗi bàn có NHÃN dưới — để nói rõ "đầy cái gì → biến mất". */
+@Composable
+private fun LabeledBeforeAfter(
+    beforeLabel: String,
+    before: List<List<GuideCell>>,
+    afterLabel: String,
+    after: List<List<GuideCell>>,
+) {
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(GjSpace.sm),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        LabeledBoard(beforeLabel, before, Modifier.weight(1f))
+        GjIcon(
+            icon = GjIcons.Chevron,
+            contentDescription = null,
+            modifier = Modifier.size(20.dp),
+            tint = GjPalette.Gravity,
+        )
+        LabeledBoard(afterLabel, after, Modifier.weight(1f))
+    }
+}
+
+@Composable
+private fun LabeledBoard(label: String, rows: List<List<GuideCell>>, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(4.dp),
+    ) {
+        GuideMiniBoard(rows)
+        Text(
+            label,
+            style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp),
+            color = GjPalette.TextMuted,
+        )
+    }
+}
+
+// ── Xóa HÀNG (màn 1) — lấp đầy 1 HÀNG ngang (9 ô) → cả hàng biến mất ──────────────
+@Composable
+internal fun RowClearDemo() = LabeledBeforeAfter(
+    beforeLabel = "Đầy 1 HÀNG",
+    before = listOf(
+        listOf(E, E, E, E, E),
+        listOf(E, E, E, E, E),
+        listOf(J(P), J(B), J(Y), J(M), J(P)),    // HÀNG dưới đầy đủ
+    ),
+    afterLabel = "Biến mất",
+    after = listOf(
+        listOf(E, E, E, E, E),
+        listOf(E, E, E, E, E),
+        listOf(E, E, E, E, E),                    // cả hàng biến mất
+    ),
+)
+
+// ── Xóa CỘT (màn 2) — lấp đầy 1 CỘT dọc (9 ô) → cả cột biến mất ───────────────────
+@Composable
+internal fun ColClearDemo() = LabeledBeforeAfter(
+    beforeLabel = "Đầy 1 CỘT",
+    before = listOf(
+        listOf(J(P), E, E),
+        listOf(J(B), E, E),
+        listOf(J(Y), E, E),
+        listOf(J(M), E, E),
+        listOf(J(P), E, E),                       // CỘT trái đầy đủ
+    ),
+    afterLabel = "Biến mất",
+    after = listOf(
+        listOf(E, E, E),
+        listOf(E, E, E),
+        listOf(E, E, E),
+        listOf(E, E, E),
+        listOf(E, E, E),                          // cả cột biến mất
+    ),
+)
+
+// ── Combo ×2 (màn 8) — lấp đầy 2 HÀNG cùng một nước → nổ cả hai → ×2 hiện TRONG bàn ────
+// KHÔNG dùng nhãn chữ dưới bàn: bàn-sau lồng ×2 y hệt lúc chơi (tái dùng [ComboPopup] game, thu nhỏ).
+@Composable
+internal fun ComboX2Demo() {
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(GjSpace.sm),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        GuideMiniBoard(
+            listOf(
+                listOf(E, E, E, E, E),
+                listOf(J(Y), J(M), J(P), J(B), J(Y)),    // 2 HÀNG đáy đầy đủ cùng lúc
+                listOf(J(P), J(B), J(Y), J(M), J(P)),
+            ),
+            Modifier.weight(1f),
+        )
+        GjIcon(
+            icon = GjIcons.Chevron,
+            contentDescription = null,
+            modifier = Modifier.size(20.dp),
+            tint = GjPalette.Gravity,
+        )
+        Box(Modifier.weight(1f), contentAlignment = Alignment.Center) {
+            GuideMiniBoard(
+                listOf(
+                    listOf(E, E, E, E, E),
+                    listOf(E, E, E, E, E),
+                    listOf(E, E, E, E, E),               // cả hai hàng biến mất
+                ),
+            )
+            // ×2 nảy lên GIỮA bàn như khi chơi (bong bóng gradient của game), thu nhỏ vừa bàn mini.
+            Box(Modifier.wrapContentSize(unbounded = true)) {
+                ComboPopup(
+                    combo = 2,
+                    showDish = false,
+                    showPieces = false,
+                    heightDp = 72.dp,
+                    modifier = Modifier.graphicsLayer { scaleX = 0.5f; scaleY = 0.5f },
+                )
+            }
+        }
     }
 }
 

@@ -159,6 +159,7 @@ class BoardAnimator {
     fun step(dtNanos: Long) {
         simTimeNanos += dtNanos
         advancePhases(simTimeNanos)
+        fireClearBursts(simTimeNanos)   // bắn particle theo NHỊP sóng tan (mỗi ô tới mốc clearStart mới nổ)
         particles.step(dtNanos / 1e9f)
         // Phát hiện mốc playback kết thúc (true→false) để lớp vỏ flush nước đặt đang chờ.
         val playing = isPlaying
@@ -173,9 +174,15 @@ class BoardAnimator {
     private val clearStart = Array(n) { LongArray(n) }
     private val clearColor = Array(n) { Array(n) { Color.White } }
     private val clearShine = Array(n) { Array(n) { Color.White } }   // màu ring shine theo khối
+    private val clearJelly = Array(n) { arrayOfNulls<JellyColor>(n) } // màu JELLY (null = đá) → vẽ lại thân+mắt lúc xóa
+    private val clearBurstDone = Array(n) { BooleanArray(n) }         // particle của ô đã nổ chưa (theo nhịp sóng, không đồng loạt)
     private val superFlashes = ArrayList<SuperFlash>(4)               // tâm siêu khối đang "cười + nổ"
     private val smileFlashes = ArrayList<SmileFlash>(32)              // block cùng màu đang "cười rồi biến mất"
     private var squashGravity = Direction.DOWN
+    // Tâm THẢ block của nước đi này (đơn vị ô) → sóng nổ xóa hàng lan ra từ đây. -1 = không có
+    // (vd nhịp xóa do XOAY): khi đó rơi về trọng tâm vùng xóa.
+    private var placeCenterX = -1f
+    private var placeCenterY = -1f
 
     // ── combo burst gần nhất (overlay ăn mừng ×N đặt TẠI vùng resolve trên bàn) ──
     // Lớp vỏ (holder) đọc sau mỗi ingest: [comboBurstId] đổi → có combo mới để nổ.
@@ -257,16 +264,21 @@ class BoardAnimator {
         // xem [cellSettleFactor]) — yêu cầu người chơi: khi rơi chỉ khối bị rơi mới nhìn xuống.
         if (postGravity != preGravity) lastEventNanos = now
 
-        // 1) đặt mảnh → squash
+        // 1) đặt mảnh → squash. Ghi tâm THẢ (trọng tâm ô vừa đặt) để sóng nổ lan ra từ đây.
+        placeCenterX = -1f; placeCenterY = -1f
         for (i in events.indices) {
             val e = events[i]
             if (e is GameEvent.PiecePlaced) {
                 place(work, e.piece, e.cells)
-                if (!reducedMotion) {
-                    for (k in e.cells.indices) {
-                        val c = e.cells[k]
-                        placeStart[c.y][c.x] = now
-                    }
+                var sx = 0f; var sy = 0f
+                for (k in e.cells.indices) {
+                    val c = e.cells[k]
+                    if (!reducedMotion) placeStart[c.y][c.x] = now
+                    sx += c.x; sy += c.y
+                }
+                if (e.cells.isNotEmpty()) {
+                    placeCenterX = sx / e.cells.size
+                    placeCenterY = sy / e.cells.size
                 }
             }
         }
@@ -400,7 +412,9 @@ class BoardAnimator {
                     comboLevel = e.comboLevel, score = e.score, fireCombo = fireCombo,
                 ),
             )
-            val collapseAt = clearAt + Anim.CLEAR_LEAD_NANOS
+            // Rơi bám ĐUÔI sóng: chờ ô XA NHẤT (tính từ tâm thả, như activateClear) bắt đầu tan
+            // rồi + CLEAR_LEAD → khối bên trên mới sụp, tránh rơi đè ô chưa tan khi sóng trải rộng.
+            val collapseAt = clearAt + clearWaveMaxDelay(seed, sk) + Anim.CLEAR_LEAD_NANOS
             phases.add(
                 CascadePhase(at = collapseAt, display = afterK, isCollapse = true, slideBefore = beforeK, moved = moved),
             )
@@ -505,28 +519,36 @@ class BoardAnimator {
      */
     private fun activateClear(p: CascadePhase) {
         val colorGrid = p.colorGrid ?: return
-        var sumX = 0f; var sumY = 0f; var cnt = 0
-        val stagger = Anim.CLEAR_STAGGER_NANOS
         val lines = p.lines
-        if (lines != null) {
-            for (ri in lines.rows.indices) {
-                val y = lines.rows[ri]
-                for (x in 0 until n) if (markClearCell(x, y, colorGrid, p.at + x * stagger)) { sumX += x; sumY += y; cnt++ }
-            }
-            for (ci in lines.cols.indices) {
-                val x = lines.cols[ci]
-                for (y in 0 until n) if (markClearCell(x, y, colorGrid, p.at + y * stagger)) { sumX += x; sumY += y; cnt++ }
-            }
-        }
-        // chặng 1 của nổ: xóa hàng/cột (danh sách ô tường minh, quét theo thứ tự)
         val cc = p.clearCells
-        if (cc != null) {
-            for (i in cc.indices) {
-                val v = cc[i]
-                if (markClearCell(v.x, v.y, colorGrid, p.at + i * stagger)) { sumX += v.x; sumY += v.y; cnt++ }
+
+        // Duyệt mọi ô ứng viên của nhịp xóa (hàng/cột hoặc danh sách tường minh).
+        fun forEachCell(action: (Int, Int) -> Unit) {
+            if (lines != null) {
+                for (ri in lines.rows.indices) { val y = lines.rows[ri]; for (x in 0 until n) action(x, y) }
+                for (ci in lines.cols.indices) { val x = lines.cols[ci]; for (y in 0 until n) action(x, y) }
             }
+            if (cc != null) for (i in cc.indices) action(cc[i].x, cc[i].y)
         }
-        if (cnt > 0 && !reducedMotion) {
+
+        // Pass 1: trọng tâm vùng xóa (cho popup điểm + fallback tâm sóng khi không có thả).
+        var sumX = 0f; var sumY = 0f; var cnt = 0
+        forEachCell { x, y -> if (colorGrid.get(x, y) != null) { sumX += x; sumY += y; cnt++ } }
+        if (cnt == 0) { onClearStep?.invoke(p.comboLevel); return }
+
+        // Tâm sóng nổ: ưu tiên VỊ TRÍ THẢ block; nếu không (vd xoay) → trọng tâm vùng xóa.
+        val ox = if (placeCenterX >= 0f) placeCenterX else sumX / cnt
+        val oy = if (placeCenterX >= 0f) placeCenterY else sumY / cnt
+
+        // Pass 2: mark + stagger theo KHOẢNG CÁCH Euclid tới tâm → nổ lan ra mọi hướng.
+        val stagger = Anim.CLEAR_STAGGER_NANOS.toFloat()
+        forEachCell { x, y ->
+            val dx = x - ox; val dy = y - oy
+            val d = kotlin.math.sqrt(dx * dx + dy * dy)
+            markClearCell(x, y, colorGrid, p.at + (d * stagger).toLong())
+        }
+
+        if (!reducedMotion) {
             val cx = sumX / cnt + 0.5f
             val cy = sumY / cnt + 0.5f
             if (p.score > 0) {
@@ -617,8 +639,44 @@ class BoardAnimator {
             else -> cell.color?.let { JellyTheme.forColor(it).shine } ?: Color.White
         }
         clearShine[y][x] = shine
-        if (!reducedMotion) particles.burst(x + 0.5f, y + 0.5f, shine, PARTICLES_PER_CELL)
+        clearJelly[y][x] = if (cell.type == CellType.STONE) null else cell.color
+        clearBurstDone[y][x] = false   // particle nổ SAU, đúng lúc ô này bắt đầu tan (fireClearBursts)
         return true
+    }
+
+    /**
+     * Độ trễ sóng (nano) của ô XA NHẤT so với tâm thả — fallback trọng tâm — trên tập [cells] có
+     * khối trong [grid]. Khớp đúng công thức stagger của [activateClear] để lịch nhịp rơi bám đuôi sóng.
+     */
+    private fun clearWaveMaxDelay(cells: Collection<Vec>, grid: Grid): Long {
+        var sx = 0f; var sy = 0f; var c = 0
+        for (v in cells) if (grid.get(v.x, v.y) != null) { sx += v.x; sy += v.y; c++ }
+        if (c == 0) return 0L
+        val ox = if (placeCenterX >= 0f) placeCenterX else sx / c
+        val oy = if (placeCenterX >= 0f) placeCenterY else sy / c
+        val stagger = Anim.CLEAR_STAGGER_NANOS.toFloat()
+        var maxDelay = 0L
+        for (v in cells) if (grid.get(v.x, v.y) != null) {
+            val dx = v.x - ox; val dy = v.y - oy
+            val del = (kotlin.math.sqrt(dx * dx + dy * dy) * stagger).toLong()
+            if (del > maxDelay) maxDelay = del
+        }
+        return maxDelay
+    }
+
+    /**
+     * Bắn particle burst cho từng ô ĐÚNG lúc nó bắt đầu tan (now ≥ clearStart), mỗi ô một lần.
+     * Nhờ vậy đốm sáng lan theo SÓNG (gần tâm thả nổ trước, xa nổ sau) thay vì đồng loạt.
+     */
+    private fun fireClearBursts(now: Long) {
+        if (reducedMotion) return
+        for (y in 0 until n) for (x in 0 until n) {
+            val st = clearStart[y][x]
+            if (st != 0L && !clearBurstDone[y][x] && now >= st) {
+                particles.burst(x + 0.5f, y + 0.5f, clearShine[y][x], PARTICLES_PER_CELL)
+                clearBurstDone[y][x] = true
+            }
+        }
     }
 
     /**
@@ -713,6 +771,7 @@ class BoardAnimator {
         smileFlashes.clear()
         for (y in 0 until n) for (x in 0 until n) {
             placeStart[y][x] = 0L; clearStart[y][x] = 0L
+            clearJelly[y][x] = null; clearBurstDone[y][x] = true
             slideDX[y][x] = 0f; slideDY[y][x] = 0f
         }
         rotActive = false
@@ -849,6 +908,8 @@ class BoardAnimator {
     private fun drawClearing(scope: DrawScope, cellPx: Float, gap: Float, now: Long) {
         val blockSize = cellPx - gap
         val corner = blockSize * CORNER_FRAC
+        val cr = CornerRadius(corner, corner)
+        val borderStroke = Stroke(blockSize * BORDER_FRAC)
         val ringW = blockSize * RING_FRAC   // ring shine 4dp (spec line-clear)
         for (y in 0 until n) {
             for (x in 0 until n) {
@@ -862,26 +923,48 @@ class BoardAnimator {
                 val cx = left + blockSize / 2
                 val cy = top + blockSize / 2
                 val base = clearColor[y][x]
+                val jelly = clearJelly[y][x]
                 val flashSplit = Anim.CLEAR_FLASH_FRAC
                 if (p < flashSplit) {
-                    // flash: sáng mạnh (≈brightness 1.6) + ring shine 4dp màu khối
+                    // flash: khối vẫn LÀ jelly (thân+gloss+mắt cười) rồi phủ trắng dần (≈brightness 1.6)
                     val ft = p / flashSplit
-                    val bright = lerp(base, Color.White, 0.72f * Anim.easeOut(ft))
-                    scope.drawRoundRectScaled(bright, left, top, blockSize, corner, 1f, cx, cy)
+                    val whiten = 0.72f * Anim.easeOut(ft)
+                    if (jelly != null) {
+                        scope.drawJellyCell(
+                            left, top, blockSize, cr, borderStroke,
+                            JellyTheme.forColor(jelly), jelly, 0f, 0f,
+                            expression = EyeExpression.HAPPY, eyeOpen = true, showSticker = false,
+                        )
+                        // lóe trắng phủ lên thân (đỉnh flash sáng nhất) — mờ dần khi pop
+                        scope.drawRoundRect(
+                            Color.White.copy(alpha = whiten), Offset(left, top),
+                            Size(blockSize, blockSize), cr,
+                        )
+                    } else {
+                        val bright = lerp(base, Color.White, whiten)
+                        scope.drawRoundRectScaled(bright, left, top, blockSize, corner, 1f, cx, cy)
+                    }
                     val ring = clearShine[y][x].copy(alpha = 0.85f * (1f - ft))
                     scope.drawRoundRect(
                         ring, Offset(left - ringW, top - ringW),
                         Size(blockSize + ringW * 2, blockSize + ringW * 2),
-                        CornerRadius(corner, corner),
-                        style = Stroke(ringW),
+                        cr, style = Stroke(ringW),
                     )
                 } else {
-                    // pop + biến mất: scale 1.12 + alpha→0, cả hai ease-out (spec)
+                    // pop + biến mất: scale 1.12 + alpha→0, cả hai ease-out (spec). Mắt cười tới lúc tan.
                     val pt = (p - flashSplit) / (1f - flashSplit)
-                    val eo = Anim.easeOut(pt)
-                    val popScale = 1f + 0.12f * eo
-                    val alpha = 1f - eo
-                    scope.drawRoundRectScaled(base.copy(alpha = alpha), left, top, blockSize, corner, popScale, cx, cy)
+                    if (jelly != null) {
+                        scope.drawJellyCell(
+                            left, top, blockSize, cr, borderStroke,
+                            JellyTheme.forColor(jelly), jelly, 0f, 0f,
+                            expression = EyeExpression.HAPPY, eyeOpen = true,
+                            clearProgress = pt, showSticker = false,
+                        )
+                    } else {
+                        val eo = Anim.easeOut(pt)
+                        val popScale = 1f + 0.12f * eo
+                        scope.drawRoundRectScaled(base.copy(alpha = 1f - eo), left, top, blockSize, corner, popScale, cx, cy)
+                    }
                 }
             }
         }

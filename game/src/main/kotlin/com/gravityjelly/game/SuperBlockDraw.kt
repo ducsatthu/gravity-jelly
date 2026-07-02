@@ -196,6 +196,42 @@ internal fun DrawScope.drawSuperJellyCell(
     if (sx != 1f || sy != 1f) scale(sx, sy, pivot) { body() } else body()
 }
 
+/**
+ * Viền LẤP LÁNH kiểu siêu khối (viền nhiều màu chạy) quanh MỘT ô — tái dùng cho highlight preview
+ * "vùng sẽ ăn điểm" khi kéo ghost. Vẽ SAU LƯNG block (gọi trước khi vẽ thân) để chỉ ló shimmer ra
+ * ngoài mép, mặt block vẫn sạch. [spin] drive chạy (dùng chung superSpin của board); [alpha] mờ dần.
+ */
+internal fun DrawScope.drawShimmerBorder(left: Float, top: Float, blockSize: Float, spin: Float, alpha: Float = 1f) {
+    ensureSuperCache(blockSize, density)
+    drawRunningRing(left, top, level = 1, spin, alpha)
+}
+
+// ── Viền chạy quanh CẢ VÙNG highlight (đường bao BẤT KỲ — chữ thập/L/blob nổ) ──
+private val regionRingDash = floatArrayOf(1f, 1f)
+
+/**
+ * Vẽ VIỀN NHIỀU MÀU CHẠY dọc [path] (một contour kín BẤT KỲ, chu vi [perimeter]) — 4 cung 1/4 chu vi
+ * chạy vòng theo [spin], y như viền siêu khối nhưng bám đúng đường bao thật của vùng (đa giác trực
+ * giao: chữ thập, L, blob nổ super…). Người gọi tự dựng [path] bo góc + tính [perimeter].
+ * Tái dùng [regionRingDash]; dashPathEffect cấp phát như [ringPass] hiện có.
+ */
+internal fun DrawScope.drawRunningPath(
+    path: Path, perimeter: Float, strokeWidth: Float, spin: Float, alpha: Float,
+) {
+    if (perimeter <= 0f) return
+    val quarter = perimeter / 4f
+    regionRingDash[0] = quarter
+    regionRingDash[1] = perimeter - quarter
+    val run = spin * perimeter
+    for (i in RingColors.indices) {
+        val pe = PathEffect.dashPathEffect(regionRingDash, i * quarter + run)
+        drawPath(
+            path, RingColors[i].copy(alpha = alpha),
+            style = Stroke(width = strokeWidth, cap = StrokeCap.Round, pathEffect = pe),
+        )
+    }
+}
+
 /** Viền nhiều màu chạy quanh: 4 cung 1/4 chu vi, phase chạy theo [spin]; cấp 2 thêm lớp nền dày. */
 private fun DrawScope.drawRunningRing(left: Float, top: Float, level: Int, spin: Float, alpha: Float) {
     val quarter = superRingDash[0]

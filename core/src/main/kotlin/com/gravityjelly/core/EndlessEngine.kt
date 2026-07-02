@@ -71,16 +71,31 @@ class EndlessEngine(
     seed: Long,
     initialBudget: Int = DEFAULT_ROTATION_BUDGET,
     private val tuning: EndlessTuning = EndlessTuning(),
+    /** Ô dựng sẵn cho màn Campaign (rỗng = bàn trống như Endless). Áp lúc khởi tạo. */
+    private val preset: List<Pair<Vec, Grid.Cell>> = emptyList(),
+    /**
+     * Chuỗi khay CỐ ĐỊNH (mỗi đợt 3 mảnh) cho màn thiết kế — bỏ ngẫu nhiên. Phát hết đợt này
+     * mới sang đợt kế; khi cạn script → quay lại deal RNG (đỡ dead-end cho prototype). Rỗng =
+     * Endless (deal RNG từ đầu).
+     */
+    private val trayScript: List<List<Piece>> = emptyList(),
+    initialGravity: Direction = Direction.DOWN,
 ) {
     private val rng = Rng(seed)
     private val grid = Grid()
-    private var gravity = Direction.DOWN
+    private var gravity = initialGravity
     private var stage = 1
-    private var tray: List<Piece?> = dealTray()
+    private var waveIdx = 0
+    private var tray: List<Piece?>
     private var rotBudget = initialBudget
     private var score = 0
     private var combo = 0
     private var gameOver = false
+
+    init {
+        for ((pos, cell) in preset) grid.set(pos.x, pos.y, cell)
+        tray = dealTray()
+    }
 
     fun state(): EndlessState = EndlessState(
         grid = grid.copy(),
@@ -219,6 +234,15 @@ class EndlessEngine(
     }
 
     private fun dealTray(): List<Piece> {
+        // Màn thiết kế: rút đợt kế trong script (đủ TRAY_SIZE; thiếu → chèn RNG, dư → cắt).
+        if (waveIdx < trayScript.size) {
+            val wave = trayScript[waveIdx]
+            waveIdx++
+            val pool = tuning.poolFor(stage)
+            return List(TrayGenerator.TRAY_SIZE) { i ->
+                wave.getOrNull(i) ?: Piece(rng.pick(pool), rng.pick(JellyColor.entries))
+            }
+        }
         val pool = tuning.poolFor(stage)
         return List(TrayGenerator.TRAY_SIZE) {
             Piece(shape = rng.pick(pool), color = rng.pick(JellyColor.entries))
