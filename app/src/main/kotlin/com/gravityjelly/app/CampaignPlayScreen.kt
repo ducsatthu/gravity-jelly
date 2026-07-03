@@ -46,13 +46,19 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import com.gravityjelly.app.data.GjSettings
+import com.gravityjelly.app.ui.components.BossCard
+import com.gravityjelly.app.ui.components.bossKindForWorld
+import com.gravityjelly.app.ui.components.bossNameForWorld
 import com.gravityjelly.app.ui.components.BtnSize
 import com.gravityjelly.app.ui.components.BtnVariant
 import com.gravityjelly.app.ui.components.GjButton
 import com.gravityjelly.app.ui.components.GjDialog
 import com.gravityjelly.app.ui.components.GjPauseToggleRow
+import com.gravityjelly.app.ui.components.LiveStars
 import com.gravityjelly.app.ui.components.ObjectiveBar
 import com.gravityjelly.app.ui.guide.GjGuide
+import com.gravityjelly.app.ui.guide.GjGuideEntry
+import com.gravityjelly.app.ui.guide.GuideTeachDialog
 import com.gravityjelly.app.ui.icons.GjIcons
 import com.gravityjelly.app.ui.theme.GjPalette
 import com.gravityjelly.app.ui.theme.GjSpace
@@ -60,12 +66,14 @@ import com.gravityjelly.game.BOARD_PAD_DP
 import com.gravityjelly.game.BoardCanvas
 import com.gravityjelly.game.DragPieceOverlay
 import com.gravityjelly.game.EffectKind
+import com.gravityjelly.game.ComboBurst
 import com.gravityjelly.game.EndlessGameHolder
 import com.gravityjelly.game.rememberGameDriver
 import com.gravityjelly.core.CampaignLevels
 import com.gravityjelly.core.Goal
 import com.gravityjelly.core.GoalType
 import com.gravityjelly.core.StarMetric
+import com.gravityjelly.core.StarThresholds
 import com.gravityjelly.core.TriggerKind
 
 /**
@@ -139,6 +147,18 @@ fun CampaignPlayScreen(
         if (holder.rotationRefillTick > 0L) autoUnlock(GjGuide.comboRefill.id)
     }
 
+    // ── Popup DẠY LUẬT đầu-màn (intro guide) ─────────────────────────────────────────────────────────
+    // Một số màn giới thiệu cơ chế MỚI → hiện popup giải thích NGAY KHI VÀO MÀN (trước khi chơi),
+    // chỉ lần đầu (gate bởi seenGuides). Hiện tuần tự; nút "Tiếp theo" nếu còn popup sau.
+    val introGuides: List<GjGuideEntry> = remember(level.id) { levelIntroGuides(level.id) }
+    val unseenIntro = remember(levelIndex, replayKey) {
+        introGuides.filter { it.id !in seenGuides }
+    }
+    var introIndex by remember(levelIndex, replayKey) { mutableIntStateOf(0) }
+    val showingIntro = introIndex < unseenIntro.size
+    val introEntry = if (showingIntro) unseenIntro[introIndex] else null
+    val introLabel = if (showingIntro && introIndex + 1 < unseenIntro.size) "Tiếp theo" else "Đã hiểu"
+
     // Thắng → lưu sao MỘT lần (theo levelComplete). reducedMotion không ảnh hưởng logic.
     LaunchedEffect(holder.levelComplete) {
         if (holder.levelComplete) onWin(level.id, holder.starsEarned)
@@ -191,18 +211,37 @@ fun CampaignPlayScreen(
             onSelectPiece = {},
             onRotate = { holder.rotate(cw = true) },
             world = level.world,
-            // Cụm MỤC TIÊU sống ngay dưới HUD (screen-1e-game-objective) — chỉ Campaign.
+            // Cụm dưới HUD (screen-1e-game-objective) — chỉ Campaign. Màn BOSS → thẻ BossCard (Khiên),
+            // còn lại → ObjectiveBar (điểm/đích/mixed/tutorial).
             objective = {
-                ObjectiveBar(
-                    goal = level.goal,
-                    world = level.world,
-                    score = shell.score,
-                    targetsCleared = holder.targetsCleared,
-                    initialTargets = holder.initialTargets,
-                    bossDamage = holder.bossHpDamage,
-                    bossHpMax = holder.bossHpMax,
-                    tutorialLabel = goalLabel(level.goal, level.world),
-                )
+                if (level.goal.type == GoalType.BOSS_COMBO) {
+                    BossCard(
+                        level = level.id,
+                        name = bossNameForWorld(level.world),
+                        kind = bossKindForWorld(level.world),
+                        // Khiên CÒN LẠI = máu boss chưa bị bào; rút về 0 khi hạ boss.
+                        shieldCurrent = (holder.bossHpMax - holder.bossHpDamage).coerceAtLeast(0),
+                        shieldTarget = holder.bossHpMax,
+                        // Tell sống: W2 sắp mọc dây · W3 sắp đảo trọng lực (+đếm ngược). null (W1) → chip CẨM NANG.
+                        tell = holder.bossTell,
+                    )
+                } else {
+                    ObjectiveBar(
+                        goal = level.goal,
+                        world = level.world,
+                        level = level.id,
+                        worldName = WorldTheme.name(level.world),
+                        score = shell.score,
+                        targetsCleared = holder.targetsCleared,
+                        initialTargets = holder.initialTargets,
+                        bossDamage = holder.bossHpDamage,
+                        bossHpMax = holder.bossHpMax,
+                        tutorialLabel = goalLabel(level.goal, level.world),
+                        objectiveDone = holder.levelComplete,
+                        // Dải sao SỐNG chấm theo nước — MỌI màn (điểm chỉ là điều kiện thắng).
+                        liveStars = liveStarsFor(level.stars, holder.movesUsed, holder.rotationsUsed),
+                    )
+                }
             },
             traySlotModifier = { i ->
                 Modifier
@@ -239,7 +278,10 @@ fun CampaignPlayScreen(
         // Mảnh đang kéo (floating).
         DragPieceOverlay(holder, parentWin, renderTick.value, Modifier.fillMaxSize())
 
-        // (Cụm MỤC TIÊU nay là hàng trong bố cục GameScreen — slot `objective` ở trên, không còn overlay.)
+        // Combo → overlay ×N nổ trên bàn (tái dùng ComboBurstOverlay từ Endless).
+        holder.comboBurst?.let { burst ->
+            ComboBurstOverlay(burst, parentWin, Modifier.fillMaxSize())
+        }
 
         // Dialog Tạm dừng — bám pause-screen.jsx (như Endless): toggle nhanh Âm thanh·Nhạc → TIẾP TỤC
         // (CTA) → hàng Chơi lại·Cài đặt → Danh sách màn (ghost). dismissable=false: chỉ thoát bằng nút/Back.
@@ -305,6 +347,19 @@ fun CampaignPlayScreen(
             )
         }
 
+        // Popup DẠY LUẬT đầu-màn (intro guide) — chặn tương tác cho tới khi người chơi xác nhận hết.
+        if (introEntry != null) {
+            GuideTeachDialog(
+                entry = introEntry,
+                open = true,
+                confirmLabel = introLabel,
+                onDismiss = {
+                    autoUnlock(introEntry.id)
+                    introIndex++
+                },
+            )
+        }
+
         // Overlay THUA (bí nước — không đặt được mảnh nào): popup card + mascot buồn (đồng bộ
         // Result Endless / Win), thay cho GjDialog thô trước đây. Nhắc lại MỤC TIÊU chưa đạt + tiến độ.
         if (shell.gameOver && !holder.levelComplete) {
@@ -354,6 +409,12 @@ internal fun goalLabel(goal: Goal, world: Int = 2): String = when (goal.type) {
  * Ô thống kê thứ 2 ở màn thắng (design có "THƯỞNG xu" — game chưa có tiền tệ nên thay bằng thành
  * tích theo tiêu chí sao): nước đi / lượt xoay / mục tiêu điểm / boss.
  */
+/** Popup dạy-luật hiện NGAY khi vào màn (trước khi chơi) — chỉ lần đầu. */
+private fun levelIntroGuides(levelId: Int): List<GjGuideEntry> = when (levelId) {
+    11 -> listOf(GjGuide.vineIntro, GjGuide.vineDestroy, GjGuide.vineToTrash, GjGuide.trashDestroy)
+    else -> emptyList()
+}
+
 internal fun winStat(metric: StarMetric, goal: Goal, moves: Int, rotations: Int): Pair<String, String> =
     when (metric) {
         StarMetric.MOVES -> "NƯỚC ĐI" to moves.toString()
@@ -361,3 +422,29 @@ internal fun winStat(metric: StarMetric, goal: Goal, moves: Int, rotations: Int)
         StarMetric.SCORE -> "MỤC TIÊU" to "${goal.score}+"
         StarMetric.COMBO -> "BOSS" to "Hạ gục!"
     }
+
+/**
+ * Dải sao SỐNG cho ObjectiveBar ở màn chấm theo NƯỚC ĐI / LƯỢT XOAY (ít hơn = tốt hơn): bậc đang giữ +
+ * gợi ý "còn N … giữ bậc" / "thêm 1 … rớt bậc". Trả null cho SCORE (đã có coin/caption trên thanh điểm)
+ * và COMBO (màn boss dùng BossCard). Dùng chung [StarThresholds.tierFor] với lúc chấm sao khi thắng.
+ */
+internal fun liveStarsFor(stars: StarThresholds, movesUsed: Int, rotationsUsed: Int): LiveStars? {
+    val used = when (stars.metric) {
+        StarMetric.MOVES -> movesUsed
+        StarMetric.ROTATIONS -> rotationsUsed
+        else -> return null
+    }
+    val tier = stars.tierFor(used)
+    val unit = if (stars.metric == StarMetric.ROTATIONS) "lượt xoay" else "nước"
+    val keepThreshold = when (tier) {
+        3 -> stars.three
+        2 -> stars.two
+        else -> null   // đã 1★ (thấp nhất) — hoàn thành không tụt thêm
+    }
+    val next = when {
+        keepThreshold == null -> null
+        keepThreshold - used >= 1 -> "Còn ${keepThreshold - used} $unit giữ $tier★"
+        else -> "Thêm 1 $unit rớt ${tier - 1}★"
+    }
+    return LiveStars(tier = tier, now = "Đang $tier★", next = next)
+}

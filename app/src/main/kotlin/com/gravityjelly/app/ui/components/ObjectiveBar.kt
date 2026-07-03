@@ -18,6 +18,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -50,7 +52,7 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.gravityjelly.app.ui.icons.GjIcon
 import com.gravityjelly.app.ui.icons.GjIcons
-import com.gravityjelly.app.ui.theme.GjLogoFontFamily
+import com.gravityjelly.app.ui.theme.GjDisplayFontFamily
 import com.gravityjelly.app.ui.theme.GjPalette
 import com.gravityjelly.app.ui.theme.GjRadius
 import com.gravityjelly.app.ui.theme.GjSpace
@@ -63,26 +65,27 @@ import com.gravityjelly.core.TriggerKind
  * (chỉ dùng cho chế độ Campaign — Endless không có mục tiêu). Bám 1:1
  * `design/.../03-components/08-objective-bar/ObjectiveBar.jsx` + card `screen-1e-game-objective`.
  *
+ * **CHẤM SAO THỐNG NHẤT THEO NƯỚC (số nước)** cho MỌI màn (design mới bỏ chấm-theo-điểm): badge
+ * MÀN neo trái + dải 3 sao sống ở footer. Điểm chỉ còn là điều kiện THẮNG, không chấm sao nữa.
  * Một cụm, chuyển nhánh theo [Goal.type] — số liệu sống truyền từ holder:
- * - **REACH_SCORE** → thanh tiến độ điểm (fill tangerine, glow khi đủ).            [kind=score]
- * - **CLEAR_TARGETS** → dãy glyph đích (gốc dây leo / giọt nước) mờ dần + pill "còn N". [kind=targets]
- * - **MIXED** → 2 dòng: dãy đích + thanh điểm (cao 72dp).                            [kind=mixed]
- * - **TUTORIAL** → glyph cơ chế + nhãn ngắn + chip `0/1` (combo hiện `×N`).          [kind=tutorial]
- * - **BOSS_COMBO** → thanh MÁU BOSS đỏ + nhắc "Combo ≥ ×2 để gây sát thương".
- *   (Thiết kế chính cho màn boss là **BossHud** panel tím — để lại làm sau; đây là readout tạm
- *   theo Shell chung, KHÔNG regress màn boss hiện có.)
+ * - **TUTORIAL** → glyph cơ chế + nhãn ngắn; single-action KHÔNG chip (nhãn + tick đủ), combo hiện `×2`. [tutorial]
+ * - **CLEAR_TARGETS** → dãy glyph đích (gốc dây leo / giọt nước) mờ dần + pill "còn N".              [targets]
+ * - **REACH_SCORE** → thanh tiến độ điểm = MỤC TIÊU thắng (KHÔNG coin sao); sao theo nước ở footer.
+ * - **MIXED** → 2 dòng: dãy đích + thanh điểm mục tiêu (cao 72dp); sao theo nước ở footer.
+ * - **BOSS_COMBO** → màn boss dùng **BossCard** (không gọi bar này); nhánh ở đây chỉ dự phòng.
  *
  * Trạng thái: active · near (pulse nhẹ ease-jelly) · done (nền success + tick pop, glow).
- * KHÔNG hiện chip `rotations` của thiết kế: app đã đặt bộ đếm lượt xoay trên FAB (GravityRotateButton),
- * theo ghi chú ObjectiveBar "chỉ hiện khi KHÔNG nằm trên FAB".
+ * KHÔNG hiện chip `rotations`: bộ đếm lượt xoay đã ở FAB (GravityRotateButton).
  *
  * Kích thước (dp, theo ObjectiveBar.jsx): 1 dòng 52 · 2 dòng 72 · padding 16 · radius 20 · shadow sm ·
- * track 12 · glyph đích 24 · glyph tutorial 28–30 · chip 28 · pill 26. Chữ số Fredoka, nhãn Nunito.
+ * badge MÀN min 44 · glyph đích 24 · glyph tutorial 28–30 · chip 28 · pill 26. Chữ số Fredoka, nhãn Nunito.
  */
 @Composable
 fun ObjectiveBar(
     goal: Goal,
     world: Int,
+    level: Int,
+    worldName: String,
     score: Int,
     targetsCleared: Int,
     initialTargets: Int,
@@ -90,13 +93,24 @@ fun ObjectiveBar(
     bossHpMax: Int,
     tutorialLabel: String,
     modifier: Modifier = Modifier,
+    /** Mục tiêu ĐÃ hoàn thành (holder.levelComplete) — hiện tick "Xong" cho tutorial. */
+    objectiveDone: Boolean = false,
+    /**
+     * Dải sao SỐNG chấm theo NƯỚC ĐI / LƯỢT XOAY (StarStrip + caption footer). MỌI màn campaign chấm
+     * theo nước (design mới "unified to số nước") → luôn có. Điểm chỉ còn là điều kiện THẮNG, KHÔNG chấm sao.
+     */
+    liveStars: LiveStars? = null,
 ) {
+    val stripFooter: (@Composable () -> Unit)? = liveStars?.let { { StripFooter(it) } }
+    // Badge MÀN neo trái mọi bar (design ObjectiveBar.jsx LevelBadge) — luôn thấy đang ở màn nào.
+    val lead: @Composable () -> Unit = { LevelBadge(level = level, worldName = worldName) }
     when (goal.type) {
         GoalType.MIXED -> {
             val total = initialTargets.coerceAtLeast(goal.count)
             val remaining = (total - targetsCleared).coerceAtLeast(0)
             val scoreDone = score >= goal.score
-            Shell(tall = true, modifier = modifier) {
+            Shell(tall = true, modifier = modifier, footer = stripFooter) {
+                lead()
                 Column(
                     Modifier.weight(1f),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -115,9 +129,11 @@ fun ObjectiveBar(
         }
 
         GoalType.REACH_SCORE -> {
+            // Điểm = MỤC TIÊU thắng (thanh tiến độ, KHÔNG coin sao); sao chấm theo NƯỚC ở footer.
             val done = score >= goal.score
             val near = !done && score.ratio(goal.score) >= 0.7f
-            Shell(modifier = modifier) {
+            Shell(modifier = modifier, footer = stripFooter) {
+                lead()
                 GlyphCircle(bg = GjPalette.Primary.copy(alpha = 0.18f)) {
                     GjIcon(GjIcons.Star, modifier = Modifier.size(19.dp), tint = GjPalette.Primary)
                 }
@@ -128,15 +144,18 @@ fun ObjectiveBar(
         GoalType.CLEAR_TARGETS -> {
             val total = initialTargets.coerceAtLeast(goal.count)
             val remaining = (total - targetsCleared).coerceAtLeast(0)
-            Shell(modifier = modifier) {
+            Shell(modifier = modifier, footer = stripFooter) {
+                lead()
                 Text("MỤC TIÊU", style = captionStyle())
                 TargetCounter(Modifier.weight(1f), isDrop = world == 3, total = total, remaining = remaining)
             }
         }
 
         GoalType.BOSS_COMBO -> {
+            // Màn boss dùng BossCard (không gọi ObjectiveBar); nhánh này chỉ dự phòng.
             val done = bossDamage >= bossHpMax
             Shell(tall = true, modifier = modifier) {
+                lead()
                 Column(
                     Modifier.weight(1f),
                     verticalArrangement = Arrangement.spacedBy(5.dp),
@@ -155,7 +174,9 @@ fun ObjectiveBar(
 
         GoalType.TUTORIAL -> {
             val variant = goal.trigger
-            Shell(modifier = modifier) {
+            val isCombo = variant == TriggerKind.COMBO_X2
+            Shell(modifier = modifier, footer = stripFooter) {
+                lead()
                 TutorialGlyph(variant)
                 Text(
                     tutorialLabel,
@@ -165,13 +186,16 @@ fun ObjectiveBar(
                         color = GjPalette.Text, fontWeight = FontWeight.Bold,
                     ),
                 )
-                val isCombo = variant == TriggerKind.COMBO_X2
-                ProgressChip(text = if (isCombo) "×2" else "0/1", done = false, near = false)
+                // Single-action: bỏ chip "0/1" thừa (nhãn + tick đã đủ); combo giữ ×2; XONG → tick "Xong".
+                if (isCombo || objectiveDone) {
+                    ProgressChip(text = if (objectiveDone) "Xong" else "×2", done = objectiveDone, near = false)
+                }
             }
         }
 
         // CLEAR_ALL / COMBO_CHAIN — chưa dùng ở Campaign hiện tại: readout nhãn tối giản.
-        else -> Shell(modifier = modifier) {
+        else -> Shell(modifier = modifier, footer = stripFooter) {
+            lead()
             Text("MỤC TIÊU", style = captionStyle())
             Text(
                 tutorialLabel,
@@ -185,26 +209,161 @@ fun ObjectiveBar(
 
 private fun Int.ratio(target: Int): Float = if (target > 0) this / target.toFloat() else 0f
 
+/* ── badge MÀN (số màn toàn cục + tên world) — design ObjectiveBar.jsx LevelBadge ─── */
+
+/**
+ * Neo trái mọi bar: ô "MÀN <số>" + tên world, ngăn cách bằng gạch dọc. Bám LevelBadge trong
+ * `ObjectiveBar.jsx`: minWidth 44 · radius 12 · nền surface-sunken · MÀN 9sp · số 22sp · world 8.5sp.
+ */
+@Composable
+private fun LevelBadge(level: Int, worldName: String) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(GjSpace.md),
+    ) {
+        Column(
+            Modifier
+                .defaultMinSize(minWidth = 44.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .background(GjPalette.SurfaceSunken)
+                .padding(horizontal = 9.dp, vertical = 3.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(1.dp),
+        ) {
+            Text("MÀN", style = captionStyle().copy(fontSize = 9.sp))
+            Text("$level", style = numStyle(22.sp, GjPalette.Text))
+            Text(
+                worldName, maxLines = 1,
+                style = captionStyle().copy(fontSize = 8.5.sp),
+            )
+        }
+        Box(
+            Modifier
+                .width(1.5.dp)
+                .height(40.dp)
+                .clip(RoundedCornerShape(2.dp))
+                .background(GjPalette.CellLine),
+        )
+    }
+}
+
+/* ── dải sao SỐNG cho màn chấm nước đi/lượt xoay (StripFooter · StarStrip) ────── */
+
+/**
+ * Readout sao sống cho màn "move-limited". [tier] = bậc sao ĐANG giữ (1..3) theo số nước/lượt đã dùng;
+ * [now] = "Đang N★"; [next] = gợi ý ngắn giữ/rớt bậc (null nếu đã ở bậc thấp nhất). Tính ở nơi gọi
+ * (CampaignPlayScreen) từ [com.gravityjelly.core.StarThresholds.tierFor] để dùng chung với lúc chấm sao thắng.
+ */
+data class LiveStars(val tier: Int, val now: String, val next: String?)
+
+/** Footer dải 3 sao + caption bậc (design StripFooter). */
+@Composable
+private fun StripFooter(live: LiveStars) {
+    Row(
+        Modifier.padding(top = 6.dp, start = 2.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+    ) {
+        StarStrip(live.tier)
+        StarCaptionRow(live.now, live.next)
+    }
+}
+
+/** Dải 3 mốc sao — rail chìm + fill vàng lấp tới bậc hiện tại (design StarStrip). */
+@Composable
+private fun StarStrip(tier: Int, size: androidx.compose.ui.unit.Dp = 14.dp) {
+    val fillFrac = when {
+        tier >= 3 -> 1f
+        tier == 2 -> 0.5f
+        else -> 0f
+    }
+    Box(Modifier.width(74.dp).height(size + 4.dp)) {
+        // rail chìm (inset nửa sao mỗi bên để nối tâm sao đầu–cuối) + fill vàng tới bậc.
+        Box(
+            Modifier
+                .align(Alignment.Center)
+                .fillMaxWidth()
+                .padding(horizontal = size / 2)
+                .height(3.dp),
+        ) {
+            Box(Modifier.matchParentSize().clip(RoundedCornerShape(GjRadius.full)).background(GjPalette.SurfaceSunken))
+            if (fillFrac > 0f) {
+                Box(
+                    Modifier
+                        .fillMaxHeight()
+                        .fillMaxWidth(fillFrac)
+                        .clip(RoundedCornerShape(GjRadius.full))
+                        .background(GjPalette.Warning),
+                )
+            }
+        }
+        Row(
+            Modifier.fillMaxSize(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            for (i in 0 until 3) MiniStar(filled = tier >= i + 1, size = size)
+        }
+    }
+}
+
+/** Sao trần nhỏ — vàng khi đạt, kem nhạt khi chưa (design MiniStar). */
+@Composable
+private fun MiniStar(filled: Boolean, size: androidx.compose.ui.unit.Dp = 13.dp) {
+    Canvas(Modifier.size(size)) {
+        if (filled) drawStar(GjPalette.Warning, Color(0xFFE2A82E))
+        else drawStar(Color(0xFFEFE2C7), Color(0xFFDECBAA))
+    }
+}
+
+/** Caption bậc sao dạng chuỗi (now vàng · next mờ) cho dải sao sống. */
+@Composable
+private fun StarCaptionRow(now: String, next: String?) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(5.dp),
+    ) {
+        Text(now, style = numStyle(12.sp, Color(0xFFC88F26)), maxLines = 1)
+        if (next != null) {
+            Text("·", style = MaterialTheme.typography.labelSmall.copy(color = Color(0xFFE0CDAC)))
+            Text(
+                next, maxLines = 1,
+                style = MaterialTheme.typography.labelSmall.copy(color = GjPalette.TextMuted, fontWeight = FontWeight.Bold),
+            )
+        }
+    }
+}
+
 /* ── vỏ Shell (ObjectiveBar.jsx Shell) ───────────────────────────────────────── */
 
 @Composable
 private fun Shell(
     modifier: Modifier = Modifier,
     tall: Boolean = false,
+    footer: (@Composable () -> Unit)? = null,
     content: @Composable RowScope.() -> Unit,
 ) {
-    Row(
+    Column(
         modifier = modifier
             .fillMaxWidth()
             .shadow(4.dp, RoundedCornerShape(GjRadius.lg), clip = false,
                 ambientColor = GjPalette.ShadowSoft, spotColor = GjPalette.ShadowSoft)
             .clip(RoundedCornerShape(GjRadius.lg))
             .background(GjPalette.Surface)
-            .defaultMinSize(minHeight = if (tall) 72.dp else 52.dp)
-            .padding(horizontal = GjSpace.lg, vertical = if (tall) 9.dp else 0.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(GjSpace.md),
-    ) { content() }
+            .defaultMinSize(minHeight = if (footer != null) 0.dp else if (tall) 72.dp else 52.dp)
+            .padding(
+                horizontal = GjSpace.lg,
+                vertical = if (tall) 9.dp else if (footer != null) 7.dp else 0.dp,
+            ),
+        verticalArrangement = Arrangement.Center,
+    ) {
+        Row(
+            Modifier.fillMaxWidth().defaultMinSize(minHeight = if (tall) 54.dp else 40.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(GjSpace.md),
+        ) { content() }
+        footer?.invoke()
+    }
 }
 
 /* ── thanh điểm (ScoreBar) ───────────────────────────────────────────────────── */
@@ -242,26 +401,29 @@ private fun ScoreBar(
                 )
             }
         }
-        Box(
-            Modifier
-                .fillMaxWidth()
-                .height(12.dp)
-                .clip(RoundedCornerShape(GjRadius.full))
-                .background(GjPalette.SurfaceSunken),
-        ) {
+        // Track + fill (thanh tiến độ MỤC TIÊU điểm — không còn coin sao; sao chấm theo nước ở footer).
+        Box(Modifier.fillMaxWidth()) {
             Box(
                 Modifier
-                    .fillMaxWidth(pct)
+                    .fillMaxWidth()
                     .height(12.dp)
-                    .graphicsLayer { scaleY = scale }
                     .clip(RoundedCornerShape(GjRadius.full))
-                    .background(
-                        Brush.verticalGradient(
-                            if (done) listOf(Color(0xFF8FE0A0), GjPalette.Success)
-                            else listOf(fill.shine(), fill),
+                    .background(GjPalette.SurfaceSunken),
+            ) {
+                Box(
+                    Modifier
+                        .fillMaxWidth(pct)
+                        .height(12.dp)
+                        .graphicsLayer { scaleY = scale }
+                        .clip(RoundedCornerShape(GjRadius.full))
+                        .background(
+                            Brush.verticalGradient(
+                                if (done) listOf(Color(0xFF8FE0A0), GjPalette.Success)
+                                else listOf(fill.shine(), fill),
+                            ),
                         ),
-                    ),
-            )
+                )
+            }
         }
     }
 }
@@ -450,14 +612,14 @@ private fun SpecialGlyph(kind: SpecialKind, fill: Color, edge: Color, lvl2: Bool
 
 /* ── glyph đích: gốc dây leo (World 2) · giọt nước (World 3) ─────────────────── */
 
-/** Mầm dây leo (ObjectiveBar.jsx VineGlyph): ụ đất nâu + thân + 2 lá mint; mờ khi đã phá. */
+/** Mầm dây leo (ObjectiveBar.jsx VineGlyph): ụ đất nâu + thân + 2 lá vine-green; mờ khi đã phá. */
 @Composable
 private fun VineGlyph(dim: Boolean) {
     val a = if (dim) 0.3f else 1f
     Canvas(Modifier.size(24.dp)) {
         val w = size.width
-        val stem = Color(0xFF5FC3B2).copy(alpha = a)
-        val leaf = Color(0xFFA3E5D9).copy(alpha = a)
+        val stem = Color(0xFF6BA352).copy(alpha = a)
+        val leaf = Color(0xFF9ECF7E).copy(alpha = a)
         drawOval(
             Color(0xFFC7A97E).copy(alpha = a),
             topLeft = Offset(w * 0.2f, w * 0.75f),
@@ -577,7 +739,7 @@ private fun captionStyle() = MaterialTheme.typography.labelSmall.copy(
 
 /** Số (Fredoka/display, digit-safe) — NUM trong ObjectiveBar.jsx. */
 private fun numStyle(fontSize: androidx.compose.ui.unit.TextUnit, color: Color) = androidx.compose.ui.text.TextStyle(
-    fontFamily = GjLogoFontFamily, fontWeight = FontWeight.Bold, fontSize = fontSize, color = color, lineHeight = 1.05.em,
+    fontFamily = GjDisplayFontFamily, fontWeight = FontWeight.Bold, fontSize = fontSize, color = color, lineHeight = 1.05.em,
 )
 
 /** shine của fill (tangerine → tangerine-shine) cho gradient thanh điểm. */

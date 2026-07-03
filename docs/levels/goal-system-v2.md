@@ -104,10 +104,13 @@ Khó 3.5.
 
 ## 5. Chấm sao & tính khả thi
 
-- **Tutorial (trigger):** luôn có nghiệm vì khay được dựng để hành động chắc chắn xảy ra;
-  sao đo **số nước** dùng → thưởng người làm gọn. Solver chỉ cần xác nhận đường đạt trigger.
-- **REACH_SCORE / BOSS_COMBO:** khả thi bằng **bot greedy** ước lượng dải điểm/combo, đặt
-  ngưỡng sao ở phân vị công bằng (giống mục điểm trong level-design.md §Solver).
+- **CHỐT 03/07 — sao thống nhất theo SỐ NƯỚC** cho mọi màn (trừ boss = COMBO, L3 = ROTATIONS).
+  Điểm ở `REACH_SCORE`/`MIXED` chỉ còn là **điều kiện THẮNG**, KHÔNG chấm sao nữa. Metric suy từ goal:
+  `REACH_SCORE`/`MIXED`/`CLEAR_TARGETS`/`TUTORIAL` → **MOVES** · `BOSS_COMBO` → COMBO · L3 → ROTATIONS.
+- **Ngưỡng 3★ = số nước NGẮN NHẤT solver tìm được** (`MoveSolver.kt`: beam-search theo tầng số nước +
+  greedy làm sàn; 2★/1★ nới biên). Solver giải 29/30 màn. Xem `core/.../MoveSolver.kt` + `MoveSolverTest`.
+- **Tutorial (trigger):** luôn có nghiệm; solver xác nhận đường đạt trigger, min nước = 3★.
+- W1+W2 đã chốt bằng solver. **W3 hoãn** (cơ chế thác chưa xong) — ngưỡng placeholder + ⚠.
 - Golden test khoá deterministic: cùng seed + đường giải mẫu → cùng chuỗi state.
 
 ## 6. Hệ quả cần lưu ý (ripple)
@@ -139,30 +142,42 @@ tuỳ màn. Mỗi màn khai thác 1 khía cạnh mới của vine, KHÔNG lặp 
 Bản sắc "rừng rậm = rối & kẹt". Dây leo là chướng ngại **tự lan**, cộng hưởng trực tiếp với
 xoay trọng lực + cụm cứng — điểm độc nhất so với Woodoku/Block Blast.
 
-**Cấu trúc.** Mỗi dây leo có 1 **gốc** (root) + chuỗi **đốt** (segment). Gốc là *target* của
-màn. `:core`: `CellType.VINE` với cờ `isRoot` (đã implement).
+> **Chi tiết kỹ thuật đầy đủ** (mô hình 5 phần, hằng số, anti-merge, render, file liên quan):
+> xem `docs/levels/vine-mechanic.md`. Mục này chỉ tóm tắt luật + ý đồ thiết kế.
+
+**Cấu trúc — mô hình 5 phần.** Mỗi dây leo = 1 **gốc** (root) + tối đa **3 nhánh** độc lập, mỗi
+nhánh là chuỗi **đốt**. `:core`: `CellType.VINE` với cờ `vineRoot`. 5 trạng thái rời rạc: **rễ** ·
+**trồi** (tip đầu ngọn) · **cành** (thân) · **cành đếm ngược** (héo, `CellType.TRASH` countdown > 0)
+· **rác chết** (`TRASH` countdown = 0). Gốc là *target* của màn.
 
 **Luật (deterministic — bắt buộc cho solver/Daily):**
 
-1. **Mọc:** cứ sau mỗi `growEveryN` lượt *thả mảnh*, mỗi dây mọc thêm **1 đốt** từ **đầu dây
-   (tip)** sang 1 ô kề **trống**. Thứ tự chọn ô cố định: quét 4 hướng theo thứ tự
-   `[ngược hướng trọng lực → phải → theo trọng lực → trái]`, lấy ô trống đầu tiên. Tip kẹt
-   (không ô trống kề) → dây *ngừng mọc* lượt đó. Hàm thuần của (state + hướng trọng lực + bộ
-   đếm lượt) → không phá deterministic.
+1. **Mọc:** cứ sau mỗi `growEveryN` lượt *thả mảnh*, mỗi **gốc** mọc thêm **tối đa 1 mầm mới cho
+   CẢ dây** (`MAX_GROW_PER_TURN = 1`) — tính chung cả **trồi** (nối dài tip), **cành** (đẻ mầm phụ)
+   lẫn **rễ** (phân nhánh mới). KHÔNG có burst lượt đầu; gốc trần cũng chỉ 1 mầm/lượt. Ưu tiên:
+   trồi → cành → rễ. Chọn ô trống kề theo thứ tự cố định
+   `[ngược trọng lực → phải → theo trọng lực → trái]`. Mầm mới KHÔNG được kề nhánh khác / gốc khác /
+   ô rác (chống ghép nhánh / vòng tròn / hồi sinh rác). Rễ phân tối đa 3 nhánh nhưng **dần dần**.
+   Hàm thuần của (state + hướng trọng lực + bộ đếm lượt) → không phá deterministic.
    - `growEveryN = 2` (mọc chậm, màn giới thiệu) hoặc `1` (mọc nhanh, màn áp lực).
-2. **Bám cứng khi xoay:** ô dây leo **KHÔNG rơi** theo trọng lực/xoay — nó là rễ, đứng yên
-   trong khi mọi thứ khác đổ. → xoay vừa lợi (gỡ cụm khác) vừa hại (mở khe trống cho dây mọc).
+2. **Bám cứng khi xoay:** ô dây leo **và ô rác KHÔNG rơi** theo trọng lực/xoay — bám như rễ, đứng
+   yên trong khi mọi thứ khác đổ. → xoay vừa lợi (gỡ cụm khác) vừa hại (mở khe trống cho dây mọc).
 3. **Diệt — CHỈ THẠCH LÁ (MINT) MỚI PHÁ GỐC:** *(quy tắc áp dụng mọi nơi có vine, không
    riêng W2)*
    - Xóa hàng/cột **đi qua GỐC** → gốc chỉ bị phá nếu hàng/cột đó chứa **ít nhất 1 khối
      màu MINT (xanh lá)**. Nếu không có khối MINT → hàng vẫn clear bình thường nhưng **gốc sống
-     sót**. Khi gốc bị phá → **cả dây tan** (gốc + mọi đốt).
+     sót**. Khi gốc bị phá → **chỉ xoá ô gốc**; các đốt mất kết nối chuyển sang cành đếm ngược (héo).
    - **Siêu khối MINT nổ** (quét cùng màu toàn bàn / vùng 5×5): nếu vùng nổ đi qua gốc → gốc
      **bị phá** (tính là "xanh lá xoá"). Siêu khối màu khác nổ qua gốc → gốc sống sót.
-   - Xóa qua **đốt thường** → chỉ đốt trên line đó mất (không cần MINT). Đốt nào **mất kết
-     nối với gốc** sẽ **khô héo → biến thành ô trống** ở cuối lượt (thưởng cho việc cắt gần gốc).
-4. **Tính vào clear:** đốt/gốc là ô cứng, **được tính** khi xét hàng/cột đầy → có thể chủ
-   động lấp đầy hàng chứa gốc để xóa diệt dây (nhớ cần MINT trong hàng đó).
+   - Xóa qua **đốt thường** → đốt trên line mất (không cần MINT). Đốt nào **mất kết nối với gốc**
+     KHÔNG biến mất ngay mà **héo thành RÁC có đếm ngược** (`WILT_COUNTDOWN = 10` lượt): rác đang héo
+     (countdown > 0) VẪN đếm đầy → có thể xoá tiếp bằng line clear; hết đếm ngược → **rác chết**
+     (không đếm đầy, chặn hàng — chỉ siêu khối/cầu vồng nổ mới phá).
+   - **Hoãn mọc sau nhát cắt:** lượt nào **có cắt dây** (phá gốc hoặc đốt héo) thì dây **KHÔNG mọc
+     đúng lượt đó** (đặt lại bộ đếm nhịp) — thưởng cho người chơi hưởng thành quả nhát cắt, tránh
+     dây lấp lại ngay ô vừa mở.
+4. **Tính vào clear:** gốc/đốt (+ rác đang héo, countdown > 0) là ô cứng, **được tính** khi xét
+   hàng/cột đầy → có thể chủ động lấp đầy hàng chứa gốc để xoá diệt dây (nhớ cần MINT trong hàng đó).
 5. **Thua:** nếu dây mọc bịt bàn khiến **kẹt khay** → thua theo luật chuẩn (không cần luật riêng).
 
 **Hệ quả thiết kế của quy tắc MINT:**
@@ -186,7 +201,7 @@ Archetype **Vine Siege** — boss LÀ hiện thân của dây leo, khác hẳn b
   Máu = **8**.
 - **Chiến thuật:** phải **xen kẽ** combo (gây sát thương) và chặt rễ bằng MINT (giữ bàn thở).
   Siêu khối MINT = đòn lật kèo (vừa ghi combo vừa quét gốc).
-- **Thắng:** máu → 0. **Thua:** kẹt khay. Ngân sách xoay = 3.
+- **Thắng:** máu → 0. **Thua:** kẹt khay. Ngân sách xoay = 4.
 - Sao (số nhịp combo): 3★ ≤4 · 2★ ≤6 · 1★ ≤8.
 
 **Code mới cần cho boss:** `bossVineSpawnEveryN` — cứ mỗi N lượt, spawn 1 gốc mới (vị trí
@@ -245,7 +260,7 @@ phải hành động nhanh, đặt MINT vào hàng gốc trước khi dây siế
 nào trước — gốc dưới dễ tiếp cận hơn nhưng gốc trên mọc vào vùng quan trọng. Dạy: ưu tiên
 chiến thuật.
 
-**L18 — Rừng & Điểm.** Goal MIXED: phá 1 gốc ở giữa bàn **VÀ** ghi 350 điểm. Vine mọc nhanh.
+**L18 — Rừng & Điểm.** Goal MIXED: phá 1 gốc ở giữa bàn **VÀ** ghi 200 điểm. Vine mọc nhanh.
 Phải cân bằng: dùng MINT cho diệt gốc hay cho score? Áp lực kép.
 
 **L19 — Rừng Rậm.** Tên world = tên màn = đỉnh cao. **3 gốc ở 3 tầng** (đáy + giữa + trên),

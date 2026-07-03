@@ -141,7 +141,8 @@ object CampaignLevels {
             tp("V3", YELLOW), tp("V3", MINT), tp("V3", PINK), tp("V3", BLUE),
         ),
         goal = Goal(GoalType.REACH_SCORE, score = 200),
-        stars = StarThresholds(three = 360, two = 280, one = 200, metric = StarMetric.SCORE),
+        // Điểm = điều kiện THẮNG; sao chấm theo NƯỚC (thống nhất toàn campaign). MoveSolver: min = 37 nước.
+        stars = StarThresholds(three = 37, two = 50, one = 63, metric = StarMetric.MOVES),
         difficulty = 3.0,
     )
 
@@ -190,7 +191,8 @@ object CampaignLevels {
         rotationBudget = 3,
         vineGrowEveryN = 2,
         goal = Goal(GoalType.REACH_SCORE, score = 200),
-        stars = StarThresholds(three = 400, two = 300, one = 200, metric = StarMetric.SCORE),
+        // Điểm = điều kiện THẮNG; sao chấm theo NƯỚC. MoveSolver: min = 26 nước.
+        stars = StarThresholds(three = 26, two = 35, one = 44, metric = StarMetric.MOVES),
         difficulty = 2.0,
     )
 
@@ -235,7 +237,8 @@ object CampaignLevels {
         id = 16, world = 2, name = "Bãi Trống", seed = 16,
         rotationBudget = 3,
         goal = Goal(GoalType.REACH_SCORE, score = 150),
-        stars = StarThresholds(three = 300, two = 220, one = 150, metric = StarMetric.SCORE),
+        // Điểm = điều kiện THẮNG; sao chấm theo NƯỚC. MoveSolver: min = 30 nước.
+        stars = StarThresholds(three = 30, two = 41, one = 52, metric = StarMetric.MOVES),
         difficulty = 1.5,
     )
 

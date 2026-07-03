@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -88,7 +89,7 @@ private val WORLD1_NODES = listOf(
 
 // World 2 · Rừng rậm — node bám đường mòn vẽ sẵn (design world2-strip.jsx NODES).
 private val WORLD2_NODES = listOf(
-    MapNode(11, 200f, 1170f, NodeKind.REG),
+    MapNode(11, 200f, 1132f, NodeKind.REG),   // nâng lên (ngang node đầu W1) tránh đè biển "← ĐỒNG CỎ" ở đáy
     MapNode(12, 122f, 1061f, NodeKind.REG),
     MapNode(13, 238f, 968f, NodeKind.REG),
     MapNode(14, 125f, 872f, NodeKind.REG),
@@ -289,8 +290,13 @@ fun CampaignScreen(
                 }
 
                 // Biển đáy: world > 1 → chip "← về world trước" (bấm quay lại); world 1 → biển khởi đầu.
+                // NÂNG khỏi thanh điều hướng hệ thống (safeDrawing bottom + 12dp) để KHÔNG bị che (Pixel 9
+                // gesture/3-nút): sign vốn ở đáy art trùng mép dưới màn → cuộn tới đáy sẽ lọt vào vùng nav.
+                val navBottom = WindowInsets.safeDrawing.asPaddingValues().calculateBottomPadding()
                 Box(
-                    Modifier.fillMaxWidth().offset(y = ((ART_H - 44f) * s).dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .offset(y = ((ART_H - 44f) * s).dp - navBottom - 12.dp),
                     contentAlignment = Alignment.TopCenter,
                 ) {
                     if (selectedWorld > 1) {
