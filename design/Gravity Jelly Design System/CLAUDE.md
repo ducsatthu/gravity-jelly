@@ -43,6 +43,17 @@ new game art, drop it here and add it to the matching card.
 ## Brand
 "Block jelly" identity: characters are rounded jelly BLOCKS with EYES, thick edge, top gloss/shine. Candy-sweet tone, warm cream background, soft light-brown shadows. Playful, friendly, clean.
 
+## Block naming (canonical — display names; NEVER rename)
+Code identifiers stay by COLOR (`yellow/mint/pink/blue`, tokens `--color-block-*`, mechanic ids `super/superL2/rainbow/rainbowSuper/blast*`). These are the human-facing DISPLAY names only.
+- **4 basic blocks** (color → VN / EN): yellow → **Thạch Sao** / Star Jelly · mint → **Thạch Lá** / Leaf Jelly · pink → **Thạch Tim** / Heart Jelly · blue → **Thạch Nước** / Aqua Jelly.
+- **Evolution tiers (the "Hoàng gia" / royal-crown line)** — old name → new canonical name:
+  - "Siêu khối" (super, crowned) → **Thạch Hoàng Gia** (Royal Jelly)
+  - "Siêu khối cấp 2" / Cực Hạn → **Vua Thạch** (Jelly King)
+  - "Khối cầu vồng" → **Thạch Cầu Vồng** (Rainbow Jelly)
+  - "Cầu vồng siêu cấp" → **Hoàng Đế Cầu Vồng** (Rainbow Emperor)
+  - Blast/"Nổ …" cards follow the same swap (e.g. "Nổ siêu khối" → **Nổ Thạch Hoàng Gia**).
+- Handbook (cam-nang) category label for this line = **"Hoàng gia"** (internal group KEY stays `'SIÊU KHỐI'`). Scenery rainbows in world maps (sky "cầu vồng") are NOT blocks — never rename those.
+
 ## Device
 Android portrait **360 × 800 dp**. Gutter 16dp. Touch targets ≥ 48dp.
 
@@ -53,11 +64,11 @@ Android portrait **360 × 800 dp**. Gutter 16dp. Touch targets ≥ 48dp.
 
 ## Colors (use straight from the design system — keep exact)
 - Surfaces: bg cream `#FFF7EC` · white `#FFFFFF` · sunken `#F4E9D8` · dialog scrim `rgba(60,44,24,0.42)`
-- 4 jelly blocks — fill / edge / shine:
-  - Yellow `#FFE3A3` / `#E8B85C` / `#FFF1CE`
-  - Mint `#A3E5D9` / `#5FC3B2` / `#CBF2EB`
-  - Pink `#F7A9C0` / `#E576A0` / `#FBD0DF`
-  - Blue `#B3C7F7` / `#7E9CE8` / `#D6E1FB`
+- 4 jelly blocks — **display name (VN / EN)** · fill / edge / shine:
+  - Yellow = **Thạch Sao** (Star Jelly) `#FFE3A3` / `#E8B85C` / `#FFF1CE`
+  - Mint = **Thạch Lá** (Leaf Jelly) `#A3E5D9` / `#5FC3B2` / `#CBF2EB`
+  - Pink = **Thạch Tim** (Heart Jelly) `#F7A9C0` / `#E576A0` / `#FBD0DF`
+  - Blue = **Thạch Nước** (Aqua Jelly) `#B3C7F7` / `#7E9CE8` / `#D6E1FB`
 - Stone (locked/fixed): `#C9BCA8` / edge `#A89A82` / shine `#DBD0BF`
 - Text: primary `#5B4636` (warm cocoa) · muted `#9B886F` · on dark/color `#FFFFFF` · on jelly `#6A4A2E`
 - Primary CTA: tangerine `#FF9F68` / edge `#E97E45` / shine `#FFC59A`
@@ -72,7 +83,7 @@ Android portrait **360 × 800 dp**. Gutter 16dp. Touch targets ≥ 48dp.
 - Shadows: sm `0 2 6` · md `0 6 14` · lg `0 12 28`; jelly cells have an inset gloss on top
 
 ## Reuse components (don't redraw — use the system's style)
-- **BossHud** (`03-components/09-boss-hud/` → `NS.BossHud`): boss-fight HUD cluster at the TOP of the GAME screen on boss levels (L10/20/30…), REPLACING the normal ObjectiveBar. Dark gravity-purple self-contained panel (reads on light + dark). Round boss portrait (themable `color/edge/shine`, angry brows) + name · HP bar (small-int `hp/maxHp`, fill danger→warning by %, JERKS+FLASHES on hit) · floating −damage tied to combo tier (`comboDamage(combo)`: ×2–3→1 ×4–6→2 ×7+→3, syncs ComboPopup ×N) · rule reminder "Combo ≥ ×2 để gây sát thương" · optional `tell` ({kind:'trash'|'gravity', countdown} → "Sắp đổ rác" / "Sắp đảo trọng lực" 3→0). Drive hits by incrementing `hitToken` + setting `lastHit={damage,combo}`. Shown 3 bosses (Chú Sâu Đồng Cỏ 5 · Kẻ Đổ Rác 8 · Thần Thác 10) in `boss-hud.card.html`.
+- **Boss cluster** (`03-components/09-boss-hud/` → `NS.BossCard` / `BossIntroCard` / `BossToast` / `BossMascot` / `ShieldBar`; `NS.BossHud` aliases `BossCard`): soft casual (NOT combat/RPG). Each boss has its OWN eyes-only mascot rendered from SUPPLIED PNG ART in `06-svg-assets/bosses/` (`boss-worm.png` / `boss-trash.png` / `boss-water.png`, transparent) via `BossMascot kind="worm|trash|water"` — no shared circle/ring, no mouth/brows; `size` (display height) + `assetBase` (path to `06-svg-assets/bosses/` relative to page, default `../../` for a component card 2 levels deep) props. Faint purple/cyan aura behind worm/water. Pieces: `BossCard` (compact in-game/pre-boss card — mascot overflows the LEFT, text right: name · `MÀN n` badge · thin **Khiên** `ShieldBar` · `chip{kind,tone,label}` where `role:'rule'|'tell'` styles it as calm CẨM NANG vs coloured CẢNH BÁO — same rule/tell split as the toast/rule below) · `BossIntroCard` (large pre-level: BOSS tag + level + big title + shield bar + rule chip + orange "Chơi" CTA) · `BossToast` (WARNING pill = điều boss SẮP làm, một *tell*: "Lượt sau: Đổ rác" / "Sau 2 lượt: Đảo trọng lực"; viền màu + bob) · `BossRule` (CẨM NANG = CÁCH phá khiên, một *rule*: "Combo ×2 phá khiên"; nền chìm, không viền/không bob — KHÔNG bao giờ để rule vào toast). Progress = "Khiên n/m" (NOT HP hearts); copy uses "phá khiên" (NOT "gây sát thương"); purple only as tag/glow/hairline. 3 bosses (Chú Sâu Đồng Cỏ 4/5 · Kẻ Đổ Rác 6/8 · Thần Thác 7/10) in `boss-hud.card.html`; art shown in **Boss Art** (`boss-art.card.html`).
 - **ObjectiveBar** (`03-components/08-objective-bar/` → `NS.ObjectiveBar`): the always-on level-objective cluster placed UNDER the 56dp HUD, above the board. One `goal` descriptor, switches on `goal.kind`:
   - `tutorial` (variant: clearRow/clearCol/rotate/super1/super2/rainbow/rainbowSuper/combo) — glyph + short label + `0/1` chip (combo shows `×N`).
   - `score` — REACH_SCORE progress bar (`current/target`), primary fill, glows when full.

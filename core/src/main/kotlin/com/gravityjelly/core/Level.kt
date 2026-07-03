@@ -32,7 +32,18 @@ data class PresetCell(
     val vineRoot: Boolean = false,
 )
 
-data class StarThresholds(val three: Int, val two: Int, val one: Int, val metric: StarMetric)
+data class StarThresholds(val three: Int, val two: Int, val one: Int, val metric: StarMetric) {
+    /**
+     * Bậc sao (1..3) cho một GIÁ TRỊ metric đã đo — dùng chung cho tính sao khi thắng và readout
+     * sao SỐNG lúc chơi. [SCORE]: nhiều hơn tốt hơn (≥ ngưỡng). MOVES/ROTATIONS/COMBO: ít hơn tốt hơn
+     * (≤ ngưỡng). Luôn ≥1 (qua màn = tối thiểu 1★); với readout sống của metric "ít hơn tốt hơn",
+     * giá trị 0 (chưa dùng nước nào) → 3★, rồi tụt dần khi dùng thêm.
+     */
+    fun tierFor(value: Int): Int = when (metric) {
+        StarMetric.SCORE -> if (value >= three) 3 else if (value >= two) 2 else 1
+        else -> if (value <= three) 3 else if (value <= two) 2 else 1
+    }
+}
 
 data class Goal(
     val type: GoalType,
@@ -43,6 +54,15 @@ data class Goal(
     /** Máu boss cho [GoalType.BOSS_COMBO] (tổng sát thương combo cần đạt). */
     val bossHP: Int = 0,
 )
+
+/**
+ * Cảnh báo boss SẮP ra chiêu (một *tell*) — cho HUD hiện chip cảnh báo + đếm ngược.
+ * - [VINE_SPAWN]: boss "Thần Rừng" (W2) sắp spawn thêm 1 gốc dây leo.
+ * - [GRAVITY_INVERT]: boss "Thần Thác" (W3) sắp tự đảo trọng lực 180°.
+ * [turnsUntil] = số lượt THẢ còn lại tới lần ra chiêu kế (1 = ngay lượt sau).
+ */
+enum class BossTellKind { VINE_SPAWN, GRAVITY_INVERT }
+data class BossTell(val kind: BossTellKind, val turnsUntil: Int)
 
 /** Một mảnh trong khay (chuỗi cố định, bỏ ngẫu nhiên cho màn thiết kế). [shape] theo vocab docs. */
 data class TrayPiece(val shape: String, val color: JellyColor = JellyColor.YELLOW)

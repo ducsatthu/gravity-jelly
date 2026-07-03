@@ -1,0 +1,49 @@
+<!-- @dsCard group="Assets" viewport="1120x520" name="Boss Art" subtitle="Tranh boss PNG (nền trong suốt) trong 06-svg-assets/bosses/ — dùng qua BossMascot kind='worm|trash|water'. Jelly chỉ có mắt: Chú Sâu Đồng Cỏ · Kẻ Đổ Rác · Thần Thác." -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<style>
+  html, body { margin: 0; }
+  body { font-family: var(--font-body); background: var(--color-bg); }
+  #root { min-height: 100vh; padding: 36px; box-sizing: border-box;
+          display: flex; gap: 28px; align-items: stretch; justify-content: center; }
+  .tile { width: 320px; background: var(--color-surface); border-radius: var(--radius-2xl);
+          border: 1.5px solid rgba(126,108,240,0.18); box-shadow: var(--shadow-lg);
+          padding: 20px; display: flex; flex-direction: column; align-items: center; }
+  .stage { flex: 1; width: 100%; display: flex; align-items: center; justify-content: center;
+           background: var(--color-surface-sunken); border-radius: var(--radius-lg);
+           padding: 18px 0; margin-bottom: 14px; }
+  .stage img { height: 200px; width: auto; object-fit: contain;
+               filter: drop-shadow(0 8px 10px rgba(120,92,52,0.20)); }
+  .name { font-family: var(--font-display); font-weight: 700; font-size: 20px;
+          color: var(--color-text); }
+  .meta { font-family: var(--font-body); font-weight: 700; font-size: 12px;
+          color: var(--color-text-muted); margin-top: 3px; }
+  .path { font-family: ui-monospace, monospace; font-size: 11px; color: #B7A489; margin-top: 8px; }
+</style>
+</head>
+<body>
+  <div id="root">
+    <div class="tile">
+      <div class="stage"><img src="boss-worm.png" alt="Chú Sâu Đồng Cỏ" /></div>
+      <div class="name">Chú Sâu Đồng Cỏ</div>
+      <div class="meta">MÀN 10 · kind="worm"</div>
+      <div class="path">boss-worm.png</div>
+    </div>
+    <div class="tile">
+      <div class="stage"><img src="boss-trash.png" alt="Kẻ Đổ Rác" /></div>
+      <div class="name">Kẻ Đổ Rác</div>
+      <div class="meta">MÀN 20 · kind="trash"</div>
+      <div class="path">boss-trash.png</div>
+    </div>
+    <div class="tile">
+      <div class="stage"><img src="boss-water.png" alt="Thần Thác" /></div>
+      <div class="name">Thần Thác</div>
+      <div class="meta">MÀN 30 · kind="water"</div>
+      <div class="path">boss-water.png</div>
+    </div>
+  </div>
+</body>
+</html>

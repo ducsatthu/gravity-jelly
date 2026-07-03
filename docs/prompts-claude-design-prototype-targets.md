@@ -10,6 +10,11 @@ cần đẹp hoàn chỉnh** — ưu tiên **chơi được + đúng luật**. B
 
 Chạy **từng prompt riêng** (mỗi cái là 1 prototype độc lập). Có thể chạy Prompt 0 trước cho tokens.
 
+> ⚠️ **LỊCH SỬ — luật vine ở đây là bản PROTOTYPE ĐỜI ĐẦU (đã dùng), ĐÃ LỖI THỜI.** Cơ chế vine
+> hiện tại đã tiến hoá (mô hình 5 phần, MINT-only phá gốc, cắt rời → **rác đếm ngược** chứ không
+> biến mất, mỗi gốc **1 mầm/lượt**, hoãn mọc sau nhát cắt). Logic chính thức: `levels/vine-mechanic.md`
+> + `levels/goal-system-v2.md §8`. Đừng đọc phần dưới như spec hiện hành.
+
 ---
 
 ## Prompt 0 — Tokens & khung chung (tuỳ chọn, dán trước cho đẹp)

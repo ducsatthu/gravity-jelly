@@ -25,6 +25,11 @@ data class EndlessTuning(
     val bossGravityEveryN: Int = 0,
     /** World 2 boss "Thần Rừng": spawn gốc vine mới mỗi N lượt THẢ (0 = tắt). */
     val bossVineSpawnEveryN: Int = 0,
+    /**
+     * Combo theo thời gian: nước vô ích KHÔNG reset combo trong core — game layer quản lý
+     * timer 10s và gọi [EndlessEngine.resetCombo] khi hết hạn. Solver/replay bỏ qua timer.
+     */
+    val comboTimeBased: Boolean = false,
 ) {
     fun budgetFor(stage: Int): Int =
         maxOf(budgetMin, baseBudget - (stage - 1) / budgetDecay)
@@ -42,6 +47,7 @@ data class EndlessTuning(
             stoneInterval = 3,
             stonesPerDrop = 1,
             hardPoolStage = 8,
+            comboTimeBased = true,
         )
     }
 }

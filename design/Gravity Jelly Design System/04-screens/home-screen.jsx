@@ -236,42 +236,26 @@
           {/* Cánh hoa bay bay khắp màn hình */}
           {petals && <Petals count={24} seed={7} />}
 
-          {/* PANEL KEM + MENU — MỘT cụm khoá TỈ LỆ panel (1448/1086) neo đáy stage.
-             Mọi số đo tương đối (%, cqw) → co giãn đều mọi máy, KHÔNG stretch (aspectRatio
-             giữ hình panel), KHÔNG tràn (nội dung nằm trong padding + space-evenly).
-             Stage có aspectRatio 821/1916 cố định nên cụm này giữ nguyên vị trí/tỉ lệ ở mọi
-             chiều cao màn (màn thấp chỉ cắt bớt TRỜI phía trên, không ảnh hưởng panel). */}
-          <div style={{
-            position: 'absolute', left: '7.5%', right: '7.5%', bottom: '2%',
-            aspectRatio: '1448 / 1086',
-          }}>
-            {/* nền panel — phủ khít cụm, giữ tỉ lệ gốc (không méo) */}
-            <img src={PANEL} alt="" aria-hidden="true" style={{
-              position: 'absolute', inset: 0, width: '100%', height: '100%',
-              display: 'block', userSelect: 'none', pointerEvents: 'none',
-              filter: 'drop-shadow(0 8px 16px rgba(120,92,52,0.28))',
-            }} />
+          {/* panel kem trong suốt làm nền cho cụm nút */}
+          <img src={PANEL} alt="" aria-hidden="true" style={{
+            position: 'absolute', left: '6%', right: '6%', top: '72.5%', bottom: '2.5%',
+            width: '88%', height: '25%', display: 'block', userSelect: 'none', pointerEvents: 'none',
+            filter: 'drop-shadow(0 8px 16px rgba(120,92,52,0.28))',
+          }} />
 
-            {/* menu 2 hàng — padding = viền cream (đo PIL: ngang 4.6% bề-rộng · dọc 11.3%
-               bề-CAO panel) + khe đều ~4.7%. Lưu ý CSS: padding % LUÔN theo bề RỘNG khối, nên
-               dọc 11.3%-cao = 8.5%-rộng → padding dọc 13.2%, ngang 9.3%. space-evenly ⇒ lề
-               trên = giữa = dưới, tự cân, không tràn trên màn thấp. */}
-            <div style={{
-              position: 'absolute', inset: 0, padding: '13.2% 9.3%',
-              display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly',
-            }}>
-              {/* 2 hàng cùng width 100% (của khối nội dung đã trừ padding) ⇒ mép trái/phải
-                 2 hàng TRÙNG nhau ở mọi máy. Nút flex:1 + img width:100% height:auto ⇒
-                 tổng ngang hàng trên (2 nút) = hàng dưới (3 nút). gap 4cqw = 4% bề rộng máy. */}
-              <div style={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'center', gap: '4cqw' }}>
-                <IconButton icon={IC_CAMPAIGN} label="Chiến dịch" onClick={onCampaign} />
-                <IconButton icon={IC_INFINITE} label="Endless" onClick={onPlay} />
-              </div>
-              <div style={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'center', gap: '4cqw' }}>
-                <IconButton icon={IC_GUIDE} label="Cẩm nang" onClick={onGuide} />
-                <IconButton icon={IC_LEADER} label="Bảng xếp hạng" onClick={onTools} />
-                <IconButton icon={IC_SETTING} label="Cài đặt" onClick={onTools} />
-              </div>
+          {/* menu 2 hàng trong panel kem — hàng trên 2 nút chơi chính (to hơn) */}
+          <div style={{
+            position: 'absolute', left: '6%', right: '6%', top: '75%', bottom: '5%',
+            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly',
+          }}>
+            <div style={{ display: 'flex', width: '66cqw', alignItems: 'center', justifyContent: 'center', gap: '4cqw' }}>
+              <IconButton icon={IC_CAMPAIGN} label="Chiến dịch" onClick={onCampaign} />
+              <IconButton icon={IC_INFINITE} label="Endless" onClick={onPlay} />
+            </div>
+            <div style={{ display: 'flex', width: '66cqw', alignItems: 'center', justifyContent: 'center', gap: '4cqw' }}>
+              <IconButton icon={IC_GUIDE} label="Cẩm nang" onClick={onGuide} />
+              <IconButton icon={IC_LEADER} label="Bảng xếp hạng" onClick={onTools} />
+              <IconButton icon={IC_SETTING} label="Cài đặt" onClick={onTools} />
             </div>
           </div>
         </div>

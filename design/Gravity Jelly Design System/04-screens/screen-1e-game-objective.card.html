@@ -25,7 +25,7 @@
     const BG = '../06-svg-assets/backgrounds/meadow-bg.png';
 
     // The GAME screen with the objective cluster slotted under the HUD.
-    function GameWithObjective({ goal }) {
+    function GameWithObjective({ goal, level, world }) {
       const map = ['.........','.........','....PP...','....PP...','...M..BB.','.YYM.SBB.','.YYMMSB..','BYYMMSPPP','BBYMMSPPP'];
       const pieces = [
         { cells: [[0,0],[1,0],[1,1]], color: 'mint' },
@@ -44,7 +44,7 @@
             </div>
             {/* objective cluster — directly under the HUD */}
             <div style={{ marginTop:10 }}>
-              <ObjectiveBar goal={goal} rotations={9} />
+              <ObjectiveBar goal={goal} level={level} world={world} />
             </div>
             {/* board */}
             <div style={{ flex:'0 0 auto', display:'flex', justifyContent:'center', marginTop:12 }}>
@@ -63,7 +63,7 @@
 
     ReactDOM.createRoot(document.getElementById('root')).render(
       <PhoneFrame statusBar={false}>
-        <GameWithObjective goal={{ kind:'mixed', targets:{ target:'drop', total:4, remaining:3, buried:1 }, score:{ score:2340, target:5000 } }} />
+        <GameWithObjective level={23} world="Sông &amp; Thác" goal={{ kind:'targets', target:'drop', total:4, remaining:3, buried:1, stars:{ tier:2, now:'Đang 2★', next:'còn 5 nước' } }} />
       </PhoneFrame>
     );
   </script>

@@ -74,6 +74,8 @@ sealed class GameEvent {
     /** Boss "Thần Thác" (World 3 · L30) tự ĐẢO hướng trọng lực 180° → [newGravity]. */
     data class BossGravityFlipped(val newGravity: Direction) : GameEvent()
     data class TrayDealt(val tray: List<Piece?>) : GameEvent()
+    /** Combo bị reset bởi game layer (hết thời gian combo timer). */
+    data class ComboExpired(val wasBefore: Int) : GameEvent()
     data object GameOver : GameEvent()
 }
 
@@ -223,7 +225,10 @@ class EndlessEngine(
         score += resolveResult.totalScore
         // Combo cộng dồn qua các nước; chỉ reset khi nước thả block KHÔNG xóa lẫn KHÔNG hợp nhất.
         // Hợp nhất siêu khối là nước "có ích" → GIỮ combo (endCombo == combo cũ khi không xóa).
-        combo = if (resolveResult.cleared || resolveResult.formedSuper) resolveResult.endCombo else 0
+        // comboTimeBased: nước vô ích GIỮ combo — game layer quản lý timer 10s reset.
+        combo = if (resolveResult.cleared || resolveResult.formedSuper) resolveResult.endCombo
+            else if (tuning.comboTimeBased) combo
+            else 0
         applyComboRefund(prevCombo, resolveResult.endCombo, events)
         resolveResult.events.mapTo(events) { it.toGameEvent() }
 
@@ -374,6 +379,16 @@ class EndlessEngine(
         if (r.cleared || r.formedSuper) combo = r.endCombo
         applyComboRefund(prev, r.endCombo, events)
         r.events.mapTo(events) { it.toGameEvent() }
+    }
+
+    /**
+     * Game layer gọi khi combo timer hết hạn (comboTimeBased). Trả event nếu combo > 0 (đã reset).
+     */
+    fun resetCombo(): GameEvent? {
+        if (combo <= 0) return null
+        val was = combo
+        combo = 0
+        return GameEvent.ComboExpired(was)
     }
 
     fun rotateGravity(cw: Boolean): List<GameEvent> {

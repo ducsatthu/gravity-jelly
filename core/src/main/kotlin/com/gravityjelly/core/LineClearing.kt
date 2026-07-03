@@ -10,12 +10,23 @@ data class ClearedLines(
 
 fun findFullLines(grid: Grid): ClearedLines {
     val fullRows = (0 until grid.size).filter { y ->
-        (0 until grid.size).all { x -> !grid.isEmpty(x, y) }
+        (0 until grid.size).all { x -> isFilled(grid, x, y) }
     }
     val fullCols = (0 until grid.size).filter { x ->
-        (0 until grid.size).all { y -> !grid.isEmpty(x, y) }
+        (0 until grid.size).all { y -> isFilled(grid, x, y) }
     }
     return ClearedLines(fullRows, fullCols)
+}
+
+/**
+ * Ô "đầy" cho mục đích xếp hàng/cột: bất kỳ ô có nội dung. TRASH đang đếm ngược (cành héo,
+ * countdown > 0) vẫn đếm là đầy → có thể bị phá bằng line clear. TRASH chết (countdown = 0,
+ * rác lá khô) thì chặn — chỉ bị phá bởi siêu khối/cầu vồng nổ.
+ */
+private fun isFilled(grid: Grid, x: Int, y: Int): Boolean {
+    val c = grid.get(x, y) ?: return false
+    if (c.type == CellType.TRASH) return c.trashCountdown > 0
+    return true
 }
 
 /**

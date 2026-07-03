@@ -6,6 +6,7 @@ sealed class ResolveEvent {
         val cellsCleared: Int,
         val comboLevel: Int,
         val score: Int,
+        val survivingRoots: List<Vec> = emptyList(),
     ) : ResolveEvent()
 
     data class ClustersCollapsed(val moved: Boolean) : ResolveEvent()
@@ -175,10 +176,14 @@ fun resolve(grid: Grid, gravity: Direction, startCombo: Int = 0, mergeEnabled: B
             val dropsHit = toClear.filter { grid.get(it.x, it.y)?.type == CellType.TARGET }
 
             val rootsHitSet = rootsHit.toSet()
+            val survivingRoots = ArrayList<Vec>()
             var cellsCleared = 0
             for (v in toClear) {
                 val c = grid.get(v.x, v.y)
-                if (c != null && c.isVineRoot && v !in rootsHitSet) continue
+                if (c != null && c.isVineRoot && v !in rootsHitSet) {
+                    survivingRoots.add(v)
+                    continue
+                }
                 grid.set(v.x, v.y, null)
                 cellsCleared++
             }
@@ -186,7 +191,7 @@ fun resolve(grid: Grid, gravity: Direction, startCombo: Int = 0, mergeEnabled: B
 
             val score = Scoring.clearScore(cellsCleared, lines.count, combo)
             totalScore += score
-            events.add(ResolveEvent.LinesCleared(lines, cellsCleared, combo, score))
+            events.add(ResolveEvent.LinesCleared(lines, cellsCleared, combo, score, survivingRoots))
             for (d in detonations) {
                 events.add(ResolveEvent.SuperDetonated(d.center, d.color, d.level, d.cells, d.isRainbow))
             }

@@ -37,9 +37,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import com.gravityjelly.app.ui.components.BossIntroCard
+import com.gravityjelly.app.ui.components.bossKindForWorld
+import com.gravityjelly.app.ui.components.bossNameForWorld
 import com.gravityjelly.app.ui.components.BtnSize
 import com.gravityjelly.app.ui.components.BtnVariant
 import com.gravityjelly.app.ui.components.GjButton
+import com.gravityjelly.core.BossTell
+import com.gravityjelly.core.BossTellKind
 import com.gravityjelly.app.ui.icons.GjIcon
 import com.gravityjelly.app.ui.icons.GjIcons
 import com.gravityjelly.app.ui.theme.GjPalette
@@ -117,6 +122,23 @@ fun CampaignIntroScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {
+          if (isBoss) {
+            // Màn BOSS → thẻ BossIntroCard (mascot + Khiên + luật/tell + CTA), bám BossHud.jsx.
+            // Slot extra: dải sao (nhịp combo) + ngân sách xoay của màn.
+            BossIntroCard(
+                level = level.id,
+                name = bossNameForWorld(level.world),
+                kind = bossKindForWorld(level.world),
+                shieldTarget = level.goal.bossHP,
+                onPlay = onStart,
+                tell = bossIntroTell(level),
+                modifier = Modifier.fillMaxWidth(),
+                extra = {
+                    StarStrip(t = level.stars, earned = earnedStars)
+                    if (level.rotationBudget > 0) RotationBudgetInfo(level.rotationBudget)
+                },
+            )
+          } else {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -161,54 +183,7 @@ fun CampaignIntroScreen(
                 StarStrip(t = level.stars, earned = earnedStars)
 
                 // ── Ngân sách xoay (ẩn khi màn không cho xoay) ──
-                if (level.rotationBudget > 0) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(GjSpace.xs),
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .clip(RoundedCornerShape(GjRadius.full))
-                                .background(GjPalette.Gravity.copy(alpha = 0.14f))
-                                .padding(horizontal = GjSpace.lg, vertical = GjSpace.sm),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(GjSpace.sm),
-                        ) {
-                            GjIcon(
-                                GjIcons.RotateCw,
-                                contentDescription = null,
-                                tint = GjPalette.Gravity,
-                                modifier = Modifier.size(18.dp),
-                            )
-                            Text(
-                                text = "Đảo trọng lực · ",
-                                color = GjPalette.Text,
-                                style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
-                            )
-                            Text(
-                                text = "${level.rotationBudget}",
-                                color = GjPalette.Gravity,
-                                style = MaterialTheme.typography.headlineMedium.copy(
-                                    fontWeight = FontWeight.ExtraBold,
-                                    fontSize = 18.sp,
-                                ),
-                            )
-                            Text(
-                                text = " lượt",
-                                color = GjPalette.Text,
-                                style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
-                            )
-                        }
-                        Text(
-                            text = "Số lần được đảo trọng lực trong cả màn",
-                            color = GjPalette.TextMuted,
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.Medium,
-                            textAlign = TextAlign.Center,
-                            fontFamily = MaterialTheme.typography.bodyLarge.fontFamily,
-                        )
-                    }
-                }
+                if (level.rotationBudget > 0) RotationBudgetInfo(level.rotationBudget)
 
                 GjButton(
                     onClick = onStart,
@@ -218,6 +193,7 @@ fun CampaignIntroScreen(
                     fullWidth = true,
                 ) { Text("BẮT ĐẦU") }
             }
+          }
         }
 
         // Nút đóng (top-end) — VẼ SAU CÙNG để nổi trên lớp cuộn (không bị Column nuốt chạm).
@@ -233,6 +209,56 @@ fun CampaignIntroScreen(
         ) {
             GjIcon(GjIcons.Close, contentDescription = "Đóng", tint = GjPalette.TextMuted, modifier = Modifier.size(22.dp))
         }
+    }
+}
+
+/** Tell PREVIEW cho BossIntroCard (chưa có engine): lần ra chiêu đầu = sau đúng chu kỳ N lượt. */
+private fun bossIntroTell(level: Level): BossTell? = when {
+    level.bossGravityEveryN > 0 -> BossTell(BossTellKind.GRAVITY_INVERT, level.bossGravityEveryN)
+    level.bossVineSpawnEveryN > 0 -> BossTell(BossTellKind.VINE_SPAWN, level.bossVineSpawnEveryN)
+    else -> null
+}
+
+// ── Ngân sách xoay (chip "Đảo trọng lực · N lượt" + caption) ─────────────────────────────────
+@Composable
+private fun RotationBudgetInfo(n: Int) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(GjSpace.xs),
+    ) {
+        Row(
+            modifier = Modifier
+                .clip(RoundedCornerShape(GjRadius.full))
+                .background(GjPalette.Gravity.copy(alpha = 0.14f))
+                .padding(horizontal = GjSpace.lg, vertical = GjSpace.sm),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(GjSpace.sm),
+        ) {
+            GjIcon(GjIcons.RotateCw, contentDescription = null, tint = GjPalette.Gravity, modifier = Modifier.size(18.dp))
+            Text(
+                text = "Đảo trọng lực · ",
+                color = GjPalette.Text,
+                style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+            )
+            Text(
+                text = "$n",
+                color = GjPalette.Gravity,
+                style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.ExtraBold, fontSize = 18.sp),
+            )
+            Text(
+                text = " lượt",
+                color = GjPalette.Text,
+                style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+            )
+        }
+        Text(
+            text = "Số lần được đảo trọng lực trong cả màn",
+            color = GjPalette.TextMuted,
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Medium,
+            textAlign = TextAlign.Center,
+            fontFamily = MaterialTheme.typography.bodyLarge.fontFamily,
+        )
     }
 }
 
@@ -495,8 +521,8 @@ private fun VineHero(count: Int, score: Int = 0) {
 private fun VineHeroGlyph() {
     Canvas(Modifier.size(44.dp)) {
         val w = size.width
-        val stem = Color(0xFF5FC3B2)
-        val leaf = Color(0xFFA3E5D9)
+        val stem = Color(0xFF6BA352)
+        val leaf = Color(0xFF9ECF7E)
         drawOval(
             Color(0xFFC7A97E),
             topLeft = androidx.compose.ui.geometry.Offset(w * 0.2f, w * 0.72f),

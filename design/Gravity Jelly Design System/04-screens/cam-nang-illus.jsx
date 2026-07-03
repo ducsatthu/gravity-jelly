@@ -163,28 +163,28 @@
           <MiniBoard cell={13} rows={['PPP', 'PPP', 'PPP']} />
         </div>
         <Flow />
-        <Stage label="Siêu khối"><SpecialBlock type="super" color="pink" size={46} /></Stage>
+        <Stage label="Thạch Hoàng Gia"><SpecialBlock type="super" color="pink" size={46} /></Stage>
       </Wrap>
     ),
     rainbow: () => (
       <Wrap>
         <Stage label="3×3 đủ ba màu"><MiniBoard cell={18} rows={['YYY', 'MMM', 'BBB']} /></Stage>
         <Flow />
-        <Stage label="Cầu vồng"><SpecialBlock type="rainbow" size={46} /></Stage>
+        <Stage label="Thạch Cầu Vồng"><SpecialBlock type="rainbow" size={46} /></Stage>
       </Wrap>
     ),
     superL2: () => (
       <Wrap>
-        <Stage label="2 siêu khối"><div style={{ display: 'flex', gap: 4 }}><SpecialBlock type="super" color="blue" size={36} /><SpecialBlock type="super" color="blue" size={36} /></div></Stage>
+        <Stage label="2 Thạch Hoàng Gia"><div style={{ display: 'flex', gap: 4 }}><SpecialBlock type="super" color="blue" size={36} /><SpecialBlock type="super" color="blue" size={36} /></div></Stage>
         <Flow />
-        <Stage label="Cấp 2"><SpecialBlock type="super" color="blue" size={48} lvl={2} /></Stage>
+        <Stage label="Vua Thạch"><SpecialBlock type="super" color="blue" size={48} lvl={2} /></Stage>
       </Wrap>
     ),
     rainbowSuper: () => (
       <Wrap>
         <Stage label="2 kíp nổ"><div style={{ display: 'flex', gap: 4 }}><SpecialBlock type="rainbow" size={34} /><SpecialBlock type="super" color="yellow" size={34} /></div></Stage>
         <Flow />
-        <Stage label="Siêu cấp"><div style={{ paddingTop: 12 }}><SpecialBlock type="crown" size={48} /></div></Stage>
+        <Stage label="Hoàng Đế Cầu Vồng"><div style={{ paddingTop: 12 }}><SpecialBlock type="crown" size={48} /></div></Stage>
       </Wrap>
     ),
     blastSuper: () => (

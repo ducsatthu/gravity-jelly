@@ -29,7 +29,7 @@ import com.gravityjelly.core.JellyColor
  * lấp lánh để thấy viền màu + vương miện + tia (giống @Preview "07 Super blocks"). Allocation-aware
  * như board: stroke/cr precompute một lần mỗi vẽ. Công khai để :app (GjGuide) tái dùng.
  */
-enum class GuideCellKind { EMPTY, JELLY, SUPER1, SUPER2, RAINBOW, RAINBOW2, STONE }
+enum class GuideCellKind { EMPTY, JELLY, SUPER1, SUPER2, RAINBOW, RAINBOW2, STONE, VINE, TRASH }
 
 /** Một ô của mini-board minh hoạ. [color] bắt buộc cho JELLY/SUPER1/SUPER2 (mặc định vàng nếu thiếu). */
 data class GuideCell(val kind: GuideCellKind, val color: JellyColor? = null)
@@ -42,6 +42,9 @@ val gRainbow2 = GuideCell(GuideCellKind.RAINBOW2)
 fun gJelly(c: JellyColor) = GuideCell(GuideCellKind.JELLY, c)
 fun gSuper1(c: JellyColor) = GuideCell(GuideCellKind.SUPER1, c)
 fun gSuper2(c: JellyColor) = GuideCell(GuideCellKind.SUPER2, c)
+val gVineRoot = GuideCell(GuideCellKind.VINE, JellyColor.MINT)
+val gVine = GuideCell(GuideCellKind.VINE, null)
+val gTrash = GuideCell(GuideCellKind.TRASH)
 
 // mốc lấp lánh cố định (siêu khối/cầu vồng) — bám @Preview "07 Super blocks"
 private const val GUIDE_PULSE = 0.7f
@@ -140,6 +143,12 @@ private fun DrawScope.drawGuideCell(
             left, top, blockSize, cr, borderStroke, 0f, 1f,
             level = 2, pulse = GUIDE_PULSE, spin = GUIDE_SPIN,
         )
+        GuideCellKind.VINE -> {
+            val isRoot = cell.color != null
+            drawVineCell(left, top, blockSize, cr, borderStroke, root = isRoot,
+                connectUp = true, connectDown = !isRoot)
+        }
+        GuideCellKind.TRASH -> drawDebrisCell(left, top, blockSize, cr, borderStroke)
     }
 }
 

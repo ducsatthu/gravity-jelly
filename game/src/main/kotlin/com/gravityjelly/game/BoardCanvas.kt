@@ -12,6 +12,8 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.translate
@@ -60,6 +62,12 @@ class BoardRender {
     var gravity: Direction = Direction.DOWN
     val clusterSizes: Array<IntArray> = Array(Grid.SIZE) { IntArray(Grid.SIZE) }
     var ghost: GhostPreview? = null
+
+    // ── combo timer aura (comboTimeBased) ──
+    /** Mốc animator nanos khi combo timer bắt đầu (0 = không có timer). */
+    var comboTimerStartNanos = 0L
+    /** Thời lượng combo timer (ns). Mặc định 10s. */
+    var comboTimerDurationNanos = 10_000_000_000L
 
     // Highlight "thả xuống sẽ ăn điểm / merge" — holder populate KHI ghost đổi ô (không mỗi frame).
     // Vùng sẽ nổ vẽ như MỘT khu vực liền: [previewRegion] (index-truy cập) + [previewMask] tra ô-kề
@@ -128,6 +136,16 @@ fun BoardCanvas(
         drawRoundRect(JellyTheme.surfaceSunken, cornerRadius = wellCr)
         drawRoundRect(brush = insetShadowBrush, cornerRadius = wellCr)
 
+        // ── 1b. Hào quang combo timer (4 màu chạy quanh bàn, countdown 10s) ──
+        val timerStart = r.comboTimerStartNanos
+        if (timerStart > 0L) {
+            val now = animator?.renderNanos() ?: 0L
+            val elapsed = now - timerStart
+            val duration = r.comboTimerDurationNanos
+            val frac = (elapsed.toFloat() / duration).coerceIn(0f, 1f) // 0=mới bắt đầu, 1=hết
+            drawComboTimerAura(size.width, size.height, wellCr, frac, now)
+        }
+
         // ── 2. Lưới + khối — tất cả offset vào trong padPx ─────────────────
         translate(padPx, padPx) {
 
@@ -181,8 +199,17 @@ fun BoardCanvas(
                 val top  = y * cellSize + gap / 2f + oy
                 when (cell.type) {
                     CellType.STONE -> drawStoneBlock(left, top, blockSize, cr, borderStroke)
-                    CellType.VINE -> drawVineCell(left, top, blockSize, cr, borderStroke, root = cell.vineRoot)
+                    CellType.VINE -> {
+                        val vu = y > 0 && grid.get(x, y - 1)?.type == CellType.VINE
+                        val vd = y < n - 1 && grid.get(x, y + 1)?.type == CellType.VINE
+                        val vl = x > 0 && grid.get(x - 1, y)?.type == CellType.VINE
+                        val vr = x < n - 1 && grid.get(x + 1, y)?.type == CellType.VINE
+                        drawVineCell(left, top, blockSize, cr, borderStroke, cell.vineRoot, vu, vd, vl, vr)
+                    }
                     CellType.TARGET -> drawDropCell(left, top, blockSize, cr, borderStroke)
+                    CellType.TRASH -> if (cell.trashCountdown > 0)
+                        drawTrashCell(left, top, blockSize, cr, borderStroke, cell.trashCountdown)
+                    else drawDebrisCell(left, top, blockSize, cr, borderStroke)
                     CellType.BLOCK -> {
                         // Vùng preview: viền lấp lánh SAU LƯNG block (ló ra ngoài mép, mặt block vẫn sạch).
                         if (regionActive && previewMask[y * n + x]) drawShimmerBorder(left, top, blockSize, superSpin)
@@ -288,12 +315,70 @@ private fun DrawScope.drawRegionLoop(loop: IntArray, cellSize: Float, blockSize:
         val entryX = cx - (cx - px) / inLen * r;  val entryY = cy - (cy - py) / inLen * r
         val exitX  = cx + (nx - cx) / outLen * r; val exitY  = cy + (ny - cy) / outLen * r
         if (i == 0) path.moveTo(entryX, entryY) else path.lineTo(entryX, entryY)
-        path.quadraticBezierTo(cx, cy, exitX, exitY)
+        path.quadraticTo(cx, cy, exitX, exitY)
         perim += outLen
     }
     path.close()
     drawRunningPath(path, perim, blockSize * 0.16f, spin, 0.42f)
     drawRunningPath(path, perim, blockSize * 0.06f, spin, 0.98f)
+}
+
+// ── Hào quang combo timer 4 màu chạy quanh bàn ─────────────────────────────
+private val AURA_COLORS = arrayOf(
+    Color(0xFFFFCA66), Color(0xFF5FC3B2), Color(0xFFE576A0), Color(0xFF8FB6F2),
+)
+private val auraPath = Path()
+private val auraDash = floatArrayOf(1f, 1f)
+private const val AURA_SPIN_PERIOD_NANOS = 2_000_000_000L // 2s / vòng khi đầy, chậm dần khi cạn
+
+/**
+ * Hào quang 4 màu chạy quanh giếng bàn, countdown combo timer.
+ * [frac] = 0→1 (mới bắt đầu → hết hạn). Alpha + tốc độ quay giảm dần theo frac.
+ */
+private fun DrawScope.drawComboTimerAura(
+    w: Float, h: Float, cr: CornerRadius, frac: Float, nowNanos: Long,
+) {
+    val remaining = 1f - frac
+    if (remaining <= 0f) return
+    val alpha = remaining.coerceIn(0.15f, 1f)
+    val speedScale = 0.3f + 0.7f * remaining
+    val spin = ((nowNanos % (AURA_SPIN_PERIOD_NANOS / speedScale.coerceAtLeast(0.01f)).toLong())
+        .toFloat() / (AURA_SPIN_PERIOD_NANOS / speedScale.coerceAtLeast(0.01f)).toLong())
+
+    val rx = cr.x; val ry = cr.y
+    val inset = 0f
+    val path = auraPath
+    path.reset()
+    // Rounded rect path (CW): top-left → top-right → bottom-right → bottom-left
+    path.moveTo(rx + inset, inset)
+    path.lineTo(w - rx - inset, inset)
+    path.quadraticTo(w - inset, inset, w - inset, ry + inset)
+    path.lineTo(w - inset, h - ry - inset)
+    path.quadraticTo(w - inset, h - inset, w - rx - inset, h - inset)
+    path.lineTo(rx + inset, h - inset)
+    path.quadraticTo(inset, h - inset, inset, h - ry - inset)
+    path.lineTo(inset, ry + inset)
+    path.quadraticTo(inset, inset, rx + inset, inset)
+    path.close()
+
+    val perimeter = 2f * (w + h - 4f * rx) + 2f * Math.PI.toFloat() * rx
+    val quarter = perimeter / 4f
+    auraDash[0] = quarter
+    auraDash[1] = perimeter - quarter
+    val run = spin * perimeter
+
+    val bloomWidth = w * 0.025f
+    val sharpWidth = w * 0.010f
+    for (i in AURA_COLORS.indices) {
+        val pe = PathEffect.dashPathEffect(auraDash, i * quarter + run)
+        drawPath(path, AURA_COLORS[i].copy(alpha = 0.35f * alpha),
+            style = Stroke(width = bloomWidth, cap = StrokeCap.Round, pathEffect = pe))
+    }
+    for (i in AURA_COLORS.indices) {
+        val pe = PathEffect.dashPathEffect(auraDash, i * quarter + run)
+        drawPath(path, AURA_COLORS[i].copy(alpha = 0.9f * alpha),
+            style = Stroke(width = sharpWidth, cap = StrokeCap.Round, pathEffect = pe))
+    }
 }
 
 /** Tính kích thước cụm chứa mỗi ô vào [out] (tái dùng mảng; gọi khi grid đổi, KHÔNG mỗi frame). */

@@ -30,6 +30,9 @@ import com.gravityjelly.game.gRainbow2
 import com.gravityjelly.game.gStone
 import com.gravityjelly.game.gSuper1
 import com.gravityjelly.game.gSuper2
+import com.gravityjelly.game.gTrash
+import com.gravityjelly.game.gVine
+import com.gravityjelly.game.gVineRoot
 
 /**
  * Minh hoạ "TRƯỚC → SAU" cho từng cơ chế trong popup dạy luật / cẩm nang. Dùng [GuideMiniBoard] của
@@ -45,6 +48,9 @@ private val Rb2 = gRainbow2
 private fun J(c: JellyColor) = gJelly(c)
 private fun S1(c: JellyColor) = gSuper1(c)
 private fun S2(c: JellyColor) = gSuper2(c)
+private val Vr = gVineRoot
+private val Vi = gVine
+private val Tr = gTrash
 private val Y = JellyColor.YELLOW
 private val M = JellyColor.MINT
 private val P = JellyColor.PINK
@@ -411,5 +417,85 @@ internal fun DetonateRainbow2Demo() = BeforeAfter(
         listOf(E, E, E, E, E),
         listOf(E, E, E, E, E),
         listOf(E, E, E, E, E),                   // sạch trơn — kể cả đá
+    ),
+)
+
+// ── 11. Dây leo mọc lan — giới thiệu (mỗi lượt mọc THÊM 1 đốt) ──────────────────
+@Composable
+internal fun VineIntroDemo() = LabeledBeforeAfter(
+    beforeLabel = "Lượt 1",
+    before = listOf(
+        listOf(E, E,  E, E),
+        listOf(E, Vi, E, E),                     // đã có 1 đốt
+        listOf(E, Vr, E, E),                     // gốc
+    ),
+    afterLabel = "Lượt 2",
+    after = listOf(
+        listOf(E, Vi, E, E),                     // mọc THÊM 1 đốt/lượt
+        listOf(E, Vi, E, E),
+        listOf(E, Vr, E, E),                     // gốc vẫn ở
+    ),
+)
+
+// ── 12. Cách phá dây leo — CÓ / KHÔNG có khối xanh lá (2 trường hợp) ────────────
+@Composable
+internal fun VineDestroyDemo() {
+    Column(verticalArrangement = Arrangement.spacedBy(GjSpace.md)) {
+        LabeledBeforeAfter(
+            beforeLabel = "Không có xanh lá",
+            before = listOf(
+                listOf(E, Vi, E, E),
+                listOf(J(Y), Vr, J(P), J(B)),    // hàng đầy, KHÔNG mint
+            ),
+            afterLabel = "Gốc sống sót!",
+            after = listOf(
+                listOf(E, Vi, E, E),
+                listOf(E, Vr, E, E),              // gốc + dây leo còn nguyên
+            ),
+        )
+        LabeledBeforeAfter(
+            beforeLabel = "Có xanh lá ✓",
+            before = listOf(
+                listOf(E, Vi, E, E),
+                listOf(J(Y), Vr, J(M), J(P)),    // hàng đầy, CÓ mint
+            ),
+            afterLabel = "Phá triệt để!",
+            after = listOf(
+                listOf(E, E, E, E),
+                listOf(E, E, E, E),               // gốc + cả dây tan
+            ),
+        )
+    }
+}
+
+// ── 13. Rác rừng — cắt dây leo rời gốc → hoá rác cố định ─────────────────────────
+@Composable
+internal fun VineToTrashDemo() = BeforeAfter(
+    before = listOf(
+        listOf(E, Vi, E, E),                     // đốt trên (sẽ bị cắt rời)
+        listOf(J(Y), Vi, J(P), J(B)),            // hàng cắt qua (KHÔNG mint)
+        listOf(E, Vr, E, E),                     // gốc
+    ),
+    after = listOf(
+        listOf(E, Tr, E, E),                     // đốt rời → RÁC (cố định tại chỗ)
+        listOf(E, E, E, E),                      // hàng đã xoá
+        listOf(E, Vr, E, E),                     // gốc sống sót
+    ),
+)
+
+// ── 14. Cách phá rác rừng — chỉ siêu khối mới phá được ───────────────────────────
+@Composable
+internal fun TrashDestroyDemo() = LabeledBeforeAfter(
+    beforeLabel = "Siêu khối nổ",
+    before = listOf(
+        listOf(E, Tr, E),
+        listOf(Tr, S1(Y), Tr),                   // siêu khối bao quanh bởi rác
+        listOf(E, Tr, E),
+    ),
+    afterLabel = "Rác biến mất!",
+    after = listOf(
+        listOf(E, E, E),
+        listOf(E, E, E),                          // tất cả rác bị phá
+        listOf(E, E, E),
     ),
 )

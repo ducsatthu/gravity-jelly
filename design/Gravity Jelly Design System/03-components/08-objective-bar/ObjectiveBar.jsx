@@ -6,15 +6,16 @@ import { Icon } from '../../02-foundations/03-icon/Icon.jsx';
  * under the 56dp HUD and above the 9×9 board. One component, one `goal`
  * descriptor, covering every goal_type in the catalogue:
  *   • tutorial   — single action, "0/1" chip (or "×N" for combo)
- *   • score      — REACH_SCORE progress bar (current / N), primary fill
  *   • targets    — CLEAR_TARGETS counter: target glyphs that dim as destroyed
  *                  (buried variant adds a layer-lock)
- *   • mixed      — MIXED: two stacked progress rows (targets + score)
+ * Every level is rated the SAME way — by moves (số nước): a `level`/`world`
+ * badge anchors the left, a move-based 3-star strip sits in the footer. The
+ * old score / mixed goal kinds (điểm) were removed for consistency.
  * States: active · near (gentle pulse) · done (success + tick, glow).
  * Optional gravity `rotations` chip on the right when it isn't on the FAB.
  *
- * Sizes in dp: single-row bar 52 · two-row (mixed) 72 · padding 16 · radius 20
- * · shadow sm · progress track 12 · target/tutorial glyph 26–30.
+ * Sizes in dp: single-row bar 52 · padding 16 · radius 20
+ * · shadow sm · target/tutorial glyph 26–30 · level badge min 44.
  */
 
 /* ---- one-time keyframes (pop / pulse), reduced-motion aware ---- */
@@ -144,34 +145,6 @@ function ProgressChip({ text, done, near }) {
   );
 }
 
-function ScoreBar({ score, target, done, near, compact }) {
-  const pct = Math.max(0, Math.min(1, score / target));
-  return (
-    <div style={{ flex: 1, minWidth: 0 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: compact ? 4 : 5, gap: 10 }}>
-        <span style={CAPTION}>ĐIỂM</span>
-        <span style={{ ...NUM, fontSize: 'var(--text-score)', color: done ? 'var(--color-success)' : 'var(--color-primary)', whiteSpace: 'nowrap' }}>
-          {score.toLocaleString('vi-VN')}
-          <span style={{ color: 'var(--color-text-muted)', fontSize: 'var(--text-caption)' }}> / {target.toLocaleString('vi-VN')}</span>
-        </span>
-      </div>
-      <div style={{
-        height: 12, borderRadius: 'var(--radius-full)', background: 'var(--color-surface-sunken)',
-        overflow: 'hidden', position: 'relative',
-        boxShadow: done ? '0 0 0 2px color-mix(in srgb, var(--color-success) 55%, transparent), 0 0 12px color-mix(in srgb, var(--color-success) 60%, transparent)' : 'inset 0 1px 3px rgba(120,92,52,0.16)',
-      }}>
-        <div data-gj-anim style={{
-          width: `${pct * 100}%`, height: '100%', borderRadius: 'var(--radius-full)',
-          background: done ? 'linear-gradient(180deg,#8FE0A0,var(--color-success))' : 'linear-gradient(180deg,var(--color-primary-shine),var(--color-primary))',
-          boxShadow: 'inset 0 1.5px 0 rgba(255,255,255,0.5)',
-          transition: 'width var(--motion-medium) var(--ease-out)',
-          animation: near ? 'gj-obj-nudge 900ms var(--ease-inout) infinite' : 'none',
-        }} />
-      </div>
-    </div>
-  );
-}
-
 // dimming counter of target glyphs + "còn N" pill.
 function TargetCounter({ kind, total, remaining, buried = 0 }) {
   const done = remaining <= 0;
@@ -203,24 +176,94 @@ function TargetCounter({ kind, total, remaining, buried = 0 }) {
   );
 }
 
-/* gravity turns-left chip (when not shown on the FAB) */
-function RotationsChip({ n }) {
-  const low = n <= 3;
+/* ── star-tier atoms (compact secondary readout — never louder than the goal) ── */
+
+// bare mini star — gold when earned, faint cream when not.
+function MiniStar({ filled, size = 13 }) {
   return (
-    <span title="Lượt xoay còn lại" style={{
-      display: 'inline-flex', alignItems: 'center', gap: 4, height: 30, padding: '0 10px', flexShrink: 0,
-      borderRadius: 'var(--radius-full)', boxSizing: 'border-box',
-      background: 'var(--color-gravity)', color: 'var(--color-text-invert)',
-      boxShadow: `0 3px 0 var(--color-gravity-edge)`,
-    }}>
-      <Icon name="rotateCw" size={17} color="currentColor" strokeWidth={2.6} />
-      <span style={{ ...NUM, fontSize: 'var(--text-score)', color: low ? '#FFE4A0' : 'inherit' }}>{n}</span>
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" style={{ display: 'block' }}>
+      <path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"
+        fill={filled ? 'var(--color-warning)' : '#EFE2C7'}
+        stroke={filled ? '#E2A82E' : '#DECBAA'} strokeWidth="1.7" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+// 3-milestone strip for move-limited levels — thin rail, fills up to the current tier.
+function StarStrip({ tier = 0, size = 14 }) {
+  const fillW = tier >= 3 ? `calc(100% - ${size}px)` : tier === 2 ? '50%' : '0%';
+  return (
+    <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: 74, height: size + 4, flexShrink: 0 }}>
+      <div style={{ position: 'absolute', left: size / 2, right: size / 2, top: '50%', height: 3, transform: 'translateY(-50%)', borderRadius: 999, background: 'var(--color-surface-sunken)' }} />
+      <div style={{ position: 'absolute', left: size / 2, top: '50%', height: 3, transform: 'translateY(-50%)', borderRadius: 999, width: fillW, background: 'var(--color-warning)', transition: 'width var(--motion-medium) var(--ease-out)' }} />
+      {[0, 1, 2].map((i) => (
+        <span key={i} style={{ position: 'relative', zIndex: 1, display: 'flex' }}><MiniStar filled={tier >= i + 1} size={size} /></span>
+      ))}
+    </div>
+  );
+}
+
+// one-line caption: bold gold current tier · muted "what's next".
+function StarCaption({ now, next, passed }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 5, minWidth: 0, lineHeight: 1 }}>
+      {passed && (
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 3, height: 15, padding: '0 5px', borderRadius: 'var(--radius-full)', background: 'color-mix(in srgb, var(--color-success) 20%, var(--color-surface))', color: 'var(--color-success)', flexShrink: 0 }}>
+          <Icon name="check" size={11} color="currentColor" strokeWidth={3.2} />
+          <span style={{ fontFamily: 'var(--font-body)', fontWeight: 800, fontSize: 10, letterSpacing: '0.02em' }}>QUA MÀN</span>
+        </span>
+      )}
+      <span style={{ ...NUM, fontSize: 12, color: '#C88F26', whiteSpace: 'nowrap' }}>{now}</span>
+      {next && <span style={{ color: '#E0CDAC', fontSize: 12 }}>·</span>}
+      {next && <span style={{ fontFamily: 'var(--font-body)', fontWeight: 'var(--weight-bold)', fontSize: 'var(--text-caption)', color: 'var(--color-text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{next}</span>}
+    </div>
+  );
+}
+
+// move-based star strip footer (tutorial + move-limited target levels).
+function StripFooter({ stars }) {
+  if (!stars) return null;
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 6, marginLeft: 2 }}>
+      <StarStrip tier={stars.tier || 0} />
+      <StarCaption now={stars.now} next={stars.next} />
+    </div>
+  );
+}
+
+// resolve the move-based star tier + caption for a level (explicit wins; else derive from moves).
+// stars are earned by moves LEFT: more spare moves ⇒ higher tier.
+function movesStars(goal) {
+  const s = goal.stars;
+  if (s && (s.now || s.tier != null || s.next != null)) {
+    const tier = s.tier != null ? s.tier : 0;
+    return {
+      tier,
+      now: s.now || `Đang ${tier}★`,
+      next: s.next != null ? s.next : (goal.moves != null ? `còn ${goal.moves} nước` : null),
+    };
+  }
+  const moves = goal.moves;
+  const th = goal.starMoves;
+  if (moves != null && Array.isArray(th)) {
+    const tier = th.filter((t) => moves >= t).length;
+    return { tier, now: `Đang ${tier}★`, next: `còn ${moves} nước` };
+  }
+  return { tier: 3, now: 'Đang 3★', next: moves != null ? `còn ${moves} nước` : null };
+}
+
+/* ── tutorial glyph picker ──────────────────────────────────────────── */
+
+// canonical special-block art from the design system's SVG assets.
+function BlockGlyph({ src, size = 32 }) {
+  return (
+    <span style={{ width: size, height: size, flexShrink: 0, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+      <img src={src} width={size} height={size} alt="" style={{ display: 'block', filter: 'drop-shadow(0 1px 2px rgba(120,92,52,0.2))' }} />
     </span>
   );
 }
 
-/* ── tutorial glyph picker ──────────────────────────────────────────── */
-function TutorialGlyph({ variant }) {
+function TutorialGlyph({ variant, blockBase }) {
   switch (variant) {
     case 'clearRow': return <GridGlyph axis="row" size={28} />;
     case 'clearCol': return <GridGlyph axis="col" size={28} />;
@@ -229,10 +272,10 @@ function TutorialGlyph({ variant }) {
         <Icon name="rotateCw" size={19} color="var(--color-gravity)" strokeWidth={2.4} />
       </span>
     );
-    case 'super1': return <SpecialGlyph type="super" color="pink" size={30} />;
-    case 'super2': return <SpecialGlyph type="super" color="blue" size={30} lvl={2} />;
-    case 'rainbow': return <SpecialGlyph type="rainbow" size={30} />;
-    case 'rainbowSuper': return <SpecialGlyph type="crown" size={30} />;
+    case 'super1': return <BlockGlyph src={`${blockBase}super-pink-1.svg`} size={32} />;
+    case 'super2': return <BlockGlyph src={`${blockBase}super-blue-2.svg`} size={32} />;
+    case 'rainbow': return <BlockGlyph src={`${blockBase}rainbow.svg`} size={32} />;
+    case 'rainbowSuper': return <BlockGlyph src={`${blockBase}rainbow-2.svg`} size={32} />;
     case 'combo': return (
       <span style={{ width: 30, height: 30, borderRadius: '50%', flexShrink: 0, background: 'color-mix(in srgb, var(--color-warning) 26%, transparent)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Icon name="x2" size={19} color="#B9821C" strokeWidth={2.4} />
@@ -242,16 +285,39 @@ function TutorialGlyph({ variant }) {
   }
 }
 
+/* ── current-level identity badge (số màn toàn cục + world) ── */
+// anchors the left of every bar so the player always sees which màn they're on.
+function LevelBadge({ level, world }) {
+  if (level == null) return null;
+  return (
+    <div style={{ display: 'flex', alignItems: 'stretch', gap: 'var(--space-md)', flexShrink: 0 }}>
+      <div style={{
+        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+        minWidth: 44, padding: '3px 9px', borderRadius: 12, lineHeight: 1, gap: 1, boxSizing: 'border-box',
+        background: 'var(--color-surface-sunken)', boxShadow: 'inset 0 1px 3px rgba(120,92,52,0.14)',
+      }}>
+        <span style={{ ...CAPTION, fontSize: 9 }}>MÀN</span>
+        <span style={{ ...NUM, fontSize: 22, color: 'var(--color-text)' }}>{level}</span>
+        {world && <span style={{ ...CAPTION, fontSize: 8.5, maxWidth: 64, overflow: 'hidden', textOverflow: 'ellipsis' }}>{world}</span>}
+      </div>
+      <div style={{ width: 1.5, alignSelf: 'stretch', margin: '3px 0', borderRadius: 2, background: 'var(--color-cell-line)' }} />
+    </div>
+  );
+}
+
 /* ── the bar shell ──────────────────────────────────────────────────── */
-function Shell({ children, tall, style }) {
+function Shell({ children, tall, footer, style }) {
   return (
     <div style={{
-      width: '100%', minHeight: tall ? 72 : 52, boxSizing: 'border-box',
-      display: 'flex', alignItems: 'center', gap: 'var(--space-md)',
-      padding: tall ? '9px var(--space-lg)' : '0 var(--space-lg)',
+      width: '100%', minHeight: footer ? undefined : (tall ? 72 : 52), boxSizing: 'border-box',
+      display: 'flex', flexDirection: 'column', justifyContent: 'center',
+      padding: tall ? '9px var(--space-lg)' : (footer ? '7px var(--space-lg) 8px' : '0 var(--space-lg)'),
       background: 'var(--color-surface)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-sm)',
       fontFamily: 'var(--font-body)', ...style,
-    }}>{children}</div>
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-md)', minHeight: tall ? 54 : 40 }}>{children}</div>
+      {footer}
+    </div>
   );
 }
 
@@ -262,67 +328,38 @@ function derive(status, done, ratio) {
   return 'active';
 }
 
-export function ObjectiveBar({ goal, rotations = null, style = {} }) {
+export function ObjectiveBar({ goal, level = null, world = null, style = {}, blockBase = '../../06-svg-assets/blocks/' }) {
   if (!goal) return null;
   const kind = goal.kind;
+  const lead = <LevelBadge level={level} world={world} />;
 
-  // ---- MIXED : two stacked rows ----
-  if (kind === 'mixed') {
-    const t = goal.targets, sc = goal.score;
-    return (
-      <Shell tall style={style}>
-        <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-md)' }}>
-            <TargetCounter kind={t.target} total={t.total} remaining={t.remaining} buried={t.buried || 0} />
-          </div>
-          <div style={{ height: 1, background: 'var(--color-cell-line)', margin: '0 -2px' }} />
-          <ScoreBar score={sc.score} target={sc.target} done={sc.score >= sc.target} compact
-            near={sc.score < sc.target && sc.score / sc.target >= 0.7} />
-        </div>
-        {rotations != null && <RotationsChip n={rotations} />}
-      </Shell>
-    );
-  }
-
-  // ---- SCORE : single progress bar ----
-  if (kind === 'score') {
-    const done = goal.score >= goal.target;
-    const st = derive(goal.status, done, goal.score / goal.target);
-    return (
-      <Shell style={style}>
-        <span style={{ width: 30, height: 30, borderRadius: '50%', flexShrink: 0, background: 'color-mix(in srgb, var(--color-primary) 18%, transparent)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <Icon name="star" size={19} color="var(--color-primary)" strokeWidth={2.2} />
-        </span>
-        <ScoreBar score={goal.score} target={goal.target} done={st === 'done'} near={st === 'near'} />
-        {rotations != null && <RotationsChip n={rotations} />}
-      </Shell>
-    );
-  }
-
-  // ---- TARGETS : dimming counter ----
+  // ---- TARGETS : dimming counter (ALWAYS shows the move-based star strip) ----
   if (kind === 'targets') {
     return (
-      <Shell style={style}>
+      <Shell style={style} footer={<StripFooter stars={movesStars(goal)} />}>
+        {lead}
         <span style={{ ...CAPTION }}>MỤC TIÊU</span>
         <TargetCounter kind={goal.target} total={goal.total} remaining={goal.remaining} buried={goal.buried || 0} />
-        {rotations != null && <RotationsChip n={rotations} />}
       </Shell>
     );
   }
 
-  // ---- TUTORIAL : glyph + label + chip ----
+  // ---- TUTORIAL : glyph + label + chip (move-based ⇒ 3-star strip footer) ----
   const isCombo = goal.variant === 'combo';
   const cur = goal.current || 0;
   const tgt = goal.target || 1;
-  const done = isCombo ? cur >= tgt : cur >= tgt;
+  const done = cur >= tgt;
   const st = derive(goal.status, done, cur / tgt);
-  const chipText = isCombo ? `×${cur}` : `${cur}/${tgt}`;
+  // single-action tutorials drop the redundant 0/1 counter — the label + done
+  // tick already say it all; only combo keeps a live ×N, and any variant shows
+  // the "Xong" tick once complete.
+  const showChip = isCombo || done;
   return (
-    <Shell style={style}>
-      <TutorialGlyph variant={goal.variant} />
+    <Shell style={style} footer={<StripFooter stars={goal.stars || null} />}>
+      {lead}
+      <TutorialGlyph variant={goal.variant} blockBase={blockBase} />
       <span style={{ flex: 1, minWidth: 0, fontFamily: 'var(--font-body)', fontWeight: 'var(--weight-bold)', fontSize: 'var(--text-body)', color: 'var(--color-text)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{goal.label}</span>
-      <ProgressChip text={done ? (isCombo ? `×${tgt}` : 'Xong') : chipText} done={st === 'done'} near={st === 'near'} />
-      {rotations != null && <RotationsChip n={rotations} />}
+      {showChip && <ProgressChip text={done ? (isCombo ? `×${tgt}` : 'Xong') : `×${cur}`} done={st === 'done'} near={st === 'near'} />}
     </Shell>
   );
 }

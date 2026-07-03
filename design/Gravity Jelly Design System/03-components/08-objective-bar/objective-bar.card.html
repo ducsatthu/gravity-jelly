@@ -1,4 +1,4 @@
-<!-- @dsCard group="Components" viewport="820x1520" name="ObjectiveBar" subtitle="Cụm mục tiêu dưới HUD — đủ goal_type (tutorial · điểm · ô đích · hỗn hợp) + trạng thái đang làm / gần xong / hoàn thành" -->
+<!-- @dsCard group="Components" viewport="820x1360" name="ObjectiveBar" subtitle="Cụm mục tiêu dưới HUD — badge Màn hiện tại + goal_type (tutorial · ô đích) · sao tính đồng nhất theo số nước" -->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -28,63 +28,48 @@
         <>
           {/* ── Column 1 : Tutorial (World 1, dạy 1 hành động) ── */}
           <div className="col">
-            <div className="sec">A · Tutorial — 0/1</div>
-            <L>CLEAR_ROW_FIRST (L1)</L>
-            <ObjectiveBar goal={{ kind:'tutorial', variant:'clearRow', label:'Xóa 1 hàng', current:0, target:1 }} />
-            <L>CLEAR_COL_FIRST (L2)</L>
-            <ObjectiveBar goal={{ kind:'tutorial', variant:'clearCol', label:'Xóa 1 cột', current:0, target:1 }} />
-            <L>ROTATE_FIRST (L3)</L>
-            <ObjectiveBar goal={{ kind:'tutorial', variant:'rotate', label:'Xoay 1 lần', current:0, target:1 }} />
-            <L>MAKE_SUPER1 (L4)</L>
-            <ObjectiveBar goal={{ kind:'tutorial', variant:'super1', label:'Tạo Siêu khối', current:0, target:1 }} />
-            <L>MAKE_SUPER2 (L5)</L>
-            <ObjectiveBar goal={{ kind:'tutorial', variant:'super2', label:'Siêu khối cấp 2', current:0, target:1 }} />
-            <L>MAKE_RAINBOW (L6)</L>
-            <ObjectiveBar goal={{ kind:'tutorial', variant:'rainbow', label:'Tạo Cầu vồng', current:0, target:1 }} />
-            <L>MAKE_RAINBOW_SUPER (L7)</L>
-            <ObjectiveBar goal={{ kind:'tutorial', variant:'rainbowSuper', label:'Cầu vồng Super', current:0, target:1 }} />
-            <L>COMBO_X2 — hiện ×N (L8)</L>
-            <ObjectiveBar goal={{ kind:'tutorial', variant:'combo', label:'Đạt Combo ×2', current:1, target:2 }} />
+            <div className="sec">A · Tutorial — badge Màn + sao theo số nước</div>
+            <L>CLEAR_ROW_FIRST (Màn 1)</L>
+            <ObjectiveBar level={1} world="Đồng cỏ" goal={{ kind:'tutorial', variant:'clearRow', label:'Xóa 1 hàng', current:0, target:1, stars:{ tier:3, now:'Đang 3★', next:'còn 6 nước' } }} />
+            <L>CLEAR_COL_FIRST (Màn 2)</L>
+            <ObjectiveBar level={2} world="Đồng cỏ" goal={{ kind:'tutorial', variant:'clearCol', label:'Xóa 1 cột', current:0, target:1, stars:{ tier:2, now:'Đang 2★', next:'còn 3 nước' } }} />
+            <L>ROTATE_FIRST (Màn 3)</L>
+            <ObjectiveBar level={3} world="Đồng cỏ" goal={{ kind:'tutorial', variant:'rotate', label:'Xoay 1 lần', current:0, target:1, stars:{ tier:3, now:'Đang 3★', next:'còn 5 nước' } }} />
+            <L>MAKE_SUPER1 (Màn 4)</L>
+            <ObjectiveBar level={4} world="Đồng cỏ" goal={{ kind:'tutorial', variant:'super1', label:'Tạo Thạch Hoàng Gia', current:0, target:1, stars:{ tier:1, now:'Đang 1★', next:'còn 1 nước' } }} />
+            <L>MAKE_SUPER2 (Màn 5)</L>
+            <ObjectiveBar level={5} world="Đồng cỏ" goal={{ kind:'tutorial', variant:'super2', label:'Vua Thạch', current:0, target:1, stars:{ tier:2, now:'Đang 2★', next:'còn 4 nước' } }} />
+            <L>MAKE_RAINBOW (Màn 12)</L>
+            <ObjectiveBar level={12} world="Rừng rậm" goal={{ kind:'tutorial', variant:'rainbow', label:'Tạo Thạch Cầu Vồng', current:0, target:1, stars:{ tier:3, now:'Đang 3★', next:'còn 7 nước' } }} />
+            <L>MAKE_RAINBOW_SUPER (Màn 18)</L>
+            <ObjectiveBar level={18} world="Rừng rậm" goal={{ kind:'tutorial', variant:'rainbowSuper', label:'Hoàng Đế Cầu Vồng', current:0, target:1, stars:{ tier:2, now:'Đang 2★', next:'còn 2 nước' } }} />
+            <L>COMBO_X2 — hiện ×N (Màn 8)</L>
+            <ObjectiveBar level={8} world="Đồng cỏ" goal={{ kind:'tutorial', variant:'combo', label:'Đạt Combo ×2', current:1, target:2, stars:{ tier:1, now:'Đang 1★', next:'còn 5 nước' } }} />
           </div>
 
-          {/* ── Column 2 : Score + Targets ── */}
+          {/* ── Column 2 : Ô đích + trạng thái ── */}
           <div className="col">
-            <div className="sec">B · Đạt điểm (REACH_SCORE)</div>
-            <L>Đang làm — 120 / 450</L>
-            <ObjectiveBar goal={{ kind:'score', score:120, target:450 }} rotations={12} />
-            <L>Gần xong — nhấn nhá</L>
-            <ObjectiveBar goal={{ kind:'score', score:360, target:450 }} rotations={6} />
-            <L>Hoàn thành — glow + xanh</L>
-            <ObjectiveBar goal={{ kind:'score', score:470, target:450 }} rotations={4} />
-
-            <div className="sec">C · Ô đích (CLEAR_TARGETS)</div>
+            <div className="sec">B · Ô đích (CLEAR_TARGETS) — sao theo số nước</div>
             <L>Gốc dây leo (W2) — còn 2</L>
-            <ObjectiveBar goal={{ kind:'targets', target:'vine', total:2, remaining:2 }} />
+            <ObjectiveBar level={13} world="Rừng rậm" goal={{ kind:'targets', target:'vine', total:2, remaining:2, stars:{ tier:3, now:'Đang 3★', next:'còn 8 nước' } }} />
             <L>Giọt nước (W3) — 1 chôn sâu</L>
-            <ObjectiveBar goal={{ kind:'targets', target:'drop', total:4, remaining:3, buried:1 }} />
+            <ObjectiveBar level={23} world="Sông &amp; Thác" goal={{ kind:'targets', target:'drop', total:4, remaining:3, buried:1, stars:{ tier:2, now:'Đang 2★', next:'còn 5 nước' } }} />
             <L>Giọt nước — sắp xong (còn 1)</L>
-            <ObjectiveBar goal={{ kind:'targets', target:'drop', total:4, remaining:1 }} />
+            <ObjectiveBar level={27} world="Sông &amp; Thác" goal={{ kind:'targets', target:'drop', total:4, remaining:1, stars:{ tier:2, now:'Đang 2★', next:'còn 3 nước' } }} />
             <L>Hoàn thành</L>
-            <ObjectiveBar goal={{ kind:'targets', target:'vine', total:2, remaining:0 }} />
-          </div>
+            <ObjectiveBar level={13} world="Rừng rậm" goal={{ kind:'targets', target:'vine', total:2, remaining:0, stars:{ tier:3, now:'Đang 3★', next:'còn 6 nước' } }} />
 
-          {/* ── Column 3 : Mixed + trạng thái ── */}
-          <div className="col">
-            <div className="sec">D · Hỗn hợp (MIXED — 2 dòng)</div>
-            <L>Gốc dây + điểm (L15)</L>
-            <ObjectiveBar goal={{ kind:'mixed', targets:{ target:'vine', total:2, remaining:1 }, score:{ score:210, target:450 } }} rotations={9} />
-            <L>Giọt + điểm (L24) — điểm gần xong</L>
-            <ObjectiveBar goal={{ kind:'mixed', targets:{ target:'drop', total:3, remaining:2, buried:1 }, score:{ score:400, target:550 } }} rotations={5} />
-
-            <div className="sec">E · Trạng thái (tutorial)</div>
-            <L>Đang làm</L>
-            <ObjectiveBar goal={{ kind:'tutorial', variant:'super1', label:'Tạo Siêu khối', current:0, target:1, status:'active' }} />
-            <L>Gần xong — pulse</L>
-            <ObjectiveBar goal={{ kind:'tutorial', variant:'combo', label:'Đạt Combo ×3', current:2, target:3, status:'near' }} />
+            <div className="sec">C · Trạng thái tutorial</div>
+            <L>Đang làm — không còn chip số</L>
+            <ObjectiveBar level={4} world="Đồng cỏ" goal={{ kind:'tutorial', variant:'super1', label:'Tạo Thạch Hoàng Gia', current:0, target:1, status:'active', stars:{ tier:3, now:'Đang 3★', next:'còn 8 nước' } }} />
+            <L>Combo — vẫn hiện ×N (giá trị thực)</L>
+            <ObjectiveBar level={8} world="Đồng cỏ" goal={{ kind:'tutorial', variant:'combo', label:'Đạt Combo ×3', current:2, target:3, status:'near', stars:{ tier:2, now:'Đang 2★', next:'còn 3 nước' } }} />
             <L>Hoàn thành — tick + pop</L>
-            <ObjectiveBar goal={{ kind:'tutorial', variant:'clearRow', label:'Xóa 1 hàng', current:1, target:1 }} />
-            <L>+ chip Lượt xoay (gravity)</L>
-            <ObjectiveBar goal={{ kind:'tutorial', variant:'rotate', label:'Xoay 1 lần', current:0, target:1 }} rotations={3} />
+            <ObjectiveBar level={1} world="Đồng cỏ" goal={{ kind:'tutorial', variant:'clearRow', label:'Xóa 1 hàng', current:1, target:1, stars:{ tier:3, now:'Đang 3★', next:'còn 6 nước' } }} />
+
+            <div className="sec">D · Không có badge (endless / dùng lại)</div>
+            <L>Bỏ prop level ⇒ ẩn badge Màn</L>
+            <ObjectiveBar goal={{ kind:'targets', target:'drop', total:3, remaining:2, stars:{ tier:2, now:'Đang 2★', next:'còn 5 nước' } }} />
           </div>
         </>
       );

@@ -31,11 +31,7 @@
               "04-screens/play/**",
               "07-mechanics/**",
               "08-brand/**",
-              "board.jsx",
-              "game-screen.jsx",
-              "jelly-play.jsx",
-              "prototypes/**",
-              "world4-strip.jsx"
+              "prototypes/**"
             ],
             "message": "Import design-system components from 'index.js', not component internals."
           }
@@ -57,12 +53,8 @@
         "message": "Font not provided by the design system. Available: Baloo 2, Fredoka, Nunito."
       },
       {
-        "selector": "JSXOpeningElement[name.name='BossTell'] > JSXAttribute > JSXIdentifier[name!=/^(?:kind|label|countdown|key|ref|className|style|children)$/]",
-        "message": "<BossTell> doesn't accept that prop. Declared props: kind, label, countdown."
-      },
-      {
-        "selector": "JSXOpeningElement[name.name='BossTell'] > JSXAttribute[name.name='kind'] > Literal[value!=/^(?:trash|gravity)$/]",
-        "message": "<BossTell> kind must be one of 'trash' | 'gravity'."
+        "selector": "JSXOpeningElement[name.name='ShieldProgress'] > JSXAttribute > JSXIdentifier[name!=/^(?:current|target|key|ref|className|style|children)$/]",
+        "message": "<ShieldProgress> doesn't accept that prop. Declared props: current, target."
       },
       {
         "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|variant|size|icon|iconRight|fullWidth|disabled|comingSoon|onClick|style|key|ref|className|style|children)$/]",
@@ -97,12 +89,8 @@
         "message": "<JellyConnect> doesn't accept that prop. Declared props: top, right, bottom, left."
       },
       {
-        "selector": "JSXOpeningElement[name.name='TutorialGoal'] > JSXAttribute > JSXIdentifier[name!=/^(?:kind|variant|label|current|target|status|key|ref|className|style|children)$/]",
-        "message": "<TutorialGoal> doesn't accept that prop. Declared props: kind, variant, label, current, target, status."
-      },
-      {
-        "selector": "JSXOpeningElement[name.name='TutorialGoal'] > JSXAttribute[name.name='kind'] > Literal[value!=/^(?:tutorial)$/]",
-        "message": "<TutorialGoal> kind must be one of 'tutorial'."
+        "selector": "JSXOpeningElement[name.name='StarInfo'] > JSXAttribute > JSXIdentifier[name!=/^(?:tier|now|next|key|ref|className|style|children)$/]",
+        "message": "<StarInfo> doesn't accept that prop. Declared props: tier, now, next."
       },
       {
         "selector": "JSXOpeningElement[name.name='TrayPieceModel'] > JSXAttribute > JSXIdentifier[name!=/^(?:cells|color|count|key|ref|className|style|children)$/]",
@@ -122,7 +110,7 @@
   ],
   "x-omelette": {
     "components": {
-      "BossTell": {
+      "ShieldProgress": {
         "replaces": []
       },
       "Button": {
@@ -149,7 +137,7 @@
       "JellyConnect": {
         "replaces": []
       },
-      "TutorialGoal": {
+      "StarInfo": {
         "replaces": []
       },
       "TrayPieceModel": {

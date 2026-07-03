@@ -80,18 +80,18 @@
 
     /* ===================== B · CỤM / MÀU ===================== */
     b0: {
-      group: grav.B, name: 'Hợp nhất → Siêu khối', subtitle: 'Cơ chế chủ lực — gom 9 ô cùng màu thành 1 siêu khối',
+      group: grav.B, name: 'Hợp nhất → Thạch Hoàng Gia', subtitle: 'Cơ chế chủ lực — gom 9 ô cùng màu thành 1 Thạch Hoàng Gia',
       before: { rows: ['.....', '.MMM.', '.MMM.', '.MMM.', '.....'], direction: 'front', glow: [[1, 1], [1, 2], [1, 3], [2, 1], [2, 2], [2, 3], [3, 1], [3, 2], [3, 3]] },
       action: { icon: 'star', label: 'Hợp nhất' },
       after: { rows: ['.....', '.....', '..o..', '.....', '.....'], superAt: [2, 2, 'mint'] },
-      caption: 'Gom 9 ô cùng màu → 1 siêu khối; xóa chạm nó = nổ lớn.',
+      caption: 'Gom 9 ô cùng màu → 1 Thạch Hoàng Gia; xóa chạm nó = nổ lớn.',
     },
     b0b: {
-      group: grav.B, name: 'Nổ siêu khối', subtitle: 'Siêu khối nổ 3×3 — combo khủng, ở boss = sát thương nặng',
+      group: grav.B, name: 'Nổ Thạch Hoàng Gia', subtitle: 'Thạch Hoàng Gia nổ 3×3 — combo khủng, ở boss = sát thương nặng',
       before: { rows: ['.....', '.YYY.', '.Y.Y.', '.YYY.', '.....'], direction: 'down', superAt: [2, 2, 'mint'], glow: [[1, 1], [1, 2], [1, 3], [2, 1], [2, 3], [3, 1], [3, 2], [3, 3]] },
       action: { icon: 'bomb', label: 'Kích nổ', tone: 'danger' },
       after: { rows: ['B...P', '.....', '.....', '.....', 'Y...M'], direction: 'down' },
-      caption: 'Siêu khối nổ 3×3 — combo khủng, ở boss = sát thương nặng.',
+      caption: 'Thạch Hoàng Gia nổ 3×3 — combo khủng, ở boss = sát thương nặng.',
     },
     b1: {
       group: grav.B, name: 'Combo leo thang', subtitle: 'Xóa liên tiếp nuôi bội số combo — đứt nhịp thì reset',
@@ -99,26 +99,26 @@
       caption: 'Xóa liên tiếp nuôi bội số combo — đứt nhịp thì reset.',
     },
     b2: {
-      group: grav.B, name: 'Xóa toàn 1 màu', subtitle: 'Xóa trọn hàng toàn 1 màu → thưởng 1 Khối Cầu Vồng + điểm hàng ×2',
+      group: grav.B, name: 'Xóa toàn 1 màu', subtitle: 'Xóa trọn hàng toàn 1 màu → thưởng 1 Thạch Cầu Vồng + điểm hàng ×2',
       before: { rows: ['.....', '.....', '.....', 'PPPPP', 'BYMBY'], direction: 'down', glow: [[3, 0], [3, 1], [3, 2], [3, 3], [3, 4]] },
       action: { icon: 'star', label: 'MÀU HOÀN HẢO · ×2 điểm', tone: 'success' },
       after: { rows: ['..R..', '.....', '.....', '.....', 'BYMBY'], direction: 'down', rainbow: [[0, 2]], glow: [[0, 2]] },
       afterLabel: 'PHẦN THƯỞNG',
-      caption: '“Màu hoàn hảo” = xóa trọn một hàng toàn 1 màu. Thưởng: điểm hàng đó ×2 và 1 Khối Cầu Vồng (ghép được mọi màu) rơi vào khay.',
+      caption: '“Màu hoàn hảo” = xóa trọn một hàng toàn 1 màu. Thưởng: điểm hàng đó ×2 và 1 Thạch Cầu Vồng (ghép được mọi màu) rơi vào khay.',
     },
     b3: {
-      group: grav.B, name: 'Khối cầu vồng', subtitle: 'Cụm 3×3 (9 ô) gồm 3 màu — 3 ô mỗi màu — hợp nhất thành Khối Cầu Vồng',
+      group: grav.B, name: 'Thạch Cầu Vồng', subtitle: 'Cụm 3×3 (9 ô) gồm 3 màu — 3 ô mỗi màu — hợp nhất thành Thạch Cầu Vồng',
       before: { rows: ['.....', '.YYY.', '.MMM.', '.PPP.', '.....'], direction: 'down', glow: [[1, 1], [1, 2], [1, 3], [2, 1], [2, 2], [2, 3], [3, 1], [3, 2], [3, 3]] },
       action: { icon: 'star', label: 'Hợp nhất cụm 3 màu', tone: 'gravity' },
       after: { rows: ['.....', '.....', '..R..', '.....', '.....'], direction: 'down', rainbow: [[2, 2]], glow: [[2, 2]] },
-      caption: 'Cụm 3×3 đủ 9 ô gồm 3 màu khác nhau (3 ô mỗi màu) hợp nhất thành 1 Khối Cầu Vồng — ghép được mọi màu.',
+      caption: 'Cụm 3×3 đủ 9 ô gồm 3 màu khác nhau (3 ô mỗi màu) hợp nhất thành 1 Thạch Cầu Vồng — ghép được mọi màu.',
     },
     b4: {
-      group: grav.B, name: 'Siêu khối cấp 2', subtitle: 'Gộp 2 siêu khối → đại nổ cả hàng lẫn cột',
+      group: grav.B, name: 'Vua Thạch', subtitle: 'Gộp 2 Thạch Hoàng Gia → đại nổ cả hàng lẫn cột',
       before: { rows: ['.....', '.....', '.oo..', '.....', '.....'], supers: [[2, 1, 'mint'], [2, 2, 'mint']] },
-      action: { icon: 'star', label: 'Gộp 2 siêu khối' },
+      action: { icon: 'star', label: 'Gộp 2 Thạch Hoàng Gia' },
       after: { rows: ['.....', '.....', '..o..', '.....', '.....'], superAt: [2, 2, 'mint'], mega: true, glow: [[0, 2], [1, 2], [3, 2], [4, 2], [2, 0], [2, 1], [2, 3], [2, 4]] },
-      caption: 'Gộp 2 siêu khối → đại nổ cả hàng lẫn cột.',
+      caption: 'Gộp 2 Thạch Hoàng Gia → đại nổ cả hàng lẫn cột.',
     },
     b5: {
       group: grav.B, name: 'Cụm nặng', subtitle: 'Cụm to rơi mạnh, đè vỡ ô yếu / băng phía dưới',
@@ -304,16 +304,16 @@
     },
     f3: {
       group: grav.F, name: 'Boss khoá màu', subtitle: 'Boss khoá một màu — chặn nguồn sát thương của bạn', kind: 'bossLockColor',
-      title: 'Cấm tạo siêu khối MINT', counter: 'Còn 2 lượt',
+      title: 'Cấm tạo Thạch Hoàng Gia MINT', counter: 'Còn 2 lượt',
       caption: 'Boss khoá một màu — chặn nguồn sát thương của bạn.',
     },
     f4: {
-      group: grav.F, name: 'Điểm yếu boss', subtitle: 'Phải nổ siêu khối trúng điểm yếu mới gây sát thương lớn', kind: 'bossBoard',
+      group: grav.F, name: 'Điểm yếu boss', subtitle: 'Phải nổ Thạch Hoàng Gia trúng điểm yếu mới gây sát thương lớn', kind: 'bossBoard',
       boss: { mood: 'angry', hp: 0.35 },
       before: { rows: ['.....', '..B..', '.....', '..o..', '.....'], direction: 'down', superAt: [3, 2, 'mint'], deco: { '1,2': { type: 'weak' } }, glow: [[1, 2]] },
       action: { icon: 'bomb', label: 'Nổ trúng điểm yếu', tone: 'danger' },
       after: { rows: ['.....', '.....', '.....', '.....', '.....'], direction: 'down', deco: { '1,2': { type: 'target' } } },
-      caption: 'Phải nổ siêu khối trúng điểm yếu mới gây sát thương lớn.',
+      caption: 'Phải nổ Thạch Hoàng Gia trúng điểm yếu mới gây sát thương lớn.',
     },
     f5: {
       group: grav.F, name: 'Boss đổi pha', subtitle: 'Mất nửa máu, boss đổi bộ đòn sang pha 2', kind: 'bossPhases',
@@ -333,7 +333,7 @@
       group: grav.G, name: 'Buff trọng lực', subtitle: 'Đầu chặng, chọn 1 buff — đều xoay quanh trọng lực', kind: 'buffChoice',
       buffs: [
         { icon: 'rotate', name: '+1 lượt xoay', desc: 'mỗi màn' },
-        { icon: 'star', name: 'Siêu khối ngưỡng 6', desc: 'gom 6 đã merge' },
+        { icon: 'star', name: 'Thạch Hoàng Gia ngưỡng 6', desc: 'gom 6 đã merge' },
         { icon: 'bomb', name: 'Nổ to hơn', desc: '+1 ô bán kính' },
       ],
       caption: 'Đầu chặng, chọn 1 buff — đều xoay quanh trọng lực.',

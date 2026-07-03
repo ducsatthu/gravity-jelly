@@ -186,6 +186,14 @@ fun CampaignPlayScreen(
         }
     }
 
+    // Combo timer 10s: khi có combo productive → delay 10s → expire nếu chưa có combo mới.
+    LaunchedEffect(holder.comboTimerTick) {
+        if (holder.comboTimerTick > 0L && holder.isComboTimeBased && holder.shell.combo > 0) {
+            kotlinx.coroutines.delay(10_000L)
+            holder.expireComboTimer()
+        }
+    }
+
     // Back: thắng/thua → thoát về danh sách; đang tạm dừng → tiếp tục; else → mở tạm dừng.
     BackHandler {
         when {

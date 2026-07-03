@@ -5,7 +5,7 @@
    chip, and the BẮT ĐẦU primary CTA. Exposes window.GJLevelIntroScreen.
 
    goal descriptor (one of):
-     { kind:'tutorial', variant, title }      // "Tạo 1 ô Cầu vồng"
+     { kind:'tutorial', variant, title }      // "Tạo 1 ô Thạch Cầu Vồng"
      { kind:'targets', target:'vine'|'drop', total, title } // "Phá 3 giọt nước"
      { kind:'score', target, title }          // "Đạt 450 điểm"
      { kind:'boss', name, hp, title }          // "Hạ Thần Thác — máu 10"
@@ -167,8 +167,8 @@
   const WORLD_ACCENT = { 'Đồng cỏ': 'var(--color-success)', 'Rừng rậm': 'var(--color-primary)', 'Sông & Thác': 'var(--color-info)' };
 
   function LevelIntroScreen({
-    level = 6, name = 'Cầu vồng 1', world = 'Đồng cỏ', accent,
-    goal = { kind: 'tutorial', variant: 'rainbow', title: 'Tạo 1 ô Cầu vồng' },
+    level = 6, name = 'Thạch Cầu Vồng 1', world = 'Đồng cỏ', accent,
+    goal = { kind: 'tutorial', variant: 'rainbow', title: 'Tạo 1 ô Thạch Cầu Vồng' },
     stars = { unit: 'nước', values: ['≤3', 4, 5] },
     rotations = 20, mechanic, preview, onStart, onClose,
   }) {

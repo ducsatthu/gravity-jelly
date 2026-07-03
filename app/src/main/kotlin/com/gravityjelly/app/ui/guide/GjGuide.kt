@@ -37,6 +37,7 @@ enum class GuideGroup(val label: String) {
     SUPER("HOÀNG GIA"),
     BLAST("GIẢI PHÓNG"),
     COMBO("COMBO"),
+    FOREST("RỪNG"),
 }
 
 /**
@@ -170,6 +171,53 @@ object GjGuide {
         demo = { DetonateRainbow2Demo() },
     )
 
+    // ── Rừng rậm: dây leo + rác (World 2) — 4 mục riêng biệt ───────────────────────
+    val vineIntro = GjGuideEntry(
+        id = "vine-intro", icon = GjIcons.Heart, group = GuideGroup.FOREST,
+        title = "Dây leo mọc lan",
+        desc = "Mỗi lượt mỗi gốc mọc thêm 1 đốt về phía trên hoặc hướng liền kề còn trống",
+        body = body(
+            "Mỗi lượt, mỗi gốc mọc thêm\n", "1 ĐỐT" to GjPalette.Gravity, " ở đầu ngọn — lan lên\ntrên hoặc sang hướng ",
+            "LIỀN KỀ" to GjPalette.Primary, " còn trống.",
+        ),
+        demo = { VineIntroDemo() },
+    )
+
+    val vineDestroy = GjGuideEntry(
+        id = "vine-destroy", icon = GjIcons.Star, group = GuideGroup.FOREST,
+        title = "Cách phá dây leo",
+        desc = "Cần ít nhất 1 khối xanh lá trong hàng/cột xóa mới phá được gốc",
+        body = body(
+            "Xóa hàng/cột chứa gốc:\n\n• Có ≥1 khối ", "XANH LÁ" to GjPalette.Success,
+            "\n  → gốc + dây leo ", "BIẾN MẤT" to GjPalette.Gravity,
+            "\n\n• ", "KHÔNG" to GjPalette.Warning, " có xanh lá\n  → chỉ ăn điểm,\n  gốc ", "SỐNG SÓT" to GjPalette.Warning, "!",
+        ),
+        demo = { VineDestroyDemo() },
+    )
+
+    val vineToTrash = GjGuideEntry(
+        id = "vine-to-trash", icon = GjIcons.Heart, group = GuideGroup.FOREST,
+        title = "Rác rừng",
+        desc = "Dây leo cắt rời gốc biến thành rác; cắt xong dây tạm ngưng mọc 1 lượt",
+        body = body(
+            "Cắt dây leo mà ", "KHÔNG phá gốc" to GjPalette.Warning,
+            "\n→ đốt rời biến thành ", "RÁC" to GjPalette.Gravity,
+            " cố định tại chỗ.\n\nCắt xong, dây ", "TẠM NGƯNG" to GjPalette.Success, " mọc\nđúng lượt đó — kịp thở!",
+        ),
+        demo = { VineToTrashDemo() },
+    )
+
+    val trashDestroy = GjGuideEntry(
+        id = "trash-destroy", icon = GjIcons.Star, group = GuideGroup.FOREST,
+        title = "Cách phá rác rừng",
+        desc = "Rác chặn xếp hàng/cột; chỉ siêu khối mới phá được",
+        body = body(
+            "Rác ", "CHẶN" to GjPalette.Warning, " xếp đầy hàng/cột!\n(Hàng có rác không thể đầy)\n\nChỉ ",
+            "SIÊU KHỐI" to GjPalette.Primary, " giải phóng\nmới phá được rác.",
+        ),
+        demo = { TrashDestroyDemo() },
+    )
+
     /** Mọi mục hướng dẫn, theo thứ tự hiển thị ở trang review (cẩm nang). */
     val all: List<GjGuideEntry> = listOf(
         gravityRotate,
@@ -178,6 +226,7 @@ object GjGuide {
         formSuper1, formRainbow, formSuper2, formRainbow2,
         detonateSuper1, detonateSuper2, detonateRainbow1, detonateRainbow2,
         comboRefill,
+        vineIntro, vineDestroy, vineToTrash, trashDestroy,
     )
 
     /** Tra mục theo [id] (null nếu không có). */
@@ -210,6 +259,7 @@ val GuideGroup.tint: Color
         GuideGroup.SUPER -> GjPalette.Warning
         GuideGroup.BLAST -> GjPalette.Primary
         GuideGroup.COMBO -> GjPalette.Gravity
+        GuideGroup.FOREST -> GjPalette.Success
     }
 
 /** Dựng [AnnotatedString]: chuỗi [String] giữ nguyên, hoặc `text to color` để bôi đậm phần nhấn. */

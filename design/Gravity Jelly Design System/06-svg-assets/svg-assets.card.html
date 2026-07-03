@@ -25,9 +25,6 @@
   .tokens img { height: 56px; }
   .btns { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
   .btns img { height: 56px; }
-  .banners { display: flex; flex-direction: column; gap: 12px; }
-  .banners figure { margin: 0; display: flex; flex-direction: column; gap: 5px; }
-  .banners img { width: 340px; height: auto; display: block; filter: drop-shadow(0 5px 9px rgba(60,44,24,0.28)); }
   .arrows { display: flex; gap: 12px; }
   .arrows img { width: 52px; height: 52px; }
   .icons { display: grid; grid-template-columns: repeat(11, 1fr); gap: 14px; background: var(--color-surface); border-radius: var(--radius-card); padding: 16px; box-shadow: var(--shadow-sm); }
@@ -59,7 +56,7 @@
   </section>
 
   <section>
-    <h2>Siêu khối · theo 4 màu, cấp 1 + cấp 2</h2>
+    <h2>Thạch Hoàng Gia (cấp 1) + Vua Thạch (cấp 2) · theo 4 màu</h2>
     <div class="blocks">
       <figure><img src="blocks/super-yellow-1.svg" alt="super yellow 1" /><cap>yellow · cấp 1</cap></figure>
       <figure><img src="blocks/super-mint-1.svg" alt="super mint 1" /><cap>mint · cấp 1</cap></figure>
@@ -71,9 +68,58 @@
       <figure><img src="blocks/super-mint-2.svg" alt="super mint 2" /><cap>mint · cấp 2</cap></figure>
       <figure><img src="blocks/super-pink-2.svg" alt="super pink 2" /><cap>pink · cấp 2</cap></figure>
       <figure><img src="blocks/super-blue-2.svg" alt="super blue 2" /><cap>blue · cấp 2</cap></figure>
-      <figure><img src="blocks/rainbow.svg" alt="rainbow wild cấp 1" /><cap>cầu vồng · cấp 1</cap></figure>
-      <figure><img src="blocks/rainbow-2.svg" alt="rainbow wild cấp 2" style="width:72px;height:auto;align-self:flex-start" /><cap>cầu vồng · cấp 2 👑</cap></figure>
+      <figure><img src="blocks/rainbow.svg" alt="rainbow wild cấp 1" /><cap>Thạch Cầu Vồng · cấp 1</cap></figure>
+      <figure><img src="blocks/rainbow-2.svg" alt="rainbow wild cấp 2" style="width:72px;height:auto;align-self:flex-start" /><cap>Hoàng Đế Cầu Vồng · cấp 2 👑</cap></figure>
     </div>
+  </section>
+
+  <section>
+    <h2>Block dây leo · nối cạnh, xoay 4 hướng (World 2)</h2>
+    <div class="blocks">
+      <figure><img src="blocks/block-vine-root-up.svg" alt="vine root" /><cap>gốc thân · đầu tiên</cap></figure>
+      <figure><img src="blocks/block-vine-up.svg" alt="vine up" /><cap>thẳng lên trên</cap></figure>
+      <figure><img src="blocks/block-vine-across.svg" alt="vine across" /><cap>thẳng ngang</cap></figure>
+      <figure><img src="blocks/block-vine-corner.svg" alt="vine corner" /><cap>góc vuông</cap></figure>
+      <figure><img src="blocks/block-vine-l.svg" alt="vine L" /><cap>chữ L</cap></figure>
+      <figure><img src="blocks/block-vine-x.svg" alt="vine X" /><cap>dấu X · 4 hướng</cap></figure>
+      <figure><img src="blocks/block-vine-t-right.svg" alt="vine T right" /><cap>3 cạnh phải</cap></figure>
+      <figure><img src="blocks/block-vine-t-left.svg" alt="vine T left" /><cap>3 cạnh trái</cap></figure>
+      <figure><img src="blocks/block-vine-tip.svg" alt="vine tip" /><cap>ngọn · cuối · mầm non</cap></figure>
+    </div>
+    <p class="note" style="margin-top:12px">Một dây leo là chuỗi tile: <b>gốc thân</b> (khối đầu tiên — thân gỗ có rễ, chồi non nhú lên) → các <b>tile nối</b> giữa (thẳng đứng · thẳng ngang · góc vuông bo cong · chữ L · dấu X 4 hướng · chữ T 3 cạnh phải/trái) → <b>ngọn</b> (khối cuối — dây chỉ dài nửa ô, kết bằng mầm cây non). Dây mọc từ cạnh vào tâm, đầu dây bo tròn nên nối liền ô kề; xoay/lật để phủ mọi hướng.</p>
+  </section>
+
+  <section>
+    <h2>Gốc thân · tiến hoá theo hướng phát triển</h2>
+    <div class="blocks">
+      <figure><img src="blocks/block-vine-root-up.svg" alt="root up" /><cap>thẳng lên</cap></figure>
+      <figure><img src="blocks/block-vine-root-left.svg" alt="root left" /><cap>qua trái</cap></figure>
+      <figure><img src="blocks/block-vine-root-right.svg" alt="root right" /><cap>qua phải</cap></figure>
+      <figure><img src="blocks/block-vine-root-lr.svg" alt="root left right" /><cap>trái + phải</cap></figure>
+      <figure><img src="blocks/block-vine-root-ul.svg" alt="root up left" /><cap>trái + trên</cap></figure>
+      <figure><img src="blocks/block-vine-root-ur.svg" alt="root up right" /><cap>phải + trên</cap></figure>
+      <figure><img src="blocks/block-vine-root-ulr.svg" alt="root up left right" /><cap>trên + trái + phải</cap></figure>
+    </div>
+    <p class="note" style="margin-top:12px">Gốc thân luôn cắm rễ ở cạnh dưới; chồi non mọc ra theo hướng dây sẽ phát triển. 7 phương án chồi = mọi tổ hợp của trên / trái / phải: chọn đúng biến thể để hiển thị gốc khi dây bắt đầu lan sang ô kề.</p>
+  </section>
+
+  <section>
+    <h2>Dây leo bị cắt → rác (World 2)</h2>
+    <div class="blocks">
+      <figure><img src="blocks/block-vine-up.svg" alt="vine" /><cap>dây leo</cap></figure>
+      <figure><img src="blocks/block-vine-cut.svg" alt="vine cut" /><cap>bị cắt · đếm ngược</cap></figure>
+      <figure><img src="blocks/block-debris.svg" alt="debris" /><cap>rác · lá + củi khô</cap></figure>
+    </div>
+    <p class="note" style="margin-top:12px">Khi một đoạn dây leo bị cắt, ô chuyển sang <b>bị cắt</b>: dây héo rũ, đầu cắt tơ nâu, kèm huy hiệu <b>đếm ngược</b> (vàng cảnh báo, còn 1 lượt). Hết lượt nó biến thành <b>rác</b> — <code>block-debris</code>: lá khô cuộn + củi khô nâu trên nền ô chìm, cần dọn thêm.</p>
+  </section>
+
+  <section>
+    <h2>Block nước · ô đích (World 3)</h2>
+    <div class="blocks">
+      <figure><img src="blocks/block-water.svg" alt="water" /><cap>nước</cap></figure>
+      <figure><img src="blocks/block-water-locked.svg" alt="water locked" /><cap>nước · lớp khóa</cap></figure>
+    </div>
+    <p class="note" style="margin-top:12px">Ô đích theo hệ mục tiêu <code>CLEAR_TARGETS</code>. <b>Nước</b> — ô nước cần phá; bản <code>block-water-locked</code> có ổ khóa lớp cho ô đích bị vùi. Cùng bộ với glyph <code>vine</code>/<code>drop</code> trong <code>ObjectiveBar</code>.</p>
   </section>
 
   <section>
@@ -123,17 +169,6 @@
     <h2>Nút jelly · 5 biến thể</h2>
     <div class="btns">
       <img src="ui/button-primary.svg" /><img src="ui/button-gravity.svg" /><img src="ui/button-success.svg" /><img src="ui/button-danger.svg" /><img src="ui/button-secondary.svg" />
-    </div>
-  </section>
-
-  <section>
-    <h2>Khung banner · PNG · 5 màu (kéo dãn theo nội dung)</h2>
-    <div class="banners">
-      <figure><img src="ui/button-frame.png" alt="banner blue" /><cap>blue · button-frame.png</cap></figure>
-      <figure><img src="ui/button-frame-green.png" alt="banner green" /><cap>green · button-frame-green.png</cap></figure>
-      <figure><img src="ui/button-frame-purple.png" alt="banner purple" /><cap>purple · button-frame-purple.png</cap></figure>
-      <figure><img src="ui/button-frame-red.png" alt="banner red" /><cap>red · button-frame-red.png</cap></figure>
-      <figure><img src="ui/button-frame-orange.png" alt="banner orange" /><cap>orange · button-frame-orange.png</cap></figure>
     </div>
   </section>
 

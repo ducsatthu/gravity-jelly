@@ -163,7 +163,14 @@ class BoardAnimator {
         particles.step(dtNanos / 1e9f)
         // Phát hiện mốc playback kết thúc (true→false) để lớp vỏ flush nước đặt đang chờ.
         val playing = isPlaying
-        if (wasPlaying && !playing) onPlaybackEnd?.invoke()
+        if (wasPlaying && !playing) {
+            // Playback xong ⇒ TRẢ về grid truth (BoardRender). [work] chỉ dựng lại đặt/xoay/ghép/xóa,
+            // KHÔNG áp các biến đổi engine sau nhịp (dây leo VỪA MỌC, rác boss, giọt vỡ…). Nếu giữ
+            // displayGrid cũ, các ô đó "tàng hình" nhưng vẫn tính đầy hàng → hàng đủ 9 tự combo dù
+            // người chơi không thấy. Nulling ⇒ Canvas dùng r.grid (đã gồm mọi ô mới).
+            displayGrid = null
+            onPlaybackEnd?.invoke()
+        }
         wasPlaying = playing
     }
 
@@ -397,10 +404,11 @@ class BoardAnimator {
         val sk = work.copy()                                     // màu mọi ô trước khi xóa
         val seed = lineCells(e.lines, Grid.SIZE)
         val (toClear, dets) = expandDetonations(work, seed)
+        val rootSet = e.survivingRoots.toHashSet()
 
         if (dets.isEmpty()) {
             // ── nhịp xóa thường ──
-            for (v in toClear) work.set(v.x, v.y, null)
+            for (v in toClear) if (v !in rootSet) work.set(v.x, v.y, null)
             val beforeK = work.copy()
             val moved = applyClusterGravity(work, gravity)
             val afterK = work.copy()
@@ -428,16 +436,16 @@ class BoardAnimator {
         val centers = HashSet<Vec>(); for (d in dets) centers.add(d.center)
         val superCenters = ArrayList<Vec>(); val rainbowCenters = ArrayList<Vec>()
         for (d in dets) if (d.isRainbow) rainbowCenters.add(d.center) else superCenters.add(d.center)
-        val stage1 = ArrayList<Vec>()                            // hàng/cột (trừ tâm detonator)
-        for (v in seed) if (v !in centers) stage1.add(v)
-        val stage2 = ArrayList<Vec>()                            // ô bị quét (trừ hàng, trừ tâm)
-        for (v in toClear) if (v !in seed && v !in centers) stage2.add(v)
+        val stage1 = ArrayList<Vec>()                            // hàng/cột (trừ tâm detonator, trừ root sống)
+        for (v in seed) if (v !in centers && v !in rootSet) stage1.add(v)
+        val stage2 = ArrayList<Vec>()                            // ô bị quét (trừ hàng, trừ tâm, trừ root sống)
+        for (v in toClear) if (v !in seed && v !in centers && v !in rootSet) stage2.add(v)
 
         // display grid theo từng chặng (block còn lại vẫn HIỆN cho tới lượt biến mất)
         val g1 = sk.copy(); for (v in stage1) g1.set(v.x, v.y, null)
         val g2 = g1.copy(); for (v in stage2) g2.set(v.x, v.y, null)
-        val g3 = g2.copy(); for (v in centers) g3.set(v.x, v.y, null)
-        for (v in toClear) work.set(v.x, v.y, null)             // work = final (trước rơi)
+        val g3 = g2.copy(); for (v in centers) if (v !in rootSet) g3.set(v.x, v.y, null)
+        for (v in toClear) if (v !in rootSet) work.set(v.x, v.y, null)  // work = final (trước rơi)
         val moved = applyClusterGravity(work, gravity)
         val afterK = work.copy()
 

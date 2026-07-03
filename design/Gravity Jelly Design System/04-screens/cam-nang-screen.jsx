@@ -50,7 +50,7 @@
   }
 
   const ORDER = ['CƠ BẢN', 'SIÊU KHỐI', 'KÍCH NỔ', 'COMBO'];
-  const GROUP_LABEL = { 'CƠ BẢN': 'Cơ bản', 'SIÊU KHỐI': 'Siêu khối', 'KÍCH NỔ': 'Kích nổ', COMBO: 'Mẹo' };
+  const GROUP_LABEL = { 'CƠ BẢN': 'Cơ bản', 'SIÊU KHỐI': 'Hoàng gia', 'KÍCH NỔ': 'Kích nổ', COMBO: 'Mẹo' };
   const GROUP_JELLY = { 'CƠ BẢN': 'mint', 'SIÊU KHỐI': 'yellow', 'KÍCH NỔ': 'pink', COMBO: 'blue' };
   const TABS = [{ key: 'all', label: 'Tất cả', color: 'yellow' }].concat(
     ORDER.map((g) => ({ key: g, label: GROUP_LABEL[g], color: GROUP_JELLY[g] }))
@@ -390,14 +390,14 @@
     { id: 'clearLine', icon: 'check', group: 'CƠ BẢN', title: 'Xóa hàng/cột', desc: 'Lấp đầy để dọn bàn', body: 'Lấp đầy trọn một hàng hoặc một cột — 9 ô, màu nào cũng được — để cả dãy biến mất và cộng điểm.', hi: '9 ô, màu nào cũng được' },
     { id: 'fall', icon: 'chevron', group: 'CƠ BẢN', title: 'Trọng lực rơi', desc: 'Cụm jelly rơi cùng nhau', body: 'Sau mỗi lần xóa, các khối phía trên rơi xuống theo trọng lực, dừng khi chạm khối khác hoặc đáy bàn.', hi: 'rơi xuống theo trọng lực' },
     { id: 'sticky', icon: 'heart', group: 'CƠ BẢN', title: 'Thạch dính', desc: 'Cùng màu sẽ dính thành cụm', body: 'Các khối thạch cùng màu dính lại thành một cụm. Chỉ cần một ô bị chặn, cả cụm cùng dừng.', hi: 'dính lại thành một cụm' },
-    { id: 'super', icon: 'star', group: 'SIÊU KHỐI', title: 'Siêu khối', desc: 'Ghép hàng, cột hoặc 3×3 cùng màu', body: 'Lấp đầy một hàng, một cột hoặc một khối 3×3 toàn cùng một màu để tạo ra siêu khối.', hi: 'siêu khối' },
-    { id: 'rainbow', icon: 'heart', group: 'SIÊU KHỐI', title: 'Khối cầu vồng', desc: 'Ghép đủ ba màu → cầu vồng', body: 'Xếp khối 3×3 đủ ba màu — mỗi màu một hàng hoặc một cột — để tạo khối cầu vồng.', hi: 'khối cầu vồng' },
-    { id: 'superL2', icon: 'trophy', group: 'SIÊU KHỐI', title: 'Siêu khối cấp 2', desc: 'Ghép 2 siêu khối cùng màu', body: 'Đặt hai siêu khối cùng màu dính cạnh nhau, chúng hợp thành siêu khối cấp 2 mạnh hơn.', hi: 'siêu khối cấp 2' },
-    { id: 'rainbowSuper', icon: 'trophy', group: 'SIÊU KHỐI', title: 'Cầu vồng siêu cấp', desc: 'Ghép 2 kíp nổ khác màu', body: 'Ghép hai kíp nổ khác màu để tạo cầu vồng siêu cấp đội vương miện — sức mạnh tối thượng.', hi: 'cầu vồng siêu cấp' },
-    { id: 'blastSuper', icon: 'star', group: 'KÍCH NỔ', title: 'Nổ siêu khối', desc: 'Quét sạch mọi ô cùng màu', body: 'Khi siêu khối bị cuốn vào hàng hoặc cột đang xóa, nó quét sạch mọi ô cùng màu trên toàn bàn.', hi: 'quét sạch mọi ô cùng màu' },
-    { id: 'blastSuperL2', icon: 'trophy', group: 'KÍCH NỔ', title: 'Nổ siêu khối cấp 2', desc: 'Cùng màu + cả vùng 5×5', body: 'Siêu khối cấp 2 quét sạch toàn bộ ô cùng màu và cả vùng 5×5 quanh tâm điểm nổ.', hi: 'vùng 5×5 quanh tâm' },
-    { id: 'blastRainbow', icon: 'heart', group: 'KÍCH NỔ', title: 'Nổ cầu vồng', desc: 'Quét các màu đang kề nó', body: 'Khối cầu vồng khi nổ sẽ quét sạch mọi ô thuộc các màu đang kề ngay cạnh nó.', hi: 'các màu đang kề' },
-    { id: 'blastRainbowSuper', icon: 'trophy', group: 'KÍCH NỔ', title: 'Nổ cầu vồng siêu cấp', desc: 'Xóa sạch toàn bàn (cả đá)', body: 'Kỹ năng tối thượng — cầu vồng siêu cấp xóa sạch toàn bàn, kể cả những khối đá cố định.', hi: 'xóa sạch toàn bàn' },
+    { id: 'super', icon: 'star', group: 'SIÊU KHỐI', title: 'Thạch Hoàng Gia', desc: 'Ghép hàng, cột hoặc 3×3 cùng màu', body: 'Lấp đầy một hàng, một cột hoặc một khối 3×3 toàn cùng một màu để tạo ra Thạch Hoàng Gia.', hi: 'Thạch Hoàng Gia' },
+    { id: 'rainbow', icon: 'heart', group: 'SIÊU KHỐI', title: 'Thạch Cầu Vồng', desc: 'Ghép đủ ba màu → Thạch Cầu Vồng', body: 'Xếp khối 3×3 đủ ba màu — mỗi màu một hàng hoặc một cột — để tạo Thạch Cầu Vồng.', hi: 'Thạch Cầu Vồng' },
+    { id: 'superL2', icon: 'trophy', group: 'SIÊU KHỐI', title: 'Vua Thạch', desc: 'Ghép 2 Thạch Hoàng Gia cùng màu', body: 'Đặt hai Thạch Hoàng Gia cùng màu dính cạnh nhau, chúng hợp thành Vua Thạch mạnh hơn.', hi: 'Vua Thạch' },
+    { id: 'rainbowSuper', icon: 'trophy', group: 'SIÊU KHỐI', title: 'Hoàng Đế Cầu Vồng', desc: 'Ghép 2 kíp nổ khác màu', body: 'Ghép hai kíp nổ khác màu để tạo Hoàng Đế Cầu Vồng đội vương miện — sức mạnh tối thượng.', hi: 'Hoàng Đế Cầu Vồng' },
+    { id: 'blastSuper', icon: 'star', group: 'KÍCH NỔ', title: 'Nổ Thạch Hoàng Gia', desc: 'Quét sạch mọi ô cùng màu', body: 'Khi Thạch Hoàng Gia bị cuốn vào hàng hoặc cột đang xóa, nó quét sạch mọi ô cùng màu trên toàn bàn.', hi: 'quét sạch mọi ô cùng màu' },
+    { id: 'blastSuperL2', icon: 'trophy', group: 'KÍCH NỔ', title: 'Nổ Vua Thạch', desc: 'Cùng màu + cả vùng 5×5', body: 'Vua Thạch quét sạch toàn bộ ô cùng màu và cả vùng 5×5 quanh tâm điểm nổ.', hi: 'vùng 5×5 quanh tâm' },
+    { id: 'blastRainbow', icon: 'heart', group: 'KÍCH NỔ', title: 'Nổ Thạch Cầu Vồng', desc: 'Quét các màu đang kề nó', body: 'Thạch Cầu Vồng khi nổ sẽ quét sạch mọi ô thuộc các màu đang kề ngay cạnh nó.', hi: 'các màu đang kề' },
+    { id: 'blastRainbowSuper', icon: 'trophy', group: 'KÍCH NỔ', title: 'Nổ Hoàng Đế Cầu Vồng', desc: 'Xóa sạch toàn bàn (cả đá)', body: 'Kỹ năng tối thượng — Hoàng Đế Cầu Vồng xóa sạch toàn bàn, kể cả những khối đá cố định.', hi: 'xóa sạch toàn bàn' },
     { id: 'comboTurn', icon: 'rotateCw', group: 'COMBO', title: 'Combo hồi lượt xoay', desc: 'Combo ×2 trở lên → +1 lượt xoay', body: 'Đạt combo ×2 trở lên sẽ hồi +1 lượt xoay; combo càng dài, số lượt xoay hồi lại càng nhiều.', hi: '+1 lượt xoay' },
   ];
 

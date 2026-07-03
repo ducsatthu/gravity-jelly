@@ -22,6 +22,7 @@ import com.gravityjelly.core.TriggerKind
 import com.gravityjelly.core.forLevel
 import com.gravityjelly.core.PlacementOutcome
 import com.gravityjelly.core.Vec
+import com.gravityjelly.core.campaignTuning
 import com.gravityjelly.core.freePlace
 import com.gravityjelly.core.nearestFreePlacement
 import com.gravityjelly.core.previewPlaced
@@ -115,6 +116,17 @@ class EndlessGameHolder(
     private var trigRainbowSuper = false
     private var trigCombo2 = false   // đã đạt combo ≥×2 lần nào chưa (L8)
 
+    // ── Combo timer (comboTimeBased): nước vô ích không reset combo, chỉ hết 10s mới reset. ──
+    /** Engine có bật combo timer không (đọc tuning 1 lần). */
+    val isComboTimeBased: Boolean = if (level != null) campaignTuning(level).comboTimeBased else tuning.comboTimeBased
+
+    /**
+     * Tick phát khi combo timer BẮT ĐẦU / RESET (nước có ích mới). LaunchedEffect observe để
+     * chạy delay 10s rồi gọi [expireComboTimer]. Compose state vì LaunchedEffect cần key.
+     */
+    var comboTimerTick by mutableStateOf(0L)
+        private set
+
     // ── Boss combo: sát thương tích luỹ + số nhịp combo (đơn vị sao COMBO). ──
     private var bossDamage = 0
     private var comboHits = 0
@@ -135,6 +147,10 @@ class EndlessGameHolder(
     var bossHpDamage by mutableStateOf(0)
         private set
     val bossHpMax: Int = level?.goal?.takeIf { it.type == GoalType.BOSS_COMBO }?.bossHP ?: 0
+
+    /** Cảnh báo boss sắp ra chiêu (W2 mọc dây · W3 đảo trọng lực) + đếm ngược — null nếu màn không có tell. */
+    var bossTell by mutableStateOf(engine.bossTell())
+        private set
 
     /**
      * Callback phản hồi haptic (đặt mảnh / xóa / combo≥3). Lớp vỏ ([EndlessScreen]) cấp,
@@ -268,6 +284,7 @@ class EndlessGameHolder(
             dispatchFeedback(events)
             detectRotationRefill(events)
             detectGuideMechanics(events)
+            startComboTimerIfProductive(events)
         }
     }
 
@@ -443,6 +460,7 @@ class EndlessGameHolder(
             dispatchFeedback(events)
             detectRotationRefill(events)
             detectGuideMechanics(events)
+            startComboTimerIfProductive(events)
         }
     }
 
@@ -529,25 +547,13 @@ class EndlessGameHolder(
     private fun computeStars(): Int {
         val s = starThresholds ?: return 1
         // MOVES/ROTATIONS/COMBO: ÍT hơn = tốt hơn (≤ ngưỡng). SCORE: NHIỀU hơn = tốt hơn (≥ ngưỡng).
-        return when (s.metric) {
-            StarMetric.SCORE -> when {
-                shell.score >= s.three -> 3
-                shell.score >= s.two -> 2
-                else -> 1
-            }
-            else -> {
-                val used = when (s.metric) {
-                    StarMetric.ROTATIONS -> rotationsUsed
-                    StarMetric.COMBO -> comboHits
-                    else -> movesUsed   // MOVES
-                }
-                when {
-                    used <= s.three -> 3
-                    used <= s.two -> 2
-                    else -> 1
-                }
-            }
+        val measured = when (s.metric) {
+            StarMetric.SCORE -> shell.score
+            StarMetric.ROTATIONS -> rotationsUsed
+            StarMetric.COMBO -> comboHits
+            else -> movesUsed   // MOVES
         }
+        return s.tierFor(measured)
     }
 
     /**
@@ -652,6 +658,31 @@ class EndlessGameHolder(
     /** Bỏ cơ chế đầu hàng đợi (lớp vỏ gọi sau khi đã hiện/đã bỏ qua popup tương ứng). */
     fun consumeGuide() {
         if (guideQueue.isNotEmpty()) guideQueue = guideQueue.drop(1)
+    }
+
+    /**
+     * Combo timer hết hạn (10s) — gọi bởi LaunchedEffect ở lớp vỏ. Reset combo engine + sync.
+     */
+    fun expireComboTimer() {
+        if (!isComboTimeBased) return
+        val event = engine.resetCombo() ?: return
+        boardRender.comboTimerStartNanos = 0L
+        sync()
+    }
+
+    /**
+     * Nước có ích (clear/merge) → reset combo timer. Combo bắt đầu lần đầu hoặc đã có → reset đồng hồ.
+     * Combo = 0 (hết, hoặc chưa bao giờ) → tắt timer.
+     */
+    private fun startComboTimerIfProductive(events: List<GameEvent>) {
+        if (!isComboTimeBased) return
+        val productive = events.any { it is GameEvent.LinesCleared || it is GameEvent.SuperFormed || it is GameEvent.RainbowFormed }
+        if (productive && shell.combo > 0) {
+            boardRender.comboTimerStartNanos = animator.renderNanos()
+            comboTimerTick++
+        } else if (shell.combo == 0) {
+            boardRender.comboTimerStartNanos = 0L
+        }
     }
 
     // ── nội bộ ──
@@ -759,6 +790,7 @@ class EndlessGameHolder(
         boardRender.gravity = s.gravity
         fillClusterSizes(s.grid, boardRender.clusterSizes)
         shell = snapshotFrom(s)
+        bossTell = engine.bossTell()
     }
 
     private fun snapshotFrom(s: EndlessState) = ShellState(

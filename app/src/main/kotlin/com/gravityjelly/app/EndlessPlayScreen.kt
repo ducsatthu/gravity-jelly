@@ -181,6 +181,14 @@ fun EndlessPlayScreen(
         }
     }
 
+    // Combo timer 10s: khi có combo productive → delay 10s → expire nếu chưa có combo mới.
+    LaunchedEffect(holder.comboTimerTick) {
+        if (holder.comboTimerTick > 0L && holder.isComboTimeBased && holder.shell.combo > 0) {
+            kotlinx.coroutines.delay(10_000L)
+            holder.expireComboTimer()
+        }
+    }
+
     // Back / vuốt-back KHÔNG thoát ván (chống back nhầm mất màn). Ưu tiên: popup dạy luật đang mở →
     // nuốt (bắt buộc xác nhận). Đã thua (ResultScreen overlay) → về Home. Đang Tạm dừng → tiếp tục
     // chơi. Còn lại (đang chơi) → mở Tạm dừng; muốn về Home phải bấm "Về Home" trong dialog.
@@ -343,7 +351,7 @@ fun EndlessPlayScreen(
  * vẫn xuyên qua.
  */
 @Composable
-private fun ComboBurstOverlay(
+internal fun ComboBurstOverlay(
     burst: ComboBurst,
     parentWin: Offset,
     modifier: Modifier = Modifier,
@@ -380,6 +388,6 @@ private fun ComboBurstOverlay(
 // internal: CampaignPlayScreen tái dùng cùng nhịp dạy luật.
 internal const val GUIDE_SETTLE_GRACE_MS = 450L
 
-private const val COMBO_HOLD_MS  = 1300L   // giữ trước khi tan (gj-combo-life ~66% của ~2s)
-private const val COMBO_FADE_MS  = 700     // thời gian mờ dần
-private const val BUBBLE_ANCHOR_DP = 72f   // dịch lên: 174x120 box, chữ ở đỉnh → chữ nổi CAO hơn trên resolve
+internal const val COMBO_HOLD_MS  = 1300L
+internal const val COMBO_FADE_MS  = 700
+internal const val BUBBLE_ANCHOR_DP = 72f

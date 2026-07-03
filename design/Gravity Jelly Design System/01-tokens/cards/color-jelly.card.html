@@ -1,4 +1,4 @@
-<!-- @dsCard group="Colors" viewport="700x150" name="Jelly Block Colors" subtitle="4 signature fills · fill / edge / shine" -->
+<!-- @dsCard group="Colors" viewport="700x186" name="Jelly Block Colors" subtitle="4 signature fills · fill / edge / shine · Thạch Sao / Nước / Tim / Lá" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +12,9 @@
   .chip { height: 64px; border-radius: var(--radius-lg); display: flex; align-items: flex-start; justify-content: flex-end; }
   .edges { display: flex; gap: 4px; margin-top: 8px; }
   .e { width: 22px; height: 14px; border-radius: 4px; }
-  .name { font-family: var(--font-display); font-weight: 700; font-size: 13px; margin-top: 8px; }
+  .jelly { font-family: var(--font-display); font-weight: 700; font-size: 15px; margin-top: 8px; color: var(--color-text); }
+  .jelly span { font-weight: 600; font-size: 12px; color: var(--color-text-muted); }
+  .name { font-family: var(--font-body); font-weight: 700; font-size: 11px; letter-spacing: .02em; color: var(--color-text-muted); margin-top: 3px; }
   .hex { font-size: 11px; color: var(--color-text-muted); }
 </style>
 </head>
@@ -21,21 +23,25 @@
     <div class="sw">
       <div class="chip" style="background:var(--color-block-yellow);border:3px solid var(--color-block-yellow-edge)"></div>
       <div class="edges"><div class="e" style="background:var(--color-block-yellow-edge)"></div><div class="e" style="background:var(--color-block-yellow-shine)"></div></div>
+      <div class="jelly">Thạch Sao <span>Star</span></div>
       <div class="name">block-yellow</div><div class="hex">#FFE3A3</div>
     </div>
     <div class="sw">
       <div class="chip" style="background:var(--color-block-mint);border:3px solid var(--color-block-mint-edge)"></div>
       <div class="edges"><div class="e" style="background:var(--color-block-mint-edge)"></div><div class="e" style="background:var(--color-block-mint-shine)"></div></div>
+      <div class="jelly">Thạch Lá <span>Leaf</span></div>
       <div class="name">block-mint</div><div class="hex">#A3E5D9</div>
     </div>
     <div class="sw">
       <div class="chip" style="background:var(--color-block-pink);border:3px solid var(--color-block-pink-edge)"></div>
       <div class="edges"><div class="e" style="background:var(--color-block-pink-edge)"></div><div class="e" style="background:var(--color-block-pink-shine)"></div></div>
+      <div class="jelly">Thạch Tim <span>Heart</span></div>
       <div class="name">block-pink</div><div class="hex">#F7A9C0</div>
     </div>
     <div class="sw">
       <div class="chip" style="background:var(--color-block-blue);border:3px solid var(--color-block-blue-edge)"></div>
       <div class="edges"><div class="e" style="background:var(--color-block-blue-edge)"></div><div class="e" style="background:var(--color-block-blue-shine)"></div></div>
+      <div class="jelly">Thạch Nước <span>Aqua</span></div>
       <div class="name">block-blue</div><div class="hex">#B3C7F7</div>
     </div>
   </div>

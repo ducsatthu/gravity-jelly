@@ -59,6 +59,9 @@ import com.gravityjelly.game.gRainbow2
 import com.gravityjelly.game.gStone
 import com.gravityjelly.game.gSuper1
 import com.gravityjelly.game.gSuper2
+import com.gravityjelly.game.gTrash
+import com.gravityjelly.game.gVine
+import com.gravityjelly.game.gVineRoot
 
 /**
  * Khối dựng cho màn **Cẩm nang** — bám `design/.../04-screens/cam-nang-screen.jsx` (+ `cam-nang-illus.jsx`).
@@ -90,6 +93,7 @@ internal val GuideGroup.displayLabel: String
         GuideGroup.SUPER -> "Hoàng gia"
         GuideGroup.BLAST -> "Giải phóng"
         GuideGroup.COMBO -> "Mẹo"
+        GuideGroup.FOREST -> "Rừng"
     }
 
 /** Màu KHỐI jelly đại diện nhóm ở tab + tiêu đề nhóm (bám GROUP_JELLY của thiết kế). */
@@ -99,6 +103,7 @@ internal val GuideGroup.jelly: JellyColor
         GuideGroup.SUPER -> JellyColor.YELLOW
         GuideGroup.BLAST -> JellyColor.PINK
         GuideGroup.COMBO -> JellyColor.BLUE
+        GuideGroup.FOREST -> JellyColor.MINT
     }
 
 // ── shorthand dựng lưới thumbnail (file-private, không đụng GjGuideDemos) ─────────
@@ -113,6 +118,9 @@ private val Y = JellyColor.YELLOW
 private val M = JellyColor.MINT
 private val P = JellyColor.PINK
 private val B = JellyColor.BLUE
+private val vr = gVineRoot
+private val vi = gVine
+private val tr = gTrash
 
 // ── Peel: góc giấy gập ở trên-phải thẻ ───────────────────────────────────────────
 /**
@@ -349,6 +357,25 @@ private fun thumbRows(id: String): List<List<GuideCell>>? = when (id) {
     )
     "detonate-rainbow1" -> listOf(listOf(rb))
     "detonate-rainbow2" -> listOf(listOf(rb2))
+    "vine-intro" -> listOf(
+        listOf(e, vi, e, e),
+        listOf(vi, vi, e, e),
+        listOf(e, vr, e, e),
+    )
+    "vine-destroy" -> listOf(
+        listOf(e, vi, e, e),
+        listOf(j(Y), vr, j(M), j(P)),
+    )
+    "vine-to-trash" -> listOf(
+        listOf(e, tr, e, e),
+        listOf(e, e, e, e),
+        listOf(e, vr, e, e),
+    )
+    "trash-destroy" -> listOf(
+        listOf(e, tr, e),
+        listOf(tr, s1(Y), tr),
+        listOf(e, tr, e),
+    )
     else -> null
 }
 

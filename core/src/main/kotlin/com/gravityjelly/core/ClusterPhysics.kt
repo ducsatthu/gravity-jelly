@@ -38,12 +38,12 @@ fun findClusters(grid: Grid): List<List<Vec>> {
 }
 
 /**
- * Ô jelly = ô đầy KHÔNG bất động. STONE (đá cản) và VINE (dây leo, bám như rễ) đứng yên: không
- * thuộc cụm, không rơi theo trọng lực/xoay — nhưng vẫn là vật cản chặn cụm khác (grid.isEmpty=false).
+ * Ô jelly = ô đầy KHÔNG bất động. STONE, VINE, TRASH đứng yên: không thuộc cụm, không rơi theo
+ * trọng lực/xoay — nhưng vẫn là vật cản chặn cụm khác (grid.isEmpty=false).
  */
 private fun isJelly(grid: Grid, x: Int, y: Int): Boolean {
     val t = grid.get(x, y)?.type ?: return false
-    return t != CellType.STONE && t != CellType.VINE
+    return t != CellType.STONE && t != CellType.VINE && t != CellType.TRASH
 }
 
 /**

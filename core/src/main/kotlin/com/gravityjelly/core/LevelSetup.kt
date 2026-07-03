@@ -57,6 +57,7 @@ fun campaignTuning(level: Level): EndlessTuning = EndlessTuning(
     debrisPerTurn = level.debrisPerTurn,
     bossGravityEveryN = level.bossGravityEveryN,
     bossVineSpawnEveryN = level.bossVineSpawnEveryN,
+    comboTimeBased = true,
 )
 
 /** Dựng engine đã cấu hình theo [level] (preset + khay cố định + trọng lực + ngân sách + tuning). */
