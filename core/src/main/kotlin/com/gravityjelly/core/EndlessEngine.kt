@@ -233,12 +233,12 @@ class EndlessEngine(
         resolveResult.events.mapTo(events) { it.toGameEvent() }
 
         placeTurns++
-        growVinesIfDue(events)
         tickTrashIfNeeded(events)
         spawnBossVineIfDue(events)
         dropDebrisIfDue(events)
         flipBossGravityIfDue(events)
         recalculateWaterfall(events)
+        growVinesIfDue(events)
 
         // Set null tại đúng ô vừa đặt — GIỮ vị trí các ô còn lại (không dồn trái).
         tray = tray.toMutableList().also { it[trayIndex] = null }
