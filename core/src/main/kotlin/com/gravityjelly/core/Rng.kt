@@ -25,6 +25,10 @@ class Rng(seed: Long) {
         return r % bound
     }
 
+    /** Snapshot/restore state nội bộ — cho solver fork state engine (deterministic). */
+    fun stateSnapshot(): ULong = state
+    fun stateRestore(v: ULong) { state = v }
+
     fun nextLong(): Long = next().toLong()
 
     /** Double trong [0,1). */

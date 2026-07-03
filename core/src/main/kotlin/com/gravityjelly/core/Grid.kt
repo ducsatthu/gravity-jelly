@@ -8,8 +8,12 @@ package com.gravityjelly.core
  * [TARGET] = ô đích "giọt nước" (World 3 · Sông & Thác): ô mềm **rơi & đếm-đầy như ô thường**
  * (khác VINE), nhưng khi bị xoá hàng/cột (hoặc kíp nổ cuốn qua) thì vỡ → chấm CLEAR_TARGETS/MIXED
  * ([ResolveEvent.DropsCleared]). Một số màn chôn sâu dưới lớp khối → phải cascade nhiều tầng mới xoá.
+ * [TRASH] = rác rừng (World 2): đốt dây leo bị cắt mất kết nối gốc. Vừa cắt → TRASH với
+ * [Grid.Cell.trashCountdown] = [WILT_COUNTDOWN] (hiển thị đếm ngược); mỗi lượt giảm 1; khi = 0 thành rác chết
+ * (lá khô + củi). Ô cứng **không rơi**. Countdown > 0 (đang héo) → **đếm-đầy** = bị phá bởi line clear.
+ * Countdown = 0 (rác chết) → **KHÔNG đếm-đầy**, chỉ bị phá bởi **siêu khối / cầu vồng nổ** ([expandDetonations]).
  */
-enum class CellType { EMPTY, BLOCK, STONE, TARGET, VINE }
+enum class CellType { EMPTY, BLOCK, STONE, TARGET, VINE, TRASH }
 
 /** Màu khối jelly (4 nhân vật chữ ký). Dùng cho hiển thị + cụm cùng màu. */
 enum class JellyColor { YELLOW, MINT, PINK, BLUE }
@@ -34,6 +38,8 @@ class Grid(val size: Int = SIZE) {
         val rainbow: Boolean = false,
         /** Chỉ dùng khi [type] = [CellType.VINE]: true = GỐC dây (target của màn); false = đốt thường. */
         val vineRoot: Boolean = false,
+        /** Chỉ dùng khi [type] = [CellType.TRASH]: số lượt còn lại trước khi thành rác chết (0 = đã chết). */
+        val trashCountdown: Int = 0,
     ) {
         val isSuper: Boolean get() = superLevel > 0
         val isRainbow: Boolean get() = rainbow
@@ -50,6 +56,11 @@ class Grid(val size: Int = SIZE) {
     fun inBounds(x: Int, y: Int): Boolean = x in 0 until size && y in 0 until size
 
     fun isEmpty(x: Int, y: Int): Boolean = get(x, y) == null
+
+    /** Nạp đè nội dung từ [other] (cùng size) vào lưới này — cho solver restore state, tránh cấp phát. */
+    fun loadFrom(other: Grid) {
+        for (y in 0 until size) for (x in 0 until size) cells[y][x] = other.cells[y][x]
+    }
 
     fun copy(): Grid {
         val g = Grid(size)

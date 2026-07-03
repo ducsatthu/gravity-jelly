@@ -78,7 +78,8 @@ object CampaignLevels {
             tp("I3", YELLOW), tp("I3", YELLOW), tp("I3", YELLOW),   // đợt 2: lấp lại 3×3 → super2
         ),
         goal = Goal(GoalType.TUTORIAL, trigger = TriggerKind.SUPER2),
-        stars = StarThresholds(three = 5, two = 7, one = 9, metric = StarMetric.MOVES),
+        // MoveSolver: min = 6 nước → 3★=6, bước+2.
+        stars = StarThresholds(three = 6, two = 8, one = 10, metric = StarMetric.MOVES),
         difficulty = 2.5,
     )
 
@@ -125,7 +126,8 @@ object CampaignLevels {
             tp("I4", BLUE), tp("V3", YELLOW), tp("1", MINT),
         ),
         goal = Goal(GoalType.TUTORIAL, trigger = TriggerKind.COMBO_X2),
-        stars = StarThresholds(three = 5, two = 6, one = 7, metric = StarMetric.MOVES),
+        // MoveSolver: min = 5 nước (xây 2 hàng đáy + lấp cột 8 → combo ×2) → 3★=5.
+        stars = StarThresholds(three = 5, two = 7, one = 9, metric = StarMetric.MOVES),
         difficulty = 2.5,
     )
 
@@ -176,7 +178,8 @@ object CampaignLevels {
         rotationBudget = 3,
         vineGrowEveryN = 2,
         goal = Goal(GoalType.CLEAR_TARGETS, count = 1),
-        stars = StarThresholds(three = 5, two = 7, one = 10, metric = StarMetric.MOVES),
+        // MoveSolver: min = 4 nước → 3★=4.
+        stars = StarThresholds(three = 4, two = 5, one = 6, metric = StarMetric.MOVES),
         difficulty = 2.0,
     )
 
@@ -198,7 +201,8 @@ object CampaignLevels {
         rotationBudget = 3,
         vineGrowEveryN = 2,
         goal = Goal(GoalType.CLEAR_TARGETS, count = 2),
-        stars = StarThresholds(three = 6, two = 8, one = 12, metric = StarMetric.MOVES),
+        // MoveSolver: min = 7 nước → 3★=7.
+        stars = StarThresholds(three = 7, two = 9, one = 11, metric = StarMetric.MOVES),
         difficulty = 2.5,
     )
 
@@ -209,7 +213,8 @@ object CampaignLevels {
         rotationBudget = 3,
         vineGrowEveryN = 2,
         goal = Goal(GoalType.CLEAR_TARGETS, count = 1),
-        stars = StarThresholds(three = 6, two = 9, one = 12, metric = StarMetric.MOVES),
+        // MoveSolver: min = 11 nước (đá chắn buộc lái MINT tới gốc) → 3★=11.
+        stars = StarThresholds(three = 11, two = 15, one = 19, metric = StarMetric.MOVES),
         difficulty = 3.0,
     )
 
@@ -220,7 +225,8 @@ object CampaignLevels {
         rotationBudget = 3,
         vineGrowEveryN = 1,
         goal = Goal(GoalType.CLEAR_TARGETS, count = 2),
-        stars = StarThresholds(three = 6, two = 9, one = 12, metric = StarMetric.MOVES),
+        // MoveSolver: min = 4 nước (vine nhanh N=1 nhưng 2 gốc kề đáy) → 3★=4.
+        stars = StarThresholds(three = 4, two = 5, one = 6, metric = StarMetric.MOVES),
         difficulty = 3.0,
     )
 
@@ -240,7 +246,8 @@ object CampaignLevels {
         rotationBudget = 3,
         vineGrowEveryN = 2,
         goal = Goal(GoalType.CLEAR_TARGETS, count = 2),
-        stars = StarThresholds(three = 8, two = 11, one = 15, metric = StarMetric.MOVES),
+        // MoveSolver: min = 4 nước → 3★=4.
+        stars = StarThresholds(three = 4, two = 5, one = 6, metric = StarMetric.MOVES),
         difficulty = 3.0,
     )
 
@@ -251,7 +258,9 @@ object CampaignLevels {
         rotationBudget = 3,
         vineGrowEveryN = 1,
         goal = Goal(GoalType.MIXED, count = 1, score = 200),
-        stars = StarThresholds(three = 400, two = 300, one = 200, metric = StarMetric.SCORE),
+        // Sao = LƯỢT (nhất quán màn dọn-mục-tiêu; điểm là sàn goal). MoveSolver: min = 29 nước (seed 18) → 3★=29.
+        // ⚠ min cao (200đ + phá gốc, vine N=1) — cùng họ khó với L28; cân nhắc nới score/khay nếu thấy nản.
+        stars = StarThresholds(three = 29, two = 39, one = 49, metric = StarMetric.MOVES),
         difficulty = 3.5,
     )
 
@@ -262,7 +271,8 @@ object CampaignLevels {
         rotationBudget = 4,
         vineGrowEveryN = 1,
         goal = Goal(GoalType.CLEAR_TARGETS, count = 3),
-        stars = StarThresholds(three = 10, two = 15, one = 20, metric = StarMetric.MOVES),
+        // MoveSolver: min = 8 nước → 3★=8.
+        stars = StarThresholds(three = 8, two = 11, one = 14, metric = StarMetric.MOVES),
         difficulty = 4.0,
     )
 
@@ -276,7 +286,7 @@ object CampaignLevels {
         rotationBudget = 4,
         vineGrowEveryN = 1,
         bossVineSpawnEveryN = 3,
-        goal = Goal(GoalType.BOSS_COMBO, bossHP = 5),
+        goal = Goal(GoalType.BOSS_COMBO, bossHP = 8),   // khiên mock (boss-hud): Kẻ Đổ Rác/Thần Rừng = 8
         stars = StarThresholds(three = 4, two = 6, one = 8, metric = StarMetric.COMBO),
         difficulty = 4.0,
     )
@@ -297,7 +307,8 @@ object CampaignLevels {
         waterSources = listOf(4),
         rotationBudget = 3,
         goal = Goal(GoalType.CLEAR_TARGETS, count = 2),
-        stars = StarThresholds(three = 3, two = 5, one = 8, metric = StarMetric.MOVES),
+        // MoveSolver: min = 10 nước (giọt lệch nguồn, 1 lần xoay không quét đủ) → 3★=10.
+        stars = StarThresholds(three = 10, two = 14, one = 18, metric = StarMetric.MOVES),
         difficulty = 2.0,
     )
 
@@ -318,7 +329,9 @@ object CampaignLevels {
         waterSources = listOf(4),
         rotationBudget = 3,
         goal = Goal(GoalType.CLEAR_TARGETS, count = 3),
-        stars = StarThresholds(three = 5, two = 8, one = 12, metric = StarMetric.MOVES),
+        // ⚠ MoveSolver: min = 2 nước (1 cú xoay quét trúng cả 3 giọt) → MOVES SUY BIẾN. Chờ quyết:
+        // đổi metric→ROTATIONS hay siết hình học giọt. Tạm giữ số cũ (chưa hạ 3★ xuống 2).
+        stars = StarThresholds(three = 4, two = 6, one = 10, metric = StarMetric.MOVES),
         difficulty = 3.0,
     )
 
@@ -329,6 +342,8 @@ object CampaignLevels {
         waterSources = listOf(4),
         rotationBudget = 4,
         goal = Goal(GoalType.CLEAR_TARGETS, count = 2),
+        // ⚠ Solver thắng 90% với 0 NƯỚC ĐẶT (chỉ xoay thác trúng giọt) → metric MOVES SUY BIẾN ở đây
+        // (0 nước = 3★ miễn phí). Nên đổi metric màn này sang ROTATIONS. Tạm giữ MOVES, chờ chốt.
         stars = StarThresholds(three = 4, two = 7, one = 10, metric = StarMetric.MOVES),
         difficulty = 3.0,
     )
@@ -343,6 +358,7 @@ object CampaignLevels {
         waterSources = listOf(4),
         rotationBudget = 4,
         goal = Goal(GoalType.CLEAR_TARGETS, count = 2),
+        // ⚠ MoveSolver: min = 1 nước (xoay quét trúng 2 giọt) → MOVES SUY BIẾN. Chờ quyết metric/redesign.
         stars = StarThresholds(three = 6, two = 9, one = 13, metric = StarMetric.MOVES),
         difficulty = 3.5,
     )
@@ -364,7 +380,8 @@ object CampaignLevels {
         waterSources = listOf(2, 6),
         rotationBudget = 4,
         goal = Goal(GoalType.CLEAR_TARGETS, count = 4),
-        stars = StarThresholds(three = 6, two = 10, one = 15, metric = StarMetric.MOVES),
+        // ⚠ MoveSolver: min = 1 nước (xoay quét trúng cả 4 giọt) → MOVES SUY BIẾN. Chờ quyết metric/redesign.
+        stars = StarThresholds(three = 3, two = 5, one = 8, metric = StarMetric.MOVES),
         difficulty = 3.5,
     )
 
@@ -375,7 +392,9 @@ object CampaignLevels {
         waterSources = listOf(4),
         rotationBudget = 4,
         goal = Goal(GoalType.MIXED, count = 2, score = 200),
-        stars = StarThresholds(three = 400, two = 300, one = 200, metric = StarMetric.SCORE),
+        // Sao = LƯỢT (nhất quán màn dọn-mục-tiêu; điểm là sàn goal). ⚠ SOLVER THẮNG 0% → chưa kiểm chứng
+        // được; ước lượng theo L18 (mixed+điểm). Màn có thể QUÁ KHÓ — cần playtest hoặc nới khay/nhịp.
+        stars = StarThresholds(three = 18, two = 26, one = 34, metric = StarMetric.MOVES),
         difficulty = 3.5,
     )
 
@@ -389,6 +408,8 @@ object CampaignLevels {
         waterSources = listOf(4),
         rotationBudget = 5,
         goal = Goal(GoalType.CLEAR_TARGETS, count = 5),
+        // ⚠ MoveSolver: min = 2 nước (5 giọt+4 đá quét sạch bằng ~2 cú xoay) → MOVES SUY BIẾN, KHÔNG khó
+        // như tưởng. Chờ quyết metric→ROTATIONS/redesign. (Comment "solver 0%" cũ dùng greedy — đã sai.)
         stars = StarThresholds(three = 10, two = 15, one = 22, metric = StarMetric.MOVES),
         difficulty = 4.5,
     )
@@ -403,7 +424,7 @@ object CampaignLevels {
         waterSources = listOf(4),
         rotationBudget = 5,
         bossGravityEveryN = 3,
-        goal = Goal(GoalType.BOSS_COMBO, bossHP = 5),
+        goal = Goal(GoalType.BOSS_COMBO, bossHP = 10),  // khiên mock (boss-hud): Thần Thác = 10
         stars = StarThresholds(three = 4, two = 6, one = 8, metric = StarMetric.COMBO),
         difficulty = 4.0,
     )

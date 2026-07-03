@@ -23,6 +23,7 @@ sealed class GameEvent {
         val cellsCleared: Int,
         val comboLevel: Int,
         val score: Int,
+        val survivingRoots: List<Vec> = emptyList(),
     ) : GameEvent()
     data class ClustersCollapsed(val moved: Boolean) : GameEvent()
     /** 9 ô cùng màu hợp nhất thành 1 siêu khối tại [at]; [absorbed] = ô bị thu. [score]/[comboLevel] cho HUD. */
@@ -66,6 +67,8 @@ sealed class GameEvent {
     data class VineRootsCleared(val roots: List<Vec>, val cells: List<Vec>) : GameEvent()
     /** Vỡ ô đích "giọt nước" tại [drops] (World 3 · chấm CLEAR_TARGETS/MIXED). */
     data class DropsCleared(val drops: List<Vec>) : GameEvent()
+    /** Đếm ngược rác giảm; [died] = ô vừa hết đếm ngược (thành rác chết). */
+    data class TrashCountdownTicked(val died: List<Vec>) : GameEvent()
     /** Boss "Kẻ Đổ Rác" chèn ô rác cứng tại [positions] (World 2 · L20). */
     data class DebrisAdded(val positions: List<Vec>) : GameEvent()
     /** Boss "Thần Thác" (World 3 · L30) tự ĐẢO hướng trọng lực 180° → [newGravity]. */
@@ -116,6 +119,47 @@ class EndlessEngine(
         for ((pos, cell) in preset) grid.set(pos.x, pos.y, cell)
         tray = dealTray()
         recalculateWaterfall(mutableListOf())
+    }
+
+    /**
+     * Ảnh chụp TOÀN BỘ state biến đổi (grid + rng + counters) để solver fork/thử-lui nhanh mà không
+     * dựng lại engine. Cặp với [restore]. KHÔNG lộ ra :game/:app — chỉ solver headless dùng.
+     */
+    class Snapshot internal constructor(
+        internal val grid: Grid,
+        internal val gravity: Direction,
+        internal val stage: Int,
+        internal val waveIdx: Int,
+        internal val tray: List<Piece?>,
+        internal val rotBudget: Int,
+        internal val score: Int,
+        internal val combo: Int,
+        internal val gameOver: Boolean,
+        internal val placesSinceGrow: Int,
+        internal val placeTurns: Int,
+        internal val floodedCells: Set<Vec>,
+        internal val rngState: ULong,
+    )
+
+    fun snapshot(): Snapshot = Snapshot(
+        grid.copy(), gravity, stage, waveIdx, tray.toList(), rotBudget, score, combo,
+        gameOver, placesSinceGrow, placeTurns, floodedCells.toSet(), rng.stateSnapshot(),
+    )
+
+    fun restore(s: Snapshot) {
+        grid.loadFrom(s.grid)
+        gravity = s.gravity
+        stage = s.stage
+        waveIdx = s.waveIdx
+        tray = s.tray
+        rotBudget = s.rotBudget
+        score = s.score
+        combo = s.combo
+        gameOver = s.gameOver
+        placesSinceGrow = s.placesSinceGrow
+        placeTurns = s.placeTurns
+        floodedCells = s.floodedCells
+        rng.stateRestore(s.rngState)
     }
 
     fun state(): EndlessState = EndlessState(
@@ -185,6 +229,7 @@ class EndlessEngine(
 
         placeTurns++
         growVinesIfDue(events)
+        tickTrashIfNeeded(events)
         spawnBossVineIfDue(events)
         dropDebrisIfDue(events)
         flipBossGravityIfDue(events)
@@ -209,6 +254,14 @@ class EndlessEngine(
      */
     private fun growVinesIfDue(events: MutableList<GameEvent>) {
         if (tuning.vineGrowEveryN <= 0 || !hasVines(grid)) return
+        // VỪA CẮT dây trong lượt này (phá gốc hoặc đốt héo mất kết nối → phát VineRootsCleared)?
+        // HOÃN mọc & đặt LẠI nhịp: người chơi phải được hưởng nhát cắt. Nếu vẫn mọc ngay, dây sẽ
+        // lấp lại đúng ô vừa mở trong CÙNG lượt → ô "mầm sắp tới" bị chặn, rồi lượt sau hoá cành
+        // đếm ngược (đúng lỗi báo). Cắt xong ⇒ dây tạm ngưng, chờ đủ vineGrowEveryN lượt mới mọc lại.
+        if (events.any { it is GameEvent.VineRootsCleared }) {
+            placesSinceGrow = 0
+            return
+        }
         placesSinceGrow++
         if (placesSinceGrow < tuning.vineGrowEveryN) return
         placesSinceGrow = 0
@@ -216,6 +269,11 @@ class EndlessEngine(
         if (grown.isEmpty()) return
         events.add(GameEvent.VineGrew(grown))
         foldResolve(events)
+    }
+
+    private fun tickTrashIfNeeded(events: MutableList<GameEvent>) {
+        val died = tickTrashCountdown(grid)
+        if (died.isNotEmpty()) events.add(GameEvent.TrashCountdownTicked(died))
     }
 
     /**
@@ -275,6 +333,20 @@ class EndlessEngine(
         grid.set(pos.x, pos.y, Grid.Cell(CellType.VINE, JellyColor.MINT, vineRoot = true))
         events.add(GameEvent.VineGrew(listOf(pos)))
         foldResolve(events)
+    }
+
+    /**
+     * Cảnh báo boss SẮP ra chiêu (tell) cho HUD — null nếu màn không có chiêu định kỳ (vd boss combo thuần).
+     * Chiêu bắn khi `placeTurns % N == 0` (sau khi [finishTurn] tăng placeTurns) → số lượt còn lại tới lần
+     * kế = `N − (placeTurns % N)` (N khi vừa bắn hoặc chưa thả nước nào; 1 = ngay lượt sau). Deterministic.
+     */
+    fun bossTell(): BossTell? {
+        val (period, kind) = when {
+            tuning.bossGravityEveryN > 0 -> tuning.bossGravityEveryN to BossTellKind.GRAVITY_INVERT
+            tuning.bossVineSpawnEveryN > 0 -> tuning.bossVineSpawnEveryN to BossTellKind.VINE_SPAWN
+            else -> return null
+        }
+        return BossTell(kind, period - (placeTurns % period))
     }
 
     /**
@@ -428,7 +500,7 @@ class EndlessEngine(
 }
 
 private fun ResolveEvent.toGameEvent(): GameEvent = when (this) {
-    is ResolveEvent.LinesCleared -> GameEvent.LinesCleared(lines, cellsCleared, comboLevel, score)
+    is ResolveEvent.LinesCleared -> GameEvent.LinesCleared(lines, cellsCleared, comboLevel, score, survivingRoots)
     is ResolveEvent.ClustersCollapsed -> GameEvent.ClustersCollapsed(moved)
     is ResolveEvent.SuperFormed -> GameEvent.SuperFormed(at, color, level, source, absorbed, score, comboLevel)
     is ResolveEvent.SuperDetonated -> GameEvent.SuperDetonated(at, color, level, cells, isRainbow)
