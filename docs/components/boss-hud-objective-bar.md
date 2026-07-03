@@ -18,8 +18,10 @@ thẻ mềm, tiến độ là **thanh Khiên** (KHÔNG máu/tim), chữ dùng **
 Tím `#7E6CF0` chỉ dùng viền/quầng/hairline — không tô kín panel.
 
 Bố cục (bám `BossCard` trong BossHud.jsx):
-- Thẻ radius **xl(28)**, nền trắng, viền 1.5 tím@0.22, bóng cocoa mềm, **cao cố định 118dp**.
-- **Mascot tràn trái** (vùng rộng 118dp): PNG riêng từng boss (mắt-only, không miệng/lông mày), bob nhẹ.
+- Thẻ radius **xl(28)**, nền trắng, viền 1.5 tím@0.22, bóng cocoa mềm, **cao TỐI THIỂU 118dp CO GIÃN**
+  theo nội dung (design `minHeight:118`) — chip/nội dung không bị bó.
+- **Mascot tràn trái** (vùng 118×118dp **cố định**, KHÔNG fillMaxHeight → thẻ không giãn vô hạn đẩy mất
+  bàn): PNG riêng từng boss (mắt-only, không miệng/lông mày), bob nhẹ.
 - Góc phải-trên: nhãn `MÀN n`.
 - Tên boss (display 18) · thanh **Khiên** + số `Khiên cur/tgt` · chip **CẨM NANG "Combo ×2 phá khiên"**.
 
@@ -58,6 +60,24 @@ Mock boss-hud gọi W2 = "Kẻ Đổ Rác" (đổ rác, mascot `boss_trash`). Nh
 đúng gameplay; mascot tạm dùng `boss_trash` (cần art "Thần Rừng" riêng sau). `debrisPerTurn`/"Kẻ Đổ Rác"
 vẫn còn trong engine nhưng L20 không dùng.
 
+### REDESIGN chip (03/07) — BỎ chữ kicker + tell dot
+Bản trước (chip có chữ "CẨM NANG"/"CẢNH BÁO" bên cạnh nhãn) bị **cắt chữ** trên card in-game HẸP
+(mascot 118dp): kicker chiếm ~55dp khiến nhãn dài ("Sau N lượt: Đảo trọng lực") tràn/cắt; và font
+weight 700 qua `labelSmall` rơi fallback (mỏng). User **thiết kế lại** `BossHud.jsx Chip` → Kotlin bám theo:
+- **BỎ hẳn chữ kicker.** Chip = đĩa + nhãn. Rule: nền chìm + đĩa tím nhạt (icon ×2). Tell: nền tone +
+  đĩa đặc + **CHẤM ĐỎ nhấp nháy** góc đĩa (opacity 0.35↔0.85, 1400ms) thay chữ "CẢNH BÁO".
+- Gộp `BossChip(bg, discBg, labelColor, label, dot, discIcon)`; `RuleChip`/`TellChip` gọi lại.
+- Nhãn: **Nunito** (`GjBodyFontFamily` pin tường minh) weight Bold, `--text-caption` 12sp, nowrap,
+  `lineHeight 1.25em` (đủ dấu tiếng Việt). Bỏ kicker → dư ~55dp → HẾT cắt. Giữ auto-thu-nhỏ
+  (TextMeasurer 12→9sp) làm phao cho máy rất hẹp.
+- **Pill ÔM CHỮ (compact) như design, KHÔNG cắt:** đo bề rộng cột bằng `BoxWithConstraints(Modifier
+  .fillMaxWidth())` (ép full-width → `constraints.maxWidth` = bề rộng THẬT, không bị wrap-content báo
+  nhỏ như bản lỗi trước); tính chỗ nhãn còn lại = cột − padding − đĩa − gap − 6dp thở; autosize
+  12→10sp vừa đó; chặn CỨNG nhãn bằng `Modifier.widthIn(max)` + `softWrap=false`. Pill (Row bên trong)
+  vẫn wrap-content ôm chữ, neo trái.
+Verify Pixel 9 + **Samsung S22 (density 510)** L30 in-game: pill ôm sát "Sau 3 lượt: Đảo trọng lực"
+hiện ĐỦ, không cắt, ~12sp, đĩa + chấm đỏ đúng. `Type.kt` export `GjBodyFontFamily` (Nunito).
+
 ## 1b) BossIntroCard (màn Level-Intro boss) — `CampaignIntroScreen`
 Màn boss (`goal.type == BOSS_COMBO`) render **`BossIntroCard`** (BossHud.kt) thay khối tím + ♥HP cũ:
 tag BOSS · MÀN n · mascot lớn (120dp) + "ĐỐI THỦ"/tên · thanh Khiên (đầy) + `Khiên n/n` · chip luật/tell ·
@@ -86,5 +106,6 @@ nước** (design "unified to số nước"). Điểm/đích chỉ còn là **đ
 ## Kiểm thử (03/07, emulator Pixel-class `sdk_gphone16k`)
 - Boss L10 in-game: BossCard hiện đúng (worm tràn trái · "Chú Sâu Đồng Cỏ · MÀN 10" · Khiên 5/5 mint ·
   chip "CẨM NANG Combo ×2 phá khiên"), bàn 9×9 + giáp đá hiện lại đầy đủ.
-  - Bug đã sửa: mascot `fillMaxHeight` làm thẻ giãn hết màn đẩy mất bàn → chốt thẻ cao cố định 118dp.
+  - Bug cũ: mascot `fillMaxHeight` làm thẻ giãn hết màn đẩy mất bàn. Fix: thẻ `heightIn(min=118)` co giãn +
+    mascot `height(118)` cố định (không fillMaxHeight) → chip không bị bó mà bàn vẫn nguyên. Verify Samsung.
 - L9 score in-game: ObjectiveBar điểm "ĐIỂM 0/200" + track — không regress.

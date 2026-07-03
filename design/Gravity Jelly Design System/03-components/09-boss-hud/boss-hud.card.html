@@ -1,4 +1,4 @@
-<!-- @dsCard group="Components" viewport="880x760" name="BossHud" subtitle="Cụm HUD boss trên cùng màn GAME — chân dung + thanh máu (giật/nháy khi trúng) + số sát thương theo combo + nhắc luật. 3 boss, nền tối/sáng" -->
+<!-- @dsCard group="Components" viewport="1180x900" name="BossHud" subtitle="Cụm boss Gravity Jelly — mỗi boss có silhouette riêng, jelly CHỈ CÓ MẮT. BossCard compact (mascot tràn trái) · Intro Card lớn · Warning Toast. 3 boss: Chú Sâu Đồng Cỏ · Kẻ Đổ Rác · Thần Thác." -->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -6,13 +6,17 @@
 <link rel="stylesheet" href="../../styles.css" />
 <style>
   html, body { margin: 0; }
-  body { font-family: var(--font-body); }
-  /* prove readability on both: cream meadow (top) → dark biome (bottom) */
-  #root { min-height: 100vh; padding: 26px 22px; box-sizing: border-box;
-          background: linear-gradient(180deg, #FFF7EC 0%, #F4E9D8 32%, #4B3E7A 66%, #241C4A 100%);
-          display: flex; flex-direction: column; gap: 22px; align-items: center; }
-  .row { width: 392px; display: flex; flex-direction: column; gap: 7px; }
-  .cap { font-family: var(--font-body); font-weight: 800; font-size: 12px; letter-spacing: 0.02em; }
+  body { font-family: var(--font-body); background: var(--color-bg); }
+  #root { min-height: 100vh; padding: 36px 32px; box-sizing: border-box;
+          display: flex; gap: 40px; align-items: flex-start; justify-content: center; }
+  .col { display: flex; flex-direction: column; }
+  .hubw { width: 360px; }
+  .introw { width: 344px; }
+  .sub { font-family: var(--font-body); font-weight: 800; font-size: 11px;
+         letter-spacing: 0.06em; color: #B7A489; text-transform: uppercase;
+         margin: 0 0 14px 2px; }
+  .cardgap { display: flex; flex-direction: column; gap: 26px; }
+  .toastrow { display: flex; flex-direction: column; gap: 12px; margin-top: 30px; align-items: flex-start; }
 </style>
 </head>
 <body>
@@ -22,52 +26,53 @@
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
   <script src="../../_ds_bundle.js"></script>
   <script type="text/babel">
-    const { BossHud } = window.GravityJellyDesignSystem_3e0487;
-    const { useState, useEffect, useRef } = React;
-    // comboDamage is a lowercase module export → not on the DS namespace; inline it.
-    const comboDamage = (c) => (c >= 7 ? 3 : c >= 4 ? 2 : c >= 2 ? 1 : 0);
+    const { BossCard, BossIntroCard, BossToast, BossRule } = window.GravityJellyDesignSystem_3e0487;
 
-    // Each demo boss auto-takes a hit on a loop so the jerk/flash + damage float
-    // are visible. HP ticks down by the combo damage, wraps back to full.
-    function DemoBoss({ boss }) {
-      const [hp, setHp] = useState(boss.maxHp);
-      const [token, setToken] = useState(0);
-      const [hit, setHit] = useState({ damage: 1, combo: 2 });
-      const combos = boss.combos;
-      const iRef = useRef(0);
-      useEffect(() => {
-        const id = setInterval(() => {
-          const combo = combos[iRef.current % combos.length];
-          iRef.current++;
-          const dmg = comboDamage(combo);
-          setHit({ damage: dmg, combo });
-          setToken((t) => t + 1);
-          setHp((h) => (h - dmg <= 0 ? boss.maxHp : h - dmg));
-        }, 1700);
-        return () => clearInterval(id);
-      }, []);
+    const BOSSES = [
+      { kind: 'worm', level: 10, name: 'Chú Sâu Đồng Cỏ', shield: { current: 4, target: 5 },
+        chip: { kind: 'x2', tone: 'rule', role: 'rule', label: 'Combo ×2' } },
+      { kind: 'trash', level: 20, name: 'Kẻ Đổ Rác', shield: { current: 6, target: 8 },
+        chip: { kind: 'leaf', tone: 'trash', role: 'tell', label: 'Sắp đổ rác' } },
+      { kind: 'water', level: 30, name: 'Thần Thác', shield: { current: 7, target: 10 },
+        chip: { kind: 'gravity', tone: 'gravity', role: 'tell', label: 'Đảo trọng lực' } },
+    ];
+
+    function App() {
       return (
-        <div className="row">
-          <div className="cap" style={{ color: boss.capDark ? 'rgba(255,255,255,0.85)' : '#7A6650' }}>{boss.cap}</div>
-          <BossHud level={boss.level} name={boss.name} hp={hp} maxHp={boss.maxHp}
-                   color={boss.color} edge={boss.edge} shine={boss.shine}
-                   hitToken={token} lastHit={hit} tell={boss.tell} />
-        </div>
+        <>
+          {/* Pre-boss hub — the 3 compact boss cards */}
+          <div className="col hubw">
+            <div className="sub">Boss Hub · card compact (in-game / pre-boss)</div>
+            <div className="cardgap">
+              {BOSSES.map((b, i) => (
+                <BossCard key={i} kind={b.kind} level={b.level} name={b.name} shield={b.shield} chip={b.chip} />
+              ))}
+            </div>
+          </div>
+
+          {/* Large intro card + two INDEPENDENT parts: warnings vs guide */}
+          <div className="col introw">
+            <div className="sub">Intro Card lớn · trước màn boss</div>
+            <BossIntroCard kind="water" level={30} name="Thần Thác" shield={{ current: 7, target: 10 }}
+              rule={{ kind: 'gravity', tone: 'gravity', role: 'tell', label: 'Sau 2 lượt: Đảo trọng lực' }} />
+
+            <div className="sub" style={{ marginTop: 30 }}>Cảnh báo · boss sắp ra chiêu</div>
+            <div className="toastrow" style={{ marginTop: 0 }}>
+              <BossToast kind="trash" tone="trash" label="Lượt sau: Đổ rác" />
+              <BossToast kind="gravity" tone="gravity" label="Sau 2 lượt: Đảo trọng lực" />
+            </div>
+
+            <div className="sub" style={{ marginTop: 30 }}>Cẩm nang · cách phá khiên</div>
+            <div className="toastrow" style={{ marginTop: 0 }}>
+              <BossRule icon="x2" label="Combo ×2 phá khiên" />
+              <BossRule icon="shield" label="Khiên vỡ dần mỗi combo" />
+            </div>
+          </div>
+        </>
       );
     }
 
-    const BOSSES = [
-      { cap: '(a) L10 · Chú Sâu Đồng Cỏ — máu 5 · nền sáng', level: 10, name: 'Chú Sâu Đồng Cỏ', maxHp: 5,
-        color: '#6FCF7F', edge: '#4FA95F', shine: '#B7ECC0', combos: [2, 3, 2], tell: null },
-      { cap: '(b) L20 · Kẻ Đổ Rác — máu 8 · tell "sắp đổ rác"', level: 20, name: 'Kẻ Đổ Rác', maxHp: 8,
-        color: '#C9A86A', edge: '#A2814A', shine: '#E6CE9E', combos: [4, 3, 5], tell: { kind: 'trash' } },
-      { cap: '(c) L30 · Thần Thác — máu 10 · tell "đảo trọng lực 3→0" · nền tối', level: 30, name: 'Thần Thác', maxHp: 10,
-        color: '#7E9CE8', edge: '#5C79C4', shine: '#B8CCF5', capDark: true, combos: [7, 8, 5], tell: { kind: 'gravity', countdown: 2 } },
-    ];
-
-    ReactDOM.createRoot(document.getElementById('root')).render(
-      <>{BOSSES.map((b, i) => <DemoBoss key={i} boss={b} />)}</>
-    );
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
   </script>
 </body>
 </html>
