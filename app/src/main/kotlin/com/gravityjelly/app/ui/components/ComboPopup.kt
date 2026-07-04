@@ -42,6 +42,8 @@ import androidx.compose.ui.unit.sp
 import com.gravityjelly.app.ui.theme.GjPalette
 import com.gravityjelly.app.ui.theme.GravityJellyTheme
 import com.gravityjelly.core.JellyColor
+import androidx.compose.ui.res.stringResource
+import com.gravityjelly.app.R
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
@@ -49,7 +51,7 @@ import kotlin.math.roundToInt
 
 private data class Tier(
     val min: Int,
-    val word: String,
+    @androidx.annotation.StringRes val wordRes: Int,
     val color: Color,
     val grad: List<Color>,   // ×N rainbow fill (design tier.grad, linear 95°)
     val numSize: Int,    // sp for ×N number
@@ -58,25 +60,25 @@ private data class Tier(
 
 // grad copy nguyên các stop từ ComboPopup.jsx (tier.grad, linear-gradient 95deg).
 private val TIERS = listOf(
-    Tier(25, "HUYỀN THOẠI!",  Color(0xFFFFD700),
+    Tier(25, R.string.combo_tier_legendary,  Color(0xFFFFD700),
         listOf(Color(0xFFFFD700), Color(0xFFFF4500), Color(0xFFFF00FF), Color(0xFFFFD700)), 42, 3),
-    Tier(20, "SIÊU PHÀM!",   Color(0xFFFF00FF),
+    Tier(20, R.string.combo_tier_superhuman,   Color(0xFFFF00FF),
         listOf(Color(0xFFFF00FF), Color(0xFF00BFFF), Color(0xFFFFD700), Color(0xFFFF00FF)), 40, 3),
-    Tier(16, "THẦN THÁNH!",  Color(0xFF00FFCC),
+    Tier(16, R.string.combo_tier_divine,  Color(0xFF00FFCC),
         listOf(Color(0xFF00FFCC), Color(0xFFFF00FF), Color(0xFFFFD700), Color(0xFF00FFCC)), 38, 3),
-    Tier(13, "KHÔNG THỂ TIN!",Color(0xFFFF4500),
+    Tier(13, R.string.combo_tier_unbelievable, Color(0xFFFF4500),
         listOf(Color(0xFFFF4500), Color(0xFFFFD700), Color(0xFF00BFFF), Color(0xFFFF4500)), 36, 3),
-    Tier(9, "CUỒNG NHIỆT!",  Color(0xFFFF5470),
+    Tier(9, R.string.combo_tier_frenzy,  Color(0xFFFF5470),
         listOf(Color(0xFFFF5470), Color(0xFFFF9F45), Color(0xFFFFC24B), Color(0xFFFF5470)), 34, 3),
-    Tier(7, "AMAZING!",       Color(0xFFFF7A3C),
+    Tier(7, R.string.combo_tier_amazing,       Color(0xFFFF7A3C),
         listOf(Color(0xFFFF7A3C), Color(0xFFFFC24B), Color(0xFFFF6FA5), Color(0xFFFF7A3C)), 32, 2),
-    Tier(5, "XUẤT SẮC!",     Color(0xFFF0A92E),
+    Tier(5, R.string.combo_tier_excellent,     Color(0xFFF0A92E),
         listOf(Color(0xFFFFC24B), Color(0xFF5FC98A), Color(0xFF6FA8FF), Color(0xFFFFC24B)), 30, 2),
-    Tier(4, "HOÀN HẢO!",     Color(0xFF3FA86A),
+    Tier(4, R.string.combo_tier_perfect,     Color(0xFF3FA86A),
         listOf(Color(0xFF5FC98A), Color(0xFF3FB6C9), Color(0xFF6FA8FF), Color(0xFF5FC98A)), 29, 1),
-    Tier(2, "TUYỆT VỜI!",    Color(0xFF6E7BF0),
+    Tier(2, R.string.combo_tier_great,    Color(0xFF6E7BF0),
         listOf(Color(0xFF6FA8FF), Color(0xFFB98CFF), Color(0xFFFF6FA5), Color(0xFF6FA8FF)), 28, 0),
-    Tier(0, "TỐT!",          Color(0xFF8A6BF0),
+    Tier(0, R.string.combo_tier_good,          Color(0xFF8A6BF0),
         listOf(Color(0xFFB98CFF), Color(0xFF6FA8FF), Color(0xFF5FC98A), Color(0xFFB98CFF)), 26, 0),
 )
 
@@ -210,7 +212,7 @@ fun ComboPopup(
     if (!visible) return
 
     val tier    = remember(combo) { tierFor(combo) }
-    val word    = praise ?: tier.word
+    val word    = praise ?: stringResource(tier.wordRes)
     val hasText = combo > 1 && showText
     val n       = (combo + 2).coerceIn(3, 9)
     val drops   = remember(n) { computeDrops(n) }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Theme nền cho Activity trước khi Compose dựng. Màu nền = bg kem #FFF7EC. -->
-    <style name="Theme.GravityJelly" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="Theme.GravityJelly" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@color/gj_bg</item>
         <item name="android:statusBarColor">@color/gj_bg</item>
         <item name="android:windowLightStatusBar">true</item>
@@ -14,6 +14,9 @@
     <style name="Theme.GravityJelly.Splash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/gj_splash_cream</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_logo</item>
+        <!-- Wordmark "Gravity Jelly" ở đáy splash (splash_branding.png, nền trong suốt).
+             Thuộc tính nền tảng API 31+ (Android 12); AndroidX SplashScreen bỏ qua ở API thấp hơn. -->
+        <item name="android:windowSplashScreenBrandingImage" tools:targetApi="31">@drawable/splash_branding</item>
         <item name="postSplashScreenTheme">@style/Theme.GravityJelly</item>
         <item name="android:statusBarColor">@color/gj_splash_cream</item>
         <item name="android:windowLightStatusBar">true</item>

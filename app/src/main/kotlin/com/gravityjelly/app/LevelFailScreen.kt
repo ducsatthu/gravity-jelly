@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -53,8 +54,8 @@ fun LevelFailScreen(
     onReplay: () -> Unit,
     onHome: () -> Unit,
     modifier: Modifier = Modifier,
-    title: String = "Bí nước rồi!",
-    message: String = "Không còn chỗ đặt mảnh. Thử lại nhé!",
+    title: String = stringResource(R.string.levelfail_title),
+    message: String = stringResource(R.string.levelfail_message),
     objective: String? = null,
     objectiveProgress: String? = null,
 ) {
@@ -123,7 +124,7 @@ fun LevelFailScreen(
                         icon = GjIcons.Refresh,
                         fullWidth = true,
                         modifier = Modifier.weight(1f),
-                    ) { Text("Chơi lại", maxLines = 1, softWrap = false) }
+                    ) { Text(stringResource(R.string.levelfail_replay), maxLines = 1, softWrap = false) }
 
                     GjButton(
                         onClick = onHome,
@@ -131,7 +132,7 @@ fun LevelFailScreen(
                         icon = GjIcons.Home,
                         fullWidth = true,
                         modifier = Modifier.weight(1f),
-                    ) { Text("Bản đồ", maxLines = 1, softWrap = false) }
+                    ) { Text(stringResource(R.string.levelfail_map), maxLines = 1, softWrap = false) }
                 }
             }
 
@@ -154,7 +155,7 @@ private fun ObjectiveReminder(objective: String, progress: String?) {
         verticalArrangement = Arrangement.spacedBy(GjSpace.xxs),
     ) {
         Text(
-            text = "MỤC TIÊU CHƯA ĐẠT",
+            text = stringResource(R.string.levelfail_objective_label),
             color = GjPalette.TextMuted,
             fontSize = 11.sp,
             fontWeight = FontWeight.ExtraBold,

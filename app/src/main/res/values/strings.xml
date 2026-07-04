@@ -1,4 +1,343 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Ngôn ngữ MẶC ĐỊNH: tiếng Việt. Bản tiếng Anh ở res/values-en/strings.xml (cùng key).
+     Đổi ngôn ngữ trong app qua AppLocale (per-app language). Xem skill i18n. -->
 <resources>
     <string name="app_name">Gravity Jelly</string>
+
+    <!-- ── Home ─────────────────────────────────────────────────────────────── -->
+    <string name="home_campaign">Chiến dịch</string>
+    <string name="home_endless">Chơi Endless</string>
+    <string name="home_guide">Cẩm nang</string>
+    <string name="home_leaderboard">Bảng xếp hạng</string>
+    <string name="home_settings">Cài đặt</string>
+
+    <!-- ── Cài đặt ──────────────────────────────────────────────────────────── -->
+    <string name="settings_back">Quay lại</string>
+    <string name="settings_title">Cài đặt</string>
+    <string name="settings_section_audio">ÂM THANH</string>
+    <string name="settings_sound">Âm thanh</string>
+    <string name="settings_music">Nhạc nền</string>
+    <string name="settings_vibrate">Rung</string>
+    <string name="settings_section_language">NGÔN NGỮ</string>
+    <string name="settings_language">Ngôn ngữ</string>
+    <string name="settings_section_info">THÔNG TIN</string>
+    <string name="settings_version">Phiên bản</string>
+    <string name="settings_rate">Đánh giá game</string>
+    <string name="settings_privacy">Chính sách bảo mật</string>
+    <string name="settings_home">Về Home</string>
+
+    <!-- ── HUD chung ────────────────────────────────────────────────────────── -->
+    <string name="hud_score">ĐIỂM</string>
+    <string name="hud_pause">Tạm dừng</string>
+    <string name="hud_gravity">TRỌNG LỰC</string>
+
+    <!-- ── Endless (chơi + tạm dừng) ────────────────────────────────────────── -->
+    <string name="endless_guide_next">Tiếp theo</string>
+    <string name="endless_guide_understood">Đã hiểu</string>
+    <string name="endless_pause_title">Tạm dừng</string>
+    <string name="endless_pause_message">Trò chơi đang tạm dừng. Tiến độ ván này được giữ nguyên.</string>
+    <string name="endless_resume">TIẾP TỤC</string>
+    <string name="endless_replay">Chơi lại</string>
+    <string name="endless_settings">Cài đặt</string>
+    <string name="endless_home">Về Home</string>
+
+    <!-- ── Result / Game over (Endless) ─────────────────────────────────────── -->
+    <string name="result_title">Hết chỗ đặt!</string>
+    <string name="result_score_label">ĐIỂM</string>
+    <string name="result_best_label">KỶ LỤC</string>
+    <string name="result_replay">Chơi lại</string>
+    <string name="result_home">Về Home</string>
+    <string name="result_new_best">KỶ LỤC MỚI!</string>
+
+    <!-- ── Campaign — chọn màn / bản đồ / cổng ──────────────────────────────── -->
+    <string name="campaign_prev_world_sign">← %1$s</string>
+    <string name="campaign_home">Về Home</string>
+    <string name="campaign_gate_world">CỔNG · THẾ GIỚI %1$d</string>
+    <string name="campaign_need_more">Cần thêm %1$d</string>
+    <string name="campaign_to_unlock">để mở</string>
+    <string name="campaign_clear_more">Qua nốt %1$d màn để mở</string>
+    <string name="campaign_enter_world">VÀO THẾ GIỚI →</string>
+    <string name="campaign_unlocked">ĐÃ MỞ KHOÁ</string>
+    <string name="campaign_start_sign_w1">ĐỒNG CỎ · KHỞI ĐẦU</string>
+    <string name="campaign_start_sign_w2">RỪNG RẬM · TIẾP TỤC</string>
+    <string name="campaign_start_sign_w3">SÔNG &amp; THÁC · TIẾP TỤC</string>
+
+    <!-- ── Campaign — giới thiệu màn ────────────────────────────────────────── -->
+    <string name="campaignintro_level_title">Màn %1$d · %2$s</string>
+    <string name="campaignintro_start">BẮT ĐẦU</string>
+    <string name="campaignintro_close">Đóng</string>
+    <string name="campaignintro_gravity_invert_label">Đảo trọng lực · </string>
+    <string name="campaignintro_gravity_invert_turns"> lượt</string>
+    <string name="campaignintro_gravity_invert_caption">Số lần được đảo trọng lực trong cả màn</string>
+    <string name="campaignintro_objective_label">MỤC TIÊU</string>
+    <string name="campaignintro_score_bonus">+%1$d điểm</string>
+    <string name="campaignintro_unit_moves">nước</string>
+    <string name="campaignintro_unit_rotations">lần</string>
+    <string name="campaignintro_unit_score">đ</string>
+    <string name="campaignintro_unit_combo">nhịp</string>
+
+    <!-- ── Campaign — trong màn chơi ────────────────────────────────────────── -->
+    <string name="campaignplay_intro_next">Tiếp theo</string>
+    <string name="campaignplay_intro_got_it">Đã hiểu</string>
+    <string name="campaignplay_pause_title">Tạm dừng</string>
+    <string name="campaignplay_pause_message">Trò chơi đang tạm dừng. Tiến độ màn này được giữ nguyên.</string>
+    <string name="campaignplay_resume">TIẾP TỤC</string>
+    <string name="campaignplay_replay">Chơi lại</string>
+    <string name="campaignplay_settings">Cài đặt</string>
+    <string name="campaignplay_level_list">Danh sách màn</string>
+    <string name="campaignplay_progress_score">%1$d/%2$dđ</string>
+    <string name="campaignplay_progress_mixed">%1$d/%2$d · %3$d/%4$dđ</string>
+    <string name="campaignplay_progress_boss">Máu boss %1$d/%2$d</string>
+    <string name="campaignplay_stat_moves">NƯỚC ĐI</string>
+    <string name="campaignplay_stat_rotations">LƯỢT XOAY</string>
+    <string name="campaignplay_stat_score">MỤC TIÊU</string>
+    <string name="campaignplay_stat_boss">BOSS</string>
+    <string name="campaignplay_stat_boss_done">Hạ gục!</string>
+    <string name="campaignplay_unit_rotations">lượt xoay</string>
+    <string name="campaignplay_unit_moves">nước</string>
+    <string name="campaignplay_stars_keep">Còn %1$d %2$s giữ %3$d★</string>
+    <string name="campaignplay_stars_drop">Thêm 1 %1$s rớt %2$d★</string>
+    <string name="campaignplay_stars_now">Đang %1$d★</string>
+
+    <!-- ── Campaign — nhãn mục tiêu (goalLabel) ─────────────────────────────── -->
+    <string name="goal_clear_all">Dọn sạch bàn</string>
+    <string name="goal_clear_targets_water">Phá %1$d giọt nước</string>
+    <string name="goal_clear_targets_vine">Phá %1$d gốc dây leo</string>
+    <string name="goal_reach_score">Đạt %1$d điểm</string>
+    <string name="goal_mixed_water">Phá %1$d giọt + %2$d điểm</string>
+    <string name="goal_mixed_vine">Phá %1$d gốc + %2$d điểm</string>
+    <string name="goal_combo_chain">Chuỗi combo</string>
+    <string name="goal_boss_combo">Hạ boss bằng combo (máu %1$d)</string>
+    <string name="goal_tut_row">Xóa 1 hàng ngang</string>
+    <string name="goal_tut_col">Xóa 1 cột dọc</string>
+    <string name="goal_tut_rotate">Xoay trọng lực dồn khối</string>
+    <string name="goal_tut_super1">Ghép 9 ô cùng màu → Thạch Hoàng Gia</string>
+    <string name="goal_tut_super2">Gộp 2 Thạch Hoàng Gia → Vua Thạch</string>
+    <string name="goal_tut_rainbow">Tạo 1 Thạch Cầu Vồng</string>
+    <string name="goal_tut_rainbow_super">Tạo Hoàng Đế Cầu Vồng</string>
+    <string name="goal_tut_combo_x2">Đạt combo ×2 lần đầu</string>
+    <string name="goal_tut_default">Hoàn thành mục tiêu</string>
+
+    <!-- ── Màn thắng (Level Win) ────────────────────────────────────────────── -->
+    <string name="levelwin_complete">Hoàn thành!</string>
+    <string name="levelwin_level_world">MÀN %1$d · %2$s</string>
+    <string name="levelwin_score_label">ĐIỂM</string>
+    <string name="levelwin_next">MÀN TIẾP</string>
+    <string name="levelwin_replay">Chơi lại</string>
+    <string name="levelwin_map">Bản đồ</string>
+
+    <!-- ── Màn thua (Level Fail) ────────────────────────────────────────────── -->
+    <string name="levelfail_title">Bí nước rồi!</string>
+    <string name="levelfail_message">Không còn chỗ đặt mảnh. Thử lại nhé!</string>
+    <string name="levelfail_replay">Chơi lại</string>
+    <string name="levelfail_map">Bản đồ</string>
+    <string name="levelfail_objective_label">MỤC TIÊU CHƯA ĐẠT</string>
+
+    <!-- ── Tên thế giới ─────────────────────────────────────────────────────── -->
+    <string name="world_1_name">Đồng cỏ</string>
+    <string name="world_2_name">Rừng rậm</string>
+    <string name="world_3_name">Sông &amp; Thác</string>
+    <string name="world_4_name">Sa mạc</string>
+    <string name="world_5_name">Bãi biển</string>
+    <string name="world_6_name">Núi tuyết</string>
+    <string name="world_7_name">Hang băng</string>
+    <string name="world_8_name">Núi lửa</string>
+    <string name="world_9_name">Bầu trời</string>
+    <string name="world_10_name">Vũ trụ</string>
+
+    <!-- ── Tên boss ─────────────────────────────────────────────────────────── -->
+    <string name="boss_name_worm">Chú Sâu Đồng Cỏ</string>
+    <string name="boss_name_forest">Thần Rừng</string>
+    <string name="boss_name_water">Thần Thác</string>
+
+    <!-- ── Tên 30 màn Campaign ──────────────────────────────────────────────── -->
+    <string name="level_1_name">Hàng đầu tiên</string>
+    <string name="level_2_name">Cột đầu tiên</string>
+    <string name="level_3_name">Cú xoay đầu</string>
+    <string name="level_4_name">Thạch Hoàng Gia</string>
+    <string name="level_5_name">Vua Thạch</string>
+    <string name="level_6_name">Thạch Cầu Vồng</string>
+    <string name="level_7_name">Hoàng Đế Cầu Vồng</string>
+    <string name="level_8_name">Combo x2 đầu tiên</string>
+    <string name="level_9_name">Hai trăm điểm</string>
+    <string name="level_10_name">Boss Combo</string>
+    <string name="level_11_name">Mầm Đầu Tiên</string>
+    <string name="level_12_name">Dây Leo Lan</string>
+    <string name="level_13_name">Hai Rễ</string>
+    <string name="level_14_name">Rễ Khuất</string>
+    <string name="level_15_name">Rừng Nhanh</string>
+    <string name="level_16_name">Bãi Trống</string>
+    <string name="level_17_name">Tầng Rễ</string>
+    <string name="level_18_name">Rừng &amp; Điểm</string>
+    <string name="level_19_name">Rừng Rậm</string>
+    <string name="level_20_name">Thần Rừng</string>
+    <string name="level_21_name">Suối Nhỏ</string>
+    <string name="level_22_name">Nước Tràn</string>
+    <string name="level_23_name">Thác Tách</string>
+    <string name="level_24_name">Xoay Thác</string>
+    <string name="level_25_name">Giọt Sau Đá</string>
+    <string name="level_26_name">Bến Nghỉ</string>
+    <string name="level_27_name">Hai Nguồn</string>
+    <string name="level_28_name">Thác &amp; Điểm</string>
+    <string name="level_29_name">Thác Lớn</string>
+    <string name="level_30_name">Thần Thác</string>
+
+    <!-- ── Boss HUD ─────────────────────────────────────────────────────────── -->
+    <string name="boss_rule_default">Combo ×2 phá khiên</string>
+    <string name="boss_play">Chơi</string>
+    <string name="boss_level">MÀN %1$d</string>
+    <string name="boss_opponent">ĐỐI THỦ</string>
+    <string name="boss_shield">Khiên</string>
+    <string name="boss_tag">BOSS</string>
+    <string name="boss_tell_vine_spawn">Mọc dây</string>
+    <string name="boss_tell_gravity_invert">Đảo trọng lực</string>
+    <string name="boss_tell_next_turn">Lượt sau</string>
+    <string name="boss_tell_after_turns">Sau %1$d lượt</string>
+    <string name="boss_tell_format">%1$s: %2$s</string>
+
+    <!-- ── Objective bar ────────────────────────────────────────────────────── -->
+    <string name="objective_goal">MỤC TIÊU</string>
+    <string name="objective_boss_hp">MÁU BOSS</string>
+    <string name="objective_boss_combo_hint">Combo ≥ ×2 để gây sát thương</string>
+    <string name="objective_done">Xong</string>
+    <string name="objective_level">MÀN</string>
+    <string name="objective_score">ĐIỂM</string>
+    <string name="objective_remaining">còn</string>
+
+    <!-- ── Cẩm nang — khung màn ─────────────────────────────────────────────── -->
+    <string name="camnang_back">Quay lại</string>
+    <string name="camnang_title">Cẩm nang</string>
+    <string name="camnang_subtitle">Mẹo nhỏ để phá màn khó</string>
+    <string name="camnang_unlocked_progress">Đã mở %1$d/%2$d</string>
+    <string name="camnangparts_group_basic">Cơ bản</string>
+    <string name="camnangparts_group_super">Hoàng gia</string>
+    <string name="camnangparts_group_blast">Giải phóng</string>
+    <string name="camnangparts_group_combo">Mẹo</string>
+    <string name="camnangparts_group_forest">Rừng</string>
+    <string name="camnangparts_seen">Đã xem</string>
+    <string name="camnangparts_all">Tất cả</string>
+    <string name="camnangparts_combo_x2">×2</string>
+    <string name="camnangparts_combo_plus1">+1</string>
+    <string name="camnangparts_new">Mới</string>
+    <string name="camnangparts_should_watch">NÊN XEM</string>
+    <string name="camnangparts_view_tip">Xem mẹo</string>
+    <string name="camnangparts_important">Quan\ntrọng</string>
+    <string name="camnangparts_locked">Chưa mở khoá</string>
+    <string name="camnangparts_play_to_unlock">Chơi tiếp để mở</string>
+
+    <!-- ── Cẩm nang — minh hoạ (demo) ───────────────────────────────────────── -->
+    <string name="guidedemo_full_one_row">Đầy 1 HÀNG</string>
+    <string name="guidedemo_disappear">Biến mất</string>
+    <string name="guidedemo_full_one_col">Đầy 1 CỘT</string>
+    <string name="guidedemo_row">Hàng</string>
+    <string name="guidedemo_col">Cột</string>
+    <string name="guidedemo_3x3">3×3</string>
+    <string name="guidedemo_first_turn">Lượt đầu</string>
+    <string name="guidedemo_spread">Mọc lan</string>
+    <string name="guidedemo_gravity_down">Trọng lực ↓</string>
+    <string name="guidedemo_vine_sticks_block_falls">Dây bám, khối rơi</string>
+    <string name="guidedemo_no_green">Không có xanh lá</string>
+    <string name="guidedemo_root_survives">Gốc sống sót!</string>
+    <string name="guidedemo_has_green">Có xanh lá ✓</string>
+    <string name="guidedemo_destroyed_completely">Phá triệt để!</string>
+    <string name="guidedemo_royal_jelly_blast">Thạch Hoàng Gia nổ</string>
+    <string name="guidedemo_trash_gone">Rác biến mất!</string>
+    <string name="guideteach_understood">Đã hiểu</string>
+    <string name="guide_demo_rotate_button">Nút xoay</string>
+    <string name="guide_demo_dpad">D-Pad: hướng</string>
+
+    <!-- ── Cẩm nang — nội dung mục hướng dẫn (title/desc/body markup màu) ────── -->
+    <string name="guide_combo_refill_title">Combo hồi lượt xoay</string>
+    <string name="guide_combo_refill_desc">Combo ×2 trở lên → +1 lượt xoay (combo dài hồi càng nhiều)</string>
+    <string name="guide_combo_refill_body">Xóa [p]combo ×2[/p] trở lên\nđược [g]+1 lượt xoay[/g].\nCombo càng dài\nlượt hồi càng nhiều!</string>
+
+    <string name="guide_clear_line_title">Xóa hàng / cột</string>
+    <string name="guide_clear_line_desc">Lấp đầy 1 hàng hoặc cột → biến mất + điểm</string>
+    <string name="guide_clear_line_body">Lấp đầy một [p]HÀNG hoặc CỘT[/p]\n(9 ô bất kỳ màu)\n→ cả hàng/cột [g]biến mất[/g]\nvà được tính điểm.</string>
+
+    <string name="guide_gravity_rotate_title">Xoay trọng lực</string>
+    <string name="guide_gravity_rotate_desc">Đổi hướng trọng lực 90°; D-Pad chỉ hướng, cả cụm đổ theo</string>
+    <string name="guide_gravity_rotate_body">Nhấn [g]nút xoay[/g] để đổi\nhướng trọng lực 90°.\n[p]D-Pad[/p] hiện hướng hiện tại\n— cả cụm khối đổ theo!</string>
+
+    <string name="guide_gravity_drop_title">Trọng lực rơi</string>
+    <string name="guide_gravity_drop_desc">Khối rơi xuống, dừng khi gặp khối khác / đáy</string>
+    <string name="guide_gravity_drop_body">Sau khi xóa, các khối\nphía trên [g]RƠI XUỐNG[/g]\n— dừng lại ngay khi\ngặp [p]khối khác / đáy[/p].</string>
+
+    <string name="guide_sticky_cluster_title">Thạch dính</string>
+    <string name="guide_sticky_cluster_desc">Thạch cùng màu dính thành cụm; 1 ô bị chặn → cả cụm dừng</string>
+    <string name="guide_sticky_cluster_body">Thạch [p]CÙNG MÀU[/p] chạm nhau\nthì DÍNH thành một khối.\nMột thạch bị chặn\n→ [g]cả khối dừng lại[/g]!</string>
+
+    <string name="guide_form_super1_title">Thạch Hoàng Gia</string>
+    <string name="guide_form_super1_desc">Lấp 1 hàng / cột / khối 3×3 cùng màu → Thạch Hoàng Gia</string>
+    <string name="guide_form_super1_body">Lấp đầy 1 hàng, 1 cột,\nhoặc khối 3×3 [p]CÙNG MÀU[/p]\n→ tạo một [g]THẠCH HOÀNG GIA[/g]\nsáng lấp lánh!</string>
+
+    <string name="guide_form_rainbow_title">Thạch Cầu Vồng</string>
+    <string name="guide_form_rainbow_desc">3×3 đủ ba màu (mỗi màu 1 hàng / cột) → Thạch Cầu Vồng</string>
+    <string name="guide_form_rainbow_body">Xếp 3×3 đủ [p]BA MÀU[/p]\n(mỗi màu một hàng/cột)\n→ tạo [g]THẠCH CẦU VỒNG[/g].</string>
+
+    <string name="guide_form_super2_title">Vua Thạch</string>
+    <string name="guide_form_super2_desc">Ghép 2 Thạch Hoàng Gia cùng màu dính nhau → Vua Thạch</string>
+    <string name="guide_form_super2_body">Ghép hai Thạch Hoàng Gia\n[p]CÙNG MÀU[/p] dính nhau\n→ lên [g]VUA THẠCH[/g]\nmạnh hơn nhiều!</string>
+
+    <string name="guide_form_rainbow2_title">Hoàng Đế Cầu Vồng</string>
+    <string name="guide_form_rainbow2_desc">Ghép 2 khối giải phóng khác màu → Hoàng Đế Cầu Vồng (đội vương miện)</string>
+    <string name="guide_form_rainbow2_body">Ghép hai khối giải phóng\n[p]KHÁC MÀU[/p] dính nhau\n→ [g]HOÀNG ĐẾ CẦU VỒNG[/g]\nđội vương miện!</string>
+
+    <string name="guide_detonate_super1_title">Giải phóng Thạch Hoàng Gia</string>
+    <string name="guide_detonate_super1_desc">Cuốn vào hàng / cột bị xóa → quét sạch mọi ô cùng màu</string>
+    <string name="guide_detonate_super1_body">Cuốn Thạch Hoàng Gia vào\nmột hàng/cột bị xóa\nsẽ giải phóng, quét sạch\n[g]MỌI Ô CÙNG MÀU[/g] trên bàn!</string>
+
+    <string name="guide_detonate_super2_title">Giải phóng Vua Thạch</string>
+    <string name="guide_detonate_super2_desc">Quét cùng màu + cả vùng 5×5 quanh tâm</string>
+    <string name="guide_detonate_super2_body">Vua Thạch giải phóng:\nquét sạch cùng màu\n+ cả [g]vùng 5×5[/g]\nquanh tâm!</string>
+
+    <string name="guide_detonate_rainbow1_title">Giải phóng Thạch Cầu Vồng</string>
+    <string name="guide_detonate_rainbow1_desc">Quét sạch mọi ô thuộc các màu đang KỀ nó</string>
+    <string name="guide_detonate_rainbow1_body">Thạch Cầu Vồng giải phóng:\nquét sạch mọi ô thuộc\n[g]các MÀU đang KỀ[/g] nó.</string>
+
+    <string name="guide_detonate_rainbow2_title">Giải phóng Hoàng Đế Cầu Vồng</string>
+    <string name="guide_detonate_rainbow2_desc">Kỹ năng tối thượng: xóa sạch TOÀN BÀN (kể cả đá)</string>
+    <string name="guide_detonate_rainbow2_body">Kỹ năng tối thượng:\nHoàng Đế Cầu Vồng giải phóng\n→ [g]XÓA SẠCH TOÀN BÀN[/g]\n(kể cả đá)!</string>
+
+    <string name="guide_vine_intro_title">Dây leo mọc lan</string>
+    <string name="guide_vine_intro_desc">Mỗi lượt mỗi gốc mọc thêm 1 đốt; gốc mọc 3 hướng, thân mọc đủ 4 hướng, tối đa 4 ngọn</string>
+    <string name="guide_vine_intro_body">Mỗi lượt, mỗi gốc chỉ mọc thêm\n[g]1 ĐỐT[/g] ở một ngọn:\n\n• GỐC mọc [p]3 hướng[/p] (lên, trái,\n  phải — không xuôi trọng lực)\n• Thân/ngọn mọc [p]đủ 4 hướng[/p]\n• Mỗi gốc tối đa [w]4 NGỌN[/w]\n\nCác nhánh mọc [s]RIÊNG BIỆT[/s],\nkhông bao giờ dính vào nhau.</string>
+
+    <string name="guide_vine_destroy_title">Cách phá dây leo</string>
+    <string name="guide_vine_destroy_desc">Gốc là mục tiêu; xóa hàng/cột qua gốc có ≥1 khối xanh lá mới phá được</string>
+    <string name="guide_vine_destroy_body">GỐC là [s]MỤC TIÊU[/s] cần phá.\nXóa hàng/cột chứa gốc:\n\n• Có ≥1 khối [s]XANH LÁ[/s]\n  → gốc + cả dây [g]BIẾN MẤT[/g]\n\n• [w]KHÔNG[/w] có xanh lá\n  → chỉ ăn điểm,\n  gốc [w]SỐNG SÓT[/w]!</string>
+
+    <string name="guide_vine_sticky_title">Dây leo bám cứng</string>
+    <string name="guide_vine_sticky_desc">Dây leo và rác KHÔNG rơi hay xoay theo trọng lực — bám cứng tại chỗ</string>
+    <string name="guide_vine_sticky_body">Dây leo và rác [s]BÁM CỨNG[/s] —\nkhông rơi, không trôi khi bạn\nxoay [g]TRỌNG LỰC[/g].\n\nMọi khối khác đổ quanh chúng;\ndây đứng yên như rễ cắm đất.</string>
+
+    <string name="guide_vine_to_trash_title">Rác rừng</string>
+    <string name="guide_vine_to_trash_desc">Đốt cắt rời gốc héo dần rồi thành rác chết; cắt xong dây tạm ngưng mọc 1 lượt</string>
+    <string name="guide_vine_to_trash_body">Cắt dây mà [w]KHÔNG phá gốc[/w]\n→ đốt rời mất kết nối, [g]HÉO DẦN[/g]\n(đếm ngược) rồi thành [g]RÁC CHẾT[/g].\n\nCắt xong, dây [s]TẠM NGƯNG[/s] mọc\nđúng lượt đó — kịp thở!</string>
+
+    <string name="guide_trash_destroy_title">Cách phá rác rừng</string>
+    <string name="guide_trash_destroy_desc">Rác còn héo vẫn xoá được bằng lấp đầy hàng; rác chết chỉ khối giải phóng mới phá</string>
+    <string name="guide_trash_destroy_body">• Rác còn [s]HÉO[/s] (đang đếm\n  ngược) → vẫn tính đầy hàng,\n  lấp đầy hàng/cột là xoá.\n\n• Rác [w]CHẾT[/w] → [w]CHẶN[/w] không cho\n  hàng đầy; chỉ [p]KHỐI GIẢI PHÓNG[/p]\n  (Thạch Hoàng Gia trở lên)\n  mới phá được.</string>
+
+    <!-- ── Component nhỏ ────────────────────────────────────────────────────── -->
+    <string name="dialog_close">Đóng</string>
+    <string name="quicktoggle_sound">Âm thanh</string>
+    <string name="quicktoggle_music">Nhạc</string>
+    <string name="rotatebtn_desc">Xoay trọng lực, còn %1$d lượt</string>
+    <string name="button_coming_soon">SẮP CÓ</string>
+
+    <!-- ── Splash ───────────────────────────────────────────────────────────── -->
+    <string name="splash_loading">ĐANG TẢI… %1$d%%</string>
+
+    <!-- ── Combo — lời khen theo bậc (ComboPopup) ───────────────────────────── -->
+    <string name="combo_tier_legendary">HUYỀN THOẠI!</string>
+    <string name="combo_tier_superhuman">SIÊU PHÀM!</string>
+    <string name="combo_tier_divine">THẦN THÁNH!</string>
+    <string name="combo_tier_unbelievable">KHÔNG THỂ TIN!</string>
+    <string name="combo_tier_frenzy">CUỒNG NHIỆT!</string>
+    <string name="combo_tier_amazing">AMAZING!</string>
+    <string name="combo_tier_excellent">XUẤT SẮC!</string>
+    <string name="combo_tier_perfect">HOÀN HẢO!</string>
+    <string name="combo_tier_great">TUYỆT VỜI!</string>
+    <string name="combo_tier_good">TỐT!</string>
 </resources>

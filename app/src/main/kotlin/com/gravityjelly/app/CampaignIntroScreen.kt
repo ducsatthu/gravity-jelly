@@ -32,6 +32,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -39,7 +40,8 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.gravityjelly.app.ui.components.BossIntroCard
 import com.gravityjelly.app.ui.components.bossKindForWorld
-import com.gravityjelly.app.ui.components.bossNameForWorld
+import com.gravityjelly.app.i18n.levelNameRes
+import com.gravityjelly.app.ui.components.bossNameResForWorld
 import com.gravityjelly.app.ui.components.BtnSize
 import com.gravityjelly.app.ui.components.BtnVariant
 import com.gravityjelly.app.ui.components.GjButton
@@ -127,7 +129,7 @@ fun CampaignIntroScreen(
             // Slot extra: dải sao (nhịp combo) + ngân sách xoay của màn.
             BossIntroCard(
                 level = level.id,
-                name = bossNameForWorld(level.world),
+                name = stringResource(bossNameResForWorld(level.world)),
                 kind = bossKindForWorld(level.world),
                 shieldTarget = level.goal.bossHP,
                 onPlay = onStart,
@@ -154,7 +156,7 @@ fun CampaignIntroScreen(
                     verticalArrangement = Arrangement.spacedBy(GjSpace.xs),
                 ) {
                     Text(
-                        text = WorldTheme.name(level.world).uppercase(),
+                        text = stringResource(WorldTheme.nameRes(level.world)).uppercase(),
                         color = accent,
                         fontSize = 12.sp,
                         fontWeight = FontWeight.ExtraBold,
@@ -166,7 +168,7 @@ fun CampaignIntroScreen(
                             .padding(horizontal = GjSpace.md, vertical = GjSpace.xs),
                     )
                     Text(
-                        text = "Màn ${level.id} · ${level.name}",
+                        text = stringResource(R.string.campaignintro_level_title, level.id, stringResource(levelNameRes(level.id))),
                         color = GjPalette.Text,
                         style = MaterialTheme.typography.headlineMedium.copy(
                             fontWeight = FontWeight.Bold,
@@ -191,7 +193,7 @@ fun CampaignIntroScreen(
                     btnSize = BtnSize.Cta,
                     icon = GjIcons.Play,
                     fullWidth = true,
-                ) { Text("BẮT ĐẦU") }
+                ) { Text(stringResource(R.string.campaignintro_start)) }
             }
           }
         }
@@ -207,7 +209,7 @@ fun CampaignIntroScreen(
                 .clickable(onClick = onClose),
             contentAlignment = Alignment.Center,
         ) {
-            GjIcon(GjIcons.Close, contentDescription = "Đóng", tint = GjPalette.TextMuted, modifier = Modifier.size(22.dp))
+            GjIcon(GjIcons.Close, contentDescription = stringResource(R.string.campaignintro_close), tint = GjPalette.TextMuted, modifier = Modifier.size(22.dp))
         }
     }
 }
@@ -236,7 +238,7 @@ private fun RotationBudgetInfo(n: Int) {
         ) {
             GjIcon(GjIcons.RotateCw, contentDescription = null, tint = GjPalette.Gravity, modifier = Modifier.size(18.dp))
             Text(
-                text = "Đảo trọng lực · ",
+                text = stringResource(R.string.campaignintro_gravity_invert_label),
                 color = GjPalette.Text,
                 style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
             )
@@ -246,13 +248,13 @@ private fun RotationBudgetInfo(n: Int) {
                 style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.ExtraBold, fontSize = 18.sp),
             )
             Text(
-                text = " lượt",
+                text = stringResource(R.string.campaignintro_gravity_invert_turns),
                 color = GjPalette.Text,
                 style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
             )
         }
         Text(
-            text = "Số lần được đảo trọng lực trong cả màn",
+            text = stringResource(R.string.campaignintro_gravity_invert_caption),
             color = GjPalette.TextMuted,
             fontSize = 12.sp,
             fontWeight = FontWeight.Medium,
@@ -282,7 +284,7 @@ private fun ObjectiveCard(level: Level, isBoss: Boolean) {
         }
 
         Text(
-            text = "MỤC TIÊU",
+            text = stringResource(R.string.campaignintro_objective_label),
             color = GjPalette.TextMuted,
             fontSize = 12.sp,
             fontWeight = FontWeight.Bold,
@@ -506,7 +508,7 @@ private fun VineHero(count: Int, score: Int = 0) {
                     modifier = Modifier.size(13.dp),
                 )
                 Text(
-                    text = "+$score điểm",
+                    text = stringResource(R.string.campaignintro_score_bonus, score),
                     color = Color(0xFFB9821C),
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Black,
@@ -567,7 +569,7 @@ private fun DropHero(count: Int, score: Int = 0) {
                     modifier = Modifier.size(13.dp),
                 )
                 Text(
-                    text = "+$score điểm",
+                    text = stringResource(R.string.campaignintro_score_bonus, score),
                     color = Color(0xFFB9821C),
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Black,
@@ -669,11 +671,12 @@ private fun StarStrip(t: StarThresholds, earned: Int) {
 }
 
 /** Đơn vị hiển thị theo [StarMetric]. */
+@Composable
 private fun starUnit(metric: StarMetric): String = when (metric) {
-    StarMetric.MOVES -> "nước"
-    StarMetric.ROTATIONS -> "lần"
-    StarMetric.SCORE -> "đ"
-    StarMetric.COMBO -> "nhịp"
+    StarMetric.MOVES -> stringResource(R.string.campaignintro_unit_moves)
+    StarMetric.ROTATIONS -> stringResource(R.string.campaignintro_unit_rotations)
+    StarMetric.SCORE -> stringResource(R.string.campaignintro_unit_score)
+    StarMetric.COMBO -> stringResource(R.string.campaignintro_unit_combo)
 }
 
 /**

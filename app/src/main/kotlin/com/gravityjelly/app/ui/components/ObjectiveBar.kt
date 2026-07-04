@@ -46,10 +46,12 @@ import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import com.gravityjelly.app.R
 import com.gravityjelly.app.ui.icons.GjIcon
 import com.gravityjelly.app.ui.icons.GjIcons
 import com.gravityjelly.app.ui.theme.GjDisplayFontFamily
@@ -146,7 +148,7 @@ fun ObjectiveBar(
             val remaining = (total - targetsCleared).coerceAtLeast(0)
             Shell(modifier = modifier, footer = stripFooter) {
                 lead()
-                Text("MỤC TIÊU", style = captionStyle())
+                Text(stringResource(R.string.objective_goal), style = captionStyle())
                 TargetCounter(Modifier.weight(1f), isDrop = world == 3, total = total, remaining = remaining)
             }
         }
@@ -162,10 +164,10 @@ fun ObjectiveBar(
                 ) {
                     ScoreBar(
                         Modifier.fillMaxWidth(), score = bossDamage, target = bossHpMax, done = done,
-                        near = false, label = "MÁU BOSS", fill = GjPalette.Danger, compact = true,
+                        near = false, label = stringResource(R.string.objective_boss_hp), fill = GjPalette.Danger, compact = true,
                     )
                     Text(
-                        "Combo ≥ ×2 để gây sát thương",
+                        stringResource(R.string.objective_boss_combo_hint),
                         style = MaterialTheme.typography.labelSmall.copy(color = GjPalette.TextMuted),
                     )
                 }
@@ -188,7 +190,7 @@ fun ObjectiveBar(
                 )
                 // Single-action: bỏ chip "0/1" thừa (nhãn + tick đã đủ); combo giữ ×2; XONG → tick "Xong".
                 if (isCombo || objectiveDone) {
-                    ProgressChip(text = if (objectiveDone) "Xong" else "×2", done = objectiveDone, near = false)
+                    ProgressChip(text = if (objectiveDone) stringResource(R.string.objective_done) else "×2", done = objectiveDone, near = false)
                 }
             }
         }
@@ -196,7 +198,7 @@ fun ObjectiveBar(
         // CLEAR_ALL / COMBO_CHAIN — chưa dùng ở Campaign hiện tại: readout nhãn tối giản.
         else -> Shell(modifier = modifier, footer = stripFooter) {
             lead()
-            Text("MỤC TIÊU", style = captionStyle())
+            Text(stringResource(R.string.objective_goal), style = captionStyle())
             Text(
                 tutorialLabel,
                 modifier = Modifier.weight(1f),
@@ -230,7 +232,7 @@ private fun LevelBadge(level: Int, worldName: String) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(1.dp),
         ) {
-            Text("MÀN", style = captionStyle().copy(fontSize = 9.sp))
+            Text(stringResource(R.string.objective_level), style = captionStyle().copy(fontSize = 9.sp))
             Text("$level", style = numStyle(22.sp, GjPalette.Text))
             Text(
                 worldName, maxLines = 1,
@@ -376,7 +378,7 @@ private fun ScoreBar(
     done: Boolean,
     near: Boolean,
     compact: Boolean = false,
-    label: String = "ĐIỂM",
+    label: String = stringResource(R.string.objective_score),
     fill: Color = GjPalette.Primary,
 ) {
     val pct = score.ratio(target).coerceIn(0f, 1f)
@@ -450,9 +452,9 @@ private fun TargetCounter(modifier: Modifier = Modifier, isDrop: Boolean, total:
         Pill(done = done) {
             if (done) {
                 GjIcon(GjIcons.Check, modifier = Modifier.size(15.dp), tint = GjPalette.TextInvert)
-                Text("Xong", style = numStyle(14.sp, GjPalette.TextInvert))
+                Text(stringResource(R.string.objective_done), style = numStyle(14.sp, GjPalette.TextInvert))
             } else {
-                Text("còn", style = captionStyle().copy(color = GjPalette.Text, fontWeight = FontWeight.ExtraBold))
+                Text(stringResource(R.string.objective_remaining), style = captionStyle().copy(color = GjPalette.Text, fontWeight = FontWeight.ExtraBold))
                 Text("$remaining", style = numStyle(14.sp, GjPalette.Text))
             }
         }

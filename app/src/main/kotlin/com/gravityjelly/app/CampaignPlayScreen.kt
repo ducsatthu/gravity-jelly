@@ -41,6 +41,7 @@ import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
@@ -48,7 +49,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import com.gravityjelly.app.data.GjSettings
 import com.gravityjelly.app.ui.components.BossCard
 import com.gravityjelly.app.ui.components.bossKindForWorld
-import com.gravityjelly.app.ui.components.bossNameForWorld
+import com.gravityjelly.app.ui.components.bossNameResForWorld
 import com.gravityjelly.app.ui.components.BtnSize
 import com.gravityjelly.app.ui.components.BtnVariant
 import com.gravityjelly.app.ui.components.GjButton
@@ -157,7 +158,8 @@ fun CampaignPlayScreen(
     var introIndex by remember(levelIndex, replayKey) { mutableIntStateOf(0) }
     val showingIntro = introIndex < unseenIntro.size
     val introEntry = if (showingIntro) unseenIntro[introIndex] else null
-    val introLabel = if (showingIntro && introIndex + 1 < unseenIntro.size) "Tiếp theo" else "Đã hiểu"
+    val introLabel = if (showingIntro && introIndex + 1 < unseenIntro.size)
+        stringResource(R.string.campaignplay_intro_next) else stringResource(R.string.campaignplay_intro_got_it)
 
     // Thắng → lưu sao MỘT lần (theo levelComplete). reducedMotion không ảnh hưởng logic.
     LaunchedEffect(holder.levelComplete) {
@@ -225,7 +227,7 @@ fun CampaignPlayScreen(
                 if (level.goal.type == GoalType.BOSS_COMBO) {
                     BossCard(
                         level = level.id,
-                        name = bossNameForWorld(level.world),
+                        name = stringResource(bossNameResForWorld(level.world)),
                         kind = bossKindForWorld(level.world),
                         shieldCurrent = (holder.bossHpMax - holder.bossHpDamage).coerceAtLeast(0),
                         shieldTarget = holder.bossHpMax,
@@ -237,7 +239,7 @@ fun CampaignPlayScreen(
                         goal = level.goal,
                         world = level.world,
                         level = level.id,
-                        worldName = WorldTheme.name(level.world),
+                        worldName = stringResource(WorldTheme.nameRes(level.world)),
                         score = shell.score,
                         targetsCleared = holder.targetsCleared,
                         initialTargets = holder.initialTargets,
@@ -294,12 +296,12 @@ fun CampaignPlayScreen(
         // (CTA) → hàng Chơi lại·Cài đặt → Danh sách màn (ghost). dismissable=false: chỉ thoát bằng nút/Back.
         GjDialog(
             open = paused && !showSettings,
-            title = "Tạm dừng",
+            title = stringResource(R.string.campaignplay_pause_title),
             icon = GjIcons.Pause,
             dismissable = false,
             content = {
                 Text(
-                    text = "Trò chơi đang tạm dừng. Tiến độ màn này được giữ nguyên.",
+                    text = stringResource(R.string.campaignplay_pause_message),
                     style = MaterialTheme.typography.bodyLarge.copy(color = GjPalette.TextMuted),
                 )
             },
@@ -311,15 +313,15 @@ fun CampaignPlayScreen(
                     onMusic = onMusic,
                 )
                 GjButton(onClick = { paused = false }, variant = BtnVariant.Primary,
-                    btnSize = BtnSize.Cta, fullWidth = true, icon = GjIcons.Play) { Text("TIẾP TỤC") }
+                    btnSize = BtnSize.Cta, fullWidth = true, icon = GjIcons.Play) { Text(stringResource(R.string.campaignplay_resume)) }
                 Row(horizontalArrangement = Arrangement.spacedBy(GjSpace.sm)) {
                     GjButton(onClick = { paused = false; replayKey++ }, variant = BtnVariant.Secondary,
-                        icon = GjIcons.Refresh, modifier = Modifier.weight(1f)) { Text("Chơi lại") }
+                        icon = GjIcons.Refresh, modifier = Modifier.weight(1f)) { Text(stringResource(R.string.campaignplay_replay)) }
                     GjButton(onClick = { showSettings = true }, variant = BtnVariant.Secondary,
-                        icon = GjIcons.Settings, modifier = Modifier.weight(1f)) { Text("Cài đặt") }
+                        icon = GjIcons.Settings, modifier = Modifier.weight(1f)) { Text(stringResource(R.string.campaignplay_settings)) }
                 }
                 GjButton(onClick = { paused = false; onExit() }, variant = BtnVariant.Ghost, fullWidth = true,
-                    icon = GjIcons.Home) { Text("Danh sách màn") }
+                    icon = GjIcons.Home) { Text(stringResource(R.string.campaignplay_level_list)) }
             },
         )
 
@@ -341,7 +343,7 @@ fun CampaignPlayScreen(
             val stat = winStat(level.stars.metric, level.goal, holder.movesUsed, holder.rotationsUsed)
             LevelWinScreen(
                 level = level.id,
-                worldName = WorldTheme.name(level.world),
+                worldName = stringResource(WorldTheme.nameRes(level.world)),
                 stars = holder.starsEarned,
                 score = shell.score,
                 statLabel = stat.first,
@@ -372,10 +374,10 @@ fun CampaignPlayScreen(
         if (shell.gameOver && !holder.levelComplete) {
             val goalProgress = when (level.goal.type) {
                 GoalType.CLEAR_TARGETS -> "${holder.targetsCleared}/${holder.initialTargets}"
-                GoalType.REACH_SCORE -> "${shell.score}/${level.goal.score}đ"
+                GoalType.REACH_SCORE -> stringResource(R.string.campaignplay_progress_score, shell.score, level.goal.score)
                 GoalType.MIXED ->
-                    "${holder.targetsCleared}/${holder.initialTargets} · ${shell.score}/${level.goal.score}đ"
-                GoalType.BOSS_COMBO -> "Máu boss ${holder.bossHpMax - holder.bossHpDamage}/${holder.bossHpMax}"
+                    stringResource(R.string.campaignplay_progress_mixed, holder.targetsCleared, holder.initialTargets, shell.score, level.goal.score)
+                GoalType.BOSS_COMBO -> stringResource(R.string.campaignplay_progress_boss, holder.bossHpMax - holder.bossHpDamage, holder.bossHpMax)
                 else -> null   // CLEAR_ALL / COMBO_CHAIN / TUTORIAL: không có số tiến độ gọn
             }
             LevelFailScreen(
@@ -388,27 +390,29 @@ fun CampaignPlayScreen(
     }
 }
 
-/** Nhãn mục tiêu; ô đích tuỳ world: World 2 = "gốc dây leo", World 3 = "giọt nước". */
+/** Nhãn mục tiêu (đa ngôn ngữ); ô đích tuỳ world: World 2 = "gốc dây leo", World 3 = "giọt nước". */
+@Composable
 internal fun goalLabel(goal: Goal, world: Int = 2): String = when (goal.type) {
-    GoalType.CLEAR_ALL -> "Dọn sạch bàn"
+    GoalType.CLEAR_ALL -> stringResource(R.string.goal_clear_all)
     GoalType.CLEAR_TARGETS ->
-        if (world == 3) "Phá ${goal.count} giọt nước" else "Phá ${goal.count} gốc dây leo"
-    GoalType.REACH_SCORE -> "Đạt ${goal.score} điểm"
+        if (world == 3) stringResource(R.string.goal_clear_targets_water, goal.count)
+        else stringResource(R.string.goal_clear_targets_vine, goal.count)
+    GoalType.REACH_SCORE -> stringResource(R.string.goal_reach_score, goal.score)
     GoalType.MIXED ->
-        if (world == 3) "Phá ${goal.count} giọt + ${goal.score} điểm"
-        else "Phá ${goal.count} gốc + ${goal.score} điểm"
-    GoalType.COMBO_CHAIN -> "Chuỗi combo"
-    GoalType.BOSS_COMBO -> "Hạ boss bằng combo (máu ${goal.bossHP})"
+        if (world == 3) stringResource(R.string.goal_mixed_water, goal.count, goal.score)
+        else stringResource(R.string.goal_mixed_vine, goal.count, goal.score)
+    GoalType.COMBO_CHAIN -> stringResource(R.string.goal_combo_chain)
+    GoalType.BOSS_COMBO -> stringResource(R.string.goal_boss_combo, goal.bossHP)
     GoalType.TUTORIAL -> when (goal.trigger) {
-        TriggerKind.ROW -> "Xóa 1 hàng ngang"
-        TriggerKind.COL -> "Xóa 1 cột dọc"
-        TriggerKind.ROTATE -> "Xoay trọng lực dồn khối"
-        TriggerKind.SUPER1 -> "Ghép 9 ô cùng màu → Thạch Hoàng Gia"
-        TriggerKind.SUPER2 -> "Gộp 2 Thạch Hoàng Gia → Vua Thạch"
-        TriggerKind.RAINBOW -> "Tạo 1 Thạch Cầu Vồng"
-        TriggerKind.RAINBOW_SUPER -> "Tạo Hoàng Đế Cầu Vồng"
-        TriggerKind.COMBO_X2 -> "Đạt combo ×2 lần đầu"
-        null -> "Hoàn thành mục tiêu"
+        TriggerKind.ROW -> stringResource(R.string.goal_tut_row)
+        TriggerKind.COL -> stringResource(R.string.goal_tut_col)
+        TriggerKind.ROTATE -> stringResource(R.string.goal_tut_rotate)
+        TriggerKind.SUPER1 -> stringResource(R.string.goal_tut_super1)
+        TriggerKind.SUPER2 -> stringResource(R.string.goal_tut_super2)
+        TriggerKind.RAINBOW -> stringResource(R.string.goal_tut_rainbow)
+        TriggerKind.RAINBOW_SUPER -> stringResource(R.string.goal_tut_rainbow_super)
+        TriggerKind.COMBO_X2 -> stringResource(R.string.goal_tut_combo_x2)
+        null -> stringResource(R.string.goal_tut_default)
     }
 }
 
@@ -422,12 +426,13 @@ private fun levelIntroGuides(levelId: Int): List<GjGuideEntry> = when (levelId) 
     else -> emptyList()
 }
 
+@Composable
 internal fun winStat(metric: StarMetric, goal: Goal, moves: Int, rotations: Int): Pair<String, String> =
     when (metric) {
-        StarMetric.MOVES -> "NƯỚC ĐI" to moves.toString()
-        StarMetric.ROTATIONS -> "LƯỢT XOAY" to rotations.toString()
-        StarMetric.SCORE -> "MỤC TIÊU" to "${goal.score}+"
-        StarMetric.COMBO -> "BOSS" to "Hạ gục!"
+        StarMetric.MOVES -> stringResource(R.string.campaignplay_stat_moves) to moves.toString()
+        StarMetric.ROTATIONS -> stringResource(R.string.campaignplay_stat_rotations) to rotations.toString()
+        StarMetric.SCORE -> stringResource(R.string.campaignplay_stat_score) to "${goal.score}+"
+        StarMetric.COMBO -> stringResource(R.string.campaignplay_stat_boss) to stringResource(R.string.campaignplay_stat_boss_done)
     }
 
 /**
@@ -435,6 +440,7 @@ internal fun winStat(metric: StarMetric, goal: Goal, moves: Int, rotations: Int)
  * gợi ý "còn N … giữ bậc" / "thêm 1 … rớt bậc". Dùng cho cả ObjectiveBar lẫn BossCard (boss chấm MOVES).
  * Trả null cho SCORE. Dùng chung [StarThresholds.tierFor] với lúc chấm sao khi thắng.
  */
+@Composable
 internal fun liveStarsFor(stars: StarThresholds, movesUsed: Int, rotationsUsed: Int): LiveStars? {
     val used = when (stars.metric) {
         StarMetric.MOVES -> movesUsed
@@ -442,7 +448,8 @@ internal fun liveStarsFor(stars: StarThresholds, movesUsed: Int, rotationsUsed: 
         else -> return null
     }
     val tier = stars.tierFor(used)
-    val unit = if (stars.metric == StarMetric.ROTATIONS) "lượt xoay" else "nước"
+    val unit = if (stars.metric == StarMetric.ROTATIONS)
+        stringResource(R.string.campaignplay_unit_rotations) else stringResource(R.string.campaignplay_unit_moves)
     val keepThreshold = when (tier) {
         3 -> stars.three
         2 -> stars.two
@@ -450,8 +457,8 @@ internal fun liveStarsFor(stars: StarThresholds, movesUsed: Int, rotationsUsed: 
     }
     val next = when {
         keepThreshold == null -> null
-        keepThreshold - used >= 1 -> "Còn ${keepThreshold - used} $unit giữ $tier★"
-        else -> "Thêm 1 $unit rớt ${tier - 1}★"
+        keepThreshold - used >= 1 -> stringResource(R.string.campaignplay_stars_keep, keepThreshold - used, unit, tier)
+        else -> stringResource(R.string.campaignplay_stars_drop, unit, tier - 1)
     }
-    return LiveStars(tier = tier, now = "Đang $tier★", next = next)
+    return LiveStars(tier = tier, now = stringResource(R.string.campaignplay_stars_now, tier), next = next)
 }

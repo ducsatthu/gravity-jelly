@@ -18,6 +18,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.ui.res.stringResource
+import com.gravityjelly.app.R
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
@@ -190,7 +192,7 @@ fun GjButton(
             }
             if (comingSoon) {
                 Text(
-                    text  = "SẮP CÓ",
+                    text  = stringResource(R.string.button_coming_soon),
                     style = MaterialTheme.typography.labelSmall.copy(
                         color        = spec.text,
                         fontWeight   = FontWeight.Bold,

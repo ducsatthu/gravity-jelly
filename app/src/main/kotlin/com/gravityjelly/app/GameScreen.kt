@@ -30,6 +30,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.ui.res.stringResource
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -210,7 +211,7 @@ private fun ScoreCard(score: Int, modifier: Modifier = Modifier) {
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                text  = "ĐIỂM",
+                text  = stringResource(R.string.hud_score),
                 style = MaterialTheme.typography.labelSmall.copy(
                     color         = GjPalette.Text,
                     fontSize      = 10.sp,

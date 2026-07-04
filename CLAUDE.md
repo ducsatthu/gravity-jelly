@@ -50,7 +50,22 @@ Lưới 9x9, đặt mảnh (khay 3 mảnh), xóa hàng/cột, physics cụm cứ
 - **Golden test** cho resolve: cùng input → cùng chuỗi state, bảo vệ deterministic khi refactor.
 - Benchmark frame timing trên máy tầm trung trước mỗi mốc phát hành.
 
+## Đa ngôn ngữ (i18n) — BẮT BUỘC
+
+Game hỗ trợ **vi (mặc định) + en**, chuyển ngôn ngữ ngay trong app (per-app language, AppCompat).
+Mọi chuỗi **người chơi nhìn thấy** PHẢI nằm trong file ngôn ngữ, KHÔNG hardcode trong code Kotlin.
+
+- **Nguồn:** `app/src/main/res/values/strings.xml` (vi) + `values-en/strings.xml` (en) — luôn cùng key.
+- **Dùng:** trong `@Composable` gọi `stringResource(R.string.<key>)`; nội suy dùng `%1$s`/`%1$d`.
+- **`:core` (JVM thuần)** KHÔNG chứa text hiển thị — chỉ giữ khoá ổn định (vd `Level.id`), `:app`
+  map sang resource (xem `i18n/LevelText.kt`, `WorldTheme.nameRes`, `bossNameResForWorld`).
+- **Rich-text nhiều màu** (Cẩm nang): resource có markup `[p]/[g]/[w]/[s]`, dựng qua `guideBody(...)`.
+- **Đổi ngôn ngữ:** `AppLocale.set(...)` (tự lưu + recreate). Đừng lưu ngôn ngữ ở nơi khác.
+- Comment/KDoc, `@Preview`, `error()/require()`, log → giữ literal (không đưa vào resource).
+- Chi tiết + checklist: **skill `i18n`** (`.claude/skills/i18n/`). Đổi UI thì đọc kèm skill `design-fidelity`.
+
 ## Quy ước
 
 - Tài liệu dự án viết bằng tiếng Việt — giữ nguyên ngôn ngữ này khi cập nhật docs.
 - Khi thêm code, tôn trọng ranh giới 3 module và luồng một chiều ở trên.
+- Text UI KHÔNG hardcode — theo §Đa ngôn ngữ ở trên (mọi function có text người dùng phải i18n).

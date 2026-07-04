@@ -8,6 +8,7 @@ import androidx.compose.animation.core.StartOffset
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,6 +24,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.ui.res.stringResource
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -35,16 +37,13 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
-import androidx.compose.ui.unit.sp
-import com.gravityjelly.app.ui.theme.GjLogoFontFamily
 import com.gravityjelly.app.ui.theme.GjPalette
 import com.gravityjelly.app.ui.theme.GjRadius
 import com.gravityjelly.app.ui.theme.GjSpace
@@ -157,7 +156,7 @@ fun SplashScreen(
         ) {
             ProgressBar(progress.value)
             Text(
-                text = "ĐANG TẢI… ${(progress.value * 100).toInt()}%",
+                text = stringResource(R.string.splash_loading, (progress.value * 100).toInt()),
                 style = MaterialTheme.typography.labelSmall.copy(
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 0.04.em,
@@ -222,41 +221,21 @@ private fun BobTile(
     )
 }
 
-// ── Wordmark GRAVITY / JELLY (splash size 22 / 54) ──────────────────────────────
+// ── Wordmark "Gravity Jelly" (art chính thức 08-brand/wordmark.png) ──────────────
 
+/**
+ * Wordmark = ảnh thương hiệu chính thức (candy 3D gloss) thay vì dựng lại bằng chữ, để
+ * KHỚP native splash branding và design/08-brand. Đặt HEIGHT cố định, WIDTH tự theo tỉ lệ
+ * (ContentScale.Fit) — không bao giờ bị co/méo dù khung cha đổi.
+ */
 @Composable
 private fun Wordmark() {
-    val density = LocalDensity.current
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(
-            text = "GRAVITY",
-            style = MaterialTheme.typography.headlineMedium.copy(
-                fontFamily = GjLogoFontFamily,
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 22.sp,
-                lineHeight = 20.sp,           // wrapper lineHeight 0.92
-                letterSpacing = 0.18.em,
-            ),
-            color = GjPalette.TextMuted,
-            textAlign = TextAlign.Center,
-        )
-        val jellyBase = MaterialTheme.typography.displayLarge.copy(
-            fontFamily = GjLogoFontFamily,
-            fontWeight = FontWeight.Bold,
-            fontSize = 54.sp,
-            lineHeight = 50.sp,               // 0.92 × 54
-            letterSpacing = 0.02.em,
-        )
-        // 3 lớp candy: bóng đặc 3D (lệch 4dp) → viền pink-edge 2dp → thân hồng đầy.
-        Box(contentAlignment = Alignment.Center) {
-            Text("JELLY", style = jellyBase, color = GjPalette.BlockPinkEdge,
-                textAlign = TextAlign.Center, modifier = Modifier.offset(y = 4.dp))
-            Text("JELLY",
-                style = jellyBase.copy(drawStyle = Stroke(width = with(density) { 2.dp.toPx() })),
-                color = GjPalette.BlockPinkEdge, textAlign = TextAlign.Center)
-            Text("JELLY", style = jellyBase, color = GjPalette.BlockPink, textAlign = TextAlign.Center)
-        }
-    }
+    Image(
+        painter = painterResource(R.drawable.gj_wordmark),
+        contentDescription = "Gravity Jelly",
+        contentScale = ContentScale.Fit,
+        modifier = Modifier.height(104.dp),
+    )
 }
 
 // ── Thanh tiến trình jelly (track lõm + fill gradient mint→blue) ─────────────────

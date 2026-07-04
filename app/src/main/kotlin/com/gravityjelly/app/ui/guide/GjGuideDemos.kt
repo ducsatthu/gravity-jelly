@@ -13,8 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.gravityjelly.app.R
 import com.gravityjelly.app.ui.components.ComboPopup
 import com.gravityjelly.app.ui.icons.GjIcon
 import com.gravityjelly.app.ui.icons.GjIcons
@@ -119,13 +121,13 @@ private fun LabeledBoard(label: String, rows: List<List<GuideCell>>, modifier: M
 // ── Xóa HÀNG (màn 1) — lấp đầy 1 HÀNG ngang (9 ô) → cả hàng biến mất ──────────────
 @Composable
 internal fun RowClearDemo() = LabeledBeforeAfter(
-    beforeLabel = "Đầy 1 HÀNG",
+    beforeLabel = stringResource(R.string.guidedemo_full_one_row),
     before = listOf(
         listOf(E, E, E, E, E),
         listOf(E, E, E, E, E),
         listOf(J(P), J(B), J(Y), J(M), J(P)),    // HÀNG dưới đầy đủ
     ),
-    afterLabel = "Biến mất",
+    afterLabel = stringResource(R.string.guidedemo_disappear),
     after = listOf(
         listOf(E, E, E, E, E),
         listOf(E, E, E, E, E),
@@ -136,7 +138,7 @@ internal fun RowClearDemo() = LabeledBeforeAfter(
 // ── Xóa CỘT (màn 2) — lấp đầy 1 CỘT dọc (9 ô) → cả cột biến mất ───────────────────
 @Composable
 internal fun ColClearDemo() = LabeledBeforeAfter(
-    beforeLabel = "Đầy 1 CỘT",
+    beforeLabel = stringResource(R.string.guidedemo_full_one_col),
     before = listOf(
         listOf(J(P), E, E),
         listOf(J(B), E, E),
@@ -144,7 +146,7 @@ internal fun ColClearDemo() = LabeledBeforeAfter(
         listOf(J(M), E, E),
         listOf(J(P), E, E),                       // CỘT trái đầy đủ
     ),
-    afterLabel = "Biến mất",
+    afterLabel = stringResource(R.string.guidedemo_disappear),
     after = listOf(
         listOf(E, E, E),
         listOf(E, E, E),
@@ -263,15 +265,15 @@ internal fun FormSuper1Demo() {
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Super1Source(
-            "Hàng",
+            stringResource(R.string.guidedemo_row),
             listOf(listOf(E, E, E), listOf(J(Y), J(Y), J(Y)), listOf(E, E, E)),
         )
         Super1Source(
-            "Cột",
+            stringResource(R.string.guidedemo_col),
             listOf(listOf(E, J(M), E), listOf(E, J(M), E), listOf(E, J(M), E)),
         )
         Super1Source(
-            "3×3",
+            stringResource(R.string.guidedemo_3x3),
             listOf(listOf(J(P), J(P), J(P)), listOf(J(P), J(P), J(P)), listOf(J(P), J(P), J(P))),
         )
         GjIcon(GjIcons.Chevron, contentDescription = null, modifier = Modifier.size(18.dp), tint = GjPalette.Gravity)
@@ -420,20 +422,39 @@ internal fun DetonateRainbow2Demo() = BeforeAfter(
     ),
 )
 
-// ── 11. Dây leo mọc lan — giới thiệu (mỗi lượt mọc THÊM 1 đốt) ──────────────────
+// ── 11. Dây leo mọc lan — mỗi lượt 1 đốt, dần thành cây nhiều nhánh ──────────────
 @Composable
 internal fun VineIntroDemo() = LabeledBeforeAfter(
-    beforeLabel = "Lượt 1",
+    beforeLabel = stringResource(R.string.guidedemo_first_turn),
     before = listOf(
         listOf(E, E,  E, E),
-        listOf(E, Vi, E, E),                     // đã có 1 đốt
+        listOf(E, Vi, E, E),                     // gốc + 1 đốt
         listOf(E, Vr, E, E),                     // gốc
     ),
-    afterLabel = "Lượt 2",
+    afterLabel = stringResource(R.string.guidedemo_spread),
     after = listOf(
-        listOf(E, Vi, E, E),                     // mọc THÊM 1 đốt/lượt
-        listOf(E, Vi, E, E),
-        listOf(E, Vr, E, E),                     // gốc vẫn ở
+        listOf(E, Vi, E,  E),                    // ngọn trên
+        listOf(E, Vi, Vi, E),                    // thân + nhánh sang phải
+        listOf(E, Vr, E,  E),                    // gốc vẫn ở
+    ),
+)
+
+// ── 11b. Dây leo bám cứng — không rơi/xoay theo trọng lực ───────────────────────
+@Composable
+internal fun VineStickyDemo() = LabeledBeforeAfter(
+    beforeLabel = stringResource(R.string.guidedemo_gravity_down),
+    before = listOf(
+        listOf(J(Y), Vi, E),                     // khối thường trên cao + đốt
+        listOf(E,    Vi, E),
+        listOf(E,    Vr, E),                     // gốc lơ lửng
+        listOf(E,    E,  E),                     // đáy trống
+    ),
+    afterLabel = stringResource(R.string.guidedemo_vine_sticks_block_falls),
+    after = listOf(
+        listOf(E,    Vi, E),                     // dây leo GIỮ NGUYÊN chỗ
+        listOf(E,    Vi, E),
+        listOf(E,    Vr, E),
+        listOf(J(Y), E,  E),                     // khối thường RƠI xuống đáy
     ),
 )
 
@@ -442,24 +463,24 @@ internal fun VineIntroDemo() = LabeledBeforeAfter(
 internal fun VineDestroyDemo() {
     Column(verticalArrangement = Arrangement.spacedBy(GjSpace.md)) {
         LabeledBeforeAfter(
-            beforeLabel = "Không có xanh lá",
+            beforeLabel = stringResource(R.string.guidedemo_no_green),
             before = listOf(
                 listOf(E, Vi, E, E),
                 listOf(J(Y), Vr, J(P), J(B)),    // hàng đầy, KHÔNG mint
             ),
-            afterLabel = "Gốc sống sót!",
+            afterLabel = stringResource(R.string.guidedemo_root_survives),
             after = listOf(
                 listOf(E, Vi, E, E),
                 listOf(E, Vr, E, E),              // gốc + dây leo còn nguyên
             ),
         )
         LabeledBeforeAfter(
-            beforeLabel = "Có xanh lá ✓",
+            beforeLabel = stringResource(R.string.guidedemo_has_green),
             before = listOf(
                 listOf(E, Vi, E, E),
                 listOf(J(Y), Vr, J(M), J(P)),    // hàng đầy, CÓ mint
             ),
-            afterLabel = "Phá triệt để!",
+            afterLabel = stringResource(R.string.guidedemo_destroyed_completely),
             after = listOf(
                 listOf(E, E, E, E),
                 listOf(E, E, E, E),               // gốc + cả dây tan
@@ -483,16 +504,16 @@ internal fun VineToTrashDemo() = BeforeAfter(
     ),
 )
 
-// ── 14. Cách phá rác rừng — chỉ siêu khối mới phá được ───────────────────────────
+// ── 14. Cách phá rác rừng — chỉ khối giải phóng mới phá được ─────────────────────
 @Composable
 internal fun TrashDestroyDemo() = LabeledBeforeAfter(
-    beforeLabel = "Siêu khối nổ",
+    beforeLabel = stringResource(R.string.guidedemo_royal_jelly_blast),
     before = listOf(
         listOf(E, Tr, E),
         listOf(Tr, S1(Y), Tr),                   // siêu khối bao quanh bởi rác
         listOf(E, Tr, E),
     ),
-    afterLabel = "Rác biến mất!",
+    afterLabel = stringResource(R.string.guidedemo_trash_gone),
     after = listOf(
         listOf(E, E, E),
         listOf(E, E, E),                          // tất cả rác bị phá

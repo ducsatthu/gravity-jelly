@@ -38,6 +38,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -69,7 +70,7 @@ import com.gravityjelly.app.ui.theme.GravityJellyTheme
  * thẻ 2-cột có thumbnail bàn thật; nhóm Hoàng gia mở đầu bằng **thẻ "Quan trọng"** to ngang.
  *
  * Mục **đã thu thập** (`id ∈ [seenGuides]`) bấm mở popup chi tiết ([GuideTeachDialog]); mục CHƯA mở khoá
- * hiện mờ + ổ khoá. Nguồn dữ liệu chung: [GjGuide.all] (13 luật, 4 nhóm — trùng ENTRIES của thiết kế).
+ * hiện mờ + ổ khoá. Nguồn dữ liệu chung: [GjGuide.all] (18 luật, 5 nhóm — gồm nhóm RỪNG: dây leo + rác).
  */
 @Composable
 fun CamNangScreen(
@@ -173,16 +174,16 @@ private fun HeaderCard(count: Int, total: Int, onBack: () -> Unit) {
                         .pointerInput(Unit) { detectTapGestures(onTap = { onBack() }) },
                     contentAlignment = Alignment.Center,
                 ) {
-                    GjIcon(GjIcons.Back, contentDescription = "Quay lại", modifier = Modifier.size(22.dp), tint = GjPalette.Text)
+                    GjIcon(GjIcons.Back, contentDescription = stringResource(R.string.camnang_back), modifier = Modifier.size(22.dp), tint = GjPalette.Text)
                 }
                 Column(Modifier.weight(1f)) {
                     Text(
-                        "Cẩm nang",
+                        stringResource(R.string.camnang_title),
                         style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.ExtraBold, fontSize = 26.sp, lineHeight = 27.sp),
                         color = GjPalette.Text,
                     )
                     Text(
-                        "Mẹo nhỏ để phá màn khó",
+                        stringResource(R.string.camnang_subtitle),
                         style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold, fontSize = 13.sp),
                         color = GjPalette.TextMuted,
                         modifier = Modifier.padding(top = 3.dp),
@@ -202,7 +203,7 @@ private fun HeaderCard(count: Int, total: Int, onBack: () -> Unit) {
                 horizontalArrangement = Arrangement.spacedBy(10.dp),
             ) {
                 Text(
-                    "Đã mở $count/$total",
+                    stringResource(R.string.camnang_unlocked_progress, count, total),
                     style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.ExtraBold, fontSize = 12.5.sp),
                     color = GjPalette.TextMuted,
                 )
@@ -253,7 +254,7 @@ private fun EntryGrid(
 }
 
 /** TẠM (review): mở khoá MỌI mục cẩm nang để soi popup không cần chơi. Đặt false để trả về thường. */
-private const val UNLOCK_ALL_FOR_REVIEW = false
+private const val UNLOCK_ALL_FOR_REVIEW = true
 
 // ── preview ─────────────────────────────────────────────────────────────────────
 

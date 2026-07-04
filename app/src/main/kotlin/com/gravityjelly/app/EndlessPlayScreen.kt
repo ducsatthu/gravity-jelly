@@ -31,6 +31,7 @@ import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.compose.ui.unit.IntOffset
@@ -163,7 +164,7 @@ fun EndlessPlayScreen(
     val active = activeGuide
     val moreInQueue = active != null && active.id != GjGuide.comboRefill.id &&
         holder.guideQueue.drop(1).any { !guideSeen(GjGuide.forMechanic(it).id) }
-    val guideConfirmLabel = if (moreInQueue) "Tiếp theo" else "Đã hiểu"
+    val guideConfirmLabel = if (moreInQueue) stringResource(R.string.endless_guide_next) else stringResource(R.string.endless_guide_understood)
     val slotWin = remember { arrayOf(Offset.Zero, Offset.Zero, Offset.Zero) }
     // ô khay đang kéo → highlight ô nguồn (selected style: ring cam + nền lõm + tam giác).
     // -1 = không kéo. Đặt khi onDragStart, xoá khi thả/huỷ.
@@ -266,12 +267,12 @@ fun EndlessPlayScreen(
         // chỉ thoát bằng nút hoặc Back. Endless: "Thoát ra bản đồ" của design → "Về Home".
         GjDialog(
             open        = paused && !showSettings,
-            title       = "Tạm dừng",
+            title       = stringResource(R.string.endless_pause_title),
             icon        = GjIcons.Pause,
             dismissable = false,
             content     = {
                 Text(
-                    text  = "Trò chơi đang tạm dừng. Tiến độ ván này được giữ nguyên.",
+                    text  = stringResource(R.string.endless_pause_message),
                     style = MaterialTheme.typography.bodyLarge.copy(color = GjPalette.TextMuted),
                 )
             },
@@ -283,15 +284,15 @@ fun EndlessPlayScreen(
                     onMusic = onMusic,
                 )
                 GjButton(onClick = { paused = false }, variant = BtnVariant.Primary,
-                    btnSize = BtnSize.Cta, fullWidth = true, icon = GjIcons.Play) { Text("TIẾP TỤC") }
+                    btnSize = BtnSize.Cta, fullWidth = true, icon = GjIcons.Play) { Text(stringResource(R.string.endless_resume)) }
                 Row(horizontalArrangement = Arrangement.spacedBy(GjSpace.sm)) {
                     GjButton(onClick = { paused = false; onRestart() }, variant = BtnVariant.Secondary,
-                        icon = GjIcons.Refresh, modifier = Modifier.weight(1f)) { Text("Chơi lại") }
+                        icon = GjIcons.Refresh, modifier = Modifier.weight(1f)) { Text(stringResource(R.string.endless_replay)) }
                     GjButton(onClick = { showSettings = true }, variant = BtnVariant.Secondary,
-                        icon = GjIcons.Settings, modifier = Modifier.weight(1f)) { Text("Cài đặt") }
+                        icon = GjIcons.Settings, modifier = Modifier.weight(1f)) { Text(stringResource(R.string.endless_settings)) }
                 }
                 GjButton(onClick = { paused = false; onHome() }, variant = BtnVariant.Ghost, fullWidth = true,
-                    icon = GjIcons.Home) { Text("Về Home") }
+                    icon = GjIcons.Home) { Text(stringResource(R.string.endless_home)) }
             },
         )
 

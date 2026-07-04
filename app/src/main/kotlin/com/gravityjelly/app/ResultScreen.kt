@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -154,7 +155,7 @@ fun ResultScreen(
                     verticalArrangement = Arrangement.spacedBy(GjSpace.sm),
                 ) {
                     Text(
-                        text = "Hết chỗ đặt!",
+                        text = stringResource(R.string.result_title),
                         // design result-screen.jsx: --text-title (28) weight 800; đồng bộ với
                         // LevelWinScreen "Hoàn thành!" (extrabold 24) cho hai popup cùng tông.
                         style = MaterialTheme.typography.headlineMedium.copy(
@@ -177,7 +178,7 @@ fun ResultScreen(
                     horizontalArrangement = Arrangement.spacedBy(GjSpace.md),
                 ) {
                     ScoreStat(
-                        label = "ĐIỂM",
+                        label = stringResource(R.string.result_score_label),
                         value = score,
                         accent = true,
                         modifier = Modifier.weight(1f),
@@ -190,7 +191,7 @@ fun ResultScreen(
                             .background(GjPalette.CellLine),
                     )
                     ScoreStat(
-                        label = "KỶ LỤC",
+                        label = stringResource(R.string.result_best_label),
                         value = best,
                         accent = false,
                         modifier = Modifier.weight(1f),
@@ -210,7 +211,7 @@ fun ResultScreen(
                         icon = GjIcons.Refresh,
                         fullWidth = true,
                         modifier = Modifier.weight(1f),
-                    ) { Text("Chơi lại", maxLines = 1, softWrap = false) }
+                    ) { Text(stringResource(R.string.result_replay), maxLines = 1, softWrap = false) }
 
                     // Quay về màn Home.
                     GjButton(
@@ -219,7 +220,7 @@ fun ResultScreen(
                         icon = GjIcons.Home,
                         fullWidth = true,
                         modifier = Modifier.weight(1f),
-                    ) { Text("Về Home", maxLines = 1, softWrap = false) }
+                    ) { Text(stringResource(R.string.result_home), maxLines = 1, softWrap = false) }
                 }
             }
 
@@ -267,7 +268,7 @@ private fun NewBestBadge() {
             tint = GjPalette.Text,
         )
         Text(
-            text = "KỶ LỤC MỚI!",
+            text = stringResource(R.string.result_new_best),
             style = MaterialTheme.typography.labelSmall.copy(
                 fontWeight = FontWeight.Bold,
                 letterSpacing = 0.04.sp,

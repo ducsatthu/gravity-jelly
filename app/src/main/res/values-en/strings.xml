@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- English translations. Keep keys in sync with res/values/strings.xml (Vietnamese default). -->
+<resources>
+    <string name="app_name">Gravity Jelly</string>
+
+    <!-- ── Home ─────────────────────────────────────────────────────────────── -->
+    <string name="home_campaign">Campaign</string>
+    <string name="home_endless">Play Endless</string>
+    <string name="home_guide">Handbook</string>
+    <string name="home_leaderboard">Leaderboard</string>
+    <string name="home_settings">Settings</string>
+
+    <!-- ── Settings ─────────────────────────────────────────────────────────── -->
+    <string name="settings_back">Back</string>
+    <string name="settings_title">Settings</string>
+    <string name="settings_section_audio">AUDIO</string>
+    <string name="settings_sound">Sound</string>
+    <string name="settings_music">Music</string>
+    <string name="settings_vibrate">Vibration</string>
+    <string name="settings_section_language">LANGUAGE</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_section_info">INFO</string>
+    <string name="settings_version">Version</string>
+    <string name="settings_rate">Rate the game</string>
+    <string name="settings_privacy">Privacy policy</string>
+    <string name="settings_home">Back to Home</string>
+
+    <!-- ── HUD ──────────────────────────────────────────────────────────────── -->
+    <string name="hud_score">SCORE</string>
+    <string name="hud_pause">Pause</string>
+    <string name="hud_gravity">GRAVITY</string>
+
+    <!-- ── Endless ──────────────────────────────────────────────────────────── -->
+    <string name="endless_guide_next">Next</string>
+    <string name="endless_guide_understood">Got it</string>
+    <string name="endless_pause_title">Paused</string>
+    <string name="endless_pause_message">The game is paused. Your progress in this round is preserved.</string>
+    <string name="endless_resume">RESUME</string>
+    <string name="endless_replay">Replay</string>
+    <string name="endless_settings">Settings</string>
+    <string name="endless_home">Home</string>
+
+    <!-- ── Result / Game over ───────────────────────────────────────────────── -->
+    <string name="result_title">Out of space!</string>
+    <string name="result_score_label">SCORE</string>
+    <string name="result_best_label">BEST</string>
+    <string name="result_replay">Replay</string>
+    <string name="result_home">Home</string>
+    <string name="result_new_best">NEW BEST!</string>
+
+    <!-- ── Campaign — level select / map / gate ─────────────────────────────── -->
+    <string name="campaign_prev_world_sign">← %1$s</string>
+    <string name="campaign_home">Home</string>
+    <string name="campaign_gate_world">GATE · WORLD %1$d</string>
+    <string name="campaign_need_more">Need %1$d more</string>
+    <string name="campaign_to_unlock">to unlock</string>
+    <string name="campaign_clear_more">Clear %1$d more levels to unlock</string>
+    <string name="campaign_enter_world">ENTER WORLD →</string>
+    <string name="campaign_unlocked">UNLOCKED</string>
+    <string name="campaign_start_sign_w1">MEADOW · START</string>
+    <string name="campaign_start_sign_w2">FOREST · CONTINUE</string>
+    <string name="campaign_start_sign_w3">RIVER &amp; FALLS · CONTINUE</string>
+
+    <!-- ── Campaign — level intro ───────────────────────────────────────────── -->
+    <string name="campaignintro_level_title">Level %1$d · %2$s</string>
+    <string name="campaignintro_start">START</string>
+    <string name="campaignintro_close">Close</string>
+    <string name="campaignintro_gravity_invert_label">Gravity flip · </string>
+    <string name="campaignintro_gravity_invert_turns"> turns</string>
+    <string name="campaignintro_gravity_invert_caption">Number of gravity flips allowed for the whole level</string>
+    <string name="campaignintro_objective_label">OBJECTIVE</string>
+    <string name="campaignintro_score_bonus">+%1$d pts</string>
+    <string name="campaignintro_unit_moves">moves</string>
+    <string name="campaignintro_unit_rotations">times</string>
+    <string name="campaignintro_unit_score">pts</string>
+    <string name="campaignintro_unit_combo">beats</string>
+
+    <!-- ── Campaign — in level ──────────────────────────────────────────────── -->
+    <string name="campaignplay_intro_next">Next</string>
+    <string name="campaignplay_intro_got_it">Got it</string>
+    <string name="campaignplay_pause_title">Paused</string>
+    <string name="campaignplay_pause_message">The game is paused. Your progress on this level is kept.</string>
+    <string name="campaignplay_resume">RESUME</string>
+    <string name="campaignplay_replay">Replay</string>
+    <string name="campaignplay_settings">Settings</string>
+    <string name="campaignplay_level_list">Level list</string>
+    <string name="campaignplay_progress_score">%1$d/%2$dpts</string>
+    <string name="campaignplay_progress_mixed">%1$d/%2$d · %3$d/%4$dpts</string>
+    <string name="campaignplay_progress_boss">Boss HP %1$d/%2$d</string>
+    <string name="campaignplay_stat_moves">MOVES</string>
+    <string name="campaignplay_stat_rotations">ROTATIONS</string>
+    <string name="campaignplay_stat_score">TARGET</string>
+    <string name="campaignplay_stat_boss">BOSS</string>
+    <string name="campaignplay_stat_boss_done">Defeated!</string>
+    <string name="campaignplay_unit_rotations">rotations</string>
+    <string name="campaignplay_unit_moves">moves</string>
+    <string name="campaignplay_stars_keep">%1$d %2$s left to keep %3$d★</string>
+    <string name="campaignplay_stars_drop">1 more %1$s drops to %2$d★</string>
+    <string name="campaignplay_stars_now">Now %1$d★</string>
+
+    <!-- ── Campaign — objective labels (goalLabel) ──────────────────────────── -->
+    <string name="goal_clear_all">Clear the board</string>
+    <string name="goal_clear_targets_water">Break %1$d water drops</string>
+    <string name="goal_clear_targets_vine">Break %1$d vine roots</string>
+    <string name="goal_reach_score">Reach %1$d points</string>
+    <string name="goal_mixed_water">Break %1$d drops + %2$d points</string>
+    <string name="goal_mixed_vine">Break %1$d roots + %2$d points</string>
+    <string name="goal_combo_chain">Combo chain</string>
+    <string name="goal_boss_combo">Beat the boss with combos (HP %1$d)</string>
+    <string name="goal_tut_row">Clear 1 row</string>
+    <string name="goal_tut_col">Clear 1 column</string>
+    <string name="goal_tut_rotate">Rotate gravity to gather blocks</string>
+    <string name="goal_tut_super1">Match 9 same-color cells → Royal Jelly</string>
+    <string name="goal_tut_super2">Merge 2 Royal Jellies → Jelly King</string>
+    <string name="goal_tut_rainbow">Make 1 Rainbow Jelly</string>
+    <string name="goal_tut_rainbow_super">Make a Rainbow Emperor</string>
+    <string name="goal_tut_combo_x2">Reach your first combo ×2</string>
+    <string name="goal_tut_default">Complete the objective</string>
+
+    <!-- ── Level Win ────────────────────────────────────────────────────────── -->
+    <string name="levelwin_complete">Complete!</string>
+    <string name="levelwin_level_world">LEVEL %1$d · %2$s</string>
+    <string name="levelwin_score_label">SCORE</string>
+    <string name="levelwin_next">NEXT LEVEL</string>
+    <string name="levelwin_replay">Replay</string>
+    <string name="levelwin_map">Map</string>
+
+    <!-- ── Level Fail ───────────────────────────────────────────────────────── -->
+    <string name="levelfail_title">Out of moves!</string>
+    <string name="levelfail_message">No space left to place a piece. Try again!</string>
+    <string name="levelfail_replay">Replay</string>
+    <string name="levelfail_map">Map</string>
+    <string name="levelfail_objective_label">OBJECTIVE NOT MET</string>
+
+    <!-- ── World names ──────────────────────────────────────────────────────── -->
+    <string name="world_1_name">Meadow</string>
+    <string name="world_2_name">Forest</string>
+    <string name="world_3_name">River &amp; Falls</string>
+    <string name="world_4_name">Desert</string>
+    <string name="world_5_name">Beach</string>
+    <string name="world_6_name">Snowy Peak</string>
+    <string name="world_7_name">Ice Cave</string>
+    <string name="world_8_name">Volcano</string>
+    <string name="world_9_name">Sky</string>
+    <string name="world_10_name">Cosmos</string>
+
+    <!-- ── Boss names ───────────────────────────────────────────────────────── -->
+    <string name="boss_name_worm">Meadow Worm</string>
+    <string name="boss_name_forest">Forest Spirit</string>
+    <string name="boss_name_water">Waterfall Spirit</string>
+
+    <!-- ── 30 Campaign level names ──────────────────────────────────────────── -->
+    <string name="level_1_name">First Row</string>
+    <string name="level_2_name">First Column</string>
+    <string name="level_3_name">First Spin</string>
+    <string name="level_4_name">Royal Jelly</string>
+    <string name="level_5_name">Jelly King</string>
+    <string name="level_6_name">Rainbow Jelly</string>
+    <string name="level_7_name">Rainbow Emperor</string>
+    <string name="level_8_name">First Combo x2</string>
+    <string name="level_9_name">Two Hundred Points</string>
+    <string name="level_10_name">Boss Combo</string>
+    <string name="level_11_name">First Sprout</string>
+    <string name="level_12_name">Vine Spread</string>
+    <string name="level_13_name">Two Roots</string>
+    <string name="level_14_name">Hidden Root</string>
+    <string name="level_15_name">Fast Forest</string>
+    <string name="level_16_name">Empty Field</string>
+    <string name="level_17_name">Root Layers</string>
+    <string name="level_18_name">Forest &amp; Points</string>
+    <string name="level_19_name">Deep Forest</string>
+    <string name="level_20_name">Forest Spirit</string>
+    <string name="level_21_name">Little Stream</string>
+    <string name="level_22_name">Overflow</string>
+    <string name="level_23_name">Split Falls</string>
+    <string name="level_24_name">Spin the Falls</string>
+    <string name="level_25_name">Drop Behind Rock</string>
+    <string name="level_26_name">Rest Stop</string>
+    <string name="level_27_name">Two Sources</string>
+    <string name="level_28_name">Falls &amp; Points</string>
+    <string name="level_29_name">Great Falls</string>
+    <string name="level_30_name">Waterfall Spirit</string>
+
+    <!-- ── Boss HUD ─────────────────────────────────────────────────────────── -->
+    <string name="boss_rule_default">Combo ×2 to break shield</string>
+    <string name="boss_play">Play</string>
+    <string name="boss_level">LEVEL %1$d</string>
+    <string name="boss_opponent">OPPONENT</string>
+    <string name="boss_shield">Shield</string>
+    <string name="boss_tag">BOSS</string>
+    <string name="boss_tell_vine_spawn">Grow vines</string>
+    <string name="boss_tell_gravity_invert">Invert gravity</string>
+    <string name="boss_tell_next_turn">Next turn</string>
+    <string name="boss_tell_after_turns">In %1$d turns</string>
+    <string name="boss_tell_format">%1$s: %2$s</string>
+
+    <!-- ── Objective bar ────────────────────────────────────────────────────── -->
+    <string name="objective_goal">GOAL</string>
+    <string name="objective_boss_hp">BOSS HP</string>
+    <string name="objective_boss_combo_hint">Combo ≥ ×2 to deal damage</string>
+    <string name="objective_done">Done</string>
+    <string name="objective_level">LEVEL</string>
+    <string name="objective_score">SCORE</string>
+    <string name="objective_remaining">left</string>
+
+    <!-- ── Handbook — frame ─────────────────────────────────────────────────── -->
+    <string name="camnang_back">Back</string>
+    <string name="camnang_title">Handbook</string>
+    <string name="camnang_subtitle">Little tips to clear tough levels</string>
+    <string name="camnang_unlocked_progress">Unlocked %1$d/%2$d</string>
+    <string name="camnangparts_group_basic">Basics</string>
+    <string name="camnangparts_group_super">Royal</string>
+    <string name="camnangparts_group_blast">Blast</string>
+    <string name="camnangparts_group_combo">Tips</string>
+    <string name="camnangparts_group_forest">Forest</string>
+    <string name="camnangparts_seen">Seen</string>
+    <string name="camnangparts_all">All</string>
+    <string name="camnangparts_combo_x2">×2</string>
+    <string name="camnangparts_combo_plus1">+1</string>
+    <string name="camnangparts_new">New</string>
+    <string name="camnangparts_should_watch">RECOMMENDED</string>
+    <string name="camnangparts_view_tip">View tip</string>
+    <string name="camnangparts_important">Impor\ntant</string>
+    <string name="camnangparts_locked">Not unlocked</string>
+    <string name="camnangparts_play_to_unlock">Keep playing to unlock</string>
+
+    <!-- ── Handbook — demo labels ───────────────────────────────────────────── -->
+    <string name="guidedemo_full_one_row">Fill 1 ROW</string>
+    <string name="guidedemo_disappear">Cleared</string>
+    <string name="guidedemo_full_one_col">Fill 1 COLUMN</string>
+    <string name="guidedemo_row">Row</string>
+    <string name="guidedemo_col">Column</string>
+    <string name="guidedemo_3x3">3×3</string>
+    <string name="guidedemo_first_turn">First turn</string>
+    <string name="guidedemo_spread">Spreads</string>
+    <string name="guidedemo_gravity_down">Gravity ↓</string>
+    <string name="guidedemo_vine_sticks_block_falls">Vine sticks, block falls</string>
+    <string name="guidedemo_no_green">No green jelly</string>
+    <string name="guidedemo_root_survives">Root survives!</string>
+    <string name="guidedemo_has_green">Has green ✓</string>
+    <string name="guidedemo_destroyed_completely">Fully destroyed!</string>
+    <string name="guidedemo_royal_jelly_blast">Royal Jelly blast</string>
+    <string name="guidedemo_trash_gone">Trash gone!</string>
+    <string name="guideteach_understood">Got it</string>
+    <string name="guide_demo_rotate_button">Spin button</string>
+    <string name="guide_demo_dpad">D-Pad: direction</string>
+
+    <!-- ── Handbook — guide entries (title/desc/body markup) ────────────────── -->
+    <string name="guide_combo_refill_title">Combo refills spins</string>
+    <string name="guide_combo_refill_desc">Combo ×2 or more → +1 spin (longer combos refill more)</string>
+    <string name="guide_combo_refill_body">Clear a [p]combo ×2[/p] or more\nto earn [g]+1 spin[/g].\nThe longer the combo,\nthe more spins you get!</string>
+
+    <string name="guide_clear_line_title">Clear row / column</string>
+    <string name="guide_clear_line_desc">Fill 1 row or column → clear + points</string>
+    <string name="guide_clear_line_body">Fill a whole [p]ROW or COLUMN[/p]\n(9 cells, any color)\n→ the whole line [g]disappears[/g]\nand scores points.</string>
+
+    <string name="guide_gravity_rotate_title">Rotate gravity</string>
+    <string name="guide_gravity_rotate_desc">Turn gravity 90°; D-Pad shows direction, the whole cluster falls</string>
+    <string name="guide_gravity_rotate_body">Tap the [g]spin button[/g] to turn\ngravity 90°.\nThe [p]D-Pad[/p] shows the current\ndirection — the whole cluster falls!</string>
+
+    <string name="guide_gravity_drop_title">Gravity fall</string>
+    <string name="guide_gravity_drop_desc">Blocks fall, stopping at another block / the floor</string>
+    <string name="guide_gravity_drop_body">After a clear, the blocks\nabove [g]FALL DOWN[/g]\n— stopping as soon as they\nhit [p]another block / the floor[/p].</string>
+
+    <string name="guide_sticky_cluster_title">Sticky jelly</string>
+    <string name="guide_sticky_cluster_desc">Same-color jellies stick into a cluster; block one cell → the whole cluster stops</string>
+    <string name="guide_sticky_cluster_body">Same-[p]COLOR[/p] jellies that touch\nSTICK into one block.\nBlock a single jelly\n→ [g]the whole block stops[/g]!</string>
+
+    <string name="guide_form_super1_title">Royal Jelly</string>
+    <string name="guide_form_super1_desc">Fill a row / column / 3×3 in one color → Royal Jelly</string>
+    <string name="guide_form_super1_body">Fill 1 row, 1 column,\nor a 3×3 in one [p]COLOR[/p]\n→ create a [g]ROYAL JELLY[/g]\nthat sparkles!</string>
+
+    <string name="guide_form_rainbow_title">Rainbow Jelly</string>
+    <string name="guide_form_rainbow_desc">3×3 with all three colors (one per row / column) → Rainbow Jelly</string>
+    <string name="guide_form_rainbow_body">Arrange a 3×3 with all [p]THREE COLORS[/p]\n(one color per row/column)\n→ create a [g]RAINBOW JELLY[/g].</string>
+
+    <string name="guide_form_super2_title">Jelly King</string>
+    <string name="guide_form_super2_desc">Merge 2 same-color Royal Jellies → Jelly King</string>
+    <string name="guide_form_super2_body">Merge two Royal Jellies\nof the [p]SAME COLOR[/p]\n→ upgrade to a [g]JELLY KING[/g],\nmuch stronger!</string>
+
+    <string name="guide_form_rainbow2_title">Rainbow Emperor</string>
+    <string name="guide_form_rainbow2_desc">Merge 2 different-color blast blocks → Rainbow Emperor (crowned)</string>
+    <string name="guide_form_rainbow2_body">Merge two blast blocks\nof [p]DIFFERENT COLORS[/p]\n→ a [g]RAINBOW EMPEROR[/g]\nwearing a crown!</string>
+
+    <string name="guide_detonate_super1_title">Detonate Royal Jelly</string>
+    <string name="guide_detonate_super1_desc">Sweep it into a cleared row / column → wipes every same-color cell</string>
+    <string name="guide_detonate_super1_body">Sweep a Royal Jelly into\na cleared row/column\nto detonate it, wiping\n[g]EVERY SAME-COLOR CELL[/g] on the board!</string>
+
+    <string name="guide_detonate_super2_title">Detonate Jelly King</string>
+    <string name="guide_detonate_super2_desc">Wipes same color + the whole 5×5 around the center</string>
+    <string name="guide_detonate_super2_body">Jelly King detonates:\nwipes the same color\n+ the whole [g]5×5 area[/g]\naround the center!</string>
+
+    <string name="guide_detonate_rainbow1_title">Detonate Rainbow Jelly</string>
+    <string name="guide_detonate_rainbow1_desc">Wipes every cell of the colors ADJACENT to it</string>
+    <string name="guide_detonate_rainbow1_body">Rainbow Jelly detonates:\nwipes every cell of the\n[g]colors NEXT to it[/g].</string>
+
+    <string name="guide_detonate_rainbow2_title">Detonate Rainbow Emperor</string>
+    <string name="guide_detonate_rainbow2_desc">Ultimate skill: clears the WHOLE board (even stones)</string>
+    <string name="guide_detonate_rainbow2_body">Ultimate skill:\nthe Rainbow Emperor detonates\n→ [g]CLEARS THE WHOLE BOARD[/g]\n(even stones)!</string>
+
+    <string name="guide_vine_intro_title">Vines spread</string>
+    <string name="guide_vine_intro_desc">Each turn every root grows 1 segment; roots grow 3 ways, stems all 4, up to 4 tips</string>
+    <string name="guide_vine_intro_body">Each turn, every root grows just\n[g]1 SEGMENT[/g] at one tip:\n\n• ROOTS grow [p]3 ways[/p] (up, left,\n  right — never with gravity)\n• Stems/tips grow [p]all 4 ways[/p]\n• Each root up to [w]4 TIPS[/w]\n\nBranches grow [s]SEPARATELY[/s],\nnever sticking together.</string>
+
+    <string name="guide_vine_destroy_title">How to destroy vines</string>
+    <string name="guide_vine_destroy_desc">Roots are the target; clear a row/column through a root with ≥1 green block to destroy it</string>
+    <string name="guide_vine_destroy_body">The ROOT is the [s]TARGET[/s] to break.\nClear a row/column with the root:\n\n• With ≥1 [s]GREEN[/s] block\n  → root + whole vine [g]DISAPPEAR[/g]\n\n• [w]NO[/w] green block\n  → only score points,\n  the root [w]SURVIVES[/w]!</string>
+
+    <string name="guide_vine_sticky_title">Vines stay put</string>
+    <string name="guide_vine_sticky_desc">Vines and trash do NOT fall or rotate with gravity — they stay put</string>
+    <string name="guide_vine_sticky_body">Vines and trash [s]STAY PUT[/s] —\nthey don\'t fall or drift when you\nrotate [g]GRAVITY[/g].\n\nEvery other block falls around them;\nthe vine stands like a planted root.</string>
+
+    <string name="guide_vine_to_trash_title">Forest trash</string>
+    <string name="guide_vine_to_trash_desc">Cut segments wither then die into trash; after a cut the vine pauses growing 1 turn</string>
+    <string name="guide_vine_to_trash_body">Cut a vine without [w]breaking the root[/w]\n→ the loose segment disconnects, [g]WITHERS[/g]\n(counting down) then becomes [g]DEAD TRASH[/g].\n\nAfter a cut, the vine [s]PAUSES[/s] growing\nthat turn — a breather!</string>
+
+    <string name="guide_trash_destroy_title">How to clear forest trash</string>
+    <string name="guide_trash_destroy_desc">Withering trash still clears by filling a line; dead trash needs a blast block</string>
+    <string name="guide_trash_destroy_body">• Trash still [s]WITHERING[/s] (counting\n  down) → still counts for a full line,\n  fill the row/column to clear it.\n\n• [w]DEAD[/w] trash → [w]BLOCKS[/w] the line\n  from filling; only a [p]BLAST BLOCK[/p]\n  (Royal Jelly or higher)\n  can destroy it.</string>
+
+    <!-- ── Small components ─────────────────────────────────────────────────── -->
+    <string name="dialog_close">Close</string>
+    <string name="quicktoggle_sound">Sound</string>
+    <string name="quicktoggle_music">Music</string>
+    <string name="rotatebtn_desc">Rotate gravity, %1$d turns left</string>
+    <string name="button_coming_soon">COMING SOON</string>
+
+    <!-- ── Splash ───────────────────────────────────────────────────────────── -->
+    <string name="splash_loading">LOADING… %1$d%%</string>
+
+    <!-- ── Combo — tier praise (ComboPopup) ─────────────────────────────────── -->
+    <string name="combo_tier_legendary">LEGENDARY!</string>
+    <string name="combo_tier_superhuman">SUPERHUMAN!</string>
+    <string name="combo_tier_divine">DIVINE!</string>
+    <string name="combo_tier_unbelievable">UNBELIEVABLE!</string>
+    <string name="combo_tier_frenzy">FRENZY!</string>
+    <string name="combo_tier_amazing">AMAZING!</string>
+    <string name="combo_tier_excellent">EXCELLENT!</string>
+    <string name="combo_tier_perfect">PERFECT!</string>
+    <string name="combo_tier_great">GREAT!</string>
+    <string name="combo_tier_good">GOOD!</string>
+</resources>

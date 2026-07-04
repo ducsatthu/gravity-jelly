@@ -1,5 +1,6 @@
 package com.gravityjelly.app.ui.guide
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -21,6 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.gravityjelly.app.R
 import com.gravityjelly.app.ui.components.ComboPopup
 import com.gravityjelly.app.ui.components.GravityRotateButton
 import com.gravityjelly.app.ui.icons.GjIcon
@@ -30,14 +33,15 @@ import com.gravityjelly.app.ui.theme.GjSpace
 import com.gravityjelly.game.GameMechanic
 
 /**
- * Nhóm cẩm nang (gom mục ở màn Cẩm nang) + màu nhấn icon-chip theo nhóm (bám cam-nang-screen.jsx).
+ * Nhóm cẩm nang (gom mục ở màn Cẩm nang). Nhãn hiển thị đa ngôn ngữ ở [GuideGroup.displayLabel]
+ * (CamNangParts.kt); màu nhấn icon-chip theo nhóm ở [tint] (bám cam-nang-screen.jsx).
  */
-enum class GuideGroup(val label: String) {
-    BASIC("CƠ BẢN"),
-    SUPER("HOÀNG GIA"),
-    BLAST("GIẢI PHÓNG"),
-    COMBO("COMBO"),
-    FOREST("RỪNG"),
+enum class GuideGroup {
+    BASIC,
+    SUPER,
+    BLAST,
+    COMBO,
+    FOREST,
 }
 
 /**
@@ -47,174 +51,179 @@ enum class GuideGroup(val label: String) {
  * nguồn cho trang Cẩm nang ([com.gravityjelly.app.CamNangScreen] lặp [GjGuide.all]). Mỗi mục có
  * [id] bền (lưu vào `seenGuides` của DataStore để biết đã xem chưa).
  *
- * @param id      khoá bền, không đổi (vd "combo-refill").
- * @param icon    icon badge tiêu đề.
- * @param group   nhóm hiển thị ở Cẩm nang.
- * @param title   tiêu đề ngắn.
- * @param desc    mô tả MỘT DÒNG cho hàng trong list Cẩm nang.
- * @param body    mô tả popup, bôi đậm phần quan trọng ([AnnotatedString]).
- * @param demo    minh hoạ bằng hình thật của game (tuỳ chọn) hiện trên phần chữ.
+ * Text ĐA NGÔN NGỮ: [titleRes]/[descRes]/[bodyRes] là khoá `values(-en)/strings.xml`; resolve qua các
+ * extension @Composable [title]/[desc]/[body]. [bodyRes] dùng markup màu (xem [guideBody]).
+ *
+ * @param id       khoá bền, không đổi (vd "combo-refill").
+ * @param icon     icon badge tiêu đề.
+ * @param group    nhóm hiển thị ở Cẩm nang.
+ * @param titleRes tiêu đề ngắn.
+ * @param descRes  mô tả MỘT DÒNG cho hàng trong list Cẩm nang.
+ * @param bodyRes  mô tả popup (markup màu → [AnnotatedString]).
+ * @param demo     minh hoạ bằng hình thật của game (tuỳ chọn) hiện trên phần chữ.
  */
 data class GjGuideEntry(
     val id: String,
     val icon: ImageVector,
     val group: GuideGroup,
-    val title: String,
-    val desc: String,
-    val body: AnnotatedString,
+    @StringRes val titleRes: Int,
+    @StringRes val descRes: Int,
+    @StringRes val bodyRes: Int,
     val demo: (@Composable () -> Unit)? = null,
 )
 
-/** Sổ tay hướng dẫn — nguồn sự thật cho popup dạy luật + trang review tương lai. */
+/** Tiêu đề mục (đa ngôn ngữ). */
+val GjGuideEntry.title: String
+    @Composable get() = stringResource(titleRes)
+
+/** Mô tả một dòng (đa ngôn ngữ). */
+val GjGuideEntry.desc: String
+    @Composable get() = stringResource(descRes)
+
+/** Thân popup dạng [AnnotatedString] (markup màu, đa ngôn ngữ). */
+val GjGuideEntry.body: AnnotatedString
+    @Composable get() = guideBody(bodyRes)
+
+/** Sổ tay hướng dẫn — nguồn sự thật cho popup dạy luật + trang Cẩm nang. */
 object GjGuide {
 
     /** Combo ≥ ×2 hồi lượt xoay trọng lực (cơ chế chữ ký — xem [com.gravityjelly.core.ComboReward]). */
     val comboRefill = GjGuideEntry(
-        id    = "combo-refill",
-        icon  = GjIcons.RotateCw,
-        group = GuideGroup.COMBO,
-        title = "Combo hồi lượt xoay",
-        desc  = "Combo ×2 trở lên → +1 lượt xoay (combo dài hồi càng nhiều)",
-        body  = buildAnnotatedString {
-            append("Xóa ")
-            withStyle(SpanStyle(color = GjPalette.Primary, fontWeight = FontWeight.ExtraBold)) {
-                append("combo ×2")
-            }
-            append(" trở lên\nđược ")
-            withStyle(SpanStyle(color = GjPalette.Gravity, fontWeight = FontWeight.ExtraBold)) {
-                append("+1 lượt xoay")
-            }
-            append(".\nCombo càng dài\nlượt hồi càng nhiều!")
-        },
-        demo  = { ComboRefillDemo() },
+        id = "combo-refill", icon = GjIcons.RotateCw, group = GuideGroup.COMBO,
+        titleRes = R.string.guide_combo_refill_title,
+        descRes = R.string.guide_combo_refill_desc,
+        bodyRes = R.string.guide_combo_refill_body,
+        demo = { ComboRefillDemo() },
     )
 
     // ── Luật nền: xóa hàng / cột (cùng một luật) ─────────────────────────────────
     val clearLine = GjGuideEntry(
-        id = "clear-line", icon = GjIcons.Check, group = GuideGroup.BASIC, title = "Xóa hàng / cột",
-        desc = "Lấp đầy 1 hàng hoặc cột → biến mất + điểm",
-        body = body("Lấp đầy một ", "HÀNG hoặc CỘT" to GjPalette.Primary, "\n(9 ô bất kỳ màu)\n→ cả hàng/cột ", "biến mất" to GjPalette.Gravity, "\nvà được tính điểm."),
+        id = "clear-line", icon = GjIcons.Check, group = GuideGroup.BASIC,
+        titleRes = R.string.guide_clear_line_title,
+        descRes = R.string.guide_clear_line_desc,
+        bodyRes = R.string.guide_clear_line_body,
         demo = { ClearLineDemo() },
     )
 
     // ── Cơ chế chữ ký: xoay trọng lực (giới thiệu nút xoay + D-Pad) ──────────────
     val gravityRotate = GjGuideEntry(
-        id = "gravity-rotate", icon = GjIcons.Rotate, group = GuideGroup.BASIC, title = "Xoay trọng lực",
-        desc = "Đổi hướng trọng lực 90°; D-Pad chỉ hướng, cả cụm đổ theo",
-        body = body("Nhấn ", "nút xoay" to GjPalette.Gravity, " để đổi\nhướng trọng lực 90°.\n", "D-Pad" to GjPalette.Primary, " hiện hướng hiện tại\n— cả cụm khối đổ theo!"),
+        id = "gravity-rotate", icon = GjIcons.Rotate, group = GuideGroup.BASIC,
+        titleRes = R.string.guide_gravity_rotate_title,
+        descRes = R.string.guide_gravity_rotate_desc,
+        bodyRes = R.string.guide_gravity_rotate_body,
         demo = { GravityRotateDemo() },
     )
 
     // ── Trọng lực: rơi sau khi xóa · thạch dính cụm ──────────────────────────────
     val gravityDrop = GjGuideEntry(
-        id = "gravity-drop", icon = GjIcons.Chevron, group = GuideGroup.BASIC, title = "Trọng lực rơi",
-        desc = "Khối rơi xuống, dừng khi gặp khối khác / đáy",
-        body = body("Sau khi xóa, các khối\nphía trên ", "RƠI XUỐNG" to GjPalette.Gravity, "\n— dừng lại ngay khi\ngặp ", "khối khác / đáy" to GjPalette.Primary, "."),
+        id = "gravity-drop", icon = GjIcons.Chevron, group = GuideGroup.BASIC,
+        titleRes = R.string.guide_gravity_drop_title,
+        descRes = R.string.guide_gravity_drop_desc,
+        bodyRes = R.string.guide_gravity_drop_body,
         demo = { GravityDropDemo() },
     )
     val stickyCluster = GjGuideEntry(
-        id = "sticky-cluster", icon = GjIcons.Heart, group = GuideGroup.BASIC, title = "Thạch dính",
-        desc = "Thạch cùng màu dính thành cụm; 1 ô bị chặn → cả cụm dừng",
-        body = body("Thạch ", "CÙNG MÀU" to GjPalette.Primary, " chạm nhau\nthì DÍNH thành một khối.\nMột thạch bị chặn\n→ ", "cả khối dừng lại" to GjPalette.Gravity, "!"),
+        id = "sticky-cluster", icon = GjIcons.Heart, group = GuideGroup.BASIC,
+        titleRes = R.string.guide_sticky_cluster_title,
+        descRes = R.string.guide_sticky_cluster_desc,
+        bodyRes = R.string.guide_sticky_cluster_body,
         demo = { StickyClusterDemo() },
     )
 
     // ── Hợp nhất: siêu khối / cầu vồng ───────────────────────────────────────────
     val formSuper1 = GjGuideEntry(
-        id = "form-super1", icon = GjIcons.Star, group = GuideGroup.SUPER, title = "Thạch Hoàng Gia",
-        desc = "Lấp 1 hàng / cột / khối 3×3 cùng màu → Thạch Hoàng Gia",
-        body = body("Lấp đầy 1 hàng, 1 cột,\nhoặc khối 3×3 ", "CÙNG MÀU" to GjPalette.Primary, "\n→ tạo một ", "THẠCH HOÀNG GIA" to GjPalette.Gravity, "\nsáng lấp lánh!"),
+        id = "form-super1", icon = GjIcons.Star, group = GuideGroup.SUPER,
+        titleRes = R.string.guide_form_super1_title,
+        descRes = R.string.guide_form_super1_desc,
+        bodyRes = R.string.guide_form_super1_body,
         demo = { FormSuper1Demo() },
     )
     val formRainbow = GjGuideEntry(
-        id = "form-rainbow", icon = GjIcons.Heart, group = GuideGroup.SUPER, title = "Thạch Cầu Vồng",
-        desc = "3×3 đủ ba màu (mỗi màu 1 hàng / cột) → Thạch Cầu Vồng",
-        body = body("Xếp 3×3 đủ ", "BA MÀU" to GjPalette.Primary, "\n(mỗi màu một hàng/cột)\n→ tạo ", "THẠCH CẦU VỒNG" to GjPalette.Gravity, "."),
+        id = "form-rainbow", icon = GjIcons.Heart, group = GuideGroup.SUPER,
+        titleRes = R.string.guide_form_rainbow_title,
+        descRes = R.string.guide_form_rainbow_desc,
+        bodyRes = R.string.guide_form_rainbow_body,
         demo = { FormRainbowDemo() },
     )
     val formSuper2 = GjGuideEntry(
-        id = "form-super2", icon = GjIcons.Trophy, group = GuideGroup.SUPER, title = "Vua Thạch",
-        desc = "Ghép 2 Thạch Hoàng Gia cùng màu dính nhau → Vua Thạch",
-        body = body("Ghép hai Thạch Hoàng Gia\n", "CÙNG MÀU" to GjPalette.Primary, " dính nhau\n→ lên ", "VUA THẠCH" to GjPalette.Gravity, "\nmạnh hơn nhiều!"),
+        id = "form-super2", icon = GjIcons.Trophy, group = GuideGroup.SUPER,
+        titleRes = R.string.guide_form_super2_title,
+        descRes = R.string.guide_form_super2_desc,
+        bodyRes = R.string.guide_form_super2_body,
         demo = { FormSuper2Demo() },
     )
     val formRainbow2 = GjGuideEntry(
-        id = "form-rainbow2", icon = GjIcons.Trophy, group = GuideGroup.SUPER, title = "Hoàng Đế Cầu Vồng",
-        desc = "Ghép 2 khối giải phóng khác màu → Hoàng Đế Cầu Vồng (đội vương miện)",
-        body = body("Ghép hai khối giải phóng\n", "KHÁC MÀU" to GjPalette.Primary, " dính nhau\n→ ", "HOÀNG ĐẾ CẦU VỒNG" to GjPalette.Gravity, "\nđội vương miện!"),
+        id = "form-rainbow2", icon = GjIcons.Trophy, group = GuideGroup.SUPER,
+        titleRes = R.string.guide_form_rainbow2_title,
+        descRes = R.string.guide_form_rainbow2_desc,
+        bodyRes = R.string.guide_form_rainbow2_body,
         demo = { FormRainbow2Demo() },
     )
 
     // ── Giải phóng (kích hoạt siêu khối / cầu vồng) ──────────────────────────────
     val detonateSuper1 = GjGuideEntry(
-        id = "detonate-super1", icon = GjIcons.Star, group = GuideGroup.BLAST, title = "Giải phóng Thạch Hoàng Gia",
-        desc = "Cuốn vào hàng / cột bị xóa → quét sạch mọi ô cùng màu",
-        body = body("Cuốn Thạch Hoàng Gia vào\nmột hàng/cột bị xóa\nsẽ giải phóng, quét sạch\n", "MỌI Ô CÙNG MÀU" to GjPalette.Gravity, " trên bàn!"),
+        id = "detonate-super1", icon = GjIcons.Star, group = GuideGroup.BLAST,
+        titleRes = R.string.guide_detonate_super1_title,
+        descRes = R.string.guide_detonate_super1_desc,
+        bodyRes = R.string.guide_detonate_super1_body,
         demo = { DetonateSuper1Demo() },
     )
     val detonateSuper2 = GjGuideEntry(
-        id = "detonate-super2", icon = GjIcons.Trophy, group = GuideGroup.BLAST, title = "Giải phóng Vua Thạch",
-        desc = "Quét cùng màu + cả vùng 5×5 quanh tâm",
-        body = body("Vua Thạch giải phóng:\nquét sạch cùng màu\n+ cả ", "vùng 5×5" to GjPalette.Gravity, "\nquanh tâm!"),
+        id = "detonate-super2", icon = GjIcons.Trophy, group = GuideGroup.BLAST,
+        titleRes = R.string.guide_detonate_super2_title,
+        descRes = R.string.guide_detonate_super2_desc,
+        bodyRes = R.string.guide_detonate_super2_body,
         demo = { DetonateSuper2Demo() },
     )
     val detonateRainbow1 = GjGuideEntry(
-        id = "detonate-rainbow1", icon = GjIcons.Heart, group = GuideGroup.BLAST, title = "Giải phóng Thạch Cầu Vồng",
-        desc = "Quét sạch mọi ô thuộc các màu đang KỀ nó",
-        body = body("Thạch Cầu Vồng giải phóng:\nquét sạch mọi ô thuộc\n", "các MÀU đang KỀ" to GjPalette.Gravity, " nó."),
+        id = "detonate-rainbow1", icon = GjIcons.Heart, group = GuideGroup.BLAST,
+        titleRes = R.string.guide_detonate_rainbow1_title,
+        descRes = R.string.guide_detonate_rainbow1_desc,
+        bodyRes = R.string.guide_detonate_rainbow1_body,
         demo = { DetonateRainbow1Demo() },
     )
     val detonateRainbow2 = GjGuideEntry(
-        id = "detonate-rainbow2", icon = GjIcons.Trophy, group = GuideGroup.BLAST, title = "Giải phóng Hoàng Đế Cầu Vồng",
-        desc = "Kỹ năng tối thượng: xóa sạch TOÀN BÀN (kể cả đá)",
-        body = body("Kỹ năng tối thượng:\nHoàng Đế Cầu Vồng giải phóng\n→ ", "XÓA SẠCH TOÀN BÀN" to GjPalette.Gravity, "\n(kể cả đá)!"),
+        id = "detonate-rainbow2", icon = GjIcons.Trophy, group = GuideGroup.BLAST,
+        titleRes = R.string.guide_detonate_rainbow2_title,
+        descRes = R.string.guide_detonate_rainbow2_desc,
+        bodyRes = R.string.guide_detonate_rainbow2_body,
         demo = { DetonateRainbow2Demo() },
     )
 
-    // ── Rừng rậm: dây leo + rác (World 2) — 4 mục riêng biệt ───────────────────────
+    // ── Rừng rậm: dây leo + rác (World 2) — 5 mục riêng biệt ───────────────────────
     val vineIntro = GjGuideEntry(
         id = "vine-intro", icon = GjIcons.Heart, group = GuideGroup.FOREST,
-        title = "Dây leo mọc lan",
-        desc = "Mỗi lượt mỗi gốc mọc thêm 1 đốt về phía trên hoặc hướng liền kề còn trống",
-        body = body(
-            "Mỗi lượt, mỗi gốc mọc thêm\n", "1 ĐỐT" to GjPalette.Gravity, " ở đầu ngọn — lan lên\ntrên hoặc sang hướng ",
-            "LIỀN KỀ" to GjPalette.Primary, " còn trống.",
-        ),
+        titleRes = R.string.guide_vine_intro_title,
+        descRes = R.string.guide_vine_intro_desc,
+        bodyRes = R.string.guide_vine_intro_body,
         demo = { VineIntroDemo() },
     )
-
     val vineDestroy = GjGuideEntry(
         id = "vine-destroy", icon = GjIcons.Star, group = GuideGroup.FOREST,
-        title = "Cách phá dây leo",
-        desc = "Cần ít nhất 1 khối xanh lá trong hàng/cột xóa mới phá được gốc",
-        body = body(
-            "Xóa hàng/cột chứa gốc:\n\n• Có ≥1 khối ", "XANH LÁ" to GjPalette.Success,
-            "\n  → gốc + dây leo ", "BIẾN MẤT" to GjPalette.Gravity,
-            "\n\n• ", "KHÔNG" to GjPalette.Warning, " có xanh lá\n  → chỉ ăn điểm,\n  gốc ", "SỐNG SÓT" to GjPalette.Warning, "!",
-        ),
+        titleRes = R.string.guide_vine_destroy_title,
+        descRes = R.string.guide_vine_destroy_desc,
+        bodyRes = R.string.guide_vine_destroy_body,
         demo = { VineDestroyDemo() },
     )
-
+    val vineSticky = GjGuideEntry(
+        id = "vine-sticky", icon = GjIcons.Heart, group = GuideGroup.FOREST,
+        titleRes = R.string.guide_vine_sticky_title,
+        descRes = R.string.guide_vine_sticky_desc,
+        bodyRes = R.string.guide_vine_sticky_body,
+        demo = { VineStickyDemo() },
+    )
     val vineToTrash = GjGuideEntry(
         id = "vine-to-trash", icon = GjIcons.Heart, group = GuideGroup.FOREST,
-        title = "Rác rừng",
-        desc = "Dây leo cắt rời gốc biến thành rác; cắt xong dây tạm ngưng mọc 1 lượt",
-        body = body(
-            "Cắt dây leo mà ", "KHÔNG phá gốc" to GjPalette.Warning,
-            "\n→ đốt rời biến thành ", "RÁC" to GjPalette.Gravity,
-            " cố định tại chỗ.\n\nCắt xong, dây ", "TẠM NGƯNG" to GjPalette.Success, " mọc\nđúng lượt đó — kịp thở!",
-        ),
+        titleRes = R.string.guide_vine_to_trash_title,
+        descRes = R.string.guide_vine_to_trash_desc,
+        bodyRes = R.string.guide_vine_to_trash_body,
         demo = { VineToTrashDemo() },
     )
-
     val trashDestroy = GjGuideEntry(
         id = "trash-destroy", icon = GjIcons.Star, group = GuideGroup.FOREST,
-        title = "Cách phá rác rừng",
-        desc = "Rác chặn xếp hàng/cột; chỉ siêu khối mới phá được",
-        body = body(
-            "Rác ", "CHẶN" to GjPalette.Warning, " xếp đầy hàng/cột!\n(Hàng có rác không thể đầy)\n\nChỉ ",
-            "SIÊU KHỐI" to GjPalette.Primary, " giải phóng\nmới phá được rác.",
-        ),
+        titleRes = R.string.guide_trash_destroy_title,
+        descRes = R.string.guide_trash_destroy_desc,
+        bodyRes = R.string.guide_trash_destroy_body,
         demo = { TrashDestroyDemo() },
     )
 
@@ -226,7 +235,7 @@ object GjGuide {
         formSuper1, formRainbow, formSuper2, formRainbow2,
         detonateSuper1, detonateSuper2, detonateRainbow1, detonateRainbow2,
         comboRefill,
-        vineIntro, vineDestroy, vineToTrash, trashDestroy,
+        vineIntro, vineDestroy, vineSticky, vineToTrash, trashDestroy,
     )
 
     /** Tra mục theo [id] (null nếu không có). */
@@ -262,12 +271,45 @@ val GuideGroup.tint: Color
         GuideGroup.FOREST -> GjPalette.Success
     }
 
-/** Dựng [AnnotatedString]: chuỗi [String] giữ nguyên, hoặc `text to color` để bôi đậm phần nhấn. */
-private fun body(vararg parts: Any): AnnotatedString = buildAnnotatedString {
-    for (p in parts) when (p) {
-        is String -> append(p)
-        is Pair<*, *> -> withStyle(SpanStyle(color = p.second as Color, fontWeight = FontWeight.ExtraBold)) {
-            append(p.first as String)
+// ── Rich-text đa ngôn ngữ: markup màu trong resource ───────────────────────────
+//   Cú pháp trong strings.xml: [p]…[/p] Primary · [g]…[/g] Gravity · [w]…[/w] Warning ·
+//   [s]…[/s] Success. `\n` xuống dòng. Chữ ở resource (dịch được), MÀU/CẤU TRÚC ở code.
+
+private fun guideAccent(tag: Char): Color? = when (tag) {
+    'p' -> GjPalette.Primary
+    'g' -> GjPalette.Gravity
+    'w' -> GjPalette.Warning
+    's' -> GjPalette.Success
+    else -> null
+}
+
+/** Dựng [AnnotatedString] từ resource [res] có markup màu (xem cú pháp ở trên). */
+@Composable
+fun guideBody(@StringRes res: Int): AnnotatedString {
+    val raw = stringResource(res)
+    return buildAnnotatedString {
+        var i = 0
+        while (i < raw.length) {
+            val open = raw.indexOf('[', i)
+            if (open < 0) { append(raw.substring(i)); break }
+            if (open > i) append(raw.substring(i, open))
+            val close = raw.indexOf(']', open)
+            val tag = if (close > open) raw.substring(open + 1, close) else ""
+            val color = if (tag.length == 1) guideAccent(tag[0]) else null
+            if (color != null) {
+                val endTag = "[/$tag]"
+                val end = raw.indexOf(endTag, close + 1)
+                if (end >= 0) {
+                    withStyle(SpanStyle(color = color, fontWeight = FontWeight.ExtraBold)) {
+                        append(raw.substring(close + 1, end))
+                    }
+                    i = end + endTag.length
+                    continue
+                }
+            }
+            // Không phải tag hợp lệ → giữ nguyên ký tự '['
+            append(raw.substring(open, (if (close >= 0) close + 1 else raw.length)))
+            i = if (close >= 0) close + 1 else raw.length
         }
     }
 }
@@ -289,7 +331,7 @@ private fun GravityRotateDemo() {
             verticalArrangement = Arrangement.spacedBy(GjSpace.xs),
         ) {
             GravityRotateButton(turnsLeft = 3, onRotate = {})
-            Text("Nút xoay", style = MaterialTheme.typography.labelSmall, color = GjPalette.TextMuted)
+            Text(stringResource(R.string.guide_demo_rotate_button), style = MaterialTheme.typography.labelSmall, color = GjPalette.TextMuted)
         }
         GjIcon(GjIcons.Chevron, contentDescription = null, modifier = Modifier.size(20.dp), tint = GjPalette.Gravity)
         Column(
@@ -297,13 +339,13 @@ private fun GravityRotateDemo() {
             verticalArrangement = Arrangement.spacedBy(GjSpace.xs),
         ) {
             GravityDpad(direction = Direction.RIGHT)
-            Text("D-Pad: hướng", style = MaterialTheme.typography.labelSmall, color = GjPalette.TextMuted)
+            Text(stringResource(R.string.guide_demo_dpad), style = MaterialTheme.typography.labelSmall, color = GjPalette.TextMuted)
         }
     }
 }
 
 /**
- * Combo ×2 (popup ăn mừng thật) → nút xoò trọng lực thật được +1 lượt. Dùng đúng
+ * Combo ×2 (popup ăn mừng thật) → nút xoay trọng lực thật được +1 lượt. Dùng đúng
  * [ComboPopup] và [GravityRotateButton] của game cho người chơi nhận ra ngay vật thật.
  */
 @Composable

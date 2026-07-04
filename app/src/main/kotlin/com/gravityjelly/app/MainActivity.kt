@@ -2,7 +2,7 @@ package com.gravityjelly.app
 
 import android.os.Bundle
 import android.provider.Settings
-import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -44,7 +44,7 @@ import kotlinx.coroutines.launch
  * Phase 3: Home ⇄ Endless chơi được trọn vòng; best + cài đặt bền qua DataStore (Prompt 13).
  * AdMob (Prompt 14) sau.
  */
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         // Splash hệ thống (Theme.GravityJelly.Splash): icon khối jelly trên nền kem ngay cold start,
         // tự tan khi Compose vẽ frame đầu → trao cho màn Splash Compose. Gọi trước super.onCreate.

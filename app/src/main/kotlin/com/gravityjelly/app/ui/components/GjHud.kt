@@ -39,6 +39,7 @@ import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.addPathNodes
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -53,6 +54,7 @@ import com.gravityjelly.app.ui.theme.GjRadius
 import com.gravityjelly.app.ui.theme.GjSpace
 import com.gravityjelly.app.ui.theme.GjLogoFontFamily
 import com.gravityjelly.app.ui.theme.GravityJellyTheme
+import com.gravityjelly.app.R
 import com.gravityjelly.core.Direction
 import com.gravityjelly.game.GjEase
 
@@ -127,7 +129,7 @@ fun GjHud(
             verticalArrangement = Arrangement.Center,
         ) {
             Text(
-                text  = "ĐIỂM",
+                text  = stringResource(R.string.hud_score),
                 style = MaterialTheme.typography.labelSmall.copy(
                     color         = GjPalette.TextMuted,
                     fontWeight    = FontWeight.Bold,
@@ -176,7 +178,7 @@ fun GjHud(
             ) {
                 GjIcon(
                     icon               = GjIcons.Pause,
-                    contentDescription = "Tạm dừng",
+                    contentDescription = stringResource(R.string.hud_pause),
                     modifier           = Modifier.size(22.dp),
                     tint               = GjPalette.Text,
                 )
@@ -241,7 +243,7 @@ private fun GravityIndicator(direction: Direction) {
                 tint               = GjPalette.TextInvert,
             )
             Text(
-                text  = "TRỌNG LỰC",
+                text  = stringResource(R.string.hud_gravity),
                 style = MaterialTheme.typography.headlineMedium.copy(
                     fontSize      = 14.sp,
                     color         = GjPalette.TextInvert,

@@ -44,6 +44,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import com.gravityjelly.app.ui.theme.GravityJellyTheme
@@ -209,11 +210,11 @@ private fun BoxScope.HomeMenu(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 IconButton(
-                    icon = painterResource(R.drawable.btn_campaign), contentDescription = "Chiến dịch",
+                    icon = painterResource(R.drawable.btn_campaign), contentDescription = stringResource(R.string.home_campaign),
                     aspect = AR_CAMPAIGN, onClick = onCampaign,
                 )
                 IconButton(
-                    icon = painterResource(R.drawable.btn_infinite), contentDescription = "Chơi Endless",
+                    icon = painterResource(R.drawable.btn_infinite), contentDescription = stringResource(R.string.home_endless),
                     aspect = AR_INFINITE, onClick = onPlay,
                 )
             }
@@ -224,15 +225,15 @@ private fun BoxScope.HomeMenu(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 IconButton(
-                    icon = painterResource(R.drawable.btn_guide), contentDescription = "Cẩm nang",
+                    icon = painterResource(R.drawable.btn_guide), contentDescription = stringResource(R.string.home_guide),
                     aspect = AR_GUIDE, onClick = onGuide,
                 )
                 IconButton(
-                    icon = painterResource(R.drawable.btn_leaderboard), contentDescription = "Bảng xếp hạng",
+                    icon = painterResource(R.drawable.btn_leaderboard), contentDescription = stringResource(R.string.home_leaderboard),
                     aspect = AR_LEADER, comingSoon = true, onClick = onLeaderboard,
                 )
                 IconButton(
-                    icon = painterResource(R.drawable.btn_setting), contentDescription = "Cài đặt",
+                    icon = painterResource(R.drawable.btn_setting), contentDescription = stringResource(R.string.home_settings),
                     aspect = AR_SETTING, onClick = onSettings,
                 )
             }

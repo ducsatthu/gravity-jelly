@@ -47,6 +47,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
@@ -90,10 +91,11 @@ fun bossKindForWorld(world: Int): BossKind = when (world) {
 }
 
 // W2 = boss "Thần Rừng" (spawn dây leo) — khớp tell "Mọc dây" của :core.
-fun bossNameForWorld(world: Int): String = when (world) {
-    2 -> "Thần Rừng"
-    3 -> "Thần Thác"
-    else -> "Chú Sâu Đồng Cỏ"
+@androidx.annotation.StringRes
+fun bossNameResForWorld(world: Int): Int = when (world) {
+    2 -> R.string.boss_name_forest
+    3 -> R.string.boss_name_water
+    else -> R.string.boss_name_worm
 }
 
 private data class BossTheme(val color: Color, val edge: Color, val asset: Int, val aura: Boolean)
@@ -126,7 +128,7 @@ fun BossCard(
     shieldTarget: Int,
     modifier: Modifier = Modifier,
     tell: BossTell? = null,
-    ruleLabel: String = "Combo ×2 phá khiên",
+    ruleLabel: String = stringResource(R.string.boss_rule_default),
     liveStars: LiveStars? = null,
 ) {
     val theme = themeFor(kind)
@@ -208,8 +210,8 @@ fun BossIntroCard(
     onPlay: () -> Unit,
     modifier: Modifier = Modifier,
     tell: BossTell? = null,
-    ruleLabel: String = "Combo ×2 phá khiên",
-    playLabel: String = "Chơi",
+    ruleLabel: String = stringResource(R.string.boss_rule_default),
+    playLabel: String = stringResource(R.string.boss_play),
     extra: (@Composable ColumnScope.() -> Unit)? = null,
 ) {
     val theme = themeFor(kind)
@@ -231,7 +233,7 @@ fun BossIntroCard(
         ) {
             BossTag()
             Text(
-                "MÀN $level",
+                stringResource(R.string.boss_level, level),
                 style = MaterialTheme.typography.labelSmall.copy(
                     color = GjPalette.TextMuted, fontWeight = FontWeight.ExtraBold, letterSpacing = 0.04.em,
                 ),
@@ -242,7 +244,7 @@ fun BossIntroCard(
                 modifier = Modifier.height(120.dp).width(120.dp))
             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 Text(
-                    "ĐỐI THỦ",
+                    stringResource(R.string.boss_opponent),
                     style = MaterialTheme.typography.labelSmall.copy(
                         color = GjPalette.TextMuted, fontWeight = FontWeight.ExtraBold,
                         letterSpacing = 0.04.em, fontSize = 10.sp,
@@ -333,7 +335,7 @@ private fun ShieldBar(modifier: Modifier = Modifier, current: Int, target: Int, 
 private fun ShieldCount(current: Int, target: Int) {
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
         Text(
-            "Khiên",
+            stringResource(R.string.boss_shield),
             style = MaterialTheme.typography.labelSmall.copy(
                 color = GjPalette.TextMuted, fontWeight = FontWeight.Bold,
             ),
@@ -368,7 +370,7 @@ private fun LevelBadge(level: Int, modifier: Modifier = Modifier) {
             .padding(horizontal = 9.dp, vertical = 3.dp),
     ) {
         Text(
-            "MÀN $level",
+            stringResource(R.string.boss_level, level),
             style = MaterialTheme.typography.labelSmall.copy(
                 color = GjPalette.TextMuted, fontWeight = FontWeight.ExtraBold,
                 letterSpacing = 0.04.em, fontSize = 10.sp,
@@ -397,7 +399,7 @@ private fun BossTag() {
     ) {
         Box(Modifier.size(6.dp).clip(RoundedCornerShape(GjRadius.full)).background(Color.White.copy(alpha = a)))
         Text(
-            "BOSS",
+            stringResource(R.string.boss_tag),
             style = MaterialTheme.typography.labelSmall.copy(
                 color = Color.White, fontWeight = FontWeight.ExtraBold, letterSpacing = 0.04.em, fontSize = 11.sp,
             ),
@@ -519,13 +521,15 @@ private fun TellChip(tell: BossTell) {
 }
 
 /** Nhãn tell: "Lượt sau: …" khi còn 1 lượt, else "Sau N lượt: …". Chiêu theo [BossTellKind]. */
+@Composable
 private fun tellLabel(tell: BossTell): String {
     val what = when (tell.kind) {
-        BossTellKind.VINE_SPAWN -> "Mọc dây"
-        BossTellKind.GRAVITY_INVERT -> "Đảo trọng lực"
+        BossTellKind.VINE_SPAWN -> stringResource(R.string.boss_tell_vine_spawn)
+        BossTellKind.GRAVITY_INVERT -> stringResource(R.string.boss_tell_gravity_invert)
     }
-    val prefix = if (tell.turnsUntil <= 1) "Lượt sau" else "Sau ${tell.turnsUntil} lượt"
-    return "$prefix: $what"
+    val prefix = if (tell.turnsUntil <= 1) stringResource(R.string.boss_tell_next_turn)
+        else stringResource(R.string.boss_tell_after_turns, tell.turnsUntil)
+    return stringResource(R.string.boss_tell_format, prefix, what)
 }
 
 /** Lá (design BossHud.jsx Glyph "leaf") — chiêu mọc dây W2. */

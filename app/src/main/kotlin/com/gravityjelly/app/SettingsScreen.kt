@@ -32,11 +32,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gravityjelly.app.data.GjSettings
+import com.gravityjelly.app.i18n.AppLanguage
+import com.gravityjelly.app.i18n.AppLocale
 import com.gravityjelly.app.ui.components.BtnVariant
 import com.gravityjelly.app.ui.components.GjButton
 import com.gravityjelly.app.ui.icons.GjIcon
@@ -72,11 +75,9 @@ fun SettingsScreen(
     modifier: Modifier = Modifier,
     onLanguage: (String) -> Unit = {},
 ) {
-    // NGÔN NGỮ: GjSettings hiện CHƯA có field language, nên trạng thái chọn ngôn ngữ
-    // chỉ là state UI cục bộ, KHÔNG được bền hoá. Khi repository thêm field `language`
-    // (vd "vi"/"en"), thay `remember { mutableStateOf("vi") }` bằng `settings.language`
-    // và nối `onLanguage` tới setter của SettingsRepository.  // TODO: chờ thêm field vào repository
-    var language by remember { mutableStateOf("vi") }
+    // NGÔN NGỮ: nguồn sự thật là AppCompat per-app language (AppLocale). Đổi → tự bền hoá +
+    // recreate Activity để áp ngay. State cục bộ chỉ để control phản hồi tức thì trước recreate.
+    var language by remember { mutableStateOf(AppLocale.current().tag) }
 
     GjScreenScaffold(modifier = modifier, contentAlignment = Alignment.TopStart) {
         Column(
@@ -100,10 +101,10 @@ fun SettingsScreen(
                         .pointerInput(Unit) { detectTapGestures(onTap = { onBack() }) },
                     contentAlignment = Alignment.Center,
                 ) {
-                    GjIcon(GjIcons.Back, contentDescription = "Quay lại", tint = GjPalette.Text)
+                    GjIcon(GjIcons.Back, contentDescription = stringResource(R.string.settings_back), tint = GjPalette.Text)
                 }
                 Text(
-                    "Cài đặt",
+                    stringResource(R.string.settings_title),
                     style = MaterialTheme.typography.headlineLarge,
                     color = GjPalette.Text,
                 )
@@ -112,21 +113,22 @@ fun SettingsScreen(
             Spacer(Modifier.height(GjSpace.md))
 
             // ── ÂM THANH ────────────────────────────────────────────────────────
-            SettingGroup(title = "ÂM THANH") {
-                ToggleRow(GjIcons.Volume, "Âm thanh", settings.sound, onSound)
+            SettingGroup(title = stringResource(R.string.settings_section_audio)) {
+                ToggleRow(GjIcons.Volume, stringResource(R.string.settings_sound), settings.sound, onSound)
                 RowDivider()
-                ToggleRow(GjIcons.Music, "Nhạc nền", settings.music, onMusic)
+                ToggleRow(GjIcons.Music, stringResource(R.string.settings_music), settings.music, onMusic)
                 RowDivider()
-                ToggleRow(GjIcons.Vibrate, "Rung", settings.vibrate, onVibrate)
+                ToggleRow(GjIcons.Vibrate, stringResource(R.string.settings_vibrate), settings.vibrate, onVibrate)
             }
 
             // ── NGÔN NGỮ ────────────────────────────────────────────────────────
-            SettingGroup(title = "NGÔN NGỮ") {
-                SettingRow(GjIcons.Globe, "Ngôn ngữ") {
+            SettingGroup(title = stringResource(R.string.settings_section_language)) {
+                SettingRow(GjIcons.Globe, stringResource(R.string.settings_language)) {
                     LanguageSegmented(
                         value = language,
                         onChange = { code ->
                             language = code
+                            AppLocale.set(AppLanguage.fromTag(code))
                             onLanguage(code)
                         },
                     )
@@ -134,8 +136,8 @@ fun SettingsScreen(
             }
 
             // ── THÔNG TIN ───────────────────────────────────────────────────────
-            SettingGroup(title = "THÔNG TIN") {
-                SettingRow(GjIcons.Info, "Phiên bản") {
+            SettingGroup(title = stringResource(R.string.settings_section_info)) {
+                SettingRow(GjIcons.Info, stringResource(R.string.settings_version)) {
                     Text(
                         "1.0.0",
                         style = MaterialTheme.typography.bodyLarge,
@@ -144,11 +146,11 @@ fun SettingsScreen(
                     )
                 }
                 RowDivider()
-                SettingRow(GjIcons.Heart, "Đánh giá game") {
+                SettingRow(GjIcons.Heart, stringResource(R.string.settings_rate)) {
                     GjIcon(GjIcons.Chevron, modifier = Modifier.size(20.dp), tint = GjPalette.TextMuted)
                 }
                 RowDivider()
-                SettingRow(GjIcons.Settings, "Chính sách bảo mật") {
+                SettingRow(GjIcons.Settings, stringResource(R.string.settings_privacy)) {
                     GjIcon(GjIcons.Chevron, modifier = Modifier.size(20.dp), tint = GjPalette.TextMuted)
                 }
             }
@@ -160,7 +162,7 @@ fun SettingsScreen(
                 variant = BtnVariant.Secondary,
                 icon = GjIcons.Home,
                 fullWidth = true,
-            ) { Text("Về Home") }
+            ) { Text(stringResource(R.string.settings_home)) }
         }
     } // GjScreenScaffold
 }

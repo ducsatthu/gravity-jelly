@@ -19,7 +19,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.gravityjelly.app.R
 import com.gravityjelly.app.ui.icons.GjIcon
 import com.gravityjelly.app.ui.icons.GjIcons
 import com.gravityjelly.app.ui.theme.GjPalette
@@ -95,7 +97,7 @@ fun GjPauseToggleRow(
         modifier              = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(GjSpace.sm),
     ) {
-        GjQuickToggle(GjIcons.Volume, "Âm thanh", sound, { onSound(!sound) }, Modifier.weight(1f))
-        GjQuickToggle(GjIcons.Music,  "Nhạc",     music, { onMusic(!music) }, Modifier.weight(1f))
+        GjQuickToggle(GjIcons.Volume, stringResource(R.string.quicktoggle_sound), sound, { onSound(!sound) }, Modifier.weight(1f))
+        GjQuickToggle(GjIcons.Music,  stringResource(R.string.quicktoggle_music), music, { onMusic(!music) }, Modifier.weight(1f))
     }
 }

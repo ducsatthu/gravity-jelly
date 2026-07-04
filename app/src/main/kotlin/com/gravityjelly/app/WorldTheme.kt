@@ -1,6 +1,7 @@
 package com.gravityjelly.app
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.Color
 
 /**
@@ -41,11 +42,13 @@ object WorldTheme {
         else -> Color(0xFF8ECDF3)
     }
 
-    /** Tên hiển thị của [world] (bảng world trong design system / CLAUDE.md). */
-    fun name(world: Int): String = when (world) {
-        1 -> "Đồng cỏ"; 2 -> "Rừng rậm"; 3 -> "Sông & Thác"; 4 -> "Sa mạc"; 5 -> "Bãi biển"
-        6 -> "Núi tuyết"; 7 -> "Hang băng"; 8 -> "Núi lửa"; 9 -> "Bầu trời"; 10 -> "Vũ trụ"
-        else -> "Đồng cỏ"
+    /** Res tên hiển thị của [world] (đa ngôn ngữ — `values(-en)/strings.xml`). Resolve bằng `stringResource`. */
+    @StringRes
+    fun nameRes(world: Int): Int = when (world) {
+        1 -> R.string.world_1_name; 2 -> R.string.world_2_name; 3 -> R.string.world_3_name
+        4 -> R.string.world_4_name; 5 -> R.string.world_5_name; 6 -> R.string.world_6_name
+        7 -> R.string.world_7_name; 8 -> R.string.world_8_name; 9 -> R.string.world_9_name
+        10 -> R.string.world_10_name; else -> R.string.world_1_name
     }
 
     /**

@@ -52,6 +52,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -126,16 +127,16 @@ private class WorldMap(
     val nodes: List<MapNode>,
     val bg: Int,
     val nextWorld: Int,
-    val nextName: String,
+    @androidx.annotation.StringRes val nextNameRes: Int,
     val gateStarReq: Int,
-    val startSign: String,
+    @androidx.annotation.StringRes val startSignRes: Int,
 )
 
 /** Bản đồ theo world (design world1-strip / world2-strip; ngưỡng sao cổng theo GateChip). */
 private fun worldMap(world: Int): WorldMap = when (world) {
-    3 -> WorldMap(3, WORLD3_NODES, R.drawable.world3_map_bg, 4, "Sa mạc", 54, "SÔNG & THÁC · TIẾP TỤC")
-    2 -> WorldMap(2, WORLD2_NODES, R.drawable.world2_map_bg, 3, "Sông & Thác", 36, "RỪNG RẬM · TIẾP TỤC")
-    else -> WorldMap(1, WORLD1_NODES, R.drawable.world1_map_bg, 2, "Rừng rậm", 18, "ĐỒNG CỎ · KHỞI ĐẦU")
+    3 -> WorldMap(3, WORLD3_NODES, R.drawable.world3_map_bg, 4, R.string.world_4_name, 54, R.string.campaign_start_sign_w3)
+    2 -> WorldMap(2, WORLD2_NODES, R.drawable.world2_map_bg, 3, R.string.world_3_name, 36, R.string.campaign_start_sign_w2)
+    else -> WorldMap(1, WORLD1_NODES, R.drawable.world1_map_bg, 2, R.string.world_2_name, 18, R.string.campaign_start_sign_w1)
 }
 
 /** Số màn của một world trong [CampaignLevels.ALL]. */
@@ -256,7 +257,7 @@ fun CampaignScreen(
                 ) {
                     WorldGate(
                         nextWorld = map.nextWorld,
-                        nextName = map.nextName,
+                        nextName = stringResource(map.nextNameRes),
                         earned = earned,
                         target = map.gateStarReq,
                         cleared = cleared,
@@ -300,9 +301,9 @@ fun CampaignScreen(
                     contentAlignment = Alignment.TopCenter,
                 ) {
                     if (selectedWorld > 1) {
-                        StartSign("← ${WorldTheme.name(selectedWorld - 1).uppercase()}", s) { selectedWorld -= 1 }
+                        StartSign(stringResource(R.string.campaign_prev_world_sign, stringResource(WorldTheme.nameRes(selectedWorld - 1)).uppercase()), s) { selectedWorld -= 1 }
                     } else {
-                        StartSign(map.startSign, s)
+                        StartSign(stringResource(map.startSignRes), s)
                     }
                 }
             }
@@ -321,7 +322,7 @@ fun CampaignScreen(
                 .clickable(onClick = onBack),
             contentAlignment = Alignment.Center,
         ) {
-            Icon(GjIcons.Home, contentDescription = "Về Home", tint = GjPalette.Text, modifier = Modifier.size((22f * s).dp))
+            Icon(GjIcons.Home, contentDescription = stringResource(R.string.campaign_home), tint = GjPalette.Text, modifier = Modifier.size((22f * s).dp))
         }
     }
 }
@@ -633,7 +634,7 @@ private fun WorldGate(
             }
             Column {
                 Text(
-                    "CỔNG · THẾ GIỚI $nextWorld",
+                    stringResource(R.string.campaign_gate_world, nextWorld),
                     color = Color(0xFF9B886F), fontSize = (8.5f * s).sp, fontWeight = FontWeight.ExtraBold,
                     letterSpacing = 0.12.em, fontFamily = body,
                 )
@@ -695,13 +696,13 @@ private fun WorldGate(
                     horizontalArrangement = Arrangement.spacedBy((3f * s).dp),
                 ) {
                     Text(
-                        "Cần thêm ${target - earned}",
+                        stringResource(R.string.campaign_need_more, target - earned),
                         color = Color(0xFF6F5C44), fontSize = (11f * s).sp, fontWeight = FontWeight.ExtraBold,
                         fontFamily = body,
                     )
                     StarImg(true, 11f, s)
                     Text(
-                        "để mở",
+                        stringResource(R.string.campaign_to_unlock),
                         color = Color(0xFF6F5C44), fontSize = (11f * s).sp, fontWeight = FontWeight.ExtraBold,
                         fontFamily = body,
                     )
@@ -709,14 +710,14 @@ private fun WorldGate(
             } else {
                 // Đủ sao nhưng chưa qua hết 10 màn → còn khoá tới khi không bỏ sót màn nào.
                 Text(
-                    "Qua nốt $levelsLeft màn để mở",
+                    stringResource(R.string.campaign_clear_more, levelsLeft),
                     color = Color(0xFF6F5C44), fontSize = (11f * s).sp, fontWeight = FontWeight.ExtraBold,
                     fontFamily = body,
                 )
             }
         } else {
             Text(
-                if (canAdvance) "VÀO THẾ GIỚI →" else "ĐÃ MỞ KHOÁ",
+                if (canAdvance) stringResource(R.string.campaign_enter_world) else stringResource(R.string.campaign_unlocked),
                 color = Color(0xFF3F7D49), fontSize = (10.5f * s).sp, fontWeight = FontWeight.ExtraBold,
                 letterSpacing = 0.10.em, fontFamily = body,
             )

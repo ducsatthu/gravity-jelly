@@ -33,12 +33,14 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.gravityjelly.app.R
 import com.gravityjelly.app.ui.components.BtnVariant
 import com.gravityjelly.app.ui.components.GjButton
 import com.gravityjelly.app.ui.icons.GjIcon
@@ -88,12 +90,12 @@ internal val CandyCardShape = RoundedCornerShape(
 
 /** Nhãn hiển thị title-case cho tiêu đề nhóm / tab (giữ chủ đề "Hoàng gia" của app, viết mềm hơn). */
 internal val GuideGroup.displayLabel: String
-    get() = when (this) {
-        GuideGroup.BASIC -> "Cơ bản"
-        GuideGroup.SUPER -> "Hoàng gia"
-        GuideGroup.BLAST -> "Giải phóng"
-        GuideGroup.COMBO -> "Mẹo"
-        GuideGroup.FOREST -> "Rừng"
+    @Composable get() = when (this) {
+        GuideGroup.BASIC -> stringResource(R.string.camnangparts_group_basic)
+        GuideGroup.SUPER -> stringResource(R.string.camnangparts_group_super)
+        GuideGroup.BLAST -> stringResource(R.string.camnangparts_group_blast)
+        GuideGroup.COMBO -> stringResource(R.string.camnangparts_group_combo)
+        GuideGroup.FOREST -> stringResource(R.string.camnangparts_group_forest)
     }
 
 /** Màu KHỐI jelly đại diện nhóm ở tab + tiêu đề nhóm (bám GROUP_JELLY của thiết kế). */
@@ -196,7 +198,7 @@ internal fun Seal(text: String, tone: Color = GjPalette.Warning, modifier: Modif
 internal fun SeenTag() {
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
         Text(
-            "Đã xem",
+            stringResource(R.string.camnangparts_seen),
             style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.ExtraBold, fontSize = 12.sp),
             color = GjPalette.TextMuted,
         )
@@ -251,7 +253,7 @@ internal fun GuideFilterTabs(
             .padding(vertical = 2.dp),
         horizontalArrangement = Arrangement.spacedBy(GjSpace.sm),
     ) {
-        TabChip(label = "Tất cả", jelly = JellyColor.YELLOW, active = value == null, onClick = { onChange(null) })
+        TabChip(label = stringResource(R.string.camnangparts_all), jelly = JellyColor.YELLOW, active = value == null, onClick = { onChange(null) })
         for (g in GuideGroup.entries) {
             TabChip(label = g.displayLabel, jelly = g.jelly, active = value == g, onClick = { onChange(g) })
         }
@@ -427,7 +429,7 @@ private fun ComboThumbContent() {
                 .padding(horizontal = 12.dp, vertical = 6.dp),
         ) {
             Text(
-                "×2",
+                stringResource(R.string.camnangparts_combo_x2),
                 style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.ExtraBold, fontSize = 18.sp),
                 color = GjPalette.TextInvert,
             )
@@ -439,7 +441,7 @@ private fun ComboThumbContent() {
                 .padding(horizontal = 9.dp, vertical = 3.dp),
         ) {
             Text(
-                "+1",
+                stringResource(R.string.camnangparts_combo_plus1),
                 style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.ExtraBold, fontSize = 14.sp),
                 color = GjPalette.TextInvert,
             )
@@ -451,7 +453,7 @@ private fun ComboThumbContent() {
 @Composable
 internal fun SpotlightCard(entry: GjGuideEntry, onOpen: () -> Unit) {
     CandyCard(peel = 30.dp) {
-        Seal("Mới", modifier = Modifier.align(Alignment.TopStart).padding(10.dp))
+        Seal(stringResource(R.string.camnangparts_new), modifier = Modifier.align(Alignment.TopStart).padding(10.dp))
         Row(
             modifier = Modifier.padding(horizontal = 18.dp, vertical = 16.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -462,7 +464,7 @@ internal fun SpotlightCard(entry: GjGuideEntry, onOpen: () -> Unit) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                     GjIcon(GjIcons.Star, modifier = Modifier.size(13.dp), tint = GjPalette.Gravity)
                     Text(
-                        "NÊN XEM",
+                        stringResource(R.string.camnangparts_should_watch),
                         style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold, fontSize = 12.sp, letterSpacing = 0.6.sp),
                         color = GjPalette.Gravity,
                     )
@@ -481,7 +483,7 @@ internal fun SpotlightCard(entry: GjGuideEntry, onOpen: () -> Unit) {
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.padding(bottom = 12.dp),
                 )
-                GjButton(onClick = onOpen, variant = BtnVariant.Primary) { Text("Xem mẹo") }
+                GjButton(onClick = onOpen, variant = BtnVariant.Primary) { Text(stringResource(R.string.camnangparts_view_tip)) }
             }
         }
     }
@@ -491,7 +493,7 @@ internal fun SpotlightCard(entry: GjGuideEntry, onOpen: () -> Unit) {
 @Composable
 internal fun WideEntryCard(entry: GjGuideEntry, seen: Boolean, onOpen: () -> Unit) {
     CandyCard(peel = 30.dp, onClick = onOpen, modifier = Modifier.fillMaxWidth()) {
-        Seal("Quan\ntrọng", modifier = Modifier.align(Alignment.TopStart).padding(10.dp))
+        Seal(stringResource(R.string.camnangparts_important), modifier = Modifier.align(Alignment.TopStart).padding(10.dp))
         Row(
             modifier = Modifier.padding(horizontal = 18.dp, vertical = 16.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -537,13 +539,13 @@ internal fun EntryCard(entry: GjGuideEntry, unlocked: Boolean, seen: Boolean, on
                 contentAlignment = Alignment.Center,
             ) { LockGlyph(26.dp, GjPalette.TextMuted) }
             Text(
-                "Chưa mở khoá",
+                stringResource(R.string.camnangparts_locked),
                 style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold, fontSize = 16.sp),
                 color = GjPalette.TextMuted,
                 modifier = Modifier.padding(top = 10.dp),
             )
             Text(
-                "Chơi tiếp để mở",
+                stringResource(R.string.camnangparts_play_to_unlock),
                 style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold, fontSize = 12.sp),
                 color = GjPalette.TextMuted,
                 modifier = Modifier.padding(top = 2.dp),

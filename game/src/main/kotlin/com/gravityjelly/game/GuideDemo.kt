@@ -92,6 +92,11 @@ fun GuideMiniBoard(
                     drawRoundRect(JellyTheme.cellLine, Offset(left, top), Size(blockSize, blockSize), cr, style = cellLineStroke)
                 }
                 // khối
+                fun vineAt(cx: Int, cy: Int): Boolean {
+                    if (cy < 0 || cy >= rowN || cx < 0) return false
+                    val r = rows[cy]
+                    return cx < r.size && r[cx].kind == GuideCellKind.VINE
+                }
                 for (y in 0 until rowN) {
                     val row = rows[y]
                     for (x in row.indices) {
@@ -99,7 +104,11 @@ fun GuideMiniBoard(
                         if (cell.kind == GuideCellKind.EMPTY) continue
                         val left = x * cellSize + gap / 2f
                         val top = y * cellSize + gap / 2f
-                        drawGuideCell(cell, left, top, blockSize, cr, borderStroke)
+                        drawGuideCell(
+                            cell, left, top, blockSize, cr, borderStroke,
+                            vineUp = vineAt(x, y - 1), vineDown = vineAt(x, y + 1),
+                            vineLeft = vineAt(x - 1, y), vineRight = vineAt(x + 1, y),
+                        )
                     }
                 }
             }
@@ -111,6 +120,8 @@ private fun DrawScope.drawGuideCell(
     cell: GuideCell,
     left: Float, top: Float, blockSize: Float,
     cr: CornerRadius, borderStroke: Stroke,
+    vineUp: Boolean = false, vineDown: Boolean = false,
+    vineLeft: Boolean = false, vineRight: Boolean = false,
 ) {
     when (cell.kind) {
         GuideCellKind.EMPTY -> {}
@@ -146,7 +157,8 @@ private fun DrawScope.drawGuideCell(
         GuideCellKind.VINE -> {
             val isRoot = cell.color != null
             drawVineCell(left, top, blockSize, cr, borderStroke, root = isRoot,
-                connectUp = true, connectDown = !isRoot)
+                connectUp = vineUp, connectDown = vineDown,
+                connectLeft = vineLeft, connectRight = vineRight)
         }
         GuideCellKind.TRASH -> drawDebrisCell(left, top, blockSize, cr, borderStroke)
     }

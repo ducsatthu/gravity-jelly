@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -116,7 +117,7 @@ fun LevelWinScreen(
                     ) {
                         HappyMascot(reducedMotion)
                         Text(
-                            text = "Hoàn thành!",
+                            text = stringResource(R.string.levelwin_complete),
                             style = MaterialTheme.typography.headlineMedium.copy(
                                 fontWeight = FontWeight.ExtraBold, fontSize = 24.sp,
                             ),
@@ -124,7 +125,7 @@ fun LevelWinScreen(
                         )
                     }
                     Text(
-                        text = "MÀN $level · ${worldName.uppercase()}",
+                        text = stringResource(R.string.levelwin_level_world, level, worldName.uppercase()),
                         color = GjPalette.TextMuted,
                         fontSize = 12.sp,
                         fontWeight = FontWeight.ExtraBold,
@@ -138,7 +139,7 @@ fun LevelWinScreen(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(GjSpace.md),
                 ) {
-                    StatCard("ĐIỂM", score.toString(), Modifier.weight(1f))
+                    StatCard(stringResource(R.string.levelwin_score_label), score.toString(), Modifier.weight(1f))
                     StatCard(statLabel, statValue, Modifier.weight(1f))
                 }
 
@@ -154,13 +155,13 @@ fun LevelWinScreen(
                             btnSize = BtnSize.Cta,
                             iconRight = GjIcons.Play,
                             fullWidth = true,
-                        ) { Text("MÀN TIẾP") }
+                        ) { Text(stringResource(R.string.levelwin_next)) }
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(GjSpace.sm)) {
                         GjButton(onClick = onReplay, variant = BtnVariant.Secondary, icon = GjIcons.Refresh,
-                            fullWidth = true, modifier = Modifier.weight(1f)) { Text("Chơi lại") }
+                            fullWidth = true, modifier = Modifier.weight(1f)) { Text(stringResource(R.string.levelwin_replay)) }
                         GjButton(onClick = onHome, variant = BtnVariant.Secondary, icon = GjIcons.Home,
-                            fullWidth = true, modifier = Modifier.weight(1f)) { Text("Bản đồ") }
+                            fullWidth = true, modifier = Modifier.weight(1f)) { Text(stringResource(R.string.levelwin_map)) }
                     }
                 }
             }

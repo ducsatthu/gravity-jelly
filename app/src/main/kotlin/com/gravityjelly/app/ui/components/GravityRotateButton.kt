@@ -31,11 +31,13 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import com.gravityjelly.app.R
 import com.gravityjelly.app.ui.icons.GjIcon
 import com.gravityjelly.app.ui.icons.GjIcons
 import com.gravityjelly.app.ui.theme.GjDimens
@@ -162,7 +164,7 @@ fun GravityRotateButton(
             ) {
                 GjIcon(
                     icon               = GjIcons.RotateCw,
-                    contentDescription = "Xoay trọng lực, còn $turnsLeft lượt",
+                    contentDescription = stringResource(R.string.rotatebtn_desc, turnsLeft),
                     modifier           = Modifier.size(30.dp).rotate(animSpin),
                     tint               = GjPalette.TextInvert,
                 )
