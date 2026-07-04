@@ -54,6 +54,7 @@ fun campaignTuning(level: Level): EndlessTuning = EndlessTuning(
     superMergeEnabled = true,
     replenishBudget = false,
     vineGrowEveryN = level.vineGrowEveryN,
+    vineMaxSprouts = level.vineMaxSprouts,
     debrisPerTurn = level.debrisPerTurn,
     bossGravityEveryN = level.bossGravityEveryN,
     bossVineSpawnEveryN = level.bossVineSpawnEveryN,

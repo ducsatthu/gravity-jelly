@@ -270,7 +270,7 @@ class EndlessEngine(
         placesSinceGrow++
         if (placesSinceGrow < tuning.vineGrowEveryN) return
         placesSinceGrow = 0
-        val grown = growVines(grid, gravity)
+        val grown = growVines(grid, gravity, tuning.vineMaxSprouts)
         if (grown.isEmpty()) return
         events.add(GameEvent.VineGrew(grown))
         foldResolve(events)

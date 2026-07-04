@@ -9,8 +9,11 @@ package com.gravityjelly.core
  * trong [ClusterPhysics]) — bám như rễ trong khi mọi thứ khác đổ.
  *
  * Ba luật (hàm thuần của state + hướng trọng lực → không phá deterministic):
- *  - [growVines]: cứ sau mỗi `growEveryN` lượt thả, mỗi gốc mọc thêm tối đa 1 đốt/lượt ở **đầu ngọn**
- *    (tip-only). Nhánh **độc lập** — không ghép, không vòng tròn. Thứ tự `[ngược-gravity → phải → gravity → trái]`.
+ *  - [growVines]: cứ sau mỗi `growEveryN` lượt thả, mỗi gốc mọc thêm tối đa 1 đốt/lượt. Ưu tiên nối
+ *    **tip** (mỗi lá của cây là một ngọn độc lập); tip bí thì **cành** đâm nhánh phụ, cuối cùng **rễ**
+ *    phân nhánh mới. Rễ chỉ mọc **3 hướng** (tránh chiều trọng lực); thân/cành mọc **đủ 4 hướng**.
+ *    Mỗi rễ nuôi tối đa `maxSprouts` mầm (mặc định [DEFAULT_VINE_MAX_SPROUTS]). Nhánh **độc lập** — 2 cành cùng rễ hay 2 rễ khác
+ *    nhau không bao giờ ghép/tạo vòng.
  *  - [destroyVineOfRoot]: xoá dòng đi qua GỐC → cả dây tan (gốc + mọi đốt) — cách hoàn thành mục tiêu.
  *  - [wiltDisconnectedVines]: đốt mất kết nối với gốc → khô héo thành ô trống (thưởng cắt gần gốc).
  */
@@ -46,10 +49,17 @@ private fun Direction.opposite(): Direction = when (this) {
 }
 
 /**
- * Thứ tự 4 hướng mọc bám [gravity]: `[ngược-gravity, phải, theo-gravity, trái]`. "Phải/trái" suy từ
- * xoay: với gravity=DOWN → `[UP, RIGHT, DOWN, LEFT]` (đúng ví dụ spec, toạ độ trọng lực xuống).
+ * Thứ tự mọc cho **RỄ**: 3 hướng, KHÔNG theo trọng lực — `[ngược-gravity, phải, trái]`.
+ * Với gravity=DOWN → `[UP, RIGHT, LEFT]`. Rễ không bao giờ đâm mầm xuôi chiều rơi.
  */
-private fun growOrder(gravity: Direction): List<Direction> =
+private fun rootGrowOrder(gravity: Direction): List<Direction> =
+    listOf(gravity.opposite(), gravity.rotateCCW(), gravity.rotateCW())
+
+/**
+ * Thứ tự mọc cho **THÂN/CÀNH**: đủ 4 hướng — `[ngược-gravity, phải, theo-gravity, trái]`.
+ * Với gravity=DOWN → `[UP, RIGHT, DOWN, LEFT]`.
+ */
+private fun branchGrowOrder(gravity: Direction): List<Direction> =
     listOf(gravity.opposite(), gravity.rotateCCW(), gravity, gravity.rotateCW())
 
 /** Thành phần liên thông 4-kề các ô VINE chứa [start] (BFS), sắp theo (y,x) — deterministic. */
@@ -85,108 +95,102 @@ private fun vineComponents(grid: Grid): List<List<Vec>> {
     return comps
 }
 
-/** Tối đa số nhánh gốc có thể phân ra (cấu trúc). */
-private const val MAX_BRANCHES_FROM_ROOT = 3
+/** Mặc định số MẦM (ngọn phát triển) tối đa mỗi rễ — cap độ rậm. Cấu hình/màn qua [EndlessTuning.vineMaxSprouts]. */
+const val DEFAULT_VINE_MAX_SPROUTS = 4
 /** Tối đa số đốt mọc thêm mỗi lượt cho 1 gốc (1 = mỗi rễ mỗi lượt chỉ đẻ 1 mầm). */
 private const val MAX_GROW_PER_TURN = 1
 
 /**
- * Mọc lan 1 bước theo mô hình 5 phần (rễ / trồi / cành / cành-countdown / rác):
- *  - **Rễ** phân tối đa [MAX_BRANCHES_FROM_ROOT] nhánh (dần dần, mỗi lượt ≤1 mầm cho cả dây).
- *  - **Trồi** (tip mỗi nhánh) tìm ô trống kề gần nhất theo [growOrder] để nối dài.
- *  - **Cành** (ô thân) có thể mọc mầm phụ sang ô trống kề.
- *  - Đốt mới KHÔNG được kề ô vine nhánh khác hoặc ô TRASH (chống loop/merge/revival).
- *  - Tối đa [MAX_GROW_PER_TURN] đốt mới mỗi lượt. Deterministic (tip→cành→gốc, sắp (y,x)).
+ * Mọc lan 1 bước cho mọi cây dây leo trên bàn. Mỗi cây (thành phần chứa 1 gốc) mọc tối đa
+ * [MAX_GROW_PER_TURN] đốt/lượt. Xem [growFromRoot] cho luật ưu tiên tip→cành→rễ + cap mầm.
+ * Deterministic (duyệt thành phần & candidate theo (y,x), BFS hướng cố định).
  */
-fun growVines(grid: Grid, gravity: Direction): List<Vec> {
-    val order = growOrder(gravity)
+fun growVines(grid: Grid, gravity: Direction, maxSprouts: Int = DEFAULT_VINE_MAX_SPROUTS): List<Vec> {
+    val rootOrder = rootGrowOrder(gravity)
+    val branchOrder = branchGrowOrder(gravity)
     val taken = HashSet<Vec>()
     val added = ArrayList<Pair<Vec, JellyColor?>>()
     for (comp in vineComponents(grid)) {
         val roots = comp.filter { grid.get(it.x, it.y)?.vineRoot == true }
         if (roots.isEmpty()) continue
-        for (root in roots) growFromRoot(grid, root, order, taken, added)
+        for (root in roots) growFromRoot(grid, root, rootOrder, branchOrder, maxSprouts, taken, added)
     }
     for ((v, color) in added) grid.set(v.x, v.y, Grid.Cell(CellType.VINE, color, vineRoot = false))
     return added.map { it.first }.sortedWith(compareBy({ it.y }, { it.x }))
 }
 
 /**
- * Gán mỗi ô vine một "nhánh" (branch ID) bằng BFS từ [root]. Gốc = -1. Mỗi ô liền kề gốc
- * khởi tạo nhánh riêng (ID ≥ 0); hậu duệ kế thừa ID. Deterministic (BFS duyệt
- * [Direction.entries] cố định: DOWN→UP→LEFT→RIGHT). Trả cả khoảng cách.
+ * BFS cây dây leo từ [root]: trả (tập MỌI ô thuộc cây này, map cha→các con). Duyệt
+ * [Direction.entries] cố định → deterministic. **Lá** (không con) = TIP độc lập; ô có con = CÀNH.
+ * Mỗi lần một ô rẽ ≥2 con là một điểm tách nhánh — mỗi con là một luồng độc lập.
  */
-private fun assignBranches(grid: Grid, root: Vec): Pair<Map<Vec, Int>, Map<Vec, Int>> {
-    val branchOf = HashMap<Vec, Int>()
-    val dist = HashMap<Vec, Int>()
-    branchOf[root] = -1
-    dist[root] = 0
+private fun buildTree(grid: Grid, root: Vec): Pair<Set<Vec>, Map<Vec, List<Vec>>> {
+    val member = LinkedHashSet<Vec>()
+    val children = HashMap<Vec, MutableList<Vec>>()
     val q = ArrayDeque<Vec>()
-    q.add(root)
-    var nextBid = 0
+    q.add(root); member.add(root)
     while (q.isNotEmpty()) {
         val c = q.removeFirst()
         for (d in Direction.entries) {
             val n = Vec(c.x + d.dx, c.y + d.dy)
-            if (grid.inBounds(n.x, n.y) && isVine(grid, n.x, n.y) && n !in branchOf) {
-                branchOf[n] = if (branchOf[c] == -1) nextBid++ else branchOf[c]!!
-                dist[n] = dist[c]!! + 1
+            if (grid.inBounds(n.x, n.y) && isVine(grid, n.x, n.y) && member.add(n)) {
+                children.getOrPut(c) { ArrayList() }.add(n)
                 q.add(n)
             }
         }
     }
-    return branchOf to dist
+    return member to children
 }
 
+/**
+ * Mọc lan 1 bước cho cây của [root]:
+ *  - **Tip** (mọi lá — ô không có con) nối dài. Không tạo mầm mới → KHÔNG tính cap.
+ *  - **Cành** (ô có con) đâm nhánh phụ **chỉ khi mọi tip bị chặn** → tạo mầm mới → tính cap.
+ *  - **Rễ** phân nhánh mới (cuối cùng, khi tip+cành đều bí) → tạo mầm mới → tính cap.
+ *  - Chỉ được tạo mầm mới khi số mầm hiện có < [maxSprouts].
+ *  - Rễ dùng [rootOrder] (3 hướng, tránh trọng lực); tip/cành dùng [branchOrder] (đủ 4 hướng).
+ *  - Đốt mới KHÔNG được kề ô vine ngoài cha/gốc, hay ô TRASH (chống loop/merge/revival).
+ *  - Tối đa [MAX_GROW_PER_TURN] đốt/lượt. Deterministic (tip→cành→rễ, sắp (y,x)).
+ */
 private fun growFromRoot(
-    grid: Grid, root: Vec, order: List<Direction>,
-    taken: MutableSet<Vec>, added: MutableList<Pair<Vec, JellyColor?>>
+    grid: Grid, root: Vec, rootOrder: List<Direction>, branchOrder: List<Direction>,
+    maxSprouts: Int, taken: MutableSet<Vec>, added: MutableList<Pair<Vec, JellyColor?>>
 ) {
-    val (branchOf, dist) = assignBranches(grid, root)
+    val (member, children) = buildTree(grid, root)
 
-    // Tip (trồi) = ô xa nhất mỗi nhánh (tie-break (y,x) nhỏ hơn)
-    val branchTip = HashMap<Int, Vec>()
-    for ((cell, bid) in branchOf) {
-        if (bid < 0) continue
-        val cur = branchTip[bid]
-        if (cur == null
-            || dist[cell]!! > dist[cur]!!
-            || (dist[cell] == dist[cur] && (cell.y < cur.y || (cell.y == cur.y && cell.x < cur.x)))
-        ) branchTip[bid] = cell
+    // Lá = tip (ngọn phát triển độc lập); ô có con = cành. Rễ tách riêng.
+    val tips = ArrayList<Vec>()
+    val branches = ArrayList<Vec>()
+    for (n in member) {
+        if (n == root) continue
+        if (children[n].isNullOrEmpty()) tips.add(n) else branches.add(n)
     }
-    val tipSet = branchTip.values.toHashSet()
-    val branchCount = branchTip.size
+    tips.sortWith(compareBy({ it.y }, { it.x }))
+    branches.sortWith(compareBy({ it.y }, { it.x }))
+    val sproutCount = tips.size
 
-    // Ưu tiên: trồi (tip) → cành (thân, side shoot) → rễ (nhánh mới nếu < 3).
-    val candidates = ArrayList<Vec>()
-    val nonTips = ArrayList<Vec>()
-    for ((cell, bid) in branchOf) {
-        if (bid < 0) continue
-        if (cell in tipSet) candidates.add(cell) else nonTips.add(cell)
-    }
-    candidates.sortWith(compareBy({ it.y }, { it.x }))
-    nonTips.sortWith(compareBy({ it.y }, { it.x }))
-    candidates.addAll(nonTips)
-    // Rễ phân nhánh mới nếu chưa đạt giới hạn
-    if (branchCount < MAX_BRANCHES_FROM_ROOT) candidates.add(root)
-
-    // MỌI lượt (kể cả gốc trần) chỉ sinh tối đa [MAX_GROW_PER_TURN] mầm mới cho TOÀN dây của gốc này
-    // — tính chung cả trồi (nối tip), cành (side shoot) lẫn rễ (phân nhánh mới). Không còn burst lượt đầu.
-    val maxGrow = MAX_GROW_PER_TURN
+    // Ưu tiên tip (nối dài, không cap) → cành (fork, cap) → rễ (nhánh mới, cap).
+    // Cờ thứ hai = có sinh MẦM MỚI không → phải kiểm cap.
+    val candidates = ArrayList<Pair<Vec, Boolean>>()
+    for (t in tips) candidates.add(t to false)
+    for (b in branches) candidates.add(b to true)
+    candidates.add(root to true)
 
     var grown = 0
-    for (cell in candidates) {
-        if (grown >= maxGrow) break
+    for ((cell, createsSprout) in candidates) {
+        if (grown >= MAX_GROW_PER_TURN) break
+        if (createsSprout && sproutCount >= maxSprouts) continue
         val color = grid.get(cell.x, cell.y)?.color
+        val order = if (cell == root) rootOrder else branchOrder
         for (d in order) {
-            if (grown >= maxGrow) break
+            if (grown >= MAX_GROW_PER_TURN) break
             val n = Vec(cell.x + d.dx, cell.y + d.dy)
             if (!grid.inBounds(n.x, n.y) || !grid.isEmpty(n.x, n.y) || n in taken) continue
-            if (wouldLoopOrMerge(n, cell, branchOf, root, grid)) continue
+            if (wouldLoopOrMerge(n, cell, member, root, grid)) continue
             taken.add(n)
             added.add(n to color)
             grown++
-            if (cell != root) break // cành/trồi: 1 mầm/ô; gốc: phân nhiều nhánh
+            if (cell != root) break // cành/tip: 1 mầm/ô; rễ: có thể thử nhiều hướng
         }
     }
 }
@@ -195,18 +199,18 @@ private fun growFromRoot(
  * Ô mới tại [pos] (mọc từ [parent]) có tạo vòng tròn, ghép nhánh, hoặc "hồi sinh" rác không?
  * Chỉ cho kề [parent] (ô cha) và [root] (gốc chung). Cấm kề:
  *  - ô TRASH (chống "hồi sinh" nhánh chết)
- *  - ô vine GỐC KHÁC (không trong [branchOf] → chống merge giữa 2 dây độc lập)
- *  - ô vine cùng gốc nhưng không phải cha/gốc (chống loop trong nhánh)
+ *  - ô vine CÂY KHÁC (không trong [member] → chống merge giữa 2 rễ độc lập)
+ *  - ô vine cùng cây nhưng không phải cha/gốc (chống loop / ghép 2 cành cùng rễ)
  */
 private fun wouldLoopOrMerge(
-    pos: Vec, parent: Vec, branchOf: Map<Vec, Int>, root: Vec, grid: Grid
+    pos: Vec, parent: Vec, member: Set<Vec>, root: Vec, grid: Grid
 ): Boolean {
     for (d in Direction.entries) {
         val adj = Vec(pos.x + d.dx, pos.y + d.dy)
         if (!grid.inBounds(adj.x, adj.y)) continue
         val adjCell = grid.get(adj.x, adj.y)
         if (adjCell?.type == CellType.TRASH) return true
-        if (branchOf[adj] == null) {
+        if (adj !in member) {
             if (adjCell?.type == CellType.VINE) return true
             continue
         }

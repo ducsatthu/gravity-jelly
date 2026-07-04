@@ -18,29 +18,32 @@ Dây leo gồm 5 trạng thái rời rạc, mỗi phần có hành vi riêng:
 
 - Ô `CellType.VINE` với `vineRoot = true`.
 - **Bám cứng** — không rơi theo trọng lực/xoay.
-- Tối đa phân ra **3 nhánh** (`MAX_BRANCHES_FROM_ROOT = 3`) — nhưng **dần dần**, không phân cùng lúc.
+- **Rễ mọc 3 hướng** — `[ngược trọng lực, phải, trái]` (`rootGrowOrder`). Rễ **KHÔNG bao giờ đâm mầm
+  xuôi chiều trọng lực**. (Trồi/cành thì mọc đủ 4 hướng — xem bước 2/3.)
+- Mỗi cây (một gốc) nuôi **tối đa 4 mầm** (`MAX_SPROUTS_PER_ROOT = 4`) — cap độ rậm. "Mầm" = số ngọn
+  (tip/lá) đang phát triển. Rễ phân nhánh mới hay cành đâm nhánh phụ chỉ khi **số mầm hiện có < 4**.
 - **Mỗi lượt cả dây của 1 gốc chỉ sinh tối đa 1 mầm mới** (`MAX_GROW_PER_TURN = 1`), tính chung cả
-  trồi/cành/rễ. KHÔNG còn burst lượt đầu (gốc trần cũng chỉ 1 mầm/lượt).
-- Rễ chỉ phân nhánh mới nếu số nhánh hiện tại < 3 VÀ lượt đó chưa dùng hết ngân sách 1 mầm.
+  trồi/cành/rễ. KHÔNG có burst lượt đầu (gốc trần cũng chỉ 1 mầm/lượt).
 - **Phá gốc:** xóa dòng đi qua gốc **có ≥1 khối MINT** trên dòng → gốc bị xóa (`destroyVineOfRoot`).
   Dòng xóa qua gốc **KHÔNG có MINT** → gốc sống sót (surviving root, skip trong animation).
 - Khi gốc bị phá: chỉ xóa ô gốc. Các đốt cành/trồi mất kết nối → chuyển sang **Cành countdown** (bước 4).
 
 ### 2. Trồi (Shoot / Tip)
 
-- Ô `CellType.VINE` ở **đầu ngọn** mỗi nhánh (xa nhất từ gốc theo BFS).
-- Mỗi lượt mọc, trồi tìm **ô trống kề gần nhất** theo thứ tự ưu tiên:
-  `[ngược trọng lực, phải, theo trọng lực, trái]` (hàm `growOrder`).
-- Trồi **ưu tiên mọc trước** cành (trong danh sách ứng viên).
-- Sau khi trồi mọc sang ô mới → vị trí cũ trở thành **cành** (bước 3).
+- Ô `CellType.VINE` **lá** — không có ô con trong cây (đầu ngọn một nhánh). **Mỗi lá là một tip
+  độc lập**: sau mỗi lần rẽ nhánh, *cả hai* ngọn con đều là tip riêng, tự nối dài, quản lý riêng.
+- Mỗi lượt mọc, trồi tìm **ô trống kề gần nhất** theo thứ tự ưu tiên **đủ 4 hướng**:
+  `[ngược trọng lực, phải, theo trọng lực, trái]` (hàm `branchGrowOrder`).
+- Trồi **ưu tiên mọc trước** cành. Nối dài tip **không** tạo mầm mới → không tính vào cap 4.
 
 ### 3. Cành (Branch)
 
-- Ô `CellType.VINE` trên thân nhánh (không phải tip, không phải gốc).
+- Ô `CellType.VINE` có con trong cây (không phải tip, không phải gốc). Ô nào rẽ ≥2 con là **điểm
+  tách nhánh** — đóng vai như một "sub-rễ", mỗi nhánh con là một luồng độc lập.
 - **Bám cứng** — không rơi.
-- Có thể **phát sinh mầm phụ** (side shoot) sang ô trống kề chưa có block.
-- Mầm phụ tạo nhánh con mới, mở rộng dây theo hướng vuông góc.
-- Ưu tiên mọc **sau trồi** (tip trước, cành sau, gốc cuối).
+- **Chỉ khi mọi tip bị chặn**, cành mới **phát sinh mầm phụ** (side shoot, đủ 4 hướng) sang ô trống kề.
+- Đâm nhánh phụ **tạo mầm mới** → tính vào cap 4 (chỉ được nếu số mầm hiện có < 4).
+- Ưu tiên mọc **sau trồi**, trước rễ (tip → cành → rễ).
 
 ### 4. Cành có countdown (Wilting)
 
@@ -63,19 +66,19 @@ Dây leo gồm 5 trạng thái rời rạc, mỗi phần có hành vi riêng:
 
 ### Thứ tự ưu tiên mỗi lượt
 
-1. **Trồi (tip)** — nối dài nhánh hiện có.
-2. **Cành (thân)** — phát sinh mầm phụ (side shoot).
-3. **Rễ** — phân nhánh mới (nếu < 3 nhánh).
+1. **Trồi (tip)** — nối dài lá hiện có (đủ 4 hướng). **Không** tạo mầm mới → không tính cap.
+2. **Cành (thân)** — đâm mầm phụ (side shoot, đủ 4 hướng) khi tip bí. Tạo mầm mới → tính cap.
+3. **Rễ** — phân nhánh mới (3 hướng, tránh trọng lực) khi tip+cành đều bí. Tạo mầm mới → tính cap.
 
 Sắp xếp deterministic trong mỗi nhóm theo `(y, x)`. **Mỗi lượt CHỈ 1 mầm cho cả dây của 1 gốc**
 (`MAX_GROW_PER_TURN = 1`): duyệt ứng viên theo ưu tiên trên, ứng viên **đầu tiên** mọc được 1 ô là
-DỪNG. Không còn "gốc trần phân 3 nhánh cùng lúc" như bản cũ.
+DỪNG. Ứng viên nào **tạo mầm mới** (cành/rễ) chỉ hợp lệ khi số mầm hiện có `< MAX_SPROUTS_PER_ROOT`.
 
 ### Giới hạn
 
 | Hằng số | Giá trị | Ý nghĩa |
 |---|---|---|
-| `MAX_BRANCHES_FROM_ROOT` | 3 | Số nhánh tối đa từ gốc |
+| `vineMaxSprouts` | 4 (`DEFAULT_VINE_MAX_SPROUTS`) | Số **mầm** (ngọn/tip) tối đa mỗi gốc — cap độ rậm. **Cấu hình theo màn** qua `Level.vineMaxSprouts` → `EndlessTuning.vineMaxSprouts` → `growVines(grid, gravity, maxSprouts)` |
 | `MAX_GROW_PER_TURN` | 1 | Số mầm mới tối đa mỗi lượt cho CẢ dây của 1 gốc (kể cả lượt đầu gốc trần) |
 | `WILT_COUNTDOWN` | 10 | Số lượt đếm ngược trước khi thành rác chết |
 
@@ -91,19 +94,22 @@ Hàm `wouldLoopOrMerge` kiểm tra mỗi ô mới trước khi mọc. Ô mới *
 - Ô gốc (root — nút chia chung).
 
 Cấm kề:
-- Ô vine **cùng nhánh** nhưng không phải cha → tạo vòng tròn (loop).
-- Ô vine **nhánh khác** cùng gốc → ghép nhánh.
-- Ô vine **gốc khác** → ghép hai dây độc lập.
+- Ô vine **cùng cây** nhưng không phải cha → tạo vòng tròn (loop) / ghép 2 cành cùng gốc.
+- Ô vine **cây khác** (không có trong `member` của cây đang xét) → ghép hai dây độc lập.
 - Ô **TRASH** (countdown hoặc chết) → "hồi sinh" nhánh chết.
 
-**Hệ quả:** mỗi nhánh luôn là đường thẳng/cong đơn (không vòng), luôn có 1 tip ở cuối.
-Hai dây từ hai gốc khác nhau luôn hoàn toàn tách biệt.
+**Hệ quả:** mỗi nhánh luôn là đường thẳng/cong đơn (không vòng), mỗi lá là 1 tip độc lập.
+Hai cành cùng gốc không bao giờ ghép dù 2 ô sát nhau; hai dây từ hai gốc khác nhau luôn tách biệt.
 
-## Gán nhánh (`assignBranches`)
+## Dựng cây (`buildTree`)
 
-BFS từ gốc, duyệt `Direction.entries` (DOWN→UP→LEFT→RIGHT) cố định.
-Mỗi hướng liền kề gốc khởi tạo 1 nhánh riêng (branch ID ≥ 0).
-Hậu duệ kế thừa branch ID của cha. Gốc có branch ID = -1.
+BFS từ gốc, duyệt `Direction.entries` cố định → deterministic. Trả về **tập mọi ô thuộc cây** (`member`)
+và **map cha→các con** (`children`). Từ đó suy ra:
+- **Lá** (ô không có con) = **tip** độc lập.
+- Ô **có con** = **cành**; ô rẽ ≥2 con = **điểm tách nhánh** (mỗi con một luồng độc lập).
+
+Không còn khái niệm "branch ID" gán tại ô-kề-gốc như bản cũ — nay mỗi lá tự là một ngọn, nên sau khi
+rẽ nhánh cả hai ngọn con đều được nối dài độc lập (thay vì chỉ ngọn xa nhất được coi là tip).
 
 ## Phá dây
 

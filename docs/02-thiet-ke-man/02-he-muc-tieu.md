@@ -144,8 +144,8 @@ xoay trọng lực + cụm cứng — điểm độc nhất so với Woodoku/Blo
 > **Chi tiết kỹ thuật đầy đủ** (mô hình 5 phần, hằng số, anti-merge, render, file liên quan):
 > xem `docs/02-thiet-ke-man/06-world-2-vine.md`. Mục này chỉ tóm tắt luật + ý đồ thiết kế.
 
-**Cấu trúc — mô hình 5 phần.** Mỗi dây leo = 1 **gốc** (root) + tối đa **3 nhánh** độc lập, mỗi
-nhánh là chuỗi **đốt**. `:core`: `CellType.VINE` với cờ `vineRoot`. 5 trạng thái rời rạc: **rễ** ·
+**Cấu trúc — mô hình 5 phần.** Mỗi dây leo = 1 **gốc** (root) + cây các **đốt** phân nhánh, nuôi tối
+đa **4 mầm** (ngọn) độc lập. `:core`: `CellType.VINE` với cờ `vineRoot`. 5 trạng thái rời rạc: **rễ** ·
 **trồi** (tip đầu ngọn) · **cành** (thân) · **cành đếm ngược** (héo, `CellType.TRASH` countdown > 0)
 · **rác chết** (`TRASH` countdown = 0). Gốc là *target* của màn.
 
@@ -154,10 +154,11 @@ nhánh là chuỗi **đốt**. `:core`: `CellType.VINE` với cờ `vineRoot`. 5
 1. **Mọc:** cứ sau mỗi `growEveryN` lượt *thả mảnh*, mỗi **gốc** mọc thêm **tối đa 1 mầm mới cho
    CẢ dây** (`MAX_GROW_PER_TURN = 1`) — tính chung cả **trồi** (nối dài tip), **cành** (đẻ mầm phụ)
    lẫn **rễ** (phân nhánh mới). KHÔNG có burst lượt đầu; gốc trần cũng chỉ 1 mầm/lượt. Ưu tiên:
-   trồi → cành → rễ. Chọn ô trống kề theo thứ tự cố định
+   trồi → cành → rễ (cành chỉ đẻ mầm phụ **khi mọi tip bị chặn**). **Rễ mọc 3 hướng**
+   `[ngược trọng lực → phải → trái]` (không xuôi trọng lực); **trồi/cành mọc đủ 4 hướng**
    `[ngược trọng lực → phải → theo trọng lực → trái]`. Mầm mới KHÔNG được kề nhánh khác / gốc khác /
-   ô rác (chống ghép nhánh / vòng tròn / hồi sinh rác). Rễ phân tối đa 3 nhánh nhưng **dần dần**.
-   Hàm thuần của (state + hướng trọng lực + bộ đếm lượt) → không phá deterministic.
+   ô rác (chống ghép nhánh / vòng tròn / hồi sinh rác). Mỗi gốc nuôi tối đa **4 mầm** (`MAX_SPROUTS_PER_ROOT`),
+   mọc **dần dần**. Hàm thuần của (state + hướng trọng lực + bộ đếm lượt) → không phá deterministic.
    - `growEveryN = 2` (mọc chậm, màn giới thiệu) hoặc `1` (mọc nhanh, màn áp lực).
 2. **Bám cứng khi xoay:** ô dây leo **và ô rác KHÔNG rơi** theo trọng lực/xoay — bám như rễ, đứng
    yên trong khi mọi thứ khác đổ. → xoay vừa lợi (gỡ cụm khác) vừa hại (mở khe trống cho dây mọc).

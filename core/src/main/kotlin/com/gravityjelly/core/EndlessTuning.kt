@@ -17,6 +17,8 @@ data class EndlessTuning(
     val rotationBudgetCap: Int = Int.MAX_VALUE,
     /** World 2 — DÂY LEO: mọc 1 đốt/dây mỗi N lượt THẢ (0 = tắt; 2 = mọc chậm, 1 = mọc nhanh). */
     val vineGrowEveryN: Int = 0,
+    /** World 2 — DÂY LEO: số MẦM (tip) tối đa mỗi gốc nuôi cùng lúc — cap độ rậm (mặc định [DEFAULT_VINE_MAX_SPROUTS]). */
+    val vineMaxSprouts: Int = DEFAULT_VINE_MAX_SPROUTS,
     /** Cơ chế đổ đá/rác (archetype boss dự phòng — KHÔNG dùng ở L20, L20 = Thần Rừng): số ô rác chèn mỗi lượt sau ân hạn (0 = tắt). */
     val debrisPerTurn: Int = 0,
     /** Số lượt ân hạn đầu KHÔNG đổ rác (cho người chơi setup). */

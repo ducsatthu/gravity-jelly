@@ -83,6 +83,8 @@ data class Level(
     val difficulty: Double = 1.0,
     /** World 2 — nhịp mọc dây leo (0 = tắt). Chuyển vào [EndlessTuning.vineGrowEveryN]. */
     val vineGrowEveryN: Int = 0,
+    /** World 2 — số mầm (tip) tối đa mỗi gốc dây leo. Chuyển vào [EndlessTuning.vineMaxSprouts]. */
+    val vineMaxSprouts: Int = DEFAULT_VINE_MAX_SPROUTS,
     /** World 2 boss — số ô rác chèn mỗi lượt sau ân hạn (0 = tắt). */
     val debrisPerTurn: Int = 0,
     /** World 3 boss "Thần Thác" — tự đảo trọng lực mỗi N lượt (0 = tắt). [EndlessTuning.bossGravityEveryN]. */

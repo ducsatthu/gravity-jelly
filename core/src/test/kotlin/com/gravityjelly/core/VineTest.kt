@@ -225,6 +225,92 @@ class VineTest {
         assertFalse("không mọc vào ô kề TRASH", a.contains(Vec(4, 6)))
     }
 
+    @Test
+    fun `re chi moc 3 huong - khong bao gio theo trong luc`() {
+        val g = Grid()
+        g.set(4, 4, vine(root = true))
+        g.set(4, 3, block()) // chặn UP
+        g.set(5, 4, block()) // chặn RIGHT
+        g.set(3, 4, block()) // chặn LEFT
+        // Rễ chỉ có 3 hướng UP/RIGHT/LEFT — đều bị bít; KHÔNG được mọc DOWN (theo trọng lực).
+        val a = growVines(g, Direction.DOWN)
+        assertTrue("rễ bí 3 hướng thì đứng im, không mọc xuống", a.isEmpty())
+        assertTrue("ô dưới rễ (theo trọng lực) vẫn trống", g.isEmpty(4, 5))
+    }
+
+    @Test
+    fun `than moc duoc theo trong luc (du 4 huong)`() {
+        val g = Grid()
+        g.set(4, 4, vine(root = true))
+        g.set(5, 4, vine(root = false)) // nhánh ngang = tip (thân)
+        g.set(5, 3, block())            // chặn UP của tip
+        g.set(6, 4, block())            // chặn RIGHT của tip
+        // Tip (5,4): UP/RIGHT bít, LEFT là rễ → chỉ còn DOWN. Thân dùng đủ 4 hướng nên mọc XUỐNG được.
+        val a = growVines(g, Direction.DOWN)
+        assertTrue("thân mọc theo trọng lực xuống (5,5)", a.contains(Vec(5, 5)))
+        assertEquals(CellType.VINE, g.get(5, 5)?.type)
+    }
+
+    @Test
+    fun `moi tip cua fork la nhanh doc lap - tip kia bit thi tip nay van moc`() {
+        val g = Grid()
+        // Y-fork: rễ(4,8) → (4,7) tách 2 nhánh con (3,7) và (5,7), mỗi nhánh 1 tip riêng.
+        g.set(4, 8, vine(root = true))
+        g.set(4, 7, vine(root = false))
+        g.set(3, 7, vine(root = false)) // tip nhánh trái
+        g.set(5, 7, vine(root = false)) // tip nhánh phải
+        // Bít kín tip trái (3,7) — nhưng tip phải (5,7) vẫn phải mọc độc lập.
+        g.set(3, 6, block()); g.set(3, 8, block()); g.set(2, 7, block())
+        val a = growVines(g, Direction.DOWN)
+        assertEquals("tip phải (5,7) nối dài lên (5,6) độc lập", listOf(Vec(5, 6)), a)
+    }
+
+    @Test
+    fun `cap 4 mam moi re - khi da du 4 tip thi khong sinh mam thu 5`() {
+        val g = buildCombVine(withFourthLeaf = true)
+        // 4 tip đều bị bít, còn cành/rễ dư chỗ mọc — nhưng cap = 4 nên KHÔNG sinh mầm thứ 5.
+        val a = growVines(g, Direction.DOWN)
+        assertTrue("đủ 4 mầm → đứng im dù cành còn chỗ", a.isEmpty())
+    }
+
+    @Test
+    fun `cap 4 mam moi re - con 3 tip thi van cho fork them mam thu 4`() {
+        val g = buildCombVine(withFourthLeaf = false)
+        // Chỉ 3 tip (đều bít), cành còn chỗ → được phép đâm nhánh phụ tạo mầm thứ 4.
+        val a = growVines(g, Direction.DOWN)
+        assertEquals("dưới cap → sinh đúng 1 mầm mới", 1, a.size)
+    }
+
+    @Test
+    fun `cap cau hinh theo man - maxSprouts=3 chan ngay mam thu 4`() {
+        val g = buildCombVine(withFourthLeaf = false) // 3 tip (đều bít), cành còn chỗ
+        // Cùng state ở test trên fork được mầm thứ 4 với cap mặc định (4); nhưng cap=3 thì kịch trần.
+        val a = growVines(g, Direction.DOWN, maxSprouts = 3)
+        assertTrue("cap=3 → 3 tip đã kịch trần, không fork thêm", a.isEmpty())
+    }
+
+    /**
+     * Cây "lược": rễ(4,8) + thân dọc (4,7..4,4) + tip đỉnh (4,3) + 2 tip phải (5,7)/(5,5)
+     * + (tuỳ chọn) tip trái (3,6). Mọi tip bị bít kín; cành vẫn dư chỗ mọc để kiểm cap.
+     */
+    private fun buildCombVine(withFourthLeaf: Boolean): Grid {
+        val g = Grid()
+        g.set(4, 8, vine(root = true))
+        for (y in 7 downTo 4) g.set(4, y, vine(root = false)) // thân dọc (cành)
+        g.set(4, 3, vine(root = false)) // tip đỉnh
+        g.set(5, 7, vine(root = false)) // tip phải trên
+        g.set(5, 5, vine(root = false)) // tip phải dưới
+        // Bít 3 tip cố định:
+        g.set(4, 2, block()); g.set(3, 3, block()); g.set(5, 3, block())          // quanh (4,3)
+        g.set(5, 6, block()); g.set(5, 8, block()); g.set(6, 7, block())          // quanh (5,7)
+        g.set(5, 4, block()); g.set(6, 5, block())                                // quanh (5,5) (đáy dùng chung (5,6))
+        if (withFourthLeaf) {
+            g.set(3, 6, vine(root = false)) // tip trái (mầm thứ 4)
+            g.set(3, 5, block()); g.set(3, 7, block()); g.set(2, 6, block())      // bít (3,6)
+        }
+        return g
+    }
+
     // ── TRASH (rác rừng) ────────────────────────────────────────────────────────────
 
     private fun trash() = Grid.Cell(CellType.TRASH)

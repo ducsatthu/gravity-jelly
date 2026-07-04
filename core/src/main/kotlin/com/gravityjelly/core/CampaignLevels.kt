@@ -275,14 +275,14 @@ object CampaignLevels {
         rotationBudget = 4,
         vineGrowEveryN = 1,
         goal = Goal(GoalType.CLEAR_TARGETS, count = 3),
-        // MoveSolver: min = 8 nước → 3★=8.
-        stars = StarThresholds(three = 8, two = 11, one = 14, metric = StarMetric.MOVES),
+        // MoveSolver: min = 13 nước → 3★=13 (04/07: mô hình vine mới rễ-3-hướng/tip-độc-lập làm min tăng 8→13).
+        stars = StarThresholds(three = 13, two = 18, one = 23, metric = StarMetric.MOVES),
         difficulty = 4.0,
     )
 
     /**
      * L20 — BOSS "Thần Rừng" (Vine Siege) · bào máu bằng combo. Boss spawn thêm gốc vine mới mỗi 4
-     * lượt. Bắt đầu với 2 gốc. Vine nhanh (N=1). Solver: min 15 nước, 7 comboHits (spawnEvery=4).
+     * lượt. Bắt đầu với 2 gốc. Vine nhanh (N=1). Solver: min 19 nước (spawnEvery=4).
      */
     val L20 = Level(
         id = 20, world = 2, name = "Thần Rừng", seed = 20,
@@ -291,8 +291,8 @@ object CampaignLevels {
         vineGrowEveryN = 1,
         bossVineSpawnEveryN = 4,
         goal = Goal(GoalType.BOSS_COMBO, bossHP = 8),
-        // MoveSolver (spawnEvery=4): min 15 nước; greedy winRate 91%.
-        stars = StarThresholds(three = 15, two = 20, one = 25, metric = StarMetric.MOVES),
+        // MoveSolver (spawnEvery=4): min 19 nước (04/07: vine mới làm min tăng 15→19).
+        stars = StarThresholds(three = 19, two = 26, one = 33, metric = StarMetric.MOVES),
         difficulty = 4.0,
     )
 
