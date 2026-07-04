@@ -39,7 +39,7 @@ class BoardAnimator {
 
     /**
      * Reduced-motion (a11y): bỏ particle + popup float + squash, GIỮ chuyển state cốt lõi
-     * (slide collapse/rotate vẫn chạy để bàn đọc được). Lớp vỏ set qua [EndlessScreen].
+     * (slide collapse/rotate vẫn chạy để bàn đọc được). Lớp vỏ (:app) set qua DragPieceOverlay.
      */
     var reducedMotion = false
 

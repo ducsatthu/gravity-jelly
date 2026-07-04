@@ -153,7 +153,7 @@ class EndlessGameHolder(
         private set
 
     /**
-     * Callback phản hồi haptic (đặt mảnh / xóa / combo≥3). Lớp vỏ ([EndlessScreen]) cấp,
+     * Callback phản hồi haptic (đặt mảnh / xóa / combo≥3). Lớp vỏ (:app) cấp,
      * gate bằng cờ vibration của Settings. Giữ luồng một chiều: holder phát sự kiện, không tự rung.
      */
     var onEffect: ((EffectKind) -> Unit)? = null
