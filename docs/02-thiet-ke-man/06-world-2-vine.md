@@ -89,12 +89,12 @@ Ví dụ `vineGrowEveryN = 2` → mọc sau mỗi 2 lượt.
 
 ## Chống ghép nhánh (Anti-merge)
 
-Hàm `wouldLoopOrMerge` kiểm tra mỗi ô mới trước khi mọc. Ô mới **chỉ được kề**:
-- Ô cha (parent — trồi hoặc cành đang mọc).
-- Ô gốc (root — nút chia chung).
+Hàm `wouldLoopOrMerge` kiểm tra mỗi ô mới trước khi mọc. Ô mới **chỉ được kề ĐÚNG ô cha (parent)**.
+(Rễ phân nhánh mới thì cha chính là gốc, nên ô kề gốc vẫn hợp lệ vì gốc = parent trong nhánh đó.)
 
 Cấm kề:
-- Ô vine **cùng cây** nhưng không phải cha → tạo vòng tròn (loop) / ghép 2 cành cùng gốc.
+- Ô vine **cùng cây** nhưng không phải cha — **kể cả GỐC** → tạo vòng tròn (loop) / ghép 2 cành cùng
+  gốc / **ô vuông 2×2 cuộn quanh gốc**. Ngọn thà đứng im giữ nguyên mầm còn hơn cuộn lại chạm gốc.
 - Ô vine **cây khác** (không có trong `member` của cây đang xét) → ghép hai dây độc lập.
 - Ô **TRASH** (countdown hoặc chết) → "hồi sinh" nhánh chết.
 

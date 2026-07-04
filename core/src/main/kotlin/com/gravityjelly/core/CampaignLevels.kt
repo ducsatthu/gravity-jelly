@@ -291,8 +291,8 @@ object CampaignLevels {
         vineGrowEveryN = 1,
         bossVineSpawnEveryN = 4,
         goal = Goal(GoalType.BOSS_COMBO, bossHP = 8),
-        // MoveSolver (spawnEvery=4): min 19 nước (04/07: vine mới làm min tăng 15→19).
-        stars = StarThresholds(three = 19, two = 26, one = 33, metric = StarMetric.MOVES),
+        // MoveSolver (spawnEvery=4): min 18 nước (04/07: vine mới rễ-3-hướng/không-cuộn-gốc).
+        stars = StarThresholds(three = 18, two = 24, one = 30, metric = StarMetric.MOVES),
         difficulty = 4.0,
     )
 

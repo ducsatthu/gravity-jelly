@@ -186,7 +186,7 @@ private fun growFromRoot(
             if (grown >= MAX_GROW_PER_TURN) break
             val n = Vec(cell.x + d.dx, cell.y + d.dy)
             if (!grid.inBounds(n.x, n.y) || !grid.isEmpty(n.x, n.y) || n in taken) continue
-            if (wouldLoopOrMerge(n, cell, member, root, grid)) continue
+            if (wouldLoopOrMerge(n, cell, member, grid)) continue
             taken.add(n)
             added.add(n to color)
             grown++
@@ -197,13 +197,15 @@ private fun growFromRoot(
 
 /**
  * Ô mới tại [pos] (mọc từ [parent]) có tạo vòng tròn, ghép nhánh, hoặc "hồi sinh" rác không?
- * Chỉ cho kề [parent] (ô cha) và [root] (gốc chung). Cấm kề:
+ * Ô mới **CHỈ được kề đúng ô cha [parent]**. Cấm kề:
  *  - ô TRASH (chống "hồi sinh" nhánh chết)
  *  - ô vine CÂY KHÁC (không trong [member] → chống merge giữa 2 rễ độc lập)
- *  - ô vine cùng cây nhưng không phải cha/gốc (chống loop / ghép 2 cành cùng rễ)
+ *  - ô vine cùng cây nhưng KHÔNG phải cha — **kể cả GỐC** (chống loop / ghép cành / ô vuông 2×2
+ *    quanh gốc). Ngọn thà đứng im giữ nguyên mầm còn hơn cuộn lại chạm gốc.
+ * (Rễ mọc nhánh mới thì cha CHÍNH LÀ gốc, nên [pos] kề gốc vẫn hợp lệ qua nhánh `adj == parent`.)
  */
 private fun wouldLoopOrMerge(
-    pos: Vec, parent: Vec, member: Set<Vec>, root: Vec, grid: Grid
+    pos: Vec, parent: Vec, member: Set<Vec>, grid: Grid
 ): Boolean {
     for (d in Direction.entries) {
         val adj = Vec(pos.x + d.dx, pos.y + d.dy)
@@ -215,7 +217,6 @@ private fun wouldLoopOrMerge(
             continue
         }
         if (adj == parent) continue
-        if (adj == root) continue
         return true
     }
     return false

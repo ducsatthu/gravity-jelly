@@ -266,6 +266,22 @@ class VineTest {
     }
 
     @Test
+    fun `ngon khong cuon lai cham goc tao o vuong - giu nguyen mam`() {
+        val g = Grid()
+        // Dây: gốc(6,8) → (6,7) → ngọn(5,7). Nếu ngọn mọc DOWN→(5,8) sẽ kề gốc(6,8) → ô vuông 2×2.
+        g.set(6, 8, vine(root = true))
+        g.set(6, 7, vine(root = false))
+        g.set(5, 7, vine(root = false))
+        // Bít mọi lối HỢP LỆ để chỉ còn nước duy nhất là ô vuông (5,8) — phải bị cấm.
+        g.set(5, 6, block()); g.set(4, 7, block()) // ngọn (5,7): chặn UP, LEFT (RIGHT=cha)
+        g.set(6, 6, block()); g.set(7, 7, block()) // cành (6,7): chặn UP, RIGHT
+        g.set(7, 8, block())                        // gốc: chặn RIGHT (UP=cành, LEFT=(5,8) kề (5,7) nên tự cấm)
+        val a = growVines(g, Direction.DOWN)
+        assertTrue("không mọc ô nào (mọi nước còn lại đều tạo vuông/merge)", a.isEmpty())
+        assertTrue("ô vuông (5,8) KHÔNG bị lấp — ngọn giữ nguyên mầm", g.isEmpty(5, 8))
+    }
+
+    @Test
     fun `cap 4 mam moi re - khi da du 4 tip thi khong sinh mam thu 5`() {
         val g = buildCombVine(withFourthLeaf = true)
         // 4 tip đều bị bít, còn cành/rễ dư chỗ mọc — nhưng cap = 4 nên KHÔNG sinh mầm thứ 5.
