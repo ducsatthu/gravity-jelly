@@ -60,13 +60,13 @@ class CampaignSolverTest {
     }
 
     @Test
-    fun `comboDamage calculation`() {
+    fun `comboDamage calculation — uses rotationRefund formula`() {
         assert(CampaignSolver.calcComboDamage(0, 0) == 0)
         assert(CampaignSolver.calcComboDamage(0, 1) == 0)
-        assert(CampaignSolver.calcComboDamage(0, 2) == 1)
-        assert(CampaignSolver.calcComboDamage(0, 3) == 3)   // 1+2
-        assert(CampaignSolver.calcComboDamage(0, 4) == 6)   // 1+2+3
-        assert(CampaignSolver.calcComboDamage(2, 4) == 5)   // 2+3
-        assert(CampaignSolver.calcComboDamage(3, 5) == 7)   // 3+4
+        assert(CampaignSolver.calcComboDamage(0, 2) == 1)   // 1 tier mới ≥x2
+        assert(CampaignSolver.calcComboDamage(0, 3) == 2)   // 2 tier mới (x2, x3)
+        assert(CampaignSolver.calcComboDamage(0, 4) == 3)   // 3 tier mới (x2, x3, x4)
+        assert(CampaignSolver.calcComboDamage(2, 4) == 2)   // 2 tier mới (x3, x4)
+        assert(CampaignSolver.calcComboDamage(3, 5) == 2)   // 2 tier mới (x4, x5)
     }
 }

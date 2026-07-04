@@ -1,14 +1,16 @@
 # Gravity Jelly — Android brand assets
 
-Generated from a single SVG source (`../gravity-jelly-logo.js`). Mark = one big cute
-hero jelly block (kawaii face) + a small gravity-rotate accent on a soft sky-blue
-gradient.
+Icon = the supplied master artwork (`../app-icon-master.png`, 1254²): a cluster of four
+cookie-outlined jelly blocks (pink hero block with a kawaii face in front; yellow, mint
+and blue behind) wrapped by a chunky purple two-arrow gravity loop, on a cream ground.
+All launcher PNGs below are down-rendered from that one master (`../gravity-jelly-logo.js`
+embeds the same file for the brand board).
 
 ## Files
 | File | Size | Use |
 |---|---|---|
-| `ic_launcher_foreground.png` | 432² | Adaptive icon **foreground** layer (transparent) |
-| `ic_launcher_background.png` | 432² | Adaptive icon **background** layer (sky-blue gradient) |
+| `ic_launcher_foreground.png` | 432² | Adaptive icon **foreground** layer (master art, cream ground baked in) |
+| `ic_launcher_background.png` | 432² | Adaptive icon **background** layer (cream gradient fallback) |
 | `ic_launcher_monochrome.png` | 432² | **Themed** icon (Android 13+), white silhouette |
 | `ic_launcher-512.png` | 512² | Play Store listing icon (full-bleed square) |
 | `ic_launcher-192…48.png` | 192/144/96/72/48 | Pre-composited launcher icons (rounded) for legacy `mipmap-*` |
@@ -34,6 +36,6 @@ down-rendered per density). The `ic_launcher-NNN.png` files are convenient pre-r
 fallbacks for `mipmap-mdpi … xxxhdpi`.
 
 ## Colors
-Background gradient `#C6E4FF → #8FC2F6 → #73AEEF` (soft sky). Alternate colorways
-(mint / coral / bubblegum) live in `gravity-jelly-logo.js → COLORWAYS`. Never recolor the
-hero block; for one-color contexts use `ic_launcher_monochrome.png` and tint it.
+Background is **cream `#FFF7EC`** (baked into the master art) — matches the game UI.
+The master is a raster, so don't recolor it; re-export new art if a campaign needs a
+different ground. For one-color contexts use `ic_launcher_monochrome.png`.

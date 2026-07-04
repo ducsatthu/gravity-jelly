@@ -69,7 +69,7 @@ sealed class GameEvent {
     data class DropsCleared(val drops: List<Vec>) : GameEvent()
     /** Đếm ngược rác giảm; [died] = ô vừa hết đếm ngược (thành rác chết). */
     data class TrashCountdownTicked(val died: List<Vec>) : GameEvent()
-    /** Boss "Kẻ Đổ Rác" chèn ô rác cứng tại [positions] (World 2 · L20). */
+    /** Cơ chế đổ đá/rác chèn ô rác cứng tại [positions] (archetype dự phòng — KHÔNG dùng ở L20 = Thần Rừng). */
     data class DebrisAdded(val positions: List<Vec>) : GameEvent()
     /** Boss "Thần Thác" (World 3 · L30) tự ĐẢO hướng trọng lực 180° → [newGravity]. */
     data class BossGravityFlipped(val newGravity: Direction) : GameEvent()
@@ -112,7 +112,7 @@ class EndlessEngine(
     private var gameOver = false
     /** Số lượt THẢ mảnh kể từ lần dây leo mọc gần nhất (nhịp mọc = [EndlessTuning.vineGrowEveryN]). */
     private var placesSinceGrow = 0
-    /** Tổng số lượt THẢ mảnh (boss "Kẻ Đổ Rác": qua ân hạn mới bắt đầu đổ rác). */
+    /** Tổng số lượt THẢ mảnh (cơ chế đổ rác: qua ân hạn mới bắt đầu đổ). */
     private var placeTurns = 0
     /** World 3: ô trống bị thác ngập — cấm đặt mảnh. Tính lại mỗi lượt. */
     private var floodedCells: Set<Vec> = emptySet()
@@ -282,7 +282,7 @@ class EndlessEngine(
     }
 
     /**
-     * Boss "Kẻ Đổ Rác" (L20): sau [EndlessTuning.debrisGraceTurns] lượt ân hạn, mỗi lượt chèn
+     * Cơ chế đổ đá/rác (archetype dự phòng, KHÔNG dùng ở L20 = Thần Rừng): sau [EndlessTuning.debrisGraceTurns] lượt ân hạn, mỗi lượt chèn
      * [EndlessTuning.debrisPerTurn] ô rác cứng (BLOCK — rơi/xoay/xoá như ô thường, §9) vào các ô
      * trống gần "trần" (cạnh ngược hướng trọng lực). Deterministic theo lưới + số lượt.
      */

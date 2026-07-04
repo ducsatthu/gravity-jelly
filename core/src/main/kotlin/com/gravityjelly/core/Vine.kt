@@ -2,7 +2,7 @@ package com.gravityjelly.core
 
 /**
  * Cơ chế chữ ký World 2 · Rừng rậm — **DÂY LEO mọc lan** (Creeping Vine). Thuần/headless,
- * deterministic (bắt buộc cho solver/Daily). Xem `docs/levels/goal-system-v2.md §8`.
+ * deterministic (bắt buộc cho solver/Daily). Xem `docs/02-thiet-ke-man/02-he-muc-tieu.md §8`.
  *
  * Cấu trúc: mỗi dây = 1 thành phần liên thông 4-kề các ô [CellType.VINE], chứa 1 **gốc**
  * ([Grid.Cell.vineRoot]) + chuỗi **đốt**. Ô dây KHÔNG rơi theo trọng lực/xoay (xem `isJelly`

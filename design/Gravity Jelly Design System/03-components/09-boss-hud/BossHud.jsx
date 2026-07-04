@@ -9,7 +9,7 @@ import { Button } from '../01-button/Button.jsx';
  * /06-svg-assets/bosses/) — never a shared circular avatar, never boxed in a
  * ring. Mascots are EYES-ONLY (no mouth, brows or teeth).
  *   • worm  — Chú Sâu Đồng Cỏ: mint caterpillar + leaf sprouts (boss-worm.png).
- *   • trash — Kẻ Đổ Rác: lumpy brown jelly bag + scraps/cubes (boss-trash.png).
+ *   • trash — Thần Rừng: tree-trunk jelly god + leaf crown + sprout cubes (boss-forest.png).
  *   • water — Thần Thác: water-god column + ring + bubbles (boss-water.png).
  * BossMascot renders the PNG; a faint purple/cyan aura sits behind worm/water.
  *
@@ -63,7 +63,7 @@ function Glyph({ name, size = 15, color = 'currentColor', sw = 2.2 }) {
 const MASCOT_ASSET = {
   worm:  { file: 'boss-worm.png',  aspect: 448 / 560 },
   water: { file: 'boss-water.png', aspect: 467 / 560 },
-  trash: { file: 'boss-trash.png', aspect: 560 / 513 },
+  trash: { file: 'boss-forest.png', aspect: 1238 / 1144 },
 };
 const MASCOT_H = { worm: 122, water: 130, trash: 106 };
 const DEFAULT_ASSET_BASE = '../../06-svg-assets/bosses/';

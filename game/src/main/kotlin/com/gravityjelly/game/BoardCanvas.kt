@@ -143,7 +143,7 @@ fun BoardCanvas(
             val elapsed = now - timerStart
             val duration = r.comboTimerDurationNanos
             val frac = (elapsed.toFloat() / duration).coerceIn(0f, 1f) // 0=mới bắt đầu, 1=hết
-            drawComboTimerAura(size.width, size.height, wellCr, frac, now)
+            drawComboTimerAura(size.width, size.height, wellCr, frac, elapsed)
         }
 
         // ── 2. Lưới + khối — tất cả offset vào trong padPx ─────────────────
@@ -333,17 +333,16 @@ private const val AURA_SPIN_PERIOD_NANOS = 2_000_000_000L // 2s / vòng khi đ�
 
 /**
  * Hào quang 4 màu chạy quanh giếng bàn, countdown combo timer.
- * [frac] = 0→1 (mới bắt đầu → hết hạn). Alpha + tốc độ quay giảm dần theo frac.
+ * [frac] = 0→1 (mới bắt đầu → hết hạn). Alpha giảm dần; tốc độ quay cố định.
+ * [elapsedNanos] tính từ lúc timer bắt đầu → spin reset khi timer reset.
  */
 private fun DrawScope.drawComboTimerAura(
-    w: Float, h: Float, cr: CornerRadius, frac: Float, nowNanos: Long,
+    w: Float, h: Float, cr: CornerRadius, frac: Float, elapsedNanos: Long,
 ) {
     val remaining = 1f - frac
     if (remaining <= 0f) return
     val alpha = remaining.coerceIn(0.15f, 1f)
-    val speedScale = 0.3f + 0.7f * remaining
-    val spin = ((nowNanos % (AURA_SPIN_PERIOD_NANOS / speedScale.coerceAtLeast(0.01f)).toLong())
-        .toFloat() / (AURA_SPIN_PERIOD_NANOS / speedScale.coerceAtLeast(0.01f)).toLong())
+    val spin = (elapsedNanos % AURA_SPIN_PERIOD_NANOS).toFloat() / AURA_SPIN_PERIOD_NANOS
 
     val rx = cr.x; val ry = cr.y
     val inset = 0f

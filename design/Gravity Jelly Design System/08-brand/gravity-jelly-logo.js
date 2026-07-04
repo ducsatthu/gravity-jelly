@@ -1,17 +1,21 @@
 /* gravity-jelly-logo.js — single source of truth for the brand mark.
    Pure SVG-string builders (no React, no fonts) so the SAME art renders on
    the brand board AND rasterizes to Android PNGs via canvas.
-   Mark = ONE big cute hero jelly block (kawaii face) + a small gravity-rotate
-   accent, on a soft kid-friendly gradient. Exposes window.GJLogo. */
+   Mark = a CLUSTER of four cookie-outlined jelly blocks (yellow behind top,
+   mint + blue behind bottom, big pink hero block with a kawaii face in front)
+   wrapped by a chunky purple gravity-rotate loop (two-arrow refresh) on a warm
+   cream background with a few sparkle dots. Exposes window.GJLogo. */
 
 (function () {
   const COL = {
-    yellow: { fill: '#FFE3A3', edge: '#E8B85C', shine: '#FFF6DE' },
+    yellow: { fill: '#FFE3A3', edge: '#E8B85C', shine: '#FFF1CE' },
     mint: { fill: '#A3E5D9', edge: '#5FC3B2', shine: '#CBF2EB' },
     pink: { fill: '#F7A9C0', edge: '#E576A0', shine: '#FBD0DF' },
     blue: { fill: '#B3C7F7', edge: '#7E9CE8', shine: '#D6E1FB' },
   };
-  const INK = '#5A4A2E';            // warm cocoa for eyes (friendlier than near-black)
+  const GRAV = { fill: '#7E6CF0', edge: '#6353D6', shine: '#A99CF6' };
+  const OUTLINE = '#4A3222';        // dark chocolate cookie-outline on every block + the loop
+  const INK = '#3B2A1C';            // eye pupils
 
   // brand corner stickers (same motifs as JellyBlock): star / leaf / heart / droplet
   const STICKER = {
@@ -107,31 +111,129 @@
     return `<polygon points="${pts}" fill="${color || '#fff'}" opacity="${op}"/>`;
   }
 
-  /* the mark (halo + hero block + accent), designed in a `box`-sized square */
+  /* ── NEW MARK ──────────────────────────────────────────────────────────
+     A cookie-outlined candy block (dark chocolate outline, colored bottom rim,
+     lighter top face, glossy highlights). `face` adds the kawaii pink face. */
+  function candyBlock(cx, cy, size, name, opts = {}) {
+    const c = COL[name] || COL.pink;
+    const half = size / 2;
+    const x = cx - half, y = cy - half;
+    const r = size * 0.28;
+    const ow = size * 0.085;                 // chocolate outline width
+    if (opts.mono) {
+      return `<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${size.toFixed(2)}" height="${size.toFixed(2)}" rx="${r.toFixed(2)}" ry="${r.toFixed(2)}" fill="#fff"/>`;
+    }
+    const inset = ow * 0.55;
+    const rim = size * 0.09;                  // bottom colored rim thickness
+    const fx = x + inset, fy = y + inset;
+    const fw = size - inset * 2, fh = size - inset * 2 - rim;
+    const fr = r * 0.9;
+    let s = '';
+    // base = darker edge color with chocolate outline
+    s += `<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${size.toFixed(2)}" height="${size.toFixed(2)}" rx="${r.toFixed(2)}" ry="${r.toFixed(2)}" fill="${c.edge}" stroke="${OUTLINE}" stroke-width="${ow.toFixed(2)}" stroke-linejoin="round"/>`;
+    // top face (lighter) — leaves the edge colour peeking at the bottom as a rim
+    s += `<rect x="${fx.toFixed(2)}" y="${fy.toFixed(2)}" width="${fw.toFixed(2)}" height="${fh.toFixed(2)}" rx="${fr.toFixed(2)}" ry="${fr.toFixed(2)}" fill="${c.fill}"/>`;
+    // glossy highlights top-left
+    s += `<ellipse cx="${(x + size * 0.34).toFixed(2)}" cy="${(y + size * 0.26).toFixed(2)}" rx="${(size * 0.2).toFixed(2)}" ry="${(size * 0.11).toFixed(2)}" fill="${c.shine}" opacity="0.9" transform="rotate(-18 ${(x + size * 0.34).toFixed(2)} ${(y + size * 0.26).toFixed(2)})"/>`;
+    s += `<circle cx="${(x + size * 0.24).toFixed(2)}" cy="${(y + size * 0.2).toFixed(2)}" r="${(size * 0.045).toFixed(2)}" fill="#fff" opacity="0.85"/>`;
+    if (opts.face) s += faceFor(cx, cy, size);
+    return s;
+  }
+
+  /* kawaii face: two big glossy eyes + a soft smile, centred on the block */
+  function faceFor(cx, cy, size) {
+    const eyeDX = size * 0.185, eyeY = cy + size * 0.05;
+    const eyeR = size * 0.13, pupR = size * 0.076;
+    const eye = (ex) => {
+      const py = eyeY + size * 0.01;
+      return `<circle cx="${ex.toFixed(2)}" cy="${eyeY.toFixed(2)}" r="${eyeR.toFixed(2)}" fill="#fff" stroke="#F3C0D0" stroke-width="${(size * 0.012).toFixed(2)}"/>`
+        + `<circle cx="${ex.toFixed(2)}" cy="${py.toFixed(2)}" r="${pupR.toFixed(2)}" fill="${INK}"/>`
+        + `<circle cx="${(ex - pupR * 0.4).toFixed(2)}" cy="${(py - pupR * 0.5).toFixed(2)}" r="${(pupR * 0.4).toFixed(2)}" fill="#fff"/>`;
+    };
+    const my = eyeY + size * 0.185, mw = size * 0.09;
+    const smile = `<path d="M ${(cx - mw).toFixed(2)} ${my.toFixed(2)} Q ${cx.toFixed(2)} ${(my + size * 0.06).toFixed(2)} ${(cx + mw).toFixed(2)} ${my.toFixed(2)}" fill="none" stroke="${INK}" stroke-width="${(size * 0.032).toFixed(2)}" stroke-linecap="round"/>`;
+    return eye(cx - eyeDX) + eye(cx + eyeDX) + smile;
+  }
+
+  /* chunky purple gravity-rotate LOOP — two arrows (refresh) with chocolate
+     outline, centred in a `box`-sized square. Returns {brown, color}. */
+  function gravityLoop(box, opts = {}) {
+    const cx = box / 2, cy = box / 2;
+    const R = box * 0.338, sw = box * 0.076, ow = box * 0.021;
+    const mono = !!opts.mono;
+    const D = Math.PI / 180;
+    const P = (a) => [cx + R * Math.cos(a * D), cy + R * Math.sin(a * D)];
+    const arc = (a0, a1, w, col) => {
+      const [x0, y0] = P(a0), [x1, y1] = P(a1);
+      const large = Math.abs(a1 - a0) > 180 ? 1 : 0;
+      return `<path d="M ${x0.toFixed(2)} ${y0.toFixed(2)} A ${R.toFixed(2)} ${R.toFixed(2)} 0 ${large} 1 ${x1.toFixed(2)} ${y1.toFixed(2)}" fill="none" stroke="${col}" stroke-width="${w.toFixed(2)}" stroke-linecap="round"/>`;
+    };
+    const head = (ae, extra, col) => {
+      const [ex, ey] = P(ae);
+      const t = [-Math.sin(ae * D), Math.cos(ae * D)];   // tangent (clockwise)
+      const p = [Math.cos(ae * D), Math.sin(ae * D)];      // outward normal
+      const len = sw * 1.15 + extra, hw = sw * 0.98 + extra;
+      const tip = [ex + t[0] * len, ey + t[1] * len];
+      const b = [ex - t[0] * len * 0.15, ey - t[1] * len * 0.15];
+      const l = [b[0] + p[0] * hw, b[1] + p[1] * hw];
+      const rr = [b[0] - p[0] * hw, b[1] - p[1] * hw];
+      return `<polygon points="${tip[0].toFixed(2)},${tip[1].toFixed(2)} ${l[0].toFixed(2)},${l[1].toFixed(2)} ${rr[0].toFixed(2)},${rr[1].toFixed(2)}" fill="${col}" stroke="${col}" stroke-width="${(sw * 0.001).toFixed(2)}" stroke-linejoin="round"/>`;
+    };
+    // top arc left→over-top→upper-right ; bottom arc right→under-bottom→lower-left
+    const A1 = [192, 336], A2 = [12, 156];
+    if (mono) {
+      return arc(A1[0], A1[1], sw, '#fff') + arc(A2[0], A2[1], sw, '#fff')
+        + head(A1[1], 0, '#fff') + head(A2[1], 0, '#fff');
+    }
+    const brownW = sw + ow * 2;
+    const brown = arc(A1[0], A1[1], brownW, OUTLINE) + arc(A2[0], A2[1], brownW, OUTLINE)
+      + head(A1[1], ow, OUTLINE) + head(A2[1], ow, OUTLINE);
+    const color = arc(A1[0], A1[1], sw, GRAV.fill) + arc(A2[0], A2[1], sw, GRAV.fill)
+      + head(A1[1], 0, GRAV.fill) + head(A2[1], 0, GRAV.fill)
+      // top gloss along each arc
+      + arc(A1[0] + 8, A1[1] - 30, sw * 0.26, GRAV.shine).replace('/>', ' opacity="0.7"/>')
+      + arc(A2[0] + 8, A2[1] - 30, sw * 0.26, GRAV.shine).replace('/>', ' opacity="0.7"/>');
+    return { brown, color };
+  }
+
+  function dot(cx, cy, r, col) {
+    return `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${r.toFixed(1)}" fill="${col}"/>`;
+  }
+
+  /* the mark (dots · back blocks · gravity loop · front pink hero), box square */
   function markInner(box, opts = {}) {
     const mono = !!opts.mono;
-    const cx = box / 2, cy = box / 2;
+    // cluster geometry (tuned in a 432 box, scales with `box`)
+    const u = box / 432;
+    const yellow = [216 * u, 114 * u, 150 * u];
+    const mint = [104 * u, 302 * u, 150 * u];
+    const blue = [328 * u, 302 * u, 150 * u];
+    const pink = [216 * u, 234 * u, 214 * u];
+
     if (mono) {
-      return rotateAccent(box, '#fff', 0.85) + heroBlock(box, HERO, 0.6, true);
+      const loop = gravityLoop(box, { mono: true });
+      return candyBlock(yellow[0], yellow[1], yellow[2], 'yellow', { mono: true })
+        + candyBlock(mint[0], mint[1], mint[2], 'mint', { mono: true })
+        + candyBlock(blue[0], blue[1], blue[2], 'blue', { mono: true })
+        + loop
+        + candyBlock(pink[0], pink[1], pink[2], 'pink', { mono: true });
     }
-    const t = THEME[opts.colorway] || THEME[PRIMARY_CW];
-    let halo;
-    if (t.ring) {
-      halo = `<circle cx="${cx}" cy="${cy}" r="${(box * 0.40).toFixed(2)}" fill="${t.ring}" opacity="${t.ringOp}"/>`;
-    } else {
-      halo = `<circle cx="${cx}" cy="${cy}" r="${(box * 0.395).toFixed(2)}" fill="#fff" opacity="${t.haloOp[0]}"/>`
-        + `<circle cx="${cx}" cy="${cy}" r="${(box * 0.345).toFixed(2)}" fill="#fff" opacity="${t.haloOp[1]}"/>`;
-    }
-    const accent = rotateAccent(box, t.arc, 0.9);
-    const block = heroBlock(box, opts.block || HERO, 0.6, false);
-    const sparkles = sparkle(box * 0.235, box * 0.235, box * 0.026, 0.95, t.spark)
-      + sparkle(box * 0.78, box * 0.74, box * 0.02, 0.9, t.spark)
-      + sparkle(box * 0.20, box * 0.7, box * 0.014, 0.8, t.spark);
-    return halo + sparkles + accent + block;
+
+    const loop = gravityLoop(box);
+    const dots = dot(box * 0.11, box * 0.19, box * 0.02, '#FFCA66')
+      + dot(box * 0.85, box * 0.28, box * 0.017, '#FFCA66')
+      + dot(box * 0.09, box * 0.34, box * 0.016, '#F7A9C0');
+
+    return dots
+      + candyBlock(yellow[0], yellow[1], yellow[2], 'yellow')
+      + candyBlock(mint[0], mint[1], mint[2], 'mint')
+      + candyBlock(blue[0], blue[1], blue[2], 'blue')
+      + loop.brown + loop.color
+      + candyBlock(pink[0], pink[1], pink[2], 'pink', { face: true });
   }
 
   function wrap(size, inner, defs) {
-    return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">${defs || ''}${inner}</svg>`;
+    return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">${defs || ''}${inner}</svg>`;
   }
 
   function bgGradDefs(id, colorway) {
@@ -142,32 +244,38 @@
     return `<circle cx="${size * 0.19}" cy="${size * 0.83}" r="${size * 0.12}" fill="#fff" opacity="0.10"/><circle cx="${size * 0.85}" cy="${size * 0.18}" r="${size * 0.08}" fill="#fff" opacity="0.10"/>`;
   }
 
-  // adaptive FOREGROUND layer: transparent, mark centred in safe zone
-  function foregroundSVG(size, opts = {}) {
-    const k = size / 432;
-    return wrap(size, `<g transform="scale(${k})">${markInner(432, opts)}</g>`);
+  // ── RASTER MASTER ─────────────────────────────────────────────────────
+  // The official app icon is the supplied artwork (08-brand/app-icon-master.png).
+  // These builders embed that PNG so the SAME art shows everywhere and
+  // rasterises to Android PNGs — no procedural redraw. Path resolves relative
+  // to the HTML document embedding it (the brand pages live in 08-brand/).
+  const MASTER_IMG = 'app-icon-master.png';
+  function imageSVG(size, rounding, href) {
+    const r = rounding != null ? size * rounding : 0;
+    const src = href || MASTER_IMG;
+    return `<img src="${src}" width="${size}" height="${size}" alt="Gravity Jelly" style="display:block;width:${size}px;height:${size}px;object-fit:cover;border-radius:${r}px" draggable="false"/>`;
   }
 
-  // adaptive BACKGROUND layer (or full bg for store icon)
+  // adaptive FOREGROUND layer — the supplied artwork (already on cream)
+  function foregroundSVG(size /*, opts */) {
+    return imageSVG(size, 0);
+  }
+
+  // adaptive BACKGROUND layer — cream gradient behind the master art
   function backgroundSVG(size, opts = {}) {
     const r = opts.rounding ? size * opts.rounding : 0;
     return wrap(size, `<rect width="${size}" height="${size}" rx="${r}" ry="${r}" fill="url(#gjbg)"/>${bokeh(size)}`, bgGradDefs('gjbg', opts.colorway));
   }
 
-  // composed icon (background + mark); rounding = corner radius fraction (0 = full square)
+  // composed icon — the supplied artwork; rounding = corner radius fraction
   function fullIconSVG(size, opts = {}) {
-    const r = opts.rounding != null ? size * opts.rounding : 0;
-    const k = size / 432;
-    const bg = `<rect width="${size}" height="${size}" rx="${r}" ry="${r}" fill="url(#gjbg2)"/>${bokeh(size)}`;
-    const mark = `<g transform="scale(${k})">${markInner(432, opts)}</g>`;
-    return wrap(size, bg + mark, bgGradDefs('gjbg2', opts.colorway));
+    return imageSVG(size, opts.rounding != null ? opts.rounding : 0);
   }
 
-  // monochrome silhouette (themed icon): white mark on transparent
+  // monochrome / themed slot — the master art desaturated to a soft silhouette
   function monochromeSVG(size) {
-    const k = size / 432;
-    return wrap(size, `<g transform="scale(${k})">${markInner(432, { mono: true })}</g>`);
+    return `<img src="${MASTER_IMG}" width="${size}" height="${size}" alt="Gravity Jelly mono" style="display:block;width:${size}px;height:${size}px;object-fit:cover;filter:grayscale(1) brightness(1.35) contrast(0.9)" draggable="false"/>`;
   }
 
-  window.GJLogo = { COL, COLORWAYS, PRIMARY_CW, HERO, INK, heroBlock, markInner, foregroundSVG, backgroundSVG, fullIconSVG, monochromeSVG, wrap };
+  window.GJLogo = { COL, COLORWAYS, PRIMARY_CW, HERO, INK, MASTER_IMG, heroBlock, markInner, imageSVG, foregroundSVG, backgroundSVG, fullIconSVG, monochromeSVG, wrap };
 })();

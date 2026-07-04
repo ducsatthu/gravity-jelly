@@ -20,6 +20,7 @@ class CampaignSolver(private val maxTurns: Int = MAX_TURNS) {
         val rotationsUsed: Int,
         val targetsCleared: Int,
         val comboDamage: Int,
+        val comboHits: Int,
         val triggerHit: Boolean,
     )
 
@@ -174,6 +175,7 @@ class CampaignSolver(private val maxTurns: Int = MAX_TURNS) {
             rotationsUsed = totalRotsUsed,
             targetsCleared = tracker.targetsCleared,
             comboDamage = tracker.comboDamage,
+            comboHits = tracker.comboHits,
             triggerHit = tracker.triggerHit,
         )
     }
@@ -476,13 +478,8 @@ class CampaignSolver(private val maxTurns: Int = MAX_TURNS) {
     companion object {
         const val MAX_TURNS = 600
 
-        fun calcComboDamage(before: Int, after: Int): Int {
-            if (after <= before || after < 2) return 0
-            val start = maxOf(2, before + 1)
-            var dmg = 0
-            for (t in start..after) dmg += t - 1
-            return dmg
-        }
+        fun calcComboDamage(before: Int, after: Int): Int =
+            ComboReward.rotationRefund(before, after)
     }
 
     // ── Goal tracker ──
@@ -491,6 +488,7 @@ class CampaignSolver(private val maxTurns: Int = MAX_TURNS) {
         var maxCombo = 0
         var targetsCleared = 0
         var comboDamage = 0
+        var comboHits = 0
         var triggerHit = false
         private var lastComboForDmg = 0
 
@@ -515,7 +513,8 @@ class CampaignSolver(private val maxTurns: Int = MAX_TURNS) {
             // Combo damage: track from state combo
             val currentCombo = state.combo
             if (currentCombo > lastComboForDmg) {
-                comboDamage += calcComboDamage(lastComboForDmg, currentCombo)
+                val dmg = calcComboDamage(lastComboForDmg, currentCombo)
+                if (dmg > 0) { comboDamage += dmg; comboHits++ }
                 lastComboForDmg = currentCombo
             }
             if (currentCombo == 0) lastComboForDmg = 0

@@ -4,7 +4,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 /**
- * Khoá luật combo-hồi-xoay theo spec (docs/business-understanding.md §6):
+ * Khoá luật combo-hồi-xoay theo spec (docs/01-nen-tang/01-nghiep-vu.md §6):
  * mỗi bậc combo MỚI đạt ≥ x2 → +1 lượt; hồi cộng dồn = bậc − 1 nếu combo chỉ tăng.
  */
 class ComboRewardTest {

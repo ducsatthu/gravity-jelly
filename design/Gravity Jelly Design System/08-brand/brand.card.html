@@ -48,7 +48,7 @@
       <div>
         <p class="eyebrow">Bộ nhận diện · Android</p>
         <h2 style="font-size:40px; margin:0;">Gravity Jelly</h2>
-        <p class="note">Một nhân vật jelly khối hồng — mắt to long lanh + sticker trái tim của thương hiệu — kèm nét xoay trọng lực tím (cơ chế chữ ký), trên nền KEM đúng tông giao diện game. Hồng + tím trên kem: ấm, ngọt, đồng bộ với toàn bộ app. Một nguồn SVG duy nhất → xuất ra mọi cỡ Android.</p>
+        <p class="note">Cụm bốn khối jelly cookie-outline — khối HỒNG hero mặt cười long lanh ở trước, vàng/mint/xanh xếp quanh — ôm trong vòng xoay trọng lực tím 2 mũi tên, trên nền KEM. Dùng thẳng <b>ảnh gốc</b> (app-icon-master.png) làm master, xuất ra mọi cỡ Android.</p>
       </div>
     </div>
 
@@ -56,7 +56,7 @@
     <div class="card">
       <p class="eyebrow">App icon</p>
       <h2>Icon ứng dụng</h2>
-      <p class="note">Hình chính: một khối jelly HỒNG to với mắt to long lanh + sticker trái tim đúng ngôn ngữ thương hiệu, kèm nét xoay trọng lực tím. Nền kem + khối hồng + tia lấp lánh vàng nên ấm áp, dễ nhận ra và đồng bộ với game.</p>
+      <p class="note">Hình chính là <b>ảnh gốc</b>: cụm bốn khối jelly cookie-outline, khối hồng mặt cười ở trước, ôm trong vòng xoay trọng lực tím. Nền kem in sẵn — ấm áp, dễ nhận ra, đồng bộ với game.</p>
       <div class="row" style="margin-top:22px;">
         <div class="tile"><div class="mask-round" id="ic-512" style="width:200px;height:200px;"></div><span class="cap"><b>Play Store</b><br>512 × 512</span></div>
         <div class="tile"><div class="mask-circle" id="ic-circle" style="width:120px;height:120px;"></div><span class="cap">Mask tròn</span></div>
@@ -71,19 +71,19 @@
         <div class="tile"><div class="mask-round" id="d-72" style="width:36px;height:36px;"></div><span class="cap"><b>72</b><br>hdpi</span></div>
         <div class="tile"><div class="mask-round" id="d-48" style="width:24px;height:24px;"></div><span class="cap"><b>48</b><br>mdpi</span></div>
       </div>
-      <h3 style="margin-top:30px;">Tông nền — chọn 1 làm chính</h3>
-      <p class="note">Mặc định <b>Kem</b> (đồng bộ với giao diện game). Có thể đổi tông theo chiến dịch; luôn giữ nguyên khối jelly hồng &amp; nét xoay tím.</p>
+      <h3 style="margin-top:30px;">Nền của icon</h3>
+      <p class="note">Icon dùng <b>ảnh gốc</b> (<span style="font-family:'Fredoka';color:var(--color-gravity)">app-icon-master.png</span>) — nền KEM đã in sẵn trong hình, đồng bộ với giao diện game. Không tô lại màu nền; muốn đổi tông chiến dịch thì xuất bản art mới.</p>
       <div class="row" id="cw-row" style="margin-top:14px;"></div>
     </div>
 
     <!-- ADAPTIVE -->
     <div class="card">
       <p class="eyebrow">Adaptive icon · Android 8+</p>
-      <h2>Hai lớp tách rời</h2>
-      <p class="note">Foreground (khối jelly + nét xoay, nền trong suốt) và background (gradient kem) tách riêng để hệ điều hành tự cắt theo hình thiết bị. Nội dung chính nằm trong vùng an toàn 66% ở giữa.</p>
+      <h2>Hai lớp</h2>
+      <p class="note">Foreground = <b>ảnh gốc</b> (đã có nền kem), background = gradient kem dự phòng để hệ điều hành cắt theo hình thiết bị. Nội dung chính nằm gọn trong vùng an toàn 66% ở giữa.</p>
       <div class="row" style="margin-top:22px; align-items:center;">
         <div class="tile"><div id="ad-bg" style="width:150px;height:150px;border-radius:18px;overflow:hidden;box-shadow:var(--shadow-sm);"></div><span class="cap"><b>background</b><br>432 · gradient</span></div>
-        <div class="tile"><div id="ad-fg" style="width:150px;height:150px;border-radius:18px;overflow:hidden;box-shadow:inset 0 0 0 1.5px var(--color-cell-line); position:relative; background:repeating-conic-gradient(#F4E9D8 0% 25%, #FBEFDD 0% 50%) 50%/24px 24px;"></div><span class="cap"><b>foreground</b><br>432 · trong suốt + vùng an toàn</span></div>
+        <div class="tile"><div id="ad-fg" style="width:150px;height:150px;border-radius:18px;overflow:hidden;box-shadow:inset 0 0 0 1.5px var(--color-cell-line); position:relative;"></div><span class="cap"><b>foreground</b><br>432 · ảnh gốc + vùng an toàn</span></div>
         <div class="tile" style="font-size:30px;color:var(--color-text-muted);font-family:var(--font-display);">→</div>
         <div class="tile"><div class="mask-circle" id="ad-res-c" style="width:120px;height:120px;"></div><span class="cap">Kết quả · tròn</span></div>
         <div class="tile"><div class="mask-round" id="ad-res-r" style="width:120px;height:120px;"></div><span class="cap">Kết quả · bo góc</span></div>
@@ -207,7 +207,8 @@
       <p class="eyebrow">File xuất cho Android</p>
       <h2>Trong thư mục <span style="font-family:'Fredoka';color:var(--color-gravity)">08-brand/android/</span></h2>
       <div class="dl" style="margin-top:14px;">
-        <span class="f">ic_launcher_foreground.png</span><span>432 · trong suốt (lớp foreground)</span>
+        <span class="f">app-icon-master.png</span><span>1254 · ẢNH GỐC master (nguồn của mọi cỡ)</span>
+        <span class="f">ic_launcher_foreground.png</span><span>432 · ảnh gốc (master, nền kem in sẵn)</span>
         <span class="f">ic_launcher_background.png</span><span>432 · gradient xanh trời (lớp background)</span>
         <span class="f">ic_launcher_monochrome.png</span><span>432 · silhouette trắng (themed icon)</span>
         <span class="f">ic_launcher-512.png</span><span>512 · icon Play Store (bo góc)</span>
@@ -256,9 +257,9 @@
     put('cs-icon', full(120, 0));
     put('min-icon', full(48, 0));
     // colorways
-    const cws = [['cream','Kem · chính'],['coral','Cam đào'],['mint','Mint'],['bubblegum','Kẹo hồng'],['sky','Xanh trời']];
+    // master icon background note — single art (raster, fixed cream bg)
     const cw = document.getElementById('cw-row');
-    if (cw) cws.forEach(([k,l]) => cw.insertAdjacentHTML('beforeend', '<div class="tile"><div class="mask-round" style="width:96px;height:96px">' + GJLogo.fullIconSVG(96, { colorway: k, rounding: 0 }) + '</div><span class="cap">' + l + '</span></div>'));
+    if (cw) cw.insertAdjacentHTML('beforeend', '<div class="tile"><div class="mask-round" style="width:120px;height:120px">' + GJLogo.fullIconSVG(120, { rounding: 0 }) + '</div><span class="cap"><b>Kem</b> · in sẵn trong art</span></div>');
     // do/dont
     put('dd-1', full(84, 0));
     put('dd-2', full(84, 0));

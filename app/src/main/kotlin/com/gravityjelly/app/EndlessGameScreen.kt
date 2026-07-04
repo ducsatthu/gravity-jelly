@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.gravityjelly.app.ads.AdsManager
 import com.gravityjelly.app.ads.findActivity
+import com.gravityjelly.core.EndlessTuning
 import com.gravityjelly.game.EndlessGameHolder
 import com.gravityjelly.game.GjEase
 import com.gravityjelly.game.GjMotion
@@ -55,7 +56,7 @@ fun EndlessGameScreen(
 
     // seed định danh ván hiện tại; đổi seed ⇒ tạo holder mới (reset engine).
     var seed by remember { mutableLongStateOf(initialSeed) }
-    val holder = remember(seed) { EndlessGameHolder(seed) }
+    val holder = remember(seed) { EndlessGameHolder(seed, tuning = EndlessTuning(comboTimeBased = true)) }
     val shell = holder.shell
 
     // điểm cuối có thể được x2 nhờ rewarded (mỗi ván một lần).

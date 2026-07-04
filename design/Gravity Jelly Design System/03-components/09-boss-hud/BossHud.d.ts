@@ -5,8 +5,8 @@ import * as React from 'react';
  *
  * Each boss has its OWN silhouette jelly mascot (never a shared circular avatar,
  * never boxed in a ring). Mascots are EYES-ONLY (no mouth/brows/teeth) — worm
- * (mint caterpillar + leaf sprouts), trash (lumpy brown bag + scraps/smell
- * clouds), water (waterfall-god column + streams + spinning ring).
+ * (mint caterpillar + leaf sprouts), trash (tree-trunk jelly god + leaf crown +
+ * sprout cubes), water (waterfall-god column + streams + spinning ring).
  *
  * Pieces: BossCard (compact in-game/pre-boss card) · BossIntroCard (large
  * pre-level card + BOSS tag + orange CTA) · BossToast (warning pill) ·

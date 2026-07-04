@@ -21,6 +21,7 @@ class MoveSolver(
         val won: Boolean,
         val moves: Int,
         val rotationsUsed: Int,
+        val comboHits: Int,
         val nodesExpanded: Int,
     )
 
@@ -28,12 +29,13 @@ class MoveSolver(
     private class Progress(
         var targets: Int = 0,
         var comboDmg: Int = 0,
+        var comboHits: Int = 0,
         var triggerHit: Boolean = false,
         var lastComboForDmg: Int = 0,
         var maxCombo: Int = 0,
         var rotationsUsed: Int = 0,
     ) {
-        fun copy() = Progress(targets, comboDmg, triggerHit, lastComboForDmg, maxCombo, rotationsUsed)
+        fun copy() = Progress(targets, comboDmg, comboHits, triggerHit, lastComboForDmg, maxCombo, rotationsUsed)
     }
 
     private class Node(
@@ -59,9 +61,9 @@ class MoveSolver(
         val greedyWon = greedy.won
         return when {
             beam.won && greedyWon -> if (beam.moves <= greedy.moves) beam
-                else Result(true, greedy.moves, greedy.rotationsUsed, beam.nodesExpanded)
+                else Result(true, greedy.moves, greedy.rotationsUsed, greedy.comboHits, beam.nodesExpanded)
             beam.won -> beam
-            greedyWon -> Result(true, greedy.moves, greedy.rotationsUsed, beam.nodesExpanded)
+            greedyWon -> Result(true, greedy.moves, greedy.rotationsUsed, greedy.comboHits, beam.nodesExpanded)
             else -> beam
         }
     }
@@ -99,7 +101,7 @@ class MoveSolver(
             beam = children.sortedByDescending { it.heur }.take(beamWidth)
         }
 
-        return Result(won = false, moves = 0, rotationsUsed = 0, nodesExpanded = nodes)
+        return Result(won = false, moves = 0, rotationsUsed = 0, comboHits = 0, nodesExpanded = nodes)
     }
 
     // ── Sinh node con bằng cách đặt mảnh (có tiền tố xoay) ──
@@ -142,7 +144,7 @@ class MoveSolver(
                         val childSnap = engine.snapshot()
                         val child = Node(childSnap, prog, node.moves + 1, heuristic(goal, after, prog))
                         if (isWon(goal, childSnap, prog)) {
-                            return Result(true, child.moves, prog.rotationsUsed, nodes)
+                            return Result(true, child.moves, prog.rotationsUsed, prog.comboHits, nodes)
                         }
                         val key = keyOf(goal, childSnap, prog)
                         if (visited.add(key)) out.add(child)
@@ -164,7 +166,7 @@ class MoveSolver(
             prog.rotationsUsed += rot.cost
             update(prog, goal, ev, engine.state())
             if (isWon(goal, engine.snapshot(), prog)) {
-                return Result(true, node.moves, prog.rotationsUsed, nodes)
+                return Result(true, node.moves, prog.rotationsUsed, prog.comboHits, nodes)
             }
         }
         return null
@@ -202,7 +204,7 @@ class MoveSolver(
         return true
     }
 
-    private fun win(node: Node) = Result(true, node.moves, node.prog.rotationsUsed, nodes)
+    private fun win(node: Node) = Result(true, node.moves, node.prog.rotationsUsed, node.prog.comboHits, nodes)
 
     // ── Tiến độ mục tiêu từ events (đồng bộ luật với CampaignSolver.GoalTracker) ──
 
@@ -237,7 +239,8 @@ class MoveSolver(
         }
         val c = state.combo
         if (c > p.lastComboForDmg) {
-            p.comboDmg += CampaignSolver.calcComboDamage(p.lastComboForDmg, c)
+            val dmg = ComboReward.rotationRefund(p.lastComboForDmg, c)
+            if (dmg > 0) { p.comboDmg += dmg; p.comboHits++ }
             p.lastComboForDmg = c
         }
         if (c == 0) p.lastComboForDmg = 0

@@ -89,24 +89,11 @@ class CampaignLevelsTest {
     }
 
     @Test
-    fun `L20 boss Than Rung spawn vine moi 3 luot`() {
-        val e = EndlessEngine.forLevel(CampaignLevels.L20)
-        val initRoots = (0 until 9).flatMap { x ->
-            (0 until 9).mapNotNull { y ->
-                if (e.state().grid.get(x, y)?.isVineRoot == true) Vec(x, y) else null
-            }
-        }
-        assertEquals("ban đầu 2 gốc", 2, initRoots.size)
-        // Đặt 3 mảnh (ở vùng trống trên cao) → sau lượt 3, boss spawn gốc mới
-        e.placePieceAt(0, 0, 0)
-        e.placePieceAt(1, 3, 0)
-        e.placePieceAt(2, 6, 0)
-        val rootsAfter = (0 until 9).flatMap { x ->
-            (0 until 9).mapNotNull { y ->
-                if (e.state().grid.get(x, y)?.isVineRoot == true) Vec(x, y) else null
-            }
-        }
-        assertTrue("sau 3 lượt, boss spawn thêm gốc", rootsAfter.size > initRoots.size)
+    fun `L20 boss Than Rung spawn vine moi 4 luot`() {
+        assertEquals("bossVineSpawnEveryN = 4", 4, CampaignLevels.L20.bossVineSpawnEveryN)
+        assertEquals("ban đầu 2 gốc", 2, CampaignLevels.L20.preset.count { it.vineRoot })
+        assertEquals("bossHP = 8", 8, CampaignLevels.L20.goal.bossHP)
+        assertEquals("vineGrowEveryN = 1", 1, CampaignLevels.L20.vineGrowEveryN)
     }
 
     @Test

@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"GravityJellyDesignSystem_3e0487","components":[{"name":"JellyBlock","sourcePath":"02-foundations/01-jelly-block/JellyBlock.jsx"},{"name":"Eyes","sourcePath":"02-foundations/02-eyes/Eyes.jsx"},{"name":"Icon","sourcePath":"02-foundations/03-icon/Icon.jsx"},{"name":"Button","sourcePath":"03-components/01-button/Button.jsx"},{"name":"Hud","sourcePath":"03-components/02-hud/Hud.jsx"},{"name":"TrayPiece","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"Tray","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"GravityRotateButton","sourcePath":"03-components/04-gravity-rotate-button/GravityRotateButton.jsx"},{"name":"ComboPopup","sourcePath":"03-components/05-combo-popup/ComboPopup.jsx"},{"name":"Dialog","sourcePath":"03-components/06-dialog/Dialog.jsx"},{"name":"ObjectiveBar","sourcePath":"03-components/08-objective-bar/ObjectiveBar.jsx"},{"name":"BossMascot","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"ShieldBar","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossCard","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossIntroCard","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossToast","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossRule","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossHud","sourcePath":"03-components/09-boss-hud/BossHud.jsx"}],"sourceHashes":{"02-foundations/01-jelly-block/JellyBlock.jsx":"99d676a3206c","02-foundations/02-eyes/Eyes.jsx":"d4762b606971","02-foundations/03-icon/Icon.jsx":"1d501e149f2f","03-components/01-button/Button.jsx":"ff24f7c456d7","03-components/02-hud/Hud.jsx":"b68bb167fc30","03-components/03-tray/Tray.jsx":"e425b7cd5eed","03-components/04-gravity-rotate-button/GravityRotateButton.jsx":"09df27eb60e6","03-components/05-combo-popup/ComboPopup.jsx":"3430e5b0f130","03-components/06-dialog/Dialog.jsx":"d5e802d0a1db","03-components/08-objective-bar/ObjectiveBar.jsx":"d3ef438d707b","03-components/09-boss-hud/BossHud.jsx":"9f8f706c566a","04-screens/board-boss.jsx":"fe9ea9512869","04-screens/board-campaign.jsx":"db93679ac719","04-screens/board-design.jsx":"5163f27516da","04-screens/board.jsx":"a2c1742d1301","04-screens/boss-intro-screen.jsx":"5b7d158f2415","04-screens/cam-nang-illus.jsx":"4e6ed15b2b63","04-screens/cam-nang-screen.jsx":"54efac16eddc","04-screens/daily-reward-screen.jsx":"0309b17c4056","04-screens/home-screen.jsx":"7d45b68edee5","04-screens/leaderboard-screen.jsx":"82c8413c65d7","04-screens/level-intro-screen.jsx":"1252c538acaf","04-screens/level-win-screen.jsx":"b88ddcf6bfa8","04-screens/missions-screen.jsx":"a2cb834bcb3d","04-screens/out-of-lives-screen.jsx":"c5661499a9aa","04-screens/pause-screen.jsx":"edd558af8897","04-screens/phone-frame.jsx":"18e22e60b390","04-screens/play/jelly-play.jsx":"90bcd0f1ca70","04-screens/result-screen.jsx":"775264ed1cbe","04-screens/screen-extras.jsx":"b6a2513dd24c","04-screens/settings-screen.jsx":"a5cbe4af2727","04-screens/shop-screen.jsx":"454bf4d67682","04-screens/splash-screen.jsx":"6b0e750c020b","04-screens/tweaks-panel.jsx":"6591467622ed","04-screens/world-gate-locked.jsx":"4d32d0ac3bad","04-screens/world-gate.jsx":"6db94465e8f2","04-screens/world1-strip.jsx":"2c816bdee51c","04-screens/world10-strip.jsx":"86352e2ce593","04-screens/world2-strip.jsx":"442d24cbb43f","04-screens/world3-strip.jsx":"43895f789f0d","04-screens/world4-strip.jsx":"d3f5e8aadbec","04-screens/world5-strip.jsx":"31ce848e45ea","04-screens/world6-strip.jsx":"3479dadec253","04-screens/world7-strip.jsx":"e0b64525e7fa","04-screens/world8-strip.jsx":"444f9855082e","04-screens/world9-strip.jsx":"aea09bf6b901","07-mechanics/mechanics-cards.js":"711cd9d74c93","07-mechanics/mechanics-kit.jsx":"f52efab2af43","07-mechanics/mechanics-widgets.jsx":"59dbeacaab30","08-brand/gravity-jelly-logo.js":"6df76113eb29","prototypes/proto-engine.js":"6887737568ba","prototypes/proto-game.jsx":"75954a4bee0a","prototypes/proto-ui.jsx":"138d35a58082"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":4,"namespace":"GravityJellyDesignSystem_3e0487","components":[{"name":"JellyBlock","sourcePath":"02-foundations/01-jelly-block/JellyBlock.jsx"},{"name":"Eyes","sourcePath":"02-foundations/02-eyes/Eyes.jsx"},{"name":"Icon","sourcePath":"02-foundations/03-icon/Icon.jsx"},{"name":"Button","sourcePath":"03-components/01-button/Button.jsx"},{"name":"Hud","sourcePath":"03-components/02-hud/Hud.jsx"},{"name":"TrayPiece","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"Tray","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"GravityRotateButton","sourcePath":"03-components/04-gravity-rotate-button/GravityRotateButton.jsx"},{"name":"ComboPopup","sourcePath":"03-components/05-combo-popup/ComboPopup.jsx"},{"name":"Dialog","sourcePath":"03-components/06-dialog/Dialog.jsx"},{"name":"ObjectiveBar","sourcePath":"03-components/08-objective-bar/ObjectiveBar.jsx"},{"name":"BossMascot","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"ShieldBar","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossCard","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossIntroCard","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossToast","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossRule","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossHud","sourcePath":"03-components/09-boss-hud/BossHud.jsx"}],"sourceHashes":{"02-foundations/01-jelly-block/JellyBlock.jsx":"99d676a3206c","02-foundations/02-eyes/Eyes.jsx":"d4762b606971","02-foundations/03-icon/Icon.jsx":"1d501e149f2f","03-components/01-button/Button.jsx":"ff24f7c456d7","03-components/02-hud/Hud.jsx":"b68bb167fc30","03-components/03-tray/Tray.jsx":"e425b7cd5eed","03-components/04-gravity-rotate-button/GravityRotateButton.jsx":"09df27eb60e6","03-components/05-combo-popup/ComboPopup.jsx":"3430e5b0f130","03-components/06-dialog/Dialog.jsx":"d5e802d0a1db","03-components/08-objective-bar/ObjectiveBar.jsx":"d3ef438d707b","03-components/09-boss-hud/BossHud.jsx":"195a3709042f","04-screens/board-boss.jsx":"fe9ea9512869","04-screens/board-campaign.jsx":"db93679ac719","04-screens/board-design.jsx":"5163f27516da","04-screens/board.jsx":"a2c1742d1301","04-screens/boss-intro-screen.jsx":"5b7d158f2415","04-screens/cam-nang-illus.jsx":"4e6ed15b2b63","04-screens/cam-nang-screen.jsx":"54efac16eddc","04-screens/daily-reward-screen.jsx":"0309b17c4056","04-screens/home-screen.jsx":"7d45b68edee5","04-screens/leaderboard-screen.jsx":"82c8413c65d7","04-screens/level-intro-screen.jsx":"1252c538acaf","04-screens/level-win-screen.jsx":"b88ddcf6bfa8","04-screens/missions-screen.jsx":"a2cb834bcb3d","04-screens/out-of-lives-screen.jsx":"c5661499a9aa","04-screens/pause-screen.jsx":"edd558af8897","04-screens/phone-frame.jsx":"18e22e60b390","04-screens/play/jelly-play.jsx":"90bcd0f1ca70","04-screens/result-screen.jsx":"775264ed1cbe","04-screens/screen-extras.jsx":"b6a2513dd24c","04-screens/settings-screen.jsx":"a5cbe4af2727","04-screens/shop-screen.jsx":"454bf4d67682","04-screens/splash-screen.jsx":"6b0e750c020b","04-screens/tweaks-panel.jsx":"6591467622ed","04-screens/world-gate-locked.jsx":"4d32d0ac3bad","04-screens/world-gate.jsx":"6db94465e8f2","04-screens/world1-strip.jsx":"2c816bdee51c","04-screens/world10-strip.jsx":"86352e2ce593","04-screens/world2-strip.jsx":"442d24cbb43f","04-screens/world3-strip.jsx":"43895f789f0d","04-screens/world4-strip.jsx":"d3f5e8aadbec","04-screens/world5-strip.jsx":"31ce848e45ea","04-screens/world6-strip.jsx":"3479dadec253","04-screens/world7-strip.jsx":"e0b64525e7fa","04-screens/world8-strip.jsx":"444f9855082e","04-screens/world9-strip.jsx":"aea09bf6b901","07-mechanics/mechanics-cards.js":"711cd9d74c93","07-mechanics/mechanics-kit.jsx":"f52efab2af43","07-mechanics/mechanics-widgets.jsx":"59dbeacaab30","08-brand/gravity-jelly-logo.js":"6c562cfab24e","prototypes/proto-engine.js":"6887737568ba","prototypes/proto-game.jsx":"75954a4bee0a","prototypes/proto-ui.jsx":"138d35a58082"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
@@ -2430,7 +2430,7 @@ try { (() => {
  * /06-svg-assets/bosses/) — never a shared circular avatar, never boxed in a
  * ring. Mascots are EYES-ONLY (no mouth, brows or teeth).
  *   • worm  — Chú Sâu Đồng Cỏ: mint caterpillar + leaf sprouts (boss-worm.png).
- *   • trash — Kẻ Đổ Rác: lumpy brown jelly bag + scraps/cubes (boss-trash.png).
+ *   • trash — Thần Rừng: tree-trunk jelly god + leaf crown + sprout cubes (boss-forest.png).
  *   • water — Thần Thác: water-god column + ring + bubbles (boss-water.png).
  * BossMascot renders the PNG; a faint purple/cyan aura sits behind worm/water.
  *
@@ -2533,8 +2533,8 @@ const MASCOT_ASSET = {
     aspect: 467 / 560
   },
   trash: {
-    file: 'boss-trash.png',
-    aspect: 560 / 513
+    file: 'boss-forest.png',
+    aspect: 1238 / 1144
   }
 };
 const MASCOT_H = {
@@ -31571,15 +31571,17 @@ try { (() => {
 /* gravity-jelly-logo.js — single source of truth for the brand mark.
    Pure SVG-string builders (no React, no fonts) so the SAME art renders on
    the brand board AND rasterizes to Android PNGs via canvas.
-   Mark = ONE big cute hero jelly block (kawaii face) + a small gravity-rotate
-   accent, on a soft kid-friendly gradient. Exposes window.GJLogo. */
+   Mark = a CLUSTER of four cookie-outlined jelly blocks (yellow behind top,
+   mint + blue behind bottom, big pink hero block with a kawaii face in front)
+   wrapped by a chunky purple gravity-rotate loop (two-arrow refresh) on a warm
+   cream background with a few sparkle dots. Exposes window.GJLogo. */
 
 (function () {
   const COL = {
     yellow: {
       fill: '#FFE3A3',
       edge: '#E8B85C',
-      shine: '#FFF6DE'
+      shine: '#FFF1CE'
     },
     mint: {
       fill: '#A3E5D9',
@@ -31597,7 +31599,13 @@ try { (() => {
       shine: '#D6E1FB'
     }
   };
-  const INK = '#5A4A2E'; // warm cocoa for eyes (friendlier than near-black)
+  const GRAV = {
+    fill: '#7E6CF0',
+    edge: '#6353D6',
+    shine: '#A99CF6'
+  };
+  const OUTLINE = '#4A3222'; // dark chocolate cookie-outline on every block + the loop
+  const INK = '#3B2A1C'; // eye pupils
 
   // brand corner stickers (same motifs as JellyBlock): star / leaf / heart / droplet
   const STICKER = {
@@ -31721,28 +31729,134 @@ try { (() => {
     return `<polygon points="${pts}" fill="${color || '#fff'}" opacity="${op}"/>`;
   }
 
-  /* the mark (halo + hero block + accent), designed in a `box`-sized square */
-  function markInner(box, opts = {}) {
-    const mono = !!opts.mono;
+  /* ── NEW MARK ──────────────────────────────────────────────────────────
+     A cookie-outlined candy block (dark chocolate outline, colored bottom rim,
+     lighter top face, glossy highlights). `face` adds the kawaii pink face. */
+  function candyBlock(cx, cy, size, name, opts = {}) {
+    const c = COL[name] || COL.pink;
+    const half = size / 2;
+    const x = cx - half,
+      y = cy - half;
+    const r = size * 0.28;
+    const ow = size * 0.085; // chocolate outline width
+    if (opts.mono) {
+      return `<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${size.toFixed(2)}" height="${size.toFixed(2)}" rx="${r.toFixed(2)}" ry="${r.toFixed(2)}" fill="#fff"/>`;
+    }
+    const inset = ow * 0.55;
+    const rim = size * 0.09; // bottom colored rim thickness
+    const fx = x + inset,
+      fy = y + inset;
+    const fw = size - inset * 2,
+      fh = size - inset * 2 - rim;
+    const fr = r * 0.9;
+    let s = '';
+    // base = darker edge color with chocolate outline
+    s += `<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${size.toFixed(2)}" height="${size.toFixed(2)}" rx="${r.toFixed(2)}" ry="${r.toFixed(2)}" fill="${c.edge}" stroke="${OUTLINE}" stroke-width="${ow.toFixed(2)}" stroke-linejoin="round"/>`;
+    // top face (lighter) — leaves the edge colour peeking at the bottom as a rim
+    s += `<rect x="${fx.toFixed(2)}" y="${fy.toFixed(2)}" width="${fw.toFixed(2)}" height="${fh.toFixed(2)}" rx="${fr.toFixed(2)}" ry="${fr.toFixed(2)}" fill="${c.fill}"/>`;
+    // glossy highlights top-left
+    s += `<ellipse cx="${(x + size * 0.34).toFixed(2)}" cy="${(y + size * 0.26).toFixed(2)}" rx="${(size * 0.2).toFixed(2)}" ry="${(size * 0.11).toFixed(2)}" fill="${c.shine}" opacity="0.9" transform="rotate(-18 ${(x + size * 0.34).toFixed(2)} ${(y + size * 0.26).toFixed(2)})"/>`;
+    s += `<circle cx="${(x + size * 0.24).toFixed(2)}" cy="${(y + size * 0.2).toFixed(2)}" r="${(size * 0.045).toFixed(2)}" fill="#fff" opacity="0.85"/>`;
+    if (opts.face) s += faceFor(cx, cy, size);
+    return s;
+  }
+
+  /* kawaii face: two big glossy eyes + a soft smile, centred on the block */
+  function faceFor(cx, cy, size) {
+    const eyeDX = size * 0.185,
+      eyeY = cy + size * 0.05;
+    const eyeR = size * 0.13,
+      pupR = size * 0.076;
+    const eye = ex => {
+      const py = eyeY + size * 0.01;
+      return `<circle cx="${ex.toFixed(2)}" cy="${eyeY.toFixed(2)}" r="${eyeR.toFixed(2)}" fill="#fff" stroke="#F3C0D0" stroke-width="${(size * 0.012).toFixed(2)}"/>` + `<circle cx="${ex.toFixed(2)}" cy="${py.toFixed(2)}" r="${pupR.toFixed(2)}" fill="${INK}"/>` + `<circle cx="${(ex - pupR * 0.4).toFixed(2)}" cy="${(py - pupR * 0.5).toFixed(2)}" r="${(pupR * 0.4).toFixed(2)}" fill="#fff"/>`;
+    };
+    const my = eyeY + size * 0.185,
+      mw = size * 0.09;
+    const smile = `<path d="M ${(cx - mw).toFixed(2)} ${my.toFixed(2)} Q ${cx.toFixed(2)} ${(my + size * 0.06).toFixed(2)} ${(cx + mw).toFixed(2)} ${my.toFixed(2)}" fill="none" stroke="${INK}" stroke-width="${(size * 0.032).toFixed(2)}" stroke-linecap="round"/>`;
+    return eye(cx - eyeDX) + eye(cx + eyeDX) + smile;
+  }
+
+  /* chunky purple gravity-rotate LOOP — two arrows (refresh) with chocolate
+     outline, centred in a `box`-sized square. Returns {brown, color}. */
+  function gravityLoop(box, opts = {}) {
     const cx = box / 2,
       cy = box / 2;
+    const R = box * 0.338,
+      sw = box * 0.076,
+      ow = box * 0.021;
+    const mono = !!opts.mono;
+    const D = Math.PI / 180;
+    const P = a => [cx + R * Math.cos(a * D), cy + R * Math.sin(a * D)];
+    const arc = (a0, a1, w, col) => {
+      const [x0, y0] = P(a0),
+        [x1, y1] = P(a1);
+      const large = Math.abs(a1 - a0) > 180 ? 1 : 0;
+      return `<path d="M ${x0.toFixed(2)} ${y0.toFixed(2)} A ${R.toFixed(2)} ${R.toFixed(2)} 0 ${large} 1 ${x1.toFixed(2)} ${y1.toFixed(2)}" fill="none" stroke="${col}" stroke-width="${w.toFixed(2)}" stroke-linecap="round"/>`;
+    };
+    const head = (ae, extra, col) => {
+      const [ex, ey] = P(ae);
+      const t = [-Math.sin(ae * D), Math.cos(ae * D)]; // tangent (clockwise)
+      const p = [Math.cos(ae * D), Math.sin(ae * D)]; // outward normal
+      const len = sw * 1.15 + extra,
+        hw = sw * 0.98 + extra;
+      const tip = [ex + t[0] * len, ey + t[1] * len];
+      const b = [ex - t[0] * len * 0.15, ey - t[1] * len * 0.15];
+      const l = [b[0] + p[0] * hw, b[1] + p[1] * hw];
+      const rr = [b[0] - p[0] * hw, b[1] - p[1] * hw];
+      return `<polygon points="${tip[0].toFixed(2)},${tip[1].toFixed(2)} ${l[0].toFixed(2)},${l[1].toFixed(2)} ${rr[0].toFixed(2)},${rr[1].toFixed(2)}" fill="${col}" stroke="${col}" stroke-width="${(sw * 0.001).toFixed(2)}" stroke-linejoin="round"/>`;
+    };
+    // top arc left→over-top→upper-right ; bottom arc right→under-bottom→lower-left
+    const A1 = [192, 336],
+      A2 = [12, 156];
     if (mono) {
-      return rotateAccent(box, '#fff', 0.85) + heroBlock(box, HERO, 0.6, true);
+      return arc(A1[0], A1[1], sw, '#fff') + arc(A2[0], A2[1], sw, '#fff') + head(A1[1], 0, '#fff') + head(A2[1], 0, '#fff');
     }
-    const t = THEME[opts.colorway] || THEME[PRIMARY_CW];
-    let halo;
-    if (t.ring) {
-      halo = `<circle cx="${cx}" cy="${cy}" r="${(box * 0.40).toFixed(2)}" fill="${t.ring}" opacity="${t.ringOp}"/>`;
-    } else {
-      halo = `<circle cx="${cx}" cy="${cy}" r="${(box * 0.395).toFixed(2)}" fill="#fff" opacity="${t.haloOp[0]}"/>` + `<circle cx="${cx}" cy="${cy}" r="${(box * 0.345).toFixed(2)}" fill="#fff" opacity="${t.haloOp[1]}"/>`;
+    const brownW = sw + ow * 2;
+    const brown = arc(A1[0], A1[1], brownW, OUTLINE) + arc(A2[0], A2[1], brownW, OUTLINE) + head(A1[1], ow, OUTLINE) + head(A2[1], ow, OUTLINE);
+    const color = arc(A1[0], A1[1], sw, GRAV.fill) + arc(A2[0], A2[1], sw, GRAV.fill) + head(A1[1], 0, GRAV.fill) + head(A2[1], 0, GRAV.fill)
+    // top gloss along each arc
+    + arc(A1[0] + 8, A1[1] - 30, sw * 0.26, GRAV.shine).replace('/>', ' opacity="0.7"/>') + arc(A2[0] + 8, A2[1] - 30, sw * 0.26, GRAV.shine).replace('/>', ' opacity="0.7"/>');
+    return {
+      brown,
+      color
+    };
+  }
+  function dot(cx, cy, r, col) {
+    return `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${r.toFixed(1)}" fill="${col}"/>`;
+  }
+
+  /* the mark (dots · back blocks · gravity loop · front pink hero), box square */
+  function markInner(box, opts = {}) {
+    const mono = !!opts.mono;
+    // cluster geometry (tuned in a 432 box, scales with `box`)
+    const u = box / 432;
+    const yellow = [216 * u, 114 * u, 150 * u];
+    const mint = [104 * u, 302 * u, 150 * u];
+    const blue = [328 * u, 302 * u, 150 * u];
+    const pink = [216 * u, 234 * u, 214 * u];
+    if (mono) {
+      const loop = gravityLoop(box, {
+        mono: true
+      });
+      return candyBlock(yellow[0], yellow[1], yellow[2], 'yellow', {
+        mono: true
+      }) + candyBlock(mint[0], mint[1], mint[2], 'mint', {
+        mono: true
+      }) + candyBlock(blue[0], blue[1], blue[2], 'blue', {
+        mono: true
+      }) + loop + candyBlock(pink[0], pink[1], pink[2], 'pink', {
+        mono: true
+      });
     }
-    const accent = rotateAccent(box, t.arc, 0.9);
-    const block = heroBlock(box, opts.block || HERO, 0.6, false);
-    const sparkles = sparkle(box * 0.235, box * 0.235, box * 0.026, 0.95, t.spark) + sparkle(box * 0.78, box * 0.74, box * 0.02, 0.9, t.spark) + sparkle(box * 0.20, box * 0.7, box * 0.014, 0.8, t.spark);
-    return halo + sparkles + accent + block;
+    const loop = gravityLoop(box);
+    const dots = dot(box * 0.11, box * 0.19, box * 0.02, '#FFCA66') + dot(box * 0.85, box * 0.28, box * 0.017, '#FFCA66') + dot(box * 0.09, box * 0.34, box * 0.016, '#F7A9C0');
+    return dots + candyBlock(yellow[0], yellow[1], yellow[2], 'yellow') + candyBlock(mint[0], mint[1], mint[2], 'mint') + candyBlock(blue[0], blue[1], blue[2], 'blue') + loop.brown + loop.color + candyBlock(pink[0], pink[1], pink[2], 'pink', {
+      face: true
+    });
   }
   function wrap(size, inner, defs) {
-    return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">${defs || ''}${inner}</svg>`;
+    return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">${defs || ''}${inner}</svg>`;
   }
   function bgGradDefs(id, colorway) {
     const c = COLORWAYS[colorway] || COLORWAYS[PRIMARY_CW];
@@ -31752,33 +31866,37 @@ try { (() => {
     return `<circle cx="${size * 0.19}" cy="${size * 0.83}" r="${size * 0.12}" fill="#fff" opacity="0.10"/><circle cx="${size * 0.85}" cy="${size * 0.18}" r="${size * 0.08}" fill="#fff" opacity="0.10"/>`;
   }
 
-  // adaptive FOREGROUND layer: transparent, mark centred in safe zone
-  function foregroundSVG(size, opts = {}) {
-    const k = size / 432;
-    return wrap(size, `<g transform="scale(${k})">${markInner(432, opts)}</g>`);
+  // ── RASTER MASTER ─────────────────────────────────────────────────────
+  // The official app icon is the supplied artwork (08-brand/app-icon-master.png).
+  // These builders embed that PNG so the SAME art shows everywhere and
+  // rasterises to Android PNGs — no procedural redraw. Path resolves relative
+  // to the HTML document embedding it (the brand pages live in 08-brand/).
+  const MASTER_IMG = 'app-icon-master.png';
+  function imageSVG(size, rounding, href) {
+    const r = rounding != null ? size * rounding : 0;
+    const src = href || MASTER_IMG;
+    return `<img src="${src}" width="${size}" height="${size}" alt="Gravity Jelly" style="display:block;width:${size}px;height:${size}px;object-fit:cover;border-radius:${r}px" draggable="false"/>`;
   }
 
-  // adaptive BACKGROUND layer (or full bg for store icon)
+  // adaptive FOREGROUND layer — the supplied artwork (already on cream)
+  function foregroundSVG(size /*, opts */) {
+    return imageSVG(size, 0);
+  }
+
+  // adaptive BACKGROUND layer — cream gradient behind the master art
   function backgroundSVG(size, opts = {}) {
     const r = opts.rounding ? size * opts.rounding : 0;
     return wrap(size, `<rect width="${size}" height="${size}" rx="${r}" ry="${r}" fill="url(#gjbg)"/>${bokeh(size)}`, bgGradDefs('gjbg', opts.colorway));
   }
 
-  // composed icon (background + mark); rounding = corner radius fraction (0 = full square)
+  // composed icon — the supplied artwork; rounding = corner radius fraction
   function fullIconSVG(size, opts = {}) {
-    const r = opts.rounding != null ? size * opts.rounding : 0;
-    const k = size / 432;
-    const bg = `<rect width="${size}" height="${size}" rx="${r}" ry="${r}" fill="url(#gjbg2)"/>${bokeh(size)}`;
-    const mark = `<g transform="scale(${k})">${markInner(432, opts)}</g>`;
-    return wrap(size, bg + mark, bgGradDefs('gjbg2', opts.colorway));
+    return imageSVG(size, opts.rounding != null ? opts.rounding : 0);
   }
 
-  // monochrome silhouette (themed icon): white mark on transparent
+  // monochrome / themed slot — the master art desaturated to a soft silhouette
   function monochromeSVG(size) {
-    const k = size / 432;
-    return wrap(size, `<g transform="scale(${k})">${markInner(432, {
-      mono: true
-    })}</g>`);
+    return `<img src="${MASTER_IMG}" width="${size}" height="${size}" alt="Gravity Jelly mono" style="display:block;width:${size}px;height:${size}px;object-fit:cover;filter:grayscale(1) brightness(1.35) contrast(0.9)" draggable="false"/>`;
   }
   window.GJLogo = {
     COL,
@@ -31786,8 +31904,10 @@ try { (() => {
     PRIMARY_CW,
     HERO,
     INK,
+    MASTER_IMG,
     heroBlock,
     markInner,
+    imageSVG,
     foregroundSVG,
     backgroundSVG,
     fullIconSVG,

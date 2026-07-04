@@ -12,4 +12,4 @@ The **boss-fight HUD cluster** shown at the top of the GAME screen on boss level
 ## Driving the hit
 Increment `hitToken` and set `lastHit={ damage, combo }`; the panel plays the jerk/flash and floats the `−damage ×N`. HP is a small integer (hits), e.g. 5 / 8 / 10.
 
-Reuses `Icon` + color tokens; portrait, brows and tell glyphs drawn inline. Shown with three bosses (Chú Sâu Đồng Cỏ · Kẻ Đổ Rác · Thần Thác) on light/dark in `boss-hud.card.html`.
+Reuses `Icon` + color tokens; portrait, brows and tell glyphs drawn inline. Shown with three bosses (Chú Sâu Đồng Cỏ · Thần Rừng · Thần Thác) on light/dark in `boss-hud.card.html`.

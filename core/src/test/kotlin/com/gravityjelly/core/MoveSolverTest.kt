@@ -30,6 +30,14 @@ class MoveSolverTest {
             } else if (metric == StarMetric.MOVES && !r.won) {
                 line.append("  ⚠ KHÔNG GIẢI ĐƯỢC")
             }
+            if (metric == StarMetric.COMBO && r.won) {
+                val (s3, s2, s1) = stars(r.comboHits)
+                line.append("  comboHits=${r.comboHits}")
+                line.append("  → GỢI Ý 3★/2★/1★ = $s3/$s2/$s1")
+                line.append("  (hiện ${cur.three}/${cur.two}/${cur.one})")
+            } else if (metric == StarMetric.COMBO && !r.won) {
+                line.append("  ⚠ KHÔNG GIẢI ĐƯỢC")
+            }
             out.appendLine(line)
         }
         println(out)

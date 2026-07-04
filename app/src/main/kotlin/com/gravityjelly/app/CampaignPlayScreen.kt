@@ -227,11 +227,10 @@ fun CampaignPlayScreen(
                         level = level.id,
                         name = bossNameForWorld(level.world),
                         kind = bossKindForWorld(level.world),
-                        // Khiên CÒN LẠI = máu boss chưa bị bào; rút về 0 khi hạ boss.
                         shieldCurrent = (holder.bossHpMax - holder.bossHpDamage).coerceAtLeast(0),
                         shieldTarget = holder.bossHpMax,
-                        // Tell sống: W2 sắp mọc dây · W3 sắp đảo trọng lực (+đếm ngược). null (W1) → chip CẨM NANG.
                         tell = holder.bossTell,
+                        liveStars = liveStarsFor(level.stars, holder.movesUsed, holder.rotationsUsed),
                     )
                 } else {
                     ObjectiveBar(
@@ -432,9 +431,9 @@ internal fun winStat(metric: StarMetric, goal: Goal, moves: Int, rotations: Int)
     }
 
 /**
- * Dải sao SỐNG cho ObjectiveBar ở màn chấm theo NƯỚC ĐI / LƯỢT XOAY (ít hơn = tốt hơn): bậc đang giữ +
- * gợi ý "còn N … giữ bậc" / "thêm 1 … rớt bậc". Trả null cho SCORE (đã có coin/caption trên thanh điểm)
- * và COMBO (màn boss dùng BossCard). Dùng chung [StarThresholds.tierFor] với lúc chấm sao khi thắng.
+ * Dải sao SỐNG cho màn chấm theo NƯỚC ĐI / LƯỢT XOAY (ít hơn = tốt hơn): bậc đang giữ +
+ * gợi ý "còn N … giữ bậc" / "thêm 1 … rớt bậc". Dùng cho cả ObjectiveBar lẫn BossCard (boss chấm MOVES).
+ * Trả null cho SCORE. Dùng chung [StarThresholds.tierFor] với lúc chấm sao khi thắng.
  */
 internal fun liveStarsFor(stars: StarThresholds, movesUsed: Int, rotationsUsed: Int): LiveStars? {
     val used = when (stars.metric) {

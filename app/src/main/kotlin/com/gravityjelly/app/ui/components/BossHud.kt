@@ -80,17 +80,16 @@ import com.gravityjelly.app.ui.theme.GjSpace
  * bossHpMax. Khiên vỡ dần → thanh rút về 0 khi hạ boss.
  */
 
-/** 3 boss theo world: W1 = Chú Sâu Đồng Cỏ (mint) · W2 = Kẻ Đổ Rác (nâu) · W3 = Thần Thác (xanh). */
-enum class BossKind { WORM, TRASH, WATER }
+/** 3 boss theo world: W1 = Chú Sâu Đồng Cỏ (mint) · W2 = Thần Rừng (forest) · W3 = Thần Thác (xanh). */
+enum class BossKind { WORM, FOREST, WATER }
 
 fun bossKindForWorld(world: Int): BossKind = when (world) {
-    2 -> BossKind.TRASH
+    2 -> BossKind.FOREST
     3 -> BossKind.WATER
     else -> BossKind.WORM
 }
 
-// W2: cơ chế thực tế ở :core là boss "Thần Rừng" (spawn dây leo) — dùng tên này cho khớp tell "Mọc dây",
-// KHÔNG dùng "Kẻ Đổ Rác" của mock design (art mascot trash tạm dùng, cần mascot Thần Rừng riêng sau).
+// W2 = boss "Thần Rừng" (spawn dây leo) — khớp tell "Mọc dây" của :core.
 fun bossNameForWorld(world: Int): String = when (world) {
     2 -> "Thần Rừng"
     3 -> "Thần Thác"
@@ -101,7 +100,8 @@ private data class BossTheme(val color: Color, val edge: Color, val asset: Int, 
 
 private fun themeFor(kind: BossKind): BossTheme = when (kind) {
     BossKind.WORM -> BossTheme(GjPalette.BlockMint, GjPalette.BlockMintEdge, R.drawable.boss_worm, aura = true)
-    BossKind.TRASH -> BossTheme(Color(0xFFD9BE94), Color(0xFFB79A6E), R.drawable.boss_trash, aura = false)
+    // Thần Rừng: mascot boss_forest (thần rừng thân cây + vương miện lá). Màu thẻ theo design (nâu ấm).
+    BossKind.FOREST -> BossTheme(Color(0xFFD9BE94), Color(0xFFB79A6E), R.drawable.boss_forest, aura = false)
     BossKind.WATER -> BossTheme(GjPalette.BlockBlue, GjPalette.BlockBlueEdge, R.drawable.boss_water, aura = true)
 }
 
@@ -127,6 +127,7 @@ fun BossCard(
     modifier: Modifier = Modifier,
     tell: BossTell? = null,
     ruleLabel: String = "Combo ×2 phá khiên",
+    liveStars: LiveStars? = null,
 ) {
     val theme = themeFor(kind)
     Box(
@@ -184,6 +185,7 @@ fun BossCard(
                 ShieldCount(current = shieldCurrent, target = shieldTarget)
             }
             if (tell != null) TellChip(tell) else RuleChip(label = ruleLabel)
+            if (liveStars != null) StripFooter(liveStars)
         }
     }
 }

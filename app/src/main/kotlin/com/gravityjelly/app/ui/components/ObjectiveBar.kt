@@ -258,7 +258,7 @@ data class LiveStars(val tier: Int, val now: String, val next: String?)
 
 /** Footer dải 3 sao + caption bậc (design StripFooter). */
 @Composable
-private fun StripFooter(live: LiveStars) {
+internal fun StripFooter(live: LiveStars) {
     Row(
         Modifier.padding(top = 6.dp, start = 2.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -271,7 +271,7 @@ private fun StripFooter(live: LiveStars) {
 
 /** Dải 3 mốc sao — rail chìm + fill vàng lấp tới bậc hiện tại (design StarStrip). */
 @Composable
-private fun StarStrip(tier: Int, size: androidx.compose.ui.unit.Dp = 14.dp) {
+internal fun StarStrip(tier: Int, size: androidx.compose.ui.unit.Dp = 14.dp) {
     val fillFrac = when {
         tier >= 3 -> 1f
         tier == 2 -> 0.5f
@@ -309,7 +309,7 @@ private fun StarStrip(tier: Int, size: androidx.compose.ui.unit.Dp = 14.dp) {
 
 /** Sao trần nhỏ — vàng khi đạt, kem nhạt khi chưa (design MiniStar). */
 @Composable
-private fun MiniStar(filled: Boolean, size: androidx.compose.ui.unit.Dp = 13.dp) {
+internal fun MiniStar(filled: Boolean, size: androidx.compose.ui.unit.Dp = 13.dp) {
     Canvas(Modifier.size(size)) {
         if (filled) drawStar(GjPalette.Warning, Color(0xFFE2A82E))
         else drawStar(Color(0xFFEFE2C7), Color(0xFFDECBAA))
@@ -318,7 +318,7 @@ private fun MiniStar(filled: Boolean, size: androidx.compose.ui.unit.Dp = 13.dp)
 
 /** Caption bậc sao dạng chuỗi (now vàng · next mờ) cho dải sao sống. */
 @Composable
-private fun StarCaptionRow(now: String, next: String?) {
+internal fun StarCaptionRow(now: String, next: String?) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(5.dp),

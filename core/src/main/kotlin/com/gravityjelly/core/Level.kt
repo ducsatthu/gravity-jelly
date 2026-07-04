@@ -1,14 +1,14 @@
 package com.gravityjelly.core
 
 /**
- * Mô hình MỘT màn Campaign deterministic, khớp schema JSON ở docs/level-design.md.
+ * Mô hình MỘT màn Campaign deterministic, khớp schema JSON ở docs/02-thiet-ke-man/03-campaign-vo-han.md.
  * :core parse/chạy được headless cho solver + sinh màn. (Stub khung, chưa có parser.)
  */
 /**
  * Loại mục tiêu màn (hệ mục tiêu v2 — bỏ dựa-hoàn-toàn vào CLEAR_ALL, thêm trigger tutorial + boss).
  * - [TUTORIAL]: qua màn khi một HÀNH ĐỘNG xảy ra ([Goal.trigger]) — luôn khả thi, kiểm chứng bằng event.
  * - [REACH_SCORE]: đạt ngưỡng điểm ([Goal.score]).
- * - [BOSS_COMBO]: bào đủ [Goal.bossHP] sát thương bằng combo (mỗi lần combo chạm mức mới ≥×2 = bậc−1).
+ * - [BOSS_COMBO]: bào đủ [Goal.bossHP] sát thương bằng combo (mỗi tier combo MỚI ≥×2 = +1 sát thương).
  * - [CLEAR_TARGETS]: phá đủ [Goal.count] ô đích (World 2 = GỐC dây leo).
  * - [MIXED]: phải đạt CẢ HAI — phá đủ [Goal.count] gốc VÀ đạt [Goal.score] điểm (World 2).
  * - [CLEAR_ALL]/[COMBO_CHAIN]: giữ cho tương thích/khác world.

@@ -6,7 +6,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * Khoá boss World 2 · "Kẻ Đổ Rác" ([EndlessEngine.dropDebrisIfDue]): ân hạn
+ * Khoá cơ chế đổ đá/rác — archetype dự phòng, KHÔNG dùng ở L20 (Thần Rừng) — ([EndlessEngine.dropDebrisIfDue]): ân hạn
  * [EndlessTuning.debrisGraceTurns] lượt đầu KHÔNG đổ, sau đó mỗi lượt chèn đúng
  * [EndlessTuning.debrisPerTurn] ô rác — deterministic.
  */

@@ -36,4 +36,4 @@ Kiểm thử `:core` (không cần thiết bị): `./gradlew :core:test`.
 3. `:game` — vẽ khối-có-mắt, preview rơi, particle xóa (object pool), nội suy alpha; cú xoay trọng lực.
 4. `:app` — điều hướng + màn Map (Compose vỏ + Canvas đường/node), DataStore tiến độ sao, AdMob preload theo sự kiện.
 
-Tham chiếu thiết kế: `docs/level-design.md`, `docs/ui-map-screen.md`, `docs/prompts-map/`, và `design/`.
+Tham chiếu thiết kế: `docs/00-muc-luc.md` (mục lục), `docs/02-thiet-ke-man/03-campaign-vo-han.md`, `docs/04-ui-ux/04-man-ban-do.md`, `docs/05-prompts/02-map/`, và `design/`.

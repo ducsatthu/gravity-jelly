@@ -2,7 +2,7 @@ package com.gravityjelly.core
 
 /**
  * Combo hồi lượt xoay trọng lực — cơ chế chữ ký, dùng CHUNG cho mọi cách chơi
- * (Endless, màn thiết kế, boss, Daily…). Xem docs/business-understanding.md §6.
+ * (Endless, màn thiết kế, boss, Daily…). Xem docs/01-nen-tang/01-nghiep-vu.md §6.
  *
  * Luật: mỗi lần BẬC COMBO tăng lên một mức ≥ x2 thì hồi +1 lượt xoay.
  *   x2 → +1, x3 → tổng +2, x4 → tổng +3… (hồi cộng dồn = bậc combo − 1 nếu combo chỉ tăng).
