@@ -108,15 +108,20 @@ private const val MAX_GROW_PER_TURN = 1
 fun growVines(grid: Grid, gravity: Direction, maxSprouts: Int = DEFAULT_VINE_MAX_SPROUTS): List<Vec> {
     val rootOrder = rootGrowOrder(gravity)
     val branchOrder = branchGrowOrder(gravity)
-    val taken = HashSet<Vec>()
-    val added = ArrayList<Pair<Vec, JellyColor?>>()
+    val added = ArrayList<Vec>()
     for (comp in vineComponents(grid)) {
         val roots = comp.filter { grid.get(it.x, it.y)?.vineRoot == true }
         if (roots.isEmpty()) continue
-        for (root in roots) growFromRoot(grid, root, rootOrder, branchOrder, maxSprouts, taken, added)
+        for (root in roots) {
+            // Áp NGAY từng mầm vào lưới để rễ/dây xử lý sau trong CÙNG lượt "thấy" được nó →
+            // chặn 2 dây khác rễ mọc đốt kề nhau trong cùng một lượt (chống merge same-turn).
+            for ((v, color) in growFromRoot(grid, root, rootOrder, branchOrder, maxSprouts)) {
+                grid.set(v.x, v.y, Grid.Cell(CellType.VINE, color, vineRoot = false))
+                added.add(v)
+            }
+        }
     }
-    for ((v, color) in added) grid.set(v.x, v.y, Grid.Cell(CellType.VINE, color, vineRoot = false))
-    return added.map { it.first }.sortedWith(compareBy({ it.y }, { it.x }))
+    return added.sortedWith(compareBy({ it.y }, { it.x }))
 }
 
 /**
@@ -153,9 +158,8 @@ private fun buildTree(grid: Grid, root: Vec): Pair<Set<Vec>, Map<Vec, List<Vec>>
  *  - Tối đa [MAX_GROW_PER_TURN] đốt/lượt. Deterministic (tip→cành→rễ, sắp (y,x)).
  */
 private fun growFromRoot(
-    grid: Grid, root: Vec, rootOrder: List<Direction>, branchOrder: List<Direction>,
-    maxSprouts: Int, taken: MutableSet<Vec>, added: MutableList<Pair<Vec, JellyColor?>>
-) {
+    grid: Grid, root: Vec, rootOrder: List<Direction>, branchOrder: List<Direction>, maxSprouts: Int
+): List<Pair<Vec, JellyColor?>> {
     val (member, children) = buildTree(grid, root)
 
     // Lá = tip (ngọn phát triển độc lập); ô có con = cành. Rễ tách riêng.
@@ -176,6 +180,7 @@ private fun growFromRoot(
     for (b in branches) candidates.add(b to true)
     candidates.add(root to true)
 
+    val added = ArrayList<Pair<Vec, JellyColor?>>()
     var grown = 0
     for ((cell, createsSprout) in candidates) {
         if (grown >= MAX_GROW_PER_TURN) break
@@ -185,14 +190,14 @@ private fun growFromRoot(
         for (d in order) {
             if (grown >= MAX_GROW_PER_TURN) break
             val n = Vec(cell.x + d.dx, cell.y + d.dy)
-            if (!grid.inBounds(n.x, n.y) || !grid.isEmpty(n.x, n.y) || n in taken) continue
+            if (!grid.inBounds(n.x, n.y) || !grid.isEmpty(n.x, n.y)) continue
             if (wouldLoopOrMerge(n, cell, member, grid)) continue
-            taken.add(n)
             added.add(n to color)
             grown++
             if (cell != root) break // cành/tip: 1 mầm/ô; rễ: có thể thử nhiều hướng
         }
     }
+    return added
 }
 
 /**

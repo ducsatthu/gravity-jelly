@@ -282,6 +282,35 @@ class VineTest {
     }
 
     @Test
+    fun `2 re khac nhau khong merge - ke ca mọc cung mot luot`() {
+        val g = Grid()
+        // Rễ A(2,8) và rễ B(5,8) tách rời. Ép cùng lượt: A mọc phải→(3,8), B mọc trái→(4,8) sẽ KỀ (3,8).
+        g.set(2, 8, vine(root = true))
+        g.set(5, 8, vine(root = true))
+        g.set(2, 7, block())                 // A: chặn UP → A mọc RIGHT (3,8)
+        g.set(5, 7, block()); g.set(6, 8, block()) // B: chặn UP+RIGHT → B chỉ còn LEFT (4,8)
+        val a = growVines(g, Direction.DOWN)
+        assertEquals("chỉ rễ A mọc (3,8); rễ B bị chặn vì (4,8) kề dây rễ A", listOf(Vec(3, 8)), a)
+        assertTrue("ô (4,8) trống — 2 rễ KHÔNG dính nhau trong cùng lượt", g.isEmpty(4, 8))
+    }
+
+    @Test
+    fun `2 nhanh tach tu 2 mam cung 1 re khong merge`() {
+        val g = Grid()
+        // Cùng 1 rễ(4,8): 2 nhánh trái (3,6) và phải (5,6). Ô (4,6) kề CẢ HAI → mọc vào = merge → cấm.
+        g.set(4, 8, vine(root = true))
+        g.set(4, 7, vine(root = false))
+        g.set(3, 7, vine(root = false)); g.set(3, 6, vine(root = false)) // nhánh trái, tip (3,6)
+        g.set(5, 7, vine(root = false)); g.set(5, 6, vine(root = false)) // nhánh phải, tip (5,6)
+        // Bít 2 tip để nước duy nhất là ô merge (4,6):
+        g.set(3, 5, block()); g.set(2, 6, block()) // tip (3,6): chặn UP, LEFT (DOWN=cha, RIGHT=(4,6) merge)
+        g.set(5, 5, block()); g.set(6, 6, block()) // tip (5,6): chặn UP, RIGHT (DOWN=cha, LEFT=(4,6) merge)
+        val a = growVines(g, Direction.DOWN)
+        assertFalse("không mọc ô (4,6) nối 2 nhánh cùng rễ", a.contains(Vec(4, 6)))
+        assertTrue("ô (4,6) trống — 2 nhánh cùng rễ KHÔNG dính", g.isEmpty(4, 6))
+    }
+
+    @Test
     fun `cap 4 mam moi re - khi da du 4 tip thi khong sinh mam thu 5`() {
         val g = buildCombVine(withFourthLeaf = true)
         // 4 tip đều bị bít, còn cành/rễ dư chỗ mọc — nhưng cap = 4 nên KHÔNG sinh mầm thứ 5.
