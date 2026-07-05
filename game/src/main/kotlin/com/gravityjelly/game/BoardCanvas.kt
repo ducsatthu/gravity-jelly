@@ -195,8 +195,12 @@ fun BoardCanvas(
             }
 
             // ── 2b. Lớp SÀN nước (World 3 · Dòng chảy): DẢI nước nối liền, vẽ TRƯỚC khối (jelly đứng ĐÈ) ──
-            // Vẽ thẳng từ waterSources (pos + flow) — không dùng lớp effect/displayGrid.
-            for (s in r.waterSources) drawWaterRibbon(s, cellSize, blockSize, cr, now)
+            // Vẽ thẳng từ waterSources (pos + flow) — không dùng lớp effect/displayGrid. Ô nước MỚI mọc
+            // lượt này bị ẩn tới mốc pop (SAU cascade) → dải chỉ "mọc dài" khi flash→merge→rơi đã xong.
+            val waterPending: ((Vec) -> Boolean)? =
+                if (r.waterSources.isEmpty() || animator == null) null
+                else { v -> animator.waterPending(v.x, v.y, now) }
+            for (s in r.waterSources) drawWaterRibbon(s, cellSize, blockSize, cr, now, waterPending)
 
             // Block trong vùng sẽ nổ → khoác VIỀN LẤP LÁNH kiểu siêu khối (viền nhiều màu chạy).
             val regionActive = ghost != null && previewRegion.isNotEmpty()

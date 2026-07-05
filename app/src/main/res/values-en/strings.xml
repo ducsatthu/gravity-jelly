@@ -352,8 +352,8 @@
     <string name="guide_boss_forest_body">[w]LEVEL 20[/w] · World 2.\n[g]8 Shields[/g]. Every [w]4 turns[/w] the Forest\nSpirit [w]grows a new vine root[/w] (“Vine” chip).\n\nCut vines with [s]MINT[/s] blocks to keep\nthe board open, then chain [p]combo ≥ ×2[/p]\nto break Shields before the vines take over.</string>
 
     <string name="guide_boss_water_title">Waterfall Spirit</string>
-    <string name="guide_boss_water_desc">World 3 boss — break 8 water sources; every 3 turns it revives &amp; adds sources</string>
-    <string name="guide_boss_water_body">[w]LEVEL 30[/w] · World 3.\nYou must [g]break 8 water sources[/g].\n\nDrop an [p]Aqua Jelly[/p] (blue block) onto a\nrow/column over a source, then clear that line.\nEvery [w]3 turns[/w] the boss [w]revives dry sources[/w]\nand [w]adds a new one[/w] (max 4)\n→ break them as fast as you can.</string>
+    <string name="guide_boss_water_desc">World 3 boss — combo to break the Shield (11); water shoves blocks to disrupt combos</string>
+    <string name="guide_boss_water_body">[w]LEVEL 30[/w] · World 3.\nBuild a [g]combo ≥×2[/g] to break the [g]Shield (11)[/g].\n\nWater is a [w]hazard[/w]: the current shoves blocks,\ndisrupting your combos. Every [w]3 turns[/w] the boss\n[w]revives sources[/w] and [w]adds a new one[/w] (max 4).\nDrop an [p]Aqua Jelly[/p] (blue block) to clear a line\nover a source to [w]briefly quench[/w] it, easing pressure.</string>
 
     <!-- ── Small components ─────────────────────────────────────────────────── -->
     <string name="dialog_close">Close</string>

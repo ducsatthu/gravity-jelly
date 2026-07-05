@@ -130,7 +130,6 @@ class EndlessGameHolder(
     // ── Boss combo: sát thương tích luỹ + số nhịp combo (đơn vị sao COMBO). ──
     private var bossDamage = 0
     private var comboHits = 0
-    private var bossComboBefore = 0   // bậc combo VÀO nước hiện tại (cộng dồn qua các nước có ích)
 
     // ── CLEAR_TARGETS/MIXED: số ô đích đã phá + tổng cần phá. ──
     /** Tổng ô đích cần phá = [Goal.count] (gốc dây leo W2 / số lần phá nguồn W3, kể cả boss hồi sinh). */
@@ -292,10 +291,11 @@ class EndlessGameHolder(
         if (animator.isPlaying) return   // khoá input khi bàn đang chiếu cascade (tránh lệch thấy/truth)
         val pre = boardRender.grid.copy()
         val preGravity = boardRender.gravity
+        val comboBefore = shell.combo   // combo VÀO nước này (trước resolve) — mốc tính sát thương boss
         val events = engine.rotateGravity(cw)
         sync()
         if (events.isNotEmpty()) {
-            trackGoalEvents(events)
+            trackGoalEvents(events, comboBefore)
             animator.ingest(events, pre, preGravity, boardRender.grid, boardRender.gravity)
             dispatchFeedback(events)
             dispatchSounds(events)
@@ -467,12 +467,13 @@ class EndlessGameHolder(
     private fun applyPlacement(index: Int, ox: Int, oy: Int) {
         val pre = boardRender.grid.copy()
         val preGravity = boardRender.gravity
+        val comboBefore = shell.combo   // combo VÀO nước này (trước resolve) — mốc tính sát thương boss
         val events = engine.placePieceAt(index, ox, oy)
         sync()
         if (events.isNotEmpty()) {
             if (events.any { it is GameEvent.PiecePlaced }) movesUsed++
             if (events.any { it is GameEvent.LinesCleared }) anyCleared = true
-            trackGoalEvents(events)
+            trackGoalEvents(events, comboBefore)
             animator.ingest(events, pre, preGravity, boardRender.grid, boardRender.gravity)
             dispatchFeedback(events)
             dispatchSounds(events)
@@ -494,8 +495,8 @@ class EndlessGameHolder(
      * cả màn — [evaluateGoal] đọc lại khi bàn ổn định. Boss: sát thương = bậc−1 mỗi lần combo chạm mức
      * mới ≥×2 ([ComboReward.rotationRefund] trên đỉnh combo nước này).
      */
-    private fun trackGoalEvents(events: List<GameEvent>) {
-        var peakCombo = bossComboBefore
+    internal fun trackGoalEvents(events: List<GameEvent>, comboBefore: Int) {
+        var peakCombo = comboBefore
         for (e in events) {
             when (e) {
                 is GameEvent.LinesCleared -> {
@@ -519,9 +520,11 @@ class EndlessGameHolder(
             }
         }
         if (peakCombo >= 2) trigCombo2 = true    // combo ×2 lần đầu (L8)
-        val dmg = ComboReward.rotationRefund(bossComboBefore, peakCombo)
+        // Sát thương boss = số bậc combo MỚI đạt trong nước này (đo từ [comboBefore] — combo VÀO nước,
+        // KHÔNG phải đỉnh cộng dồn cả màn). Nhờ vậy khi combo timer 10s reset combo→0, combo kế đo lại
+        // từ 0 → mỗi combo ≥×2 lại phá Khiên (bug cũ: [bossComboBefore] kẹt đỉnh cũ nên x3/x4/x5 = 0 dmg).
+        val dmg = ComboReward.rotationRefund(comboBefore, peakCombo)
         if (dmg > 0) { bossDamage += dmg; comboHits++; bossHpDamage = bossDamage }
-        bossComboBefore = shell.combo
     }
 
     private fun evaluateGoal() {

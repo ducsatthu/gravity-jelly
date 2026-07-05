@@ -245,7 +245,7 @@ fun CampaignPlayScreen(
             // còn lại → ObjectiveBar (điểm/đích/mixed/tutorial).
             objective = {
                 if (level.isBoss) {
-                    // Khiên = máu combo (BOSS_COMBO) HOẶC số lần phá nguồn còn lại (CLEAR_TARGETS — Thần Thác).
+                    // Mọi boss = BOSS_COMBO → Khiên = máu combo còn lại. Nhánh else giữ phòng màn thường lỡ isBoss.
                     val bossCombo = level.goal.type == GoalType.BOSS_COMBO
                     BossCard(
                         level = level.id,

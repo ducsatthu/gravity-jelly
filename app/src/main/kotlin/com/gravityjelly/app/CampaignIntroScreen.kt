@@ -131,7 +131,7 @@ fun CampaignIntroScreen(
                 level = level.id,
                 name = stringResource(bossNameResForWorld(level.world)),
                 kind = bossKindForWorld(level.world),
-                // Khiên = máu combo (BOSS_COMBO) HOẶC số lần phá nguồn cần đạt (CLEAR_TARGETS — Thần Thác).
+                // Mọi boss = BOSS_COMBO → Khiên = máu combo (bossHP). Nhánh else giữ cho màn thường lỡ isBoss.
                 shieldTarget = if (level.goal.type == GoalType.BOSS_COMBO) level.goal.bossHP else level.goal.count,
                 onPlay = onStart,
                 tell = bossIntroTell(level),

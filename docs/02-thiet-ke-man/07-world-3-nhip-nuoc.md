@@ -243,6 +243,17 @@ Bo góc ô nước = `cell * 0.24` (jsx:85 — **hơi chặt hơn** jelly `0.28`
 - **displayGrid vs truth:** lớp nước là **truth-layer** (đọc `effects` từ engine, KHÔNG từ
   `displayGrid`). Trong lúc cascade playback vẫn vẽ chuỗi nước theo truth; nốt-mới/broken chỉ trigger
   animation ở nhịp tương ứng. Tôn trọng invariant `displayGrid=null` khi hết playback.
+- **NHỊP nước ĐI CUỐI (chốt 05/07):** `BoardAnimator.ingest` duyệt `events` theo đúng thứ tự engine trên
+  MỘT `cursor` → **nốt-mới pop** (`WaterGrew`) + **khối bị đẩy trượt** (`JellyPushed`, pha `activatePush`
+  slide + squash) chỉ chạy **SAU** khi chuỗi cascade đặt-mảnh (flash → merge → **rơi**) đã xong — KHÔNG
+  đồng thời với trọng lực rơi. Pha đẩy áp `moves` vào `work` (đồng bộ occupant) + `WaterGrew` áp
+  `WATER_FLOW` vào `work` (đồng bộ `effect` cho "neo-nước" ở nhịp foldResolve sau) nên replay khớp truth.
+  Splash phá nguồn / pop hồi sinh vẫn bắn ngay (particle nền, không dời khối). Guard: `WaterPlaybackTest`.
+- **DẢI ribbon cũng MỌC DÀI sau cascade (chốt 05/07):** ô nước mới mọc lượt này mang mốc pop
+  `waterNewStart[y][x] = cursor` (tương lai lúc đang cascade). `BoardAnimator.waterPending(x,y,now)` = true
+  khi `now < mốc` → `drawWaterRibbon` **ẩn** ô đó (ô mới là ngọn/lá nên bỏ chỉ rút ngắn nhánh, không mồ
+  côi ô cũ). Ribbon vì thế **kéo dài đúng lúc pop** (sau flash→merge→rơi), khớp với khối bị đẩy. Ô cũ
+  (mốc 0) / đã hiện (mốc ≤ now) vẫn vẽ. Nguồn/ô cũ vẫn là truth-layer đọc thẳng `waterSources`.
 - Surface `effects` (+ tập newThisTurn + list broken) từ `EndlessState` → `BoardRender` qua
   `holder.sync()` (hiện chỉ copy grid+gravity — cần thêm field).
 

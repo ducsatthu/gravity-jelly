@@ -75,6 +75,20 @@ class CampaignLevelsTest {
     }
 
     @Test
+    fun `moi moc boss dung chung co che combo pha Khien`() {
+        // Quy tắc thiết kế (chốt 05/07): MỌI màn boss (id % 10 == 0) đều là BOSS_COMBO — combo phá Khiên.
+        // Chiêu/chướng ngại theo world khác nhau (đá / vine / nước) nhưng điều kiện THẮNG luôn là combo.
+        val bosses = CampaignLevels.ALL.filter { it.isBoss }
+        assertTrue("phải có ≥3 boss", bosses.size >= 3)
+        for (b in bosses) {
+            assertEquals("boss L${b.id} phải là BOSS_COMBO", GoalType.BOSS_COMBO, b.goal.type)
+            assertTrue("boss L${b.id} phải có Khiên > 0", b.goal.bossHP > 0)
+        }
+        // Khiên tăng dần theo mốc: 5 → 8 → 11.
+        assertEquals(listOf(5, 8, 11), bosses.take(3).map { it.goal.bossHP })
+    }
+
+    @Test
     fun `L13 - 2 goc cung hang day`() {
         val l = CampaignLevels.L13
         val roots = l.preset.filter { it.vineRoot }
@@ -104,7 +118,10 @@ class CampaignLevelsTest {
         assertEquals("id 21..30", (21..30).toList(), w3.map { it.id })
         val flowLevels = w3.filter { it.waterSources.isNotEmpty() }
         assertTrue("đa số màn có dòng chảy", flowLevels.size >= 7)
-        assertEquals("L30 boss phá nguồn nhiều lần", GoalType.CLEAR_TARGETS, CampaignLevels.L30.goal.type)
+        // Mọi mốc boss (L10/L20/L30) DÙNG CHUNG cơ chế combo phá Khiên; nước ở L30 chỉ là chướng ngại.
+        assertEquals("L30 boss combo phá Khiên", GoalType.BOSS_COMBO, CampaignLevels.L30.goal.type)
+        assertEquals("L30 Khiên = 11 (5→8→11)", 11, CampaignLevels.L30.goal.bossHP)
+        assertTrue("L30 vẫn giữ nước làm chướng ngại", CampaignLevels.L30.waterSources.isNotEmpty())
         assertEquals("L30 hồi sinh nguồn mỗi 3 lượt", 3, CampaignLevels.L30.bossReviveEveryN)
         assertTrue("mọi màn W3 chấm sao theo LƯỢT", w3.all { it.stars.metric == StarMetric.MOVES })
         assertEquals("tổng 30 màn", 30, CampaignLevels.ALL.size)

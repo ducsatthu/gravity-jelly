@@ -405,9 +405,11 @@ object CampaignLevels {
     )
 
     /**
-     * L30 — BOSS "Thần Thác" · khởi đầu 2 nguồn; mỗi 3 lượt boss **HỒI SINH nguồn cạn** VÀ **THẢ THÊM 1
-     * nguồn mới** từ hàng trên (tối đa 4 nguồn) → áp lực dòng chảy dâng dần. Người chơi phải **phá nguồn
-     * 5 LẦN** (cắm Thạch Nước clear line qua ô nguồn). Sao theo LƯỢT. ⚠ ngưỡng chốt bằng solver.
+     * L30 — BOSS "Thần Thác" · **bào Khiên bằng combo** (BOSS_COMBO, HP 11 — chung cơ chế với L10/L20,
+     * mọi mốc boss dùng combo phá Khiên). Nước là **CHƯỚNG NGẠI**: khởi đầu 2 nguồn; mỗi 3 lượt boss HỒI
+     * SINH nguồn cạn VÀ THẢ THÊM 1 nguồn mới (tối đa 4) → dòng chảy đẩy khối, phá thế combo. Cắm Thạch
+     * Nước clear line qua ô nguồn để **tạm dập** một nguồn (giảm áp lực), nhưng THẮNG = đủ 11 sát thương
+     * combo. Sao theo LƯỢT. ⚠ HP + ngưỡng sao cần chơi thử tinh chỉnh (nước gây nhiễu nên combo khó hơn).
      */
     val L30 = Level(
         id = 30, world = 3, name = "Thần Thác", seed = 30,
@@ -417,8 +419,9 @@ object CampaignLevels {
         bossReviveEveryN = 3,          // hồi sinh nguồn cạn mỗi 3 lượt
         bossSpawnSourceEveryN = 3,     // thả thêm 1 nguồn mới mỗi 3 lượt
         bossMaxSources = 4,            // tối đa 4 nguồn cùng lúc
-        goal = Goal(GoalType.CLEAR_TARGETS, count = 8),   // phá nguồn 8 lần
-        stars = StarThresholds(three = 25, two = 32, one = 39, metric = StarMetric.MOVES),
+        goal = Goal(GoalType.BOSS_COMBO, bossHP = 11),    // combo phá Khiên (5→8→11 qua 3 boss)
+        // MoveSolver (05/07, có chiêu nước): MIN 29 nước → 3★=29. MAX greedy 40 → 1★=45 rộng cho ván chậm.
+        stars = StarThresholds(three = 29, two = 37, one = 45, metric = StarMetric.MOVES),
         difficulty = 4.5,
     )
 

@@ -62,22 +62,32 @@ private val ribbonDash = floatArrayOf(0f, 0f)
  */
 internal fun DrawScope.drawWaterRibbon(
     source: WaterSource, cellSize: Float, blockSize: Float, cr: CornerRadius, now: Long,
+    isPending: ((Vec) -> Boolean)? = null,
 ) {
     fun cx(v: Vec) = (v.x + 0.5f) * cellSize
     fun cy(v: Vec) = (v.y + 0.5f) * cellSize
     val srcLeft = source.pos.x * cellSize + (cellSize - blockSize) / 2f
     val srcTop = source.pos.y * cellSize + (cellSize - blockSize) / 2f
 
-    // Nguồn khô / chưa mọc → chỉ ô nguồn (không dải).
-    if (source.broken || source.flow.isEmpty()) {
-        drawWaterSourceCell(srcLeft, srcTop, blockSize, cr, 0, 1, source.broken, now)
+    // Nguồn khô → chỉ ô nguồn khô.
+    if (source.broken) {
+        drawWaterSourceCell(srcLeft, srcTop, blockSize, cr, 0, 1, broken = true, now = now)
         return
     }
 
     // [source.flow] là CÂY (có thể nhiều nhánh) — dựng đường theo CẠNH cha→con (ô kề mọc trước→ô mọc sau),
     // KHÔNG nối polyline theo thứ tự flow (tránh "gai" nối cuối-nhánh sang nhánh mới). Mỗi cạnh 1 ô.
+    // ẨN ô nước MỚI mọc còn CHỜ hiện ([isPending]) → dải nước mọc dài SAU cascade (World 3). Ô mới mọc là
+    // ngọn/lá nên bỏ đi chỉ rút ngắn nhánh, không mồ côi ô cũ.
     val cells = ArrayList<Vec>(source.flow.size + 1)
-    cells.add(source.pos); cells.addAll(source.flow)
+    cells.add(source.pos)
+    for (f in source.flow) if (isPending == null || !isPending(f)) cells.add(f)
+
+    // Chưa mọc (hoặc mọi ô mới còn chờ hiện) → chỉ ô nguồn (không dải).
+    if (cells.size == 1) {
+        drawWaterSourceCell(srcLeft, srcTop, blockSize, cr, 0, 1, broken = false, now = now)
+        return
+    }
     val order = HashMap<Int, Int>(cells.size * 2)   // packed(x,y) → chỉ số mọc
     for (i in cells.indices) order[cells[i].y * 100 + cells[i].x] = i
     fun parentOf(i: Int): Vec? {

@@ -353,8 +353,8 @@
     <string name="guide_boss_forest_body">[w]MÀN 20[/w] · Thế giới 2.\n[g]8 Khiên[/g]. Mỗi [w]4 lượt[/w] Thần Rừng\n[w]mọc thêm 1 gốc dây[/w] (chip “Mọc dây”).\n\nChặt dây bằng khối [s]MINT[/s] cho bàn\nthoáng, rồi lên [p]combo ≥ ×2[/p] phá\nKhiên trước khi dây phủ kín bàn.</string>
 
     <string name="guide_boss_water_title">Thần Thác</string>
-    <string name="guide_boss_water_desc">Trùm Thế giới 3 — phá 8 nguồn nước, mỗi 3 lượt trùm hồi sinh &amp; thả thêm nguồn</string>
-    <string name="guide_boss_water_body">[w]MÀN 30[/w] · Thế giới 3.\nPhải [g]phá 8 nguồn nước[/g].\n\nCắm [p]Thạch Nước[/p] (khối xanh) vào\nhàng/cột qua ô nguồn rồi xoá dòng đó.\nMỗi [w]3 lượt[/w] trùm [w]hồi sinh nguồn cạn[/w]\nvà [w]thả thêm nguồn[/w] (tối đa 4)\n→ phá dứt điểm càng nhanh càng tốt.</string>
+    <string name="guide_boss_water_desc">Trùm Thế giới 3 — combo phá Khiên (11); nước đẩy khối làm rối combo</string>
+    <string name="guide_boss_water_body">[w]MÀN 30[/w] · Thế giới 3.\nDựng [g]combo ≥×2[/g] để phá [g]Khiên (11)[/g].\n\nNước là [w]chướng ngại[/w]: dòng chảy đẩy khối,\nlàm rối thế combo. Mỗi [w]3 lượt[/w] trùm\n[w]hồi sinh nguồn[/w] và [w]thả thêm nguồn[/w] (tối đa 4).\nCắm [p]Thạch Nước[/p] (khối xanh) xoá dòng qua\nô nguồn để [w]tạm dập[/w] một nguồn, giảm áp lực.</string>
 
     <!-- ── Component nhỏ ────────────────────────────────────────────────────── -->
     <string name="dialog_close">Đóng</string>

@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.text.TextMeasurer
+import com.gravityjelly.core.CellEffect
 import com.gravityjelly.core.CellType
 import com.gravityjelly.core.ClearedLines
 import com.gravityjelly.core.Direction
@@ -48,6 +49,16 @@ class BoardAnimator {
     var renderAlpha = 0f
 
     fun renderNanos(): Long = simTimeNanos + (renderAlpha * GameClock.STEP_NANOS).toLong()
+
+    /**
+     * World 3 · Dòng chảy — ô nước MỚI mọc lượt này còn ĐANG CHỜ "hiện" (mốc pop [waterNewStart] ở TƯƠNG
+     * LAI vì được lên lịch SAU cascade). true ⇒ lớp ribbon KHÔNG vẽ tới ô này → dải nước chỉ **mọc dài ra
+     * sau khi flash→merge→rơi xong**, đồng bộ với pop nốt-mới. Ô đã "hiện" (mốc ≤ now) / cũ (0) → false.
+     */
+    fun waterPending(x: Int, y: Int, now: Long): Boolean {
+        val st = waterNewStart[y][x]
+        return st != 0L && now < st
+    }
 
     // ── playback cascade tuần tự (xóa → rơi → xóa → rơi …) ──────────────────────
     // Combo ăn điểm KHÔNG dồn một nhịp: bàn rơi xong, hàng mới đầy mới flash nhịp kế.
@@ -110,6 +121,8 @@ class BoardAnimator {
         val smileHighlight: Boolean = false, // true = HIGHLIGHT (cầu vồng) thay vì CƯỜI (super)
         val superCells: List<Vec>? = null,   // chặng 3: tâm SIÊU KHỐI biến mất cuối
         val rainbowCells: List<Vec>? = null, // chặng 3: tâm CẦU VỒNG biến mất cuối
+        // World 3 · Dòng chảy — khối bị đẩy trôi 1 ô (from→to); pha riêng chạy SAU cascade (slide + squash).
+        val pushMoves: List<Pair<Vec, Vec>>? = null,
     )
 
     /**
@@ -265,12 +278,22 @@ class BoardAnimator {
 
         // có "nhịp" cần playback không: xóa hàng/cột, hợp nhất siêu khối, HOẶC tạo cầu vồng.
         var hasBeats = false
+        // World 3 · Dòng chảy: nốt nước mới mọc (pop) + khối bị đẩy (trượt). Lên lịch SAU chuỗi cascade
+        // (flash→merge→rơi) để "nước đi CUỐI cùng" — không đồng thời với trọng lực rơi (yêu cầu W3).
+        var hasPush = false
+        var hasGrow = false
         for (i in events.indices) {
-            val e = events[i]
-            if (e is GameEvent.LinesCleared || e is GameEvent.SuperFormed || e is GameEvent.RainbowFormed) {
-                hasBeats = true; break
+            when (events[i]) {
+                is GameEvent.LinesCleared, is GameEvent.SuperFormed, is GameEvent.RainbowFormed -> hasBeats = true
+                is GameEvent.JellyPushed -> hasPush = true
+                is GameEvent.WaterGrew -> hasGrow = true
+                else -> {}
             }
         }
+        // hasPhases = có pha điều phối displayGrid (cascade hoặc đẩy nước); runLoop = còn phải duyệt để
+        // seed nốt-mới (grow) dù không có pha nào (khi ấy displayGrid giữ null = truth).
+        val hasPhases = hasBeats || hasPush
+        val runLoop = hasPhases || hasGrow
 
         // "Nhìn trọng lực" CẢ BÀN chỉ khi XOAY trọng lực (mọi khối đều định hướng lại theo tường mới).
         // Đặt mảnh / xóa-rơi KHÔNG snap cả bàn: chỉ ô vừa đặt/vừa rơi mới nhìn trọng lực (per-cell,
@@ -296,28 +319,17 @@ class BoardAnimator {
             }
         }
 
-        // 1b) World 3 · Dòng chảy: pop "mới mọc" + splash "phá nguồn" + trượt "bị đẩy".
+        // 1b) World 3 · Dòng chảy: splash "phá nguồn" + pop "hồi sinh nguồn" (particle tức thì tại nguồn).
+        //     Pop "mới mọc" (WaterGrew) và trượt "bị đẩy" (JellyPushed) KHÔNG xử ở đây — chúng được LÊN
+        //     LỊCH SAU chuỗi cascade đặt-mảnh ở mục (3), để nước "đi CUỐI" (sau flash→merge→rơi).
         for (i in events.indices) {
             when (val e = events[i]) {
-                is GameEvent.WaterGrew ->
-                    if (!reducedMotion) for (c in e.cells) waterNewStart[c.y][c.x] = now
                 is GameEvent.WaterSourceBroken ->
                     if (!reducedMotion) particles.burst(e.pos.x + 0.5f, e.pos.y + 0.5f, WATER_SPLASH_COLOR, WATER_SPLASH_PARTICLES)
                 is GameEvent.WaterSourceRevived -> if (!reducedMotion) {   // boss thả thác hồi sinh: pop + foam
                     waterNewStart[e.pos.y][e.pos.x] = now
                     particles.burst(e.pos.x + 0.5f, e.pos.y + 0.5f, WATER_FOAM_COLOR, WATER_SPLASH_PARTICLES)
                 }
-                is GameEvent.JellyPushed ->
-                    // Chỉ trượt khi lượt KHÔNG có cascade & KHÔNG xoay (nhánh xoay gọi computeSlide xoá slide).
-                    // Ô đẩy đã ở vị trí ĐÍCH (truth); slideDX/DY để nó ease VÀO từ ô nguồn. + squash nhẹ.
-                    if (!reducedMotion && !hasBeats && postGravity == preGravity) {
-                        slideStart = now; slideDur = WATER_PUSH_NANOS
-                        for ((from, to) in e.moves) {
-                            slideDX[to.y][to.x] = (from.x - to.x).toFloat()
-                            slideDY[to.y][to.x] = (from.y - to.y).toFloat()
-                            placeStart[to.y][to.x] = now
-                        }
-                    }
                 else -> {}
             }
         }
@@ -333,14 +345,16 @@ class BoardAnimator {
             rotStart = now
             oldDirX = preGravity.dx.toFloat(); oldDirY = preGravity.dy.toFloat()
             newDirX = postGravity.dx.toFloat(); newDirY = postGravity.dy.toFloat()
-            // các nhịp CHỜ bàn xoay ổn định xong rồi mới bắt đầu
-            if (hasBeats) cursor = now + Anim.ROTATE_NANOS
+            // các nhịp (cascade / đẩy nước) CHỜ bàn xoay ổn định xong rồi mới bắt đầu
+            if (runLoop) cursor = now + Anim.ROTATE_NANOS
         }
 
-        // 3) chuỗi nhịp resolve theo ĐÚNG thứ tự engine: hợp nhất siêu khối / xóa+nổ → rơi.
+        // 3) chuỗi nhịp resolve theo ĐÚNG thứ tự engine: hợp nhất siêu khối / xóa+nổ → rơi, RỒI mới tới
+        //    Dòng chảy (nốt nước mọc + khối bị đẩy). [events] đã theo đúng thứ tự engine (resolve đặt-mảnh
+        //    xong mới growWaterFlow/pushJellyByFlow) → duyệt tuần tự MỘT [cursor] cho "nước đi CUỐI cùng".
         //    Mỗi nhịp = beat (form|clear) rồi collapse; nhịp kế chỉ bắt đầu SAU khi rơi xong.
-        if (hasBeats) {
-            displayGrid = work.copy()   // bàn đã đặt/đã xoay, trước nhịp đầu
+        if (runLoop) {
+            if (hasPhases) displayGrid = work.copy()   // bàn đã đặt/đã xoay, trước nhịp đầu
 
             // combo tăng dần ⇒ NHỊP cuối có comboLevel cao nhất nổ overlay ×N — xét MỌI nhịp (xóa + ghép).
             var lastComboBeat = -1
@@ -375,15 +389,25 @@ class BoardAnimator {
                         cursor = buildClearBeat(e, work, postGravity, cursor, fireCombo = beatIdx == lastComboBeat)
                         beatIdx++
                     }
+                    // World 3 · nốt nước MỚI mọc: pop ring seed tại [cursor] hiện tại (SAU cascade). Đồng bộ
+                    // lớp effect vào [work] để applyClusterGravity nhịp sau tôn trọng "neo-nước" (§6.3) —
+                    // effect sync BẤT KỂ reducedMotion (đúng bàn); chỉ pop ring mới gate reducedMotion.
+                    is GameEvent.WaterGrew -> for (c in e.cells) {
+                        work.setEffect(c.x, c.y, CellEffect.WATER_FLOW)
+                        if (!reducedMotion) waterNewStart[c.y][c.x] = cursor
+                    }
+                    // World 3 · khối trôi/đẩy 1 ô theo dòng: trượt SAU cascade (một pha đẩy riêng).
+                    is GameEvent.JellyPushed -> cursor = buildPushBeat(e, work, cursor)
                     else -> {}
                 }
             }
         }
 
-        // Mốc kết thúc playback để lớp vỏ khoá input: cascade (cursor đã gồm slide xoay + mọi nhịp)
-        // hoặc chỉ slide xoay (xoay không cleared). Đặt-mảnh-trơn (chỉ squash, bàn không đổi) KHÔNG khoá.
+        // Mốc kết thúc playback để lớp vỏ khoá input: cascade + đẩy nước (cursor đã gồm slide xoay + mọi
+        // nhịp + pha đẩy) hoặc chỉ slide xoay (xoay không cleared). Đặt-mảnh-trơn (chỉ squash / chỉ pop
+        // nốt nước, bàn không dời khối) KHÔNG khoá.
         playbackEndNanos = when {
-            hasBeats -> cursor
+            hasPhases -> cursor
             postGravity != preGravity -> now + Anim.ROTATE_NANOS
             else -> now
         }
@@ -499,6 +523,23 @@ class BoardAnimator {
         return collapseAt + Anim.COLLAPSE_NANOS + Anim.CASCADE_GAP_NANOS
     }
 
+    /**
+     * World 3 · Dòng chảy — dựng một pha ĐẨY: khối trên kênh trôi 1 ô theo dòng ([GameEvent.JellyPushed]).
+     * Áp [e].moves vào [work] (để nhịp sau — vd foldResolve clear — dựng đúng bàn sau đẩy) rồi thêm pha
+     * slide tại [cursor]. Chạy SAU chuỗi cascade nên khối trượt "đi cuối", không đè lúc trọng lực rơi.
+     */
+    private fun buildPushBeat(e: GameEvent.JellyPushed, work: Grid, cursor: Long): Long {
+        // Chụp occupant NGUỒN trước khi mutate (đoàn tàu: from của khối này có thể là to của khối kia).
+        val landing = HashMap<Vec, Grid.Cell?>(e.moves.size * 2)
+        for ((from, _) in e.moves) landing[from] = work.get(from.x, from.y)
+        val tos = HashSet<Vec>(e.moves.size * 2); for ((_, to) in e.moves) tos.add(to)
+        for ((from, _) in e.moves) if (from !in tos) work.set(from.x, from.y, null)  // ô nguồn không bị chiếm lại → trống
+        for ((from, to) in e.moves) work.set(to.x, to.y, landing[from])
+        val after = work.copy()
+        phases.add(CascadePhase(at = cursor, display = after, isCollapse = false, pushMoves = e.moves))
+        return cursor + WATER_PUSH_NANOS + Anim.CASCADE_GAP_NANOS
+    }
+
     /** Kích hoạt các pha playback tới hạn theo thời gian sim [now]. */
     private fun advancePhases(now: Long) {
         while (phaseIdx < phases.size && phases[phaseIdx].at <= now) {
@@ -506,6 +547,7 @@ class BoardAnimator {
             phaseIdx++
             displayGrid = p.display
             when {
+                p.pushMoves != null -> activatePush(p)
                 p.isCollapse -> activateCollapse(p)
                 p.isForm -> activateForm(p)
                 p.smileCells != null -> activateSmile(p)
@@ -645,6 +687,29 @@ class BoardAnimator {
             }
         }
         onClearStep?.invoke(0)
+    }
+
+    /**
+     * World 3 · Dòng chảy — kích hoạt pha ĐẨY: khối [pushMoves] trượt VÀO ô đích từ ô nguồn (slide) +
+     * squash nhẹ khi tới. [displayGrid] đã là bàn sau đẩy (đặt ở [advancePhases]); reducedMotion → hiện
+     * ngay tại đích (không trượt).
+     */
+    private fun activatePush(p: CascadePhase) {
+        val moves = p.pushMoves ?: return
+        // Xoá slide buffer trước: chỉ các ô vừa đẩy mới trượt (cascade trước đã rơi xong tại mốc này).
+        for (y in 0 until n) for (x in 0 until n) { slideDX[y][x] = 0f; slideDY[y][x] = 0f }
+        if (reducedMotion) return
+        slideStart = p.at
+        slideDur = WATER_PUSH_NANOS
+        // Squash đặt lúc khối TỚI đích (p.at + WATER_PUSH), KHÔNG phải lúc khởi hành — khớp
+        // [activateCollapse] (nhún khi CHẠM, impact = p.at + COLLAPSE). Đặt tại p.at làm khối "nảy"
+        // ngay đầu cú trượt → đẩy nước trông GIẬT; đặt ở đích cho cú trượt mượt rồi nhún khi cập bến.
+        val impact = p.at + WATER_PUSH_NANOS
+        for ((from, to) in moves) {
+            slideDX[to.y][to.x] = (from.x - to.x).toFloat()
+            slideDY[to.y][to.x] = (from.y - to.y).toFloat()
+            placeStart[to.y][to.x] = impact
+        }
     }
 
     /** Kích hoạt nhịp rơi: nội suy slide từ [CascadePhase.slideBefore] về [CascadePhase.display]. */
