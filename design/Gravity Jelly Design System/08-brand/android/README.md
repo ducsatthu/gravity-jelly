@@ -3,20 +3,26 @@
 Icon = the supplied master artwork (`../app-icon-master.png`, 1254²): a cluster of four
 cookie-outlined jelly blocks (pink hero block with a kawaii face in front; yellow, mint
 and blue behind) wrapped by a chunky purple two-arrow gravity loop, on a cream ground.
-All launcher PNGs below are down-rendered from that one master (`../gravity-jelly-logo.js`
-embeds the same file for the brand board).
+The **transparent mark** (`../mark.png`, no background) is the same art without the cream
+ground — use it on any coloured surface (native splash, adaptive foreground, monochrome).
+All launcher PNGs below are down-rendered from those masters (`../gravity-jelly-logo.js`
+embeds the same files for the brand board).
 
 ## Files
 | File | Size | Use |
 |---|---|---|
-| `ic_launcher_foreground.png` | 432² | Adaptive icon **foreground** layer (master art, cream ground baked in) |
+| `ic_launcher_foreground.png` | 432² | Adaptive icon **foreground** layer (transparent mark, no ground) |
 | `ic_launcher_background.png` | 432² | Adaptive icon **background** layer (cream gradient fallback) |
 | `ic_launcher_monochrome.png` | 432² | **Themed** icon (Android 13+), white silhouette |
 | `ic_launcher-512.png` | 512² | Play Store listing icon (full-bleed square) |
 | `ic_launcher-192…48.png` | 192/144/96/72/48 | Pre-composited launcher icons (rounded) for legacy `mipmap-*` |
 | `feature-graphic.png` | 1024×500 | Play Store feature graphic |
-| `wordmark-horizontal.png` | 1000×260 | Wordmark, single line, on cream |
-| `wordmark-stacked.png` | 760×440 | Wordmark, two lines, on purple |
+| `wordmark-horizontal.png` | 1024×681 | Official wordmark PNG on cream |
+| `wordmark-stacked.png` | 1024×681 | Official wordmark PNG on cocoa |
+| `splash_branding.png` | 1024×647 | Wordmark on transparent (splash branding image) |
+
+> Wordmark master = `../wordmark.png` (transparent). The three files above are just it
+> composited on different grounds; re-run the export if the master changes.
 
 ## Adaptive icon (recommended)
 Put the two 432² layers in `res/mipmap-anydpi-v26/` via:

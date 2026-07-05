@@ -32,6 +32,19 @@ data class PresetCell(
     val vineRoot: Boolean = false,
 )
 
+/**
+ * Nguồn Dòng chảy (World 3 · Sông & Thác). Ô nguồn cố định tại ([x],[y]) — luôn ở **hàng trên cùng**,
+ * chảy **XUỐNG** (hướng cố định, độc lập trọng lực); mỗi lượt mọc thêm 1 ô, rẽ ngang khi bị chặn
+ * ([growWaterFlow]). Phá bằng cách **clear hàng/cột đi qua chính ô nguồn**. [maxLength] = trần độ dài
+ * đường dòng chảy. Xem `docs/02-thiet-ke-man/07-world-3-nhip-nuoc.md` + [WaterSource].
+ */
+data class WaterSourceSpec(
+    val id: Int,
+    val x: Int,
+    val y: Int,
+    val maxLength: Int = WaterSource.DEFAULT_MAX_LENGTH,
+)
+
 data class StarThresholds(val three: Int, val two: Int, val one: Int, val metric: StarMetric) {
     /**
      * Bậc sao (1..3) cho một GIÁ TRỊ metric đã đo — dùng chung cho tính sao khi thắng và readout
@@ -61,7 +74,7 @@ data class Goal(
  * - [GRAVITY_INVERT]: boss "Thần Thác" (W3) sắp tự đảo trọng lực 180°.
  * [turnsUntil] = số lượt THẢ còn lại tới lần ra chiêu kế (1 = ngay lượt sau).
  */
-enum class BossTellKind { VINE_SPAWN, GRAVITY_INVERT }
+enum class BossTellKind { VINE_SPAWN, GRAVITY_INVERT, SOURCE_REVIVE }
 data class BossTell(val kind: BossTellKind, val turnsUntil: Int)
 
 /** Một mảnh trong khay (chuỗi cố định, bỏ ngẫu nhiên cho màn thiết kế). [shape] theo vocab docs. */
@@ -87,10 +100,19 @@ data class Level(
     val vineMaxSprouts: Int = DEFAULT_VINE_MAX_SPROUTS,
     /** World 2 boss — số ô rác chèn mỗi lượt sau ân hạn (0 = tắt). */
     val debrisPerTurn: Int = 0,
-    /** World 3 boss "Thần Thác" — tự đảo trọng lực mỗi N lượt (0 = tắt). [EndlessTuning.bossGravityEveryN]. */
+    /** World 3 boss "Thần Thác" — tự đảo trọng lực mỗi N lượt (0 = tắt). LEGACY. [EndlessTuning.bossGravityEveryN]. */
     val bossGravityEveryN: Int = 0,
+    /** World 3 boss "Thần Thác" — HỒI SINH nguồn nước cạn mỗi N lượt (nguồn sống lại từ trên; 0 = tắt). */
+    val bossReviveEveryN: Int = 0,
+    /** World 3 boss "Thần Thác" — THẢ THÊM nguồn mới từ hàng trên mỗi N lượt (0 = tắt), tối đa [bossMaxSources]. */
+    val bossSpawnSourceEveryN: Int = 0,
+    /** World 3 boss — trần tổng số nguồn (cho spawn). */
+    val bossMaxSources: Int = 0,
     /** World 2 boss "Thần Rừng" — spawn gốc vine mới mỗi N lượt (0 = tắt). */
     val bossVineSpawnEveryN: Int = 0,
-    /** World 3 — vị trí nguồn thác nước (lateral index 0..8 trên cạnh "trên" theo gravity). Rỗng = tắt. */
-    val waterSources: List<Int> = emptyList(),
-)
+    /** World 3 — nguồn Dòng chảy (top, chảy xuống, mọc 1 ô/lượt, đẩy jelly). Rỗng = tắt. [WaterSourceSpec]. */
+    val waterSources: List<WaterSourceSpec> = emptyList(),
+) {
+    /** Màn BOSS = vị trí 10 mỗi world (id 10/20/30/…). Mọi UI chọn thẻ boss theo cờ này (KHÔNG theo goal). */
+    val isBoss: Boolean get() = id % 10 == 0
+}

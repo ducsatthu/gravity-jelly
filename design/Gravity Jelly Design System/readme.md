@@ -91,9 +91,11 @@ cream canvas, big rounded panels, glossy jelly characters with googly eyes.
   are hand-built to match, not the Lucide package. If you prefer the real Lucide set or a
   filled style, say so and I'll swap them.
 - **Emoji / unicode as icons:** not used. The multiplier uses a real "×N" treatment.
-- **Brand mark:** the logo is the four jelly characters + a Fredoka **"GRAVITY JELLY"**
-  wordmark (pink with a candy edge). No separate logo file — it's composed from
-  `JellyBlock`. Ask if you want an exported SVG/PNG logo.
+- **Brand mark:** the official logo is a supplied **PNG wordmark** — candy “Gravity Jelly”
+  lettering with a cookie-cream outline and jelly gloss, transparent background. Master file
+  is `08-brand/wordmark.png` (exported variants in `08-brand/android/`). Use the image
+  everywhere the text logo appears; do not re-set it from a font. `window.GJLogo.wordmarkImg()`
+  returns the ready `<img>`. The four-jelly + gravity-loop mark stays the app **icon**.
 
 ---
 

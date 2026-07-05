@@ -35,6 +35,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gravityjelly.app.R
+import com.gravityjelly.app.audio.GjSfx
+import com.gravityjelly.app.audio.LocalGjAudio
 import com.gravityjelly.app.ui.icons.GjIcon
 import com.gravityjelly.app.ui.icons.GjIcons
 import com.gravityjelly.app.ui.theme.GjPalette
@@ -98,7 +100,9 @@ fun GjDialog(
             // card spring-in animation (independent of scrim fade)
             val cardScale  = remember { Animatable(0.85f) }
             val cardSlideY = remember { Animatable(12f) }   // dp
+            val audio = LocalGjAudio.current
             LaunchedEffect(Unit) {
+                audio?.play(GjSfx.SFX_DIALOG_OPEN)
                 val spec = tween<Float>(durationMillis = 280, easing = EaseJelly)
                 launch { cardScale.animateTo(1f,  spec) }
                 launch { cardSlideY.animateTo(0f, spec) }

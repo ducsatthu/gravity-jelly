@@ -101,7 +101,7 @@
 
     <!-- ── Campaign — nhãn mục tiêu (goalLabel) ─────────────────────────────── -->
     <string name="goal_clear_all">Dọn sạch bàn</string>
-    <string name="goal_clear_targets_water">Phá %1$d giọt nước</string>
+    <string name="goal_clear_targets_water">Phá %1$d nguồn nước</string>
     <string name="goal_clear_targets_vine">Phá %1$d gốc dây leo</string>
     <string name="goal_reach_score">Đạt %1$d điểm</string>
     <string name="goal_mixed_water">Phá %1$d giọt + %2$d điểm</string>
@@ -172,18 +172,19 @@
     <string name="level_19_name">Rừng Rậm</string>
     <string name="level_20_name">Thần Rừng</string>
     <string name="level_21_name">Suối Nhỏ</string>
-    <string name="level_22_name">Nước Tràn</string>
-    <string name="level_23_name">Thác Tách</string>
-    <string name="level_24_name">Xoay Thác</string>
+    <string name="level_22_name">Đôi Dòng</string>
+    <string name="level_23_name">Ba Giọt</string>
+    <string name="level_24_name">Xoay Dòng</string>
     <string name="level_25_name">Giọt Sau Đá</string>
     <string name="level_26_name">Bến Nghỉ</string>
-    <string name="level_27_name">Hai Nguồn</string>
-    <string name="level_28_name">Thác &amp; Điểm</string>
+    <string name="level_27_name">Ba Nguồn</string>
+    <string name="level_28_name">Dòng Xiết</string>
     <string name="level_29_name">Thác Lớn</string>
     <string name="level_30_name">Thần Thác</string>
 
     <!-- ── Boss HUD ─────────────────────────────────────────────────────────── -->
     <string name="boss_rule_default">Combo ×2 phá khiên</string>
+    <string name="boss_rule_water">Cắm Thạch Nước phá nguồn</string>
     <string name="boss_play">Chơi</string>
     <string name="boss_level">MÀN %1$d</string>
     <string name="boss_opponent">ĐỐI THỦ</string>
@@ -191,6 +192,7 @@
     <string name="boss_tag">BOSS</string>
     <string name="boss_tell_vine_spawn">Mọc dây</string>
     <string name="boss_tell_gravity_invert">Đảo trọng lực</string>
+    <string name="boss_tell_source_revive">Thả thác nước</string>
     <string name="boss_tell_next_turn">Lượt sau</string>
     <string name="boss_tell_after_turns">Sau %1$d lượt</string>
     <string name="boss_tell_format">%1$s: %2$s</string>
@@ -214,6 +216,7 @@
     <string name="camnangparts_group_blast">Giải phóng</string>
     <string name="camnangparts_group_combo">Mẹo</string>
     <string name="camnangparts_group_forest">Rừng</string>
+    <string name="camnangparts_group_river">Sông</string>
     <string name="camnangparts_seen">Đã xem</string>
     <string name="camnangparts_all">Tất cả</string>
     <string name="camnangparts_combo_x2">×2</string>
@@ -234,6 +237,13 @@
     <string name="guidedemo_3x3">3×3</string>
     <string name="guidedemo_first_turn">Lượt đầu</string>
     <string name="guidedemo_spread">Mọc lan</string>
+    <string name="guidedemo_water_active">Đang chảy</string>
+    <string name="guidedemo_source_dry">Nguồn khô</string>
+    <string name="guidedemo_meet_obstacle">Gặp đá</string>
+    <string name="guidedemo_branch">Tách nhánh</string>
+    <string name="guidedemo_block_on_flow">Khối trên dòng</string>
+    <string name="guidedemo_drift_down">Trôi theo dòng</string>
+    <string name="guidedemo_blue_in_source">Cắm thạch nước</string>
     <string name="guidedemo_gravity_down">Trọng lực ↓</string>
     <string name="guidedemo_vine_sticks_block_falls">Dây bám, khối rơi</string>
     <string name="guidedemo_no_green">Không có xanh lá</string>
@@ -299,6 +309,15 @@
     <string name="guide_detonate_rainbow2_desc">Kỹ năng tối thượng: xóa sạch TOÀN BÀN (kể cả đá)</string>
     <string name="guide_detonate_rainbow2_body">Kỹ năng tối thượng:\nHoàng Đế Cầu Vồng giải phóng\n→ [g]XÓA SẠCH TOÀN BÀN[/g]\n(kể cả đá)!</string>
 
+    <string name="guide_water_flow_title">Dòng chảy nước</string>
+    <string name="guide_water_flow_desc">Nguồn ở trên cùng chảy xuống, mỗi lượt mọc 1 ô; gặp cản thì rẽ ngang và tách nhánh tới đáy</string>
+    <string name="guide_water_flow_body">[g]NGUỒN NƯỚC[/g] ở trên cùng\nchảy [p]XUỐNG[/p], mỗi lượt mọc\nthêm [p]1 Ô[/p].\n\nGặp vật cản thì [p]RẼ NGANG[/p] và\ncó thể [p]TÁCH NHÁNH[/p] — chảy tiếp\nkhông ngừng cho tới đáy bàn.</string>
+    <string name="guide_water_drift_title">Trôi theo dòng</string>
+    <string name="guide_water_drift_desc">Khối đặt trên dòng nước trôi xuôi theo dòng mỗi lượt và không rơi theo trọng lực</string>
+    <string name="guide_water_drift_body">Khối đặt trên [g]DÒNG NƯỚC[/g]\nsẽ [p]TRÔI[/p] xuôi theo dòng mỗi\nlượt — theo cả khúc rẽ.\n\nKhối trong dòng [w]KHÔNG RƠI[/w]\ntheo trọng lực: bị dòng giữ,\nkhông rớt ra khỏi dòng nước.</string>
+    <string name="guide_water_break_title">Phá nguồn</string>
+    <string name="guide_water_break_desc">Cắm Thạch Nước (khối xanh) vào cột/hàng đi qua ô nguồn rồi xoá dòng đó để phá nguồn</string>
+    <string name="guide_water_break_body">Chỉ [g]THẠCH NƯỚC[/g] (khối xanh)\nmới đứng yên trên [w]Ô NGUỒN[/w]\n(màu khác sẽ trôi đi).\n\nXoá hàng/cột đi qua ô nguồn mà\ndòng đó [p]CÓ Thạch Nước[/p]\n→ [s]nguồn khô[/s], cả dòng chảy tắt.</string>
     <string name="guide_vine_intro_title">Dây leo mọc lan</string>
     <string name="guide_vine_intro_desc">Mỗi lượt mỗi gốc mọc thêm 1 đốt; gốc mọc 3 hướng, thân mọc đủ 4 hướng, tối đa 4 ngọn</string>
     <string name="guide_vine_intro_body">Mỗi lượt, mỗi gốc chỉ mọc thêm\n[g]1 ĐỐT[/g] ở một ngọn:\n\n• GỐC mọc [p]3 hướng[/p] (lên, trái,\n  phải — không xuôi trọng lực)\n• Thân/ngọn mọc [p]đủ 4 hướng[/p]\n• Mỗi gốc tối đa [w]4 NGỌN[/w]\n\nCác nhánh mọc [s]RIÊNG BIỆT[/s],\nkhông bao giờ dính vào nhau.</string>

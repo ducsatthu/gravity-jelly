@@ -9,7 +9,7 @@ import { Button } from '../01-button/Button.jsx';
  * /06-svg-assets/bosses/) — never a shared circular avatar, never boxed in a
  * ring. Mascots are EYES-ONLY (no mouth, brows or teeth).
  *   • worm  — Chú Sâu Đồng Cỏ: mint caterpillar + leaf sprouts (boss-worm.png).
- *   • trash — Thần Rừng: tree-trunk jelly god + leaf crown + sprout cubes (boss-forest.png).
+ *   • vine  — Thần Rừng: tree-trunk jelly god + leaf crown + sprout cubes (boss-vine.png).
  *   • water — Thần Thác: water-god column + ring + bubbles (boss-water.png).
  * BossMascot renders the PNG; a faint purple/cyan aura sits behind worm/water.
  *
@@ -45,7 +45,7 @@ const CAP = { fontFamily: 'var(--font-body)', fontWeight: 'var(--weight-extra)',
 
 const THEMES = {
   worm:  { color: 'var(--color-block-mint)', edge: 'var(--color-block-mint-edge)', shine: 'var(--color-block-mint-shine)' },
-  trash: { color: '#D9BE94', edge: '#B79A6E', shine: '#EFDFC0' },
+  vine:  { color: '#D9BE94', edge: '#B79A6E', shine: '#EFDFC0' },
   water: { color: 'var(--color-block-blue)', edge: 'var(--color-block-blue-edge)', shine: 'var(--color-block-blue-shine)' },
 };
 
@@ -63,9 +63,9 @@ function Glyph({ name, size = 15, color = 'currentColor', sw = 2.2 }) {
 const MASCOT_ASSET = {
   worm:  { file: 'boss-worm.png',  aspect: 448 / 560 },
   water: { file: 'boss-water.png', aspect: 467 / 560 },
-  trash: { file: 'boss-forest.png', aspect: 1238 / 1144 },
+  vine:  { file: 'boss-vine.png', aspect: 1238 / 1144 },
 };
-const MASCOT_H = { worm: 122, water: 130, trash: 106 };
+const MASCOT_H = { worm: 122, water: 130, vine: 106 };
 const DEFAULT_ASSET_BASE = '../../06-svg-assets/bosses/';
 
 /**
@@ -114,14 +114,14 @@ function ShieldCount({ current, target }) {
 
 /* ---------- rule / tell chip ---------- */
 function chipTone(tone) {
-  if (tone === 'trash') return { bg: 'rgba(255,202,102,0.20)', fg: '#9A7326', disc: 'var(--color-warning)', discFg: '#5B4636' };
+  if (tone === 'vine') return { bg: 'rgba(255,202,102,0.20)', fg: '#9A7326', disc: 'var(--color-warning)', discFg: '#5B4636' };
   if (tone === 'gravity') return { bg: 'rgba(126,108,240,0.12)', fg: 'var(--color-gravity-edge)', disc: 'var(--color-gravity)', discFg: '#fff' };
   return { bg: 'rgba(126,108,240,0.12)', fg: 'var(--color-gravity-edge)', disc: 'var(--color-gravity)', discFg: '#fff' };
 }
 
 function chipGlyph(kind, color) {
   if (kind === 'gravity') return <Icon name="rotateCw" size={12} color={color} strokeWidth={2.6} />;
-  if (kind === 'trash') return <Glyph name="leaf" size={12} color={color} sw={2.4} />;
+  if (kind === 'vine') return <Glyph name="leaf" size={12} color={color} sw={2.4} />;
   if (kind === 'x2') return <Icon name="x2" size={12} color={color} strokeWidth={2.6} />;
   return <Glyph name="shield" size={12} color={color} sw={2.4} />;
 }
@@ -247,8 +247,8 @@ export function BossIntroCard({
 /* =====================================================================
    3) BossToast — WARNING pill: what the boss is about to do (a tell)
    ===================================================================== */
-export function BossToast({ kind = 'trash', tone, label = 'Lượt sau: Đổ rác', kicker, style = {} }) {
-  const t = tone || (kind === 'trash' ? 'trash' : kind === 'gravity' ? 'gravity' : 'rule');
+export function BossToast({ kind = 'vine', tone, label = 'Lượt sau: Mọc dây', kicker, style = {} }) {
+  const t = tone || (kind === 'vine' ? 'vine' : kind === 'gravity' ? 'gravity' : 'rule');
   const c = chipTone(t);
   const glyph = kind === 'gravity'
     ? <Icon name="rotateCw" size={16} color={c.discFg} strokeWidth={2.6} />

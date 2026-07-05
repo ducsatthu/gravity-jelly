@@ -26,6 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,6 +38,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.gravityjelly.app.audio.GjSfx
+import com.gravityjelly.app.audio.LocalGjAudio
 import com.gravityjelly.app.data.GjSettings
 import com.gravityjelly.app.i18n.AppLanguage
 import com.gravityjelly.app.i18n.AppLocale
@@ -260,6 +263,9 @@ private fun RowDivider() {
 
 @Composable
 private fun SoftSwitch(checked: Boolean, onToggle: () -> Unit) {
+    val audio = LocalGjAudio.current
+    val currentChecked by rememberUpdatedState(checked)
+    val currentOnToggle by rememberUpdatedState(onToggle)
     val trackW = 52.dp
     val trackH = 30.dp
     val thumb = 24.dp
@@ -275,7 +281,10 @@ private fun SoftSwitch(checked: Boolean, onToggle: () -> Unit) {
             .height(trackH)
             .clip(RoundedCornerShape(GjRadius.full))
             .background(if (checked) GjPalette.Success else GjPalette.SurfaceSunken)
-            .pointerInput(Unit) { detectTapGestures(onTap = { onToggle() }) },
+            .pointerInput(Unit) { detectTapGestures(onTap = {
+                audio?.play(if (currentChecked) GjSfx.SFX_TOGGLE_OFF else GjSfx.SFX_TOGGLE_ON)
+                currentOnToggle()
+            }) },
         contentAlignment = Alignment.CenterStart,
     ) {
         Box(

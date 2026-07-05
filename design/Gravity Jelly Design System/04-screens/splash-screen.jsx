@@ -5,28 +5,18 @@
 (function () {
   const NS = window.GravityJellyDesignSystem_3e0487;
   const { JellyBlock } = NS;
+  const WORDMARK = '../08-brand/wordmark.png';
 
   function SplashScreen({ progress = 0.68, version = '1.0.0' }) {
-    const tiles = [['pink', 'left', -8], ['yellow', 'down', 4], ['mint', 'right', -4], ['blue', 'down', 8]];
     return (
       <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', padding: 'var(--space-xl)', boxSizing: 'border-box', background: 'radial-gradient(120% 80% at 50% 28%, #FFFDF7 0%, var(--color-bg) 58%, #F3E3CC 100%)', overflow: 'hidden' }}>
         {/* soft floating blobs in the back */}
         <div aria-hidden="true" style={{ position: 'absolute', top: 70, left: -30, width: 120, height: 120, borderRadius: '50%', background: 'var(--color-block-mint-shine)', opacity: 0.5, filter: 'blur(6px)' }} />
         <div aria-hidden="true" style={{ position: 'absolute', bottom: 120, right: -24, width: 90, height: 90, borderRadius: '50%', background: 'var(--color-block-pink-shine)', opacity: 0.55, filter: 'blur(6px)' }} />
 
-        {/* logo */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-lg)' }}>
-          <div style={{ display: 'flex', gap: 6, alignItems: 'flex-start' }}>
-            {tiles.map(([c, d, rot], i) => (
-              <div key={i} style={{ transform: `rotate(${rot}deg)`, animation: `gj-bob 1500ms var(--ease-jelly, ease-in-out) ${i * 130}ms infinite` }}>
-                <JellyBlock color={c} size={50} direction={d} expression={i === 1 ? 'happy' : 'normal'} />
-              </div>
-            ))}
-          </div>
-          <div style={{ textAlign: 'center', lineHeight: 0.92 }}>
-            <div style={{ fontFamily: 'var(--font-display)', fontWeight: 'var(--weight-semibold)', fontSize: 22, letterSpacing: '0.18em', color: 'var(--color-text-muted)' }}>GRAVITY</div>
-            <div style={{ fontFamily: 'var(--font-display)', fontWeight: 'var(--weight-extra)', fontSize: 54, color: 'var(--color-block-pink)', WebkitTextStroke: '2px var(--color-block-pink-edge)', textShadow: '0 4px 0 var(--color-block-pink-edge)' }}>JELLY</div>
-          </div>
+        {/* logo — official Gravity Jelly wordmark */}
+        <div style={{ animation: 'gj-bob 1800ms var(--ease-jelly, ease-in-out) infinite' }}>
+          <img src={WORDMARK} alt="Gravity Jelly" style={{ display: 'block', width: 244, height: 'auto', userSelect: 'none', filter: 'drop-shadow(0 8px 14px rgba(120,92,52,0.22))' }} />
         </div>
 
         {/* progress */}

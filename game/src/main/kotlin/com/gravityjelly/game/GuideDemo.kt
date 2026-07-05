@@ -18,7 +18,10 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.gravityjelly.core.Direction
 import com.gravityjelly.core.JellyColor
+import com.gravityjelly.core.Vec
+import com.gravityjelly.core.WaterSource
 
 /**
  * Mini-board TĨNH cho popup dạy luật / trang cẩm nang: vẽ một lưới nhỏ các khối jelly thật
@@ -29,10 +32,16 @@ import com.gravityjelly.core.JellyColor
  * lấp lánh để thấy viền màu + vương miện + tia (giống @Preview "07 Super blocks"). Allocation-aware
  * như board: stroke/cr precompute một lần mỗi vẽ. Công khai để :app (GjGuide) tái dùng.
  */
-enum class GuideCellKind { EMPTY, JELLY, SUPER1, SUPER2, RAINBOW, RAINBOW2, STONE, VINE, TRASH }
+enum class GuideCellKind {
+    EMPTY, JELLY, SUPER1, SUPER2, RAINBOW, RAINBOW2, STONE, VINE, TRASH,
+    WATER_SOURCE, WATER_FLOW, WATER_DROP, WATER_BROKEN, // World 3 · Dòng chảy
+}
 
-/** Một ô của mini-board minh hoạ. [color] bắt buộc cho JELLY/SUPER1/SUPER2 (mặc định vàng nếu thiếu). */
-data class GuideCell(val kind: GuideCellKind, val color: JellyColor? = null)
+/**
+ * Một ô của mini-board minh hoạ. [color] bắt buộc cho JELLY/SUPER1/SUPER2 (mặc định vàng nếu thiếu).
+ * [dir] = hướng chảy cho ô nước ([WATER_SOURCE]/[WATER_FLOW]); mặc định phải.
+ */
+data class GuideCell(val kind: GuideCellKind, val color: JellyColor? = null, val dir: Direction? = null)
 
 // ── shorthand dựng layout gọn ───────────────────────────────────────────────────
 val gEmpty = GuideCell(GuideCellKind.EMPTY)
@@ -45,6 +54,10 @@ fun gSuper2(c: JellyColor) = GuideCell(GuideCellKind.SUPER2, c)
 val gVineRoot = GuideCell(GuideCellKind.VINE, JellyColor.MINT)
 val gVine = GuideCell(GuideCellKind.VINE, null)
 val gTrash = GuideCell(GuideCellKind.TRASH)
+fun gWaterSource(dir: Direction = Direction.RIGHT) = GuideCell(GuideCellKind.WATER_SOURCE, dir = dir)
+fun gWaterFlow(dir: Direction = Direction.RIGHT) = GuideCell(GuideCellKind.WATER_FLOW, dir = dir)
+val gWaterDrop = GuideCell(GuideCellKind.WATER_DROP)
+val gWaterBroken = GuideCell(GuideCellKind.WATER_BROKEN)
 
 // mốc lấp lánh cố định (siêu khối/cầu vồng) — bám @Preview "07 Super blocks"
 private const val GUIDE_PULSE = 0.7f
@@ -91,6 +104,9 @@ fun GuideMiniBoard(
                     drawRoundRect(JellyTheme.cellEmpty, Offset(left, top), Size(blockSize, blockSize), cr)
                     drawRoundRect(JellyTheme.cellLine, Offset(left, top), Size(blockSize, blockSize), cr, style = cellLineStroke)
                 }
+                // World 3: vẽ NƯỚC thành DẢI LIỀN (như in-game, drawWaterRibbon) thay vì tile rời.
+                drawGuideWaterRibbon(rows, rowN, cols, cellSize, blockSize, cr)
+
                 // khối
                 fun vineAt(cx: Int, cy: Int): Boolean {
                     if (cy < 0 || cy >= rowN || cx < 0) return false
@@ -161,7 +177,45 @@ private fun DrawScope.drawGuideCell(
                 connectLeft = vineLeft, connectRight = vineRight)
         }
         GuideCellKind.TRASH -> drawDebrisCell(left, top, blockSize, cr, borderStroke)
+        // Nước vẽ thành DẢI LIỀN ở [drawGuideWaterRibbon] (bỏ qua per-ô).
+        GuideCellKind.WATER_SOURCE, GuideCellKind.WATER_FLOW, GuideCellKind.WATER_BROKEN -> {}
+        GuideCellKind.WATER_DROP -> drawWaterDropTarget(left, top, blockSize, cr, now = 0L)
     }
+}
+
+/**
+ * Vẽ nước của mini-board thành **DẢI LIỀN** (giống in-game): gom ô nguồn ([GuideCellKind.WATER_SOURCE]
+ * hoặc [GuideCellKind.WATER_BROKEN]) + các ô [GuideCellKind.WATER_FLOW] kề nhau (BFS → thứ tự cây) rồi
+ * gọi [drawWaterRibbon]. Toạ độ ô khớp GuideMiniBoard (tâm = (x+0.5)·cellSize). Tĩnh (now=0L).
+ */
+private fun DrawScope.drawGuideWaterRibbon(
+    rows: List<List<GuideCell>>, rowN: Int, cols: Int, cellSize: Float, blockSize: Float, cr: CornerRadius,
+) {
+    fun kindAt(x: Int, y: Int): GuideCellKind? {
+        if (y < 0 || y >= rowN || x < 0) return null
+        val r = rows[y]; return if (x < r.size) r[x].kind else null
+    }
+    var src: Vec? = null; var broken = false
+    loop@ for (y in 0 until rowN) for (x in 0 until cols) when (kindAt(x, y)) {
+        GuideCellKind.WATER_SOURCE -> { src = Vec(x, y); broken = false; break@loop }
+        GuideCellKind.WATER_BROKEN -> { src = Vec(x, y); broken = true; break@loop }
+        else -> {}
+    }
+    val s = src ?: return
+    val flow = ArrayList<Vec>()
+    if (!broken) {
+        val seen = HashSet<Int>(); seen.add(s.y * 100 + s.x)
+        val queue = ArrayDeque<Vec>(); queue.add(s)
+        while (queue.isNotEmpty()) {
+            val c = queue.removeFirst()
+            for (d in arrayOf(Vec(c.x, c.y + 1), Vec(c.x - 1, c.y), Vec(c.x + 1, c.y), Vec(c.x, c.y - 1))) {
+                if (kindAt(d.x, d.y) == GuideCellKind.WATER_FLOW && seen.add(d.y * 100 + d.x)) {
+                    flow.add(d); queue.add(d)
+                }
+            }
+        }
+    }
+    drawWaterRibbon(WaterSource(0, s, active = !broken, broken = broken, flow = flow), cellSize, blockSize, cr, 0L)
 }
 
 // ── preview ──────────────────────────────────────────────────────────────────

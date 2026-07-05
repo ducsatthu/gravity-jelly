@@ -1,6 +1,7 @@
 package com.gravityjelly.core
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -101,37 +102,42 @@ class CampaignLevelsTest {
         val w3 = CampaignLevels.ALL.filter { it.world == 3 }
         assertEquals("10 màn World 3", 10, w3.size)
         assertEquals("id 21..30", (21..30).toList(), w3.map { it.id })
-        val waterfallLevels = w3.filter { it.waterSources.isNotEmpty() }
-        assertTrue("đa số màn có thác", waterfallLevels.size >= 7)
-        assertEquals("L30 boss", GoalType.BOSS_COMBO, CampaignLevels.L30.goal.type)
-        assertEquals("L30 gravity flip", 3, CampaignLevels.L30.bossGravityEveryN)
+        val flowLevels = w3.filter { it.waterSources.isNotEmpty() }
+        assertTrue("đa số màn có dòng chảy", flowLevels.size >= 7)
+        assertEquals("L30 boss phá nguồn nhiều lần", GoalType.CLEAR_TARGETS, CampaignLevels.L30.goal.type)
+        assertEquals("L30 hồi sinh nguồn mỗi 3 lượt", 3, CampaignLevels.L30.bossReviveEveryN)
+        assertTrue("mọi màn W3 chấm sao theo LƯỢT", w3.all { it.stars.metric == StarMetric.MOVES })
         assertEquals("tổng 30 màn", 30, CampaignLevels.ALL.size)
     }
 
     @Test
-    fun `L21 thac nuoc - co nguon va giot`() {
+    fun `L21 dong chay - 1 nguon o hang tren cung`() {
         val l = CampaignLevels.L21
         assertEquals("1 nguồn", 1, l.waterSources.size)
-        assertEquals("2 giọt", 2, l.preset.count { it.type == CellType.TARGET })
+        assertEquals("nguồn ở hàng trên cùng (y=0)", 0, l.waterSources[0].y)
+        assertEquals("goal phá nguồn", GoalType.CLEAR_TARGETS, l.goal.type)
     }
 
     @Test
-    fun `L30 boss Than Thac tu dao trong luc moi 3 luot`() {
+    fun `L30 boss Than Thac hoi sinh nguon sau khi can`() {
+        // Cột 4 (y=1..8) preset xen kẽ CÓ Thạch Nước (BLUE); đặt DOT úp nắp (4,0) → clear cột 4 (có BLUE) → phá nguồn.
+        val preset = (1..8).map { Vec(4, it) to Grid.Cell(CellType.BLOCK, JellyColor.entries[it % 4]) }
         val dot = Piece(PieceLibrary.DOT, JellyColor.YELLOW)
         val e = EndlessEngine(
             seed = 30,
-            initialBudget = 5,
-            tuning = EndlessTuning(bossGravityEveryN = 3),
-            preset = listOf(Vec(4, 0) to Grid.Cell(CellType.STONE), Vec(4, 8) to Grid.Cell(CellType.STONE)),
-            trayScript = listOf(listOf(dot, dot, dot), listOf(dot, dot, dot)),
+            tuning = EndlessTuning(bossReviveEveryN = 3),
+            preset = preset,
+            waterSourceSpecs = listOf(WaterSourceSpec(1, 4, 0, maxLength = 8)),
+            trayScript = List(4) { listOf(dot, dot, dot) },
         )
-        val t1 = e.placePieceAt(0, 0, 1)
-        val t2 = e.placePieceAt(1, 0, 2)
-        val t3 = e.placePieceAt(2, 0, 3)
-        assertTrue("lượt 1 chưa đảo", t1.none { it is GameEvent.BossGravityFlipped })
-        assertTrue("lượt 2 chưa đảo", t2.none { it is GameEvent.BossGravityFlipped })
-        assertTrue("lượt 3 đảo trọng lực", t3.any { it is GameEvent.BossGravityFlipped })
-        assertEquals(Direction.UP, e.state().gravity)
+        val t1 = e.placePieceAt(0, 4, 0)   // lượt 1: clear cột 4 → phá nguồn
+        assertTrue("phá nguồn lượt 1", t1.any { it is GameEvent.WaterSourceBroken })
+        assertTrue("nguồn cạn", e.state().waterSources[0].broken)
+
+        e.placePieceAt(1, 0, 5)            // lượt 2 (không đụng cột nguồn)
+        val t3 = e.placePieceAt(2, 6, 5)   // lượt 3 = bội 3 → HỒI SINH
+        assertTrue("hồi sinh nguồn ở lượt 3", t3.any { it is GameEvent.WaterSourceRevived })
+        assertFalse("nguồn sống lại", e.state().waterSources[0].broken)
     }
 
     @Test

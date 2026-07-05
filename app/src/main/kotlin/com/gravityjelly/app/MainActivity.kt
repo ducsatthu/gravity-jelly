@@ -29,7 +29,14 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import com.gravityjelly.app.ads.AdsManager
+import com.gravityjelly.app.audio.GjAudioManager
+import com.gravityjelly.app.audio.LocalGjAudio
 import com.gravityjelly.app.data.GjSettings
 import com.gravityjelly.app.data.SettingsRepository
 import com.gravityjelly.app.ui.layout.ProvideDesignDensity
@@ -50,6 +57,10 @@ class MainActivity : AppCompatActivity() {
         // tự tan khi Compose vẽ frame đầu → trao cho màn Splash Compose. Gọi trước super.onCreate.
         installSplashScreen()
         super.onCreate(savedInstanceState)
+        if (savedInstanceState != null) {
+            @Suppress("DEPRECATION")
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        }
         enableEdgeToEdge()
         setContent {
             GravityJellyTheme {
@@ -85,9 +96,30 @@ private fun GravityJellyApp() {
     val context = LocalContext.current
     val repo = remember { SettingsRepository(context) }
     val ads = remember { AdsManager(context) }
+    val audio = remember { GjAudioManager(context) }
     val scope = rememberCoroutineScope()
     // Đọc state bền bất đồng bộ; mặc định an toàn cho khung hình đầu (lần đầu chưa có file).
     val settings by repo.settings.collectAsState(initial = GjSettings())
+
+    // Đồng bộ cờ âm thanh từ Settings → AudioManager (gate SFX + BGM bên trong manager).
+    LaunchedEffect(settings.sound) { audio.soundEnabled = settings.sound }
+    LaunchedEffect(settings.music) { audio.musicEnabled = settings.music }
+    DisposableEffect(Unit) { onDispose { audio.release() } }
+
+    // BGM chạy xuyên suốt — bật lúc mở app, pause/resume theo lifecycle, release khi destroy.
+    val lifecycleOwner = LocalLifecycleOwner.current
+    DisposableEffect(lifecycleOwner) {
+        audio.startBgm()
+        val observer = LifecycleEventObserver { _, event ->
+            when (event) {
+                Lifecycle.Event.ON_PAUSE -> audio.pauseBgm()
+                Lifecycle.Event.ON_RESUME -> audio.resumeBgm()
+                else -> {}
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
+    }
 
     // World người chơi đang tiến tới → nền Home & Endless đổi cảnh theo tiến độ (Đồng cỏ→Rừng→Sông).
     val currentWorld = campaignCurrentWorld(settings.campaignStars)
@@ -118,6 +150,7 @@ private fun GravityJellyApp() {
     }
 
     // Chuyển cảnh mềm (150–450ms, ease token); reduced-motion → snap.
+    CompositionLocalProvider(LocalGjAudio provides audio) {
     AnimatedContent(
         targetState   = route,
         modifier      = Modifier.fillMaxSize(),
@@ -219,6 +252,7 @@ private fun GravityJellyApp() {
             )
         }
     }
+    } // CompositionLocalProvider
 }
 
 // rememberSaveable cần khoá nguyên thuỷ cho sealed route. CampaignPlay mã hoá index vào 1000+index.

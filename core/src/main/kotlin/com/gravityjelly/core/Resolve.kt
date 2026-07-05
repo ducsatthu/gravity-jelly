@@ -7,6 +7,8 @@ sealed class ResolveEvent {
         val comboLevel: Int,
         val score: Int,
         val survivingRoots: List<Vec> = emptyList(),
+        /** W3: các hàng/cột vừa xoá có chứa ≥1 khối BLUE (Thạch Nước) → mới phá được nguồn (§7). */
+        val bluLines: ClearedLines = ClearedLines(emptyList(), emptyList()),
     ) : ResolveEvent()
 
     data class ClustersCollapsed(val moved: Boolean) : ResolveEvent()
@@ -175,6 +177,15 @@ fun resolve(grid: Grid, gravity: Direction, startCombo: Int = 0, mergeEnabled: B
             // GIỌT NƯỚC (World 3): mọi ô đích trên vùng xoá = giọt vỡ (bắt trước khi set null).
             val dropsHit = toClear.filter { grid.get(it.x, it.y)?.type == CellType.TARGET }
 
+            // World 3 · QUY TẮC THẠCH NƯỚC: dòng đi qua ô nguồn chỉ PHÁ được nguồn nếu dòng đó **chứa ≥1
+            // khối BLUE (Thạch Nước)** (§7). Bắt các hàng/cột "có nước" khi lưới còn nguyên (trước set null).
+            val bluRows = lines.rows.filter { r ->
+                (0 until grid.size).any { x -> val bc = grid.get(x, r); bc?.type == CellType.BLOCK && bc.color == JellyColor.BLUE }
+            }
+            val bluCols = lines.cols.filter { c ->
+                (0 until grid.size).any { y -> val bc = grid.get(c, y); bc?.type == CellType.BLOCK && bc.color == JellyColor.BLUE }
+            }
+
             val rootsHitSet = rootsHit.toSet()
             val survivingRoots = ArrayList<Vec>()
             var cellsCleared = 0
@@ -191,7 +202,7 @@ fun resolve(grid: Grid, gravity: Direction, startCombo: Int = 0, mergeEnabled: B
 
             val score = Scoring.clearScore(cellsCleared, lines.count, combo)
             totalScore += score
-            events.add(ResolveEvent.LinesCleared(lines, cellsCleared, combo, score, survivingRoots))
+            events.add(ResolveEvent.LinesCleared(lines, cellsCleared, combo, score, survivingRoots, ClearedLines(bluRows, bluCols)))
             for (d in detonations) {
                 events.add(ResolveEvent.SuperDetonated(d.center, d.color, d.level, d.cells, d.isRainbow))
             }

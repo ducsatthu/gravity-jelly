@@ -9,6 +9,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import com.gravityjelly.app.audio.GjSfx
+import com.gravityjelly.app.audio.LocalGjAudio
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -132,11 +134,18 @@ private class WorldMap(
     @androidx.annotation.StringRes val startSignRes: Int,
 )
 
-/** Bản đồ theo world (design world1-strip / world2-strip; ngưỡng sao cổng theo GateChip). */
+/**
+ * Ngưỡng sao CỔNG mở world kế = **ÍT NHẤT 3/4** tổng sao tối đa TÍCH LŨY tới hết [world] (mỗi world 10 màn
+ * × 3★ = 30 sao ⇒ trần tích luỹ 30/60/90). ⇒ W1→W2 = **23**, W2→W3 = **45**, W3→W4 = **68**.
+ * (user 05/07: mở world mới cần đạt ≥ 3/4 tổng sao. Ceil của 22.5·world.)
+ */
+private fun gateStarReq(world: Int): Int = (45 * world + 1) / 2
+
+/** Bản đồ theo world (design world1-strip / world2-strip; ngưỡng sao cổng = [gateStarReq]). */
 private fun worldMap(world: Int): WorldMap = when (world) {
-    3 -> WorldMap(3, WORLD3_NODES, R.drawable.world3_map_bg, 4, R.string.world_4_name, 54, R.string.campaign_start_sign_w3)
-    2 -> WorldMap(2, WORLD2_NODES, R.drawable.world2_map_bg, 3, R.string.world_3_name, 36, R.string.campaign_start_sign_w2)
-    else -> WorldMap(1, WORLD1_NODES, R.drawable.world1_map_bg, 2, R.string.world_2_name, 18, R.string.campaign_start_sign_w1)
+    3 -> WorldMap(3, WORLD3_NODES, R.drawable.world3_map_bg, 4, R.string.world_4_name, gateStarReq(3), R.string.campaign_start_sign_w3)
+    2 -> WorldMap(2, WORLD2_NODES, R.drawable.world2_map_bg, 3, R.string.world_3_name, gateStarReq(2), R.string.campaign_start_sign_w2)
+    else -> WorldMap(1, WORLD1_NODES, R.drawable.world1_map_bg, 2, R.string.world_2_name, gateStarReq(1), R.string.campaign_start_sign_w1)
 }
 
 /** Số màn của một world trong [CampaignLevels.ALL]. */
@@ -156,9 +165,9 @@ internal fun campaignCurrentWorld(stars: Map<Int, Int>): Int {
 
 /**
  * Tổng sao TÍCH LŨY từ World 1 tới hết [world] (GỒM cả sao mọi world trước) — dùng cho ngưỡng cổng.
- * Ngưỡng cổng vượt sức 1 world (mỗi world tối đa 30 sao): cổng W2=36, W3=54 nên BẮT BUỘC cộng dồn
- * sao world trước (user 03/07: "qua cổng tính theo tổng sao tích luỹ, gồm cả sao thế giới trước";
- * vd cổng sang W3 cần 36 mà hết W1 chỉ 30). = 60% của trần tích luỹ 30/60/90.
+ * Ngưỡng cổng ([gateStarReq]) vượt sức 1 world (mỗi world tối đa 30 sao) nên BẮT BUỘC cộng dồn sao world
+ * trước (user 03/07: "qua cổng tính theo tổng sao tích luỹ"). Từ 05/07: ngưỡng = **3/4 trần tích luỹ**
+ * (23/45/68 thay cho 60% cũ 18/36/54) — mở world mới cần ≥ 3/4 tổng sao.
  */
 private fun cumulativeStars(world: Int, stars: Map<Int, Int>): Int =
     CampaignLevels.ALL.filter { it.world <= world }.sumOf { stars[it.id] ?: 0 }
@@ -273,7 +282,8 @@ fun CampaignScreen(
                 map.nodes.forEach { node ->
                     val state = nodeStateOf(node.id, stars)
                     val idx = CampaignLevels.ALL.indexOfFirst { it.id == node.id }
-                    val onClick = { if (state != NodeState.LOCKED && idx >= 0) onPlay(idx) }
+                    val audio = LocalGjAudio.current
+                    val onClick = { if (state != NodeState.LOCKED && idx >= 0) { audio?.play(GjSfx.SFX_CAMPAIGN_NODE_TAP); onPlay(idx) } }
                     if (node.kind == NodeKind.BOSS) {
                         BossNode(node, state, stars[node.id] ?: 0, s, reducedMotion, onClick)
                     } else {

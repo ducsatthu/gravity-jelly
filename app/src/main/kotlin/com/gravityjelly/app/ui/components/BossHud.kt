@@ -526,6 +526,7 @@ private fun tellLabel(tell: BossTell): String {
     val what = when (tell.kind) {
         BossTellKind.VINE_SPAWN -> stringResource(R.string.boss_tell_vine_spawn)
         BossTellKind.GRAVITY_INVERT -> stringResource(R.string.boss_tell_gravity_invert)
+        BossTellKind.SOURCE_REVIVE -> stringResource(R.string.boss_tell_source_revive)
     }
     val prefix = if (tell.turnsUntil <= 1) stringResource(R.string.boss_tell_next_turn)
         else stringResource(R.string.boss_tell_after_turns, tell.turnsUntil)

@@ -40,7 +40,7 @@ moved.
 | 05 | `03-components/05-combo-popup/` | `ComboPopup` — springy ×N chain multiplier | ✅ |
 | 06 | `03-components/06-dialog/` | `Dialog` — soft modal sheet (pause/confirm/info) | ✅ |
 | 08 | `03-components/08-objective-bar/` | `ObjectiveBar` — level-objective cluster under the HUD: left **Màn** badge (level + world) · tutorial (chỉ combo giữ ×N, hành động đơn không hiện số) · CLEAR_TARGETS dimming counter (vine/drop, buried lock); active/near/done. Sao tính đồng nhất theo **số nước** (bỏ REACH_SCORE/MIXED — không còn điểm; lượt xoay ở FAB, không ở bar) | ✅ |
-| 09 | `03-components/09-boss-hud/` | `BossCard` / `BossIntroCard` / `BossToast` / `BossMascot` / `ShieldBar` (`BossHud` = `BossCard`) — soft boss cluster: each boss its OWN eyes-only silhouette (worm/trash/water, no ring) · compact card (mascot overflows left · **Khiên** shield bar · rule/tell chip) · large intro card (BOSS tag + "Chơi" CTA) · warning toast. No HP hearts, no "gây sát thương" | ✅ |
+| 09 | `03-components/09-boss-hud/` | `BossCard` / `BossIntroCard` / `BossToast` / `BossMascot` / `ShieldBar` (`BossHud` = `BossCard`) — soft boss cluster: each boss its OWN eyes-only silhouette (worm/vine/water, no ring) · compact card (mascot overflows left · **Khiên** shield bar · rule/tell chip) · large intro card (BOSS tag + "Chơi" CTA) · warning toast. No HP hearts, no "gây sát thương" | ✅ |
 
 ## 04 · Screens (UI kit)
 | # | Path | What | Status |

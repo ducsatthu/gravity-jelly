@@ -441,43 +441,7 @@ internal fun DrawScope.drawDebrisCell(
     drawCircle(DEBRIS_DARK, 1.4f * s, Offset(left + 30f * s, top + 60f * s))
 }
 
-// Ô ĐÍCH "giọt nước" (World 3): palette info/nước design — accent #EAFAFB, info #8FB6F2.
-private val DROP_WATER = androidx.compose.ui.graphics.Color(0xFFEAFAFB)  // bọt/nước sáng
-private val DROP_EDGE  = androidx.compose.ui.graphics.Color(0xFF8FB6F2)  // info — viền target
-private val DROP_SHINE = androidx.compose.ui.graphics.Color(0xCCFFFFFF)  // đốm sáng đỉnh
-
-/**
- * Ô ĐÍCH "giọt nước" (World 3 · Sông & Thác): nền jelly xanh dương (rơi & đếm-đầy như ô thường) +
- * GIỌT NƯỚC trắng-nước ở giữa + viền info đậm báo "đây là target cần xoá". Không mắt (khác jelly sống).
- * Bám palette design (info #8FB6F2, accent nước #EAFAFB).
- */
-internal fun DrawScope.drawDropCell(
-    left: Float, top: Float, blockSize: Float,
-    cr: CornerRadius, borderStroke: Stroke,
-) {
-    drawJellyBlock(left, top, blockSize, cr, borderStroke, JellyTheme.blue)
-    val bs = blockSize
-    val cx = left + bs / 2f
-    // Giọt nước hình teardrop: đỉnh nhọn, đáy tròn.
-    val tipY = top + bs * 0.22f
-    val botY = top + bs * 0.80f
-    val rw = bs * 0.22f
-    val drop = androidx.compose.ui.graphics.Path().apply {
-        moveTo(cx, tipY)
-        cubicTo(cx + rw, top + bs * 0.40f, cx + rw, top + bs * 0.64f, cx, botY)
-        cubicTo(cx - rw, top + bs * 0.64f, cx - rw, top + bs * 0.40f, cx, tipY)
-        close()
-    }
-    drawPath(drop, DROP_WATER)
-    drawPath(drop, DROP_EDGE, style = Stroke(borderStroke.width * 0.9f))
-    // Đốm sáng nhỏ lệch trái-trên trong giọt.
-    drawCircle(DROP_SHINE, radius = bs * 0.07f, center = Offset(cx - bs * 0.07f, top + bs * 0.52f))
-    // Viền target đậm quanh ô (như gốc dây leo) để báo mục tiêu.
-    drawRoundRect(
-        DROP_EDGE, Offset(left, top), Size(bs, bs), cr,
-        style = Stroke(borderStroke.width * 1.6f),
-    )
-}
+// Ô ĐÍCH "giọt nước" (World 3) → vẽ ở WaterDraw.kt (drawWaterDropTarget) bám design vòng-target nét-đứt.
 
 // drawEyes → xem JellyEyes.kt (đã được tách thành file riêng để hỗ trợ expression + blink)
 

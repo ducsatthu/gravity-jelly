@@ -10,8 +10,8 @@ data class EndlessState(
     val combo: Int,
     val stage: Int,
     val isGameOver: Boolean,
-    /** World 3: ô trống bị nước ngập — KHÔNG đặt mảnh được. Rỗng nếu tắt thác. */
-    val floodedCells: Set<Vec> = emptySet(),
+    /** World 3: nguồn Dòng chảy hiện tại (vị trí/hướng/broken/chuỗi flow) — cho render. Rỗng nếu tắt. */
+    val waterSources: List<WaterSource> = emptyList(),
 )
 
 sealed class GameEvent {
@@ -24,6 +24,8 @@ sealed class GameEvent {
         val comboLevel: Int,
         val score: Int,
         val survivingRoots: List<Vec> = emptyList(),
+        /** W3: hàng/cột vừa xoá có chứa ≥1 khối BLUE (Thạch Nước) → mới phá được nguồn (§7). */
+        val bluLines: ClearedLines = ClearedLines(emptyList(), emptyList()),
     ) : GameEvent()
     data class ClustersCollapsed(val moved: Boolean) : GameEvent()
     /** 9 ô cùng màu hợp nhất thành 1 siêu khối tại [at]; [absorbed] = ô bị thu. [score]/[comboLevel] cho HUD. */
@@ -73,6 +75,14 @@ sealed class GameEvent {
     data class DebrisAdded(val positions: List<Vec>) : GameEvent()
     /** Boss "Thần Thác" (World 3 · L30) tự ĐẢO hướng trọng lực 180° → [newGravity]. */
     data class BossGravityFlipped(val newGravity: Direction) : GameEvent()
+    /** World 3: nguồn Dòng chảy mọc thêm ô nước tại [cells] (animation "mới mọc"). */
+    data class WaterGrew(val cells: List<Vec>) : GameEvent()
+    /** World 3: dòng chảy đẩy jelly — [moves] = (từ → tới) mỗi ô occupant bị đẩy (animation trượt). */
+    data class JellyPushed(val moves: List<Pair<Vec, Vec>>) : GameEvent()
+    /** World 3: nguồn id=[sourceId] tại [pos] bị phá (clear line qua ô nguồn) → tắt cả dòng chảy (splash + fade). */
+    data class WaterSourceBroken(val sourceId: Int, val pos: Vec) : GameEvent()
+    /** World 3 boss "Thần Thác": nguồn id=[sourceId] tại [pos] được HỒI SINH (sống lại từ trên) → chảy lại. */
+    data class WaterSourceRevived(val sourceId: Int, val pos: Vec) : GameEvent()
     data class TrayDealt(val tray: List<Piece?>) : GameEvent()
     /** Combo bị reset bởi game layer (hết thời gian combo timer). */
     data class ComboExpired(val wasBefore: Int) : GameEvent()
@@ -97,8 +107,8 @@ class EndlessEngine(
      */
     private val trayScript: List<List<Piece>> = emptyList(),
     initialGravity: Direction = Direction.DOWN,
-    /** World 3 — vị trí nguồn thác nước (lateral 0..8). Rỗng = tắt thác. */
-    private val waterSources: List<Int> = emptyList(),
+    /** World 3 — nguồn Dòng chảy (top, chảy xuống, mọc 1 ô/lượt). Rỗng = tắt. */
+    waterSourceSpecs: List<WaterSourceSpec> = emptyList(),
 ) {
     private val rng = Rng(seed)
     private val grid = Grid()
@@ -114,13 +124,17 @@ class EndlessEngine(
     private var placesSinceGrow = 0
     /** Tổng số lượt THẢ mảnh (cơ chế đổ rác: qua ân hạn mới bắt đầu đổ). */
     private var placeTurns = 0
-    /** World 3: ô trống bị thác ngập — cấm đặt mảnh. Tính lại mỗi lượt. */
-    private var floodedCells: Set<Vec> = emptySet()
+    /** World 3: nguồn Dòng chảy runtime (đường flow + broken). Tính theo lượt. */
+    private var waterSources: List<WaterSource> = emptyList()
 
     init {
         for ((pos, cell) in preset) grid.set(pos.x, pos.y, cell)
+        // World 3: seed nguồn (sàn WATER_SOURCE ở hàng trên cùng, chảy xuống).
+        waterSources = waterSourceSpecs.map { s ->
+            grid.setEffect(s.x, s.y, CellEffect.WATER_SOURCE)
+            WaterSource(s.id, Vec(s.x, s.y), maxLength = s.maxLength)
+        }
         tray = dealTray()
-        recalculateWaterfall(mutableListOf())
     }
 
     /**
@@ -139,13 +153,13 @@ class EndlessEngine(
         internal val gameOver: Boolean,
         internal val placesSinceGrow: Int,
         internal val placeTurns: Int,
-        internal val floodedCells: Set<Vec>,
+        internal val waterSources: List<WaterSource>,
         internal val rngState: ULong,
     )
 
     fun snapshot(): Snapshot = Snapshot(
         grid.copy(), gravity, stage, waveIdx, tray.toList(), rotBudget, score, combo,
-        gameOver, placesSinceGrow, placeTurns, floodedCells.toSet(), rng.stateSnapshot(),
+        gameOver, placesSinceGrow, placeTurns, waterSources.toList(), rng.stateSnapshot(),
     )
 
     fun restore(s: Snapshot) {
@@ -160,7 +174,7 @@ class EndlessEngine(
         gameOver = s.gameOver
         placesSinceGrow = s.placesSinceGrow
         placeTurns = s.placeTurns
-        floodedCells = s.floodedCells
+        waterSources = s.waterSources
         rng.stateRestore(s.rngState)
     }
 
@@ -173,7 +187,7 @@ class EndlessEngine(
         combo = combo,
         stage = stage,
         isGameOver = gameOver,
-        floodedCells = floodedCells.toSet(),
+        waterSources = waterSources.toList(),
     )
 
     /**
@@ -187,8 +201,6 @@ class EndlessEngine(
         if (trayIndex !in tray.indices) return emptyList()
 
         val piece = tray[trayIndex] ?: return emptyList()
-        val cells = piece.shape.at(ox, oy)
-        if (cells.any { it in floodedCells }) return emptyList()
         val placeResult = freePlace(grid, piece, ox, oy)
         if (placeResult !is PlacementResult.Success) return emptyList()
 
@@ -237,7 +249,11 @@ class EndlessEngine(
         spawnBossVineIfDue(events)
         dropDebrisIfDue(events)
         flipBossGravityIfDue(events)
-        recalculateWaterfall(events)
+        reviveWaterSourcesIfDue(events)  // boss Thần Thác: hồi sinh nguồn đã cạn (trước khi phá lượt này)
+        spawnBossSourceIfDue(events)     // boss Thần Thác: thả thêm nguồn mới từ hàng trên
+        applySourceBreaks(events) // line qua ô nguồn (đặt mảnh / cascade) → phá nguồn
+        growWaterFlowStep(events) // mỗi nguồn active mọc +1 ô (rẽ khi bị chặn) — dồn toa khi lấn vào khối
+        driftWaterFlowStep(events) // khối đứng trên kênh trôi theo dòng chảy 1 ô
         growVinesIfDue(events)
 
         // Set null tại đúng ô vừa đặt — GIỮ vị trí các ô còn lại (không dồn trái).
@@ -324,6 +340,46 @@ class EndlessEngine(
     }
 
     /**
+     * Boss "Thần Thác" (World 3 · L30, archetype HỒI SINH): cứ mỗi [EndlessTuning.bossReviveEveryN] lượt THẢ,
+     * mọi **nguồn nước đã cạn** (broken từ lượt trước) được **hồi sinh** — sống lại tại ĐÚNG ô nguồn (hàng
+     * trên), chảy lại từ đầu. Người chơi phải PHÁ nguồn nhiều lần (goal đếm số lần phá). Deterministic theo
+     * số lượt. Chạy TRƯỚC [applySourceBreaks] nên nguồn vừa phá trong lượt này KHÔNG bị hồi ngay.
+     */
+    private fun reviveWaterSourcesIfDue(events: MutableList<GameEvent>) {
+        if (tuning.bossReviveEveryN <= 0) return
+        if (placeTurns % tuning.bossReviveEveryN != 0) return
+        if (waterSources.none { it.broken }) return
+        waterSources = waterSources.map { s ->
+            if (s.broken) {
+                grid.setEffect(s.pos.x, s.pos.y, CellEffect.WATER_SOURCE)
+                events.add(GameEvent.WaterSourceRevived(s.id, s.pos))
+                s.copy(active = true, broken = false, flow = emptyList())
+            } else s
+        }
+    }
+
+    /**
+     * Boss "Thần Thác": cứ mỗi [EndlessTuning.bossSpawnSourceEveryN] lượt THẢ, **thả thêm 1 nguồn mới** ở
+     * hàng trên (cột trống ngẫu nhiên deterministic qua [rng]), tối đa [EndlessTuning.bossMaxSources] nguồn.
+     * Nguồn mới chảy ngay lượt kế. Phát [GameEvent.WaterSourceRevived] (dùng chung hoạt cảnh "nguồn hiện ra").
+     */
+    private fun spawnBossSourceIfDue(events: MutableList<GameEvent>) {
+        if (tuning.bossSpawnSourceEveryN <= 0) return
+        if (placeTurns % tuning.bossSpawnSourceEveryN != 0) return
+        if (tuning.bossMaxSources in 1..waterSources.size) return   // đã đủ trần
+        val occupied = waterSources.mapTo(HashSet()) { it.pos.x }
+        val cols = (0 until grid.size).filter { x ->
+            x !in occupied && grid.effect(x, 0) == CellEffect.NONE && grid.isEmpty(x, 0)
+        }
+        if (cols.isEmpty()) return
+        val x = cols[rng.nextInt(cols.size)]
+        val id = (waterSources.maxOfOrNull { it.id } ?: 0) + 1
+        grid.setEffect(x, 0, CellEffect.WATER_SOURCE)
+        waterSources = waterSources + WaterSource(id, Vec(x, 0))
+        events.add(GameEvent.WaterSourceRevived(id, Vec(x, 0)))
+    }
+
+    /**
      * Boss "Thần Rừng" (W2 · L20): mỗi [EndlessTuning.bossVineSpawnEveryN] lượt, spawn 1 gốc vine
      * mới tại ô trống ngẫu nhiên (deterministic qua [rng]). Gốc mới bắt đầu mọc lan bình thường.
      */
@@ -347,6 +403,7 @@ class EndlessEngine(
      */
     fun bossTell(): BossTell? {
         val (period, kind) = when {
+            tuning.bossReviveEveryN > 0 -> tuning.bossReviveEveryN to BossTellKind.SOURCE_REVIVE
             tuning.bossGravityEveryN > 0 -> tuning.bossGravityEveryN to BossTellKind.GRAVITY_INVERT
             tuning.bossVineSpawnEveryN > 0 -> tuning.bossVineSpawnEveryN to BossTellKind.VINE_SPAWN
             else -> return null
@@ -355,19 +412,53 @@ class EndlessEngine(
     }
 
     /**
-     * Thác nước (W3): tính lại dòng chảy từ [waterSources] theo [gravity] hiện tại. Ô trống bị ngập
-     * = cấm đặt mảnh. Giọt (TARGET) bị nước chạm = phá luôn (phát [GameEvent.DropsCleared]).
+     * World 3 — mọc 1 ô cho mỗi nguồn active ([growWaterFlow]). Chỉ đổi lớp sàn (không đổi occupant)
+     * → không thể tự tạo dòng đầy; không cần foldResolve.
      */
-    private fun recalculateWaterfall(events: MutableList<GameEvent>) {
-        if (waterSources.isEmpty()) { floodedCells = emptySet(); return }
-        val result = calculateWaterfallFlow(grid, waterSources, gravity)
-        floodedCells = result.floodedCells
-        if (result.dropsHit.isNotEmpty()) {
-            for (v in result.dropsHit) grid.set(v.x, v.y, null)
-            events.add(GameEvent.DropsCleared(result.dropsHit))
-            val moved = applyClusterGravity(grid, gravity)
-            if (moved) foldResolve(events)
-            floodedCells = calculateWaterfallFlow(grid, waterSources, gravity).floodedCells
+    private fun growWaterFlowStep(events: MutableList<GameEvent>) {
+        if (waterSources.none { it.active }) return
+        val r = growWaterFlow(grid, waterSources)
+        waterSources = r.sources
+        if (r.newCells.isNotEmpty()) events.add(GameEvent.WaterGrew(r.newCells))
+        // Dồn khối khi nước lấn tới (frontier push) → phát trước khi resolve, rồi fold clear/combo.
+        if (r.pushes.isNotEmpty()) {
+            events.add(GameEvent.JellyPushed(r.pushes))
+            foldResolve(events)
+            applySourceBreaks(events)
+        }
+    }
+
+    /**
+     * World 3 — khối đứng trên kênh nước **trôi theo dòng** 1 ô ([pushJellyByFlow]). Trôi có thể lấp dòng →
+     * foldResolve; cascade có thể clear line qua ô nguồn → phá nguồn tiếp.
+     */
+    private fun driftWaterFlowStep(events: MutableList<GameEvent>) {
+        if (waterSources.none { it.active }) return
+        val moves = pushJellyByFlow(grid, waterSources)
+        if (moves.isEmpty()) return
+        events.add(GameEvent.JellyPushed(moves))
+        foldResolve(events)
+        applySourceBreaks(events)
+    }
+
+    /**
+     * World 3 — quét mọi [GameEvent.LinesCleared] trong [events]; nguồn active có **hàng/cột đi qua ô
+     * nguồn** ([WaterSource.pos]) vừa bị xoá → [breakSource] tắt cả chuỗi + phát [GameEvent.WaterSourceBroken].
+     * Idempotent (nguồn đã phá bị bỏ qua) → gọi nhiều lần trong một lượt vẫn an toàn.
+     */
+    private fun applySourceBreaks(events: MutableList<GameEvent>) {
+        if (waterSources.none { it.active }) return
+        // Chỉ dòng có chứa Thạch Nước (BLUE) mới phá được nguồn (quy tắc thạch nước, §7).
+        val rows = HashSet<Int>(); val cols = HashSet<Int>()
+        for (e in events) if (e is GameEvent.LinesCleared) {
+            rows.addAll(e.bluLines.rows); cols.addAll(e.bluLines.cols)
+        }
+        if (rows.isEmpty() && cols.isEmpty()) return
+        waterSources = waterSources.map { s ->
+            if (s.active && (s.pos.y in rows || s.pos.x in cols)) {
+                events.add(GameEvent.WaterSourceBroken(s.id, s.pos))
+                breakSource(grid, s)
+            } else s
         }
     }
 
@@ -411,7 +502,8 @@ class EndlessEngine(
         applyComboRefund(prevCombo, resolveResult.endCombo, events)
         resolveResult.events.mapTo(events) { it.toGameEvent() }
 
-        recalculateWaterfall(events)
+        // Xoay: KHÔNG mọc thêm nốt (mọc chỉ theo lượt đặt); line vừa clear do xoay có thể phá nguồn.
+        applySourceBreaks(events)
 
         if (checkGameOver()) {
             gameOver = true
@@ -437,7 +529,7 @@ class EndlessEngine(
     }
 
     private fun checkGameOver(): Boolean {
-        if (tray.any { it != null && canFreePlaceNotFlooded(grid, it, floodedCells) }) return false
+        if (tray.any { it != null && canFreePlaceAnywhere(grid, it) }) return false
         if (rotBudget <= 0) return true
 
         for (dir in Direction.entries) {
@@ -445,24 +537,10 @@ class EndlessEngine(
             val testGrid = grid.copy()
             applyClusterGravity(testGrid, dir)
             resolve(testGrid, dir, mergeEnabled = tuning.superMergeEnabled)
-            val testFlooded = if (waterSources.isNotEmpty())
-                calculateWaterfallFlow(testGrid, waterSources, dir).floodedCells else emptySet()
-            if (tray.any { it != null && canFreePlaceNotFlooded(testGrid, it, testFlooded) }) return false
+            if (tray.any { it != null && canFreePlaceAnywhere(testGrid, it) }) return false
         }
 
         return true
-    }
-
-    private fun canFreePlaceNotFlooded(grid: Grid, piece: Piece, flooded: Set<Vec>): Boolean {
-        if (flooded.isEmpty()) return canFreePlaceAnywhere(grid, piece)
-        val shape = piece.shape
-        for (oy in 0..(grid.size - shape.height)) {
-            for (ox in 0..(grid.size - shape.width)) {
-                val cells = shape.at(ox, oy)
-                if (cells.all { grid.isEmpty(it.x, it.y) && it !in flooded }) return true
-            }
-        }
-        return false
     }
 
     private fun dealTray(): List<Piece> {
@@ -515,7 +593,7 @@ class EndlessEngine(
 }
 
 private fun ResolveEvent.toGameEvent(): GameEvent = when (this) {
-    is ResolveEvent.LinesCleared -> GameEvent.LinesCleared(lines, cellsCleared, comboLevel, score, survivingRoots)
+    is ResolveEvent.LinesCleared -> GameEvent.LinesCleared(lines, cellsCleared, comboLevel, score, survivingRoots, bluLines)
     is ResolveEvent.ClustersCollapsed -> GameEvent.ClustersCollapsed(moved)
     is ResolveEvent.SuperFormed -> GameEvent.SuperFormed(at, color, level, source, absorbed, score, comboLevel)
     is ResolveEvent.SuperDetonated -> GameEvent.SuperDetonated(at, color, level, cells, isRainbow)

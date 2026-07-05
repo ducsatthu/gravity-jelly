@@ -61,6 +61,8 @@ import com.gravityjelly.app.ui.guide.GjGuide
 import com.gravityjelly.app.ui.guide.GjGuideEntry
 import com.gravityjelly.app.ui.guide.GuideTeachDialog
 import com.gravityjelly.app.ui.icons.GjIcons
+import com.gravityjelly.app.audio.GjSfx
+import com.gravityjelly.app.audio.LocalGjAudio
 import com.gravityjelly.app.ui.theme.GjPalette
 import com.gravityjelly.app.ui.theme.GjSpace
 import com.gravityjelly.game.BOARD_PAD_DP
@@ -117,6 +119,7 @@ fun CampaignPlayScreen(
     val shell = holder.shell
     val density = LocalDensity.current.density
     val haptics = LocalHapticFeedback.current
+    val audio = LocalGjAudio.current
 
     var parentWin by remember { mutableStateOf(Offset.Zero) }
     var paused by remember { mutableStateOf(false) }
@@ -188,6 +191,23 @@ fun CampaignPlayScreen(
         }
     }
 
+    // SFX gameplay — holder phát GameSfx → audio manager chơi.
+    LaunchedEffect(holder, audio) {
+        holder.onGameSound = { cue -> audio?.playGame(cue) }
+        holder.onComboBurstSound = { level -> audio?.playComboBurst(level) }
+    }
+
+    // SFX thắng/thua — phát MỘT lần khi state đổi.
+    LaunchedEffect(holder.levelComplete) {
+        if (holder.levelComplete) {
+            audio?.play(GjSfx.SFX_LEVEL_WIN)
+            audio?.play(GjSfx.SFX_CONFETTI)
+        }
+    }
+    LaunchedEffect(shell.gameOver, holder.levelComplete) {
+        if (shell.gameOver && !holder.levelComplete) audio?.play(GjSfx.SFX_LEVEL_FAIL)
+    }
+
     // Combo timer 10s: khi có combo productive → delay 10s → expire nếu chưa có combo mới.
     LaunchedEffect(holder.comboTimerTick) {
         if (holder.comboTimerTick > 0L && holder.isComboTimeBased && holder.shell.combo > 0) {
@@ -224,14 +244,19 @@ fun CampaignPlayScreen(
             // Cụm dưới HUD (screen-1e-game-objective) — chỉ Campaign. Màn BOSS → thẻ BossCard (Khiên),
             // còn lại → ObjectiveBar (điểm/đích/mixed/tutorial).
             objective = {
-                if (level.goal.type == GoalType.BOSS_COMBO) {
+                if (level.isBoss) {
+                    // Khiên = máu combo (BOSS_COMBO) HOẶC số lần phá nguồn còn lại (CLEAR_TARGETS — Thần Thác).
+                    val bossCombo = level.goal.type == GoalType.BOSS_COMBO
                     BossCard(
                         level = level.id,
                         name = stringResource(bossNameResForWorld(level.world)),
                         kind = bossKindForWorld(level.world),
-                        shieldCurrent = (holder.bossHpMax - holder.bossHpDamage).coerceAtLeast(0),
-                        shieldTarget = holder.bossHpMax,
+                        shieldCurrent = if (bossCombo) (holder.bossHpMax - holder.bossHpDamage).coerceAtLeast(0)
+                            else holder.targetsRemaining,
+                        shieldTarget = if (bossCombo) holder.bossHpMax else holder.initialTargets,
                         tell = holder.bossTell,
+                        ruleLabel = if (bossCombo) stringResource(R.string.boss_rule_default)
+                            else stringResource(R.string.boss_rule_water),
                         liveStars = liveStarsFor(level.stars, holder.movesUsed, holder.rotationsUsed),
                     )
                 } else {
@@ -423,6 +448,7 @@ internal fun goalLabel(goal: Goal, world: Int = 2): String = when (goal.type) {
 /** Popup dạy-luật hiện NGAY khi vào màn (trước khi chơi) — chỉ lần đầu. */
 private fun levelIntroGuides(levelId: Int): List<GjGuideEntry> = when (levelId) {
     11 -> listOf(GjGuide.vineIntro, GjGuide.vineDestroy, GjGuide.vineToTrash, GjGuide.trashDestroy)
+    21 -> listOf(GjGuide.waterFlow, GjGuide.waterDrift, GjGuide.waterBreak)   // World 3 · Dòng chảy — dạy luật lần đầu
     else -> emptyList()
 }
 

@@ -70,7 +70,7 @@ Mục tiêu luân phiên theo chương để đổi vị: Dọn sạch → Clear
 - **Chương = 15 màn** (cấu hình được). Mỗi chương một cảnh; nhịp trong chương: nhập (1–3) → leo (4–12) → breather (13) → khó (14) → boss (15).
 - **Bản đồ là một ribbon cuộn vô tận**: node nối nhau trên đường uốn lượn, cảnh trôi dần theo chương. Toạ độ node và cảnh **tính từ `L`**, không cần dựng tay map cho vài nghìn node.
 - Node: thường / breather (nhạt, dễ thở) / boss (nổi bật, ngay cổng chương sau). Trạng thái: hoàn thành (0–3★) / kế tiếp (nhấp nháy) / khoá.
-- Cổng chương mở theo sao tích luỹ (gợi ý ~60% sao của chương trước). Mỗi vài chương đổi cảnh = phần thưởng cảm xúc, hợp short-form.
+- **Cổng chương mở theo sao TÍCH LŨY — cần ≥ 3/4 tổng sao tối đa (cập nhật 05/07/2026).** Mỗi world 10 màn × 3★ = 30 sao ⇒ trần tích luỹ 30/60/90; ngưỡng cổng = ⌈3/4 · trần⌉ = **W1→W2 = 23 · W2→W3 = 45 · W3→W4 = 68** (thay ~60% cũ 18/36/54). Phải qua ĐỦ 10 màn của world VÀ đạt tổng sao tích luỹ ≥ ngưỡng mới mở world kế (`CampaignScreen.gateStarReq`/`gateUnlocked`). Mỗi vài chương đổi cảnh = phần thưởng cảm xúc, hợp short-form.
 - Map vẽ bằng Canvas/atlas, parallax, **không** dựng mỗi node bằng View riêng (chống giật khi cuộn).
 
 ## 7. Giải phẫu một màn & schema (không đổi)

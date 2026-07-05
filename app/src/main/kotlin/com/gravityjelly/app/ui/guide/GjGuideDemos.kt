@@ -35,6 +35,10 @@ import com.gravityjelly.game.gSuper2
 import com.gravityjelly.game.gTrash
 import com.gravityjelly.game.gVine
 import com.gravityjelly.game.gVineRoot
+import com.gravityjelly.core.Direction
+import com.gravityjelly.game.gWaterBroken
+import com.gravityjelly.game.gWaterFlow
+import com.gravityjelly.game.gWaterSource
 
 /**
  * Minh hoạ "TRƯỚC → SAU" cho từng cơ chế trong popup dạy luật / cẩm nang. Dùng [GuideMiniBoard] của
@@ -53,6 +57,9 @@ private fun S2(c: JellyColor) = gSuper2(c)
 private val Vr = gVineRoot
 private val Vi = gVine
 private val Tr = gTrash
+private val Ws = gWaterSource(Direction.DOWN)   // nguồn nước (ở top, chảy XUỐNG)
+private val Wf = gWaterFlow(Direction.DOWN)     // ô dòng chảy (xuống)
+private val Wx = gWaterBroken                   // nguồn khô
 private val Y = JellyColor.YELLOW
 private val M = JellyColor.MINT
 private val P = JellyColor.PINK
@@ -437,6 +444,43 @@ internal fun VineIntroDemo() = LabeledBeforeAfter(
         listOf(E, Vi, Vi, E),                    // thân + nhánh sang phải
         listOf(E, Vr, E,  E),                    // gốc vẫn ở
     ),
+)
+
+// ── World 3 · Dòng chảy: nguồn ở top chảy XUỐNG, gặp cản thì rẽ & tách nhánh (bàn 3 cột cho gọn) ─────
+@Composable
+internal fun WaterFlowDemo() {
+    Column(verticalArrangement = Arrangement.spacedBy(GjSpace.md)) {
+        LabeledBeforeAfter(
+            beforeLabel = stringResource(R.string.guidedemo_first_turn),
+            before = listOf(listOf(E, Ws, E), listOf(E, E, E), listOf(E, E, E)),   // nguồn top
+            afterLabel = stringResource(R.string.guidedemo_spread),
+            after = listOf(listOf(E, Ws, E), listOf(E, Wf, E), listOf(E, Wf, E)),  // chảy thẳng xuống
+        )
+        LabeledBeforeAfter(
+            beforeLabel = stringResource(R.string.guidedemo_meet_obstacle),
+            before = listOf(listOf(E, Ws, E), listOf(E, St, E), listOf(E, E, E)),   // đá chặn ngay dưới nguồn
+            afterLabel = stringResource(R.string.guidedemo_branch),
+            after = listOf(listOf(Wf, Ws, Wf), listOf(Wf, St, Wf), listOf(Wf, E, Wf)), // rẽ từ nguồn → 2 nhánh liền xuống
+        )
+    }
+}
+
+// ── World 3 · Trôi theo dòng: khối trên nước trôi xuôi dòng + không rơi theo trọng lực ─────────
+@Composable
+internal fun WaterDriftDemo() = LabeledBeforeAfter(
+    beforeLabel = stringResource(R.string.guidedemo_block_on_flow),
+    before = listOf(listOf(E, Ws, E), listOf(E, J(P), E), listOf(E, E, E)),   // khối hồng trên dòng
+    afterLabel = stringResource(R.string.guidedemo_drift_down),
+    after = listOf(listOf(E, Ws, E), listOf(E, Wf, E), listOf(E, J(P), E)),   // trôi xuôi dòng 1 ô
+)
+
+// ── World 3 · Phá nguồn: cắm THẠCH NƯỚC (xanh) vào cột qua ô nguồn rồi xoá → nguồn khô ─────────
+@Composable
+internal fun WaterBreakDemo() = LabeledBeforeAfter(
+    beforeLabel = stringResource(R.string.guidedemo_blue_in_source),
+    before = listOf(listOf(E, Ws, E), listOf(E, J(B), E), listOf(E, J(B), E)),   // Thạch Nước cột ô nguồn
+    afterLabel = stringResource(R.string.guidedemo_source_dry),
+    after = listOf(listOf(E, Wx, E), listOf(E, E, E), listOf(E, E, E)),          // xoá → nguồn khô
 )
 
 // ── 11b. Dây leo bám cứng — không rơi/xoay theo trọng lực ───────────────────────

@@ -19,12 +19,27 @@ enum class CellType { EMPTY, BLOCK, STONE, TARGET, VINE, TRASH }
 enum class JellyColor { YELLOW, MINT, PINK, BLUE }
 
 /**
+ * Lớp **sàn nước** song song với occupant (World 3 · Dòng chảy). Nằm DƯỚI jelly: một ô có thể vừa
+ * mang jelly ([Grid.Cell]) vừa có sàn nước ([CellEffect]) → jelly "đứng trên nước" và bị đẩy
+ * ([pushJellyByFlow]). Xem `docs/02-thiet-ke-man/07-world-3-nhip-nuoc.md`.
+ * - [WATER_SOURCE] = ô nguồn (cố định, phát dòng chảy theo hướng [WaterSource.dir]).
+ * - [WATER_FLOW] = ô dòng chảy đã mọc ([growWaterFlow]); đẩy jelly đứng trên nó 1 ô/lượt.
+ *
+ * Trạng thái "mới mọc lượt này" và "nguồn khô/broken" KHÔNG phải giá trị enum — là transient state
+ * ở engine ([WaterSource.broken] + tập ô-mới-mọc), render suy ra animation.
+ */
+enum class CellEffect { NONE, WATER_SOURCE, WATER_FLOW }
+
+/**
  * Lưới 9x9 thuần dữ liệu. KHÔNG chứa logic Android.
  * Đây là stub khung — luật chơi (hard-drop 4 hướng, physics cụm, resolve cascade)
  * sẽ thêm sau ở [com.gravityjelly.core] với unit test + golden test đầy đủ.
  */
 class Grid(val size: Int = SIZE) {
     private val cells = Array(size) { arrayOfNulls<Cell>(size) }
+
+    /** Lớp sàn nước song song (mặc định [CellEffect.NONE]). Dưới occupant [cells]; xem [CellEffect]. */
+    private val effects = Array(size) { Array(size) { CellEffect.NONE } }
 
     /**
      * Một ô lưới. [superLevel] = 0 là khối thường; ≥ 1 là **siêu khối** (gom 9 ô cùng màu).
@@ -57,15 +72,29 @@ class Grid(val size: Int = SIZE) {
 
     fun isEmpty(x: Int, y: Int): Boolean = get(x, y) == null
 
+    /** Sàn nước tại ([x],[y]); [CellEffect.NONE] nếu ngoài lưới. */
+    fun effect(x: Int, y: Int): CellEffect =
+        if (inBounds(x, y)) effects[y][x] else CellEffect.NONE
+
+    fun setEffect(x: Int, y: Int, e: CellEffect) {
+        require(inBounds(x, y)) { "($x,$y) ngoài lưới" }
+        effects[y][x] = e
+    }
+
     /** Nạp đè nội dung từ [other] (cùng size) vào lưới này — cho solver restore state, tránh cấp phát. */
     fun loadFrom(other: Grid) {
-        for (y in 0 until size) for (x in 0 until size) cells[y][x] = other.cells[y][x]
+        for (y in 0 until size) for (x in 0 until size) {
+            cells[y][x] = other.cells[y][x]
+            effects[y][x] = other.effects[y][x]
+        }
     }
 
     fun copy(): Grid {
         val g = Grid(size)
-        for (y in 0 until size) for (x in 0 until size)
+        for (y in 0 until size) for (x in 0 until size) {
             cells[y][x]?.let { g.cells[y][x] = it }
+            g.effects[y][x] = effects[y][x]
+        }
         return g
     }
 

@@ -47,6 +47,9 @@ import com.gravityjelly.app.ui.guide.GjGuide
 import com.gravityjelly.app.ui.guide.GjGuideEntry
 import com.gravityjelly.app.ui.guide.GuideTeachDialog
 import com.gravityjelly.app.ui.icons.GjIcons
+import com.gravityjelly.app.audio.GjAudioManager
+import com.gravityjelly.app.audio.GjSfx
+import com.gravityjelly.app.audio.LocalGjAudio
 import com.gravityjelly.app.ui.theme.GjPalette
 import com.gravityjelly.app.ui.theme.GjSpace
 import com.gravityjelly.game.BOARD_PAD_DP
@@ -91,6 +94,7 @@ fun EndlessPlayScreen(
     val shell = holder.shell
     val density = LocalDensity.current.density
     val haptics = LocalHapticFeedback.current
+    val audio = LocalGjAudio.current
 
     var parentWin by remember { mutableStateOf(Offset.Zero) }
     var paused by remember { mutableStateOf(false) }
@@ -180,6 +184,12 @@ fun EndlessPlayScreen(
                 EffectKind.COMBO -> haptics.performHapticFeedback(HapticFeedbackType.LongPress)
             }
         }
+    }
+
+    // SFX gameplay — holder phát GameSfx → audio manager chơi.
+    LaunchedEffect(holder, audio) {
+        holder.onGameSound = { cue -> audio?.playGame(cue) }
+        holder.onComboBurstSound = { level -> audio?.playComboBurst(level) }
     }
 
     // Combo timer 10s: khi có combo productive → delay 10s → expire nếu chưa có combo mới.

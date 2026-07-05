@@ -215,7 +215,7 @@ class CampaignSolver(private val maxTurns: Int = MAX_TURNS) {
     private fun findBestMove(state: EndlessState, goal: Goal, tracker: GoalTracker): Move? {
         var bestMove: Move? = null
         var bestEval = Int.MIN_VALUE
-        val flooded = state.floodedCells
+        val flooded = emptySet<Vec>()   // World 3 mới: nước KHÔNG chặn đặt mảnh (jelly đứng trên nước)
 
         // 1) Thử đặt trực tiếp (không xoay)
         for (trayIdx in state.tray.indices) {
@@ -225,7 +225,7 @@ class CampaignSolver(private val maxTurns: Int = MAX_TURNS) {
             for (oy in 0..maxOy) {
                 for (ox in 0..maxOx) {
                     if (piece.shape.at(ox, oy).any { it in flooded }) continue
-                    val eval = evaluateFreePlacement(state.grid, piece, ox, oy, state.gravity, state.combo, goal, tracker)
+                    val eval = evaluateFreePlacement(state.grid, piece, ox, oy, state.gravity, state.combo, goal, tracker, state.waterSources)
                     if (eval != null && eval > bestEval) {
                         bestEval = eval
                         bestMove = Move.Place(trayIdx, ox, oy)
@@ -243,11 +243,11 @@ class CampaignSolver(private val maxTurns: Int = MAX_TURNS) {
                 val rotResolve = resolve(rotGrid, rotDir, state.combo, mergeEnabled = true)
                 val rotCombo = if (rotResolve.cleared || rotResolve.formedSuper) rotResolve.endCombo else state.combo
                 val rotScoreBonus = rotResolve.totalScore
-                val rotTargets = countTargetsInEvents(rotResolve.events)
+                val rotTargets = countTargetsInEvents(rotResolve.events) +
+                    sourceBreaksInEvents(rotResolve.events, state.waterSources)
                 val rotComboDmg = calcComboDamage(state.combo, rotResolve.endCombo)
 
-                val rotFlooded = if (flooded.isNotEmpty())
-                    calculateWaterfallFlow(rotGrid, emptyList(), rotDir).floodedCells else emptySet()
+                val rotFlooded = emptySet<Vec>()
 
                 for (trayIdx in state.tray.indices) {
                     val piece = state.tray[trayIdx] ?: continue
@@ -296,6 +296,7 @@ class CampaignSolver(private val maxTurns: Int = MAX_TURNS) {
     private fun evaluateFreePlacement(
         grid: Grid, piece: Piece, ox: Int, oy: Int,
         gravity: Direction, combo: Int, goal: Goal, tracker: GoalTracker,
+        sources: List<WaterSource> = emptyList(),
     ): Int? {
         val testGrid = grid.copy()
         val result = freePlace(testGrid, piece, ox, oy)
@@ -308,7 +309,8 @@ class CampaignSolver(private val maxTurns: Int = MAX_TURNS) {
         val endCombo = resolveResult.endCombo
         val comboGain = if (resolveResult.cleared || resolveResult.formedSuper) endCombo - combo else 0
 
-        val targetsCleared = countTargetsInEvents(resolveResult.events)
+        val targetsCleared = countTargetsInEvents(resolveResult.events) +
+            sourceBreaksInEvents(resolveResult.events, sources)
         val comboDmg = calcComboDamage(combo, endCombo)
 
         val holes = countHoles(testGrid, gravity)
@@ -473,6 +475,20 @@ class CampaignSolver(private val maxTurns: Int = MAX_TURNS) {
         return count
     }
 
+    /**
+     * W3 — số nguồn active bị phá bởi các hàng/cột vừa xoá (clear đi qua chính ô nguồn). Gợi ý greedy
+     * nhắm phá nguồn (tracker thật đếm qua [GameEvent.WaterSourceBroken]; đây chỉ là heuristic đánh giá).
+     */
+    private fun sourceBreaksInEvents(events: List<ResolveEvent>, sources: List<WaterSource>): Int {
+        if (sources.isEmpty()) return 0
+        val rows = HashSet<Int>(); val cols = HashSet<Int>()
+        for (e in events) if (e is ResolveEvent.LinesCleared) {
+            rows.addAll(e.bluLines.rows); cols.addAll(e.bluLines.cols)   // chỉ dòng có Thạch Nước phá được
+        }
+        if (rows.isEmpty() && cols.isEmpty()) return 0
+        return sources.count { it.active && (it.pos.y in rows || it.pos.x in cols) }
+    }
+
     // ── Combo damage cho boss ──
 
     companion object {
@@ -496,7 +512,7 @@ class CampaignSolver(private val maxTurns: Int = MAX_TURNS) {
             for (e in events) {
                 when (e) {
                     is GameEvent.VineRootsCleared -> targetsCleared += e.roots.size
-                    is GameEvent.DropsCleared -> targetsCleared += e.drops.size
+                    is GameEvent.WaterSourceBroken -> targetsCleared += 1   // W3: phá nguồn = 1 target
                     is GameEvent.LinesCleared -> {
                         if (e.comboLevel > maxCombo) maxCombo = e.comboLevel
                         checkTrigger(e)

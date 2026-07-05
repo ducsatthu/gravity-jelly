@@ -42,6 +42,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.gravityjelly.app.audio.GjSfx
+import com.gravityjelly.app.audio.LocalGjAudio
 import com.gravityjelly.app.ui.icons.GjIcon
 import com.gravityjelly.app.ui.icons.GjIcons
 import com.gravityjelly.app.ui.theme.GjBorder
@@ -96,6 +98,7 @@ fun GjButton(
     comingSoon: Boolean = false,
     content: @Composable () -> Unit,
 ) {
+    val audio = LocalGjAudio.current
     val off     = !enabled || comingSoon
     val isGhost = variant == BtnVariant.Ghost
     val spec    = specFor(variant)
@@ -129,7 +132,10 @@ fun GjButton(
                             pressed = true
                             val released = tryAwaitRelease()
                             pressed = false
-                            if (released) onClick()
+                            if (released) {
+                                audio?.play(if (isGhost || variant == BtnVariant.Secondary) GjSfx.SFX_UI_SECONDARY else GjSfx.SFX_UI_PRIMARY)
+                                onClick()
+                            }
                         }
                     },
                 )

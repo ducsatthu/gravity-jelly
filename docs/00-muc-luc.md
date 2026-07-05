@@ -57,13 +57,14 @@ docs/
 
 **Cơ chế chữ ký:** Dây leo mọc lan, bám cứng, chỉ MINT phá gốc → cả dây chết.
 
-### 2d. World 3 — Sông & Thác (L21–L30) ✅ (phương án nhẹ)
+### 2d. World 3 — Sông & Thác (L21–L30) 🔧 (đang thiết kế cơ chế Dòng chảy)
 
 | File | Mô tả |
 |---|---|
+| [07-world-3-nhip-nuoc.md](02-thiet-ke-man/07-world-3-nhip-nuoc.md) | **Thiết kế + kỹ thuật cơ chế Dòng chảy / Nguồn nước:** lớp effect sàn, mọc 1 nốt/lượt, đẩy cụm jelly, phá nguồn qua ô giọt. Bám `world3-water-kit.jsx`. Thay phương án flood cũ (`WaterfallFlow.kt`) |
 | [02-he-muc-tieu.md § W3](02-thiet-ke-man/02-he-muc-tieu.md) | Spec 10 màn L21–L30 + Boss Thần Thác (đảo gravity 180° mỗi 3 lượt, HP 10) |
 
-**Cơ chế hiện tại:** giọt nước = `CellType.TARGET` (rơi theo trọng lực). Waterfall BFS flow chưa code — ngưỡng chờ playtest.
+**Cơ chế chữ ký (mới):** Nguồn nước hướng cố định mọc thêm 1 ô/lượt, đẩy jelly đứng trên nước; clear qua ô giọt → phá nguồn, tắt cả dòng chảy. Waterfall flood cũ bị thay. ⚠ Còn 1 điểm chốt: hướng cố định vs theo trọng lực (§12).
 
 ### 2e. World 4–10 (chưa implement)
 

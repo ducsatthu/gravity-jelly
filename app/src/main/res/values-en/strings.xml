@@ -100,7 +100,7 @@
 
     <!-- ── Campaign — objective labels (goalLabel) ──────────────────────────── -->
     <string name="goal_clear_all">Clear the board</string>
-    <string name="goal_clear_targets_water">Break %1$d water drops</string>
+    <string name="goal_clear_targets_water">Break %1$d water sources</string>
     <string name="goal_clear_targets_vine">Break %1$d vine roots</string>
     <string name="goal_reach_score">Reach %1$d points</string>
     <string name="goal_mixed_water">Break %1$d drops + %2$d points</string>
@@ -171,18 +171,19 @@
     <string name="level_19_name">Deep Forest</string>
     <string name="level_20_name">Forest Spirit</string>
     <string name="level_21_name">Little Stream</string>
-    <string name="level_22_name">Overflow</string>
-    <string name="level_23_name">Split Falls</string>
-    <string name="level_24_name">Spin the Falls</string>
+    <string name="level_22_name">Twin Currents</string>
+    <string name="level_23_name">Three Drops</string>
+    <string name="level_24_name">Turning Current</string>
     <string name="level_25_name">Drop Behind Rock</string>
     <string name="level_26_name">Rest Stop</string>
-    <string name="level_27_name">Two Sources</string>
-    <string name="level_28_name">Falls &amp; Points</string>
+    <string name="level_27_name">Three Sources</string>
+    <string name="level_28_name">Rapids</string>
     <string name="level_29_name">Great Falls</string>
     <string name="level_30_name">Waterfall Spirit</string>
 
     <!-- ── Boss HUD ─────────────────────────────────────────────────────────── -->
     <string name="boss_rule_default">Combo ×2 to break shield</string>
+    <string name="boss_rule_water">Aqua Jelly to break the source</string>
     <string name="boss_play">Play</string>
     <string name="boss_level">LEVEL %1$d</string>
     <string name="boss_opponent">OPPONENT</string>
@@ -190,6 +191,7 @@
     <string name="boss_tag">BOSS</string>
     <string name="boss_tell_vine_spawn">Grow vines</string>
     <string name="boss_tell_gravity_invert">Invert gravity</string>
+    <string name="boss_tell_source_revive">Drop a waterfall</string>
     <string name="boss_tell_next_turn">Next turn</string>
     <string name="boss_tell_after_turns">In %1$d turns</string>
     <string name="boss_tell_format">%1$s: %2$s</string>
@@ -213,6 +215,7 @@
     <string name="camnangparts_group_blast">Blast</string>
     <string name="camnangparts_group_combo">Tips</string>
     <string name="camnangparts_group_forest">Forest</string>
+    <string name="camnangparts_group_river">River</string>
     <string name="camnangparts_seen">Seen</string>
     <string name="camnangparts_all">All</string>
     <string name="camnangparts_combo_x2">×2</string>
@@ -233,6 +236,13 @@
     <string name="guidedemo_3x3">3×3</string>
     <string name="guidedemo_first_turn">First turn</string>
     <string name="guidedemo_spread">Spreads</string>
+    <string name="guidedemo_water_active">Flowing</string>
+    <string name="guidedemo_source_dry">Source dries</string>
+    <string name="guidedemo_meet_obstacle">Hits rock</string>
+    <string name="guidedemo_branch">Branches</string>
+    <string name="guidedemo_block_on_flow">Block on flow</string>
+    <string name="guidedemo_drift_down">Drifts along</string>
+    <string name="guidedemo_blue_in_source">Aqua Jelly in</string>
     <string name="guidedemo_gravity_down">Gravity ↓</string>
     <string name="guidedemo_vine_sticks_block_falls">Vine sticks, block falls</string>
     <string name="guidedemo_no_green">No green jelly</string>
@@ -298,6 +308,15 @@
     <string name="guide_detonate_rainbow2_desc">Ultimate skill: clears the WHOLE board (even stones)</string>
     <string name="guide_detonate_rainbow2_body">Ultimate skill:\nthe Rainbow Emperor detonates\n→ [g]CLEARS THE WHOLE BOARD[/g]\n(even stones)!</string>
 
+    <string name="guide_water_flow_title">Water Flow</string>
+    <string name="guide_water_flow_desc">The top source flows down, grows one tile each turn; blocked it turns and branches all the way down</string>
+    <string name="guide_water_drift_title">Ride the current</string>
+    <string name="guide_water_drift_desc">A block on the water drifts along the flow each turn and is not pulled out by gravity</string>
+    <string name="guide_water_drift_body">A block on the [g]WATER FLOW[/g]\n[p]DRIFTS[/p] downstream each turn —\nfollowing every bend.\n\nA block in the flow [w]WILL NOT FALL[/w]\nunder gravity: the current holds\nit, it cannot drop out of the flow.</string>
+    <string name="guide_water_break_title">Break the source</string>
+    <string name="guide_water_break_desc">Put an Aqua Jelly (blue) in the row/column through the source, then clear that line to break it</string>
+    <string name="guide_water_break_body">Only an [g]AQUA JELLY[/g] (blue)\nstays on the [w]SOURCE[/w] tile\n(other colors drift away).\n\nClear a row/column through the\nsource that [p]HAS an Aqua Jelly[/p]\n→ [s]source dries[/s]; the flow dies.</string>
+    <string name="guide_water_flow_body">The [g]WATER SOURCE[/g] on top\nflows [p]DOWN[/p], growing [p]1 TILE[/p]\neach turn.\n\nBlocked, it [p]TURNS SIDE[/p] and can\n[p]BRANCH[/p] — flowing on without\nstopping all the way to the bottom.</string>
     <string name="guide_vine_intro_title">Vines spread</string>
     <string name="guide_vine_intro_desc">Each turn every root grows 1 segment; roots grow 3 ways, stems all 4, up to 4 tips</string>
     <string name="guide_vine_intro_body">Each turn, every root grows just\n[g]1 SEGMENT[/g] at one tip:\n\n• ROOTS grow [p]3 ways[/p] (up, left,\n  right — never with gravity)\n• Stems/tips grow [p]all 4 ways[/p]\n• Each root up to [w]4 TIPS[/w]\n\nBranches grow [s]SEPARATELY[/s],\nnever sticking together.</string>

@@ -5,7 +5,7 @@ import * as React from 'react';
  *
  * Each boss has its OWN silhouette jelly mascot (never a shared circular avatar,
  * never boxed in a ring). Mascots are EYES-ONLY (no mouth/brows/teeth) — worm
- * (mint caterpillar + leaf sprouts), trash (tree-trunk jelly god + leaf crown +
+ * (mint caterpillar + leaf sprouts), vine (tree-trunk jelly god + leaf crown +
  * sprout cubes), water (waterfall-god column + streams + spinning ring).
  *
  * Pieces: BossCard (compact in-game/pre-boss card) · BossIntroCard (large
@@ -14,8 +14,8 @@ import * as React from 'react';
  * progress is a "Khiên" (shield) bar, never HP hearts.
  */
 
-export type BossKind = 'worm' | 'trash' | 'water';
-export type ChipTone = 'rule' | 'trash' | 'gravity';
+export type BossKind = 'worm' | 'vine' | 'water';
+export type ChipTone = 'rule' | 'vine' | 'gravity';
 export type ChipKind = 'x2' | 'shield' | 'leaf' | 'gravity';
 
 export interface ShieldProgress {
@@ -36,7 +36,7 @@ export interface BossChip {
 }
 
 export interface BossThemeProps {
-  /** 'worm' · 'trash' · 'water' — selects the silhouette + default palette. */
+  /** 'worm' · 'vine' · 'water' — selects the silhouette + default palette. */
   kind?: BossKind;
   /** Override the jelly body fill / edge / gloss. */
   color?: string;
@@ -45,7 +45,7 @@ export interface BossThemeProps {
 }
 
 export interface BossMascotProps {
-  /** 'worm' · 'trash' · 'water' — selects which supplied artwork to draw. */
+  /** 'worm' · 'vine' · 'water' — selects which supplied artwork to draw. */
   kind?: BossKind;
   /** Display HEIGHT in px (width follows the art's aspect). Defaults per kind. */
   size?: number;
@@ -105,8 +105,8 @@ export interface BossIntroCardProps extends BossThemeProps {
 export function BossIntroCard(props: BossIntroCardProps): JSX.Element;
 
 export interface BossToastProps {
-  /** Mechanic icon: 'trash' (leaf) · 'gravity' (rotate) · 'shield'. */
-  kind?: 'trash' | 'gravity' | 'shield';
+  /** Mechanic icon: 'vine' (leaf) · 'gravity' (rotate) · 'shield'. */
+  kind?: 'vine' | 'gravity' | 'shield';
   tone?: ChipTone;
   label?: string;
   /** Deprecated — no word kicker is rendered any more. */
@@ -116,7 +116,7 @@ export interface BossToastProps {
 
 /**
  * BossToast — a WARNING pill: what the boss is about to do (a tell), e.g.
- * "Lượt sau: Đổ rác" / "Sau 2 lượt: Đảo trọng lực". Alert-styled (coloured
+ * "Lượt sau: Mọc dây" / "Sau 2 lượt: Đảo trọng lực". Alert-styled (coloured
  * border + gentle bob + a small pulsing danger dot on the icon disc) so it
  * reads as a warning WITHOUT a "CẢNH BÁO" label. Do NOT put shield rules here.
  */

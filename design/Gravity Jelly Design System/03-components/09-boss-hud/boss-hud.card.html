@@ -1,4 +1,4 @@
-<!-- @dsCard group="Components" viewport="1180x900" name="BossHud" subtitle="Cụm boss Gravity Jelly — mỗi boss có silhouette riêng, jelly CHỈ CÓ MẮT. BossCard compact (mascot tràn trái) · Intro Card lớn · Warning Toast. 3 boss: Chú Sâu Đồng Cỏ · Kẻ Đổ Rác · Thần Thác." -->
+<!-- @dsCard group="Components" viewport="1180x900" name="BossHud" subtitle="Cụm boss Gravity Jelly — mỗi boss có silhouette riêng, jelly CHỈ CÓ MẮT. BossCard compact (mascot tràn trái) · Intro Card lớn · Warning Toast. 3 boss: Chú Sâu Đồng Cỏ · Thần Rừng · Thần Thác." -->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -31,8 +31,8 @@
     const BOSSES = [
       { kind: 'worm', level: 10, name: 'Chú Sâu Đồng Cỏ', shield: { current: 4, target: 5 },
         chip: { kind: 'x2', tone: 'rule', role: 'rule', label: 'Combo ×2' } },
-      { kind: 'trash', level: 20, name: 'Thần Rừng', shield: { current: 6, target: 8 },
-        chip: { kind: 'leaf', tone: 'trash', role: 'tell', label: 'Sắp đổ rác' } },
+      { kind: 'vine',  level: 20, name: 'Thần Rừng', shield: { current: 6, target: 8 },
+        chip: { kind: 'leaf', tone: 'vine',  role: 'tell', label: 'Sắp mọc dây' } },
       { kind: 'water', level: 30, name: 'Thần Thác', shield: { current: 7, target: 10 },
         chip: { kind: 'gravity', tone: 'gravity', role: 'tell', label: 'Đảo trọng lực' } },
     ];
@@ -58,7 +58,7 @@
 
             <div className="sub" style={{ marginTop: 30 }}>Cảnh báo · boss sắp ra chiêu</div>
             <div className="toastrow" style={{ marginTop: 0 }}>
-              <BossToast kind="trash" tone="trash" label="Lượt sau: Đổ rác" />
+              <BossToast kind="vine"  tone="vine"  label="Lượt sau: Mọc dây" />
               <BossToast kind="gravity" tone="gravity" label="Sau 2 lượt: Đảo trọng lực" />
             </div>
 

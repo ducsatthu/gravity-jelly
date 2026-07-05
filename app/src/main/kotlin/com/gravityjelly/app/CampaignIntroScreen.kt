@@ -97,7 +97,7 @@ fun CampaignIntroScreen(
     modifier: Modifier = Modifier,
 ) {
     val level = CampaignLevels.ALL[levelIndex]
-    val isBoss = level.goal.type == GoalType.BOSS_COMBO
+    val isBoss = level.isBoss
     // Accent: boss = gravity tím (design), còn lại theo biome của world.
     val accent = if (isBoss) GjPalette.Gravity else WorldTheme.accent(level.world)
 
@@ -131,9 +131,12 @@ fun CampaignIntroScreen(
                 level = level.id,
                 name = stringResource(bossNameResForWorld(level.world)),
                 kind = bossKindForWorld(level.world),
-                shieldTarget = level.goal.bossHP,
+                // Khiên = máu combo (BOSS_COMBO) HOẶC số lần phá nguồn cần đạt (CLEAR_TARGETS — Thần Thác).
+                shieldTarget = if (level.goal.type == GoalType.BOSS_COMBO) level.goal.bossHP else level.goal.count,
                 onPlay = onStart,
                 tell = bossIntroTell(level),
+                ruleLabel = if (level.goal.type == GoalType.BOSS_COMBO) stringResource(R.string.boss_rule_default)
+                    else stringResource(R.string.boss_rule_water),
                 modifier = Modifier.fillMaxWidth(),
                 extra = {
                     StarStrip(t = level.stars, earned = earnedStars)
@@ -216,6 +219,7 @@ fun CampaignIntroScreen(
 
 /** Tell PREVIEW cho BossIntroCard (chưa có engine): lần ra chiêu đầu = sau đúng chu kỳ N lượt. */
 private fun bossIntroTell(level: Level): BossTell? = when {
+    level.bossReviveEveryN > 0 -> BossTell(BossTellKind.SOURCE_REVIVE, level.bossReviveEveryN)
     level.bossGravityEveryN > 0 -> BossTell(BossTellKind.GRAVITY_INVERT, level.bossGravityEveryN)
     level.bossVineSpawnEveryN > 0 -> BossTell(BossTellKind.VINE_SPAWN, level.bossVineSpawnEveryN)
     else -> null

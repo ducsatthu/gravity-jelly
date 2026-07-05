@@ -80,7 +80,7 @@
     <div class="card">
       <p class="eyebrow">Adaptive icon · Android 8+</p>
       <h2>Hai lớp</h2>
-      <p class="note">Foreground = <b>ảnh gốc</b> (đã có nền kem), background = gradient kem dự phòng để hệ điều hành cắt theo hình thiết bị. Nội dung chính nằm gọn trong vùng an toàn 66% ở giữa.</p>
+      <p class="note">Foreground = <b>mark trong suốt</b> (<span style="font-family:'Fredoka';color:var(--color-gravity)">mark.png</span>, không nền — đặt được lên bất kỳ nền màu), background = gradient kem dự phòng để hệ điều hành cắt theo hình thiết bị. Nội dung chính nằm gọn trong vùng an toàn 66% ở giữa.</p>
       <div class="row" style="margin-top:22px; align-items:center;">
         <div class="tile"><div id="ad-bg" style="width:150px;height:150px;border-radius:18px;overflow:hidden;box-shadow:var(--shadow-sm);"></div><span class="cap"><b>background</b><br>432 · gradient</span></div>
         <div class="tile"><div id="ad-fg" style="width:150px;height:150px;border-radius:18px;overflow:hidden;box-shadow:inset 0 0 0 1.5px var(--color-cell-line); position:relative;"></div><span class="cap"><b>foreground</b><br>432 · ảnh gốc + vùng an toàn</span></div>
@@ -101,7 +101,7 @@
         <div class="tile">
           <div style="width:206px; height:424px; border-radius:34px; background:#FFF7EC; box-shadow:var(--shadow-md); position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center;">
             <div id="ns-mark" style="width:150px; height:150px;"></div>
-            <span class="wm pink" style="position:absolute; bottom:34px; left:0; right:0; text-align:center; font-size:18px;">GRAVITY JELLY</span>
+            <img src="wordmark.png" alt="Gravity Jelly" style="position:absolute; bottom:26px; left:30px; right:30px; width:calc(100% - 60px); height:auto; display:block;" />
           </div>
           <span class="cap"><b>① Native splash</b><br>windowSplashScreenBackground = #FFF7EC<br>icon ở giữa · wordmark = branding image</span>
         </div>
@@ -111,18 +111,14 @@
           <div style="width:206px; height:424px; border-radius:34px; background:radial-gradient(120% 80% at 50% 28%, #FFFDF7 0%, #FFF7EC 58%, #F3E3CC 100%); box-shadow:var(--shadow-md); position:relative; overflow:hidden;">
             <div style="position:absolute; top:60px; left:-26px; width:104px; height:104px; border-radius:50%; background:var(--color-block-mint-shine); opacity:0.5; filter:blur(6px);"></div>
             <div style="position:absolute; bottom:128px; right:-20px; width:78px; height:78px; border-radius:50%; background:var(--color-block-pink-shine); opacity:0.55; filter:blur(6px);"></div>
-            <div style="position:absolute; top:96px; left:0; right:0; display:flex; flex-direction:column; align-items:center; gap:14px;">
-              <div id="ld-tiles" style="display:flex; gap:5px; align-items:flex-start;"></div>
-              <div style="text-align:center; line-height:0.9;">
-                <div style="font-family:'Fredoka'; font-weight:600; font-size:14px; letter-spacing:0.18em; color:var(--color-text-muted);">GRAVITY</div>
-                <div class="wm pink" style="font-size:34px;">JELLY</div>
-              </div>
+            <div style="position:absolute; top:118px; left:0; right:0; display:flex; justify-content:center;">
+              <img src="wordmark.png" alt="Gravity Jelly" style="width:152px; height:auto; display:block; filter:drop-shadow(0 6px 10px rgba(120,92,52,0.22));" />
             </div>
             <div style="position:absolute; bottom:52px; left:26px; right:26px; display:flex; flex-direction:column; align-items:center; gap:9px;">
               <div style="width:100%; height:13px; border-radius:999px; background:var(--color-surface-sunken); box-shadow:inset 0 1px 3px var(--color-shadow-soft); padding:2px; box-sizing:border-box;">
                 <div style="width:64%; height:100%; border-radius:999px; background:linear-gradient(90deg, var(--color-block-mint), var(--color-block-blue));"></div>
               </div>
-              <span style="font-family:'Fredoka'; font-weight:700; font-size:11px; letter-spacing:0.04em; color:var(--color-text-muted);">ĐANG TẢI… 64%</span>
+              <span style="font-family:var(--font-display); font-weight:700; font-size:11px; letter-spacing:0.04em; color:var(--color-text-muted); line-height:1.1; white-space:nowrap;">ĐANG TẢI… 64%</span>
             </div>
             <span style="position:absolute; bottom:20px; left:0; right:0; text-align:center; font-family:var(--font-body); font-weight:600; font-size:11px; color:var(--color-text-muted); opacity:0.7;">v1.0.0</span>
           </div>
@@ -139,19 +135,22 @@
         <div class="tile"><div class="swatch" style="background:#FFF7EC; color:#9B886F; box-shadow:inset 0 0 0 1.5px #EFE0C9;"><span class="swcap">Kem #FFF7EC</span></div><span class="cap">Native splash<br>(solid · windowBackground)</span></div>
         <div class="tile"><div class="swatch" style="background:linear-gradient(160deg,#FFFDF7,#F3E3CC); color:#9B886F; box-shadow:inset 0 0 0 1.5px #EFE0C9;"><span class="swcap">Cream Wash</span></div><span class="cap">Màn hình tải<br>(gradient trong app)</span></div>
       </div>
+      <h3 style="margin-top:28px;">Mark trong suốt trên nền màu</h3>
+      <p class="note"><span style="font-family:'Fredoka';color:var(--color-gravity)">mark.png</span> không có nền — thả thẳng lên bất kỳ nền màu nào (native splash, ảnh, gradient) mà không bị viền hộp.</p>
+      <div class="row" id="mark-grounds" style="margin-top:14px;"></div>
     </div>
 
     <!-- WORDMARK -->
     <div class="card">
       <p class="eyebrow">Wordmark</p>
       <h2>Chữ thương hiệu</h2>
-      <p class="note">Fredoka Bold, hồng kẹo với viền chìm. Hai bố cục: ngang (1 hàng) và xếp chồng (2 hàng). Dùng kèm icon thành lockup, hoặc đứng riêng.</p>
+      <p class="note">Wordmark chính thức là <b>ảnh PNG dựng sẵn</b> (nền trong suốt) — kiểu chữ kẹo “Gravity Jelly” xếp chồng, viền cookie kem, hiệu ứng bóng thạch. Dùng nguyên ảnh, không dựng lại bằng font.</p>
       <div style="display:flex; flex-direction:column; gap:18px; margin-top:20px;">
-        <div class="oncream lockup"><div id="lk-icon-1" style="width:88px;height:88px;" class="mask-round"></div><span class="wm pink" style="font-size:40px;">GRAVITY JELLY</span></div>
-        <div class="onpurple lockup"><div id="lk-icon-2" style="width:88px;height:88px;" class="mask-round"></div><div class="stack-wm"><span class="wm white" style="font-size:36px;">GRAVITY</span><span class="wm white" style="font-size:36px; letter-spacing:0.16em;">JELLY</span></div></div>
+        <div class="oncream" style="padding:30px; display:flex; justify-content:center;"><img src="wordmark.png" alt="Gravity Jelly" style="width:320px; height:auto; display:block;" /></div>
+        <div class="onpurple" style="padding:30px; display:flex; justify-content:center;"><img src="wordmark.png" alt="Gravity Jelly" style="width:320px; height:auto; display:block;" /></div>
         <div class="row" style="align-items:center;">
-          <div class="oncream lockup" style="flex:1; justify-content:center;"><div class="stack-wm" style="align-items:center;"><span class="wm pink" style="font-size:34px;">GRAVITY</span><span class="wm pink" style="font-size:34px; letter-spacing:0.18em;">JELLY</span></div></div>
-          <div class="onpurple lockup" style="flex:1; justify-content:center;"><span class="wm white" style="font-size:30px;">GRAVITY JELLY</span></div>
+          <div class="oncream lockup" style="flex:1; justify-content:center;"><div id="lk-icon-1" style="width:80px;height:80px;" class="mask-round"></div><img src="wordmark.png" alt="Gravity Jelly" style="width:150px; height:auto; display:block;" /></div>
+          <div class="onpurple lockup" style="flex:1; justify-content:center;"><div id="lk-icon-2" style="width:80px;height:80px;" class="mask-round"></div><img src="wordmark.png" alt="Gravity Jelly" style="width:140px; height:auto; display:block;" /></div>
         </div>
       </div>
     </div>
@@ -208,7 +207,8 @@
       <h2>Trong thư mục <span style="font-family:'Fredoka';color:var(--color-gravity)">08-brand/android/</span></h2>
       <div class="dl" style="margin-top:14px;">
         <span class="f">app-icon-master.png</span><span>1254 · ẢNH GỐC master (nguồn của mọi cỡ)</span>
-        <span class="f">ic_launcher_foreground.png</span><span>432 · ảnh gốc (master, nền kem in sẵn)</span>
+        <span class="f">mark.png</span><span>MARK trong suốt (không nền) — đặt lên nền màu</span>
+        <span class="f">ic_launcher_foreground.png</span><span>432 · mark trong suốt (lớp foreground)</span>
         <span class="f">ic_launcher_background.png</span><span>432 · gradient xanh trời (lớp background)</span>
         <span class="f">ic_launcher_monochrome.png</span><span>432 · silhouette trắng (themed icon)</span>
         <span class="f">ic_launcher-512.png</span><span>512 · icon Play Store (bo góc)</span>
@@ -246,6 +246,11 @@
     put('ad-mono', GJLogo.monochromeSVG(120));
     // native splash + loading
     put('ns-mark', GJLogo.foregroundSVG(150));
+    // transparent mark on coloured grounds
+    const mg = document.getElementById('mark-grounds');
+    if (mg) [['#7E6CF0','Tím'],['#A3E5D9','Mint'],['#8FB6F2','Xanh'],['#5B4636','Cocoa']].forEach(([bg,label]) => {
+      mg.insertAdjacentHTML('beforeend', '<div class="tile"><div style="width:120px;height:120px;border-radius:22px;background:'+bg+';box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:center;">'+GJLogo.markImg(96)+'</div><span class="cap">'+label+'</span></div>');
+    });
     put('ns-icon', full(118, 0));
     const ldOrder = [['pink',-8],['yellow',4],['mint',-4],['blue',8]];
     const ld = document.getElementById('ld-tiles');

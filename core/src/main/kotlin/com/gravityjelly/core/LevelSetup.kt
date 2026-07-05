@@ -57,6 +57,9 @@ fun campaignTuning(level: Level): EndlessTuning = EndlessTuning(
     vineMaxSprouts = level.vineMaxSprouts,
     debrisPerTurn = level.debrisPerTurn,
     bossGravityEveryN = level.bossGravityEveryN,
+    bossReviveEveryN = level.bossReviveEveryN,
+    bossSpawnSourceEveryN = level.bossSpawnSourceEveryN,
+    bossMaxSources = level.bossMaxSources,
     bossVineSpawnEveryN = level.bossVineSpawnEveryN,
     comboTimeBased = true,
 )
@@ -69,5 +72,5 @@ fun EndlessEngine.Companion.forLevel(level: Level): EndlessEngine = EndlessEngin
     preset = level.toPresetCells(),
     trayScript = level.toTrayScript(),
     initialGravity = level.gravity,
-    waterSources = level.waterSources,
+    waterSourceSpecs = level.waterSources,
 )

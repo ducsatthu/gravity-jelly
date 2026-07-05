@@ -183,6 +183,7 @@ class BoardAnimator {
     private val clearShine = Array(n) { Array(n) { Color.White } }   // màu ring shine theo khối
     private val clearJelly = Array(n) { arrayOfNulls<JellyColor>(n) } // màu JELLY (null = đá) → vẽ lại thân+mắt lúc xóa
     private val clearBurstDone = Array(n) { BooleanArray(n) }         // particle của ô đã nổ chưa (theo nhịp sóng, không đồng loạt)
+    private val waterNewStart = Array(n) { LongArray(n) }             // World 3: ô nước vừa mọc → pop ring (0 = không)
     private val superFlashes = ArrayList<SuperFlash>(4)               // tâm siêu khối đang "cười + nổ"
     private val smileFlashes = ArrayList<SmileFlash>(32)              // block cùng màu đang "cười rồi biến mất"
     private var squashGravity = Direction.DOWN
@@ -255,6 +256,11 @@ class BoardAnimator {
         phaseIdx = 0
         displayGrid = null
 
+        // Reset slide MỖI LƯỢT: nếu không, ô bị đẩy (JellyPushed) lượt trước còn slideDX/DY ≠ 0, mà lượt
+        // sau lại đặt slideStart = now toàn cục → những ô cũ đó bị "settle/rơi" lại dù không di chuyển
+        // (bug "cả bàn rơi mỗi nước"). computeSlide (xoay/collapse) cũng tự reset, đây phủ nhánh còn lại.
+        for (y in 0 until n) for (x in 0 until n) { slideDX[y][x] = 0f; slideDY[y][x] = 0f }
+
         val work = pre.copy()
 
         // có "nhịp" cần playback không: xóa hàng/cột, hợp nhất siêu khối, HOẶC tạo cầu vồng.
@@ -287,6 +293,32 @@ class BoardAnimator {
                     placeCenterX = sx / e.cells.size
                     placeCenterY = sy / e.cells.size
                 }
+            }
+        }
+
+        // 1b) World 3 · Dòng chảy: pop "mới mọc" + splash "phá nguồn" + trượt "bị đẩy".
+        for (i in events.indices) {
+            when (val e = events[i]) {
+                is GameEvent.WaterGrew ->
+                    if (!reducedMotion) for (c in e.cells) waterNewStart[c.y][c.x] = now
+                is GameEvent.WaterSourceBroken ->
+                    if (!reducedMotion) particles.burst(e.pos.x + 0.5f, e.pos.y + 0.5f, WATER_SPLASH_COLOR, WATER_SPLASH_PARTICLES)
+                is GameEvent.WaterSourceRevived -> if (!reducedMotion) {   // boss thả thác hồi sinh: pop + foam
+                    waterNewStart[e.pos.y][e.pos.x] = now
+                    particles.burst(e.pos.x + 0.5f, e.pos.y + 0.5f, WATER_FOAM_COLOR, WATER_SPLASH_PARTICLES)
+                }
+                is GameEvent.JellyPushed ->
+                    // Chỉ trượt khi lượt KHÔNG có cascade & KHÔNG xoay (nhánh xoay gọi computeSlide xoá slide).
+                    // Ô đẩy đã ở vị trí ĐÍCH (truth); slideDX/DY để nó ease VÀO từ ô nguồn. + squash nhẹ.
+                    if (!reducedMotion && !hasBeats && postGravity == preGravity) {
+                        slideStart = now; slideDur = WATER_PUSH_NANOS
+                        for ((from, to) in e.moves) {
+                            slideDX[to.y][to.x] = (from.x - to.x).toFloat()
+                            slideDY[to.y][to.x] = (from.y - to.y).toFloat()
+                            placeStart[to.y][to.x] = now
+                        }
+                    }
+                else -> {}
             }
         }
 
@@ -781,6 +813,7 @@ class BoardAnimator {
             placeStart[y][x] = 0L; clearStart[y][x] = 0L
             clearJelly[y][x] = null; clearBurstDone[y][x] = true
             slideDX[y][x] = 0f; slideDY[y][x] = 0f
+            waterNewStart[y][x] = 0L
         }
         rotActive = false
         phases.clear(); phaseIdx = 0; displayGrid = null
@@ -791,10 +824,34 @@ class BoardAnimator {
 
     fun drawOverlays(scope: DrawScope, cellPx: Float, gap: Float, measurer: TextMeasurer, now: Long) {
         drawClearing(scope, cellPx, gap, now)
+        drawWaterNew(scope, cellPx, gap, now)       // World 3: ring "mới mọc" (dưới particle)
         drawSmileFlashes(scope, cellPx, gap, now)   // block cùng màu cười (chặng 2)
         drawSuperFlashes(scope, cellPx, gap, now)   // siêu khối biến mất cuối (chặng 3) — vẽ trên cùng
         particles.drawParticles(scope, cellPx, renderAlpha)
         particles.drawPopups(scope, measurer, cellPx, renderAlpha)
+    }
+
+    /**
+     * World 3 · Dòng chảy — nốt nước vừa mọc lượt này: ring foam bung ra + mờ dần (~[WATER_NEW_NANOS]).
+     * Tổ hợp keyframe gjwNew/gjwTipGlow (world3-water-kit.jsx): viền foam scale ra + fade. Allocation-free.
+     */
+    private fun drawWaterNew(scope: DrawScope, cellPx: Float, gap: Float, now: Long) {
+        val blockSize = cellPx - gap
+        for (y in 0 until n) for (x in 0 until n) {
+            val start = waterNewStart[y][x]
+            if (start == 0L) continue
+            val el = now - start
+            if (el < 0L) continue
+            if (el >= WATER_NEW_NANOS) { waterNewStart[y][x] = 0L; continue }
+            val t = el.toFloat() / WATER_NEW_NANOS
+            val cx = x * cellPx + gap / 2f + blockSize / 2f
+            val cy = y * cellPx + gap / 2f + blockSize / 2f
+            val ringR = blockSize * (0.42f + 0.28f * t)
+            scope.drawCircle(
+                WATER_FOAM_COLOR.copy(alpha = (1f - t) * 0.9f), ringR, Offset(cx, cy),
+                style = Stroke(width = blockSize * 0.07f * (1f - t)),
+            )
+        }
     }
 
     /**
@@ -985,6 +1042,12 @@ class BoardAnimator {
     companion object {
         private const val PARTICLES_PER_CELL = 5   // spec 4–6 đốm/khối
         private const val SUPER_POP_PARTICLES = 12 // lóe sao khi siêu khối hợp nhất (b0 "ngôi sao nổ")
+        // World 3 · Dòng chảy (world3-water-kit.jsx)
+        private const val WATER_NEW_NANOS = 600 * Anim.MS       // ring "mới mọc" bung + fade
+        private const val WATER_PUSH_NANOS = 300 * Anim.MS      // jelly trượt 1 ô khi bị đẩy
+        private const val WATER_SPLASH_PARTICLES = 18           // splash khi phá nguồn
+        private val WATER_SPLASH_COLOR = Color(0xFF5FD2D6)      // AQ.mid
+        private val WATER_FOAM_COLOR = Color(0xFFEAFBFB)        // AQ.foam
         private const val SUPER_FLASH_NANOS = 520 * Anim.MS   // "cười tươi rồi nổ" của tâm siêu khối
         private const val SUPER_SPIN_NANOS  = 2600 * Anim.MS  // viền màu chạy (đồng bộ BoardCanvas)
 

@@ -22,6 +22,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.gravityjelly.app.R
+import com.gravityjelly.app.audio.GjSfx
+import com.gravityjelly.app.audio.LocalGjAudio
 import com.gravityjelly.app.ui.icons.GjIcon
 import com.gravityjelly.app.ui.icons.GjIcons
 import com.gravityjelly.app.ui.theme.GjPalette
@@ -48,6 +50,7 @@ fun GjQuickToggle(
     onToggle: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val audio = LocalGjAudio.current
     val tint = if (on) GjPalette.Text else GjPalette.TextMuted
     Box(
         modifier = modifier
@@ -56,7 +59,10 @@ fun GjQuickToggle(
             .background(if (on) GjPalette.SurfaceSunken else QToggleOffBg)
             .alpha(if (on) 1f else 0.7f)
             .clickable(
-                onClick           = onToggle,
+                onClick           = {
+                    audio?.play(if (on) GjSfx.SFX_TOGGLE_OFF else GjSfx.SFX_TOGGLE_ON)
+                    onToggle()
+                },
                 interactionSource = remember { MutableInteractionSource() },
                 indication        = null,
             ),

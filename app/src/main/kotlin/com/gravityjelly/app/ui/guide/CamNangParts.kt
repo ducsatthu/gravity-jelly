@@ -64,6 +64,10 @@ import com.gravityjelly.game.gSuper2
 import com.gravityjelly.game.gTrash
 import com.gravityjelly.game.gVine
 import com.gravityjelly.game.gVineRoot
+import com.gravityjelly.game.gWaterSource
+import com.gravityjelly.game.gWaterFlow
+import com.gravityjelly.game.gWaterBroken
+import com.gravityjelly.core.Direction
 
 /**
  * Khối dựng cho màn **Cẩm nang** — bám `design/.../04-screens/cam-nang-screen.jsx` (+ `cam-nang-illus.jsx`).
@@ -96,6 +100,7 @@ internal val GuideGroup.displayLabel: String
         GuideGroup.BLAST -> stringResource(R.string.camnangparts_group_blast)
         GuideGroup.COMBO -> stringResource(R.string.camnangparts_group_combo)
         GuideGroup.FOREST -> stringResource(R.string.camnangparts_group_forest)
+        GuideGroup.RIVER -> stringResource(R.string.camnangparts_group_river)
     }
 
 /** Màu KHỐI jelly đại diện nhóm ở tab + tiêu đề nhóm (bám GROUP_JELLY của thiết kế). */
@@ -106,6 +111,7 @@ internal val GuideGroup.jelly: JellyColor
         GuideGroup.BLAST -> JellyColor.PINK
         GuideGroup.COMBO -> JellyColor.BLUE
         GuideGroup.FOREST -> JellyColor.MINT
+        GuideGroup.RIVER -> JellyColor.BLUE
     }
 
 // ── shorthand dựng lưới thumbnail (file-private, không đụng GjGuideDemos) ─────────
@@ -123,6 +129,9 @@ private val B = JellyColor.BLUE
 private val vr = gVineRoot
 private val vi = gVine
 private val tr = gTrash
+private val ws = gWaterSource(Direction.DOWN)   // nguồn nước (chảy xuống)
+private val wf = gWaterFlow(Direction.DOWN)      // ô dòng chảy
+private val wx = gWaterBroken                     // nguồn khô
 
 // ── Peel: góc giấy gập ở trên-phải thẻ ───────────────────────────────────────────
 /**
@@ -377,6 +386,21 @@ private fun thumbRows(id: String): List<List<GuideCell>>? = when (id) {
         listOf(e, tr, e),
         listOf(tr, s1(Y), tr),
         listOf(e, tr, e),
+    )
+    "water-flow" -> listOf(       // nguồn top chảy xuống + rẽ nhánh quanh đá (liền mạch)
+        listOf(wf, ws, wf),
+        listOf(wf, st, wf),
+        listOf(wf, e, wf),
+    )
+    "water-drift" -> listOf(      // khối trôi xuôi theo dòng
+        listOf(e, ws, e),
+        listOf(e, wf, e),
+        listOf(e, j(P), e),
+    )
+    "water-break" -> listOf(      // Thạch Nước cột ô nguồn → phá
+        listOf(e, ws, e),
+        listOf(e, j(B), e),
+        listOf(e, j(B), e),
     )
     else -> null
 }

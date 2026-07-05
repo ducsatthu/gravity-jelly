@@ -121,7 +121,7 @@ class MoveSolver(
 
             val state = engine.state()
             if (state.isGameOver) continue
-            val flooded = state.floodedCells
+            val flooded = emptySet<Vec>()   // World 3 mới: nước KHÔNG chặn đặt mảnh
 
             for (trayIdx in state.tray.indices) {
                 val piece = state.tray[trayIdx] ?: continue
@@ -212,7 +212,7 @@ class MoveSolver(
         for (e in events) {
             when (e) {
                 is GameEvent.VineRootsCleared -> p.targets += e.roots.size
-                is GameEvent.DropsCleared -> p.targets += e.drops.size
+                is GameEvent.WaterSourceBroken -> p.targets += 1   // W3: phá nguồn = 1 target
                 is GameEvent.LinesCleared -> {
                     if (e.comboLevel > p.maxCombo) p.maxCombo = e.comboLevel
                     if (goal.type == GoalType.TUTORIAL) when (goal.trigger) {
@@ -298,6 +298,16 @@ class MoveSolver(
         sb.append('|').append(if (p.triggerHit) 1 else 0)
         sb.append('|').append(if (goal.score > 0) minOf(snap.score, goal.score) else 0)
         sb.append('|').append(if (goal.bossHP > 0) minOf(p.comboDmg, goal.bossHP) else 0)
+        // World 3 · Dòng chảy: ĐƯỜNG flow (gấp khúc) + broken là state THẬT (ảnh hưởng push/mọc lượt sau)
+        // → mã hoá CẢ hình đường, không chỉ độ dài (hai đường khác hình = khác state) ⇒ solver không trùng sai.
+        if (snap.waterSources.isNotEmpty()) {
+            sb.append('|')
+            for (s in snap.waterSources) {
+                sb.append(s.id).append(if (s.broken) 'b' else '-').append(':')
+                for (f in s.flow) sb.append(f.x * 9 + f.y).append('.')
+                sb.append(',')
+            }
+        }
         return sb.toString()
     }
 }

@@ -42,6 +42,7 @@ enum class GuideGroup {
     BLAST,
     COMBO,
     FOREST,
+    RIVER,
 }
 
 /**
@@ -227,6 +228,29 @@ object GjGuide {
         demo = { TrashDestroyDemo() },
     )
 
+    // ── Sông & Thác: Dòng chảy (World 3) — 3 mục: dòng chảy · trôi theo dòng · phá nguồn ─────
+    val waterFlow = GjGuideEntry(
+        id = "water-flow", icon = GjIcons.Star, group = GuideGroup.RIVER,
+        titleRes = R.string.guide_water_flow_title,
+        descRes = R.string.guide_water_flow_desc,
+        bodyRes = R.string.guide_water_flow_body,
+        demo = { WaterFlowDemo() },
+    )
+    val waterDrift = GjGuideEntry(
+        id = "water-drift", icon = GjIcons.Chevron, group = GuideGroup.RIVER,
+        titleRes = R.string.guide_water_drift_title,
+        descRes = R.string.guide_water_drift_desc,
+        bodyRes = R.string.guide_water_drift_body,
+        demo = { WaterDriftDemo() },
+    )
+    val waterBreak = GjGuideEntry(
+        id = "water-break", icon = GjIcons.Check, group = GuideGroup.RIVER,
+        titleRes = R.string.guide_water_break_title,
+        descRes = R.string.guide_water_break_desc,
+        bodyRes = R.string.guide_water_break_body,
+        demo = { WaterBreakDemo() },
+    )
+
     /** Mọi mục hướng dẫn, theo thứ tự hiển thị ở trang review (cẩm nang). */
     val all: List<GjGuideEntry> = listOf(
         gravityRotate,
@@ -236,6 +260,7 @@ object GjGuide {
         detonateSuper1, detonateSuper2, detonateRainbow1, detonateRainbow2,
         comboRefill,
         vineIntro, vineDestroy, vineSticky, vineToTrash, trashDestroy,
+        waterFlow, waterDrift, waterBreak,
     )
 
     /** Tra mục theo [id] (null nếu không có). */
@@ -269,6 +294,7 @@ val GuideGroup.tint: Color
         GuideGroup.BLAST -> GjPalette.Primary
         GuideGroup.COMBO -> GjPalette.Gravity
         GuideGroup.FOREST -> GjPalette.Success
+        GuideGroup.RIVER -> GjPalette.Info
     }
 
 // ── Rich-text đa ngôn ngữ: markup màu trong resource ───────────────────────────

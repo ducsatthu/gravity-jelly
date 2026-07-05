@@ -16,6 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.gravityjelly.app.ads.AdsManager
 import com.gravityjelly.app.ads.findActivity
+import com.gravityjelly.app.audio.GjSfx
+import com.gravityjelly.app.audio.LocalGjAudio
 import com.gravityjelly.core.EndlessTuning
 import com.gravityjelly.game.EndlessGameHolder
 import com.gravityjelly.game.GjEase
@@ -53,6 +55,7 @@ fun EndlessGameScreen(
     world: Int = 1,
 ) {
     val activity = LocalContext.current.findActivity()
+    val audio = LocalGjAudio.current
 
     // seed định danh ván hiện tại; đổi seed ⇒ tạo holder mới (reset engine).
     var seed by remember { mutableLongStateOf(initialSeed) }
@@ -80,7 +83,10 @@ fun EndlessGameScreen(
     }
     // báo best (gồm cả khi vừa x2 điểm) — chỉ nâng, idempotent ở repo.
     LaunchedEffect(shell.gameOver, seed, doubled) {
-        if (shell.gameOver && finalScore > best) onBest(finalScore)
+        if (shell.gameOver && finalScore > best) {
+            audio?.play(GjSfx.SFX_NEW_BEST)
+            onBest(finalScore)
+        }
     }
 
     Box(modifier.fillMaxSize()) {

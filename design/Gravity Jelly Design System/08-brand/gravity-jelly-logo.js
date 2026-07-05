@@ -250,15 +250,37 @@
   // rasterises to Android PNGs — no procedural redraw. Path resolves relative
   // to the HTML document embedding it (the brand pages live in 08-brand/).
   const MASTER_IMG = 'app-icon-master.png';
+  // TRANSPARENT MARK — supplied icon art with NO background (4 jelly blocks +
+  // purple gravity loop). Drop straight onto any coloured ground (native splash,
+  // adaptive foreground, monochrome silhouette). Near-square (~1.07:1).
+  const MARK_IMG = 'mark.png';
+  // <img> of the transparent mark, contained in a square `size` box.
+  function markImg(size, opts = {}) {
+    const src = opts.src || MARK_IMG;
+    return `<img src="${src}" width="${size}" height="${size}" alt="Gravity Jelly" style="display:block;width:${size}px;height:${size}px;object-fit:contain;user-select:none" draggable="false"/>`;
+  }
+  // OFFICIAL WORDMARK — supplied "Gravity Jelly" lettering PNG (transparent bg,
+  // stacked candy type). Single source of truth for the text logo everywhere.
+  const WORDMARK_IMG = 'wordmark.png';
+  const WORDMARK_AR = 1443 / 891; // natural width / height ≈ 1.62
+  // <img> of the wordmark. Pass {height} or {width} (px); default fills container.
+  // `src` lets callers point at the file from their own directory depth.
+  function wordmarkImg(opts = {}) {
+    const src = opts.src || WORDMARK_IMG;
+    const box = opts.height != null ? `height:${opts.height}px;width:auto;`
+      : opts.width != null ? `width:${opts.width}px;height:auto;`
+      : 'width:100%;height:auto;';
+    return `<img src="${src}" alt="Gravity Jelly" style="display:block;${box}user-select:none" draggable="false"/>`;
+  }
   function imageSVG(size, rounding, href) {
     const r = rounding != null ? size * rounding : 0;
     const src = href || MASTER_IMG;
     return `<img src="${src}" width="${size}" height="${size}" alt="Gravity Jelly" style="display:block;width:${size}px;height:${size}px;object-fit:cover;border-radius:${r}px" draggable="false"/>`;
   }
 
-  // adaptive FOREGROUND layer — the supplied artwork (already on cream)
+  // adaptive FOREGROUND layer — the transparent mark (background is a separate layer)
   function foregroundSVG(size /*, opts */) {
-    return imageSVG(size, 0);
+    return markImg(size);
   }
 
   // adaptive BACKGROUND layer — cream gradient behind the master art
@@ -272,10 +294,10 @@
     return imageSVG(size, opts.rounding != null ? opts.rounding : 0);
   }
 
-  // monochrome / themed slot — the master art desaturated to a soft silhouette
+  // monochrome / themed slot — the transparent mark desaturated to a soft silhouette
   function monochromeSVG(size) {
-    return `<img src="${MASTER_IMG}" width="${size}" height="${size}" alt="Gravity Jelly mono" style="display:block;width:${size}px;height:${size}px;object-fit:cover;filter:grayscale(1) brightness(1.35) contrast(0.9)" draggable="false"/>`;
+    return `<img src="${MARK_IMG}" width="${size}" height="${size}" alt="Gravity Jelly mono" style="display:block;width:${size}px;height:${size}px;object-fit:contain;filter:grayscale(1) brightness(1.35) contrast(0.9)" draggable="false"/>`;
   }
 
-  window.GJLogo = { COL, COLORWAYS, PRIMARY_CW, HERO, INK, MASTER_IMG, heroBlock, markInner, imageSVG, foregroundSVG, backgroundSVG, fullIconSVG, monochromeSVG, wrap };
+  window.GJLogo = { COL, COLORWAYS, PRIMARY_CW, HERO, INK, MASTER_IMG, MARK_IMG, markImg, WORDMARK_IMG, WORDMARK_AR, wordmarkImg, heroBlock, markInner, imageSVG, foregroundSVG, backgroundSVG, fullIconSVG, monochromeSVG, wrap };
 })();

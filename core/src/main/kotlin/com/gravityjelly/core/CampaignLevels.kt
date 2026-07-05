@@ -297,141 +297,129 @@ object CampaignLevels {
     )
 
     // ─────────────────────────────────────────────────────────────────────────────────────────
-    // WORLD 3 · SÔNG & THÁC (L21–L30) — REDESIGN v3 (02/07): thác nước tự nhiên (BFS chảy từ
-    // nguồn, tách khi gặp vật cản, ngập ô trống, phá giọt). Xoay trọng lực = xoay cả thác.
-    // (goal-system-v2.md §12–15). ⚠ Ngưỡng sao = ứng viên, chốt bằng solver.
+    // WORLD 3 · SÔNG & THÁC (L21–L30) — REDESIGN v5 (05/07): cơ chế Dòng chảy / Nguồn nước.
+    // Nguồn ở HÀNG TRÊN CÙNG, luôn chảy XUỐNG (cố định, độc lập trọng lực), mọc 1 ô/lượt & RẼ ngang khi
+    // bị chặn; ĐẨY đoàn tàu jelly đứng trên kênh (xé cụm). PHÁ nguồn = clear hàng/cột đi qua chính ô
+    // nguồn (bỏ ô giọt). Đa số màn goal ĐIỂM (nước = áp lực đẩy lệch); vài màn phá nguồn; boss combo.
+    // Xem docs/02-thiet-ke-man/07-world-3-nhip-nuoc.md. ⚠ Ngưỡng sao = ỨNG VIÊN, chốt bằng MoveSolver.
     // ─────────────────────────────────────────────────────────────────────────────────────────
 
-    private fun drop(x: Int, y: Int) = PresetCell(x, y, CellType.TARGET, BLUE)
     private fun stone(x: Int, y: Int) = PresetCell(x, y, CellType.STONE)
+    /** Nguồn ở HÀNG TRÊN CÙNG (y=0), chảy xuống. [maxLength] = trần độ dài kênh. */
+    private fun src(id: Int, x: Int, maxLength: Int = 6) = WaterSourceSpec(id, x, 0, maxLength = maxLength)
 
-    /** L21 — "Suối Nhỏ" · intro thác: 1 nguồn, 2 giọt gần. Đặt mảnh chặn thác → tách dòng phá giọt. */
+    /** L21 — "Suối Nhỏ" · intro: 1 nguồn chảy xuống đẩy jelly; dựng đủ 1 line qua ô nguồn để phá. */
     val L21 = Level(
         id = 21, world = 3, name = "Suối Nhỏ", seed = 21,
-        preset = listOf(drop(3, 8), drop(5, 8)),
-        waterSources = listOf(4),
+        waterSources = listOf(src(1, 4, maxLength = 6)),
         rotationBudget = 3,
-        goal = Goal(GoalType.CLEAR_TARGETS, count = 2),
-        // MoveSolver: min = 10 nước (giọt lệch nguồn, 1 lần xoay không quét đủ) → 3★=10.
-        stars = StarThresholds(three = 10, two = 14, one = 18, metric = StarMetric.MOVES),
+        goal = Goal(GoalType.CLEAR_TARGETS, count = 1),
+        stars = StarThresholds(three = 6, two = 8, one = 10, metric = StarMetric.MOVES),
         difficulty = 2.0,
     )
 
-    /** L22 — "Nước Tràn" · thác ngập = áp lực. Đạt điểm với diện tích bị thu hẹp. */
+    /** L22 — "Đôi Dòng" · hướng dẫn 2: hai dòng chảy đẩy lệch; đạt điểm nhẹ. Vẫn nhẹ (< 10 nước). */
     val L22 = Level(
-        id = 22, world = 3, name = "Nước Tràn", seed = 22,
-        waterSources = listOf(4),
+        id = 22, world = 3, name = "Đôi Dòng", seed = 22,
+        waterSources = listOf(src(1, 2, maxLength = 6), src(2, 6, maxLength = 6)),
         rotationBudget = 3,
-        goal = Goal(GoalType.REACH_SCORE, score = 200),
-        stars = StarThresholds(three = 400, two = 300, one = 200, metric = StarMetric.SCORE),
+        goal = Goal(GoalType.REACH_SCORE, score = 70),
+        stars = StarThresholds(three = 10, two = 13, one = 16, metric = StarMetric.MOVES),
         difficulty = 2.5,
     )
 
-    /** L23 — "Thác Tách" · xây tường tách dòng tới 3 giọt xa. */
+    /** L23 — "Ba Dòng" · bắt đầu khó: 3 dòng chảy đẩy lệch liên tục, dồn combo đủ điểm giữa áp lực. */
     val L23 = Level(
-        id = 23, world = 3, name = "Thác Tách", seed = 23,
-        preset = listOf(drop(1, 8), drop(5, 8), drop(7, 8)),
-        waterSources = listOf(4),
-        rotationBudget = 3,
-        goal = Goal(GoalType.CLEAR_TARGETS, count = 3),
-        // ⚠ MoveSolver: min = 2 nước (1 cú xoay quét trúng cả 3 giọt) → MOVES SUY BIẾN. Chờ quyết:
-        // đổi metric→ROTATIONS hay siết hình học giọt. Tạm giữ số cũ (chưa hạ 3★ xuống 2).
-        stars = StarThresholds(three = 4, two = 6, one = 10, metric = StarMetric.MOVES),
-        difficulty = 3.0,
-    )
-
-    /** L24 — "Xoay Thác" · turning point: xoay gravity = lái thác qua 2 giọt. */
-    val L24 = Level(
-        id = 24, world = 3, name = "Xoay Thác", seed = 24,
-        preset = listOf(drop(0, 4), drop(8, 4)),
-        waterSources = listOf(4),
-        rotationBudget = 4,
-        goal = Goal(GoalType.CLEAR_TARGETS, count = 2),
-        // ⚠ Solver thắng 90% với 0 NƯỚC ĐẶT (chỉ xoay thác trúng giọt) → metric MOVES SUY BIẾN ở đây
-        // (0 nước = 3★ miễn phí). Nên đổi metric màn này sang ROTATIONS. Tạm giữ MOVES, chờ chốt.
-        stars = StarThresholds(three = 4, two = 7, one = 10, metric = StarMetric.MOVES),
-        difficulty = 3.0,
-    )
-
-    /** L25 — "Giọt Sau Đá" · đá chắn dòng chảy, xoay + kênh vòng. */
-    val L25 = Level(
-        id = 25, world = 3, name = "Giọt Sau Đá", seed = 25,
-        preset = listOf(
-            drop(2, 7), drop(6, 7),
-            stone(2, 5), stone(6, 5), stone(4, 3),
-        ),
-        waterSources = listOf(4),
-        rotationBudget = 4,
-        goal = Goal(GoalType.CLEAR_TARGETS, count = 2),
-        // ⚠ MoveSolver: min = 1 nước (xoay quét trúng 2 giọt) → MOVES SUY BIẾN. Chờ quyết metric/redesign.
-        stars = StarThresholds(three = 6, two = 9, one = 13, metric = StarMetric.MOVES),
-        difficulty = 3.5,
-    )
-
-    /** L26 — "Bến Nghỉ" · breather: thác nhẹ, đạt điểm. */
-    val L26 = Level(
-        id = 26, world = 3, name = "Bến Nghỉ", seed = 26,
-        waterSources = listOf(7),
+        id = 23, world = 3, name = "Ba Dòng", seed = 23,
+        waterSources = listOf(src(1, 1, maxLength = 6), src(2, 4, maxLength = 6), src(3, 7, maxLength = 6)),
         rotationBudget = 3,
         goal = Goal(GoalType.REACH_SCORE, score = 150),
-        stars = StarThresholds(three = 300, two = 220, one = 150, metric = StarMetric.SCORE),
-        difficulty = 2.0,
+        stars = StarThresholds(three = 16, two = 21, one = 26, metric = StarMetric.MOVES),
+        difficulty = 3.0,
     )
 
-    /** L27 — "Hai Nguồn" · 2 nguồn, ngập rộng, 4 giọt. */
+    /** L24 — "Xoay Dòng" · xoay trọng lực để dồn combo giữa lúc dòng chảy đẩy lệch. Đạt điểm. */
+    val L24 = Level(
+        id = 24, world = 3, name = "Xoay Dòng", seed = 24,
+        waterSources = listOf(src(1, 3, maxLength = 6), src(2, 6, maxLength = 6)),
+        rotationBudget = 4,
+        goal = Goal(GoalType.REACH_SCORE, score = 170),
+        stars = StarThresholds(three = 16, two = 21, one = 26, metric = StarMetric.MOVES),
+        difficulty = 3.0,
+    )
+
+    /** L25 — "Chặn Nguồn" · phá 1 nguồn bị đá vây (nước rẽ vòng) — dựng line cắt nguồn giữa áp lực. */
+    val L25 = Level(
+        id = 25, world = 3, name = "Chặn Nguồn", seed = 25,
+        preset = listOf(stone(3, 3), stone(5, 3)),
+        waterSources = listOf(src(1, 4, maxLength = 8), src(2, 1, maxLength = 6)),
+        rotationBudget = 2,
+        goal = Goal(GoalType.MIXED, count = 1, score = 220),
+        stars = StarThresholds(three = 19, two = 24, one = 29, metric = StarMetric.MOVES),
+        difficulty = 3.5,
+    )
+
+    /** L26 — "Bến Nghỉ" · breather: 1 dòng nhẹ, mục tiêu điểm vừa phải. */
+    val L26 = Level(
+        id = 26, world = 3, name = "Bến Nghỉ", seed = 26,
+        waterSources = listOf(src(1, 4, maxLength = 5)),
+        rotationBudget = 3,
+        goal = Goal(GoalType.REACH_SCORE, score = 90),
+        stars = StarThresholds(three = 11, two = 15, one = 19, metric = StarMetric.MOVES),
+        difficulty = 2.5,
+    )
+
+    /** L27 — "Ba Nguồn" · 3 dòng chảy + đá cản buộc rẽ nhiều; điểm cao hơn. */
     val L27 = Level(
-        id = 27, world = 3, name = "Hai Nguồn", seed = 27,
-        preset = listOf(drop(0, 8), drop(3, 8), drop(5, 8), drop(8, 8)),
-        waterSources = listOf(2, 6),
+        id = 27, world = 3, name = "Ba Nguồn", seed = 27,
+        preset = listOf(stone(4, 4), stone(7, 5)),
+        waterSources = listOf(src(1, 1, maxLength = 7), src(2, 4, maxLength = 7), src(3, 7, maxLength = 7)),
         rotationBudget = 4,
-        goal = Goal(GoalType.CLEAR_TARGETS, count = 4),
-        // ⚠ MoveSolver: min = 1 nước (xoay quét trúng cả 4 giọt) → MOVES SUY BIẾN. Chờ quyết metric/redesign.
-        stars = StarThresholds(three = 3, two = 5, one = 8, metric = StarMetric.MOVES),
-        difficulty = 3.5,
+        goal = Goal(GoalType.REACH_SCORE, score = 480),
+        stars = StarThresholds(three = 22, two = 28, one = 34, metric = StarMetric.MOVES),
+        difficulty = 4.0,
     )
 
-    /** L28 — "Thác & Điểm" · mixed: giọt + score. */
+    /** L28 — "Dòng Xiết" · điểm cao: 2 dòng chảy dài đẩy mạnh, phải dồn nhiều combo mới đủ điểm. */
     val L28 = Level(
-        id = 28, world = 3, name = "Thác & Điểm", seed = 28,
-        preset = listOf(drop(2, 8), drop(6, 8)),
-        waterSources = listOf(4),
-        rotationBudget = 4,
-        goal = Goal(GoalType.MIXED, count = 2, score = 200),
-        // Sao = LƯỢT (nhất quán màn dọn-mục-tiêu; điểm là sàn goal). ⚠ SOLVER THẮNG 0% → chưa kiểm chứng
-        // được; ước lượng theo L18 (mixed+điểm). Màn có thể QUÁ KHÓ — cần playtest hoặc nới khay/nhịp.
-        stars = StarThresholds(three = 18, two = 26, one = 34, metric = StarMetric.MOVES),
-        difficulty = 3.5,
+        id = 28, world = 3, name = "Dòng Xiết", seed = 28,
+        waterSources = listOf(src(1, 2, maxLength = 8), src(2, 6, maxLength = 8)),
+        rotationBudget = 5,
+        goal = Goal(GoalType.REACH_SCORE, score = 520),
+        stars = StarThresholds(three = 25, two = 32, one = 39, metric = StarMetric.MOVES),
+        difficulty = 4.0,
     )
 
-    /** L29 — "Thác Lớn" · gauntlet: 5 giọt + 4 đá = mê cung thủy lợi. Nguồn trung tâm, đá rải ngoài. */
+    /**
+     * L29 — "Thác Lớn" · gauntlet trước boss: 3 dòng chảy dài + đá bậc thang buộc rẽ; điểm cao nhất
+     * trước boss. Mê cung thủy lợi — số nước nhiều nhất World 3.
+     */
     val L29 = Level(
         id = 29, world = 3, name = "Thác Lớn", seed = 29,
-        preset = listOf(
-            drop(0, 8), drop(2, 7), drop(6, 7), drop(8, 8), drop(1, 4),
-            stone(2, 5), stone(6, 5), stone(3, 3), stone(5, 3),
-        ),
-        waterSources = listOf(4),
-        rotationBudget = 5,
-        goal = Goal(GoalType.CLEAR_TARGETS, count = 5),
-        // ⚠ MoveSolver: min = 2 nước (5 giọt+4 đá quét sạch bằng ~2 cú xoay) → MOVES SUY BIẾN, KHÔNG khó
-        // như tưởng. Chờ quyết metric→ROTATIONS/redesign. (Comment "solver 0%" cũ dùng greedy — đã sai.)
-        stars = StarThresholds(three = 10, two = 15, one = 22, metric = StarMetric.MOVES),
+        preset = listOf(stone(2, 4), stone(4, 5), stone(6, 4)),
+        waterSources = listOf(src(1, 1, maxLength = 8), src(2, 4, maxLength = 8), src(3, 7, maxLength = 8)),
+        rotationBudget = 3,
+        goal = Goal(GoalType.REACH_SCORE, score = 660),
+        stars = StarThresholds(three = 29, two = 37, one = 45, metric = StarMetric.MOVES),
         difficulty = 4.5,
     )
 
     /**
-     * L30 — BOSS "Thần Thác" · Cứ 3 lượt boss ĐẢO trọng lực 180° → đảo cả thác nếu có.
-     * Bào máu bằng combo. ⚠ HP = ứng viên solver.
+     * L30 — BOSS "Thần Thác" · khởi đầu 2 nguồn; mỗi 3 lượt boss **HỒI SINH nguồn cạn** VÀ **THẢ THÊM 1
+     * nguồn mới** từ hàng trên (tối đa 4 nguồn) → áp lực dòng chảy dâng dần. Người chơi phải **phá nguồn
+     * 5 LẦN** (cắm Thạch Nước clear line qua ô nguồn). Sao theo LƯỢT. ⚠ ngưỡng chốt bằng solver.
      */
     val L30 = Level(
         id = 30, world = 3, name = "Thần Thác", seed = 30,
-        preset = listOf(stone(4, 0), stone(4, 8)),
-        waterSources = listOf(4),
-        rotationBudget = 5,
-        bossGravityEveryN = 3,
-        goal = Goal(GoalType.BOSS_COMBO, bossHP = 10),  // khiên mock (boss-hud): Thần Thác = 10
-        stars = StarThresholds(three = 4, two = 6, one = 8, metric = StarMetric.COMBO),
-        difficulty = 4.0,
+        preset = listOf(stone(4, 5)),
+        waterSources = listOf(src(1, 2, maxLength = 8), src(2, 6, maxLength = 8)),
+        rotationBudget = 4,
+        bossReviveEveryN = 3,          // hồi sinh nguồn cạn mỗi 3 lượt
+        bossSpawnSourceEveryN = 3,     // thả thêm 1 nguồn mới mỗi 3 lượt
+        bossMaxSources = 4,            // tối đa 4 nguồn cùng lúc
+        goal = Goal(GoalType.CLEAR_TARGETS, count = 8),   // phá nguồn 8 lần
+        stars = StarThresholds(three = 25, two = 32, one = 39, metric = StarMetric.MOVES),
+        difficulty = 4.5,
     )
 
     /** Danh sách các màn Campaign theo thứ tự chơi (World 1 + World 2 + World 3). */

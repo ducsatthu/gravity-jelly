@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"GravityJellyDesignSystem_3e0487","components":[{"name":"JellyBlock","sourcePath":"02-foundations/01-jelly-block/JellyBlock.jsx"},{"name":"Eyes","sourcePath":"02-foundations/02-eyes/Eyes.jsx"},{"name":"Icon","sourcePath":"02-foundations/03-icon/Icon.jsx"},{"name":"Button","sourcePath":"03-components/01-button/Button.jsx"},{"name":"Hud","sourcePath":"03-components/02-hud/Hud.jsx"},{"name":"TrayPiece","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"Tray","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"GravityRotateButton","sourcePath":"03-components/04-gravity-rotate-button/GravityRotateButton.jsx"},{"name":"ComboPopup","sourcePath":"03-components/05-combo-popup/ComboPopup.jsx"},{"name":"Dialog","sourcePath":"03-components/06-dialog/Dialog.jsx"},{"name":"ObjectiveBar","sourcePath":"03-components/08-objective-bar/ObjectiveBar.jsx"},{"name":"BossMascot","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"ShieldBar","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossCard","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossIntroCard","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossToast","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossRule","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossHud","sourcePath":"03-components/09-boss-hud/BossHud.jsx"}],"sourceHashes":{"02-foundations/01-jelly-block/JellyBlock.jsx":"99d676a3206c","02-foundations/02-eyes/Eyes.jsx":"d4762b606971","02-foundations/03-icon/Icon.jsx":"1d501e149f2f","03-components/01-button/Button.jsx":"ff24f7c456d7","03-components/02-hud/Hud.jsx":"b68bb167fc30","03-components/03-tray/Tray.jsx":"e425b7cd5eed","03-components/04-gravity-rotate-button/GravityRotateButton.jsx":"09df27eb60e6","03-components/05-combo-popup/ComboPopup.jsx":"3430e5b0f130","03-components/06-dialog/Dialog.jsx":"d5e802d0a1db","03-components/08-objective-bar/ObjectiveBar.jsx":"d3ef438d707b","03-components/09-boss-hud/BossHud.jsx":"195a3709042f","04-screens/board-boss.jsx":"fe9ea9512869","04-screens/board-campaign.jsx":"db93679ac719","04-screens/board-design.jsx":"5163f27516da","04-screens/board.jsx":"a2c1742d1301","04-screens/boss-intro-screen.jsx":"5b7d158f2415","04-screens/cam-nang-illus.jsx":"4e6ed15b2b63","04-screens/cam-nang-screen.jsx":"54efac16eddc","04-screens/daily-reward-screen.jsx":"0309b17c4056","04-screens/home-screen.jsx":"7d45b68edee5","04-screens/leaderboard-screen.jsx":"82c8413c65d7","04-screens/level-intro-screen.jsx":"1252c538acaf","04-screens/level-win-screen.jsx":"b88ddcf6bfa8","04-screens/missions-screen.jsx":"a2cb834bcb3d","04-screens/out-of-lives-screen.jsx":"c5661499a9aa","04-screens/pause-screen.jsx":"edd558af8897","04-screens/phone-frame.jsx":"18e22e60b390","04-screens/play/jelly-play.jsx":"90bcd0f1ca70","04-screens/result-screen.jsx":"775264ed1cbe","04-screens/screen-extras.jsx":"b6a2513dd24c","04-screens/settings-screen.jsx":"a5cbe4af2727","04-screens/shop-screen.jsx":"454bf4d67682","04-screens/splash-screen.jsx":"6b0e750c020b","04-screens/tweaks-panel.jsx":"6591467622ed","04-screens/world-gate-locked.jsx":"4d32d0ac3bad","04-screens/world-gate.jsx":"6db94465e8f2","04-screens/world1-strip.jsx":"2c816bdee51c","04-screens/world10-strip.jsx":"86352e2ce593","04-screens/world2-strip.jsx":"442d24cbb43f","04-screens/world3-strip.jsx":"43895f789f0d","04-screens/world4-strip.jsx":"d3f5e8aadbec","04-screens/world5-strip.jsx":"31ce848e45ea","04-screens/world6-strip.jsx":"3479dadec253","04-screens/world7-strip.jsx":"e0b64525e7fa","04-screens/world8-strip.jsx":"444f9855082e","04-screens/world9-strip.jsx":"aea09bf6b901","07-mechanics/mechanics-cards.js":"711cd9d74c93","07-mechanics/mechanics-kit.jsx":"f52efab2af43","07-mechanics/mechanics-widgets.jsx":"59dbeacaab30","08-brand/gravity-jelly-logo.js":"6c562cfab24e","prototypes/proto-engine.js":"6887737568ba","prototypes/proto-game.jsx":"75954a4bee0a","prototypes/proto-ui.jsx":"138d35a58082"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":4,"namespace":"GravityJellyDesignSystem_3e0487","components":[{"name":"JellyBlock","sourcePath":"02-foundations/01-jelly-block/JellyBlock.jsx"},{"name":"Eyes","sourcePath":"02-foundations/02-eyes/Eyes.jsx"},{"name":"Icon","sourcePath":"02-foundations/03-icon/Icon.jsx"},{"name":"Button","sourcePath":"03-components/01-button/Button.jsx"},{"name":"Hud","sourcePath":"03-components/02-hud/Hud.jsx"},{"name":"TrayPiece","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"Tray","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"GravityRotateButton","sourcePath":"03-components/04-gravity-rotate-button/GravityRotateButton.jsx"},{"name":"ComboPopup","sourcePath":"03-components/05-combo-popup/ComboPopup.jsx"},{"name":"Dialog","sourcePath":"03-components/06-dialog/Dialog.jsx"},{"name":"ObjectiveBar","sourcePath":"03-components/08-objective-bar/ObjectiveBar.jsx"},{"name":"BossMascot","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"ShieldBar","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossCard","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossIntroCard","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossToast","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossRule","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossHud","sourcePath":"03-components/09-boss-hud/BossHud.jsx"}],"sourceHashes":{"02-foundations/01-jelly-block/JellyBlock.jsx":"99d676a3206c","02-foundations/02-eyes/Eyes.jsx":"d4762b606971","02-foundations/03-icon/Icon.jsx":"1d501e149f2f","03-components/01-button/Button.jsx":"ff24f7c456d7","03-components/02-hud/Hud.jsx":"b68bb167fc30","03-components/03-tray/Tray.jsx":"e425b7cd5eed","03-components/04-gravity-rotate-button/GravityRotateButton.jsx":"09df27eb60e6","03-components/05-combo-popup/ComboPopup.jsx":"3430e5b0f130","03-components/06-dialog/Dialog.jsx":"d5e802d0a1db","03-components/08-objective-bar/ObjectiveBar.jsx":"d3ef438d707b","03-components/09-boss-hud/BossHud.jsx":"c7336202317f","04-screens/board-boss.jsx":"fe9ea9512869","04-screens/board-campaign.jsx":"db93679ac719","04-screens/board-design.jsx":"5163f27516da","04-screens/board.jsx":"a2c1742d1301","04-screens/boss-intro-screen.jsx":"5b7d158f2415","04-screens/cam-nang-illus.jsx":"4e6ed15b2b63","04-screens/cam-nang-screen.jsx":"54efac16eddc","04-screens/daily-reward-screen.jsx":"0309b17c4056","04-screens/home-screen.jsx":"7d45b68edee5","04-screens/leaderboard-screen.jsx":"82c8413c65d7","04-screens/level-intro-screen.jsx":"1252c538acaf","04-screens/level-win-screen.jsx":"b88ddcf6bfa8","04-screens/missions-screen.jsx":"a2cb834bcb3d","04-screens/out-of-lives-screen.jsx":"c5661499a9aa","04-screens/pause-screen.jsx":"edd558af8897","04-screens/phone-frame.jsx":"18e22e60b390","04-screens/play/jelly-play.jsx":"90bcd0f1ca70","04-screens/result-screen.jsx":"775264ed1cbe","04-screens/screen-extras.jsx":"b6a2513dd24c","04-screens/settings-screen.jsx":"a5cbe4af2727","04-screens/shop-screen.jsx":"454bf4d67682","04-screens/splash-screen.jsx":"b36502be0325","04-screens/tweaks-panel.jsx":"6591467622ed","04-screens/world-gate-locked.jsx":"4d32d0ac3bad","04-screens/world-gate.jsx":"6db94465e8f2","04-screens/world1-strip.jsx":"2c816bdee51c","04-screens/world10-strip.jsx":"86352e2ce593","04-screens/world2-strip.jsx":"442d24cbb43f","04-screens/world3-strip.jsx":"43895f789f0d","04-screens/world4-strip.jsx":"d3f5e8aadbec","04-screens/world5-strip.jsx":"31ce848e45ea","04-screens/world6-strip.jsx":"3479dadec253","04-screens/world7-strip.jsx":"e0b64525e7fa","04-screens/world8-strip.jsx":"444f9855082e","04-screens/world9-strip.jsx":"aea09bf6b901","07-mechanics/mechanics-cards.js":"711cd9d74c93","07-mechanics/mechanics-kit.jsx":"f52efab2af43","07-mechanics/mechanics-widgets.jsx":"2285bf5de0e0","07-mechanics/world3-water-kit.jsx":"402befadc370","08-brand/gravity-jelly-logo.js":"597a18d35b1e","prototypes/proto-engine.js":"6887737568ba","prototypes/proto-game.jsx":"75954a4bee0a","prototypes/proto-ui.jsx":"138d35a58082"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
@@ -2430,7 +2430,7 @@ try { (() => {
  * /06-svg-assets/bosses/) — never a shared circular avatar, never boxed in a
  * ring. Mascots are EYES-ONLY (no mouth, brows or teeth).
  *   • worm  — Chú Sâu Đồng Cỏ: mint caterpillar + leaf sprouts (boss-worm.png).
- *   • trash — Thần Rừng: tree-trunk jelly god + leaf crown + sprout cubes (boss-forest.png).
+ *   • vine  — Thần Rừng: tree-trunk jelly god + leaf crown + sprout cubes (boss-vine.png).
  *   • water — Thần Thác: water-god column + ring + bubbles (boss-water.png).
  * BossMascot renders the PNG; a faint purple/cyan aura sits behind worm/water.
  *
@@ -2476,7 +2476,7 @@ const THEMES = {
     edge: 'var(--color-block-mint-edge)',
     shine: 'var(--color-block-mint-shine)'
   },
-  trash: {
+  vine: {
     color: '#D9BE94',
     edge: '#B79A6E',
     shine: '#EFDFC0'
@@ -2532,15 +2532,15 @@ const MASCOT_ASSET = {
     file: 'boss-water.png',
     aspect: 467 / 560
   },
-  trash: {
-    file: 'boss-forest.png',
+  vine: {
+    file: 'boss-vine.png',
     aspect: 1238 / 1144
   }
 };
 const MASCOT_H = {
   worm: 122,
   water: 130,
-  trash: 106
+  vine: 106
 };
 const DEFAULT_ASSET_BASE = '../../06-svg-assets/bosses/';
 
@@ -2661,7 +2661,7 @@ function ShieldCount({
 
 /* ---------- rule / tell chip ---------- */
 function chipTone(tone) {
-  if (tone === 'trash') return {
+  if (tone === 'vine') return {
     bg: 'rgba(255,202,102,0.20)',
     fg: '#9A7326',
     disc: 'var(--color-warning)',
@@ -2687,7 +2687,7 @@ function chipGlyph(kind, color) {
     color: color,
     strokeWidth: 2.6
   });
-  if (kind === 'trash') return /*#__PURE__*/React.createElement(Glyph, {
+  if (kind === 'vine') return /*#__PURE__*/React.createElement(Glyph, {
     name: "leaf",
     size: 12,
     color: color,
@@ -3076,13 +3076,13 @@ function BossIntroCard({
    3) BossToast — WARNING pill: what the boss is about to do (a tell)
    ===================================================================== */
 function BossToast({
-  kind = 'trash',
+  kind = 'vine',
   tone,
-  label = 'Lượt sau: Đổ rác',
+  label = 'Lượt sau: Mọc dây',
   kicker,
   style = {}
 }) {
-  const t = tone || (kind === 'trash' ? 'trash' : kind === 'gravity' ? 'gravity' : 'rule');
+  const t = tone || (kind === 'vine' ? 'vine' : kind === 'gravity' ? 'gravity' : 'rule');
   const c = chipTone(t);
   const glyph = kind === 'gravity' ? /*#__PURE__*/React.createElement(__ds_scope.Icon, {
     name: "rotateCw",
@@ -11642,11 +11642,11 @@ try { (() => {
   const {
     JellyBlock
   } = NS;
+  const WORDMARK = '../08-brand/wordmark.png';
   function SplashScreen({
     progress = 0.68,
     version = '1.0.0'
   }) {
-    const tiles = [['pink', 'left', -8], ['yellow', 'down', 4], ['mint', 'right', -4], ['blue', 'down', 8]];
     return /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'relative',
@@ -11688,51 +11688,19 @@ try { (() => {
       }
     }), /*#__PURE__*/React.createElement("div", {
       style: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: 'var(--space-lg)'
+        animation: 'gj-bob 1800ms var(--ease-jelly, ease-in-out) infinite'
       }
-    }, /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("img", {
+      src: WORDMARK,
+      alt: "Gravity Jelly",
       style: {
-        display: 'flex',
-        gap: 6,
-        alignItems: 'flex-start'
+        display: 'block',
+        width: 244,
+        height: 'auto',
+        userSelect: 'none',
+        filter: 'drop-shadow(0 8px 14px rgba(120,92,52,0.22))'
       }
-    }, tiles.map(([c, d, rot], i) => /*#__PURE__*/React.createElement("div", {
-      key: i,
-      style: {
-        transform: `rotate(${rot}deg)`,
-        animation: `gj-bob 1500ms var(--ease-jelly, ease-in-out) ${i * 130}ms infinite`
-      }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: c,
-      size: 50,
-      direction: d,
-      expression: i === 1 ? 'happy' : 'normal'
-    })))), /*#__PURE__*/React.createElement("div", {
-      style: {
-        textAlign: 'center',
-        lineHeight: 0.92
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontFamily: 'var(--font-display)',
-        fontWeight: 'var(--weight-semibold)',
-        fontSize: 22,
-        letterSpacing: '0.18em',
-        color: 'var(--color-text-muted)'
-      }
-    }, "GRAVITY"), /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontFamily: 'var(--font-display)',
-        fontWeight: 'var(--weight-extra)',
-        fontSize: 54,
-        color: 'var(--color-block-pink)',
-        WebkitTextStroke: '2px var(--color-block-pink-edge)',
-        textShadow: '0 4px 0 var(--color-block-pink-edge)'
-      }
-    }, "JELLY"))), /*#__PURE__*/React.createElement("div", {
+    })), /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'absolute',
         bottom: 64,
@@ -31006,7 +30974,7 @@ try { (() => {
       color: 'var(--color-text-muted)',
       whiteSpace: 'nowrap'
     }
-  }, "\u0110\xF2n: \u0111\u1ED5 r\xE1c")), /*#__PURE__*/React.createElement("div", {
+  }, "\u0110\xF2n: m\u1ECDc d\xE2y")), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
       flexDirection: 'column',
@@ -31566,6 +31534,2663 @@ try { (() => {
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "07-mechanics/mechanics-widgets.jsx", error: String((e && e.message) || e) }); }
 
+// 07-mechanics/world3-water-kit.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+/* world3-water-kit.jsx — cơ chế "Dòng chảy / Nguồn nước" của World 3 (Sông & Thác).
+   Documentation kit (no .d.ts → stays out of the bundle). Renders three
+   landscape design-spec sheets. Reuses JellyBlock from the DS bundle so jelly
+   stays 100% on-brand; the water cells are new tiles built from tokens + simple
+   shapes only.
+
+   A sheet HTML loads: _ds_bundle.js → world3-water-kit.jsx, then calls
+   GJWater.render('<id>', rootEl).  ids: 'components' | 'stateflow' | 'tutorial'. */
+
+(function () {
+  const NS = window.GravityJellyDesignSystem_3e0487;
+  const {
+    JellyBlock
+  } = NS;
+
+  /* ---- water palette (teal ramp, harmonises with mint/aqua jelly) ---- */
+  const AQ = {
+    deep: '#12959F',
+    teal: '#2FBFC7',
+    mid: '#5FD2D6',
+    light: '#9FE4E7',
+    pale: '#D6F2F3',
+    core: '#F1FCFC',
+    edge: '#158A93',
+    foam: '#EAFBFB',
+    dry: '#C4BBAC',
+    dryEdge: '#A89A82',
+    dryDark: '#8A7E68'
+  };
+  const CODE = {
+    Y: 'yellow',
+    M: 'mint',
+    P: 'pink',
+    B: 'blue',
+    S: 'stone'
+  };
+  const PURPLE = '#7E6CF0',
+    PURPLE_EDGE = '#6353D6',
+    PURPLE_SHINE = '#A99CF6';
+
+  /* ---- one-time keyframes ---- */
+  if (!document.getElementById('gj-water-css')) {
+    const s = document.createElement('style');
+    s.id = 'gj-water-css';
+    s.textContent = `
+      @keyframes gjwSource { 0%,100%{ box-shadow:0 0 0 3px ${AQ.core}, 0 0 12px 2px rgba(47,191,199,.6);} 50%{ box-shadow:0 0 0 4px ${AQ.core}, 0 0 20px 5px rgba(47,191,199,.85);} }
+      @keyframes gjwNew { 0%,100%{ box-shadow:0 0 0 2px ${AQ.foam}, 0 0 10px 1px rgba(95,210,214,.6); transform:scale(1);} 50%{ box-shadow:0 0 0 3px ${AQ.foam}, 0 0 16px 3px rgba(95,210,214,.9); transform:scale(1.04);} }
+      @keyframes gjwRing { 0%,100%{ transform:scale(1); opacity:.85;} 50%{ transform:scale(1.14); opacity:.35;} }
+      @keyframes gjwArrow { 0%,100%{ opacity:.55;} 50%{ opacity:1;} }
+      @keyframes gjwBob { 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-3px);} }
+      @keyframes gjwSpin { to { transform:rotate(360deg);} }
+      @keyframes gjwSpark { 0%,100%{ transform:scale(.4) rotate(0); opacity:0;} 50%{ transform:scale(1) rotate(40deg); opacity:1;} }
+      @keyframes gjwWaveShift { to { transform:translateX(-50%);} }
+      @keyframes gjwWaveShiftV { to { transform:translateY(-50%);} }
+      @keyframes gjwArrowMarch { from { background-position-x:0;} to { background-position-x:24px;} }
+      @keyframes gjwTipGlow { 0%,100%{ opacity:.5; transform:scale(1);} 50%{ opacity:1; transform:scale(1.08);} }
+      @keyframes gjwDash { to { stroke-dashoffset:-40;} }
+      @media (prefers-reduced-motion: reduce){ [class^="gjw-"]{ animation:none !important; } }
+    `;
+    document.head.appendChild(s);
+  }
+  const font = {
+    d: 'var(--font-display)',
+    b: 'var(--font-body)'
+  };
+  const rot = {
+    '→': 0,
+    '↓': 90,
+    '←': 180,
+    '↑': -90
+  };
+
+  /* =================== small parts =================== */
+
+  function Drop({
+    size = 20,
+    fill = AQ.teal,
+    stroke = AQ.edge,
+    shine = true
+  }) {
+    return /*#__PURE__*/React.createElement("svg", {
+      width: size,
+      height: size,
+      viewBox: "0 0 24 24",
+      style: {
+        display: 'block'
+      }
+    }, /*#__PURE__*/React.createElement("path", {
+      d: "M12 2.5C12 2.5 4.5 11.4 4.5 16.2A7.5 7.5 0 0 0 19.5 16.2C19.5 11.4 12 2.5 12 2.5Z",
+      fill: fill,
+      stroke: stroke,
+      strokeWidth: "1.6",
+      strokeLinejoin: "round"
+    }), shine && /*#__PURE__*/React.createElement("path", {
+      d: "M9 14.2a3.4 3.4 0 0 0 1.7 2.7",
+      fill: "none",
+      stroke: "#fff",
+      strokeWidth: "1.5",
+      strokeLinecap: "round",
+      opacity: ".8"
+    }));
+  }
+  function Arrow({
+    dir = '→',
+    size = 22,
+    color = '#fff',
+    sw = 2.6,
+    className
+  }) {
+    return /*#__PURE__*/React.createElement("span", {
+      className: className,
+      style: {
+        display: 'inline-flex',
+        transform: `rotate(${rot[dir]}deg)`,
+        color
+      }
+    }, /*#__PURE__*/React.createElement("svg", {
+      width: size,
+      height: size,
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: color,
+      strokeWidth: sw,
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    }, /*#__PURE__*/React.createElement("path", {
+      d: "M5 12h13M12 6l6 6-6 6"
+    })));
+  }
+  function Foam({
+    cell,
+    dir
+  }) {
+    // two small foam bubbles at the leading (downstream) edge
+    const at = {
+      '→': {
+        right: 3,
+        top: '50%'
+      },
+      '←': {
+        left: 3,
+        top: '50%'
+      },
+      '↑': {
+        top: 3,
+        left: '50%'
+      },
+      '↓': {
+        bottom: 3,
+        left: '50%'
+      }
+    }[dir];
+    const b = {
+      position: 'absolute',
+      borderRadius: '50%',
+      background: AQ.foam,
+      opacity: .9
+    };
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("span", {
+      style: {
+        ...b,
+        width: cell * .1,
+        height: cell * .1,
+        ...at,
+        transform: 'translate(-50%,-50%)'
+      }
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        ...b,
+        width: cell * .07,
+        height: cell * .07,
+        ...at,
+        transform: `translate(${dir === '→' ? '-160%' : dir === '←' ? '60%' : '-50%'}, ${dir === '↑' || dir === '↓' ? dir === '↑' ? '60%' : '-160%' : '-190%'})`,
+        opacity: .7
+      }
+    }));
+  }
+
+  /* =================== water cells =================== */
+
+  function WaterCell({
+    type,
+    dir = '→',
+    cell = 88
+  }) {
+    const radius = Math.round(cell * 0.24);
+    const base = {
+      width: cell,
+      height: cell,
+      borderRadius: radius,
+      position: 'relative',
+      boxSizing: 'border-box',
+      overflow: 'hidden'
+    };
+    if (type === 'source') {
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'relative',
+          width: cell,
+          height: cell
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "gjw-src",
+        style: {
+          ...base,
+          background: `radial-gradient(circle at 50% 42%, ${AQ.mid} 0%, ${AQ.teal} 46%, ${AQ.deep} 100%)`,
+          boxShadow: `0 0 0 3px ${AQ.core}, 0 0 14px 3px rgba(47,191,199,.7)`,
+          animation: 'gjwSource 1.9s var(--ease-inout,ease) infinite'
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        style: {
+          position: 'absolute',
+          left: '50%',
+          top: '46%',
+          width: cell * .6,
+          height: cell * .6,
+          marginLeft: -cell * .3,
+          marginTop: -cell * .3,
+          borderRadius: '50%',
+          border: `2px solid rgba(255,255,255,.5)`,
+          animation: 'gjwRing 2s ease infinite'
+        }
+      }), /*#__PURE__*/React.createElement("span", {
+        style: {
+          position: 'absolute',
+          left: '50%',
+          top: '46%',
+          width: cell * .34,
+          height: cell * .34,
+          marginLeft: -cell * .17,
+          marginTop: -cell * .17,
+          borderRadius: '50%',
+          background: `radial-gradient(circle, ${AQ.core} 0%, ${AQ.light} 78%)`,
+          boxShadow: `inset 0 1px 2px rgba(18,149,159,.4)`
+        }
+      }), /*#__PURE__*/React.createElement("span", {
+        style: {
+          position: 'absolute',
+          top: cell * .1,
+          left: '30%',
+          width: cell * .08,
+          height: cell * .08,
+          borderRadius: '50%',
+          background: AQ.foam
+        }
+      }), /*#__PURE__*/React.createElement("span", {
+        style: {
+          position: 'absolute',
+          top: cell * .16,
+          left: '64%',
+          width: cell * .06,
+          height: cell * .06,
+          borderRadius: '50%',
+          background: AQ.foam,
+          opacity: .85
+        }
+      }), /*#__PURE__*/React.createElement("span", {
+        style: {
+          position: 'absolute',
+          ...(dir === '→' ? {
+            right: 3,
+            top: '50%',
+            transform: 'translateY(-50%)'
+          } : dir === '↓' ? {
+            bottom: 3,
+            left: '50%',
+            transform: 'translateX(-50%)'
+          } : dir === '←' ? {
+            left: 3,
+            top: '50%',
+            transform: 'translateY(-50%)'
+          } : {
+            top: 3,
+            left: '50%',
+            transform: 'translateX(-50%)'
+          })
+        }
+      }, /*#__PURE__*/React.createElement(Arrow, {
+        dir: dir,
+        size: cell * .3,
+        color: "#fff",
+        sw: 3,
+        className: "gjw-arr"
+      }))), /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'absolute',
+          top: -cell * .14,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: cell * .42,
+          height: cell * .42,
+          borderRadius: '50%',
+          background: '#fff',
+          boxShadow: 'var(--shadow-md)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 3
+        }
+      }, /*#__PURE__*/React.createElement(Drop, {
+        size: cell * .3
+      })));
+    }
+    if (type === 'flow' || type === 'new') {
+      const isNew = type === 'new';
+      return /*#__PURE__*/React.createElement("div", {
+        className: isNew ? 'gjw-new' : '',
+        style: {
+          ...base,
+          background: `linear-gradient(135deg, ${AQ.light} 0%, ${AQ.mid} 100%)`,
+          boxShadow: isNew ? `0 0 0 2px ${AQ.foam}, 0 0 12px 2px rgba(95,210,214,.7)` : 'inset 0 1px 3px rgba(18,149,159,.28)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          animation: isNew ? 'gjwNew 1.5s var(--ease-inout,ease) infinite' : 'none'
+        }
+      }, /*#__PURE__*/React.createElement(Arrow, {
+        dir: dir,
+        size: cell * .42,
+        color: AQ.deep,
+        sw: 3.2
+      }), /*#__PURE__*/React.createElement(Foam, {
+        cell: cell,
+        dir: dir
+      }), isNew && /*#__PURE__*/React.createElement("svg", {
+        width: cell * .3,
+        height: cell * .3,
+        viewBox: "0 0 24 24",
+        style: {
+          position: 'absolute',
+          top: cell * .06,
+          right: cell * .06,
+          animation: 'gjwSpark 1.4s ease infinite'
+        }
+      }, /*#__PURE__*/React.createElement("path", {
+        d: "M12 0c1 6 4 9 12 12-8 3-11 6-12 12-1-6-4-9-12-12 8-3 11-6 12-12z",
+        fill: AQ.foam
+      })));
+    }
+    if (type === 'drop') {
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          ...base,
+          background: `radial-gradient(circle at 50% 45%, ${AQ.pale} 0%, ${AQ.light} 100%)`,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        style: {
+          position: 'absolute',
+          width: cell * .72,
+          height: cell * .72,
+          borderRadius: '50%',
+          border: `2px dashed ${AQ.deep}`,
+          animation: 'gjwRing 1.7s ease infinite'
+        }
+      }), /*#__PURE__*/React.createElement("div", {
+        style: {
+          animation: 'gjwBob 1.9s var(--ease-inout,ease) infinite',
+          filter: 'drop-shadow(0 2px 2px rgba(18,149,159,.35))'
+        }
+      }, /*#__PURE__*/React.createElement(Drop, {
+        size: cell * .56,
+        fill: AQ.teal,
+        stroke: AQ.edge
+      })));
+    }
+    if (type === 'broken') {
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'relative',
+          width: cell,
+          height: cell
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          ...base,
+          background: `linear-gradient(160deg, ${AQ.dry} 0%, #B3A48C 100%)`,
+          boxShadow: 'inset 0 2px 5px rgba(120,92,52,.24)'
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        style: {
+          position: 'absolute',
+          left: '50%',
+          top: '48%',
+          width: cell * .3,
+          height: cell * .3,
+          marginLeft: -cell * .15,
+          marginTop: -cell * .15,
+          borderRadius: '50%',
+          background: '#9C8E77',
+          boxShadow: 'inset 0 1px 2px rgba(74,53,38,.4)'
+        }
+      }), /*#__PURE__*/React.createElement("svg", {
+        width: cell,
+        height: cell,
+        viewBox: "0 0 100 100",
+        style: {
+          position: 'absolute',
+          inset: 0
+        },
+        fill: "none",
+        stroke: AQ.dryDark,
+        strokeWidth: "2.4",
+        strokeLinecap: "round"
+      }, /*#__PURE__*/React.createElement("path", {
+        d: "M50 50 L28 30 M50 50 L74 34 M50 50 L40 78 M50 50 L70 70",
+        opacity: ".7"
+      }))), /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'absolute',
+          top: -cell * .14,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: cell * .42,
+          height: cell * .42,
+          borderRadius: '50%',
+          background: '#EDE5D8',
+          boxShadow: 'var(--shadow-sm)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 3,
+          opacity: .8
+        }
+      }, /*#__PURE__*/React.createElement("svg", {
+        width: cell * .3,
+        height: cell * .3,
+        viewBox: "0 0 24 24"
+      }, /*#__PURE__*/React.createElement("path", {
+        d: "M12 2.5C12 2.5 4.5 11.4 4.5 16.2A7.5 7.5 0 0 0 19.5 16.2C19.5 11.4 12 2.5 12 2.5Z",
+        fill: "#D9CFBE",
+        stroke: AQ.dryEdge,
+        strokeWidth: "1.6",
+        strokeLinejoin: "round"
+      }), /*#__PURE__*/React.createElement("path", {
+        d: "M12 5 L11 12 L13.5 12 L11.5 19",
+        fill: "none",
+        stroke: AQ.dryDark,
+        strokeWidth: "1.6",
+        strokeLinecap: "round"
+      }))));
+    }
+
+    // empty
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: cell,
+        height: cell,
+        borderRadius: 'var(--radius-md)',
+        background: 'var(--color-cell-empty)',
+        boxShadow: 'inset 0 0 0 1px var(--color-cell-line)'
+      }
+    });
+  }
+
+  /* =================== board (9×9 etc.) =================== */
+
+  function WaterBoard({
+    rows,
+    dir = '→',
+    cell = 20,
+    gap = 3,
+    pad = 8,
+    jellyDir = 'down',
+    fade = [],
+    newAt = [],
+    trail = [],
+    splash = null
+  }) {
+    const grid = rows.map(s => s.split(''));
+    const cols = grid[0].length,
+      N = grid.length;
+    const K = (r, c) => r + ',' + c;
+    const fadeSet = new Set(fade.map(([r, c]) => K(r, c)));
+    const newSet = new Set(newAt.map(([r, c]) => K(r, c)));
+    const trailSet = new Set(trail.map(([r, c]) => K(r, c)));
+    const W = pad * 2 + cols * cell + (cols - 1) * gap;
+    const H = pad * 2 + N * cell + (N - 1) * gap;
+    const node = (r, c) => {
+      const ch = grid[r][c];
+      const faded = fadeSet.has(K(r, c));
+      let inner;
+      if (ch === '.') inner = /*#__PURE__*/React.createElement(WaterCell, {
+        type: "empty",
+        cell: cell
+      });else if (ch === 'S') inner = /*#__PURE__*/React.createElement(WaterCell, {
+        type: "source",
+        dir: dir,
+        cell: cell
+      });else if (ch === 's') inner = /*#__PURE__*/React.createElement(WaterCell, {
+        type: newSet.has(K(r, c)) ? 'new' : 'flow',
+        dir: dir,
+        cell: cell
+      });else if (ch === 'd') inner = /*#__PURE__*/React.createElement(WaterCell, {
+        type: "drop",
+        cell: cell
+      });else if (ch === 'x') inner = /*#__PURE__*/React.createElement(WaterCell, {
+        type: "broken",
+        cell: cell
+      });else inner = /*#__PURE__*/React.createElement(JellyBlock, {
+        color: CODE[ch] || 'yellow',
+        size: cell,
+        direction: jellyDir,
+        showEyes: cell >= 18
+      });
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'relative',
+          width: cell,
+          height: cell,
+          opacity: faded ? 0.32 : 1,
+          transition: 'opacity .3s'
+        }
+      }, inner, trailSet.has(K(r, c)) && /*#__PURE__*/React.createElement("span", {
+        style: {
+          position: 'absolute',
+          top: '50%',
+          left: -cell * .5,
+          transform: 'translateY(-50%)',
+          pointerEvents: 'none'
+        }
+      }, /*#__PURE__*/React.createElement(Arrow, {
+        dir: dir,
+        size: cell * .8,
+        color: AQ.deep,
+        sw: 3,
+        className: "gjw-arr"
+      })));
+    };
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        width: W,
+        height: H
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'grid',
+        gridTemplateColumns: `repeat(${cols}, ${cell}px)`,
+        gridAutoRows: `${cell}px`,
+        gap,
+        padding: pad,
+        background: 'var(--color-surface-sunken)',
+        borderRadius: 16,
+        boxShadow: 'inset 0 2px 6px rgba(120,92,52,.12)'
+      }
+    }, grid.map((row, r) => row.map((_, c) => /*#__PURE__*/React.createElement(React.Fragment, {
+      key: r + '-' + c
+    }, node(r, c))))), splash && (() => {
+      const x = pad + splash[1] * (cell + gap) + cell / 2,
+        y = pad + splash[0] * (cell + gap) + cell / 2;
+      return /*#__PURE__*/React.createElement("svg", {
+        width: cell * 2.4,
+        height: cell * 2.4,
+        viewBox: "0 0 60 60",
+        style: {
+          position: 'absolute',
+          left: x - cell * 1.2,
+          top: y - cell * 1.2,
+          pointerEvents: 'none'
+        }
+      }, [0, 60, 120, 180, 240, 300].map(a => {
+        const rad = a * Math.PI / 180;
+        return /*#__PURE__*/React.createElement("circle", {
+          key: a,
+          cx: 30 + Math.cos(rad) * 17,
+          cy: 30 + Math.sin(rad) * 17,
+          r: a % 120 === 0 ? 3.4 : 2.4,
+          fill: AQ.mid,
+          opacity: ".85"
+        });
+      }));
+    })());
+  }
+
+  /* =================== horizontal flow strip (push demos) =================== */
+
+  function WaterStrip({
+    cells,
+    dir = '→',
+    jelly = [],
+    ghost = [],
+    bracket = null,
+    cell = 52,
+    gap = 4,
+    arrow = true
+  }) {
+    // cells: array of 'S'|'s'|'n' ; jelly: [{color, index}] sat on top of a cell
+    const stride = cell + gap;
+    const W = cells.length * cell + (cells.length - 1) * gap;
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        width: W,
+        height: cell + 14,
+        display: 'flex',
+        alignItems: 'flex-end'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        gap
+      }
+    }, cells.map((ch, i) => /*#__PURE__*/React.createElement(WaterCell, {
+      key: i,
+      type: ch === 'S' ? 'source' : ch === 'n' ? 'new' : 'flow',
+      dir: dir,
+      cell: cell
+    }))), ghost.map((g, i) => /*#__PURE__*/React.createElement("div", {
+      key: 'g' + i,
+      style: {
+        position: 'absolute',
+        left: g.index * stride,
+        bottom: 0,
+        opacity: .28
+      }
+    }, /*#__PURE__*/React.createElement(JellyBlock, {
+      color: g.color,
+      size: cell,
+      direction: "down",
+      showEyes: false
+    }))), jelly.map((j, i) => /*#__PURE__*/React.createElement("div", {
+      key: 'j' + i,
+      style: {
+        position: 'absolute',
+        left: j.index * stride,
+        bottom: 0
+      }
+    }, /*#__PURE__*/React.createElement(JellyBlock, {
+      color: j.color,
+      size: cell,
+      direction: "down",
+      expression: "focus"
+    }))), bracket && /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: -12,
+        left: bracket[0] * stride,
+        width: (bracket[1] - bracket[0]) * stride + cell,
+        height: 8,
+        borderTop: `3px solid ${AQ.deep}`,
+        borderLeft: `3px solid ${AQ.deep}`,
+        borderRight: `3px solid ${AQ.deep}`,
+        borderRadius: '6px 6px 0 0'
+      }
+    }), arrow && /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        right: -34,
+        top: '46%',
+        transform: 'translateY(-50%)'
+      }
+    }, /*#__PURE__*/React.createElement(Arrow, {
+      dir: dir,
+      size: 30,
+      color: AQ.deep,
+      sw: 3.4,
+      className: "gjw-arr"
+    })));
+  }
+
+  /* =================== chrome =================== */
+
+  function SheetHead({
+    title,
+    subtitle
+  }) {
+    return /*#__PURE__*/React.createElement("header", {
+      style: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 6,
+        marginBottom: 8
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 14
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        width: 46,
+        height: 46,
+        borderRadius: 14,
+        background: `linear-gradient(160deg, ${AQ.mid}, ${AQ.deep})`,
+        boxShadow: `0 0 0 3px ${AQ.core}, var(--shadow-md)`,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement(Drop, {
+      size: 26,
+      fill: "#fff",
+      stroke: AQ.pale
+    })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
+      style: {
+        margin: 0,
+        fontFamily: font.d,
+        fontWeight: 700,
+        fontSize: 34,
+        lineHeight: 1.02,
+        color: 'var(--color-text)',
+        letterSpacing: '-.01em',
+        whiteSpace: 'nowrap'
+      }
+    }, title), /*#__PURE__*/React.createElement("p", {
+      style: {
+        margin: '4px 0 0',
+        fontFamily: font.b,
+        fontWeight: 700,
+        fontSize: 15,
+        color: AQ.deep,
+        letterSpacing: '.02em'
+      }
+    }, subtitle))));
+  }
+  function Card({
+    title,
+    note,
+    children,
+    style = {}
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        background: 'var(--color-surface)',
+        borderRadius: 20,
+        boxShadow: 'var(--shadow-md)',
+        padding: '18px 18px 16px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 12,
+        ...style
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        flex: 1,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%'
+      }
+    }, children), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 3
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: font.d,
+        fontWeight: 700,
+        fontSize: 15,
+        color: 'var(--color-text)',
+        textAlign: 'center',
+        lineHeight: 1.15
+      }
+    }, title), note && /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: font.b,
+        fontWeight: 700,
+        fontSize: 12,
+        color: 'var(--color-text-muted)',
+        textAlign: 'center',
+        lineHeight: 1.3,
+        maxWidth: 190
+      }
+    }, note)));
+  }
+  function StepChip({
+    n,
+    tone = AQ.deep
+  }) {
+    return /*#__PURE__*/React.createElement("span", {
+      style: {
+        minWidth: 24,
+        height: 24,
+        padding: '0 7px',
+        borderRadius: 999,
+        background: tone,
+        color: '#fff',
+        fontFamily: font.d,
+        fontWeight: 800,
+        fontSize: 13,
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, n);
+  }
+  function Legend({
+    items
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: 10,
+        background: 'var(--color-surface)',
+        borderRadius: 16,
+        boxShadow: 'var(--shadow-sm)',
+        padding: '12px 16px'
+      }
+    }, items.map((it, i) => /*#__PURE__*/React.createElement("div", {
+      key: i,
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 9,
+        paddingRight: 14,
+        borderRight: i < items.length - 1 ? '1px solid var(--color-cell-line)' : 'none'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        flexShrink: 0
+      }
+    }, it.swatch), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: font.b,
+        fontWeight: 700,
+        fontSize: 12.5,
+        color: 'var(--color-text)',
+        lineHeight: 1.25,
+        maxWidth: 200
+      }
+    }, /*#__PURE__*/React.createElement("b", {
+      style: {
+        color: AQ.deep
+      }
+    }, it.k), " ", it.v))));
+  }
+  function NoteRow({
+    notes
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: 12
+      }
+    }, notes.map((t, i) => /*#__PURE__*/React.createElement("div", {
+      key: i,
+      style: {
+        flex: '1 1 240px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 10,
+        background: `color-mix(in srgb, ${AQ.pale} 60%, var(--color-surface))`,
+        borderRadius: 14,
+        padding: '12px 16px',
+        boxShadow: 'var(--shadow-sm)'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        width: 26,
+        height: 26,
+        flexShrink: 0,
+        borderRadius: '50%',
+        background: '#fff',
+        boxShadow: 'var(--shadow-sm)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement(Drop, {
+      size: 16
+    })), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: font.b,
+        fontWeight: 700,
+        fontSize: 13,
+        color: 'var(--color-text)',
+        lineHeight: 1.3
+      }
+    }, t))));
+  }
+  function SheetShell({
+    w,
+    children
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: w,
+        boxSizing: 'border-box',
+        background: `radial-gradient(120% 70% at 50% 0%, #FBFEFE 0%, var(--color-bg) 55%)`,
+        padding: 32,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 20,
+        fontFamily: font.b,
+        color: 'var(--color-text)'
+      }
+    }, children);
+  }
+  function ObstaclePanel({
+    n,
+    title,
+    caption,
+    children
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 11
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 9,
+        alignSelf: 'stretch'
+      }
+    }, /*#__PURE__*/React.createElement(StepChip, {
+      n: n,
+      tone: AQ.teal
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: font.d,
+        fontWeight: 700,
+        fontSize: 15,
+        color: 'var(--color-text)',
+        lineHeight: 1.1
+      }
+    }, title)), /*#__PURE__*/React.createElement("div", {
+      style: {
+        background: 'var(--color-surface-sunken)',
+        borderRadius: 16,
+        padding: 8
+      }
+    }, children), /*#__PURE__*/React.createElement("p", {
+      style: {
+        margin: 0,
+        fontFamily: font.b,
+        fontWeight: 700,
+        fontSize: 12,
+        color: 'var(--color-text-muted)',
+        textAlign: 'center',
+        lineHeight: 1.35,
+        maxWidth: 230
+      }
+    }, caption));
+  }
+
+  /* legend swatches */
+  const sw = {
+    source: /*#__PURE__*/React.createElement(WaterCell, {
+      type: "source",
+      cell: 34
+    }),
+    flow: /*#__PURE__*/React.createElement(WaterCell, {
+      type: "flow",
+      cell: 34
+    }),
+    new: /*#__PURE__*/React.createElement(WaterCell, {
+      type: "new",
+      cell: 34
+    }),
+    drop: /*#__PURE__*/React.createElement(WaterCell, {
+      type: "drop",
+      cell: 34
+    }),
+    broken: /*#__PURE__*/React.createElement(WaterCell, {
+      type: "broken",
+      cell: 34
+    })
+  };
+
+  /* =================== SHEET 1 — component sheet =================== */
+
+  function ComponentSheet() {
+    return /*#__PURE__*/React.createElement(SheetShell, {
+      w: 1500
+    }, /*#__PURE__*/React.createElement(SheetHead, {
+      title: "WORLD 3 \u2014 C\u01A0 CH\u1EBE D\xD2NG CH\u1EA2Y",
+      subtitle: "Ngu\u1ED3n n\u01B0\u1EDBc \xB7 D\xF2ng ch\u1EA3y \xB7 \xD4 gi\u1ECDt n\u01B0\u1EDBc \xB7 Jelly b\u1ECB \u0111\u1EA9y"
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(4, 1fr)',
+        gap: 16
+      }
+    }, /*#__PURE__*/React.createElement(Card, {
+      title: "\xD4 ngu\u1ED3n n\u01B0\u1EDBc \u2014 ACTIVE",
+      note: "Sinh d\xF2ng ch\u1EA3y \xB7 badge gi\u1ECDt n\u01B0\u1EDBc = c\xF3 th\u1EC3 b\u1ECB ph\xE1"
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        padding: '10px 0 0'
+      }
+    }, /*#__PURE__*/React.createElement(WaterCell, {
+      type: "source",
+      cell: 96
+    }))), /*#__PURE__*/React.createElement(Card, {
+      title: "\xD4 d\xF2ng ch\u1EA3y th\u01B0\u1EDDng",
+      note: "N\u01B0\u1EDBc lan ra t\u1EEB ngu\u1ED3n \xB7 \u0111\u1EA9y jelly theo m\u0169i t\xEAn"
+    }, /*#__PURE__*/React.createElement(WaterCell, {
+      type: "flow",
+      cell: 96
+    })), /*#__PURE__*/React.createElement(Card, {
+      title: "\xD4 d\xF2ng ch\u1EA3y M\u1EDAI M\u1ECCC",
+      note: "V\u1EEBa t\u1EA1o trong l\u01B0\u1EE3t n\xE0y \xB7 vi\u1EC1n s\xE1ng + l\u1EA5p l\xE1nh"
+    }, /*#__PURE__*/React.createElement(WaterCell, {
+      type: "new",
+      cell: 96
+    })), /*#__PURE__*/React.createElement(Card, {
+      title: "\xD4 gi\u1ECDt n\u01B0\u1EDBc (TARGET)",
+      note: "Clear qua \xF4 n\xE0y \u0111\u1EC3 PH\xC1 NGU\u1ED2N"
+    }, /*#__PURE__*/React.createElement(WaterCell, {
+      type: "drop",
+      cell: 96
+    }))), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'grid',
+        gridTemplateColumns: '1fr 1.2fr 1.4fr 1.9fr',
+        gap: 16,
+        alignItems: 'stretch'
+      }
+    }, /*#__PURE__*/React.createElement(Card, {
+      title: "Ngu\u1ED3n \u2014 BROKEN",
+      note: "Mi\u1EC7ng ngu\u1ED3n kh\xF4, n\u1EE9t \xB7 h\u1EBFt glow \xB7 badge v\u1EE1"
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        padding: '10px 0 0'
+      }
+    }, /*#__PURE__*/React.createElement(WaterCell, {
+      type: "broken",
+      cell: 96
+    }))), /*#__PURE__*/React.createElement(Card, {
+      title: "Jelly b\u1ECB \u0111\u1EA9y 1 \xF4",
+      note: "Jelly tr\xEAn \xF4 n\u01B0\u1EDBc b\u1ECB \u0111\u1EA9y 1 \xF4 theo h\u01B0\u1EDBng d\xF2ng ch\u1EA3y"
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        padding: '4px 30px 0 0'
+      }
+    }, /*#__PURE__*/React.createElement(WaterStrip, {
+      cells: ['s', 's', 's'],
+      jelly: [{
+        color: 'pink',
+        index: 2
+      }],
+      ghost: [{
+        color: 'pink',
+        index: 1
+      }],
+      cell: 52
+    }))), /*#__PURE__*/React.createElement(Card, {
+      title: "C\u1EE5m d\xEDnh nhau tr\xF4i c\xF9ng",
+      note: "C\u1EA3 c\u1EE5m jelly d\xEDnh nhau tr\xF4i c\xF9ng nhau theo d\xF2ng"
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        padding: '10px 30px 0 0'
+      }
+    }, /*#__PURE__*/React.createElement(WaterStrip, {
+      cells: ['s', 's', 's', 's'],
+      jelly: [{
+        color: 'mint',
+        index: 1
+      }, {
+        color: 'yellow',
+        index: 2
+      }, {
+        color: 'blue',
+        index: 3
+      }],
+      ghost: [{
+        color: 'mint',
+        index: 0
+      }, {
+        color: 'yellow',
+        index: 1
+      }, {
+        color: 'blue',
+        index: 2
+      }],
+      bracket: [1, 3],
+      cell: 48
+    }))), /*#__PURE__*/React.createElement(Card, {
+      title: "Ngu\u1ED3n lan r\u1ED9ng m\u1ED7i l\u01B0\u1EE3t",
+      note: "M\u1ED7i l\u01B0\u1EE3t, d\xF2ng ch\u1EA3y m\u1ECDc th\xEAm \u0111\xFAng 1 \xF4 theo m\u0169i t\xEAn"
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 14
+      }
+    }, [['S', 's'], ['S', 's', 'n'], ['S', 's', 's', 'n']].map((cells, i) => /*#__PURE__*/React.createElement(React.Fragment, {
+      key: i
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 6
+      }
+    }, /*#__PURE__*/React.createElement(WaterStrip, {
+      cells: cells,
+      newAt: [],
+      cell: 34,
+      arrow: false
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: font.b,
+        fontWeight: 800,
+        fontSize: 10.5,
+        letterSpacing: '.04em',
+        textTransform: 'uppercase',
+        color: 'var(--color-text-muted)'
+      }
+    }, "L\u01B0\u1EE3t ", i + 1)), i < 2 && /*#__PURE__*/React.createElement(Arrow, {
+      dir: "\u2192",
+      size: 22,
+      color: AQ.deep,
+      sw: 3
+    })))))), /*#__PURE__*/React.createElement(NoteRow, {
+      notes: ['Nguồn nước tạo thêm 1 ô dòng chảy mỗi lượt.', 'Nguồn chỉ bị phá khi clear qua ô giọt nước.', 'Phá nguồn thì toàn bộ dòng chảy do nguồn đó tạo ra sẽ tắt.']
+    }));
+  }
+
+  /* =================== SHEET 2 — state flow =================== */
+
+  // 9×9 board strings; row 4 is the flow lane, source near left col 1, drop objective on source
+  const bRow = fill => fill; // helper readability
+  function stateBoards() {
+    const empty = '.........';
+    const lane = n => {
+      // source at col1 + n flow cells to the right on row index 4
+      let s = 'S'.padEnd(1) + 's'.repeat(n);
+      s = ('.' + s).padEnd(9, '.'); // col0 empty, source col1
+      return s;
+    };
+    return {
+      f1: ['.........', '.........', '.........', '.........', lane(0), '.........', '.........', '.........', '.........'],
+      f2: ['.........', '.........', '.........', '.........', lane(1), '.........', '.........', '.........', '.........'],
+      f3: ['.........', '.........', '.........', '.........', lane(2), '.........', '.........', '.........', '.........'],
+      f4: ['.........', '.........', '.........', '.........', lane(3), '.........', '.........', '.........', '.........'],
+      f5: ['.........', '.........', '.........', '.........', '.x' + 'ssss'.slice(0, 3) + '...', '.........', '.........', '.........', '.........']
+    };
+  }
+  function Frame({
+    n,
+    label,
+    board,
+    dropOnSource,
+    faded,
+    newAt,
+    splash
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 10
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8
+      }
+    }, /*#__PURE__*/React.createElement(StepChip, {
+      n: n
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: font.d,
+        fontWeight: 700,
+        fontSize: 15,
+        color: 'var(--color-text)',
+        whiteSpace: 'nowrap'
+      }
+    }, label)), /*#__PURE__*/React.createElement("div", {
+      style: {
+        background: 'var(--color-surface)',
+        borderRadius: 18,
+        boxShadow: 'var(--shadow-md)',
+        padding: 10,
+        position: 'relative'
+      }
+    }, /*#__PURE__*/React.createElement(WaterBoard, {
+      rows: board,
+      dir: "\u2192",
+      cell: 20,
+      gap: 3,
+      pad: 7,
+      fade: faded || [],
+      newAt: newAt || [],
+      splash: splash || null
+    }), dropOnSource && /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        left: 10 + 7 + 1 * 23 + 10,
+        top: 10 + 7 + 4 * 23 - 12,
+        zIndex: 5
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        width: 26,
+        height: 26,
+        borderRadius: '50%',
+        background: '#fff',
+        boxShadow: 'var(--shadow-md)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement(Drop, {
+      size: 18
+    })))));
+  }
+  function StateFlowSheet() {
+    const B = stateBoards();
+    return /*#__PURE__*/React.createElement(SheetShell, {
+      w: 1580
+    }, /*#__PURE__*/React.createElement(SheetHead, {
+      title: "STATE FLOW \u2014 NGU\u1ED2N N\u01AF\u1EDAC M\u1ECCC D\u1EA6N",
+      subtitle: "M\u1ED7i l\u01B0\u1EE3t t\u1EA1o th\xEAm 1 \xF4 theo h\u01B0\u1EDBng \u0111\u1EA9y"
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: 4
+      }
+    }, [{
+      n: 1,
+      label: 'Khởi tạo',
+      board: B.f1
+    }, {
+      n: 2,
+      label: 'Sau 1 lượt',
+      board: B.f2,
+      newAt: [[4, 2]]
+    }, {
+      n: 3,
+      label: 'Sau 2 lượt',
+      board: B.f3,
+      newAt: [[4, 3]]
+    }, {
+      n: 4,
+      label: 'Sau 3 lượt',
+      board: B.f4,
+      newAt: [[4, 4]]
+    }, {
+      n: 5,
+      label: 'Phá nguồn',
+      board: B.f5,
+      faded: [[4, 2], [4, 3], [4, 4]],
+      splash: [4, 1]
+    }].map((fr, i) => /*#__PURE__*/React.createElement(React.Fragment, {
+      key: fr.n
+    }, /*#__PURE__*/React.createElement(Frame, fr), i < 4 && /*#__PURE__*/React.createElement(Arrow, {
+      dir: "\u2192",
+      size: 26,
+      color: AQ.deep,
+      sw: 3.4,
+      className: "gjw-arr"
+    })))), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: 16
+      }
+    }, /*#__PURE__*/React.createElement(Card, {
+      title: "A \xB7 Jelly b\u1ECB \u0111\u1EA9y",
+      note: "1 jelly tr\xEAn \xF4 d\xF2ng ch\u1EA3y b\u1ECB \u0111\u1EA9y 1 \xF4 theo m\u0169i t\xEAn",
+      style: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        gap: 24
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        padding: '4px 34px 0 6px'
+      }
+    }, /*#__PURE__*/React.createElement(WaterStrip, {
+      cells: ['s', 's', 's'],
+      jelly: [{
+        color: 'pink',
+        index: 2
+      }],
+      ghost: [{
+        color: 'pink',
+        index: 1
+      }],
+      cell: 54
+    }))), /*#__PURE__*/React.createElement(Card, {
+      title: "B \xB7 C\u1EE5m jelly b\u1ECB \u0111\u1EA9y",
+      note: "2\u20133 jelly d\xEDnh nhau b\u1ECB \u0111\u1EA9y \u0111\u1ED3ng th\u1EDDi, tr\xF4i c\xF9ng nhau",
+      style: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        gap: 24
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        padding: '10px 34px 0 6px'
+      }
+    }, /*#__PURE__*/React.createElement(WaterStrip, {
+      cells: ['s', 's', 's', 's'],
+      jelly: [{
+        color: 'mint',
+        index: 1
+      }, {
+        color: 'yellow',
+        index: 2
+      }, {
+        color: 'blue',
+        index: 3
+      }],
+      ghost: [{
+        color: 'mint',
+        index: 0
+      }, {
+        color: 'yellow',
+        index: 1
+      }, {
+        color: 'blue',
+        index: 2
+      }],
+      bracket: [1, 3],
+      cell: 48
+    })))), /*#__PURE__*/React.createElement(Legend, {
+      items: [{
+        swatch: sw.source,
+        k: 'Ô nguồn nước',
+        v: '= sinh dòng chảy'
+      }, {
+        swatch: sw.flow,
+        k: 'Ô dòng chảy',
+        v: '= đẩy jelly 1 ô'
+      }, {
+        swatch: sw.drop,
+        k: 'Ô giọt nước',
+        v: '= clear để phá nguồn'
+      }, {
+        swatch: sw.broken,
+        k: 'Phá nguồn',
+        v: '= tắt toàn bộ dòng chảy'
+      }]
+    }));
+  }
+
+  /* =================== SHEET 3 — mini tutorial =================== */
+
+  function Panel({
+    n,
+    title,
+    caption,
+    children
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        background: 'var(--color-surface)',
+        borderRadius: 22,
+        boxShadow: 'var(--shadow-md)',
+        padding: 18,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 14
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 10,
+        alignSelf: 'stretch'
+      }
+    }, /*#__PURE__*/React.createElement(StepChip, {
+      n: n,
+      tone: AQ.teal
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: font.d,
+        fontWeight: 700,
+        fontSize: 16,
+        color: 'var(--color-text)',
+        lineHeight: 1.1
+      }
+    }, title)), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative'
+      }
+    }, children), /*#__PURE__*/React.createElement("p", {
+      style: {
+        margin: 0,
+        fontFamily: font.b,
+        fontWeight: 700,
+        fontSize: 13,
+        color: 'var(--color-text-muted)',
+        textAlign: 'center',
+        lineHeight: 1.35,
+        maxWidth: 260
+      }
+    }, caption));
+  }
+  function tutBoard(n, extra = {}) {
+    // 9×9, source col1 row4, n flow cells; optional jelly & drop overlays via extra rows
+    let lane = '.S' + 's'.repeat(n);
+    lane = lane.padEnd(9, '.');
+    const rows = ['.........', '.........', '.........', '.........', lane, '.........', '.........', '.........', '.........'];
+    if (extra.rows) extra.rows.forEach(([r, s]) => {
+      rows[r] = s;
+    });
+    return rows;
+  }
+  function DropBadgeOnSource() {
+    return /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        left: 10 + 7 + 1 * 25 + 12,
+        top: 10 + 7 + 4 * 25 - 14,
+        zIndex: 5
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        width: 28,
+        height: 28,
+        borderRadius: '50%',
+        background: '#fff',
+        boxShadow: 'var(--shadow-md)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement(Drop, {
+      size: 19
+    })));
+  }
+  function TutorialSheet() {
+    const cell = 22,
+      gap = 3,
+      pad = 7;
+    return /*#__PURE__*/React.createElement(SheetShell, {
+      w: 1520
+    }, /*#__PURE__*/React.createElement(SheetHead, {
+      title: "C\u01A0 CH\u1EBE M\u1EDAI \u2014 NGU\u1ED2N N\u01AF\u1EDAC",
+      subtitle: "D\xF2ng ch\u1EA3y m\u1ECDc d\u1EA7n \xB7 \u0110\u1EA9y jelly \xB7 Ph\xE1 ngu\u1ED3n b\u1EB1ng \xF4 gi\u1ECDt n\u01B0\u1EDBc"
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(4, 1fr)',
+        gap: 16
+      }
+    }, /*#__PURE__*/React.createElement(Panel, {
+      n: 1,
+      title: "Ngu\u1ED3n n\u01B0\u1EDBc xu\u1EA5t hi\u1EC7n",
+      caption: "Ngu\u1ED3n n\u01B0\u1EDBc t\u1EA1o d\xF2ng ch\u1EA3y \u2014 m\u0169i t\xEAn ch\u1EC9 h\u01B0\u1EDBng n\u01B0\u1EDBc lan ra."
+    }, /*#__PURE__*/React.createElement(WaterBoard, {
+      rows: tutBoard(1),
+      dir: "\u2192",
+      cell: cell,
+      gap: gap,
+      pad: pad
+    }), /*#__PURE__*/React.createElement(DropBadgeOnSource, null)), /*#__PURE__*/React.createElement(Panel, {
+      n: 2,
+      title: "N\u01B0\u1EDBc m\u1ECDc th\xEAm 1 \xF4",
+      caption: "M\u1ED7i l\u01B0\u1EE3t, d\xF2ng ch\u1EA3y m\u1ECDc th\xEAm \u0111\xFAng 1 \xF4 theo m\u0169i t\xEAn."
+    }, /*#__PURE__*/React.createElement(WaterBoard, {
+      rows: tutBoard(2, {
+        rows: [[3, '.....M...']]
+      }),
+      dir: "\u2192",
+      cell: cell,
+      gap: gap,
+      pad: pad,
+      newAt: [[4, 3]]
+    }), /*#__PURE__*/React.createElement(DropBadgeOnSource, null)), /*#__PURE__*/React.createElement(Panel, {
+      n: 3,
+      title: "Jelly b\u1ECB \u0111\u1EA9y",
+      caption: "Jelly \u0111\u1EE9ng tr\xEAn \xF4 n\u01B0\u1EDBc s\u1EBD b\u1ECB \u0111\u1EA9y 1 \xF4 \u2014 c\u1EE5m d\xEDnh tr\xF4i c\xF9ng nhau."
+    }, /*#__PURE__*/React.createElement(WaterBoard, {
+      rows: tutBoard(3, {
+        rows: [[4, '.SssPY..']]
+      }),
+      dir: "\u2192",
+      cell: cell,
+      gap: gap,
+      pad: pad,
+      trail: [[4, 4], [4, 5]]
+    }), /*#__PURE__*/React.createElement(DropBadgeOnSource, null)), /*#__PURE__*/React.createElement(Panel, {
+      n: 4,
+      title: "Ph\xE1 ngu\u1ED3n",
+      caption: "Clear qua \xF4 gi\u1ECDt n\u01B0\u1EDBc \u0111\u1EC3 ph\xE1 ngu\u1ED3n \u2014 c\u1EA3 d\xF2ng ch\u1EA3y t\u1EAFt theo."
+    }, /*#__PURE__*/React.createElement(WaterBoard, {
+      rows: ['.........', '.........', '.........', '.........', '.xsss....', '.........', '.........', '.........', '.........'],
+      dir: "\u2192",
+      cell: cell,
+      gap: gap,
+      pad: pad,
+      fade: [[4, 2], [4, 3], [4, 4]],
+      splash: [4, 1]
+    }))), /*#__PURE__*/React.createElement(Legend, {
+      items: [{
+        swatch: sw.source,
+        k: 'Nguồn nước',
+        v: '= sinh dòng chảy'
+      }, {
+        swatch: sw.flow,
+        k: 'Dòng chảy',
+        v: '= đẩy jelly 1 ô'
+      }, {
+        swatch: sw.new,
+        k: 'Mỗi lượt',
+        v: '= thêm 1 ô mới'
+      }, {
+        swatch: sw.broken,
+        k: 'Phá nguồn',
+        v: '= tắt cả dòng chảy'
+      }]
+    }));
+  }
+
+  /* =================== continuous stream renderer =================== */
+
+  function wavePath(w, h, amp, wl, yOff) {
+    let d = `M0 ${yOff}`;
+    for (let x = 0; x <= w; x += wl / 2) {
+      const dir = x / (wl / 2) % 2 === 0 ? 1 : -1;
+      d += ` Q ${x + wl / 4} ${yOff - dir * amp} ${x + wl / 2} ${yOff}`;
+    }
+    return d;
+  }
+  function wavePathV(w, h, amp, wl, xOff) {
+    let d = `M${xOff} 0`;
+    for (let y = 0; y <= h; y += wl / 2) {
+      const dir = y / (wl / 2) % 2 === 0 ? 1 : -1;
+      d += ` Q ${xOff - dir * amp} ${y + wl / 4} ${xOff} ${y + wl / 2}`;
+    }
+    return d;
+  }
+  function WaterRibbon({
+    w,
+    h,
+    radius,
+    tone = 'live',
+    vertical = false,
+    ring = true
+  }) {
+    const live = tone === 'live';
+    const grad = !live ? vertical ? `linear-gradient(90deg, #B3A48C, ${AQ.dry}, #B3A48C)` : `linear-gradient(180deg, ${AQ.dry} 0%, #B3A48C 100%)` : vertical ? `linear-gradient(90deg, ${AQ.teal} 0%, ${AQ.light} 50%, ${AQ.teal} 100%)` : `linear-gradient(180deg, ${AQ.light} 0%, ${AQ.mid} 55%, ${AQ.teal} 100%)`;
+    const shadow = live ? `inset 0 2px 5px rgba(255,255,255,.5), inset 0 -3px 6px rgba(18,149,159,.4)${ring ? `, 0 0 0 2px ${AQ.core}` : ''}` : 'inset 0 2px 5px rgba(120,92,52,.3)';
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        inset: 0,
+        borderRadius: radius != null ? radius : h / 2,
+        background: grad,
+        overflow: 'hidden',
+        boxShadow: shadow
+      }
+    }, live && (vertical ? /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '200%',
+        display: 'flex',
+        flexDirection: 'column',
+        animation: 'gjwWaveShiftV 2.4s linear infinite'
+      }
+    }, [0, 1].map(k => /*#__PURE__*/React.createElement("svg", {
+      key: k,
+      width: w,
+      height: "50%",
+      viewBox: `0 0 ${w} ${h}`,
+      preserveAspectRatio: "none",
+      style: {
+        display: 'block'
+      }
+    }, /*#__PURE__*/React.createElement("path", {
+      d: wavePathV(w, h, w * 0.11, h * 0.5, w * 0.34),
+      fill: "none",
+      stroke: "rgba(255,255,255,.62)",
+      strokeWidth: Math.max(2, w * 0.05),
+      strokeLinecap: "round"
+    }), /*#__PURE__*/React.createElement("path", {
+      d: wavePathV(w, h, w * 0.09, h * 0.42, w * 0.64),
+      fill: "none",
+      stroke: "rgba(255,255,255,.38)",
+      strokeWidth: Math.max(1.5, w * 0.04),
+      strokeLinecap: "round"
+    })))) : /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '200%',
+        height: '100%',
+        display: 'flex',
+        animation: 'gjwWaveShift 2.4s linear infinite'
+      }
+    }, [0, 1].map(k => /*#__PURE__*/React.createElement("svg", {
+      key: k,
+      width: "50%",
+      height: h,
+      viewBox: `0 0 ${w} ${h}`,
+      preserveAspectRatio: "none",
+      style: {
+        display: 'block'
+      }
+    }, /*#__PURE__*/React.createElement("path", {
+      d: wavePath(w, h, h * 0.1, w * 0.5, h * 0.32),
+      fill: "none",
+      stroke: "rgba(255,255,255,.65)",
+      strokeWidth: Math.max(2, h * 0.05),
+      strokeLinecap: "round"
+    }), /*#__PURE__*/React.createElement("path", {
+      d: wavePath(w, h, h * 0.08, w * 0.42, h * 0.62),
+      fill: "none",
+      stroke: "rgba(255,255,255,.4)",
+      strokeWidth: Math.max(1.5, h * 0.04),
+      strokeLinecap: "round"
+    }))))));
+  }
+
+  // Board with ONE continuous water stream that flows along the CURRENT GRAVITY
+  // direction (default ↓) and never changes. Cells are rounded SQUARES.
+  // `lane` = fixed line index (col when vertical, row when horizontal);
+  // `start` = source position on the moving axis; `len` = flow cells after source.
+  function StreamBoard({
+    cols = 9,
+    rows = 9,
+    cell = 34,
+    gap = 4,
+    pad = 9,
+    dir = '↓',
+    lane = 4,
+    start = 1,
+    len = 0,
+    newTip = false,
+    broken = false,
+    fadeFlow = false,
+    splash = null,
+    jelly = [],
+    ghost = [],
+    bracket = null
+  }) {
+    const stride = cell + gap;
+    const vertical = dir === '↓' || dir === '↑';
+    const W = pad * 2 + cols * cell + (cols - 1) * gap;
+    const H = pad * 2 + rows * cell + (rows - 1) * gap;
+    const cx = c => pad + c * stride + cell / 2;
+    const cy = r => pad + r * stride + cell / 2;
+    const cellR = Math.round(cell * 0.24);
+    // center of a cell at moving-axis index p
+    const px = p => vertical ? cx(lane) : cx(p);
+    const py = p => vertical ? cy(p) : cy(lane);
+    const total = len + 1;
+    const L = total * cell + (total - 1) * gap + cell * 0.06;
+    const cross = cell * 0.86;
+    const ribStyle = vertical ? {
+      left: cx(lane) - cross / 2,
+      top: pad + start * stride - cell * 0.03,
+      width: cross,
+      height: L
+    } : {
+      left: pad + start * stride - cell * 0.03,
+      top: cy(lane) - cross / 2,
+      width: L,
+      height: cross
+    };
+    const tip = start + len;
+    // leading (downstream) edge point of the stream
+    const lead = {
+      '↓': {
+        x: px(tip),
+        y: py(tip) + cell * 0.36
+      },
+      '↑': {
+        x: px(tip),
+        y: py(tip) - cell * 0.36
+      },
+      '→': {
+        x: px(tip) + cell * 0.36,
+        y: py(tip)
+      },
+      '←': {
+        x: px(tip) - cell * 0.36,
+        y: py(tip)
+      }
+    }[dir];
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        width: W,
+        height: H
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'grid',
+        gridTemplateColumns: `repeat(${cols}, ${cell}px)`,
+        gridAutoRows: `${cell}px`,
+        gap,
+        padding: pad,
+        background: 'var(--color-surface-sunken)',
+        borderRadius: 16,
+        boxShadow: 'inset 0 2px 6px rgba(120,92,52,.12)'
+      }
+    }, Array.from({
+      length: cols * rows
+    }).map((_, i) => /*#__PURE__*/React.createElement("div", {
+      key: i,
+      style: {
+        borderRadius: cellR,
+        background: 'var(--color-cell-empty)',
+        boxShadow: 'inset 0 0 0 1px var(--color-cell-line)'
+      }
+    }))), len > 0 && /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        ...ribStyle,
+        opacity: fadeFlow ? 0.3 : 1,
+        transition: 'opacity .3s'
+      }
+    }, /*#__PURE__*/React.createElement(WaterRibbon, {
+      w: ribStyle.width,
+      h: ribStyle.height,
+      radius: cellR,
+      tone: broken ? 'dry' : 'live',
+      vertical: vertical
+    })), len > 0 && !broken && Array.from({
+      length: len
+    }).map((_, k) => /*#__PURE__*/React.createElement("span", {
+      key: 'a' + k,
+      style: {
+        position: 'absolute',
+        left: px(start + 1 + k) - cell * 0.22,
+        top: py(start + 1 + k) - cell * 0.22,
+        zIndex: 3
+      }
+    }, /*#__PURE__*/React.createElement(Arrow, {
+      dir: dir,
+      size: cell * 0.44,
+      color: "#fff",
+      sw: 3,
+      className: "gjw-arr"
+    }))), len > 0 && !broken && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        left: lead.x - cell * 0.08,
+        top: lead.y - cell * 0.08,
+        width: cell * 0.16,
+        height: cell * 0.16,
+        borderRadius: '50%',
+        background: AQ.foam,
+        zIndex: 3
+      }
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        left: lead.x + cell * 0.06,
+        top: lead.y + cell * 0.05,
+        width: cell * 0.1,
+        height: cell * 0.1,
+        borderRadius: '50%',
+        background: AQ.foam,
+        opacity: .8,
+        zIndex: 3
+      }
+    })), len > 0 && newTip && !broken && /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        left: px(tip) - cell * 0.55,
+        top: py(tip) - cell * 0.55,
+        width: cell * 1.1,
+        height: cell * 1.1,
+        borderRadius: cellR * 1.4,
+        boxShadow: `0 0 0 2px ${AQ.foam}, 0 0 16px 4px rgba(95,210,214,.9)`,
+        animation: 'gjwTipGlow 1.4s ease infinite',
+        pointerEvents: 'none',
+        zIndex: 4
+      }
+    }, /*#__PURE__*/React.createElement("svg", {
+      width: cell * 0.42,
+      height: cell * 0.42,
+      viewBox: "0 0 24 24",
+      style: {
+        position: 'absolute',
+        top: -cell * 0.14,
+        right: -cell * 0.06,
+        animation: 'gjwSpark 1.4s ease infinite'
+      }
+    }, /*#__PURE__*/React.createElement("path", {
+      d: "M12 0c1 6 4 9 12 12-8 3-11 6-12 12-1-6-4-9-12-12 8-3 11-6 12-12z",
+      fill: AQ.foam
+    }))), /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        left: px(start),
+        top: py(start),
+        transform: 'translate(-50%,-50%)',
+        zIndex: 5
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        width: cell * 0.94,
+        height: cell * 0.94
+      }
+    }, broken ? /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: '100%',
+        height: '100%',
+        borderRadius: cellR,
+        background: 'radial-gradient(circle at 50% 45%, #9C8E77 0%, #8A7E68 100%)',
+        boxShadow: 'inset 0 1px 3px rgba(74,53,38,.5)'
+      }
+    }, /*#__PURE__*/React.createElement("svg", {
+      width: "100%",
+      height: "100%",
+      viewBox: "0 0 40 40",
+      style: {
+        position: 'absolute',
+        inset: 0
+      },
+      fill: "none",
+      stroke: AQ.dryDark,
+      strokeWidth: "2",
+      strokeLinecap: "round"
+    }, /*#__PURE__*/React.createElement("path", {
+      d: "M20 20 L9 10 M20 20 L31 12 M20 20 L15 33 M20 20 L30 30",
+      opacity: ".7"
+    }))) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+      className: "gjw-src",
+      style: {
+        width: '100%',
+        height: '100%',
+        borderRadius: cellR,
+        background: `radial-gradient(circle at 50% 42%, ${AQ.core} 0%, ${AQ.mid} 44%, ${AQ.deep} 100%)`,
+        boxShadow: `0 0 0 3px ${AQ.core}, 0 0 14px 3px rgba(47,191,199,.7)`,
+        animation: 'gjwSource 1.9s var(--ease-inout,ease) infinite'
+      }
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        width: '66%',
+        height: '66%',
+        transform: 'translate(-50%,-50%)',
+        borderRadius: '50%',
+        border: '2px solid rgba(255,255,255,.55)',
+        animation: 'gjwRing 2s ease infinite'
+      }
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        width: '32%',
+        height: '32%',
+        transform: 'translate(-50%,-50%)',
+        borderRadius: '50%',
+        background: `radial-gradient(circle, ${AQ.core} 0%, ${AQ.light} 80%)`
+      }
+    })), /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        top: -cell * 0.18,
+        right: -cell * 0.18,
+        width: cell * 0.5,
+        height: cell * 0.5,
+        borderRadius: '50%',
+        background: broken ? '#EDE5D8' : '#fff',
+        boxShadow: 'var(--shadow-md)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        opacity: broken ? 0.85 : 1
+      }
+    }, broken ? /*#__PURE__*/React.createElement("svg", {
+      width: cell * 0.32,
+      height: cell * 0.32,
+      viewBox: "0 0 24 24"
+    }, /*#__PURE__*/React.createElement("path", {
+      d: "M12 2.5C12 2.5 4.5 11.4 4.5 16.2A7.5 7.5 0 0 0 19.5 16.2C19.5 11.4 12 2.5 12 2.5Z",
+      fill: "#D9CFBE",
+      stroke: AQ.dryEdge,
+      strokeWidth: "1.6",
+      strokeLinejoin: "round"
+    }), /*#__PURE__*/React.createElement("path", {
+      d: "M12 5 L11 12 L13.5 12 L11.5 19",
+      fill: "none",
+      stroke: AQ.dryDark,
+      strokeWidth: "1.6",
+      strokeLinecap: "round"
+    })) : /*#__PURE__*/React.createElement(Drop, {
+      size: cell * 0.34
+    })))), ghost.map((g, i) => /*#__PURE__*/React.createElement("span", {
+      key: 'g' + i,
+      style: {
+        position: 'absolute',
+        left: px(g.pos),
+        top: py(g.pos),
+        transform: 'translate(-50%,-50%)',
+        opacity: 0.28,
+        zIndex: 6
+      }
+    }, /*#__PURE__*/React.createElement(JellyBlock, {
+      color: g.color,
+      size: cell * 0.96,
+      direction: "down",
+      showEyes: false
+    }))), jelly.map((j, i) => /*#__PURE__*/React.createElement("span", {
+      key: 'j' + i,
+      style: {
+        position: 'absolute',
+        left: px(j.pos),
+        top: py(j.pos),
+        transform: 'translate(-50%,-50%)',
+        zIndex: 7
+      }
+    }, /*#__PURE__*/React.createElement(JellyBlock, {
+      color: j.color,
+      size: cell * 0.96,
+      direction: "down",
+      expression: "focus"
+    }))), bracket && (vertical ? /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        left: px(bracket[0]) - cell * 0.72,
+        top: py(bracket[0]) - cell * 0.5,
+        width: cell * 0.18,
+        height: (bracket[1] - bracket[0]) * stride + cell,
+        borderLeft: `3px solid ${AQ.deep}`,
+        borderTop: `3px solid ${AQ.deep}`,
+        borderBottom: `3px solid ${AQ.deep}`,
+        borderRadius: '7px 0 0 7px',
+        zIndex: 8
+      }
+    }) : /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        left: px(bracket[0]) - cell * 0.5,
+        top: py(bracket[0]) - cell * 0.72,
+        width: (bracket[1] - bracket[0]) * stride + cell,
+        height: cell * 0.18,
+        borderTop: `3px solid ${AQ.deep}`,
+        borderLeft: `3px solid ${AQ.deep}`,
+        borderRight: `3px solid ${AQ.deep}`,
+        borderRadius: '7px 7px 0 0',
+        zIndex: 8
+      }
+    })), splash && /*#__PURE__*/React.createElement("svg", {
+      width: cell * 2.6,
+      height: cell * 2.6,
+      viewBox: "0 0 60 60",
+      style: {
+        position: 'absolute',
+        left: cx(splash[1]) - cell * 1.3,
+        top: cy(splash[0]) - cell * 1.3,
+        pointerEvents: 'none',
+        zIndex: 9
+      }
+    }, [0, 60, 120, 180, 240, 300].map(a => {
+      const rad = a * Math.PI / 180;
+      return /*#__PURE__*/React.createElement("circle", {
+        key: a,
+        cx: 30 + Math.cos(rad) * 18,
+        cy: 30 + Math.sin(rad) * 18,
+        r: a % 120 === 0 ? 3.6 : 2.6,
+        fill: AQ.mid,
+        opacity: ".85"
+      });
+    })));
+  }
+
+  // Water that follows an ORTHOGONAL PATH: it keeps falling with gravity, and
+  // only when the cell below is blocked does it detour one cell left/right, then
+  // resume falling. `path` = ordered cells [[r,c],…] (source first). Connected
+  // square water tiles bend at each elbow.
+  function StreamPath({
+    cols = 9,
+    rows = 9,
+    cell = 30,
+    gap = 4,
+    pad = 9,
+    path = [],
+    blocks = [],
+    jelly = [],
+    newTip = false,
+    splash = null
+  }) {
+    const stride = cell + gap;
+    const W = pad * 2 + cols * cell + (cols - 1) * gap;
+    const H = pad * 2 + rows * cell + (rows - 1) * gap;
+    const cx = c => pad + c * stride + cell / 2;
+    const cy = r => pad + r * stride + cell / 2;
+    const cellR = Math.round(cell * 0.24);
+    const wsz = cell * 0.84;
+    const segDir = (a, b) => b[1] > a[1] ? '→' : b[1] < a[1] ? '←' : b[0] > a[0] ? '↓' : '↑';
+    const cross = cell * 0.84;
+    const dPath = path.length ? 'M' + path.map(p => `${cx(p[1])} ${cy(p[0])}`).join(' L') : '';
+    const gid = 'gjw-grad-' + path.map(p => p.join('')).join('_');
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        width: W,
+        height: H
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'grid',
+        gridTemplateColumns: `repeat(${cols}, ${cell}px)`,
+        gridAutoRows: `${cell}px`,
+        gap,
+        padding: pad,
+        background: 'var(--color-surface-sunken)',
+        borderRadius: 16,
+        boxShadow: 'inset 0 2px 6px rgba(120,92,52,.12)'
+      }
+    }, Array.from({
+      length: cols * rows
+    }).map((_, i) => /*#__PURE__*/React.createElement("div", {
+      key: i,
+      style: {
+        borderRadius: cellR,
+        background: 'var(--color-cell-empty)',
+        boxShadow: 'inset 0 0 0 1px var(--color-cell-line)'
+      }
+    }))), dPath && /*#__PURE__*/React.createElement("svg", {
+      width: W,
+      height: H,
+      style: {
+        position: 'absolute',
+        inset: 0,
+        zIndex: 2,
+        pointerEvents: 'none',
+        overflow: 'visible'
+      }
+    }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("linearGradient", {
+      id: gid,
+      x1: "0",
+      y1: "0",
+      x2: "0",
+      y2: "1"
+    }, /*#__PURE__*/React.createElement("stop", {
+      offset: "0",
+      stopColor: AQ.light
+    }), /*#__PURE__*/React.createElement("stop", {
+      offset: "0.55",
+      stopColor: AQ.mid
+    }), /*#__PURE__*/React.createElement("stop", {
+      offset: "1",
+      stopColor: AQ.teal
+    }))), /*#__PURE__*/React.createElement("path", {
+      d: dPath,
+      fill: "none",
+      stroke: AQ.core,
+      strokeWidth: cross + 4,
+      strokeLinejoin: "round",
+      strokeLinecap: "round"
+    }), /*#__PURE__*/React.createElement("path", {
+      d: dPath,
+      fill: "none",
+      stroke: `url(#${gid})`,
+      strokeWidth: cross,
+      strokeLinejoin: "round",
+      strokeLinecap: "round"
+    }), /*#__PURE__*/React.createElement("path", {
+      d: dPath,
+      fill: "none",
+      stroke: "rgba(255,255,255,.5)",
+      strokeWidth: cross * 0.42,
+      strokeLinejoin: "round",
+      strokeLinecap: "round",
+      opacity: ".35"
+    }), /*#__PURE__*/React.createElement("path", {
+      d: dPath,
+      fill: "none",
+      stroke: "rgba(255,255,255,.7)",
+      strokeWidth: cross * 0.14,
+      strokeLinejoin: "round",
+      strokeLinecap: "round",
+      strokeDasharray: `${cell * 0.5} ${cell * 0.65}`,
+      style: {
+        animation: 'gjwDash 1.1s linear infinite'
+      }
+    }), /*#__PURE__*/React.createElement("path", {
+      d: dPath,
+      fill: "none",
+      stroke: "rgba(255,255,255,.4)",
+      strokeWidth: cross * 0.09,
+      strokeLinejoin: "round",
+      strokeLinecap: "round",
+      strokeDasharray: `${cell * 0.35} ${cell * 0.85}`,
+      style: {
+        animation: 'gjwDash 1.7s linear infinite'
+      }
+    })), blocks.map((bl, i) => /*#__PURE__*/React.createElement("span", {
+      key: 'bl' + i,
+      style: {
+        position: 'absolute',
+        left: cx(bl.pos[1]),
+        top: cy(bl.pos[0]),
+        transform: 'translate(-50%,-50%)',
+        zIndex: 6
+      }
+    }, /*#__PURE__*/React.createElement(JellyBlock, {
+      color: bl.color || 'stone',
+      size: cell * 0.96,
+      direction: "down",
+      showEyes: bl.color !== 'stone'
+    }))), path.slice(1).map((p, i) => {
+      const idx = i + 1;
+      const dir = idx < path.length - 1 ? segDir(path[idx], path[idx + 1]) : segDir(path[idx - 1], path[idx]);
+      const isNew = newTip && idx === path.length - 1;
+      return /*#__PURE__*/React.createElement(React.Fragment, {
+        key: 'a' + idx
+      }, isNew && /*#__PURE__*/React.createElement("span", {
+        style: {
+          position: 'absolute',
+          left: cx(p[1]) - cell * 0.55,
+          top: cy(p[0]) - cell * 0.55,
+          width: cell * 1.1,
+          height: cell * 1.1,
+          borderRadius: cellR * 1.4,
+          boxShadow: `0 0 0 2px ${AQ.foam}, 0 0 14px 3px rgba(95,210,214,.85)`,
+          animation: 'gjwTipGlow 1.4s ease infinite',
+          pointerEvents: 'none',
+          zIndex: 4
+        }
+      }), /*#__PURE__*/React.createElement("span", {
+        style: {
+          position: 'absolute',
+          left: cx(p[1]),
+          top: cy(p[0]),
+          transform: 'translate(-50%,-50%)',
+          zIndex: 4
+        }
+      }, /*#__PURE__*/React.createElement(Arrow, {
+        dir: dir,
+        size: cell * 0.42,
+        color: "#fff",
+        sw: 3,
+        className: "gjw-arr"
+      })), isNew && /*#__PURE__*/React.createElement("svg", {
+        width: cell * 0.36,
+        height: cell * 0.36,
+        viewBox: "0 0 24 24",
+        style: {
+          position: 'absolute',
+          left: cx(p[1]) + cell * 0.2,
+          top: cy(p[0]) - cell * 0.5,
+          animation: 'gjwSpark 1.4s ease infinite',
+          zIndex: 4
+        }
+      }, /*#__PURE__*/React.createElement("path", {
+        d: "M12 0c1 6 4 9 12 12-8 3-11 6-12 12-1-6-4-9-12-12 8-3 11-6 12-12z",
+        fill: AQ.foam
+      })));
+    }), path.length > 0 && /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        left: cx(path[0][1]),
+        top: cy(path[0][0]),
+        transform: 'translate(-50%,-50%)',
+        zIndex: 5
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        width: cell * 0.94,
+        height: cell * 0.94
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "gjw-src",
+      style: {
+        width: '100%',
+        height: '100%',
+        borderRadius: cellR,
+        background: `radial-gradient(circle at 50% 42%, ${AQ.core} 0%, ${AQ.mid} 44%, ${AQ.deep} 100%)`,
+        boxShadow: `0 0 0 3px ${AQ.core}, 0 0 14px 3px rgba(47,191,199,.7)`,
+        animation: 'gjwSource 1.9s var(--ease-inout,ease) infinite'
+      }
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        width: '66%',
+        height: '66%',
+        transform: 'translate(-50%,-50%)',
+        borderRadius: '50%',
+        border: '2px solid rgba(255,255,255,.55)',
+        animation: 'gjwRing 2s ease infinite'
+      }
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        width: '32%',
+        height: '32%',
+        transform: 'translate(-50%,-50%)',
+        borderRadius: '50%',
+        background: `radial-gradient(circle, ${AQ.core} 0%, ${AQ.light} 80%)`
+      }
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        top: -cell * 0.18,
+        right: -cell * 0.18,
+        width: cell * 0.5,
+        height: cell * 0.5,
+        borderRadius: '50%',
+        background: '#fff',
+        boxShadow: 'var(--shadow-md)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement(Drop, {
+      size: cell * 0.34
+    })))), jelly.map((j, i) => /*#__PURE__*/React.createElement("span", {
+      key: 'j' + i,
+      style: {
+        position: 'absolute',
+        left: cx(j.pos[1]),
+        top: cy(j.pos[0]),
+        transform: 'translate(-50%,-50%)',
+        zIndex: 7
+      }
+    }, /*#__PURE__*/React.createElement(JellyBlock, {
+      color: j.color,
+      size: cell * 0.96,
+      direction: "down",
+      expression: "focus"
+    }))), splash && /*#__PURE__*/React.createElement("svg", {
+      width: cell * 2.4,
+      height: cell * 2.4,
+      viewBox: "0 0 60 60",
+      style: {
+        position: 'absolute',
+        left: cx(splash[1]) - cell * 1.2,
+        top: cy(splash[0]) - cell * 1.2,
+        pointerEvents: 'none',
+        zIndex: 9
+      }
+    }, [0, 60, 120, 180, 240, 300].map(a => {
+      const r = a * Math.PI / 180;
+      return /*#__PURE__*/React.createElement("circle", {
+        key: a,
+        cx: 30 + Math.cos(r) * 17,
+        cy: 30 + Math.sin(r) * 17,
+        r: a % 120 === 0 ? 3.4 : 2.4,
+        fill: AQ.mid,
+        opacity: ".85"
+      });
+    })));
+  }
+
+  /* =================== SHEET 2b — state flow (continuous stream) =================== */
+  function StreamFrame({
+    n,
+    label,
+    len,
+    newTip,
+    broken,
+    fadeFlow,
+    splash,
+    cell
+  }) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 12
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 9
+      }
+    }, /*#__PURE__*/React.createElement(StepChip, {
+      n: n
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: font.d,
+        fontWeight: 700,
+        fontSize: 16,
+        color: 'var(--color-text)',
+        whiteSpace: 'nowrap'
+      }
+    }, label)), /*#__PURE__*/React.createElement("div", {
+      style: {
+        background: 'var(--color-surface)',
+        borderRadius: 20,
+        boxShadow: 'var(--shadow-md)',
+        padding: 12
+      }
+    }, /*#__PURE__*/React.createElement(StreamBoard, {
+      cell: cell,
+      dir: "\u2193",
+      lane: 4,
+      start: 1,
+      len: len,
+      newTip: newTip,
+      broken: broken,
+      fadeFlow: fadeFlow,
+      splash: splash
+    })));
+  }
+  function GravityPill() {
+    return /*#__PURE__*/React.createElement("span", {
+      style: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 8,
+        padding: '7px 14px 7px 10px',
+        borderRadius: 999,
+        background: `color-mix(in srgb, ${PURPLE} 14%, #fff)`,
+        boxShadow: 'var(--shadow-sm)',
+        alignSelf: 'flex-start'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        width: 26,
+        height: 26,
+        borderRadius: 8,
+        background: `linear-gradient(160deg, ${PURPLE_SHINE}, ${PURPLE})`,
+        boxShadow: `inset 0 -2px 0 ${PURPLE_EDGE}`,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement(Arrow, {
+      dir: "\u2193",
+      size: 16,
+      color: "#fff",
+      sw: 3.2
+    })), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: font.b,
+        fontWeight: 800,
+        fontSize: 13,
+        color: PURPLE_EDGE,
+        letterSpacing: '.01em'
+      }
+    }, "N\u01B0\u1EDBc ch\u1EA3y theo tr\u1ECDng l\u1EF1c \u2193 \xB7 kh\xF4ng \u0111\u1ED5i h\u01B0\u1EDBng"));
+  }
+  function StreamFlowSheet() {
+    const cell = 30;
+    return /*#__PURE__*/React.createElement(SheetShell, {
+      w: 1620
+    }, /*#__PURE__*/React.createElement(SheetHead, {
+      title: "STATE FLOW \u2014 NGU\u1ED2N N\u01AF\u1EDAC M\u1ECCC D\u1EA6N",
+      subtitle: "M\u1ED7i l\u01B0\u1EE3t t\u1EA1o th\xEAm 1 \xF4 \u2014 d\xF2ng ch\u1EA3y n\u1ED1i li\u1EC1n th\xE0nh m\u1ED9t d\u1EA3i n\u01B0\u1EDBc"
+    }), /*#__PURE__*/React.createElement(GravityPill, null), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 4
+      }
+    }, [{
+      n: 1,
+      label: 'Khởi tạo',
+      len: 0
+    }, {
+      n: 2,
+      label: 'Sau 1 lượt',
+      len: 1,
+      newTip: true
+    }, {
+      n: 3,
+      label: 'Sau 2 lượt',
+      len: 2,
+      newTip: true
+    }, {
+      n: 4,
+      label: 'Sau 3 lượt',
+      len: 3,
+      newTip: true
+    }].map((fr, i) => /*#__PURE__*/React.createElement(React.Fragment, {
+      key: fr.n
+    }, /*#__PURE__*/React.createElement(StreamFrame, _extends({}, fr, {
+      cell: cell
+    })), i < 3 && /*#__PURE__*/React.createElement(Arrow, {
+      dir: "\u2192",
+      size: 26,
+      color: AQ.deep,
+      sw: 3.4,
+      className: "gjw-arr"
+    })))), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'grid',
+        gridTemplateColumns: '0.9fr 1fr 1fr',
+        gap: 16
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        background: 'var(--color-surface)',
+        borderRadius: 20,
+        boxShadow: 'var(--shadow-md)',
+        padding: '16px 16px 14px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 12
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 9,
+        alignSelf: 'stretch'
+      }
+    }, /*#__PURE__*/React.createElement(StepChip, {
+      n: 5,
+      tone: AQ.deep
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: font.d,
+        fontWeight: 700,
+        fontSize: 16,
+        color: 'var(--color-text)'
+      }
+    }, "Ph\xE1 ngu\u1ED3n")), /*#__PURE__*/React.createElement(StreamBoard, {
+      cell: 26,
+      dir: "\u2193",
+      lane: 4,
+      start: 1,
+      len: 3,
+      broken: true,
+      fadeFlow: true,
+      splash: [1, 4]
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: font.b,
+        fontWeight: 700,
+        fontSize: 12.5,
+        color: 'var(--color-text-muted)',
+        textAlign: 'center',
+        lineHeight: 1.35,
+        maxWidth: 220
+      }
+    }, "Clear qua \xF4 gi\u1ECDt n\u01B0\u1EDBc \u1EDF ngu\u1ED3n \u2192 ngu\u1ED3n kh\xF4, c\u1EA3 d\u1EA3i n\u01B0\u1EDBc t\u1EAFt.")), /*#__PURE__*/React.createElement(Card, {
+      title: "A \xB7 Jelly b\u1ECB \u0111\u1EA9y 1 \xF4",
+      note: "Jelly \u0111\u1EE9ng tr\xEAn d\xF2ng n\u01B0\u1EDBc b\u1ECB \u0111\u1EA9y 1 \xF4 theo tr\u1ECDng l\u1EF1c \u2193",
+      style: {
+        justifyContent: 'flex-start'
+      }
+    }, /*#__PURE__*/React.createElement(StreamBoard, {
+      cell: 28,
+      cols: 7,
+      rows: 7,
+      dir: "\u2193",
+      lane: 3,
+      start: 0,
+      len: 4,
+      jelly: [{
+        color: 'pink',
+        pos: 4
+      }],
+      ghost: [{
+        color: 'pink',
+        pos: 3
+      }]
+    })), /*#__PURE__*/React.createElement(Card, {
+      title: "B \xB7 C\u1EE5m jelly b\u1ECB \u0111\u1EA9y",
+      note: "C\u1EE5m jelly d\xEDnh nhau tr\xF4i c\xF9ng nhau theo d\u1EA3i n\u01B0\u1EDBc",
+      style: {
+        justifyContent: 'flex-start'
+      }
+    }, /*#__PURE__*/React.createElement(StreamBoard, {
+      cell: 28,
+      cols: 7,
+      rows: 7,
+      dir: "\u2193",
+      lane: 3,
+      start: 0,
+      len: 5,
+      jelly: [{
+        color: 'mint',
+        pos: 3
+      }, {
+        color: 'yellow',
+        pos: 4
+      }, {
+        color: 'blue',
+        pos: 5
+      }],
+      ghost: [{
+        color: 'mint',
+        pos: 2
+      }, {
+        color: 'yellow',
+        pos: 3
+      }, {
+        color: 'blue',
+        pos: 4
+      }],
+      bracket: [3, 5]
+    }))), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 14,
+        background: 'var(--color-surface)',
+        borderRadius: 22,
+        boxShadow: 'var(--shadow-md)',
+        padding: '18px 20px 20px'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 12
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        width: 34,
+        height: 34,
+        borderRadius: 10,
+        background: `linear-gradient(160deg, ${AQ.mid}, ${AQ.deep})`,
+        boxShadow: `0 0 0 2px ${AQ.core}`,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement(Drop, {
+      size: 19,
+      fill: "#fff",
+      stroke: AQ.pale
+    })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", {
+      style: {
+        margin: 0,
+        fontFamily: font.d,
+        fontWeight: 700,
+        fontSize: 21,
+        color: 'var(--color-text)',
+        lineHeight: 1.05
+      }
+    }, "N\u01B0\u1EDBc g\u1EB7p v\u1EADt c\u1EA3n \u2014 lu\xF4n t\xECm \u0111\u01B0\u1EDDng xu\u1ED1ng"), /*#__PURE__*/React.createElement("p", {
+      style: {
+        margin: '3px 0 0',
+        fontFamily: font.b,
+        fontWeight: 700,
+        fontSize: 13,
+        color: AQ.deep
+      }
+    }, "\xD4 d\u01B0\u1EDBi b\u1ECB ch\u1EB7n \u2192 r\u1EBD ngang 1 \xF4 r\u1ED3i ch\u1EA3y xu\u1ED1ng ti\u1EBFp, mi\u1EC5n l\xE0 c\xF2n \xF4 tr\u1ED1ng."))), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gap: 16
+      }
+    }, /*#__PURE__*/React.createElement(ObstaclePanel, {
+      n: 1,
+      title: "C\xF2n \xF4 tr\u1ED1ng",
+      caption: "D\u01B0\u1EDBi ngu\u1ED3n c\xF2n \xF4 tr\u1ED1ng \u2192 n\u01B0\u1EDBc ch\u1EA3y th\u1EB3ng xu\u1ED1ng theo tr\u1ECDng l\u1EF1c."
+    }, /*#__PURE__*/React.createElement(StreamPath, {
+      cell: 26,
+      cols: 7,
+      rows: 8,
+      path: [[1, 3], [2, 3], [3, 3], [4, 3], [5, 3], [6, 3]],
+      newTip: true
+    })), /*#__PURE__*/React.createElement(ObstaclePanel, {
+      n: 2,
+      title: "B\u1ECB ch\u1EB7n \u2192 r\u1EBD ngang",
+      caption: "G\u1EB7p block ch\u1EB7n ngay d\u01B0\u1EDBi \u2192 d\xF2ng ch\u1EA3y r\u1EBD sang 1 b\xEAn c\xF2n tr\u1ED1ng."
+    }, /*#__PURE__*/React.createElement(StreamPath, {
+      cell: 26,
+      cols: 7,
+      rows: 8,
+      path: [[1, 3], [2, 3], [3, 3], [3, 4], [4, 4]],
+      blocks: [{
+        pos: [4, 3],
+        color: 'stone'
+      }, {
+        pos: [5, 3],
+        color: 'blue'
+      }],
+      newTip: true
+    })), /*#__PURE__*/React.createElement(ObstaclePanel, {
+      n: 3,
+      title: "Ch\xE8n s\xE1t t\u01B0\u1EDDng \u2192 v\xF2ng r\u1ED3i xu\u1ED1ng",
+      caption: "Block x\u1EBFp ch\u1ED3ng s\xE1t t\u01B0\u1EDDng, h\u1EBFt \xF4 \u0111\u1EA9y \u2192 r\u1EBD tr\xE1i r\u1ED3i ti\u1EBFp t\u1EE5c ch\u1EA3y xu\u1ED1ng."
+    }, /*#__PURE__*/React.createElement(StreamPath, {
+      cell: 26,
+      cols: 7,
+      rows: 8,
+      path: [[1, 5], [2, 5], [3, 5], [3, 4], [4, 4], [5, 4], [6, 4]],
+      blocks: [{
+        pos: [4, 5],
+        color: 'stone'
+      }, {
+        pos: [5, 5],
+        color: 'stone'
+      }, {
+        pos: [4, 6],
+        color: 'pink'
+      }, {
+        pos: [5, 6],
+        color: 'yellow'
+      }],
+      newTip: true
+    })))), /*#__PURE__*/React.createElement(Legend, {
+      items: [{
+        swatch: sw.source,
+        k: 'Ô nguồn nước',
+        v: '= sinh dòng chảy'
+      }, {
+        swatch: sw.flow,
+        k: 'Ô dòng chảy',
+        v: '= đẩy jelly 1 ô'
+      }, {
+        swatch: sw.drop,
+        k: 'Ô giọt nước',
+        v: '= clear để phá nguồn'
+      }, {
+        swatch: sw.broken,
+        k: 'Phá nguồn',
+        v: '= tắt toàn bộ dòng chảy'
+      }]
+    }));
+  }
+
+  /* =================== dispatch =================== */
+
+  function render(id, rootEl) {
+    const map = {
+      components: ComponentSheet,
+      stateflow: StateFlowSheet,
+      streamflow: StreamFlowSheet,
+      tutorial: TutorialSheet
+    };
+    const Fn = map[id];
+    if (!Fn) {
+      rootEl.innerHTML = '<p style="font-family:sans-serif;padding:20px">Unknown sheet: ' + id + '</p>';
+      return;
+    }
+    ReactDOM.createRoot(rootEl).render(/*#__PURE__*/React.createElement(Fn, null));
+  }
+  window.GJWater = {
+    render,
+    WaterCell,
+    WaterBoard,
+    WaterStrip,
+    Drop
+  };
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "07-mechanics/world3-water-kit.jsx", error: String((e && e.message) || e) }); }
+
 // 08-brand/gravity-jelly-logo.js
 try { (() => {
 /* gravity-jelly-logo.js — single source of truth for the brand mark.
@@ -31872,15 +34497,35 @@ try { (() => {
   // rasterises to Android PNGs — no procedural redraw. Path resolves relative
   // to the HTML document embedding it (the brand pages live in 08-brand/).
   const MASTER_IMG = 'app-icon-master.png';
+  // TRANSPARENT MARK — supplied icon art with NO background (4 jelly blocks +
+  // purple gravity loop). Drop straight onto any coloured ground (native splash,
+  // adaptive foreground, monochrome silhouette). Near-square (~1.07:1).
+  const MARK_IMG = 'mark.png';
+  // <img> of the transparent mark, contained in a square `size` box.
+  function markImg(size, opts = {}) {
+    const src = opts.src || MARK_IMG;
+    return `<img src="${src}" width="${size}" height="${size}" alt="Gravity Jelly" style="display:block;width:${size}px;height:${size}px;object-fit:contain;user-select:none" draggable="false"/>`;
+  }
+  // OFFICIAL WORDMARK — supplied "Gravity Jelly" lettering PNG (transparent bg,
+  // stacked candy type). Single source of truth for the text logo everywhere.
+  const WORDMARK_IMG = 'wordmark.png';
+  const WORDMARK_AR = 1443 / 891; // natural width / height ≈ 1.62
+  // <img> of the wordmark. Pass {height} or {width} (px); default fills container.
+  // `src` lets callers point at the file from their own directory depth.
+  function wordmarkImg(opts = {}) {
+    const src = opts.src || WORDMARK_IMG;
+    const box = opts.height != null ? `height:${opts.height}px;width:auto;` : opts.width != null ? `width:${opts.width}px;height:auto;` : 'width:100%;height:auto;';
+    return `<img src="${src}" alt="Gravity Jelly" style="display:block;${box}user-select:none" draggable="false"/>`;
+  }
   function imageSVG(size, rounding, href) {
     const r = rounding != null ? size * rounding : 0;
     const src = href || MASTER_IMG;
     return `<img src="${src}" width="${size}" height="${size}" alt="Gravity Jelly" style="display:block;width:${size}px;height:${size}px;object-fit:cover;border-radius:${r}px" draggable="false"/>`;
   }
 
-  // adaptive FOREGROUND layer — the supplied artwork (already on cream)
+  // adaptive FOREGROUND layer — the transparent mark (background is a separate layer)
   function foregroundSVG(size /*, opts */) {
-    return imageSVG(size, 0);
+    return markImg(size);
   }
 
   // adaptive BACKGROUND layer — cream gradient behind the master art
@@ -31894,9 +34539,9 @@ try { (() => {
     return imageSVG(size, opts.rounding != null ? opts.rounding : 0);
   }
 
-  // monochrome / themed slot — the master art desaturated to a soft silhouette
+  // monochrome / themed slot — the transparent mark desaturated to a soft silhouette
   function monochromeSVG(size) {
-    return `<img src="${MASTER_IMG}" width="${size}" height="${size}" alt="Gravity Jelly mono" style="display:block;width:${size}px;height:${size}px;object-fit:cover;filter:grayscale(1) brightness(1.35) contrast(0.9)" draggable="false"/>`;
+    return `<img src="${MARK_IMG}" width="${size}" height="${size}" alt="Gravity Jelly mono" style="display:block;width:${size}px;height:${size}px;object-fit:contain;filter:grayscale(1) brightness(1.35) contrast(0.9)" draggable="false"/>`;
   }
   window.GJLogo = {
     COL,
@@ -31905,6 +34550,11 @@ try { (() => {
     HERO,
     INK,
     MASTER_IMG,
+    MARK_IMG,
+    markImg,
+    WORDMARK_IMG,
+    WORDMARK_AR,
+    wordmarkImg,
     heroBlock,
     markInner,
     imageSVG,

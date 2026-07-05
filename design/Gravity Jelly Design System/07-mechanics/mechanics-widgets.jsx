@@ -328,7 +328,7 @@
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, flexShrink: 0 }}>
         <BossFace hp={1} mood="normal" size={96} />
         <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 13, color: 'var(--color-text)', whiteSpace: 'nowrap' }}>Pha 1</span>
-        <span style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 11, color: 'var(--color-text-muted)', whiteSpace: 'nowrap' }}>Đòn: đổ rác</span>
+        <span style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 11, color: 'var(--color-text-muted)', whiteSpace: 'nowrap' }}>Đòn: mọc dây</span>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, color: 'var(--color-gravity)', flexShrink: 0 }}>
         <Icon name="chevron" size={24} strokeWidth={3} />

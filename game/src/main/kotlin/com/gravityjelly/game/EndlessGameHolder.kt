@@ -132,12 +132,12 @@ class EndlessGameHolder(
     private var comboHits = 0
     private var bossComboBefore = 0   // bậc combo VÀO nước hiện tại (cộng dồn qua các nước có ích)
 
-    // ── CLEAR_TARGETS/MIXED: số ô đích đã phá + tổng ban đầu (World 2 = gốc dây leo, World 3 = giọt nước). ──
-    /** Tổng ô đích màn đặt sẵn (preset): gốc dây leo (W2) + giọt nước (W3). Dùng cho "còn N/total". */
-    val initialTargets: Int = level?.preset?.count {
-        (it.type == CellType.VINE && it.vineRoot) || it.type == CellType.TARGET
+    // ── CLEAR_TARGETS/MIXED: số ô đích đã phá + tổng cần phá. ──
+    /** Tổng ô đích cần phá = [Goal.count] (gốc dây leo W2 / số lần phá nguồn W3, kể cả boss hồi sinh). */
+    val initialTargets: Int = level?.goal?.let { g ->
+        if (g.type == GoalType.CLEAR_TARGETS || g.type == GoalType.MIXED) g.count else 0
     } ?: 0
-    /** Số ô đích đã phá (gốc dây leo [GameEvent.VineRootsCleared] + giọt [GameEvent.DropsCleared]). */
+    /** Số ô đích đã phá (gốc dây leo [GameEvent.VineRootsCleared] + nguồn [GameEvent.WaterSourceBroken]). */
     var targetsCleared by mutableStateOf(0)
         private set
     /** Số gốc còn lại cần phá (cho ObjectiveBar biến thể targets/mixed). */
@@ -157,6 +157,15 @@ class EndlessGameHolder(
      * gate bằng cờ vibration của Settings. Giữ luồng một chiều: holder phát sự kiện, không tự rung.
      */
     var onEffect: ((EffectKind) -> Unit)? = null
+
+    /**
+     * Callback âm thanh SFX — lớp vỏ (:app) cấp, gate bằng cờ sound của Settings.
+     * Phát cả lúc ingest (đặt/xoay/sự kiện engine) lẫn lúc animation (clear step, combo burst).
+     */
+    var onGameSound: ((GameSfx) -> Unit)? = null
+
+    /** Combo burst 20 bậc — lớp vỏ cấp lambda nhận comboLevel (1..20+). */
+    var onComboBurstSound: ((Int) -> Unit)? = null
 
     var shell by mutableStateOf(snapshotFrom(engine.state()))
         private set
@@ -251,16 +260,23 @@ class EndlessGameHolder(
 
     init {
         // Playback combo tuần tự: animator phát combo + haptic theo TỪNG nhịp (không dồn một lần).
-        animator.onComboBurst = { captureComboBurst() }
+        animator.onComboBurst = {
+            captureComboBurst()
+            onComboBurstSound?.invoke(animator.comboBurstCombo)
+        }
         animator.onClearStep = { comboLevel ->
             onEffect?.invoke(if (comboLevel >= 3) EffectKind.COMBO else EffectKind.CLEAR)
+            onGameSound?.invoke(if (comboLevel >= 2) GameSfx.CLEAR_COMBO else GameSfx.CLEAR_BASE)
         }
         // Cascade vừa chiếu xong → áp nước người chơi đã thả trong lúc đó (đặt-hoãn); nếu không
         // có nước chờ, bàn đã ổn định = đúng lúc CHẤM mục tiêu màn (hiện overlay thắng sau clear).
         animator.onPlaybackEnd = {
             val hadPending = pendingPlacement != null
             flushPendingPlacement()
-            if (!hadPending) evaluateGoal()
+            if (!hadPending) {
+                evaluateGoal()
+                onGameSound?.invoke(GameSfx.SETTLED)
+            }
         }
         sync()
     }
@@ -282,6 +298,7 @@ class EndlessGameHolder(
             trackGoalEvents(events)
             animator.ingest(events, pre, preGravity, boardRender.grid, boardRender.gravity)
             dispatchFeedback(events)
+            dispatchSounds(events)
             detectRotationRefill(events)
             detectGuideMechanics(events)
             startComboTimerIfProductive(events)
@@ -458,6 +475,7 @@ class EndlessGameHolder(
             trackGoalEvents(events)
             animator.ingest(events, pre, preGravity, boardRender.grid, boardRender.gravity)
             dispatchFeedback(events)
+            dispatchSounds(events)
             detectRotationRefill(events)
             detectGuideMechanics(events)
             startComboTimerIfProductive(events)
@@ -496,7 +514,7 @@ class EndlessGameHolder(
                     if (e.comboLevel > peakCombo) peakCombo = e.comboLevel
                 }
                 is GameEvent.VineRootsCleared -> targetsCleared += e.roots.size   // World 2 · CLEAR_TARGETS
-                is GameEvent.DropsCleared -> targetsCleared += e.drops.size       // World 3 · CLEAR_TARGETS
+                is GameEvent.WaterSourceBroken -> targetsCleared += 1             // World 3 · phá nguồn
                 else -> {}
             }
         }
@@ -608,6 +626,41 @@ class EndlessGameHolder(
     }
 
     /**
+     * Audio SFX tại thời điểm ingest (tức thì, không chờ animation). Clear/combo phát riêng qua
+     * [BoardAnimator.onClearStep] / [onComboBurst] để đúng nhịp hiệu ứng; ở đây CHỈ phát sự kiện
+     * không phải clear (đặt mảnh, xoay, form siêu khối, vine, boss…).
+     */
+    private fun dispatchSounds(events: List<GameEvent>) {
+        val cb = onGameSound ?: return
+        for (e in events) {
+            when (e) {
+                is GameEvent.PiecePlaced -> cb(GameSfx.PLACE)
+                is GameEvent.GravityRotated -> cb(GameSfx.GRAVITY_ROTATE)
+                is GameEvent.ClustersCollapsed -> if (e.moved) cb(GameSfx.CLUSTER_COLLAPSE)
+                is GameEvent.SuperFormed -> cb(if (e.level >= 2) GameSfx.SUPER_FORM_2 else GameSfx.SUPER_FORM_1)
+                is GameEvent.RainbowFormed -> cb(GameSfx.RAINBOW_FORM)
+                is GameEvent.SuperDetonated -> {
+                    if (e.isRainbow) cb(GameSfx.RAINBOW_DETONATE)
+                    else cb(if (e.level >= 2) GameSfx.SUPER_DETONATE_2 else GameSfx.SUPER_DETONATE_1)
+                }
+                is GameEvent.RotationRefunded -> cb(GameSfx.ROTATION_REFUND)
+                is GameEvent.VineGrew -> cb(GameSfx.VINE_GROW)
+                is GameEvent.VineRootsCleared -> cb(GameSfx.VINE_SNAP)
+                is GameEvent.TrashCountdownTicked -> cb(if (e.died.isNotEmpty()) GameSfx.TRASH_CRUMBLE else GameSfx.TRASH_TICK)
+                is GameEvent.WaterSourceBroken -> cb(GameSfx.DROP_CLEAR)   // W3: phá nguồn
+                is GameEvent.WaterSourceRevived -> cb(GameSfx.DROP_CLEAR)  // W3 boss: hồi sinh nguồn
+                is GameEvent.StonesAdded -> cb(GameSfx.STONE_ADDED)
+                is GameEvent.DebrisAdded -> cb(GameSfx.DEBRIS_ADDED)
+                is GameEvent.BossGravityFlipped -> cb(GameSfx.BOSS_GRAVITY_FLIP)
+                is GameEvent.TrayDealt -> cb(GameSfx.TRAY_DEALT)
+                is GameEvent.ComboExpired -> cb(GameSfx.COMBO_EXPIRED)
+                is GameEvent.GameOver -> cb(GameSfx.GAME_OVER)
+                else -> {}
+            }
+        }
+    }
+
+    /**
      * Quét [GameEvent.RotationRefunded] trong nước vừa đi → tăng [rotationRefillTick] cho lớp vỏ.
      * Độc lập với haptic (chạy cả khi tắt rung) nên tách khỏi [dispatchFeedback].
      */
@@ -667,6 +720,7 @@ class EndlessGameHolder(
         if (!isComboTimeBased) return
         val event = engine.resetCombo() ?: return
         boardRender.comboTimerStartNanos = 0L
+        onGameSound?.invoke(GameSfx.COMBO_EXPIRED)
         sync()
     }
 
@@ -789,6 +843,7 @@ class EndlessGameHolder(
         boardRender.grid = s.grid
         boardRender.gravity = s.gravity
         fillClusterSizes(s.grid, boardRender.clusterSizes)
+        boardRender.waterSources = s.waterSources
         shell = snapshotFrom(s)
         bossTell = engine.bossTell()
     }

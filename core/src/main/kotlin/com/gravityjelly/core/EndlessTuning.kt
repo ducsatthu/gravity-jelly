@@ -23,8 +23,14 @@ data class EndlessTuning(
     val debrisPerTurn: Int = 0,
     /** Số lượt ân hạn đầu KHÔNG đổ rác (cho người chơi setup). */
     val debrisGraceTurns: Int = 2,
-    /** World 3 boss "Thần Thác": tự đảo trọng lực 180° mỗi N lượt THẢ (0 = tắt). */
+    /** World 3 boss "Thần Thác": tự đảo trọng lực 180° mỗi N lượt THẢ (0 = tắt). (LEGACY — thay bằng revive.) */
     val bossGravityEveryN: Int = 0,
+    /** World 3 boss "Thần Thác": HỒI SINH nguồn nước đã cạn (broken) mỗi N lượt THẢ — nguồn sống lại từ trên (0 = tắt). */
+    val bossReviveEveryN: Int = 0,
+    /** World 3 boss "Thần Thác": THẢ THÊM nguồn mới từ hàng trên mỗi N lượt THẢ (0 = tắt), tối đa [bossMaxSources]. */
+    val bossSpawnSourceEveryN: Int = 0,
+    /** World 3 boss — trần tổng số nguồn (cho spawn; 0 = không spawn). */
+    val bossMaxSources: Int = 0,
     /** World 2 boss "Thần Rừng": spawn gốc vine mới mỗi N lượt THẢ (0 = tắt). */
     val bossVineSpawnEveryN: Int = 0,
     /**
