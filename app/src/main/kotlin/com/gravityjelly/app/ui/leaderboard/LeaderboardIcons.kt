@@ -42,7 +42,8 @@ fun Crown(size: Dp, modifier: Modifier = Modifier) {
 @Composable
 fun FilledStar(size: Dp, modifier: Modifier = Modifier) {
     Canvas(modifier.size(size)) {
-        val path = starPath(this, 5, this.size.width / 2f, this.size.width / 2.35f)
+        // sao 5 cánh nhọn: bán kính trong ≈ 0.4× ngoài (đúng tỉ lệ ngôi sao, không ra ngũ giác)
+        val path = starPath(this, 5, this.size.width / 2f, this.size.width * 0.2f)
         drawPath(path, StarFill)
         drawPath(path, StarEdge, style = Stroke(width = this.size.width * 0.06f))
     }
