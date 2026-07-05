@@ -250,8 +250,8 @@ private fun PodiumBlock(top: List<LbEntry>) {
         Cloud(Modifier.align(Alignment.TopEnd).offset(x = 2.dp, y = 82.dp).size(74.dp, 40.dp))
         FilledStar(24.dp, Modifier.align(Alignment.TopStart).offset(x = 60.dp, y = 4.dp))
         FilledStar(26.dp, Modifier.align(Alignment.TopEnd).offset(x = (-60).dp, y = (-2).dp))
-        Leaf(64.dp, flip = false, modifier = Modifier.align(Alignment.BottomStart).offset(x = (-18).dp, y = 10.dp))
-        Leaf(64.dp, flip = true, modifier = Modifier.align(Alignment.BottomEnd).offset(x = 18.dp, y = 10.dp))
+        Leaf(84.dp, flip = false, modifier = Modifier.align(Alignment.BottomStart).offset(x = (-30).dp, y = 8.dp))
+        Leaf(84.dp, flip = true, modifier = Modifier.align(Alignment.BottomEnd).offset(x = 30.dp, y = 8.dp))
 
         Row(
             Modifier.fillMaxWidth().padding(top = 46.dp),
