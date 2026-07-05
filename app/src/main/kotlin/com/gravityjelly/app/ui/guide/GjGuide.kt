@@ -24,8 +24,12 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gravityjelly.app.R
+import com.gravityjelly.app.ui.components.BossCard
+import com.gravityjelly.app.ui.components.BossKind
 import com.gravityjelly.app.ui.components.ComboPopup
 import com.gravityjelly.app.ui.components.GravityRotateButton
+import com.gravityjelly.core.BossTell
+import com.gravityjelly.core.BossTellKind
 import com.gravityjelly.app.ui.icons.GjIcon
 import com.gravityjelly.app.ui.icons.GjIcons
 import com.gravityjelly.app.ui.theme.GjPalette
@@ -43,6 +47,7 @@ enum class GuideGroup {
     COMBO,
     FOREST,
     RIVER,
+    BOSS,
 }
 
 /**
@@ -251,6 +256,40 @@ object GjGuide {
         demo = { WaterBreakDemo() },
     )
 
+    // ── Đấu trùm: cuối mỗi thế giới (World 1/2/3) — 1 mục nền + 3 mục theo trùm ─────
+    /** Nền: mọi trùm có Khiên, phá bằng combo ≥ ×2 (bậc − 1 sát thương). Mở rộng khi thêm World mới. */
+    val bossBasic = GjGuideEntry(
+        id = "boss-basic", icon = GjIcons.Trophy, group = GuideGroup.BOSS,
+        titleRes = R.string.guide_boss_basic_title,
+        descRes = R.string.guide_boss_basic_desc,
+        bodyRes = R.string.guide_boss_basic_body,
+        demo = { BossBasicDemo() },
+    )
+    /** Trùm W1 "Chú Sâu Đồng Cỏ" — combo thuần, 5 Khiên, không chiêu phụ. */
+    val bossWorm = GjGuideEntry(
+        id = "boss-worm", icon = GjIcons.Star, group = GuideGroup.BOSS,
+        titleRes = R.string.guide_boss_worm_title,
+        descRes = R.string.guide_boss_worm_desc,
+        bodyRes = R.string.guide_boss_worm_body,
+        demo = { BossWormDemo() },
+    )
+    /** Trùm W2 "Thần Rừng" — 8 Khiên, mọc thêm gốc dây mỗi 4 lượt (tell "Mọc dây"). */
+    val bossForest = GjGuideEntry(
+        id = "boss-forest", icon = GjIcons.Heart, group = GuideGroup.BOSS,
+        titleRes = R.string.guide_boss_forest_title,
+        descRes = R.string.guide_boss_forest_desc,
+        bodyRes = R.string.guide_boss_forest_body,
+        demo = { BossForestDemo() },
+    )
+    /** Trùm W3 "Thần Thác" — phá 8 nguồn nước; mỗi 3 lượt hồi sinh + thả thêm nguồn (tối đa 4). */
+    val bossWater = GjGuideEntry(
+        id = "boss-water", icon = GjIcons.Check, group = GuideGroup.BOSS,
+        titleRes = R.string.guide_boss_water_title,
+        descRes = R.string.guide_boss_water_desc,
+        bodyRes = R.string.guide_boss_water_body,
+        demo = { BossWaterDemo() },
+    )
+
     /** Mọi mục hướng dẫn, theo thứ tự hiển thị ở trang review (cẩm nang). */
     val all: List<GjGuideEntry> = listOf(
         gravityRotate,
@@ -261,6 +300,7 @@ object GjGuide {
         comboRefill,
         vineIntro, vineDestroy, vineSticky, vineToTrash, trashDestroy,
         waterFlow, waterDrift, waterBreak,
+        bossBasic, bossWorm, bossForest, bossWater,
     )
 
     /** Tra mục theo [id] (null nếu không có). */
@@ -295,6 +335,7 @@ val GuideGroup.tint: Color
         GuideGroup.COMBO -> GjPalette.Gravity
         GuideGroup.FOREST -> GjPalette.Success
         GuideGroup.RIVER -> GjPalette.Info
+        GuideGroup.BOSS -> GjPalette.Gravity
     }
 
 // ── Rich-text đa ngôn ngữ: markup màu trong resource ───────────────────────────
@@ -412,4 +453,46 @@ private fun ComboRefillDemo() {
             )
         }
     }
+}
+
+// ── Đấu trùm: minh hoạ bằng chính thẻ [BossCard] thật của màn boss ────────────────
+//   Dùng đúng component in-game (mascot + thanh Khiên + chip luật/cảnh-báo) để người
+//   chơi nhận ra ngay thứ họ sẽ gặp. Số liệu khớp CampaignLevels (bossHP 5/8, nguồn 8).
+
+/** Nền: thẻ trùm W1 đang vỡ Khiên (3/5) — dạy khái niệm Khiên chung. */
+@Composable
+private fun BossBasicDemo() {
+    BossCard(
+        level = 10, name = stringResource(R.string.boss_name_worm), kind = BossKind.WORM,
+        shieldCurrent = 3, shieldTarget = 5,
+    )
+}
+
+/** Trùm W1 "Chú Sâu Đồng Cỏ" — chip luật "Combo ×2 phá khiên", không tell. */
+@Composable
+private fun BossWormDemo() {
+    BossCard(
+        level = 10, name = stringResource(R.string.boss_name_worm), kind = BossKind.WORM,
+        shieldCurrent = 4, shieldTarget = 5,
+    )
+}
+
+/** Trùm W2 "Thần Rừng" — chip CẢNH BÁO "Mọc dây" (sau 2 lượt). */
+@Composable
+private fun BossForestDemo() {
+    BossCard(
+        level = 20, name = stringResource(R.string.boss_name_forest), kind = BossKind.FOREST,
+        shieldCurrent = 6, shieldTarget = 8,
+        tell = BossTell(BossTellKind.VINE_SPAWN, turnsUntil = 2),
+    )
+}
+
+/** Trùm W3 "Thần Thác" — chip luật "Cắm Thạch Nước phá nguồn"; Khiên = số nguồn còn phá. */
+@Composable
+private fun BossWaterDemo() {
+    BossCard(
+        level = 30, name = stringResource(R.string.boss_name_water), kind = BossKind.WATER,
+        shieldCurrent = 5, shieldTarget = 8,
+        ruleLabel = stringResource(R.string.boss_rule_water),
+    )
 }

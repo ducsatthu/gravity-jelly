@@ -1,7 +1,9 @@
 # In-game: ObjectiveBar & Boss HUD (thẻ "Khiên")
 
-Cập nhật 03/07/2026. Tài liệu cụm hiển thị **dưới HUD 56dp, trên bàn 9×9** khi chơi Campaign:
+Cập nhật 05/07/2026. Tài liệu cụm hiển thị **dưới HUD 56dp, trên bàn 9×9** khi chơi Campaign:
 màn thường dùng `ObjectiveBar`, màn **BOSS** (L10/L20/L30…) dùng **`BossCard`** (thẻ Khiên).
+
+> Cơ chế boss chi tiết (Khiên, tell, 3 boss, tham số): [`../03-co-che/03-boss.md`](../03-co-che/03-boss.md) — nguồn thật. File này chỉ đặc tả **lớp hiển thị**.
 
 Nguồn thiết kế (sự-thật):
 - `design/Gravity Jelly Design System/03-components/08-objective-bar/ObjectiveBar.jsx`
@@ -11,7 +13,11 @@ Nguồn thiết kế (sự-thật):
 ## 1) Boss HUD — `BossCard` (thay `ObjectiveBar` ở màn boss)
 
 File: `app/src/main/kotlin/com/gravityjelly/app/ui/components/BossHud.kt`.
-Lắp ở `CampaignPlayScreen` slot `objective`: `if (goal.type == BOSS_COMBO) BossCard(...) else ObjectiveBar(...)`.
+Lắp ở `CampaignPlayScreen` slot `objective`: **`if (level.isBoss) BossCard(...) else ObjectiveBar(...)`**
+(nhận diện boss theo `level.isBoss` = `id % 10 == 0`, KHÔNG theo `goal.type` — vì L30 dùng `CLEAR_TARGETS`).
+Trong `BossCard`, số Khiên + nhãn luật rẽ theo `goal.type`:
+- `BOSS_COMBO` (L10/L20): `shieldTarget = bossHpMax`, `shieldCurrent = bossHpMax − bossHpDamage`, rule `boss_rule_default` ("Combo ×2 phá khiên").
+- `CLEAR_TARGETS` (L30 Thần Thác): `shieldTarget = initialTargets`, `shieldCurrent = targetsLeft`, rule `boss_rule_water` ("Cắm Thạch Nước phá nguồn").
 
 **Đổi hướng lớn so với bản cũ:** bỏ HUD kiểu combat (máu/tim đỏ + số sát thương bay). Boss casual =
 thẻ mềm, tiến độ là **thanh Khiên** (KHÔNG máu/tim), chữ dùng **"phá khiên"** (KHÔNG "gây sát thương").
@@ -28,35 +34,38 @@ Bố cục (bám `BossCard` trong BossHud.jsx):
 **Mascot PNG:** copy từ `design/.../06-svg-assets/bosses/boss-*.png` sang `app/src/main/res/drawable-nodpi/`:
 `boss_worm.png` · `boss_forest.png` · `boss_water.png`.
 
-**3 boss theo world** (`bossKindForWorld`/`bossNameForWorld`):
+**3 boss theo world** (`bossKindForWorld`/`bossNameResForWorld`):
 
-| World | Boss | kind | Mascot | Màu thanh Khiên |
-|---|---|---|---|---|
-| 1 (L10) | Chú Sâu Đồng Cỏ | WORM | `boss_worm` (mint + lá) | mint |
-| 2 (L20) | Thần Rừng | FOREST | `boss_forest` (thần rừng thân cây + vương miện lá) | nâu `#D9BE94` |
-| 3 (L30) | Thần Thác | WATER | `boss_water` (cột nước) | blue |
+| World | Boss | kind | Mascot | Màu thanh Khiên | Khiên |
+|---|---|---|---|---|---|
+| 1 (L10) | Chú Sâu Đồng Cỏ | WORM | `boss_worm` (mint + lá) | mint | 5 (`bossHP`) |
+| 2 (L20) | Thần Rừng | FOREST | `boss_forest` (thần rừng thân cây + vương miện lá) | nâu `#D9BE94` | 8 (`bossHP`) |
+| 3 (L30) | Thần Thác | WATER | `boss_water` (cột nước) | blue | phá **8 nguồn** (`goal.count`) |
 
-**Số liệu sống** (từ `EndlessGameHolder`): `shieldCurrent = (bossHpMax − bossHpDamage)` = khiên **còn lại**
-(rút về 0 khi hạ boss), `shieldTarget = bossHpMax`. Cơ chế combo→sát-thương của `:core` GIỮ NGUYÊN
-(chỉ đổi nhãn hiển thị máu→Khiên). **Khiên theo mock (03/07):** L10 = **5** · L20 = **8** · L30 = **10**
-(`Goal.bossHP` trong `CampaignLevels`). ⚠ Ngưỡng sao COMBO (nhịp) giữ nguyên — có thể cần retune theo khiên mới.
+**Số liệu sống** (từ `EndlessGameHolder`): với `BOSS_COMBO`, `shieldCurrent = (bossHpMax − bossHpDamage)`
+(rút về 0 khi hạ boss), `shieldTarget = bossHpMax`; với `CLEAR_TARGETS` (L30), Khiên = số nguồn CÒN phải
+phá (`initialTargets → 0`). Cơ chế lõi của `:core` GIỮ NGUYÊN, HUD chỉ đổi nhãn máu/mục-tiêu → **Khiên**.
+⚠ Ngưỡng sao chấm theo **MOVES** (không phải nhịp combo) — xem [[star-thresholds-solver]].
 
 ### Chip tell (03/07) — "boss sắp ra chiêu" + đếm ngược
 `BossCard`/`BossIntroCard` nhận `tell: BossTell?`:
 - `tell == null` (W1 Chú Sâu — combo thuần) → chip **CẨM NANG** "Combo ×2 phá khiên" (rule, calm).
 - `tell != null` → chip **CẢNH BÁO** (tone màu): nhãn "Lượt sau: …" (khi còn 1) / "Sau N lượt: …".
-  - W2 **Thần Rừng** (`bossVineSpawnEveryN`) → `VINE_SPAWN`, glyph lá, tone warm, "Mọc dây".
-  - W3 **Thần Thác** (`bossGravityEveryN`) → `GRAVITY_INVERT`, glyph xoay, tone gravity, "Đảo trọng lực".
+  - W2 **Thần Rừng** (`bossVineSpawnEveryN = 4`) → `VINE_SPAWN`, glyph lá, tone warm, "Mọc dây".
+  - W3 **Thần Thác** (`bossReviveEveryN = 3` / `bossSpawnSourceEveryN = 3`) → `SOURCE_REVIVE`, tone gravity,
+    "Thả thác nước" (hồi sinh nguồn cạn + thả thêm nguồn, tối đa `bossMaxSources = 4`).
 
 Nguồn tell = `:core`:
-- `EndlessEngine.bossTell(): BossTell?` — `turnsUntil = N − (placeTurns % N)`, bắn khi `placeTurns % N == 0`.
-  `BossTell(kind, turnsUntil)` + `enum BossTellKind {VINE_SPAWN, GRAVITY_INVERT}` ở `Level.kt`. Test: `BossTellTest`.
+- `EndlessEngine.bossTell(): BossTell?` — `turnsUntil = N − (placeTurns % N)`, bắn khi `placeTurns % N == 0`;
+  ưu tiên **revive > gravity > vine**.
+  `BossTell(kind, turnsUntil)` + `enum BossTellKind {VINE_SPAWN, GRAVITY_INVERT, SOURCE_REVIVE}` ở `Level.kt`.
+  `GRAVITY_INVERT` (đảo trọng lực 180°) là cơ chế **LEGACY** — còn trong engine, không màn nào bật. Test: `BossTellTest`.
 - `EndlessGameHolder.bossTell` mirror state, refresh trong `sync()` → BossCard đọc, recompose khi đổi lượt.
 - In-game truyền `holder.bossTell`; màn Intro truyền `bossIntroTell(level)` (preview = sau đúng N lượt).
 
 ### W2 boss = Thần Rừng
-L20 = **"Thần Rừng"** (spawn dây leo mỗi 3 lượt). Đồng bộ **tên + tell + kind + art** theo core/design:
-`bossNameForWorld(2) = "Thần Rừng"` · `BossKind.FOREST` · tell "Mọc dây" · mascot `R.drawable.boss_forest`
+L20 = **"Thần Rừng"** (spawn dây leo mỗi **4 lượt**, `bossVineSpawnEveryN = 4`). Đồng bộ **tên + tell + kind + art** theo core/design:
+`bossNameResForWorld(2) = R.string.boss_name_forest` · `BossKind.FOREST` · tell "Mọc dây" · mascot `R.drawable.boss_forest`
 (art thần rừng thân cây + vương miện lá, copy từ design `06-svg-assets/bosses/boss-forest.png`). Màu thanh
 Khiên tạm giữ nâu ấm `#D9BE94` theo design — đổi sang xanh lá nếu muốn. Lưu ý: `debrisPerTurn` là cơ chế
 đổ đá/rác riêng (archetype boss dự phòng), vẫn còn trong engine nhưng L20 (Thần Rừng) KHÔNG dùng.
@@ -76,11 +85,13 @@ weight 700 qua `labelSmall` rơi fallback (mỏng). User **thiết kế lại** 
   nhỏ như bản lỗi trước); tính chỗ nhãn còn lại = cột − padding − đĩa − gap − 6dp thở; autosize
   12→10sp vừa đó; chặn CỨNG nhãn bằng `Modifier.widthIn(max)` + `softWrap=false`. Pill (Row bên trong)
   vẫn wrap-content ôm chữ, neo trái.
-Verify Pixel 9 + **Samsung S22 (density 510)** L30 in-game: pill ôm sát "Sau 3 lượt: Đảo trọng lực"
-hiện ĐỦ, không cắt, ~12sp, đĩa + chấm đỏ đúng. `Type.kt` export `GjBodyFontFamily` (Nunito).
+Verify Pixel 9 + **Samsung S22 (density 510)** L30 in-game: pill ôm sát nhãn tell dài nhất
+(vd "Sau 3 lượt: Thả thác nước") hiện ĐỦ, không cắt, ~12sp, đĩa + chấm đỏ đúng.
+`Type.kt` export `GjBodyFontFamily` (Nunito).
 
 ## 1b) BossIntroCard (màn Level-Intro boss) — `CampaignIntroScreen`
-Màn boss (`goal.type == BOSS_COMBO`) render **`BossIntroCard`** (BossHud.kt) thay khối tím + ♥HP cũ:
+Màn boss (`level.isBoss`) render **`BossIntroCard`** (BossHud.kt) thay khối tím + ♥HP cũ
+(Khiên/luật rẽ theo `goal.type` như §1: L30 = `initialTargets` + rule "Cắm Thạch Nước phá nguồn"):
 tag BOSS · MÀN n · mascot lớn (120dp) + "ĐỐI THỦ"/tên · thanh Khiên (đầy) + `Khiên n/n` · chip luật/tell ·
 slot `extra` (dải 3 sao nhịp + ngân sách xoay) · CTA "Chơi". Màn thường giữ nguyên sheet cũ.
 
@@ -110,3 +121,10 @@ nước** (design "unified to số nước"). Điểm/đích chỉ còn là **đ
   - Bug cũ: mascot `fillMaxHeight` làm thẻ giãn hết màn đẩy mất bàn. Fix: thẻ `heightIn(min=118)` co giãn +
     mascot `height(118)` cố định (không fillMaxHeight) → chip không bị bó mà bàn vẫn nguyên. Verify Samsung.
 - L9 score in-game: ObjectiveBar điểm "ĐIỂM 0/200" + track — không regress.
+
+## Nhật ký thay đổi
+- **05/07/2026** — Đồng bộ với code sau redesign W3: nhận diện boss theo `level.isBoss` (không phải `goal.type`);
+  W2 spawn dây **mỗi 4 lượt** (không phải 3); W3 Thần Thác = `CLEAR_TARGETS` **phá 8 nguồn** + tell
+  `SOURCE_REVIVE` "Thả thác nước" (hồi sinh + thả nguồn mỗi 3 lượt) — **BỎ** "Đảo trọng lực"/HP 10 của bản cũ
+  (`GRAVITY_INVERT` chỉ còn LEGACY trong engine). Sửa `bossNameForWorld`→`bossNameResForWorld`. Cơ chế đầy đủ
+  chuyển sang [`../03-co-che/03-boss.md`](../03-co-che/03-boss.md).

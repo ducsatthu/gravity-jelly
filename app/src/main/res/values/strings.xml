@@ -217,6 +217,7 @@
     <string name="camnangparts_group_combo">Mẹo</string>
     <string name="camnangparts_group_forest">Rừng</string>
     <string name="camnangparts_group_river">Sông</string>
+    <string name="camnangparts_group_boss">Đấu trùm</string>
     <string name="camnangparts_seen">Đã xem</string>
     <string name="camnangparts_all">Tất cả</string>
     <string name="camnangparts_combo_x2">×2</string>
@@ -337,6 +338,23 @@
     <string name="guide_trash_destroy_title">Cách phá rác rừng</string>
     <string name="guide_trash_destroy_desc">Rác còn héo vẫn xoá được bằng lấp đầy hàng; rác chết chỉ khối giải phóng mới phá</string>
     <string name="guide_trash_destroy_body">• Rác còn [s]HÉO[/s] (đang đếm\n  ngược) → vẫn tính đầy hàng,\n  lấp đầy hàng/cột là xoá.\n\n• Rác [w]CHẾT[/w] → [w]CHẶN[/w] không cho\n  hàng đầy; chỉ [p]KHỐI GIẢI PHÓNG[/p]\n  (Thạch Hoàng Gia trở lên)\n  mới phá được.</string>
+
+    <!-- ── Cẩm nang: Đấu trùm (cuối mỗi thế giới) ────────────────────────────── -->
+    <string name="guide_boss_basic_title">Đấu trùm &amp; Khiên</string>
+    <string name="guide_boss_basic_desc">Cuối mỗi thế giới là một Đấu trùm có lớp Khiên — lên combo để phá</string>
+    <string name="guide_boss_basic_body">Màn [w]×10[/w] (10 · 20 · 30) là [w]ĐẤU TRÙM[/w].\nTrùm có [g]KHIÊN[/g] thay cho mục tiêu thường.\n\nMỗi lần combo chạm mức [p]MỚI ≥ ×2[/p]\n→ phá [g]bậc − 1 Khiên[/g]\n(×2 = 1 · ×3 = 2 · ×4 = 3).\nKhiên về 0 → [s]hạ trùm[/s]!\n\nMỗi trùm có chiêu riêng —\nxem chip cảnh báo trên thẻ.</string>
+
+    <string name="guide_boss_worm_title">Chú Sâu Đồng Cỏ</string>
+    <string name="guide_boss_worm_desc">Trùm Thế giới 1 — phá 5 Khiên bằng combo, không có chiêu phụ</string>
+    <string name="guide_boss_worm_body">[w]MÀN 10[/w] · Thế giới 1.\nTrùm hiền: [g]5 Khiên[/g], không ra chiêu.\n\nHai [w]đá cản[/w] chia đôi bàn để bạn\ndựng thế xoá nhiều dòng một lúc.\nLên [p]combo ≥ ×2[/p] liên tục\n→ phá Khiên, [s]hạ trùm[/s].</string>
+
+    <string name="guide_boss_forest_title">Thần Rừng</string>
+    <string name="guide_boss_forest_desc">Trùm Thế giới 2 — 8 Khiên, cứ 4 lượt lại mọc thêm một gốc dây leo</string>
+    <string name="guide_boss_forest_body">[w]MÀN 20[/w] · Thế giới 2.\n[g]8 Khiên[/g]. Mỗi [w]4 lượt[/w] Thần Rừng\n[w]mọc thêm 1 gốc dây[/w] (chip “Mọc dây”).\n\nChặt dây bằng khối [s]MINT[/s] cho bàn\nthoáng, rồi lên [p]combo ≥ ×2[/p] phá\nKhiên trước khi dây phủ kín bàn.</string>
+
+    <string name="guide_boss_water_title">Thần Thác</string>
+    <string name="guide_boss_water_desc">Trùm Thế giới 3 — phá 8 nguồn nước, mỗi 3 lượt trùm hồi sinh &amp; thả thêm nguồn</string>
+    <string name="guide_boss_water_body">[w]MÀN 30[/w] · Thế giới 3.\nPhải [g]phá 8 nguồn nước[/g].\n\nCắm [p]Thạch Nước[/p] (khối xanh) vào\nhàng/cột qua ô nguồn rồi xoá dòng đó.\nMỗi [w]3 lượt[/w] trùm [w]hồi sinh nguồn cạn[/w]\nvà [w]thả thêm nguồn[/w] (tối đa 4)\n→ phá dứt điểm càng nhanh càng tốt.</string>
 
     <!-- ── Component nhỏ ────────────────────────────────────────────────────── -->
     <string name="dialog_close">Đóng</string>

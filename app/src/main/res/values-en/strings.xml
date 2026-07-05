@@ -216,6 +216,7 @@
     <string name="camnangparts_group_combo">Tips</string>
     <string name="camnangparts_group_forest">Forest</string>
     <string name="camnangparts_group_river">River</string>
+    <string name="camnangparts_group_boss">Bosses</string>
     <string name="camnangparts_seen">Seen</string>
     <string name="camnangparts_all">All</string>
     <string name="camnangparts_combo_x2">×2</string>
@@ -336,6 +337,23 @@
     <string name="guide_trash_destroy_title">How to clear forest trash</string>
     <string name="guide_trash_destroy_desc">Withering trash still clears by filling a line; dead trash needs a blast block</string>
     <string name="guide_trash_destroy_body">• Trash still [s]WITHERING[/s] (counting\n  down) → still counts for a full line,\n  fill the row/column to clear it.\n\n• [w]DEAD[/w] trash → [w]BLOCKS[/w] the line\n  from filling; only a [p]BLAST BLOCK[/p]\n  (Royal Jelly or higher)\n  can destroy it.</string>
+
+    <!-- ── Handbook: Bosses (end of each world) ──────────────────────────────── -->
+    <string name="guide_boss_basic_title">Bosses &amp; Shields</string>
+    <string name="guide_boss_basic_desc">Each world ends with a Boss guarded by a Shield — chain combos to break it</string>
+    <string name="guide_boss_basic_body">Levels [w]×10[/w] (10 · 20 · 30) are [w]BOSSES[/w].\nA boss has a [g]SHIELD[/g] instead of the usual goal.\n\nEach time your combo hits a [p]NEW tier ≥ ×2[/p]\n→ you break [g]tier − 1 Shield[/g]\n(×2 = 1 · ×3 = 2 · ×4 = 3).\nShield to 0 → [s]boss down[/s]!\n\nEvery boss has its own move —\nwatch the warning chip on the card.</string>
+
+    <string name="guide_boss_worm_title">Meadow Worm</string>
+    <string name="guide_boss_worm_desc">World 1 boss — break 5 Shields with combos, no special move</string>
+    <string name="guide_boss_worm_body">[w]LEVEL 10[/w] · World 1.\nGentle boss: [g]5 Shields[/g], no moves.\n\nTwo [w]stone blocks[/w] split the board so\nyou can set up multi-line clears.\nKeep chaining [p]combo ≥ ×2[/p]\n→ break the Shield, [s]boss down[/s].</string>
+
+    <string name="guide_boss_forest_title">Forest Spirit</string>
+    <string name="guide_boss_forest_desc">World 2 boss — 8 Shields; every 4 turns it grows a new vine root</string>
+    <string name="guide_boss_forest_body">[w]LEVEL 20[/w] · World 2.\n[g]8 Shields[/g]. Every [w]4 turns[/w] the Forest\nSpirit [w]grows a new vine root[/w] (“Vine” chip).\n\nCut vines with [s]MINT[/s] blocks to keep\nthe board open, then chain [p]combo ≥ ×2[/p]\nto break Shields before the vines take over.</string>
+
+    <string name="guide_boss_water_title">Waterfall Spirit</string>
+    <string name="guide_boss_water_desc">World 3 boss — break 8 water sources; every 3 turns it revives &amp; adds sources</string>
+    <string name="guide_boss_water_body">[w]LEVEL 30[/w] · World 3.\nYou must [g]break 8 water sources[/g].\n\nDrop an [p]Aqua Jelly[/p] (blue block) onto a\nrow/column over a source, then clear that line.\nEvery [w]3 turns[/w] the boss [w]revives dry sources[/w]\nand [w]adds a new one[/w] (max 4)\n→ break them as fast as you can.</string>
 
     <!-- ── Small components ─────────────────────────────────────────────────── -->
     <string name="dialog_close">Close</string>

@@ -101,6 +101,7 @@ internal val GuideGroup.displayLabel: String
         GuideGroup.COMBO -> stringResource(R.string.camnangparts_group_combo)
         GuideGroup.FOREST -> stringResource(R.string.camnangparts_group_forest)
         GuideGroup.RIVER -> stringResource(R.string.camnangparts_group_river)
+        GuideGroup.BOSS -> stringResource(R.string.camnangparts_group_boss)
     }
 
 /** Màu KHỐI jelly đại diện nhóm ở tab + tiêu đề nhóm (bám GROUP_JELLY của thiết kế). */
@@ -112,6 +113,7 @@ internal val GuideGroup.jelly: JellyColor
         GuideGroup.COMBO -> JellyColor.BLUE
         GuideGroup.FOREST -> JellyColor.MINT
         GuideGroup.RIVER -> JellyColor.BLUE
+        GuideGroup.BOSS -> JellyColor.PINK
     }
 
 // ── shorthand dựng lưới thumbnail (file-private, không đụng GjGuideDemos) ─────────
@@ -401,6 +403,25 @@ private fun thumbRows(id: String): List<List<GuideCell>>? = when (id) {
         listOf(e, ws, e),
         listOf(e, j(B), e),
         listOf(e, j(B), e),
+    )
+    // ── Đấu trùm: motif chữ ký từng trùm (mascot thật hiện ở demo popup) ──────────
+    "boss-basic" -> listOf(       // thế combo giữa 2 đá cản (giống bàn boss combo)
+        listOf(e, j(Y), j(P), j(M), e),
+        listOf(st, j(B), j(Y), j(P), st),
+    )
+    "boss-worm" -> listOf(        // trùm W1: 2 đá chia bàn dựng thế xoá nhiều dòng
+        listOf(st, j(Y), e, j(P), st),
+        listOf(st, j(M), j(B), j(Y), st),
+    )
+    "boss-forest" -> listOf(      // trùm W2: gốc dây lan, chặt bằng MINT
+        listOf(e, vi, e, e),
+        listOf(vi, vr, e, j(M)),
+        listOf(e, e, vr, vi),
+    )
+    "boss-water" -> listOf(       // trùm W3: 2 nguồn trên, cắm Thạch Nước phá
+        listOf(ws, e, ws),
+        listOf(j(B), e, wf),
+        listOf(j(B), e, wf),
     )
     else -> null
 }

@@ -11,7 +11,7 @@ docs/
   00-muc-luc.md            ← file này
   01-nen-tang/             nghiệp vụ · kỹ thuật · kiến trúc
   02-thiet-ke-man/         schema · hệ mục tiêu · campaign · world specs
-  03-co-che/               kho ý tưởng cơ chế · combo
+  03-co-che/               kho ý tưởng cơ chế · combo · boss
   04-ui-ux/                component in-game · map · guide · khay
   05-prompts/              prompt Claude Design/Code (artifact tạo UI/map)
   06-du-lieu/              spreadsheet thiết kế màn
@@ -53,7 +53,7 @@ docs/
 | File | Mô tả |
 |---|---|
 | [06-world-2-vine.md](02-thiet-ke-man/06-world-2-vine.md) | **Kỹ thuật vine 5 phần:** rễ/trồi/cành/countdown/rác. Luật mọc, chống ghép nhánh, MINT-only phá gốc. Khớp code `Vine.kt` |
-| [02-he-muc-tieu.md § W2](02-thiet-ke-man/02-he-muc-tieu.md) | Spec 10 màn L11–L20 + Boss Thần Rừng (HP 8, spawn gốc mới mỗi 3 lượt) |
+| [02-he-muc-tieu.md § W2](02-thiet-ke-man/02-he-muc-tieu.md) | Spec 10 màn L11–L20 + Boss Thần Rừng (HP 8, spawn gốc mới mỗi 4 lượt) |
 
 **Cơ chế chữ ký:** Dây leo mọc lan, bám cứng, chỉ MINT phá gốc → cả dây chết.
 
@@ -62,7 +62,7 @@ docs/
 | File | Mô tả |
 |---|---|
 | [07-world-3-nhip-nuoc.md](02-thiet-ke-man/07-world-3-nhip-nuoc.md) | **Thiết kế + kỹ thuật cơ chế Dòng chảy / Nguồn nước:** lớp effect sàn, mọc 1 nốt/lượt, đẩy cụm jelly, phá nguồn qua ô giọt. Bám `world3-water-kit.jsx`. Thay phương án flood cũ (`WaterfallFlow.kt`) |
-| [02-he-muc-tieu.md § W3](02-thiet-ke-man/02-he-muc-tieu.md) | Spec 10 màn L21–L30 + Boss Thần Thác (đảo gravity 180° mỗi 3 lượt, HP 10) |
+| [02-he-muc-tieu.md § W3](02-thiet-ke-man/02-he-muc-tieu.md) | Spec 10 màn L21–L30 + Boss Thần Thác (phá 8 nguồn; hồi sinh + thả nguồn mỗi 3 lượt) |
 
 **Cơ chế chữ ký (mới):** Nguồn nước hướng cố định mọc thêm 1 ô/lượt, đẩy jelly đứng trên nước; clear qua ô giọt → phá nguồn, tắt cả dòng chảy. Waterfall flood cũ bị thay. ⚠ Còn 1 điểm chốt: hướng cố định vs theo trọng lực (§12).
 
@@ -81,6 +81,7 @@ docs/
 |---|---|
 | [01-kho-y-tuong.md](03-co-che/01-kho-y-tuong.md) | Kho 48+ ý tưởng cơ chế, phân nhóm A–G, gắn nhãn [lõi]/[cao cấp]/[rủi ro]. Evergreen |
 | [02-combo.md](03-co-che/02-combo.md) | ✅ Hệ combo: timer 10s, hào quang 4 màu chạy quanh bàn, combo hồi lượt xoay |
+| [03-boss.md](03-co-che/03-boss.md) | ✅ Hệ Đấu trùm: Khiên, phá bằng combo (bậc−1), tell, 3 boss W1–W3, checklist thêm boss W4+ |
 
 ---
 
@@ -156,7 +157,8 @@ docs/
 | **Thiết kế màn W4+** | `02-thiet-ke-man/02-he-muc-tieu.md § W4` + `02-thiet-ke-man/03-campaign-vo-han.md` (vô hạn) + `03-co-che/01-kho-y-tuong.md` |
 | **Sửa UI/component** | `05-prompts/01-ui-render/00-tong-quan.md` → file 01–07 + `design/Gravity Jelly Design System/` |
 | **Làm map Campaign** | `04-ui-ux/04-man-ban-do.md` + `05-prompts/02-map/00-tong-quan.md` → world cụ thể |
-| **Sửa ObjectiveBar/Boss** | `04-ui-ux/01-boss-hud-objective-bar.md` + `05-prompts/03-objectives.md` |
+| **Hiểu cơ chế boss** | `03-co-che/03-boss.md` (hệ Đấu trùm — nguồn thật) |
+| **Sửa ObjectiveBar/Boss HUD** | `04-ui-ux/01-boss-hud-objective-bar.md` + `05-prompts/03-objectives.md` |
 | **Sửa combo** | `03-co-che/02-combo.md` (+ `03-co-che/01-kho-y-tuong.md` A8) |
 | **Thêm cơ chế mới** | `03-co-che/01-kho-y-tuong.md` → `05-prompts/04-the-co-che.md` → `02-thiet-ke-man/01-schema-man.md` |
 | **Hiểu nghiệp vụ/kiến trúc** | `01-nen-tang/01-nghiep-vu.md` + `01-nen-tang/03-kien-truc.md` |
@@ -166,5 +168,6 @@ docs/
 
 ## Nhật ký thay đổi
 
+- **05/07/2026** — Thêm [`03-co-che/03-boss.md`](03-co-che/03-boss.md) (hệ Đấu trùm tổng hợp) + nhóm Cẩm nang **Đấu trùm** (4 mục). Sửa dữ liệu boss lỗi thời trong INDEX: W2 spawn gốc **mỗi 4 lượt** (không phải 3); W3 Thần Thác = **phá 8 nguồn + hồi sinh/thả nguồn mỗi 3 lượt** (BỎ đảo trọng lực HP 10 của bản cũ).
 - **04/07/2026** — Tái cấu trúc toàn bộ `docs/`: đánh số 6 nhóm `01`–`06`, đổi tên file gọn, xoá `_archive/`, cập nhật toàn bộ link nội bộ + tham chiếu trong code/README/CLAUDE. Thống nhất quy ước: **mỗi tài liệu chỉ 1 bản latest**, bỏ nhãn phiên bản "v1/v2" khó hiểu; mọi thay đổi ghi ở mục **Nhật ký thay đổi** cuối từng file.
 - **04/07/2026** — Sửa lệch dữ liệu boss thừa hưởng từ INDEX cũ: Thần Thác (L30) HP 5 → **HP 10** cho khớp `02-thiet-ke-man/02-he-muc-tieu.md`.
