@@ -281,7 +281,7 @@ object GjGuide {
         bodyRes = R.string.guide_boss_forest_body,
         demo = { BossForestDemo() },
     )
-    /** Trùm W3 "Thần Thác" — phá 8 nguồn nước; mỗi 3 lượt hồi sinh + thả thêm nguồn (tối đa 4). */
+    /** Trùm W3 "Thần Thác" — combo phá 11 Khiên; nước là chướng ngại, mỗi 3 lượt hồi/thả nguồn (tối đa 4). */
     val bossWater = GjGuideEntry(
         id = "boss-water", icon = GjIcons.Check, group = GuideGroup.BOSS,
         titleRes = R.string.guide_boss_water_title,
@@ -457,7 +457,7 @@ private fun ComboRefillDemo() {
 
 // ── Đấu trùm: minh hoạ bằng chính thẻ [BossCard] thật của màn boss ────────────────
 //   Dùng đúng component in-game (mascot + thanh Khiên + chip luật/cảnh-báo) để người
-//   chơi nhận ra ngay thứ họ sẽ gặp. Số liệu khớp CampaignLevels (bossHP 5/8, nguồn 8).
+//   chơi nhận ra ngay thứ họ sẽ gặp. Số liệu khớp CampaignLevels (bossHP 5/8/11, đều combo phá Khiên).
 
 /** Nền: thẻ trùm W1 đang vỡ Khiên (3/5) — dạy khái niệm Khiên chung. */
 @Composable
@@ -487,12 +487,12 @@ private fun BossForestDemo() {
     )
 }
 
-/** Trùm W3 "Thần Thác" — chip luật "Cắm Thạch Nước phá nguồn"; Khiên = số nguồn còn phá. */
+/** Trùm W3 "Thần Thác" — combo phá 11 Khiên; chip CẢNH BÁO "Hồi nguồn" (mỗi 3 lượt). */
 @Composable
 private fun BossWaterDemo() {
     BossCard(
         level = 30, name = stringResource(R.string.boss_name_water), kind = BossKind.WATER,
-        shieldCurrent = 5, shieldTarget = 8,
-        ruleLabel = stringResource(R.string.boss_rule_water),
+        shieldCurrent = 8, shieldTarget = 11,
+        tell = BossTell(BossTellKind.SOURCE_REVIVE, turnsUntil = 3),
     )
 }

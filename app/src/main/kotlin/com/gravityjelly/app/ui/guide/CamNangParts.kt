@@ -1,6 +1,7 @@
 package com.gravityjelly.app.ui.guide
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -33,6 +35,8 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -404,25 +408,7 @@ private fun thumbRows(id: String): List<List<GuideCell>>? = when (id) {
         listOf(e, j(B), e),
         listOf(e, j(B), e),
     )
-    // ── Đấu trùm: motif chữ ký từng trùm (mascot thật hiện ở demo popup) ──────────
-    "boss-basic" -> listOf(       // thế combo giữa 2 đá cản (giống bàn boss combo)
-        listOf(e, j(Y), j(P), j(M), e),
-        listOf(st, j(B), j(Y), j(P), st),
-    )
-    "boss-worm" -> listOf(        // trùm W1: 2 đá chia bàn dựng thế xoá nhiều dòng
-        listOf(st, j(Y), e, j(P), st),
-        listOf(st, j(M), j(B), j(Y), st),
-    )
-    "boss-forest" -> listOf(      // trùm W2: gốc dây lan, chặt bằng MINT
-        listOf(e, vi, e, e),
-        listOf(vi, vr, e, j(M)),
-        listOf(e, e, vr, vi),
-    )
-    "boss-water" -> listOf(       // trùm W3: 2 nguồn trên, cắm Thạch Nước phá
-        listOf(ws, e, ws),
-        listOf(j(B), e, wf),
-        listOf(j(B), e, wf),
-    )
+    // ── Đấu trùm: KHÔNG dùng lưới jelly — boss-basic vẽ Khiên+combo, 3 trùm dùng boss art (xem GuideThumb) ──
     else -> null
 }
 
@@ -445,20 +431,94 @@ internal fun GuideThumb(id: String, modifier: Modifier = Modifier, height: Dp = 
             .background(tint),
         contentAlignment = Alignment.Center,
     ) {
-        if (id == "combo-refill") {
-            ComboThumbContent()
-        } else {
-            val rows = thumbRows(id) ?: thumbRows("sticky-cluster")!!
-            val cols = rows.maxOf { it.size }
-            val rowN = rows.size
-            // khít chiều cao giếng (chừa ~8dp trên+dưới); không vượt bề rộng giếng
-            androidx.compose.foundation.layout.BoxWithConstraints {
-                val availH = height - 16.dp
-                val byHeight = availH * (cols.toFloat() / rowN.toFloat())
-                val boardW = byHeight.coerceAtMost(maxWidth * 0.92f)
-                GuideMiniBoard(rows, Modifier.width(boardW))
+        when {
+            id == "combo-refill" -> ComboThumbContent()
+            id == "boss-basic" -> BossShieldThumbContent()
+            id in bossArtRes -> BossArtThumbContent(bossArtRes.getValue(id))
+            else -> {
+                val rows = thumbRows(id) ?: thumbRows("sticky-cluster")!!
+                val cols = rows.maxOf { it.size }
+                val rowN = rows.size
+                // khít chiều cao giếng (chừa ~8dp trên+dưới); không vượt bề rộng giếng
+                androidx.compose.foundation.layout.BoxWithConstraints {
+                    val availH = height - 16.dp
+                    val byHeight = availH * (cols.toFloat() / rowN.toFloat())
+                    val boardW = byHeight.coerceAtMost(maxWidth * 0.92f)
+                    GuideMiniBoard(rows, Modifier.width(boardW))
+                }
             }
         }
+    }
+}
+
+// ── Thumbnail Đấu trùm ────────────────────────────────────────────────────────────
+/** 3 trùm dùng CHÍNH boss art (mắt-only) như thẻ boss in-game. */
+private val bossArtRes: Map<String, Int> = mapOf(
+    "boss-worm" to R.drawable.boss_worm,
+    "boss-forest" to R.drawable.boss_forest,
+    "boss-water" to R.drawable.boss_water,
+)
+
+/** Mascot boss thật + quầng tím (giống [com.gravityjelly.app.ui.components.BossCard]). */
+@Composable
+private fun BossArtThumbContent(res: Int) {
+    Box(contentAlignment = Alignment.Center) {
+        Box(
+            Modifier
+                .size(72.dp)
+                .clip(RoundedCornerShape(GjRadius.full))
+                .background(Brush.radialGradient(listOf(GjPalette.Gravity.copy(alpha = 0.16f), Color.Transparent))),
+        )
+        Image(
+            painter = painterResource(res),
+            contentDescription = null,
+            contentScale = ContentScale.Fit,
+            modifier = Modifier.fillMaxHeight().padding(vertical = 8.dp),
+        )
+    }
+}
+
+/** Nền "Đấu trùm & Khiên": biểu tượng Khiên tím + huy hiệu combo "×2" (phá Khiên bằng combo). */
+@Composable
+private fun BossShieldThumbContent() {
+    Box(contentAlignment = Alignment.Center) {
+        ShieldGlyph(size = 60.dp)
+        Text(
+            stringResource(R.string.camnangparts_combo_x2),
+            style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.ExtraBold, fontSize = 20.sp),
+            color = GjPalette.TextInvert,
+            modifier = Modifier.offset(y = (-1).dp),
+        )
+    }
+}
+
+/** Khiên heraldic (bo vai trên, thu về mũi dưới) — tô gradient tím Gravity, viền trắng. */
+@Composable
+private fun ShieldGlyph(size: Dp, fill: Color = GjPalette.Gravity) {
+    Canvas(Modifier.size(size)) {
+        val s = this.size.minDimension / 24f
+        val path = Path().apply {
+            moveTo(12f * s, 2.5f * s)
+            lineTo(20.5f * s, 5.5f * s)
+            lineTo(20.5f * s, 12f * s)
+            cubicTo(20.5f * s, 17f * s, 16.5f * s, 20.5f * s, 12f * s, 22.5f * s)
+            cubicTo(7.5f * s, 20.5f * s, 3.5f * s, 17f * s, 3.5f * s, 12f * s)
+            lineTo(3.5f * s, 5.5f * s)
+            close()
+        }
+        drawPath(
+            path,
+            brush = Brush.verticalGradient(
+                listOf(androidx.compose.ui.graphics.lerp(fill, Color.White, 0.14f), fill),
+            ),
+        )
+        drawPath(
+            path,
+            color = Color.White.copy(alpha = 0.92f),
+            style = androidx.compose.ui.graphics.drawscope.Stroke(
+                width = 2f * s, join = androidx.compose.ui.graphics.StrokeJoin.Round,
+            ),
+        )
     }
 }
 
@@ -599,12 +659,15 @@ internal fun EntryCard(entry: GjGuideEntry, unlocked: Boolean, seen: Boolean, on
         return
     }
     CandyCard(peel = 26.dp, onClick = onOpen, modifier = modifier.fillMaxWidth()) {
-        Column(Modifier.padding(horizontal = 16.dp, vertical = 14.dp)) {
+        Column(Modifier.fillMaxHeight().padding(horizontal = 16.dp, vertical = 14.dp)) {
             GuideThumb(entry.id)
+            // title + desc GIỮ CHIỀU CAO CỐ ĐỊNH 2 dòng (minLines=2) → các thẻ 2 cột luôn cùng kích thước,
+            // "Đã xem" thẳng hàng dù tiêu đề 1 hay 2 dòng.
             Text(
                 entry.title,
                 style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold, fontSize = 17.sp, lineHeight = 19.sp),
                 color = GjPalette.Text,
+                minLines = 2,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.padding(top = 10.dp),
@@ -613,12 +676,14 @@ internal fun EntryCard(entry: GjGuideEntry, unlocked: Boolean, seen: Boolean, on
                 entry.desc,
                 style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold, fontSize = 12.sp, lineHeight = 16.sp),
                 color = GjPalette.TextMuted,
+                minLines = 2,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.padding(top = 3.dp),
             )
             if (seen) {
                 Spacer(Modifier.height(8.dp))
+                Spacer(Modifier.weight(1f)) // đẩy "Đã xem" xuống ĐÁY thẻ (thẳng hàng cả hàng 2 cột)
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) { SeenTag() }
             }
         }

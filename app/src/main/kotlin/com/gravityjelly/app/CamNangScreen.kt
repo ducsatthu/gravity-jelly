@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -237,14 +238,18 @@ private fun EntryGrid(
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         for (pair in list.chunked(2)) {
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            // height(IntrinsicSize.Max) + card fillMaxHeight → 2 thẻ cùng hàng LUÔN cao bằng nhau.
+            Row(
+                Modifier.fillMaxWidth().height(IntrinsicSize.Max),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
                 for (entry in pair) {
                     EntryCard(
                         entry = entry,
                         unlocked = isUnlocked(entry.id),
                         seen = entry.id in seenSet,
                         onOpen = { onOpen(entry) },
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier.weight(1f).fillMaxHeight(),
                     )
                 }
                 if (pair.size == 1) Spacer(Modifier.weight(1f))
