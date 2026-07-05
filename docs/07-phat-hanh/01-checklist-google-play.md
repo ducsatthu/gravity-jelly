@@ -41,9 +41,10 @@
 - [ ] **Tạo upload keystore** (release key):
       `keytool -genkeypair -v -keystore gravity-jelly-upload.jks -alias upload -keyalg RSA -keysize 2048 -validity 10000`
       → cất **an toàn** (mất là không update app được, trừ khi dùng Play App Signing reset).
-- [ ] Thêm `signingConfigs { release { … } }` vào `app/build.gradle.kts` và gán cho `buildTypes.release`.
-      **Hiện chưa có signingConfig** → release đang ký bằng debug key (Play sẽ từ chối).
-- [ ] Để mật khẩu keystore ngoài VCS: đọc từ `keystore.properties` (gitignore) hoặc biến môi trường.
+- [x] `signingConfigs.release` đã wire sẵn trong `app/build.gradle.kts` (đọc `keystore.properties`).
+      → chỉ cần **tạo `keystore.properties`** ở root (copy từ `keystore.properties.example`, điền
+      `storeFile/storePassword/keyAlias/keyPassword`). Vắng file thì release tự lùi debug key.
+- [x] Mật khẩu keystore để ngoài VCS: `keystore.properties` + `*.jks`/`*.keystore` đã vào `.gitignore`.
 - [ ] Bật **Play App Signing** (khuyến nghị) — Google giữ app signing key, mình chỉ giữ upload key.
 - [ ] Cân nhắc bật **R8/minify** cho release: `isMinifyEnabled = true` + bổ sung
       `app/proguard-rules.pro` (đang trống) giữ luật cho GMS Ads / Play Games / Compose nếu cần.
