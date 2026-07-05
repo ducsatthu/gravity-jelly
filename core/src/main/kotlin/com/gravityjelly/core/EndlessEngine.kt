@@ -126,6 +126,8 @@ class EndlessEngine(
     private var placeTurns = 0
     /** World 3: nguồn Dòng chảy runtime (đường flow + broken). Tính theo lượt. */
     private var waterSources: List<WaterSource> = emptyList()
+    /** Chống hạn: số đợt RỦI RO (bậc ≥🟡) liên tiếp KHÔNG có mảnh thoát. Chạm ngưỡng → ép đợt kế có. */
+    private var wavesSinceHelpful = 0
 
     init {
         for ((pos, cell) in preset) grid.set(pos.x, pos.y, cell)
@@ -154,12 +156,14 @@ class EndlessEngine(
         internal val placesSinceGrow: Int,
         internal val placeTurns: Int,
         internal val waterSources: List<WaterSource>,
+        internal val wavesSinceHelpful: Int,
         internal val rngState: ULong,
     )
 
     fun snapshot(): Snapshot = Snapshot(
         grid.copy(), gravity, stage, waveIdx, tray.toList(), rotBudget, score, combo,
-        gameOver, placesSinceGrow, placeTurns, waterSources.toList(), rng.stateSnapshot(),
+        gameOver, placesSinceGrow, placeTurns, waterSources.toList(), wavesSinceHelpful,
+        rng.stateSnapshot(),
     )
 
     fun restore(s: Snapshot) {
@@ -175,6 +179,7 @@ class EndlessEngine(
         placesSinceGrow = s.placesSinceGrow
         placeTurns = s.placeTurns
         waterSources = s.waterSources
+        wavesSinceHelpful = s.wavesSinceHelpful
         rng.stateRestore(s.rngState)
     }
 
@@ -554,9 +559,19 @@ class EndlessEngine(
             }
         }
         val pool = tuning.poolFor(stage)
-        return List(TrayGenerator.TRAY_SIZE) {
-            Piece(shape = rng.pick(pool), color = rng.pick(JellyColor.entries))
+        val cfg = tuning.antiDrought
+            ?: return List(TrayGenerator.TRAY_SIZE) {
+                Piece(shape = rng.pick(pool), color = rng.pick(JellyColor.entries))
+            }
+        // Chống hạn (Endless live): sinh đợt bảo đảm đường thoát, cập nhật bộ đếm hạn hán.
+        val forceHelpful = wavesSinceHelpful >= cfg.pityWaves
+        val wave = WaveGenerator.deal(grid, pool, JellyColor.entries, rng, cfg, forceHelpful)
+        wavesSinceHelpful = when {
+            wave.tier == WaveGenerator.Tier.GREEN -> 0   // bàn thoáng → không tính hạn hán
+            wave.hadHelpful -> 0
+            else -> wavesSinceHelpful + 1
         }
+        return wave.pieces
     }
 
     private fun advanceStage(events: MutableList<GameEvent>) {

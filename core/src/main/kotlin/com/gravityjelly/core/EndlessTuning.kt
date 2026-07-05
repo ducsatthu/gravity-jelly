@@ -38,6 +38,12 @@ data class EndlessTuning(
      * timer 10s và gọi [EndlessEngine.resetCombo] khi hết hạn. Solver/replay bỏ qua timer.
      */
     val comboTimeBased: Boolean = false,
+    /**
+     * CHỐNG HẠN khay: bảo đảm mỗi đợt có đường thoát (null = TẮT, giữ RNG thuần & mọi golden test
+     * byte-identical). Chỉ bật ở Endless live — KHÔNG bật cho [GAMEPLAY] (bot batch đo độ khó) hay
+     * mặc định. Xem [WaveGenerator] / [AntiDroughtConfig].
+     */
+    val antiDrought: AntiDroughtConfig? = null,
 ) {
     fun budgetFor(stage: Int): Int =
         maxOf(budgetMin, baseBudget - (stage - 1) / budgetDecay)
