@@ -14,6 +14,11 @@ local.properties
 # Kotlin compiler session files
 .kotlin/
 
+# Khoá ký release — KHÔNG BAO GIỜ commit (giữ .example làm mẫu)
+keystore.properties
+*.jks
+*.keystore
+
 # IDE (Eclipse/BuildShip) compiled output
 bin/
 core/bin/

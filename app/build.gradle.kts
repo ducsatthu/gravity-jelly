@@ -1,8 +1,19 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 }
+
+// Khoá ký release đọc từ keystore.properties ở root (KHÔNG commit — xem .gitignore).
+// Vắng file → release tự lùi về ký bằng debug key để dev vẫn build được (không phát hành).
+// Định dạng: xem keystore.properties.example.
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+val keystoreProperties = Properties().apply {
+    if (keystorePropertiesFile.exists()) keystorePropertiesFile.inputStream().use { load(it) }
+}
+val hasReleaseKeystore = keystorePropertiesFile.exists()
 
 android {
     namespace = "com.gravityjelly.app"
@@ -16,8 +27,26 @@ android {
         versionName = "0.1.0"
     }
 
+    signingConfigs {
+        // Chỉ dựng config release khi có keystore.properties (tránh cấu hình null gây lỗi khi build).
+        if (hasReleaseKeystore) {
+            create("release") {
+                storeFile = file(keystoreProperties.getProperty("storeFile"))
+                storePassword = keystoreProperties.getProperty("storePassword")
+                keyAlias = keystoreProperties.getProperty("keyAlias")
+                keyPassword = keystoreProperties.getProperty("keyPassword")
+            }
+        }
+    }
+
     buildTypes {
         release {
+            // Có khoá thật → ký release; chưa có → lùi debug key (chỉ để build thử, không phát hành).
+            signingConfig = if (hasReleaseKeystore) {
+                signingConfigs.getByName("release")
+            } else {
+                signingConfigs.getByName("debug")
+            }
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
