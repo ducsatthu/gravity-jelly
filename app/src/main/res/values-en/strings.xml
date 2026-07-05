@@ -25,6 +25,23 @@
     <string name="settings_privacy">Privacy policy</string>
     <string name="settings_home">Back to Home</string>
 
+    <!-- ── Leaderboard ──────────────────────────────────────────────────────── -->
+    <string name="leaderboard_back">Back</string>
+    <string name="leaderboard_title">Ranking</string>
+    <string name="leaderboard_tag">♾️ Endless</string>
+    <string name="leaderboard_subtitle">All-time high scores</string>
+    <string name="leaderboard_you_badge">YOU</string>
+    <string name="leaderboard_default_name">You</string>
+    <string name="leaderboard_edit_name">Rename</string>
+    <string name="leaderboard_name_hint">Enter your name</string>
+    <string name="leaderboard_name_limit">Up to 14 characters</string>
+    <string name="leaderboard_cancel">Cancel</string>
+    <string name="leaderboard_save">Save</string>
+    <string name="leaderboard_note">Local leaderboard on this device</string>
+    <string name="leaderboard_note_global">Global leaderboard · Play Games</string>
+    <string name="leaderboard_signin">Sign in to Play Games for the global ranking</string>
+    <string name="leaderboard_loading">Loading leaderboard…</string>
+
     <!-- ── HUD ──────────────────────────────────────────────────────────────── -->
     <string name="hud_score">SCORE</string>
     <string name="hud_pause">Pause</string>

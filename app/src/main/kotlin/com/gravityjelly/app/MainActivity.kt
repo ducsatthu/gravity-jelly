@@ -35,6 +35,7 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import com.gravityjelly.app.ads.AdsManager
+import com.gravityjelly.app.games.PlayGamesManager
 import com.gravityjelly.app.audio.GjAudioManager
 import com.gravityjelly.app.audio.LocalGjAudio
 import com.gravityjelly.app.data.GjSettings
@@ -86,6 +87,7 @@ private sealed interface Route {
     data object Game : Route
     data object Settings : Route
     data object Handbook : Route   // Cẩm nang (tạm thay Daily)
+    data object Leaderboard : Route // Bảng xếp hạng (nội bộ, offline)
     data object Campaign : Route   // Chọn màn Campaign (prototype)
     data class CampaignIntro(val index: Int) : Route  // Giới thiệu màn trước khi chơi
     data class CampaignPlay(val index: Int) : Route   // Chơi một màn Campaign
@@ -96,7 +98,10 @@ private fun GravityJellyApp() {
     val context = LocalContext.current
     val repo = remember { SettingsRepository(context) }
     val ads = remember { AdsManager(context) }
+    val games = remember { PlayGamesManager(context) }
     val audio = remember { GjAudioManager(context) }
+    // Activity để lấy client Play Games (submit điểm) — null nếu context không phải Activity.
+    val activity = remember(context) { context as? android.app.Activity }
     val scope = rememberCoroutineScope()
     // Đọc state bền bất đồng bộ; mặc định an toàn cho khung hình đầu (lần đầu chưa có file).
     val settings by repo.settings.collectAsState(initial = GjSettings())
@@ -126,6 +131,8 @@ private fun GravityJellyApp() {
 
     // Init SDK quảng cáo lazy ở luồng nền (một lần) rồi preload.
     LaunchedEffect(Unit) { ads.initialize() }
+    // Init Play Games (no-op an toàn khi LEADERBOARD_ID còn placeholder — xem PlayGamesManager).
+    LaunchedEffect(Unit) { games.initialize() }
 
     // reduced-motion: cắt transition còn cross-fade tối giản / tức thời (tôn trọng a11y).
     val reducedMotion = remember {
@@ -180,6 +187,7 @@ private fun GravityJellyApp() {
                 onPlayCampaign = { route = Route.Campaign },
                 onSettings = { route = Route.Settings },
                 onHandbook = { route = Route.Handbook },
+                onLeaderboard = { route = Route.Leaderboard },
                 world = currentWorld,
                 reducedMotion = reducedMotion,
                 modifier = Modifier.fillMaxSize(),
@@ -189,7 +197,11 @@ private fun GravityJellyApp() {
                 initialSeed = if (settings.lastSeed != 0L) settings.lastSeed else DEFAULT_SEED,
                 best = settings.best,
                 ads = ads,
-                onBest = { score -> scope.launch { repo.updateBest(score) } },
+                onBest = { score ->
+                    scope.launch { repo.updateBest(score) }
+                    // Nộp điểm lên Play Games (guard nội bộ: chỉ khi đã cấu hình id thật).
+                    if (activity != null) games.submitScore(activity, score.toLong())
+                },
                 onSeedUsed = { seed -> scope.launch { repo.setLastSeed(seed) } },
                 onHome = { route = Route.Home },
                 settings = settings,
@@ -215,6 +227,14 @@ private fun GravityJellyApp() {
 
             Route.Handbook -> CamNangScreen(
                 seenGuides = settings.seenGuides,
+                onBack = { route = Route.Home },
+                modifier = Modifier.fillMaxSize(),
+            )
+
+            Route.Leaderboard -> LeaderboardRoute(
+                games = games,
+                best = settings.best,
+                playerName = settings.playerName,
                 onBack = { route = Route.Home },
                 modifier = Modifier.fillMaxSize(),
             )
@@ -258,13 +278,13 @@ private fun GravityJellyApp() {
 // rememberSaveable cần khoá nguyên thuỷ cho sealed route. CampaignPlay mã hoá index vào 1000+index.
 private fun Route.routeKey(): Int = when (this) {
     Route.Home -> 0; Route.Game -> 1; Route.Settings -> 2; Route.Splash -> 3; Route.Handbook -> 4
-    Route.Campaign -> 5
+    Route.Campaign -> 5; Route.Leaderboard -> 6
     is Route.CampaignIntro -> 2000 + index
     is Route.CampaignPlay -> 1000 + index
 }
 private fun routeFromKey(key: Int): Route = when {
     key == 1 -> Route.Game; key == 2 -> Route.Settings; key == 3 -> Route.Splash
-    key == 4 -> Route.Handbook; key == 5 -> Route.Campaign
+    key == 4 -> Route.Handbook; key == 5 -> Route.Campaign; key == 6 -> Route.Leaderboard
     key >= 2000 -> Route.CampaignIntro(key - 2000)
     key >= 1000 -> Route.CampaignPlay(key - 1000)
     else -> Route.Home

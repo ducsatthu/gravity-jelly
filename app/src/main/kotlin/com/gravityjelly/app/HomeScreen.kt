@@ -78,6 +78,7 @@ fun HomeScreen(
     onSettings: () -> Unit,
     onPlayCampaign: () -> Unit = {},
     onHandbook: () -> Unit = {},
+    onLeaderboard: () -> Unit = {},
     world: Int = 1,
     reducedMotion: Boolean = false,
     modifier: Modifier = Modifier,
@@ -114,7 +115,7 @@ fun HomeScreen(
                 onCampaign = onPlayCampaign,    // prototype đã mở
                 onPlay = onPlayEndless,
                 onGuide = onHandbook,
-                onLeaderboard = {},            // SẮP CÓ (dimmed + khoá)
+                onLeaderboard = onLeaderboard,  // đã có màn Bảng xếp hạng
                 onSettings = onSettings,
             )
         }
@@ -230,7 +231,7 @@ private fun BoxScope.HomeMenu(
                 )
                 IconButton(
                     icon = painterResource(R.drawable.btn_leaderboard), contentDescription = stringResource(R.string.home_leaderboard),
-                    aspect = AR_LEADER, comingSoon = true, onClick = onLeaderboard,
+                    aspect = AR_LEADER, onClick = onLeaderboard,
                 )
                 IconButton(
                     icon = painterResource(R.drawable.btn_setting), contentDescription = stringResource(R.string.home_settings),

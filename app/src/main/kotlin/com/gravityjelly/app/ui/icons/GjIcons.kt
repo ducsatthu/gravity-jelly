@@ -201,6 +201,14 @@ object GjIcons {
             "M12 14.5v2.5",
         )
     }
+
+    // bút chì (đổi tên) — bám design Icon.jsx `pencil`
+    val Pencil: ImageVector by lazy {
+        strokeIcon(
+            "M4 20h4L18.5 9.5a2 2 0 0 0-2.8-2.8L5 17.2V20z",
+            "M13.5 6.5l4 4",
+        )
+    }
 }
 
 // ── composable ────────────────────────────────────────────────────────────────

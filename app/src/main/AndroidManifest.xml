@@ -17,6 +17,13 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713" />
 
+        <!-- Play Games Services — PROJECT ID (số) do Play Console sinh ra. Hiện là PLACEHOLDER:
+             thay bằng id thật để bật Bảng xếp hạng toàn cầu. PlayGamesManager tự nhận biết
+             placeholder (LEADERBOARD_ID) → không init SDK, chạy bảng nội bộ, KHÔNG crash. -->
+        <meta-data
+            android:name="com.google.android.gms.games.APP_ID"
+            android:value="@string/game_services_project_id" />
+
         <!-- Đa ngôn ngữ (per-app language): AppCompatDelegate.setApplicationLocales tự LƯU và
              KHÔI PHỤC lựa chọn ngôn ngữ qua service này (autoStoreLocales) trên mọi API ≥ 24. -->
         <service

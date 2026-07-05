@@ -4,6 +4,9 @@
 <resources>
     <string name="app_name">Gravity Jelly</string>
 
+    <!-- Play Games Services project id (số) — PLACEHOLDER. Thay bằng id thật từ Play Console. -->
+    <string name="game_services_project_id" translatable="false">000000000000</string>
+
     <!-- ── Home ─────────────────────────────────────────────────────────────── -->
     <string name="home_campaign">Chiến dịch</string>
     <string name="home_endless">Chơi Endless</string>
@@ -25,6 +28,23 @@
     <string name="settings_rate">Đánh giá game</string>
     <string name="settings_privacy">Chính sách bảo mật</string>
     <string name="settings_home">Về Home</string>
+
+    <!-- ── Bảng xếp hạng ────────────────────────────────────────────────────── -->
+    <string name="leaderboard_back">Quay lại</string>
+    <string name="leaderboard_title">Xếp hạng</string>
+    <string name="leaderboard_tag">♾️ Endless</string>
+    <string name="leaderboard_subtitle">Điểm cao nhất mọi thời đại</string>
+    <string name="leaderboard_you_badge">BẠN</string>
+    <string name="leaderboard_default_name">Bạn</string>
+    <string name="leaderboard_edit_name">Đổi tên</string>
+    <string name="leaderboard_name_hint">Nhập tên của bạn</string>
+    <string name="leaderboard_name_limit">Tối đa 14 ký tự</string>
+    <string name="leaderboard_cancel">Hủy</string>
+    <string name="leaderboard_save">Lưu</string>
+    <string name="leaderboard_note">Bảng xếp hạng nội bộ trên máy này</string>
+    <string name="leaderboard_note_global">Bảng xếp hạng toàn cầu · Play Games</string>
+    <string name="leaderboard_signin">Đăng nhập Play Games để xem BXH toàn cầu</string>
+    <string name="leaderboard_loading">Đang tải bảng xếp hạng…</string>
 
     <!-- ── HUD chung ────────────────────────────────────────────────────────── -->
     <string name="hud_score">ĐIỂM</string>

@@ -26,6 +26,8 @@ data class GjSettings(
     val seenGuides: Set<String> = emptySet(),
     /** Sao đạt được mỗi màn Campaign: levelId → sao (1–3). Màn chưa có key = chưa hoàn thành. */
     val campaignStars: Map<Int, Int> = emptyMap(),
+    /** Tên người chơi hiển thị ở Bảng xếp hạng. Rỗng = chưa đặt → dùng tên mặc định (i18n). */
+    val playerName: String = "",
 )
 
 /** DataStore preferences gắn vào Context (một instance/quy trình). */
@@ -54,6 +56,7 @@ class SettingsRepository(private val dataStore: DataStore<Preferences>) {
                 lastSeed = p[KEY_LAST_SEED] ?: 0L,
                 seenGuides = p[KEY_SEEN_GUIDES] ?: emptySet(),
                 campaignStars = decodeStars(p[KEY_CAMPAIGN_STARS] ?: emptySet()),
+                playerName = p[KEY_PLAYER_NAME] ?: "",
             )
         }
 
@@ -69,6 +72,12 @@ class SettingsRepository(private val dataStore: DataStore<Preferences>) {
     suspend fun setMusic(value: Boolean) = edit { it[KEY_MUSIC] = value }
     suspend fun setVibrate(value: Boolean) = edit { it[KEY_VIBRATE] = value }
     suspend fun setLastSeed(seed: Long) = edit { it[KEY_LAST_SEED] = seed }
+
+    /** Đặt tên người chơi (Bảng xếp hạng). Cắt trắng + giới hạn 14 ký tự; rỗng → xoá về mặc định. */
+    suspend fun setPlayerName(name: String) = edit {
+        val trimmed = name.trim().take(14)
+        if (trimmed.isEmpty()) it.remove(KEY_PLAYER_NAME) else it[KEY_PLAYER_NAME] = trimmed
+    }
 
     /** Đánh dấu một mục hướng dẫn đã xem (cộng dồn id, idempotent). */
     suspend fun markGuideSeen(id: String) {
@@ -98,6 +107,7 @@ class SettingsRepository(private val dataStore: DataStore<Preferences>) {
         private val KEY_LAST_SEED = longPreferencesKey("last_seed")
         private val KEY_SEEN_GUIDES = stringSetPreferencesKey("seen_guides")
         private val KEY_CAMPAIGN_STARS = stringSetPreferencesKey("campaign_stars")
+        private val KEY_PLAYER_NAME = androidx.datastore.preferences.core.stringPreferencesKey("player_name")
 
         /** "levelId:stars" set → map (bỏ qua entry hỏng để không crash khi format lệch). */
         private fun decodeStars(raw: Set<String>): Map<Int, Int> = buildMap {
