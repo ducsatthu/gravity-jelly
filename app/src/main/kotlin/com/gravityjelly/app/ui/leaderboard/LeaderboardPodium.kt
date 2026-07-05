@@ -18,9 +18,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
@@ -35,6 +39,13 @@ private val METAL = mapOf(
     3 to Metal(Color(0xFFF6CFA6), Color(0xFFE7A876), Color(0xFFD5945F), Color(0xFF8A4E23), Color(0xFFB06B34)),
 )
 
+// một lá nguyệt quế = ellipse rx2.8/ry1.5 (đơn vị viewBox 32) xoay [deg] quanh tâm (cx,cy)
+private fun DrawScope.leafBlade(color: Color, cx: Float, cy: Float, deg: Float, u: Float) {
+    rotate(deg, pivot = Offset(cx, cy)) {
+        drawOval(color, topLeft = Offset(cx - 2.8f * u, cy - 1.5f * u), size = Size(5.6f * u, 3f * u))
+    }
+}
+
 // ── vòng nguyệt quế ôm số hạng ──────────────────────────────────────────────────
 @Composable
 private fun Laurel(rank: Int, size: Dp, ink: Color, leaf: Color) {
@@ -42,16 +53,19 @@ private fun Laurel(rank: Int, size: Dp, ink: Color, leaf: Color) {
         Canvas(Modifier.size(size)) {
             val u = this.size.width / 32f
             val stroke = Stroke(width = 1.1f * u)
+            // hai cành cong ôm lên quanh số — M11 26 C7 22 5.5 17 8 8 (trái) + đối xứng (phải)
             val left = Path().apply { moveTo(11f * u, 26f * u); cubicTo(7f * u, 22f * u, 5.5f * u, 17f * u, 8f * u, 8f * u) }
             val right = Path().apply { moveTo(21f * u, 26f * u); cubicTo(25f * u, 22f * u, 26.5f * u, 17f * u, 24f * u, 8f * u) }
             drawPath(left, leaf, alpha = 0.7f, style = stroke)
             drawPath(right, leaf, alpha = 0.7f, style = stroke)
-            val pts = listOf(11f to 25f, 8f to 21f, 6.4f to 16.5f, 7f to 12f, 9f to 8f)
-            for ((x, y) in pts) {
-                drawOval(leaf, topLeft = androidx.compose.ui.geometry.Offset((x - 2.8f) * u, (y - 1.5f) * u),
-                    size = androidx.compose.ui.geometry.Size(5.6f * u, 3f * u))
-                drawOval(leaf, topLeft = androidx.compose.ui.geometry.Offset((32f - x - 2.8f) * u, (y - 1.5f) * u),
-                    size = androidx.compose.ui.geometry.Size(5.6f * u, 3f * u))
+            // mỗi lá = ellipse rx2.8/ry1.5 XOAY theo góc dọc cành (design: [x, y, rotation]); phải = mirror
+            val blades = listOf(
+                Triple(11f, 25f, 65f), Triple(8f, 21f, 45f), Triple(6.4f, 16.5f, 15f),
+                Triple(7f, 12f, -12f), Triple(9f, 8f, -35f),
+            )
+            for ((bx, by, rot) in blades) {
+                leafBlade(leaf, bx * u, by * u, rot, u)
+                leafBlade(leaf, (32f - bx) * u, by * u, -rot, u)
             }
         }
         Text(

@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.Dp
@@ -49,12 +50,13 @@ fun FilledStar(size: Dp, modifier: Modifier = Modifier) {
     }
 }
 
-/** Chiếc lá bo tròn cạnh bục (bám Leaf trong leaderboard-screen.jsx). */
+/** Chiếc lá 3 lớp (thân + highlight + gân) — bám đúng 3 path Leaf trong leaderboard-screen.jsx. */
 @Composable
 fun Leaf(size: Dp, flip: Boolean = false, modifier: Modifier = Modifier) {
     Canvas(modifier.size(size)) {
         val u = this.size.width / 70f
         fun x(v: Float) = (if (flip) 70f - v else v) * u
+        // thân lá — M4 56 C4 30 24 8 54 4 c2 26 -16 48 -50 52 z
         val body = Path().apply {
             moveTo(x(4f), 56f * u)
             cubicTo(x(4f), 30f * u, x(24f), 8f * u, x(54f), 4f * u)
@@ -62,6 +64,20 @@ fun Leaf(size: Dp, flip: Boolean = false, modifier: Modifier = Modifier) {
             close()
         }
         drawPath(body, Color(0xFF8FD08A))
+        // highlight nhạt bên trong — M20 44 C14 30 30 14 52 12 c0 20 -14 34 -32 32 z
+        val hi = Path().apply {
+            moveTo(x(20f), 44f * u)
+            cubicTo(x(14f), 30f * u, x(30f), 14f * u, x(52f), 12f * u)
+            cubicTo(x(52f), 32f * u, x(38f), 46f * u, x(20f), 44f * u)
+            close()
+        }
+        drawPath(hi, Color(0xFFA6DCA0), alpha = 0.7f)
+        // gân lá — M14 50 C22 34 34 24 48 16
+        val vein = Path().apply {
+            moveTo(x(14f), 50f * u)
+            cubicTo(x(22f), 34f * u, x(34f), 24f * u, x(48f), 16f * u)
+        }
+        drawPath(vein, Color(0xFF63B368), style = Stroke(width = 2.4f * u, cap = StrokeCap.Round))
     }
 }
 

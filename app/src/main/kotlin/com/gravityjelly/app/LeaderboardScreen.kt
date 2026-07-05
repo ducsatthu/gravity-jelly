@@ -3,6 +3,7 @@ package com.gravityjelly.app
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -30,8 +31,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
@@ -243,8 +245,9 @@ private fun SignInBanner(onSignIn: () -> Unit) {
 @Composable
 private fun PodiumBlock(top: List<LbEntry>) {
     Box(Modifier.fillMaxWidth().padding(horizontal = GjSpace.lg)) {
-        Cloud(Modifier.align(Alignment.BottomStart).offset(x = (-6).dp, y = (-40).dp).size(90.dp, 46.dp))
-        Cloud(Modifier.align(Alignment.BottomEnd).offset(x = 6.dp, y = (-54).dp).size(70.dp, 40.dp))
+        // mây trôi ở vùng trời hai bên đỉnh bục (không bị bar che) — hiện rõ
+        Cloud(Modifier.align(Alignment.TopStart).offset(x = (-2).dp, y = 58.dp).size(96.dp, 46.dp))
+        Cloud(Modifier.align(Alignment.TopEnd).offset(x = 2.dp, y = 82.dp).size(74.dp, 40.dp))
         FilledStar(24.dp, Modifier.align(Alignment.TopStart).offset(x = 60.dp, y = 4.dp))
         FilledStar(26.dp, Modifier.align(Alignment.TopEnd).offset(x = (-60).dp, y = (-2).dp))
         Leaf(64.dp, flip = false, modifier = Modifier.align(Alignment.BottomStart).offset(x = (-18).dp, y = 10.dp))
@@ -264,7 +267,19 @@ private fun PodiumBlock(top: List<LbEntry>) {
 
 @Composable
 private fun Cloud(modifier: Modifier) {
-    Box(modifier.clip(RoundedCornerShape(GjRadius.full)).blur(2.dp).background(Color(0xFFDCEBFB).copy(alpha = 0.8f)))
+    Canvas(modifier) {
+        val w = size.width; val h = size.height
+        val body = Color(0xFFCFE2F7) // xanh pastel rõ hơn #DCEBFB để nổi trên nền kem
+        // đáy phẳng mềm
+        drawRoundRect(body, topLeft = Offset(w * 0.08f, h * 0.5f), size = Size(w * 0.84f, h * 0.45f),
+            cornerRadius = androidx.compose.ui.geometry.CornerRadius(h * 0.22f))
+        // ba cụm bông tạo dáng mây
+        drawCircle(body, radius = h * 0.4f, center = Offset(w * 0.28f, h * 0.58f))
+        drawCircle(body, radius = h * 0.52f, center = Offset(w * 0.52f, h * 0.5f))
+        drawCircle(body, radius = h * 0.38f, center = Offset(w * 0.74f, h * 0.6f))
+        // highlight trắng phía trên
+        drawCircle(Color.White.copy(alpha = 0.5f), radius = h * 0.2f, center = Offset(w * 0.44f, h * 0.4f))
+    }
 }
 
 @Composable
