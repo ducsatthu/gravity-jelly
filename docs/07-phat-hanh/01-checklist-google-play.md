@@ -136,9 +136,9 @@
 
 - [x] **Tên app** + **mô tả ngắn** (≤80) + **mô tả đầy đủ** (vi + en) — soạn sẵn ở
       [`store-listing.md`](store-listing.md), đã verify độ dài. Dán vào Play Console.
-- [ ] **Icon** 512×512 (PNG).
-- [ ] **Feature graphic** 1024×500.
-- [ ] **Screenshots điện thoại** (≥ 2, khuyến nghị 4–8): Home, Endless, Campaign, Boss, **Bảng xếp hạng**.
+- [x] **Icon** 512×512 (PNG) — đã chuẩn hoá.
+- [x] **Feature graphic** 1024×500 — đã có.
+- [x] **Screenshots điện thoại** — đã chụp.
 - [ ] (Tuỳ chọn) **video** YouTube giới thiệu.
 - [ ] Chọn **category** (Game → Puzzle) + tags.
 - [ ] Thông tin liên hệ nhà phát triển (email).
