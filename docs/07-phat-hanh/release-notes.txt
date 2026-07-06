@@ -1,0 +1,44 @@
+========================================
+GRAVITY JELLY — GHI CHÚ PHÁT HÀNH (RELEASE NOTES)
+Play Console → Create release → "Release notes"
+Giới hạn ~500 ký tự / mỗi ngôn ngữ. Dán theo đúng ngôn ngữ.
+========================================
+
+
+==================================================
+BẢN v0.1.0 — INTERNAL TESTING (bản test nội bộ đầu tiên)
+==================================================
+
+----- Tiếng Việt (vi-VN) -----
+
+Bản chơi thử nội bộ đầu tiên của Gravity Jelly 🎉
+• Xoay trọng lực dồn cả cụm khối, xóa hàng, tạo combo dây chuyền.
+• Chế độ Bất tận + Chiến dịch (Đồng cỏ, Rừng rậm, Sông & Thác) + đấu trùm.
+• Bảng xếp hạng (Google Play Games).
+Rất mong bạn thử và góp ý về độ khó, hiệu năng và lỗi gặp phải. Cảm ơn đã test!
+
+----- English (en-US) -----
+
+The first internal test build of Gravity Jelly 🎉
+• Twist gravity to slam clusters, clear lines and chain combos.
+• Endless mode + Campaign (Meadow, Forest, River) + boss battles.
+• Leaderboard (Google Play Games).
+Please try it and share feedback on difficulty, performance and any bugs. Thanks for testing!
+
+
+==================================================
+Định dạng có thẻ ngôn ngữ (nếu ô nhập yêu cầu dạng này)
+==================================================
+<vi-VN>
+Bản chơi thử nội bộ đầu tiên của Gravity Jelly. Xoay trọng lực dồn khối, tạo combo; có Bất tận, Chiến dịch, đấu trùm và bảng xếp hạng. Mong bạn góp ý về độ khó, hiệu năng và lỗi. Cảm ơn đã test!
+</vi-VN>
+<en-US>
+The first internal test build of Gravity Jelly. Twist gravity to slam blocks and chain combos; includes Endless, Campaign, boss battles and a leaderboard. Please share feedback on difficulty, performance and bugs. Thanks for testing!
+</en-US>
+
+
+==================================================
+GỢI Ý cho các bản sau (mẫu ngắn)
+==================================================
+• "Sửa lỗi và cải thiện hiệu năng."  /  "Bug fixes and performance improvements."
+• Liệt kê tính năng/màn mới nếu có; giữ ngắn gọn, hướng người chơi.

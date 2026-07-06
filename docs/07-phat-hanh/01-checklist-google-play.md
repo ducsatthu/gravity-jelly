@@ -98,14 +98,10 @@
 
 ## 4. Google Play Games Services — Bảng xếp hạng
 
-- [ ] Trong Play Console → **Play Games Services → Setup and management → Configuration**:
-      tạo cấu hình PGS cho app.
+- [x] **Configuration PGS** đã tạo cho app (project id `1038542031606`).
 - [x] Tạo **Leaderboard** "Endless High Score" → leaderboard id `CgkI9pW375weEAIQAA` đã điền vào
-      `PlayGamesManager.kt` → `configured=true` (app bật nhánh online).
+      `PlayGamesManager.kt` → `configured=true` (app tự bật nhánh online; offline lùi bảng nội bộ).
 - [x] **project id** = `1038542031606` → đã thay string `game_services_project_id`.
-- [ ] Thay `LEADERBOARD_ID` trong `PlayGamesManager.kt` (bảng §0). Khi đã cấu hình,
-      `configured=true` → app tự bật nhánh online (đăng nhập + top10 + hạng của bạn),
-      offline vẫn lùi bảng nội bộ.
 - [x] **Credentials**: OAuth client (Android) đã tạo + gắn vào cấu hình PGS.
   - [x] SHA-1 **debug** (`9F:72:…:4F:CD`) + **upload** (`B0:9B:…:24:C7`) đã khai. Package `com.ductranxuan.gravityjelly`.
   - [ ] SHA-1 **app signing key của Play** (lấy trong Play Console → App integrity SAU khi upload AAB) —
