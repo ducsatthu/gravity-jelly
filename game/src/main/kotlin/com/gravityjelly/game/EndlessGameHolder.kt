@@ -272,7 +272,7 @@ class EndlessGameHolder(
         animator.onPlaybackEnd = {
             val hadPending = pendingPlacement != null
             flushPendingPlacement()
-            if (!hadPending) {
+            if (!hadPending || !animator.isPlaying) {
                 evaluateGoal()
                 onGameSound?.invoke(GameSfx.SETTLED)
             }
