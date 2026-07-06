@@ -230,8 +230,13 @@ Chỉ khai phần AdMob và Play Games.
 > **"Shared"**: chỉ Advertising ID (AdMob) coi là *shared* (có thể tới đối tác quảng cáo). Dữ liệu
 > Firebase/Play Games do Google xử lý **thay mặt** nhà phát triển (processor) → **Collected Yes, Shared No**.
 >
-> 📄 **File CSV để nhập/điền nhanh**: [`data-safety.csv`](data-safety.csv) (bảng loại dữ liệu) +
-> [`data-safety-app-questions.csv`](data-safety-app-questions.csv) (câu hỏi mức-app).
+> 📄 **File CSV IMPORT sẵn**: [`data-safety-import.csv`](data-safety-import.csv) — đã điền theo đúng
+> **template chính chủ của Google** (`data_safety_sample.csv`). Play Console → App content → Data
+> safety → **Import** → chọn file này. Đã điền: có thu thập + mã hoá khi truyền + không tạo tài khoản
+> + 5 loại dữ liệu (User ID/Play Games, Crash logs, Diagnostics, App activity/GA4, Device or other
+> IDs) kèm mục đích & thu thập/chia sẻ.
+> ⚠️ **Xác nhận 1 ô trước khi nộp:** "cho phép yêu cầu xoá dữ liệu" đang để **Có** + URL = privacy
+> policy (mô tả cách reset Ad ID/gỡ app). Nếu Google đòi cơ chế xoá chính thức hơn, chỉnh lại ô này.
 
 ### 5.6 Các mục còn lại
 - **Government apps / News**: No.
