@@ -20,7 +20,8 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.gravityjelly.app"
+        // applicationId = mã đăng ký trên Google Play (độc lập với `namespace` mã nguồn ở trên).
+        applicationId = "com.ductranxuan.gravityjelly"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
@@ -102,6 +103,7 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.play.services.ads)
     implementation(libs.play.services.games.v2)
+    implementation(libs.play.sidekick)
     debugImplementation(libs.androidx.ui.tooling)
 
     testImplementation(libs.junit)

@@ -19,6 +19,13 @@
 | PGS leaderboard id | `app/.../games/PlayGamesManager.kt` `LEADERBOARD_ID` | `REPLACE_WITH_LEADERBOARD_ID` | Leaderboard id `CgkI…` |
 | Version | `app/build.gradle.kts` | `versionCode 1`, `versionName "0.1.0"` | Bump mỗi lần lên bản |
 
+> **applicationId (mã Play):** `com.ductranxuan.gravityjelly` — đã chốt trong `app/build.gradle.kts`
+> (flavor `demo` → `com.ductranxuan.gravityjelly.demo`). Đây là id đăng ký trên Play, **không đổi
+> được sau khi publish**. Lưu ý: `namespace` mã nguồn vẫn là `com.gravityjelly.app` (độc lập, không
+> ảnh hưởng Play). Vân tay khoá ký (dùng khai OAuth PGS + Play App Signing):
+> - **SHA-1:** `B0:9B:7B:11:93:BE:14:64:12:F2:10:58:A8:AA:52:48:FA:27:24:C7`
+> - **SHA-256:** `1B:FA:EF:29:A2:F5:C1:FF:86:85:3C:1E:7E:4C:65:99:E9:0D:E0:03:BA:13:F0:AF:56:60:A9:A4:8B:2F:E5:E0`
+
 > Nguyên tắc: **giữ id TEST cho tới sát ngày phát hành** (AdMob cấm click ad thật khi test →
 > có thể bị khoá tài khoản). Chỉ đổi sang id thật ở build release cuối.
 
@@ -56,7 +63,7 @@
       `app/proguard-rules.pro` (đang trống) giữ luật cho GMS Ads / Play Games / Compose nếu cần.
       (Tối thiểu có thể để `false` để phát hành nhanh, tối ưu sau.)
 - [ ] Bump `versionCode` (mỗi bản lên Play phải tăng) + `versionName` (vd `1.0.0`).
-- [ ] Kiểm tra `applicationId = com.gravityjelly.app` là **id cuối cùng** (không đổi được sau khi publish).
+- [x] `applicationId = com.ductranxuan.gravityjelly` (id đăng ký trên Play — **không đổi được sau khi publish**).
       Publish flavor **`production`** (`ADS_ENABLED=true`), KHÔNG phải `demo` (id có hậu tố `.demo`).
 - [ ] Build **App Bundle (.aab)**, không phải APK:
       `./gradlew :app:bundleProductionRelease` → `app/build/outputs/bundle/productionRelease/*.aab`.
@@ -97,7 +104,8 @@
 - [ ] **Credentials**: tạo OAuth2 client (Android) trong Google Cloud project được PGS liên kết;
       khai **SHA-1**:
   - [ ] SHA-1 **upload key** (bản dev/test cài qua adb): `B0:9B:7B:11:93:BE:14:64:12:F2:10:58:A8:AA:52:48:FA:27:24:C7`
-        (khoá dùng lại từ gravity_merge — xem §2).
+        (khoá dùng lại từ gravity_merge — xem §2). Package name khai kèm = `com.ductranxuan.gravityjelly`.
+        SHA-256: `1B:FA:EF:29:A2:F5:C1:FF:86:85:3C:1E:7E:4C:65:99:E9:0D:E0:03:BA:13:F0:AF:56:60:A9:A4:8B:2F:E5:E0`.
   - [ ] SHA-1 **app signing key của Play** (lấy trong Play Console → App integrity) cho bản phát hành.
 - [ ] Thêm **tài khoản tester** trong PGS → test được bản debug qua adb ở **sandbox** (không cần
       publish store). Emulator phải là image **"Google Play"**.
