@@ -15,8 +15,8 @@
 | AdMob App ID | `app/build.gradle.kts` `resValue admob_app_id` (theo build type) | ✅ release=`…3372922503955749~3547570752`, debug=TEST | Đã điền |
 | AdMob Interstitial | `app/build.gradle.kts` `ADMOB_INTERSTITIAL_UNIT` | ✅ release=`…/3918271696`, debug=TEST | Đã điền |
 | AdMob Rewarded | `app/build.gradle.kts` `ADMOB_REWARDED_UNIT` | ✅ release=`…/1911924999`, debug=TEST | Đã điền |
-| PGS project id | `app/src/main/res/values/strings.xml` `game_services_project_id` | `000000000000` | Project id (số) từ Play Console |
-| PGS leaderboard id | `app/.../games/PlayGamesManager.kt` `LEADERBOARD_ID` | `REPLACE_WITH_LEADERBOARD_ID` | Leaderboard id `CgkI…` |
+| PGS project id | `app/src/main/res/values/strings.xml` `game_services_project_id` | ✅ `1038542031606` | Đã điền |
+| PGS leaderboard id | `app/.../games/PlayGamesManager.kt` `LEADERBOARD_ID` | `REPLACE_WITH_LEADERBOARD_ID` | ⏳ Leaderboard id `CgkI…` (bật online) |
 | Version | `app/build.gradle.kts` | `versionCode 1`, `versionName "0.1.0"` | Bump mỗi lần lên bản |
 
 > **applicationId (mã Play):** `com.ductranxuan.gravityjelly` — đã chốt trong `app/build.gradle.kts`
@@ -100,8 +100,9 @@
 
 - [ ] Trong Play Console → **Play Games Services → Setup and management → Configuration**:
       tạo cấu hình PGS cho app.
-- [ ] Tạo **Leaderboard** "Endless — All time" → lấy **leaderboard id** (`CgkI…`).
-- [ ] Lấy **project id** (số) của PGS → thay string `game_services_project_id`.
+- [ ] Tạo **Leaderboard** "Endless" → lấy **leaderboard id** (`CgkI…`). Thông tin điền: xem
+      [`leaderboard-info.txt`](leaderboard-info.txt).
+- [x] **project id** = `1038542031606` → đã thay string `game_services_project_id`.
 - [ ] Thay `LEADERBOARD_ID` trong `PlayGamesManager.kt` (bảng §0). Khi đã cấu hình,
       `configured=true` → app tự bật nhánh online (đăng nhập + top10 + hạng của bạn),
       offline vẫn lùi bảng nội bộ.

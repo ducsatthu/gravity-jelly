@@ -1,0 +1,61 @@
+========================================
+GRAVITY JELLY — TẠO LEADERBOARD (Play Games Services)
+Play Console → Grow → Play Games Services → Setup and management
+       → Leaderboards → Create leaderboard
+Điền các giá trị dưới đây. Có thể thêm bản dịch cho từng ngôn ngữ.
+========================================
+
+
+===== NAME (Tên hiển thị) =====
+
+Tiếng Việt (mặc định):
+Điểm cao nhất Endless
+
+English:
+Endless High Score
+
+
+===== SCORE FORMATTING (Định dạng điểm) =====
+
+Score format type:      Numeric
+Decimal places:         0
+Icon:                   (tuỳ chọn) 512 x 512 PNG
+
+
+===== ORDERING (Thứ tự) =====
+
+Ordering:               Larger is better
+                        (điểm CÀNG CAO càng xếp trên — đúng với Endless)
+
+
+===== LIMITS (Giới hạn) — để mặc định =====
+
+Limit scores:           No (mặc định)
+Tie-breaking / các mục còn lại: để mặc định
+
+
+========================================
+SAU KHI TẠO XONG
+========================================
+
+1. Google sinh ra một LEADERBOARD ID dạng:  CgkI...xxxxxxxxxxxx
+   → Copy id đó gửi lại cho tôi (hoặc điền vào):
+        app/.../games/PlayGamesManager.kt
+        const val LEADERBOARD_ID = "CgkI..."   (thay "REPLACE_WITH_LEADERBOARD_ID")
+   Khi có id thật → app tự bật nhánh online (đăng nhập + top 10 + hạng của bạn),
+   offline vẫn lùi bảng nội bộ.
+
+2. Đã điền sẵn: project id = 1038542031606
+   (string game_services_project_id — đã xong).
+
+3. CẦN cho đăng nhập Play Games ở bản release:
+   - Tạo OAuth client (Android) trong Google Cloud project của PGS.
+   - Khai SHA-1 CẢ HAI khoá:
+       • Upload key:      B0:9B:7B:11:93:BE:14:64:12:F2:10:58:A8:AA:52:48:FA:27:24:C7
+       • App signing key: lấy trong Play Console → Test and release → App integrity
+                          (có sau khi upload AAB đầu tiên + bật Play App Signing)
+   - Package name: com.ductranxuan.gravityjelly
+
+4. Thêm tài khoản tester trong PGS để test sandbox qua adb (chưa cần publish).
+
+5. Publish cấu hình PGS (nút riêng) để mọi người thấy leaderboard.
