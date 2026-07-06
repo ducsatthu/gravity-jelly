@@ -123,15 +123,13 @@
 
 - [x] **Data safety form**: ĐÃ import `data-safety-import.csv` (06/07). Khai Ad ID (AdMob), User ID
       (Play Games), App activity + Diagnostics/Crash (Firebase GA4 + Crashlytics), app-instance id.
-- [ ] **Ads declaration**: app CÓ chứa quảng cáo → tick "Yes".
-- [ ] **Content rating (IARC)**: điền bảng câu hỏi → nhận rating (game casual, không bạo lực).
-- [ ] **Target audience & content**: chọn nhóm tuổi. Nếu **có trẻ em** → tuân thủ
-      Families Policy + ad phù hợp.
-- [ ] **Government apps / News**: không áp dụng.
-- [ ] **Privacy policy URL**: dán link (đã chuẩn bị ở §1).
-- [ ] **App access**: nếu leaderboard/tính năng cần đăng nhập, cung cấp hướng dẫn cho reviewer
-      (ở đây Play Games đăng nhập tự động — ghi chú "không cần credential").
-- [ ] **Financial features / Health**: không.
+- [x] **Ads declaration**: app CÓ chứa quảng cáo → "Yes". *(App content xong 06/07)*
+- [x] **Content rating (IARC)**: đã điền bảng câu hỏi → rating casual.
+- [x] **Target audience & content**: đã chọn nhóm tuổi.
+- [x] **Government apps / News**: không áp dụng.
+- [x] **Privacy policy URL**: đã dán `https://privacypolicysite-one.vercel.app`.
+- [x] **App access**: All functionality available without special access.
+- [x] **Financial features / Health**: không.
 
 ---
 
