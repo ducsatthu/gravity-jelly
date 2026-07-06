@@ -20,7 +20,7 @@
 | Version | `app/build.gradle.kts` | `versionCode 1`, `versionName "0.1.0"` | Bump mỗi lần lên bản |
 
 > **applicationId (mã Play):** `com.ductranxuan.gravityjelly` — đã chốt trong `app/build.gradle.kts`
-> (flavor `demo` → `com.ductranxuan.gravityjelly.demo`). Đây là id đăng ký trên Play, **không đổi
+> (đã **bỏ flavor demo** — chỉ còn biến thể `debug`/`release`). Đây là id đăng ký trên Play, **không đổi
 > được sau khi publish**. Lưu ý: `namespace` mã nguồn vẫn là `com.gravityjelly.app` (độc lập, không
 > ảnh hưởng Play). Vân tay khoá ký (dùng khai OAuth PGS + Play App Signing):
 > - **SHA-1:** `B0:9B:7B:11:93:BE:14:64:12:F2:10:58:A8:AA:52:48:FA:27:24:C7`
@@ -56,19 +56,19 @@
 - [x] `signingConfigs.release` đã wire sẵn trong `app/build.gradle.kts` (đọc `keystore.properties`).
 - [x] Đã tạo `keystore.properties` ở root (copy từ `../gravity_merge/app/android/key.properties`,
       cùng định dạng `storeFile/storePassword/keyAlias/keyPassword`). `signingReport` xác nhận
-      `productionRelease → Config: release`. **SHA-1 release: `B0:9B:7B:11:93:BE:14:64:12:F2:10:58:A8:AA:52:48:FA:27:24:C7`** (khai vào OAuth client PGS — §4).
+      `release → Config: release`. **SHA-1 release: `B0:9B:7B:11:93:BE:14:64:12:F2:10:58:A8:AA:52:48:FA:27:24:C7`** (khai vào OAuth client PGS — §4).
 - [x] Mật khẩu keystore để ngoài VCS: `keystore.properties` + `*.jks`/`*.keystore` đã vào `.gitignore`.
 - [ ] Bật **Play App Signing** (khuyến nghị) — Google giữ app signing key, mình chỉ giữ upload key.
 - [x] **R8/minify + shrinkResources** đã bật cho release (`isMinifyEnabled=true`, `isShrinkResources=true`)
       + `app/proguard-rules.pro` (keep GMA Ads / UMP / Play Games + giữ line numbers cho crash).
-      Đã build & verify `assembleProductionRelease` OK — APK ký release đúng (`com.ductranxuan.gravityjelly`,
-      SHA-256 khớp). **Nhớ upload `app/build/outputs/mapping/productionRelease/mapping.txt` lên Play**
+      Đã build & verify `assembleRelease` OK — APK ký release đúng (`com.ductranxuan.gravityjelly`,
+      SHA-256 khớp). **Nhớ upload `app/build/outputs/mapping/release/mapping.txt` lên Play**
       (App bundle explorer) để deobfuscate stacktrace crash.
 - [ ] Bump `versionCode` (mỗi bản lên Play phải tăng) + `versionName` (vd `1.0.0`).
 - [x] `applicationId = com.ductranxuan.gravityjelly` (id đăng ký trên Play — **không đổi được sau khi publish**).
-      Publish flavor **`production`** (`ADS_ENABLED=true`), KHÔNG phải `demo` (id có hậu tố `.demo`).
+      Đã **bỏ flavor demo** — chỉ còn `debug`/`release` (`ADS_ENABLED=true` mặc định).
 - [ ] Build **App Bundle (.aab)**, không phải APK:
-      `./gradlew :app:bundleProductionRelease` → `app/build/outputs/bundle/productionRelease/*.aab`.
+      `./gradlew :app:bundleRelease` → `app/build/outputs/bundle/release/*.aab`.
 - [ ] Kiểm `targetSdk 35` (Play yêu cầu target SDK mới cho app mới — 35 hợp lệ 2026). `minSdk 24` OK.
 - [ ] Đổi **icon/label** production nếu cần (đang dùng `@mipmap/ic_launcher`, label "Gravity Jelly").
 - [ ] Chạy thử **bản release đã ký** trên máy thật (`bundletool` hoặc cài `.aab` qua internal testing)
@@ -174,4 +174,4 @@
 - AdMob: `app/src/main/kotlin/com/gravityjelly/app/ads/AdsConfig.kt`, `AdsManager.kt`; manifest meta `ads.APPLICATION_ID`.
 - Play Games: `app/src/main/kotlin/com/gravityjelly/app/games/PlayGamesManager.kt`; manifest meta `games.APP_ID`; string `game_services_project_id`.
 - Bảng xếp hạng UI: `app/src/main/kotlin/com/gravityjelly/app/LeaderboardScreen.kt` + `ui/leaderboard/`.
-- Build/flavor/signing: `app/build.gradle.kts` (flavor `production`/`demo`, chưa có `signingConfigs`).
+- Build/signing: `app/build.gradle.kts` (chỉ `debug`/`release`, `signingConfigs.release` từ keystore.properties, R8 bật).

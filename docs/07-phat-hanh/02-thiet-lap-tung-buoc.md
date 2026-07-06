@@ -29,7 +29,7 @@
 | Keystore | `../gravity_merge/gravity_merge_release.jks` (alias `gravity_merge`) | ký release (mượn) |
 | minSdk / targetSdk / compileSdk | 24 / 35 / 35 | — |
 | versionCode / versionName | 1 / 0.1.0 | bump khi phát hành |
-| Flavor phát hành | `production` (`ADS_ENABLED=true`) | KHÔNG dùng `demo` (`.demo`) |
+| Biến thể build | Chỉ `debug` / `release` (đã bỏ flavor demo; `ADS_ENABLED=true` mặc định) | — |
 | Danh mục | Game → Puzzle | listing |
 | Ngôn ngữ | vi (mặc định) + en | listing 2 thứ tiếng |
 | Kiếm tiền | Chỉ quảng cáo (AdMob). **Không** IAP | Data safety, Ads |
@@ -283,15 +283,15 @@ Chỉ làm ở **build release cuối** (giữ id TEST khi dev để không bị
 
 1. Tạo file `keystore.properties` ở root nếu chưa có (đã hướng dẫn — mượn từ gravity_merge). Kiểm:
    ```bash
-   ./gradlew :app:signingReport   # productionRelease phải là Config: release
+   ./gradlew :app:signingReport   # variant release phải là Config: release
    ```
 2. Build **App Bundle** (KHÔNG phải APK):
    ```bash
-   ./gradlew :app:bundleProductionRelease
-   # ra: app/build/outputs/bundle/productionRelease/app-production-release.aab
+   ./gradlew :app:bundleRelease
+   # ra: app/build/outputs/bundle/release/app-release.aab
    ```
 3. Play Console → **Test and release → Internal testing → Create release** → upload `.aab`.
-   - Upload luôn **mapping file**: `app/build/outputs/mapping/productionRelease/mapping.txt`
+   - Upload luôn **mapping file**: `app/build/outputs/mapping/release/mapping.txt`
      (Play tự lấy từ bundle, nếu không thì thêm tay ở **App bundle explorer**) → để deobfuscate crash R8.
 4. Cài qua link internal testing → test end-to-end trên **máy thật**: ad (test device), PGS đăng nhập
    (tài khoản tester), i18n vi/en, đổi ngôn ngữ trong app, UMP form (thêm test hash).
@@ -321,7 +321,8 @@ Chỉ làm ở **build release cuối** (giữ id TEST khi dev để không bị
 | app-ads.txt | ✅ live `/app-ads.txt` |
 | UMP consent (`ConsentManager`) | ✅ chạy trước init AdMob |
 | Firebase Analytics (GA4) + Crashlytics (`AnalyticsManager`) | ✅ code + event + gate consent; chờ `google-services.json` (§3B) |
-| R8/minify + shrinkResources + proguard | ✅ `assembleProductionRelease` OK |
+| R8/minify + shrinkResources + proguard | ✅ `assembleRelease` OK |
+| Bỏ flavor demo (chỉ `debug`/`release`) | ✅ ADS_ENABLED=true mặc định |
 | Link privacy trong màn Cài đặt | ✅ mở URL thật |
 | Bảng xếp hạng (online PGS + offline fallback) | ✅ chờ id thật để bật online |
 

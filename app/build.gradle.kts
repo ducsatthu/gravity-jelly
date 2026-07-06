@@ -34,6 +34,8 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "0.1.0"
+        // Quảng cáo luôn bật (đã bỏ flavor demo — chỉ còn bản release-ready).
+        buildConfigField("Boolean", "ADS_ENABLED", "true")
     }
 
     signingConfigs {
@@ -78,20 +80,6 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
-    }
-
-    flavorDimensions += "distribution"
-    productFlavors {
-        create("production") {
-            dimension = "distribution"
-            buildConfigField("Boolean", "ADS_ENABLED", "true")
-        }
-        create("demo") {
-            dimension = "distribution"
-            applicationIdSuffix = ".demo"
-            versionNameSuffix = "-demo"
-            buildConfigField("Boolean", "ADS_ENABLED", "false")
-        }
     }
 }
 
