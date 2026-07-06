@@ -30,9 +30,12 @@
 - [ ] Xác minh danh tính/địa chỉ nhà phát triển (Google yêu cầu với tài khoản cá nhân mới —
       có thể mất vài ngày).
 - [ ] Nếu kiếm tiền: thiết lập **payments profile** (thuế, tài khoản nhận tiền AdMob).
-- [ ] Viết **Chính sách bảo mật (Privacy Policy)** và host công khai (URL cố định). BẮT BUỘC
-      vì app có quảng cáo + Play Games (thu thập dữ liệu). Nêu rõ: AdMob, Play Games, định danh
-      quảng cáo (AD_ID). Gắn link vào màn Cài đặt (đang có mục "Chính sách bảo mật" — nối URL thật).
+- [x] Viết **Chính sách bảo mật (Privacy Policy)** và host công khai. Site tĩnh song ngữ (vi/en)
+      ở `privacy_policy_site/` (nêu AdMob, Play Games, AD_ID, dữ liệu cục bộ). Đã deploy Vercel
+      (project riêng của Gravity Jelly): **URL cố định `https://privacypolicysite-one.vercel.app`**.
+      Redeploy: `cd privacy_policy_site && ./deploy.sh` (cần `.env` chứa `VERCEL_TOKEN`, đã gitignore).
+- [ ] Dán URL trên vào: **màn Cài đặt** trong app (mục "Chính sách bảo mật" — nối URL thật),
+      **Play Console → App content → Privacy policy**, **AdMob → App settings → Privacy policy URL**.
 
 ---
 
