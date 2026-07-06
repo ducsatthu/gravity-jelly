@@ -19,6 +19,11 @@ keystore.properties
 *.jks
 *.keystore
 
+# Secrets môi trường (token deploy Vercel…) — KHÔNG commit (giữ .env.example)
+.env
+.env.*
+!.env.example
+
 # IDE (Eclipse/BuildShip) compiled output
 bin/
 core/bin/
