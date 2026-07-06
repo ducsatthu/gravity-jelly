@@ -28,6 +28,10 @@ keystore.properties
 google-services.json
 app/google-services.json
 
+# OAuth client secret (chỉ dùng cho luồng server/web — app Android KHÔNG cần) — KHÔNG commit
+client_secret*.json
+*.apps.googleusercontent.com.json
+
 # IDE (Eclipse/BuildShip) compiled output
 bin/
 core/bin/
