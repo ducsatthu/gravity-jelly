@@ -7,9 +7,10 @@ package com.gravityjelly.app.ads
  * KHÔNG theo bộ đếm thời gian thuần.
  */
 object AdsConfig {
-    // Google test ad units (an toàn để dev; không tính doanh thu).
-    const val INTERSTITIAL_UNIT = "ca-app-pub-3940256099942544/1033173712"
-    const val REWARDED_UNIT = "ca-app-pub-3940256099942544/5224354917"
+    // Ad unit id theo build type (build.gradle.kts): debug = TEST, release = THẬT.
+    // App ID (manifest) đọc qua @string/admob_app_id, cũng tách theo build type.
+    val INTERSTITIAL_UNIT = com.gravityjelly.app.BuildConfig.ADMOB_INTERSTITIAL_UNIT
+    val REWARDED_UNIT = com.gravityjelly.app.BuildConfig.ADMOB_REWARDED_UNIT
 
     /** Số ván thua đầu được "ân hạn" (người mới không bị interstitial). */
     const val GRACE_GAMES = 2

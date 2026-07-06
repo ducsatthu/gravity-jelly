@@ -84,11 +84,13 @@
 1. <https://apps.admob.com> (dùng **cùng tài khoản** đang có pub `pub-3372922503955749`) → **Apps →
    Add app** → chọn "Đã có trên Google Play" (hoặc chưa, link sau) → package
    `com.ductranxuan.gravityjelly`.
-2. Tạo **2 ad unit**:
-   - **Interstitial** (tên gợi ý: `GJ Interstitial`)
-   - **Rewarded** (tên gợi ý: `GJ Rewarded`)
-   - Copy **App ID** (`ca-app-pub-3372922503955749~XXXX`) + 2 **Ad unit ID**.
-3. **Chưa thay vội vào code** — theo nguyên tắc giữ id TEST tới sát ngày phát hành (§7). Cất id thật lại.
+2. ✅ **Đã tạo** 2 ad unit + lấy id thật (đã điền vào code — build type `release`):
+   - App ID: `ca-app-pub-3372922503955749~3547570752`
+   - `GJ Interstitial`: `ca-app-pub-3372922503955749/3918271696`
+   - `GJ Rewarded`: `ca-app-pub-3372922503955749/1911924999`
+3. ✅ **Đã wire theo build type**: `release` = id THẬT, `debug` = id TEST (an toàn — click ad test không
+   bị khoá). Khi test bản **release** trên máy mình: đăng ký **test device** trong AdMob trước, đừng
+   click ad thật (invalid traffic → khoá tài khoản).
 4. **app-ads.txt**: đã đăng sẵn tại `https://privacypolicysite-one.vercel.app/app-ads.txt`.
    Để AdMob crawl được, khai **website nhà phát triển** = `https://privacypolicysite-one.vercel.app`
    trong **Play listing → Store settings** (và/hoặc trang developer). AdMob → **App settings →
@@ -269,9 +271,9 @@ Chỉ làm ở **build release cuối** (giữ id TEST khi dev để không bị
 
 | Đổi gì | File | Từ | Sang |
 |---|---|---|---|
-| AdMob App ID | `app/src/main/AndroidManifest.xml` | test `~3347511713` | `ca-app-pub-3372922503955749~XXXX` |
-| Interstitial | `app/.../ads/AdsConfig.kt` | test `/1033173712` | unit thật |
-| Rewarded | `app/.../ads/AdsConfig.kt` | test `/5224354917` | unit thật |
+| AdMob App ID | `app/build.gradle.kts` `resValue admob_app_id` | ✅ tách theo build type | release=`~3547570752`, debug=TEST |
+| Interstitial | `app/build.gradle.kts` `ADMOB_INTERSTITIAL_UNIT` | ✅ | release=`/3918271696` |
+| Rewarded | `app/build.gradle.kts` `ADMOB_REWARDED_UNIT` | ✅ | release=`/1911924999` |
 | PGS project id | `app/src/main/res/values/strings.xml` `game_services_project_id` | `000000000000` | project id thật |
 | PGS leaderboard id | `app/.../games/PlayGamesManager.kt` `LEADERBOARD_ID` | `REPLACE_WITH_LEADERBOARD_ID` | `CgkI…` |
 | Version | `app/build.gradle.kts` | `versionCode 1 / 0.1.0` | tăng mỗi bản (vd `1 / 1.0.0`) |
@@ -320,7 +322,8 @@ Chỉ làm ở **build release cuối** (giữ id TEST khi dev để không bị
 | Privacy Policy (song ngữ) + deploy Vercel | ✅ live `privacypolicysite-one.vercel.app` |
 | app-ads.txt | ✅ live `/app-ads.txt` |
 | UMP consent (`ConsentManager`) | ✅ chạy trước init AdMob |
-| Firebase Analytics (GA4) + Crashlytics (`AnalyticsManager`) | ✅ code + event + gate consent; chờ `google-services.json` (§3B) |
+| Firebase Analytics (GA4) + Crashlytics (`AnalyticsManager`) | ✅ code + event + gate consent; **google-services.json đã thêm** (§3B) |
+| AdMob id thật (App ID + Interstitial + Rewarded) | ✅ release=thật, debug=TEST (theo build type) |
 | R8/minify + shrinkResources + proguard | ✅ `assembleRelease` OK |
 | Bỏ flavor demo (chỉ `debug`/`release`) | ✅ ADS_ENABLED=true mặc định |
 | Link privacy trong màn Cài đặt | ✅ mở URL thật |

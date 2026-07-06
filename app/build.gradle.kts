@@ -36,6 +36,12 @@ android {
         versionName = "0.1.0"
         // Quảng cáo luôn bật (đã bỏ flavor demo — chỉ còn bản release-ready).
         buildConfigField("Boolean", "ADS_ENABLED", "true")
+
+        // AdMob — MẶC ĐỊNH id TEST (an toàn cho debug: click ad test không bị khoá tài khoản).
+        // buildType `release` override sang id THẬT bên dưới. App ID đọc qua @string/admob_app_id.
+        resValue("string", "admob_app_id", "ca-app-pub-3940256099942544~3347511713")
+        buildConfigField("String", "ADMOB_INTERSTITIAL_UNIT", "\"ca-app-pub-3940256099942544/1033173712\"")
+        buildConfigField("String", "ADMOB_REWARDED_UNIT", "\"ca-app-pub-3940256099942544/5224354917\"")
     }
 
     signingConfigs {
@@ -65,6 +71,11 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+            // AdMob — id THẬT (chỉ bản phát hành). Đăng ký test device trước khi chạy release
+            // trên máy mình để không click ad thật (tránh invalid traffic → khoá tài khoản).
+            resValue("string", "admob_app_id", "ca-app-pub-3372922503955749~3547570752")
+            buildConfigField("String", "ADMOB_INTERSTITIAL_UNIT", "\"ca-app-pub-3372922503955749/3918271696\"")
+            buildConfigField("String", "ADMOB_REWARDED_UNIT", "\"ca-app-pub-3372922503955749/1911924999\"")
         }
     }
     compileOptions {

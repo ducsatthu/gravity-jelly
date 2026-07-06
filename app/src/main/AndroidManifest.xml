@@ -12,10 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GravityJelly">
 
-        <!-- AdMob App ID — TEST id khi dev (technical §Services). Thay id thật khi phát hành. -->
+        <!-- AdMob App ID — theo build type: debug = id TEST, release = id THẬT.
+             Giá trị đặt ở build.gradle.kts (resValue admob_app_id). -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713" />
+            android:value="@string/admob_app_id" />
 
         <!-- Firebase Analytics (GA4) + Crashlytics: MẶC ĐỊNH TẮT thu thập (privacy-first).
              AnalyticsManager bật lại SAU khi có đồng thuận UMP (canRequestAds). -->

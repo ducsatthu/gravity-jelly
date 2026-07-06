@@ -12,9 +12,9 @@
 
 | Hạng mục | File / vị trí | Giá trị hiện tại | Cần thay |
 |---|---|---|---|
-| AdMob App ID | `app/src/main/AndroidManifest.xml` (`ads.APPLICATION_ID`) | TEST `ca-app-pub-3940256099942544~3347511713` | App ID thật từ AdMob |
-| AdMob Interstitial | `app/.../ads/AdsConfig.kt` `INTERSTITIAL_UNIT` | TEST `…/1033173712` | Ad unit thật |
-| AdMob Rewarded | `app/.../ads/AdsConfig.kt` `REWARDED_UNIT` | TEST `…/5224354917` | Ad unit thật |
+| AdMob App ID | `app/build.gradle.kts` `resValue admob_app_id` (theo build type) | ✅ release=`…3372922503955749~3547570752`, debug=TEST | Đã điền |
+| AdMob Interstitial | `app/build.gradle.kts` `ADMOB_INTERSTITIAL_UNIT` | ✅ release=`…/3918271696`, debug=TEST | Đã điền |
+| AdMob Rewarded | `app/build.gradle.kts` `ADMOB_REWARDED_UNIT` | ✅ release=`…/1911924999`, debug=TEST | Đã điền |
 | PGS project id | `app/src/main/res/values/strings.xml` `game_services_project_id` | `000000000000` | Project id (số) từ Play Console |
 | PGS leaderboard id | `app/.../games/PlayGamesManager.kt` `LEADERBOARD_ID` | `REPLACE_WITH_LEADERBOARD_ID` | Leaderboard id `CgkI…` |
 | Version | `app/build.gradle.kts` | `versionCode 1`, `versionName "0.1.0"` | Bump mỗi lần lên bản |
@@ -79,9 +79,10 @@
 ## 3. AdMob sẵn sàng
 
 - [ ] Tạo app trong **AdMob console**, liên kết với app trên Play (cùng package name).
-- [ ] Tạo **ad unit**: 1 Interstitial + 1 Rewarded → lấy id thật.
-- [ ] Thay 3 id (App ID + 2 unit) theo **bảng §0**.
-- [ ] Đăng **app-ads.txt** (nếu dùng domain nhà phát triển) — chống gian lận, tăng fill rate.
+- [x] Tạo **ad unit**: 1 Interstitial + 1 Rewarded → lấy id thật.
+- [x] Điền 3 id thật (App ID + 2 unit) — **release** dùng id thật, **debug** vẫn TEST (tránh khoá tài khoản).
+      Verify APK: release nhúng `~3547570752`, debug nhúng TEST `~3347511713`.
+- [x] Đăng **app-ads.txt** — live tại `https://privacypolicysite-one.vercel.app/app-ads.txt` (pub `3372922503955749`).
 - [x] **UMP / Consent (GDPR/EEA)** đã tích hợp: `ads/ConsentManager.kt` chạy TRƯỚC khi init AdMob
       (`MainActivity`), chỉ khi `canRequestAds()` mới `ads.initialize()`. Ngoài EEA bỏ qua form.
       Còn phải làm trên **AdMob console → Privacy & messaging**: tạo **GDPR** (và **IDFA/ATT** không cần
