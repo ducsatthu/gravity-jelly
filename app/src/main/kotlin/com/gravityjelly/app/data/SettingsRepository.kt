@@ -8,10 +8,15 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.gravityjelly.app.ui.leaderboard.LbEntry
+import com.gravityjelly.app.ui.leaderboard.LbYou
+import com.gravityjelly.app.ui.leaderboard.OnlineLeaderboard
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 
@@ -99,6 +104,41 @@ class SettingsRepository(private val dataStore: DataStore<Preferences>) {
         dataStore.edit { block(it) }
     }
 
+    // ---- Cache Bảng xếp hạng (Play Games) — để xem offline khi mất mạng ----
+
+    /**
+     * Lưu bản chụp BXH vừa tải từ Play Games để lần sau mở lúc offline vẫn có dữ liệu thật.
+     * Mã hoá gọn trong preferences (mỗi dòng "score\tname"); ghi đè bản cũ mỗi lần đồng bộ.
+     */
+    suspend fun saveLeaderboardCache(data: OnlineLeaderboard) {
+        dataStore.edit { p ->
+            p[KEY_LB_ENTRIES] = data.entries.joinToString("\n") { "${it.score}\t${sanitize(it.name)}" }
+            val you = data.you
+            if (you != null) p[KEY_LB_YOU] = "${you.rank}\t${you.score}\t${sanitize(you.name)}"
+            else p.remove(KEY_LB_YOU)
+        }
+    }
+
+    /** Đọc bản cache BXH gần nhất (null nếu chưa từng đồng bộ / dữ liệu rỗng). */
+    suspend fun loadLeaderboardCache(): OnlineLeaderboard? {
+        val p = dataStore.data
+            .catch { e -> if (e is IOException) emit(emptyPreferences()) else throw e }
+            .first()
+        val entries = (p[KEY_LB_ENTRIES] ?: return null).split("\n").mapNotNull { line ->
+            val tab = line.indexOf('\t')
+            if (tab < 0) return@mapNotNull null
+            val score = line.substring(0, tab).toIntOrNull() ?: return@mapNotNull null
+            LbEntry(line.substring(tab + 1), score)
+        }
+        if (entries.isEmpty()) return null
+        val you = p[KEY_LB_YOU]?.split("\t")?.let { parts ->
+            val rank = parts.getOrNull(0)?.toIntOrNull()
+            val score = parts.getOrNull(1)?.toIntOrNull()
+            if (rank != null && score != null) LbYou(rank, parts.getOrNull(2) ?: "", score) else null
+        }
+        return OnlineLeaderboard(entries, you)
+    }
+
     companion object {
         private val KEY_BEST = intPreferencesKey("best_score")
         private val KEY_SOUND = booleanPreferencesKey("sound")
@@ -108,6 +148,11 @@ class SettingsRepository(private val dataStore: DataStore<Preferences>) {
         private val KEY_SEEN_GUIDES = stringSetPreferencesKey("seen_guides")
         private val KEY_CAMPAIGN_STARS = stringSetPreferencesKey("campaign_stars")
         private val KEY_PLAYER_NAME = androidx.datastore.preferences.core.stringPreferencesKey("player_name")
+        private val KEY_LB_ENTRIES = stringPreferencesKey("lb_cache_entries")
+        private val KEY_LB_YOU = stringPreferencesKey("lb_cache_you")
+
+        /** Bỏ ký tự phân tách khỏi tên trước khi mã hoá (tránh vỡ định dạng cache). */
+        private fun sanitize(s: String): String = s.replace('\t', ' ').replace('\n', ' ')
 
         /** "levelId:stars" set → map (bỏ qua entry hỏng để không crash khi format lệch). */
         private fun decodeStars(raw: Set<String>): Map<Int, Int> = buildMap {

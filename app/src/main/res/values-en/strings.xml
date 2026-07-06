@@ -37,8 +37,9 @@
     <string name="leaderboard_name_limit">Up to 14 characters</string>
     <string name="leaderboard_cancel">Cancel</string>
     <string name="leaderboard_save">Save</string>
-    <string name="leaderboard_note">Local leaderboard on this device</string>
+    <string name="leaderboard_note">Saved offline · connect to update</string>
     <string name="leaderboard_note_global">Global leaderboard · Play Games</string>
+    <string name="leaderboard_note_empty">Play Endless to set a score · connect for the global ranking</string>
     <string name="leaderboard_signin">Sign in to Play Games for the global ranking</string>
     <string name="leaderboard_loading">Loading leaderboard…</string>
 

@@ -27,37 +27,44 @@ data class LeaderboardUiState(
 /** Dữ liệu thô lấy từ PGS (trước khi tách top/rest cho UI). */
 data class OnlineLeaderboard(val entries: List<LbEntry>, val you: LbYou?)
 
-/** Dựng trạng thái NỘI BỘ (offline) từ roster bot + điểm/tên thật của người chơi. */
-fun offlineState(best: Int, playerName: String, configured: Boolean, signedIn: Boolean) = LeaderboardUiState(
-    source = LbSource.OFFLINE,
-    top = LB_BOTS.take(3),
-    rest = LB_BOTS.drop(3),
-    you = LbYou(playerRank(best), playerName, best),
-    configured = configured,
-    signedIn = signedIn,
-)
+/**
+ * Dựng trạng thái OFFLINE từ **bản cache PGS gần nhất** (nếu có) + điểm/tên thật của người chơi.
+ * KHÔNG còn "bot" giả — mọi thứ hiển thị đều là dữ liệu Play Games thật đã đồng bộ. Chưa từng
+ * đồng bộ (mới cài, chưa nối mạng) → danh sách rỗng, chỉ hiện hàng "của bạn".
+ */
+fun offlineState(
+    cached: OnlineLeaderboard?,
+    best: Int,
+    playerName: String,
+    configured: Boolean,
+    signedIn: Boolean,
+): LeaderboardUiState {
+    val entries = cached?.entries ?: emptyList()
+    return LeaderboardUiState(
+        source = LbSource.OFFLINE,
+        top = entries.take(3),
+        rest = entries.drop(3),
+        you = offlineYou(cached, best, playerName),
+        configured = configured,
+        signedIn = signedIn,
+    )
+}
 
 /**
- * Roster nội bộ (deterministic) — dùng làm mốc cho Bảng xếp hạng offline.
- * Đây là các "bot" điểm cao cố định; điểm thật của người chơi (best) được chèn
- * vào để tính hạng. Không phải dữ liệu online (game chơi offline, không backend).
- * Tên/điểm bám leaderboard-screen.jsx.
+ * Hàng "của bạn" khi offline. Ưu tiên hạng thật từ cache nếu best **chưa vượt** điểm đã đồng bộ
+ * (hạng không đổi so với lần nối mạng gần nhất); nếu vừa lập điểm cao hơn → hạng chưa rõ (0 →
+ * hiện "—") tới khi nối mạng đồng bộ lại. Điểm hiển thị luôn là best thật cao nhất.
  */
-val LB_BOTS: List<LbEntry> = listOf(
-    LbEntry("Mai", 214980),
-    LbEntry("Tú", 198450),
-    LbEntry("Khoa", 187210),
-    LbEntry("Linh", 176040),
-    LbEntry("Bảo", 168920),
-    LbEntry("Hà", 159300),
-    LbEntry("Nam", 151770),
-    LbEntry("Vy", 144610),
-    LbEntry("Quân", 136880),
-    LbEntry("Minh", 129360),
-)
-
-/** Hạng của người chơi = số bot có điểm cao hơn + 1 (best cao hơn tất cả → hạng 1). */
-fun playerRank(best: Int): Int = LB_BOTS.count { it.score > best } + 1
+private fun offlineYou(cached: OnlineLeaderboard?, best: Int, playerName: String): LbYou {
+    val you = cached?.you
+    val rank = when {
+        you == null -> 0
+        best <= you.score -> you.rank
+        else -> 0
+    }
+    val name = you?.name?.ifBlank { playerName } ?: playerName
+    return LbYou(rank, name, maxOf(best, you?.score ?: 0))
+}
 
 /** Định dạng điểm theo locale hiện hành (vi: dấu chấm ngăn nghìn). */
 fun formatScore(n: Int): String = NumberFormat.getIntegerInstance().format(n)

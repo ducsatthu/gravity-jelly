@@ -250,6 +250,7 @@ private fun GravityJellyApp() {
 
             Route.Leaderboard -> LeaderboardRoute(
                 games = games,
+                repo = repo,
                 best = settings.best,
                 playerName = settings.playerName,
                 onBack = { route = Route.Home },

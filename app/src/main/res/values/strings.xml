@@ -43,8 +43,9 @@
     <string name="leaderboard_name_limit">Tối đa 14 ký tự</string>
     <string name="leaderboard_cancel">Hủy</string>
     <string name="leaderboard_save">Lưu</string>
-    <string name="leaderboard_note">Bảng xếp hạng nội bộ trên máy này</string>
+    <string name="leaderboard_note">Bản lưu ngoại tuyến · nối mạng để cập nhật</string>
     <string name="leaderboard_note_global">Bảng xếp hạng toàn cầu · Play Games</string>
+    <string name="leaderboard_note_empty">Chơi Endless để lập điểm · nối mạng xem BXH toàn cầu</string>
     <string name="leaderboard_signin">Đăng nhập Play Games để xem BXH toàn cầu</string>
     <string name="leaderboard_loading">Đang tải bảng xếp hạng…</string>
 

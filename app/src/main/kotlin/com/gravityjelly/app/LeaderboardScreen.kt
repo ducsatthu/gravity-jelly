@@ -43,6 +43,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.gravityjelly.app.data.SettingsRepository
 import com.gravityjelly.app.games.PlayGamesManager
 import com.gravityjelly.app.ui.icons.GjIcon
 import com.gravityjelly.app.ui.icons.GjIcons
@@ -54,6 +55,7 @@ import com.gravityjelly.app.ui.leaderboard.LbYou
 import com.gravityjelly.app.ui.leaderboard.Leaf
 import com.gravityjelly.app.ui.leaderboard.LbRow
 import com.gravityjelly.app.ui.leaderboard.LeaderboardUiState
+import com.gravityjelly.app.ui.leaderboard.OnlineLeaderboard
 import com.gravityjelly.app.ui.leaderboard.Podium
 import com.gravityjelly.app.ui.leaderboard.YouRow
 import com.gravityjelly.app.ui.leaderboard.offlineState
@@ -71,6 +73,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun LeaderboardRoute(
     games: PlayGamesManager,
+    repo: SettingsRepository,
     best: Int,
     playerName: String,
     onBack: () -> Unit,
@@ -89,15 +92,18 @@ fun LeaderboardRoute(
     }
 
     suspend fun refresh() {
+        // Luôn có sẵn bản cache gần nhất để lùi về khi offline / chưa đăng nhập / tải lỗi.
+        val cached = repo.loadLeaderboardCache()
         if (!games.configured || activity == null) {
-            state = offlineState(best, localName, games.configured, false); return
+            state = offlineState(cached, best, localName, games.configured, false); return
         }
         games.initialize()
         val signedIn = games.isAuthenticated(activity)
-        if (!signedIn) { state = offlineState(best, localName, true, false); return }
+        if (!signedIn) { state = offlineState(cached, best, localName, true, false); return }
         val online = games.load(activity)
-        state = if (online != null && online.entries.isNotEmpty()) {
-            LeaderboardUiState(
+        if (online != null && online.entries.isNotEmpty()) {
+            repo.saveLeaderboardCache(online) // đồng bộ về máy để mở offline lần sau
+            state = LeaderboardUiState(
                 source = LbSource.ONLINE,
                 top = online.entries.take(3),
                 rest = online.entries.drop(3),
@@ -105,7 +111,10 @@ fun LeaderboardRoute(
                     ?: LbYou(0, localName, best),
                 configured = true, signedIn = true,
             )
-        } else offlineState(best, localName, true, true)
+        } else {
+            // Đã đăng nhập nhưng tải lỗi/không mạng → hiện bản cache đã đồng bộ.
+            state = offlineState(cached, best, localName, true, true)
+        }
     }
 
     LaunchedEffect(best, playerName) { refresh() }
@@ -177,7 +186,7 @@ fun LeaderboardScreen(
                     YouRow(rank = you.rank, name = you.name, score = you.score) // onEdit = null: không đổi tên (dùng tên Play Games)
                 }
             }
-            Footer(global = state.source == LbSource.ONLINE)
+            Footer(state)
         }
     }
 }
@@ -283,7 +292,13 @@ private fun Cloud(modifier: Modifier) {
 }
 
 @Composable
-private fun Footer(global: Boolean) {
+private fun Footer(state: LeaderboardUiState) {
+    val hasEntries = state.top.isNotEmpty() || state.rest.isNotEmpty()
+    val noteRes = when {
+        state.source == LbSource.ONLINE -> R.string.leaderboard_note_global   // đang trực tuyến
+        hasEntries -> R.string.leaderboard_note                                // cache toàn cầu, đang offline
+        else -> R.string.leaderboard_note_empty                                // chưa từng đồng bộ
+    }
     Row(
         Modifier.fillMaxWidth().padding(top = 2.dp, bottom = 10.dp),
         horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically,
@@ -291,7 +306,7 @@ private fun Footer(global: Boolean) {
         GjIcon(GjIcons.Info, modifier = Modifier.size(15.dp), tint = GjPalette.TextMuted)
         Spacer(Modifier.size(6.dp))
         Text(
-            stringResource(if (global) R.string.leaderboard_note_global else R.string.leaderboard_note),
+            stringResource(noteRes),
             style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold), color = GjPalette.TextMuted,
         )
     }
@@ -307,9 +322,17 @@ private fun Context.findActivity(): Activity? {
 @androidx.compose.ui.tooling.preview.Preview(name = "Leaderboard — 360×800", widthDp = 360, heightDp = 800)
 @Composable
 private fun LeaderboardPreview() {
+    // Dữ liệu mẫu CHỈ để xem preview (không phải dữ liệu ship) — mô phỏng một bản cache PGS.
+    val sample = OnlineLeaderboard(
+        entries = listOf(
+            LbEntry("Mai", 214980), LbEntry("Tú", 198450), LbEntry("Khoa", 187210),
+            LbEntry("Linh", 176040), LbEntry("Bảo", 168920), LbEntry("Hà", 159300),
+        ),
+        you = LbYou(9, "Bạn", 42360),
+    )
     GravityJellyTheme {
         LeaderboardScreen(
-            state = offlineState(best = 42360, playerName = "Bạn", configured = false, signedIn = false),
+            state = offlineState(sample, best = 42360, playerName = "Bạn", configured = false, signedIn = false),
             onBack = {}, onSignIn = {},
         )
     }
