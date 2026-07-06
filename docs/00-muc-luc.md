@@ -15,7 +15,7 @@ docs/
   04-ui-ux/                component in-game · map · guide · khay
   05-prompts/              prompt Claude Design/Code (artifact tạo UI/map)
   06-du-lieu/              spreadsheet thiết kế màn
-  07-phat-hanh/            checklist phát hành Google Play (signing · AdMob · PGS · listing)
+  07-phat-hanh/            checklist + runbook phát hành Google Play (signing · AdMob · PGS · listing · đáp án form)
 ```
 
 ---
@@ -153,6 +153,7 @@ docs/
 | File | Mô tả |
 |---|---|
 | [01-checklist-google-play.md](07-phat-hanh/01-checklist-google-play.md) | Checklist đưa app lên Google Play: ký release, AdMob, Play Games (leaderboard), data safety, store listing, closed testing. Có bảng placeholder→file cần đổi id thật |
+| [02-thiet-lap-tung-buoc.md](07-phat-hanh/02-thiet-lap-tung-buoc.md) | **Runbook thiết lập**: thao tác từng bước Play Console/AdMob/PGS với **giá trị dự án điền sẵn** (applicationId, SHA, URL privacy, publisher) + **câu trả lời soạn sẵn** cho mọi form khai báo (Data safety, content rating, target audience, app access) |
 
 ---
 
@@ -172,12 +173,13 @@ docs/
 | **Thêm cơ chế mới** | `03-co-che/01-kho-y-tuong.md` → `05-prompts/04-the-co-che.md` → `02-thiet-ke-man/01-schema-man.md` |
 | **Hiểu nghiệp vụ/kiến trúc** | `01-nen-tang/01-nghiep-vu.md` + `01-nen-tang/03-kien-truc.md` |
 | **Kiểm chứng fidelity** | `05-prompts/01-ui-render/07-kiem-chung.md` |
-| **Chuẩn bị phát hành** | `07-phat-hanh/01-checklist-google-play.md` (ký release, AdMob, Play Games, store listing) |
+| **Chuẩn bị phát hành** | `07-phat-hanh/01-checklist-google-play.md` (checklist) + `02-thiet-lap-tung-buoc.md` (runbook điền sẵn + đáp án form) |
 
 ---
 
 ## Nhật ký thay đổi
 
+- **06/07/2026** — Thêm [`07-phat-hanh/02-thiet-lap-tung-buoc.md`](07-phat-hanh/02-thiet-lap-tung-buoc.md): runbook thiết lập từng bước với giá trị dự án điền sẵn (applicationId `com.ductranxuan.gravityjelly`, SHA, URL privacy `privacypolicysite-one.vercel.app`, publisher) + **đáp án soạn sẵn** cho Data safety / content rating / target audience / app access. Phản ánh việc đã làm: UMP, R8, app-ads.txt, link privacy in-app.
 - **05/07/2026** — Thêm nhóm [`07-phat-hanh/`](07-phat-hanh/01-checklist-google-play.md): checklist phát hành Google Play (ký release, AdMob/PGS id thật, data safety, closed testing). Kèm bảng "placeholder→file cần đổi".
 - **05/07/2026** — Thêm [`03-co-che/03-boss.md`](03-co-che/03-boss.md) (hệ Đấu trùm tổng hợp) + nhóm Cẩm nang **Đấu trùm** (4 mục). Sửa dữ liệu boss lỗi thời trong INDEX: W2 spawn gốc **mỗi 4 lượt** (không phải 3); W3 Thần Thác = **phá 8 nguồn + hồi sinh/thả nguồn mỗi 3 lượt** (BỎ đảo trọng lực HP 10 của bản cũ).
 - **04/07/2026** — Tái cấu trúc toàn bộ `docs/`: đánh số 6 nhóm `01`–`06`, đổi tên file gọn, xoá `_archive/`, cập nhật toàn bộ link nội bộ + tham chiếu trong code/README/CLAUDE. Thống nhất quy ước: **mỗi tài liệu chỉ 1 bản latest**, bỏ nhãn phiên bản "v1/v2" khó hiểu; mọi thay đổi ghi ở mục **Nhật ký thay đổi** cuối từng file.
