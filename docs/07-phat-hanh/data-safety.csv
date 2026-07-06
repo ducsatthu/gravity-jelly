@@ -1,0 +1,7 @@
+Category,Data type,Collected,Shared,Processed ephemerally,Optional or Required,Purposes,Collected/Shared by,Notes
+Device or other IDs,Advertising ID (AAID),Yes,Yes,No,Optional,"Advertising or marketing; Analytics; Fraud prevention, security, and compliance",Google AdMob,"Phục vụ & đo lường quảng cáo. Gate theo đồng thuận UMP ở EEA/UK/CH. User reset AAID trong cài đặt máy."
+Device or other IDs,Firebase app-instance ID,Yes,No,No,Optional,Analytics,Google (Firebase - processor),"Gắn sự kiện analytics với 1 lượt cài đặt. Google xử lý thay mặt nhà phát triển."
+User IDs,Play Games player ID / display name,Yes,Yes,No,Optional,App functionality,Google Play Games Services,"CHỈ khi user đăng nhập Play Games. Hiển thị trên bảng xếp hạng. Xoá qua tài khoản Google."
+App activity,"In-app actions (màn hình đã xem, bắt đầu ván, game over, điểm số)",Yes,No,No,Optional,Analytics,Google (Firebase Analytics / GA4),"Sự kiện screen_view/game_start/game_over/post_score/level_end/ad_shown. Gate theo consent ở EEA."
+App info and performance,Crash logs,Yes,No,No,Optional,Analytics,Google (Firebase Crashlytics),"Stack trace + trạng thái thiết bị khi app crash. Gate theo consent ở EEA."
+App info and performance,Diagnostics,Yes,No,No,Optional,Analytics,Google (Firebase),"Phiên bản app/OS, kiểu máy, hiệu năng. Gate theo consent ở EEA."

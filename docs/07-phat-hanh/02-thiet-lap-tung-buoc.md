@@ -214,18 +214,24 @@ Chỉ khai phần AdMob và Play Games.
 | **User IDs** (Play Games gamer ID) | Collected **Yes**, Shared **Yes** *(chỉ khi user đăng nhập PGS)* |
 | — Mục đích | App functionality (bảng xếp hạng) |
 | — Bắt buộc? | Optional |
-| **App activity** (sự kiện GA4: màn hình, ván chơi, điểm) | Collected **Yes**, Shared **Yes** (Firebase Analytics) |
+| **App activity** (sự kiện GA4: màn hình, ván chơi, điểm) | Collected **Yes**, Shared **No** (Firebase Analytics, Google là processor) |
 | — Mục đích | Analytics |
-| **Diagnostics / Crash logs** (Crashlytics) | Collected **Yes**, Shared **Yes** |
+| **Diagnostics / Crash logs** (Crashlytics) | Collected **Yes**, Shared **No** |
 | — Mục đích | Analytics (chẩn đoán lỗi) |
-| **App info & performance** (phiên bản app/OS, kiểu máy) | Collected **Yes** (Firebase) |
-| **Device or other IDs** (app-instance id của Firebase) | Collected **Yes**, Shared **Yes** |
+| **App info & performance** (phiên bản app/OS, kiểu máy) | Collected **Yes**, Shared **No** (Firebase) |
+| **Device or other IDs** (app-instance id của Firebase) | Collected **Yes**, Shared **No** |
 | Dữ liệu **mã hoá khi truyền**? | **Yes** (HTTPS bởi SDK Google) |
 | Người dùng **yêu cầu xoá** được? | **Yes** — reset Advertising ID ở cài đặt máy; xoá dữ liệu Play Games trong tài khoản Google; từ chối consent (EEA) để không thu thập analytics |
 | Tên, email, vị trí (chính xác), ảnh, danh bạ… | **Không thu thập** |
 
 > App có **Firebase Analytics (GA4) + Crashlytics** — khai đủ như bảng trên. Thu thập bị **tắt tới
 > khi có đồng thuận** (UMP) ở khu vực yêu cầu. Không có SDK analytics nào khác.
+>
+> **"Shared"**: chỉ Advertising ID (AdMob) coi là *shared* (có thể tới đối tác quảng cáo). Dữ liệu
+> Firebase/Play Games do Google xử lý **thay mặt** nhà phát triển (processor) → **Collected Yes, Shared No**.
+>
+> 📄 **File CSV để nhập/điền nhanh**: [`data-safety.csv`](data-safety.csv) (bảng loại dữ liệu) +
+> [`data-safety-app-questions.csv`](data-safety-app-questions.csv) (câu hỏi mức-app).
 
 ### 5.6 Các mục còn lại
 - **Government apps / News**: No.
