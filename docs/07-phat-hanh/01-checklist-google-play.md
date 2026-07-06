@@ -33,16 +33,15 @@
 
 ## 1. Tài khoản & pháp lý
 
-- [ ] Tạo **Google Play Console developer account** (phí **$25** một lần).
-- [ ] Xác minh danh tính/địa chỉ nhà phát triển (Google yêu cầu với tài khoản cá nhân mới —
-      có thể mất vài ngày).
+- [x] Tạo **Google Play Console developer account** (đã có — đã tạo được app + import Data safety).
+- [ ] Xác minh danh tính/địa chỉ nhà phát triển (nếu Google còn yêu cầu — kiểm tra banner trong Console).
 - [ ] Nếu kiếm tiền: thiết lập **payments profile** (thuế, tài khoản nhận tiền AdMob).
 - [x] Viết **Chính sách bảo mật (Privacy Policy)** và host công khai. Site tĩnh song ngữ (vi/en)
       ở `privacy_policy_site/` (nêu AdMob, Play Games, AD_ID, dữ liệu cục bộ). Đã deploy Vercel
       (project riêng của Gravity Jelly): **URL cố định `https://privacypolicysite-one.vercel.app`**.
       Redeploy: `cd privacy_policy_site && ./deploy.sh` (cần `.env` chứa `VERCEL_TOKEN`, đã gitignore).
-- [ ] Dán URL trên vào: **màn Cài đặt** trong app (mục "Chính sách bảo mật" — nối URL thật),
-      **Play Console → App content → Privacy policy**, **AdMob → App settings → Privacy policy URL**.
+- [x] Nối URL vào **màn Cài đặt** trong app (mục "Chính sách bảo mật" mở URL thật — đã code).
+- [ ] Dán URL vào **Play Console → App content → Privacy policy** + **AdMob → App settings → Privacy policy URL**.
 
 ---
 
@@ -122,9 +121,8 @@
 
 ## 5. Khai báo chính sách trong Play Console
 
-- [ ] **Data safety form**: khai thu thập/chia sẻ dữ liệu — Ad ID (AdMob), định danh Play Games,
-      **App activity + Diagnostics/Crash (Firebase Analytics GA4 + Crashlytics)**, app-instance id.
-      Bảng khai chi tiết + mục đích: xem **`02-thiet-lap-tung-buoc.md` §5.5**.
+- [x] **Data safety form**: ĐÃ import `data-safety-import.csv` (06/07). Khai Ad ID (AdMob), User ID
+      (Play Games), App activity + Diagnostics/Crash (Firebase GA4 + Crashlytics), app-instance id.
 - [ ] **Ads declaration**: app CÓ chứa quảng cáo → tick "Yes".
 - [ ] **Content rating (IARC)**: điền bảng câu hỏi → nhận rating (game casual, không bạo lực).
 - [ ] **Target audience & content**: chọn nhóm tuổi. Nếu **có trẻ em** → tuân thủ
