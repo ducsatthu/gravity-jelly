@@ -106,12 +106,10 @@
 - [ ] Thay `LEADERBOARD_ID` trong `PlayGamesManager.kt` (bảng §0). Khi đã cấu hình,
       `configured=true` → app tự bật nhánh online (đăng nhập + top10 + hạng của bạn),
       offline vẫn lùi bảng nội bộ.
-- [ ] **Credentials**: tạo OAuth2 client (Android) trong Google Cloud project được PGS liên kết;
-      khai **SHA-1**:
-  - [ ] SHA-1 **upload key** (bản dev/test cài qua adb): `B0:9B:7B:11:93:BE:14:64:12:F2:10:58:A8:AA:52:48:FA:27:24:C7`
-        (khoá dùng lại từ gravity_merge — xem §2). Package name khai kèm = `com.ductranxuan.gravityjelly`.
-        SHA-256: `1B:FA:EF:29:A2:F5:C1:FF:86:85:3C:1E:7E:4C:65:99:E9:0D:E0:03:BA:13:F0:AF:56:60:A9:A4:8B:2F:E5:E0`.
-  - [ ] SHA-1 **app signing key của Play** (lấy trong Play Console → App integrity) cho bản phát hành.
+- [x] **Credentials**: OAuth client (Android) đã tạo + gắn vào cấu hình PGS.
+  - [x] SHA-1 **debug** (`9F:72:…:4F:CD`) + **upload** (`B0:9B:…:24:C7`) đã khai. Package `com.ductranxuan.gravityjelly`.
+  - [ ] SHA-1 **app signing key của Play** (lấy trong Play Console → App integrity SAU khi upload AAB) —
+        thêm 1 OAuth client nữa cho bản phát hành từ Play.
 - [ ] Thêm **tài khoản tester** trong PGS → test được bản debug qua adb ở **sandbox** (không cần
       publish store). Emulator phải là image **"Google Play"**.
 - [ ] Nộp điểm: đã tự động khi game-over Endless (`onBest → submitScore`). Kiểm hiển thị đúng.
