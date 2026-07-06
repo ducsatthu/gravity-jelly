@@ -67,6 +67,8 @@ android {
             // R8: rút gọn + tối ưu + đổi tên; shrinkResources dọn tài nguyên không dùng.
             isMinifyEnabled = true
             isShrinkResources = true
+            // Native debug symbols cho .so (GMS/Firebase…) → Play giải mã crash/ANR native.
+            ndk { debugSymbolLevel = "FULL" }
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
