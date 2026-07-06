@@ -19,4 +19,11 @@ object AdsConfig {
 
     /** Thời gian chờ tối thiểu giữa hai interstitial (ms) — guard phụ, không phải trigger chính. */
     const val COOLDOWN_MS = 90_000L
+
+    /**
+     * Hash thiết bị test cho UMP (ép hiện form đồng thuận EEA khi dev).
+     * Lấy từ logcat khi chạy: dòng "Use ConsentDebugSettings.Builder().addTestDeviceHashedId(\"…\")".
+     * Rỗng = tắt debug (dùng địa lý thật). KHÔNG để giá trị khi phát hành.
+     */
+    val TEST_DEVICE_HASHES: List<String> = emptyList()
 }

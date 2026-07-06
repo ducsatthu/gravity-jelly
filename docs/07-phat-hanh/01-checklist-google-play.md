@@ -59,9 +59,11 @@
       `productionRelease → Config: release`. **SHA-1 release: `B0:9B:7B:11:93:BE:14:64:12:F2:10:58:A8:AA:52:48:FA:27:24:C7`** (khai vào OAuth client PGS — §4).
 - [x] Mật khẩu keystore để ngoài VCS: `keystore.properties` + `*.jks`/`*.keystore` đã vào `.gitignore`.
 - [ ] Bật **Play App Signing** (khuyến nghị) — Google giữ app signing key, mình chỉ giữ upload key.
-- [ ] Cân nhắc bật **R8/minify** cho release: `isMinifyEnabled = true` + bổ sung
-      `app/proguard-rules.pro` (đang trống) giữ luật cho GMS Ads / Play Games / Compose nếu cần.
-      (Tối thiểu có thể để `false` để phát hành nhanh, tối ưu sau.)
+- [x] **R8/minify + shrinkResources** đã bật cho release (`isMinifyEnabled=true`, `isShrinkResources=true`)
+      + `app/proguard-rules.pro` (keep GMA Ads / UMP / Play Games + giữ line numbers cho crash).
+      Đã build & verify `assembleProductionRelease` OK — APK ký release đúng (`com.ductranxuan.gravityjelly`,
+      SHA-256 khớp). **Nhớ upload `app/build/outputs/mapping/productionRelease/mapping.txt` lên Play**
+      (App bundle explorer) để deobfuscate stacktrace crash.
 - [ ] Bump `versionCode` (mỗi bản lên Play phải tăng) + `versionName` (vd `1.0.0`).
 - [x] `applicationId = com.ductranxuan.gravityjelly` (id đăng ký trên Play — **không đổi được sau khi publish**).
       Publish flavor **`production`** (`ADS_ENABLED=true`), KHÔNG phải `demo` (id có hậu tố `.demo`).
@@ -80,9 +82,11 @@
 - [ ] Tạo **ad unit**: 1 Interstitial + 1 Rewarded → lấy id thật.
 - [ ] Thay 3 id (App ID + 2 unit) theo **bảng §0**.
 - [ ] Đăng **app-ads.txt** (nếu dùng domain nhà phát triển) — chống gian lận, tăng fill rate.
-- [ ] **UMP / Consent (GDPR/EEA)**: tích hợp Google **User Messaging Platform** để xin đồng ý
-      quảng cáo cá nhân hoá cho người dùng EU (bắt buộc để chạy ad ở EEA/UK). *Hiện code chưa có
-      UMP* → cần thêm trước khi bật ad thật ở khu vực đó.
+- [x] **UMP / Consent (GDPR/EEA)** đã tích hợp: `ads/ConsentManager.kt` chạy TRƯỚC khi init AdMob
+      (`MainActivity`), chỉ khi `canRequestAds()` mới `ads.initialize()`. Ngoài EEA bỏ qua form.
+      Còn phải làm trên **AdMob console → Privacy & messaging**: tạo **GDPR** (và **IDFA/ATT** không cần
+      cho Android) + **consent form** thì form mới hiện thật. Test: điền `AdsConfig.TEST_DEVICE_HASHES`
+      (lấy hash từ logcat) để ép geography EEA — nhớ **xoá rỗng trước khi phát hành**.
 - [ ] Khai **App ID** đúng chỗ manifest (đã có, chỉ đổi giá trị). SDK tự thêm quyền
       `com.google.android.gms.permission.AD_ID` → nhớ khai ở **Data safety** (§5).
 - [ ] Test bằng **test device id** (không click ad thật) trước khi release. Sau release, theo dõi

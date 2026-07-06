@@ -35,6 +35,7 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import com.gravityjelly.app.ads.AdsManager
+import com.gravityjelly.app.ads.ConsentManager
 import com.gravityjelly.app.games.PlayGamesManager
 import com.gravityjelly.app.audio.GjAudioManager
 import com.gravityjelly.app.audio.LocalGjAudio
@@ -129,8 +130,15 @@ private fun GravityJellyApp() {
     // World người chơi đang tiến tới → nền Home & Endless đổi cảnh theo tiến độ (Đồng cỏ→Rừng→Sông).
     val currentWorld = campaignCurrentWorld(settings.campaignStars)
 
-    // Init SDK quảng cáo lazy ở luồng nền (một lần) rồi preload.
-    LaunchedEffect(Unit) { ads.initialize() }
+    // UMP: xin đồng thuận (GDPR/EEA) TRƯỚC, chỉ khi được phép mới init/nạp AdMob (lazy, luồng nền).
+    LaunchedEffect(activity) {
+        val act = activity
+        if (act != null && BuildConfig.ADS_ENABLED) {
+            ConsentManager(act).gather(act) { canRequestAds ->
+                if (canRequestAds) scope.launch { ads.initialize() }
+            }
+        }
+    }
     // Init Play Games (no-op an toàn khi LEADERBOARD_ID còn placeholder — xem PlayGamesManager).
     LaunchedEffect(Unit) { games.initialize() }
 

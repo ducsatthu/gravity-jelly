@@ -48,7 +48,9 @@ android {
             } else {
                 signingConfigs.getByName("debug")
             }
-            isMinifyEnabled = false
+            // R8: rút gọn + tối ưu + đổi tên; shrinkResources dọn tài nguyên không dùng.
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
@@ -102,6 +104,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.play.services.ads)
+    implementation(libs.user.messaging.platform)
     implementation(libs.play.services.games.v2)
     implementation(libs.play.sidekick)
     debugImplementation(libs.androidx.ui.tooling)
