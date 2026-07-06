@@ -66,8 +66,8 @@
 - [ ] Bump `versionCode` (mỗi bản lên Play phải tăng) + `versionName` (vd `1.0.0`).
 - [x] `applicationId = com.ductranxuan.gravityjelly` (id đăng ký trên Play — **không đổi được sau khi publish**).
       Đã **bỏ flavor demo** — chỉ còn `debug`/`release` (`ADS_ENABLED=true` mặc định).
-- [ ] Build **App Bundle (.aab)**, không phải APK:
-      `./gradlew :app:bundleRelease` → `app/build/outputs/bundle/release/*.aab`.
+- [x] Build **App Bundle (.aab)**: `./gradlew :app:bundleRelease` → `app/build/outputs/bundle/release/app-release.aab`
+      (46M, ký release, nhúng đúng id PGS/AdMob/applicationId). Sẵn sàng upload.
 - [ ] Kiểm `targetSdk 35` (Play yêu cầu target SDK mới cho app mới — 35 hợp lệ 2026). `minSdk 24` OK.
 - [ ] Đổi **icon/label** production nếu cần (đang dùng `@mipmap/ic_launcher`, label "Gravity Jelly").
 - [ ] Chạy thử **bản release đã ký** trên máy thật (`bundletool` hoặc cài `.aab` qua internal testing)
