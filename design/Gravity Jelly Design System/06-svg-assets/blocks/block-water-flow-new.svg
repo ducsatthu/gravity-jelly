@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Gravity Jelly — ô dòng chảy mới mọc (water flow, new this turn)">
+  
+  <defs>
+    <linearGradient id="aqWn" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#5FD2D6"></stop>
+      <stop offset="0.5" stop-color="#D6F2F3"></stop>
+      <stop offset="1" stop-color="#5FD2D6"></stop>
+    </linearGradient>
+    <linearGradient id="aqGlossN" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.6"></stop>
+      <stop offset="0.4" stop-color="#FFFFFF" stop-opacity="0"></stop>
+      <stop offset="1" stop-color="#12959F" stop-opacity="0.22"></stop>
+    </linearGradient>
+    <path id="ribN" d="M30 -3 C22 17 38 33 30 50 C22 67 38 83 30 103 L70 103 C62 83 78 67 70 50 C62 33 78 17 70 -3 Z"></path>
+    <clipPath id="ribClipN"><use href="#ribN"></use></clipPath>
+  </defs>
+  
+  <use href="#ribN" fill="none" stroke="#EAFBFB" stroke-width="9" stroke-linejoin="round" stroke-opacity="0.9"></use>
+  <use href="#ribN" fill="url(#aqWn)" stroke="#2FBFC7" stroke-width="3.5" stroke-linejoin="round"></use>
+  <g clip-path="url(#ribClipN)">
+    <rect x="0" y="-4" width="100" height="108" fill="url(#aqGlossN)"></rect>
+    <path d="M43 -3 C37 15 49 24 43 42 C37 60 49 68 43 86 C40 96 43 103 43 105" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-opacity="0.72"></path>
+    <path d="M57 -3 C63 15 51 24 57 42 C63 60 51 68 57 86 C60 96 57 103 57 105" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-opacity="0.5"></path>
+  </g>
+  
+  <path d="M50 40 L50 66 M42 58 L50 66 L58 58" fill="none" stroke="#FFFFFF" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"></path>
+  
+  <circle cx="40" cy="88" r="3.2" fill="#FFFFFF" fill-opacity="0.8"></circle>
+  <circle cx="60" cy="14" r="2.6" fill="#FFFFFF" fill-opacity="0.7"></circle>
+  
+  <path d="M79 12c.9 5.5 3.5 8.1 9 9-5.5.9-8.1 3.5-9 9-.9-5.5-3.5-8.1-9-9 5.5-.9 8.1-3.5 9-9z" fill="#F1FCFC" stroke="#5FD2D6" stroke-width="1"></path>
+</svg>

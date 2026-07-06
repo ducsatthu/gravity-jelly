@@ -27,6 +27,7 @@ const PATHS = {
   x2:       <><path d="M4 8l5 8M9 8l-5 8" /><path d="M14 9a2 2 0 1 1 4 0c0 2-4 3.5-4 7h4" /></>,
   chevron:  <path d="M9 6l6 6-6 6" />,
   check:    <path d="M5 12.5l4 4L19 7" />,
+  pencil:   <><path d="M4 20h4L18.5 9.5a2 2 0 0 0-2.8-2.8L5 17.2V20z" /><path d="M13.5 6.5l4 4" /></>,
 };
 
 export function Icon({ name = 'info', size = 24, color = 'currentColor', strokeWidth = 2, style = {} }) {

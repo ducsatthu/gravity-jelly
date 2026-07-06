@@ -114,12 +114,14 @@
   </section>
 
   <section>
-    <h2>Block nước · ô đích (World 3)</h2>
+    <h2>Cơ chế dòng chảy · nguồn nước mọc dần (World 3)</h2>
     <div class="blocks">
-      <figure><img src="blocks/block-water.svg" alt="water" /><cap>nước</cap></figure>
-      <figure><img src="blocks/block-water-locked.svg" alt="water locked" /><cap>nước · lớp khóa</cap></figure>
+      <figure><img src="blocks/block-water-source.svg" alt="water source" /><cap>nguồn · ACTIVE</cap></figure>
+      <figure><img src="blocks/block-water-flow.svg" alt="water flow" /><cap>dòng chảy</cap></figure>
+      <figure><img src="blocks/block-water-flow-new.svg" alt="water flow new" /><cap>dòng chảy · mới mọc</cap></figure>
+      <figure><img src="blocks/block-water-source-broken.svg" alt="water source broken" /><cap>nguồn · đã bị phá</cap></figure>
     </div>
-    <p class="note" style="margin-top:12px">Ô đích theo hệ mục tiêu <code>CLEAR_TARGETS</code>. <b>Nước</b> — ô nước cần phá; bản <code>block-water-locked</code> có ổ khóa lớp cho ô đích bị vùi. Cùng bộ với glyph <code>vine</code>/<code>drop</code> trong <code>ObjectiveBar</code>.</p>
+    <p class="note" style="margin-top:12px">Bộ ô cho cơ chế <b>nguồn nước mọc dần</b>. <code>block-water-source</code> — nguồn ACTIVE (miệng suối + badge giọt nước = có thể bị phá), mũi tên theo <b>hướng trọng lực ↓</b>; mỗi lượt sinh thêm 1 ô <code>block-water-flow</code> nối tiếp, ô vừa mọc dùng <code>block-water-flow-new</code> (viền sáng + lấp lánh). Jelly đứng trên ô dòng chảy bị đẩy 1 ô theo dòng. Phá nguồn → chuyển <code>block-water-source-broken</code> và cả dải chảy tắt. Xem sheet cơ chế <code>W3 · Dòng chảy nối liền</code>.</p>
   </section>
 
   <section>

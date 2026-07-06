@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"GravityJellyDesignSystem_3e0487","components":[{"name":"JellyBlock","sourcePath":"02-foundations/01-jelly-block/JellyBlock.jsx"},{"name":"Eyes","sourcePath":"02-foundations/02-eyes/Eyes.jsx"},{"name":"Icon","sourcePath":"02-foundations/03-icon/Icon.jsx"},{"name":"Button","sourcePath":"03-components/01-button/Button.jsx"},{"name":"Hud","sourcePath":"03-components/02-hud/Hud.jsx"},{"name":"TrayPiece","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"Tray","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"GravityRotateButton","sourcePath":"03-components/04-gravity-rotate-button/GravityRotateButton.jsx"},{"name":"ComboPopup","sourcePath":"03-components/05-combo-popup/ComboPopup.jsx"},{"name":"Dialog","sourcePath":"03-components/06-dialog/Dialog.jsx"},{"name":"ObjectiveBar","sourcePath":"03-components/08-objective-bar/ObjectiveBar.jsx"},{"name":"BossMascot","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"ShieldBar","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossCard","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossIntroCard","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossToast","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossRule","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossHud","sourcePath":"03-components/09-boss-hud/BossHud.jsx"}],"sourceHashes":{"02-foundations/01-jelly-block/JellyBlock.jsx":"99d676a3206c","02-foundations/02-eyes/Eyes.jsx":"d4762b606971","02-foundations/03-icon/Icon.jsx":"1d501e149f2f","03-components/01-button/Button.jsx":"ff24f7c456d7","03-components/02-hud/Hud.jsx":"b68bb167fc30","03-components/03-tray/Tray.jsx":"e425b7cd5eed","03-components/04-gravity-rotate-button/GravityRotateButton.jsx":"09df27eb60e6","03-components/05-combo-popup/ComboPopup.jsx":"3430e5b0f130","03-components/06-dialog/Dialog.jsx":"d5e802d0a1db","03-components/08-objective-bar/ObjectiveBar.jsx":"d3ef438d707b","03-components/09-boss-hud/BossHud.jsx":"c7336202317f","04-screens/board-boss.jsx":"fe9ea9512869","04-screens/board-campaign.jsx":"db93679ac719","04-screens/board-design.jsx":"5163f27516da","04-screens/board.jsx":"a2c1742d1301","04-screens/boss-intro-screen.jsx":"5b7d158f2415","04-screens/cam-nang-illus.jsx":"4e6ed15b2b63","04-screens/cam-nang-screen.jsx":"54efac16eddc","04-screens/daily-reward-screen.jsx":"0309b17c4056","04-screens/home-screen.jsx":"7d45b68edee5","04-screens/leaderboard-screen.jsx":"82c8413c65d7","04-screens/level-intro-screen.jsx":"1252c538acaf","04-screens/level-win-screen.jsx":"b88ddcf6bfa8","04-screens/missions-screen.jsx":"a2cb834bcb3d","04-screens/out-of-lives-screen.jsx":"c5661499a9aa","04-screens/pause-screen.jsx":"edd558af8897","04-screens/phone-frame.jsx":"18e22e60b390","04-screens/play/jelly-play.jsx":"90bcd0f1ca70","04-screens/result-screen.jsx":"775264ed1cbe","04-screens/screen-extras.jsx":"b6a2513dd24c","04-screens/settings-screen.jsx":"a5cbe4af2727","04-screens/shop-screen.jsx":"454bf4d67682","04-screens/splash-screen.jsx":"b36502be0325","04-screens/tweaks-panel.jsx":"6591467622ed","04-screens/world-gate-locked.jsx":"4d32d0ac3bad","04-screens/world-gate.jsx":"6db94465e8f2","04-screens/world1-strip.jsx":"2c816bdee51c","04-screens/world10-strip.jsx":"86352e2ce593","04-screens/world2-strip.jsx":"442d24cbb43f","04-screens/world3-strip.jsx":"43895f789f0d","04-screens/world4-strip.jsx":"d3f5e8aadbec","04-screens/world5-strip.jsx":"31ce848e45ea","04-screens/world6-strip.jsx":"3479dadec253","04-screens/world7-strip.jsx":"e0b64525e7fa","04-screens/world8-strip.jsx":"444f9855082e","04-screens/world9-strip.jsx":"aea09bf6b901","07-mechanics/mechanics-cards.js":"711cd9d74c93","07-mechanics/mechanics-kit.jsx":"f52efab2af43","07-mechanics/mechanics-widgets.jsx":"2285bf5de0e0","07-mechanics/world3-water-kit.jsx":"402befadc370","08-brand/gravity-jelly-logo.js":"597a18d35b1e","prototypes/proto-engine.js":"6887737568ba","prototypes/proto-game.jsx":"75954a4bee0a","prototypes/proto-ui.jsx":"138d35a58082"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":4,"namespace":"GravityJellyDesignSystem_3e0487","components":[{"name":"JellyBlock","sourcePath":"02-foundations/01-jelly-block/JellyBlock.jsx"},{"name":"Eyes","sourcePath":"02-foundations/02-eyes/Eyes.jsx"},{"name":"Icon","sourcePath":"02-foundations/03-icon/Icon.jsx"},{"name":"Button","sourcePath":"03-components/01-button/Button.jsx"},{"name":"Hud","sourcePath":"03-components/02-hud/Hud.jsx"},{"name":"TrayPiece","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"Tray","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"GravityRotateButton","sourcePath":"03-components/04-gravity-rotate-button/GravityRotateButton.jsx"},{"name":"ComboPopup","sourcePath":"03-components/05-combo-popup/ComboPopup.jsx"},{"name":"Dialog","sourcePath":"03-components/06-dialog/Dialog.jsx"},{"name":"ObjectiveBar","sourcePath":"03-components/08-objective-bar/ObjectiveBar.jsx"},{"name":"BossMascot","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"ShieldBar","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossCard","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossIntroCard","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossToast","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossRule","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossHud","sourcePath":"03-components/09-boss-hud/BossHud.jsx"}],"sourceHashes":{"02-foundations/01-jelly-block/JellyBlock.jsx":"99d676a3206c","02-foundations/02-eyes/Eyes.jsx":"d4762b606971","02-foundations/03-icon/Icon.jsx":"a75a00c43bb6","03-components/01-button/Button.jsx":"ff24f7c456d7","03-components/02-hud/Hud.jsx":"b68bb167fc30","03-components/03-tray/Tray.jsx":"e425b7cd5eed","03-components/04-gravity-rotate-button/GravityRotateButton.jsx":"09df27eb60e6","03-components/05-combo-popup/ComboPopup.jsx":"3430e5b0f130","03-components/06-dialog/Dialog.jsx":"d5e802d0a1db","03-components/08-objective-bar/ObjectiveBar.jsx":"d3ef438d707b","03-components/09-boss-hud/BossHud.jsx":"c7336202317f","04-screens/board-boss.jsx":"fe9ea9512869","04-screens/board-campaign.jsx":"db93679ac719","04-screens/board-design.jsx":"5163f27516da","04-screens/board.jsx":"a2c1742d1301","04-screens/boss-intro-screen.jsx":"5b7d158f2415","04-screens/cam-nang-illus.jsx":"4e6ed15b2b63","04-screens/cam-nang-screen.jsx":"54efac16eddc","04-screens/daily-reward-screen.jsx":"0309b17c4056","04-screens/home-screen.jsx":"7d45b68edee5","04-screens/leaderboard-screen.jsx":"b2332769263b","04-screens/level-intro-screen.jsx":"1252c538acaf","04-screens/level-win-screen.jsx":"b88ddcf6bfa8","04-screens/missions-screen.jsx":"a2cb834bcb3d","04-screens/out-of-lives-screen.jsx":"c5661499a9aa","04-screens/pause-screen.jsx":"edd558af8897","04-screens/phone-frame.jsx":"18e22e60b390","04-screens/play/jelly-play.jsx":"90bcd0f1ca70","04-screens/result-screen.jsx":"775264ed1cbe","04-screens/screen-extras.jsx":"b6a2513dd24c","04-screens/settings-screen.jsx":"a5cbe4af2727","04-screens/shop-screen.jsx":"454bf4d67682","04-screens/splash-screen.jsx":"b36502be0325","04-screens/tweaks-panel.jsx":"6591467622ed","04-screens/world-gate-locked.jsx":"4d32d0ac3bad","04-screens/world-gate.jsx":"6db94465e8f2","04-screens/world1-strip.jsx":"2c816bdee51c","04-screens/world10-strip.jsx":"86352e2ce593","04-screens/world2-strip.jsx":"442d24cbb43f","04-screens/world3-strip.jsx":"43895f789f0d","04-screens/world4-strip.jsx":"d3f5e8aadbec","04-screens/world5-strip.jsx":"31ce848e45ea","04-screens/world6-strip.jsx":"3479dadec253","04-screens/world7-strip.jsx":"e0b64525e7fa","04-screens/world8-strip.jsx":"444f9855082e","04-screens/world9-strip.jsx":"aea09bf6b901","07-mechanics/mechanics-cards.js":"711cd9d74c93","07-mechanics/mechanics-kit.jsx":"f52efab2af43","07-mechanics/mechanics-widgets.jsx":"2285bf5de0e0","07-mechanics/world3-water-kit.jsx":"402befadc370","08-brand/gravity-jelly-logo.js":"597a18d35b1e","prototypes/proto-engine.js":"6887737568ba","prototypes/proto-game.jsx":"75954a4bee0a","prototypes/proto-ui.jsx":"138d35a58082"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
@@ -572,7 +572,12 @@ const PATHS = {
   }),
   check: /*#__PURE__*/React.createElement("path", {
     d: "M5 12.5l4 4L19 7"
-  })
+  }),
+  pencil: /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("path", {
+    d: "M4 20h4L18.5 9.5a2 2 0 0 0-2.8-2.8L5 17.2V20z"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M13.5 6.5l4 4"
+  }))
 };
 function Icon({
   name = 'info',
@@ -7344,211 +7349,587 @@ try { (() => {
 // 04-screens/leaderboard-screen.jsx
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
-/* leaderboard-screen.jsx — LEADERBOARD. Friends/Global tabs, top-3 podium
-   with jelly avatars, ranked rows, highlighted current player. Exposes
-   window.GJLeaderboardScreen. */
+/* leaderboard-screen.jsx — LEADERBOARD. Single GLOBAL Endless board (no
+   friends system, no user avatars). 3D candy podium (laurel + rank number,
+   crown on #1, confetti / stars / leaves flourish), colored rounded-square
+   rank badges, purple scores, and a pinned tangerine "you" row with inline
+   name-edit. Exposes window.GJLeaderboardScreen. */
 
 (function () {
   const NS = window.GravityJellyDesignSystem_3e0487;
   const {
-    JellyBlock,
     Icon
   } = NS;
   const EX = window.GJExtras;
-  const AV = ['yellow', 'mint', 'pink', 'blue'];
-  function Avatar({
+
+  // ---- podium metal palettes (gold / silver / bronze) ----
+  const METAL = {
+    1: {
+      top: '#FFE79A',
+      bot: '#FFCB4E',
+      edge: '#EBB43C',
+      ink: '#8A5A12',
+      laurel: '#C98A1E'
+    },
+    2: {
+      top: '#ECE7DB',
+      bot: '#CFC7B6',
+      edge: '#BDB4A1',
+      ink: '#6E6555',
+      laurel: '#8C8474'
+    },
+    3: {
+      top: '#F6CFA6',
+      bot: '#E7A876',
+      edge: '#D5945F',
+      ink: '#8A4E23',
+      laurel: '#B06B34'
+    }
+  };
+
+  // laurel wreath framing the rank number: two symmetric branches curving up
+  // around the number (matches the DS's hand-drawn glyph vocabulary)
+  function Laurel({
+    size = 62,
     color,
-    size = 44,
-    expr = 'normal'
+    children
   }) {
+    // left-branch leaf positions [x, y, rotation] along an upward curve; right = mirror
+    const pts = [[11, 25, 65], [8, 21, 45], [6.4, 16.5, 15], [7, 12, -12], [9, 8, -35]];
+    const leaf = (x, y, rot, key) => /*#__PURE__*/React.createElement("ellipse", {
+      key: key,
+      cx: x,
+      cy: y,
+      rx: "2.8",
+      ry: "1.5",
+      transform: `rotate(${rot} ${x} ${y})`,
+      fill: color
+    });
     return /*#__PURE__*/React.createElement("div", {
       style: {
+        position: 'relative',
         width: size,
         height: size,
-        borderRadius: '50%',
-        overflow: 'hidden',
-        background: `var(--color-block-${color})`,
-        border: '3px solid var(--color-surface)',
-        boxShadow: 'var(--shadow-sm)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
       }
-    }, /*#__PURE__*/React.createElement(JellyBlock, {
-      color: color,
-      size: size + 6,
-      expression: expr,
+    }, /*#__PURE__*/React.createElement("svg", {
+      width: size,
+      height: size,
+      viewBox: "0 0 32 32",
       style: {
-        borderRadius: 0,
-        border: 'none',
-        boxShadow: 'none'
+        position: 'absolute',
+        inset: 0
       }
-    }));
+    }, /*#__PURE__*/React.createElement("path", {
+      d: "M11 26C7 22 5.5 17 8 8",
+      fill: "none",
+      stroke: color,
+      strokeWidth: "1.1",
+      strokeLinecap: "round",
+      opacity: "0.7"
+    }), /*#__PURE__*/React.createElement("path", {
+      d: "M21 26C25 22 26.5 17 24 8",
+      fill: "none",
+      stroke: color,
+      strokeWidth: "1.1",
+      strokeLinecap: "round",
+      opacity: "0.7"
+    }), pts.map(([x, y, r], i) => leaf(x, y, r, 'l' + i)), pts.map(([x, y, r], i) => leaf(32 - x, y, -r, 'r' + i))), /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'relative',
+        fontFamily: 'var(--font-display)',
+        fontWeight: 800,
+        fontSize: size * 0.44,
+        lineHeight: 1
+      }
+    }, children));
   }
   function Podium({
     rank,
     name,
-    score,
-    color
+    score
   }) {
-    const h = rank === 1 ? 96 : rank === 2 ? 72 : 58;
-    const medal = rank === 1 ? 'var(--color-warning)' : rank === 2 ? '#CFC3AE' : '#E0A878';
+    const h = rank === 1 ? 176 : rank === 2 ? 132 : 116;
+    const m = METAL[rank];
     return /*#__PURE__*/React.createElement("div", {
       style: {
+        flex: 1,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: 6,
-        width: 84,
-        alignSelf: 'flex-end'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
+        alignSelf: 'flex-end',
         position: 'relative'
       }
     }, rank === 1 && /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'absolute',
-        top: -18,
-        left: '50%',
-        transform: 'translateX(-50%)'
+        top: -30,
+        zIndex: 3,
+        animation: 'gj-bob 2600ms var(--ease-inout, ease-in-out) infinite'
       }
     }, /*#__PURE__*/React.createElement(EX.Crown, {
-      size: 24
-    })), /*#__PURE__*/React.createElement(Avatar, {
-      color: color,
-      size: rank === 1 ? 56 : 48,
-      expr: rank === 1 ? 'happy' : 'normal'
-    }), /*#__PURE__*/React.createElement("span", {
+      size: 40
+    })), /*#__PURE__*/React.createElement("div", {
       style: {
-        position: 'absolute',
-        bottom: -4,
-        right: -4,
-        width: 22,
-        height: 22,
-        borderRadius: '50%',
-        background: medal,
-        border: '2px solid var(--color-surface)',
+        width: '100%',
+        height: h,
+        borderRadius: '18px 18px 0 0',
+        paddingTop: rank === 1 ? 18 : 12,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 2,
+        background: `linear-gradient(180deg, ${m.top} 0%, ${m.bot} 68%)`,
+        borderTop: `3px solid color-mix(in srgb, ${m.top} 70%, white)`,
+        boxShadow: `inset 0 -10px 18px -8px ${m.edge}, inset 3px 0 0 color-mix(in srgb, ${m.top} 80%, white), inset -3px 0 0 ${m.edge}, var(--shadow-md)`
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        color: m.ink
+      }
+    }, /*#__PURE__*/React.createElement(Laurel, {
+      size: rank === 1 ? 66 : 56,
+      color: m.laurel
+    }, rank)), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-body)',
+        fontWeight: 800,
+        fontSize: rank === 1 ? 'var(--text-body)' : 'var(--text-caption)',
+        color: m.ink,
+        whiteSpace: 'nowrap'
+      }
+    }, name), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-display)',
+        fontWeight: 800,
+        fontSize: rank === 1 ? 22 : 18,
+        color: m.ink,
+        lineHeight: 1.1
+      }
+    }, score.toLocaleString('vi-VN'))));
+  }
+
+  // colored rounded-square rank badge, per row
+  const BADGE = {
+    4: ['#8C7CF3', '#6353D6'],
+    5: ['#F3C85B', '#D9A33A'],
+    6: ['#66C9B8', '#45A895'],
+    7: ['#8FAAEE', '#6A88DB'],
+    8: ['#F090B4', '#DC6494'],
+    9: ['#FFAE7C', '#EE8248'],
+    10: ['#6FD79E', '#49B679']
+  };
+  function RankBadge({
+    rank,
+    size = 46
+  }) {
+    const [a, b] = BADGE[rank] || ['#C9BCA8', '#A89A82'];
+    return /*#__PURE__*/React.createElement("span", {
+      style: {
+        flexShrink: 0,
+        width: size,
+        height: size,
+        borderRadius: 14,
+        background: `linear-gradient(180deg, ${a}, ${b})`,
+        boxShadow: `inset 0 2px 0 color-mix(in srgb, ${a} 55%, white), var(--shadow-sm)`,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         fontFamily: 'var(--font-display)',
         fontWeight: 800,
-        fontSize: 11,
-        color: 'var(--color-text)'
+        fontSize: size * 0.42,
+        color: '#fff',
+        textShadow: '0 1px 1px rgba(0,0,0,0.14)'
       }
-    }, rank)), /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontFamily: 'var(--font-body)',
-        fontWeight: 800,
-        fontSize: 'var(--text-caption)',
-        color: 'var(--color-text)',
-        whiteSpace: 'nowrap'
-      }
-    }, name), /*#__PURE__*/React.createElement("div", {
-      style: {
-        width: '100%',
-        height: h,
-        borderRadius: '12px 12px 0 0',
-        background: `linear-gradient(180deg, color-mix(in srgb, ${medal} 60%, var(--color-surface)), color-mix(in srgb, ${medal} 30%, var(--color-surface)))`,
-        display: 'flex',
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-        paddingTop: 8,
-        boxShadow: 'var(--shadow-sm)'
-      }
-    }, /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontFamily: 'var(--font-display)',
-        fontWeight: 800,
-        fontSize: 'var(--text-body)',
-        color: 'var(--color-text)'
-      }
-    }, score.toLocaleString('vi-VN'))));
+    }, rank);
   }
   function Row({
     rank,
     name,
-    score,
-    color,
-    you
+    score
   }) {
     return /*#__PURE__*/React.createElement("div", {
       style: {
         display: 'flex',
         alignItems: 'center',
         gap: 'var(--space-md)',
-        padding: '8px var(--space-md)',
-        borderRadius: 'var(--radius-lg)',
-        background: you ? 'color-mix(in srgb, var(--color-primary) 16%, var(--color-surface))' : 'var(--color-surface)',
-        boxShadow: you ? '0 0 0 2px var(--color-primary)' : 'var(--shadow-sm)'
+        padding: '10px 18px 10px 12px',
+        borderRadius: 'var(--radius-xl)',
+        background: 'var(--color-surface)',
+        boxShadow: 'var(--shadow-sm)'
       }
-    }, /*#__PURE__*/React.createElement("span", {
-      style: {
-        width: 22,
-        textAlign: 'center',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 800,
-        fontSize: 'var(--text-body)',
-        color: 'var(--color-text-muted)'
-      }
-    }, rank), /*#__PURE__*/React.createElement(Avatar, {
-      color: color,
-      size: 40
+    }, /*#__PURE__*/React.createElement(RankBadge, {
+      rank: rank
     }), /*#__PURE__*/React.createElement("span", {
       style: {
         flex: 1,
+        minWidth: 0,
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
         fontFamily: 'var(--font-body)',
         fontWeight: 800,
-        fontSize: 'var(--text-body)',
+        fontSize: 18,
         color: 'var(--color-text)'
       }
-    }, you ? 'Bạn' : name), /*#__PURE__*/React.createElement("span", {
+    }, name), /*#__PURE__*/React.createElement("span", {
       style: {
+        flexShrink: 0,
         fontFamily: 'var(--font-display)',
         fontWeight: 800,
-        fontSize: 'var(--text-body)',
-        color: 'var(--color-text)'
+        fontSize: 20,
+        color: 'var(--color-gravity-edge)'
       }
     }, score.toLocaleString('vi-VN')));
   }
-  function LeaderboardScreen({
-    tab = 'friends',
-    onTab,
-    onBack
-  }) {
-    const [t, setT] = React.useState(tab);
-    const setTab = k => {
-      setT(k);
-      onTab && onTab(k);
-    };
-    const rows = [{
-      name: 'Mai',
-      score: 9120,
-      color: 'pink'
+
+  // scattered decoration in the podium header
+  function Confetti() {
+    const bits = [{
+      l: '12%',
+      t: 46,
+      c: '#F090B4',
+      r: 20,
+      w: 10,
+      h: 10,
+      br: 3
     }, {
-      name: 'Tú',
-      score: 8740,
-      color: 'blue'
+      l: '20%',
+      t: 74,
+      c: '#FFCA66',
+      r: -15,
+      w: 10,
+      h: 10,
+      br: 3
     }, {
-      name: 'Bạn',
-      score: 8210,
-      color: 'yellow',
-      you: true
+      l: '33%',
+      t: 30,
+      c: '#66C9B8',
+      r: 40,
+      w: 9,
+      h: 9,
+      br: 2
     }, {
-      name: 'Khoa',
-      score: 7650,
-      color: 'mint'
+      l: '68%',
+      t: 30,
+      c: '#8FAAEE',
+      r: 25,
+      w: 9,
+      h: 9,
+      br: 2
     }, {
-      name: 'Linh',
-      score: 6980,
-      color: 'pink'
+      l: '80%',
+      t: 66,
+      c: '#F3C85B',
+      r: -20,
+      w: 10,
+      h: 10,
+      br: 3
+    }, {
+      l: '88%',
+      t: 44,
+      c: '#F090B4',
+      r: 15,
+      w: 9,
+      h: 9,
+      br: 2
     }];
     return /*#__PURE__*/React.createElement("div", {
+      "aria-hidden": "true",
       style: {
+        position: 'absolute',
+        inset: 0,
+        pointerEvents: 'none'
+      }
+    }, bits.map((b, i) => /*#__PURE__*/React.createElement("span", {
+      key: i,
+      style: {
+        position: 'absolute',
+        left: b.l,
+        top: b.t,
+        width: b.w,
+        height: b.h,
+        borderRadius: b.br,
+        background: b.c,
+        transform: `rotate(${b.r}deg)`,
+        opacity: 0.9
+      }
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        left: '26%',
+        top: 58
+      }
+    }, /*#__PURE__*/React.createElement(EX.FilledStar, {
+      size: 22
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        right: '25%',
+        top: 40
+      }
+    }, /*#__PURE__*/React.createElement(EX.FilledStar, {
+      size: 26
+    })), /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        left: '9%',
+        top: 30,
+        color: '#FFF',
+        fontSize: 14,
+        fontWeight: 800
+      }
+    }, "\u2726"), /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        right: '10%',
+        top: 70,
+        color: '#CFC3AE',
+        fontSize: 12,
+        fontWeight: 800
+      }
+    }, "\u2726"));
+  }
+  function Leaf({
+    flip
+  }) {
+    return /*#__PURE__*/React.createElement("svg", {
+      width: "70",
+      height: "60",
+      viewBox: "0 0 70 60",
+      "aria-hidden": "true",
+      style: {
+        transform: flip ? 'scaleX(-1)' : 'none'
+      }
+    }, /*#__PURE__*/React.createElement("path", {
+      d: "M4 56C4 30 24 8 54 4c2 26-16 48-50 52z",
+      fill: "#8FD08A"
+    }), /*#__PURE__*/React.createElement("path", {
+      d: "M14 50C22 34 34 24 48 16",
+      stroke: "#63B368",
+      strokeWidth: "2.4",
+      fill: "none",
+      strokeLinecap: "round"
+    }), /*#__PURE__*/React.createElement("path", {
+      d: "M20 44C14 30 30 14 52 12c0 20-14 34-32 32z",
+      fill: "#A6DCA0",
+      opacity: "0.7"
+    }));
+  }
+  function NameDialog({
+    initial,
+    onSave,
+    onClose
+  }) {
+    const [v, setV] = React.useState(initial);
+    const ref = React.useRef(null);
+    React.useEffect(() => {
+      const el = ref.current;
+      if (el) {
+        el.focus();
+        el.select();
+      }
+    }, []);
+    const trimmed = v.trim();
+    const ok = trimmed.length >= 1 && trimmed.length <= 14;
+    const save = () => {
+      if (ok) onSave(trimmed);
+    };
+    return /*#__PURE__*/React.createElement("div", {
+      onClick: onClose,
+      style: {
+        position: 'absolute',
+        inset: 0,
+        zIndex: 20,
+        background: 'var(--color-overlay)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 'var(--space-lg)'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      onClick: e => e.stopPropagation(),
+      style: {
+        width: '100%',
+        maxWidth: 300,
+        background: 'var(--color-surface)',
+        borderRadius: 'var(--radius-2xl)',
+        boxShadow: 'var(--shadow-lg)',
+        padding: 'var(--space-lg)',
         display: 'flex',
         flexDirection: 'column',
-        height: '100%'
+        gap: 'var(--space-md)'
+      }
+    }, /*#__PURE__*/React.createElement("h2", {
+      style: {
+        margin: 0,
+        fontFamily: 'var(--font-display)',
+        fontWeight: 800,
+        fontSize: 'var(--text-heading)',
+        color: 'var(--color-text)'
+      }
+    }, "\u0110\u1ED5i t\xEAn"), /*#__PURE__*/React.createElement("input", {
+      ref: ref,
+      value: v,
+      onChange: e => setV(e.target.value),
+      onKeyDown: e => {
+        if (e.key === 'Enter') save();
+        if (e.key === 'Escape') onClose();
+      },
+      maxLength: 14,
+      placeholder: "Nh\u1EADp t\xEAn c\u1EE7a b\u1EA1n",
+      style: {
+        height: 48,
+        borderRadius: 'var(--radius-lg)',
+        border: 'none',
+        boxShadow: 'inset 0 0 0 2px color-mix(in srgb, var(--color-text-muted) 30%, transparent)',
+        background: 'var(--color-surface-sunken)',
+        padding: '0 var(--space-md)',
+        fontFamily: 'var(--font-body)',
+        fontWeight: 800,
+        fontSize: 'var(--text-body)',
+        color: 'var(--color-text)',
+        outline: 'none'
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: -4
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-body)',
+        fontWeight: 700,
+        fontSize: 'var(--text-caption)',
+        color: 'var(--color-text-muted)'
+      }
+    }, "T\u1ED1i \u0111a 14 k\xFD t\u1EF1"), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-body)',
+        fontWeight: 700,
+        fontSize: 'var(--text-caption)',
+        color: 'var(--color-text-muted)'
+      }
+    }, trimmed.length, "/14")), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        gap: 'var(--space-sm)'
+      }
+    }, /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      onClick: onClose,
+      style: {
+        flex: 1,
+        height: 48,
+        borderRadius: 'var(--radius-lg)',
+        border: 'none',
+        cursor: 'pointer',
+        background: 'var(--color-surface-sunken)',
+        fontFamily: 'var(--font-display)',
+        fontWeight: 700,
+        fontSize: 'var(--text-label)',
+        color: 'var(--color-text-muted)'
+      }
+    }, "H\u1EE7y"), /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      onClick: save,
+      disabled: !ok,
+      style: {
+        flex: 1.4,
+        height: 48,
+        borderRadius: 'var(--radius-lg)',
+        border: 'none',
+        cursor: ok ? 'pointer' : 'not-allowed',
+        background: ok ? 'var(--color-primary)' : 'color-mix(in srgb, var(--color-primary) 40%, var(--color-surface))',
+        boxShadow: ok ? '0 3px 0 var(--color-primary-edge)' : 'none',
+        fontFamily: 'var(--font-display)',
+        fontWeight: 800,
+        fontSize: 'var(--text-label)',
+        color: '#fff'
+      }
+    }, "L\u01B0u"))));
+  }
+  function LeaderboardScreen({
+    onBack
+  }) {
+    const [name, setName] = React.useState(() => {
+      try {
+        return localStorage.getItem('gj-player-name') || 'Bạn';
+      } catch (e) {
+        return 'Bạn';
+      }
+    });
+    const [editing, setEditing] = React.useState(false);
+    const saveName = n => {
+      setName(n);
+      setEditing(false);
+      try {
+        localStorage.setItem('gj-player-name', n);
+      } catch (e) {}
+    };
+    const top = [{
+      name: 'Mai',
+      score: 214980
+    }, {
+      name: 'Tú',
+      score: 198450
+    }, {
+      name: 'Khoa',
+      score: 187210
+    }];
+    const list = [{
+      name: 'Linh',
+      score: 176040
+    }, {
+      name: 'Bảo',
+      score: 168920
+    }, {
+      name: 'Hà',
+      score: 159300
+    }, {
+      name: 'Nam',
+      score: 151770
+    }, {
+      name: 'Vy',
+      score: 144610
+    }, {
+      name: 'Quân',
+      score: 136880
+    }, {
+      name: 'Minh',
+      score: 129360
+    }];
+    const you = {
+      rank: 1204,
+      score: 42360
+    };
+
+    // last-updated timestamp (now) + next daily refresh in 24h
+    const stamp = React.useMemo(() => {
+      const now = new Date();
+      const next = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+      const f = d => d.toLocaleString('vi-VN', {
+        hour: '2-digit',
+        minute: '2-digit',
+        day: '2-digit',
+        month: '2-digit'
+      });
+      return {
+        now: f(now),
+        next: f(next)
+      };
+    }, []);
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        background: 'var(--color-bg, #FFF7EC)'
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -7557,7 +7938,9 @@ function _extends() { return _extends = Object.assign ? Object.assign.bind() : f
         display: 'flex',
         alignItems: 'center',
         gap: 'var(--space-sm)',
-        padding: '0 var(--space-md)'
+        padding: '0 var(--space-md)',
+        position: 'relative',
+        zIndex: 4
       }
     }, /*#__PURE__*/React.createElement("button", {
       type: "button",
@@ -7568,7 +7951,8 @@ function _extends() { return _extends = Object.assign ? Object.assign.bind() : f
         height: 'var(--dim-icon-btn)',
         borderRadius: 'var(--radius-lg)',
         border: 'none',
-        background: 'transparent',
+        background: 'var(--color-surface)',
+        boxShadow: 'var(--shadow-sm)',
         color: 'var(--color-text)',
         cursor: 'pointer',
         display: 'flex',
@@ -7582,6 +7966,8 @@ function _extends() { return _extends = Object.assign ? Object.assign.bind() : f
       style: {
         flex: 1,
         margin: 0,
+        textAlign: 'center',
+        paddingRight: 'var(--dim-icon-btn)',
         fontFamily: 'var(--font-display)',
         fontWeight: 800,
         fontSize: 'var(--text-title)',
@@ -7590,68 +7976,250 @@ function _extends() { return _extends = Object.assign ? Object.assign.bind() : f
     }, "X\u1EBFp h\u1EA1ng")), /*#__PURE__*/React.createElement("div", {
       style: {
         display: 'flex',
-        gap: 4,
-        padding: 4,
-        background: 'var(--color-surface-sunken)',
-        borderRadius: 999,
-        margin: '0 var(--space-lg) var(--space-md)'
+        justifyContent: 'center',
+        margin: '4px var(--space-lg) var(--space-sm)',
+        position: 'relative',
+        zIndex: 4
       }
-    }, [['friends', 'Bạn bè'], ['global', 'Toàn cầu']].map(([k, l]) => /*#__PURE__*/React.createElement("button", {
-      key: k,
-      type: "button",
-      onClick: () => setTab(k),
+    }, /*#__PURE__*/React.createElement("span", {
       style: {
-        flex: 1,
-        height: 38,
-        border: 'none',
-        cursor: 'pointer',
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 7,
+        whiteSpace: 'nowrap',
+        height: 42,
+        padding: '0 18px',
         borderRadius: 999,
-        background: t === k ? 'var(--color-surface)' : 'transparent',
-        boxShadow: t === k ? 'var(--shadow-sm)' : 'none',
+        background: 'linear-gradient(180deg, var(--color-gravity-shine), var(--color-gravity))',
+        boxShadow: '0 3px 0 var(--color-gravity-edge)',
         fontFamily: 'var(--font-display)',
-        fontWeight: 700,
-        fontSize: 'var(--text-label)',
-        color: t === k ? 'var(--color-text)' : 'var(--color-text-muted)'
+        fontWeight: 800,
+        fontSize: 16,
+        color: '#fff'
       }
-    }, l))), /*#__PURE__*/React.createElement("div", {
+    }, "\u267E\uFE0F Endless \xB7 \uD83C\uDF10 To\xE0n c\u1EA7u")), /*#__PURE__*/React.createElement("p", {
+      style: {
+        margin: '0 var(--space-lg) 6px',
+        textAlign: 'center',
+        fontFamily: 'var(--font-body)',
+        fontWeight: 700,
+        fontSize: 'var(--text-caption)',
+        color: 'var(--color-text-muted)',
+        position: 'relative',
+        zIndex: 4
+      }
+    }, "\u0110i\u1EC3m cao nh\u1EA5t m\u1ECDi th\u1EDDi \u0111\u1EA1i"), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        padding: '0 var(--space-lg)',
+        marginBottom: 6
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      "aria-hidden": "true",
+      style: {
+        position: 'absolute',
+        left: -10,
+        bottom: 40,
+        width: 90,
+        height: 46,
+        borderRadius: 999,
+        background: '#DCEBFB',
+        filter: 'blur(2px)',
+        opacity: 0.8
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      "aria-hidden": "true",
+      style: {
+        position: 'absolute',
+        right: -6,
+        bottom: 54,
+        width: 70,
+        height: 40,
+        borderRadius: 999,
+        background: '#DCEBFB',
+        filter: 'blur(2px)',
+        opacity: 0.7
+      }
+    }), /*#__PURE__*/React.createElement(Confetti, null), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'flex-end',
+        gap: 8,
+        position: 'relative',
+        paddingTop: 46
+      }
+    }, /*#__PURE__*/React.createElement(Podium, {
+      rank: 2,
+      name: top[1].name,
+      score: top[1].score
+    }), /*#__PURE__*/React.createElement(Podium, {
+      rank: 1,
+      name: top[0].name,
+      score: top[0].score
+    }), /*#__PURE__*/React.createElement(Podium, {
+      rank: 3,
+      name: top[2].name,
+      score: top[2].score
+    })), /*#__PURE__*/React.createElement("div", {
+      "aria-hidden": "true",
+      style: {
+        position: 'absolute',
+        left: -22,
+        bottom: -12,
+        zIndex: 0
+      }
+    }, /*#__PURE__*/React.createElement(Leaf, null)), /*#__PURE__*/React.createElement("div", {
+      "aria-hidden": "true",
+      style: {
+        position: 'absolute',
+        right: -22,
+        bottom: -12,
+        zIndex: 0
+      }
+    }, /*#__PURE__*/React.createElement(Leaf, {
+      flip: true
+    }))), /*#__PURE__*/React.createElement("div", {
       style: {
         flex: 1,
         overflowY: 'auto',
-        padding: '0 var(--space-lg) var(--space-xl)'
+        padding: '10px var(--space-lg) var(--space-md)',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 10
+      }
+    }, list.map((r, i) => /*#__PURE__*/React.createElement(Row, _extends({
+      key: i,
+      rank: i + 4
+    }, r)))), /*#__PURE__*/React.createElement("div", {
+      style: {
+        flexShrink: 0,
+        padding: '6px var(--space-lg) 8px'
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
         display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'flex-end',
-        gap: 'var(--space-sm)',
-        margin: 'var(--space-lg) 0 var(--space-lg)'
+        alignItems: 'center',
+        gap: 'var(--space-md)',
+        padding: '10px 18px 10px 12px',
+        borderRadius: 'var(--radius-xl)',
+        background: 'color-mix(in srgb, var(--color-primary) 12%, var(--color-surface))',
+        boxShadow: 'inset 0 0 0 2px var(--color-primary)'
       }
-    }, /*#__PURE__*/React.createElement(Podium, {
-      rank: 2,
-      name: "T\xFA",
-      score: 8740,
-      color: "blue"
-    }), /*#__PURE__*/React.createElement(Podium, {
-      rank: 1,
-      name: "Mai",
-      score: 9120,
-      color: "pink"
-    }), /*#__PURE__*/React.createElement(Podium, {
-      rank: 3,
-      name: "B\u1EA1n",
-      score: 8210,
-      color: "yellow"
-    })), /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("span", {
       style: {
+        flexShrink: 0,
+        minWidth: 60,
+        height: 46,
+        padding: '0 10px',
+        borderRadius: 14,
+        background: 'linear-gradient(180deg, #FFE0C6, #FFCBA6)',
+        boxShadow: 'inset 0 2px 0 rgba(255,255,255,0.6), var(--shadow-sm)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontFamily: 'var(--font-display)',
+        fontWeight: 800,
+        fontSize: 18,
+        color: 'var(--color-primary-edge)'
+      }
+    }, you.rank), /*#__PURE__*/React.createElement("span", {
+      style: {
+        flex: 1,
+        minWidth: 0,
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
+        fontFamily: 'var(--font-body)',
+        fontWeight: 800,
+        fontSize: 18,
+        color: 'var(--color-text)'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap'
+      }
+    }, name), /*#__PURE__*/React.createElement("span", {
+      style: {
+        flexShrink: 0,
+        fontFamily: 'var(--font-body)',
+        fontWeight: 800,
+        fontSize: 10,
+        letterSpacing: '0.06em',
+        color: 'var(--color-primary-edge)',
+        background: 'color-mix(in srgb, var(--color-primary) 24%, var(--color-surface))',
+        borderRadius: 999,
+        padding: '3px 8px'
+      }
+    }, "B\u1EA0N"), /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      onClick: () => setEditing(true),
+      "aria-label": "\u0110\u1ED5i t\xEAn",
+      style: {
+        flexShrink: 0,
+        width: 26,
+        height: 26,
+        borderRadius: '50%',
+        border: 'none',
+        background: 'transparent',
+        color: 'var(--color-primary-edge)',
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement(Icon, {
+      name: "pencil",
+      size: 16,
+      strokeWidth: 2.2
+    }))), /*#__PURE__*/React.createElement("span", {
+      style: {
+        flexShrink: 0,
+        fontFamily: 'var(--font-display)',
+        fontWeight: 800,
+        fontSize: 20,
+        color: 'var(--color-primary-edge)'
+      }
+    }, you.score.toLocaleString('vi-VN')))), /*#__PURE__*/React.createElement("div", {
+      style: {
+        flexShrink: 0,
         display: 'flex',
         flexDirection: 'column',
-        gap: 'var(--space-sm)'
+        alignItems: 'center',
+        gap: 2,
+        padding: '2px 0 10px',
+        color: 'var(--color-text-muted)'
       }
-    }, rows.map((r, i) => /*#__PURE__*/React.createElement(Row, _extends({
-      key: i,
-      rank: i + 1
-    }, r))))));
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 6
+      }
+    }, /*#__PURE__*/React.createElement(Icon, {
+      name: "info",
+      size: 15,
+      color: "var(--color-text-muted)"
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-body)',
+        fontWeight: 800,
+        fontSize: 'var(--text-caption)',
+        color: 'var(--color-text)'
+      }
+    }, "C\u1EADp nh\u1EADt l\xFAc ", stamp.now)), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-body)',
+        fontWeight: 700,
+        fontSize: 11,
+        color: 'var(--color-text-muted)'
+      }
+    }, "L\xE0m m\u1EDBi m\u1ED7i 24 gi\u1EDD \xB7 d\u1EF1 ki\u1EBFn ", stamp.next)), editing && /*#__PURE__*/React.createElement(NameDialog, {
+      initial: name,
+      onSave: saveName,
+      onClose: () => setEditing(false)
+    }));
   }
   window.GJLeaderboardScreen = LeaderboardScreen;
 })();
