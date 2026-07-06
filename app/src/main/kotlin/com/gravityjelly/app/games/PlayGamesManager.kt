@@ -29,8 +29,8 @@ class PlayGamesManager(private val appContext: Context) {
         private const val TAG = "PlayGames"
         private const val PLACEHOLDER = "REPLACE_WITH_LEADERBOARD_ID"
 
-        /** TODO: dán leaderboardId thật từ Play Console (dạng "CgkI...") để bật BXH toàn cầu. */
-        const val LEADERBOARD_ID = PLACEHOLDER
+        /** Leaderboard "Endless" từ Play Games Services (project id 1038542031606). */
+        const val LEADERBOARD_ID = "CgkI9pW375weEAIQAA"
     }
 
     /** PGS đã cấu hình id thật chưa. false → chạy bảng nội bộ. */
