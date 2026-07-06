@@ -27,6 +27,8 @@
     <string name="settings_version">Phiên bản</string>
     <string name="settings_rate">Đánh giá game</string>
     <string name="settings_privacy">Chính sách bảo mật</string>
+    <!-- URL cấu hình, không dịch: trang Chính sách bảo mật (deploy Vercel — xem privacy_policy_site/). -->
+    <string name="privacy_policy_url" translatable="false">https://privacypolicysite-one.vercel.app</string>
     <string name="settings_home">Về Home</string>
 
     <!-- ── Bảng xếp hạng ────────────────────────────────────────────────────── -->

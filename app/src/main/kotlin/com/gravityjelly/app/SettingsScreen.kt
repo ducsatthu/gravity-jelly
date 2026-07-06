@@ -3,6 +3,7 @@ package com.gravityjelly.app
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -33,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -153,7 +155,13 @@ fun SettingsScreen(
                     GjIcon(GjIcons.Chevron, modifier = Modifier.size(20.dp), tint = GjPalette.TextMuted)
                 }
                 RowDivider()
-                SettingRow(GjIcons.Settings, stringResource(R.string.settings_privacy)) {
+                val uriHandler = LocalUriHandler.current
+                val privacyUrl = stringResource(R.string.privacy_policy_url)
+                SettingRow(
+                    GjIcons.Settings,
+                    stringResource(R.string.settings_privacy),
+                    onClick = { runCatching { uriHandler.openUri(privacyUrl) } },
+                ) {
                     GjIcon(GjIcons.Chevron, modifier = Modifier.size(20.dp), tint = GjPalette.TextMuted)
                 }
             }
@@ -202,12 +210,14 @@ private fun SettingGroup(title: String, content: @Composable () -> Unit) {
 private fun SettingRow(
     icon: ImageVector,
     label: String,
+    onClick: (() -> Unit)? = null,
     trailing: @Composable () -> Unit,
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(min = 56.dp)
+            .then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier)
             .padding(horizontal = GjSpace.lg, vertical = GjSpace.sm),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(GjSpace.md),
