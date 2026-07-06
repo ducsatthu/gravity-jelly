@@ -38,12 +38,15 @@
 
 ## 2. Cấu hình build để phát hành
 
-- [ ] **Tạo upload keystore** (release key):
-      `keytool -genkeypair -v -keystore gravity-jelly-upload.jks -alias upload -keyalg RSA -keysize 2048 -validity 10000`
+- [x] **Upload keystore** (release key): **dùng lại** khoá của dự án anh em
+      `../gravity_merge/gravity_merge_release.jks` (alias `gravity_merge`).
       → cất **an toàn** (mất là không update app được, trừ khi dùng Play App Signing reset).
+      Lưu ý: 1 upload key ký được nhiều app khác package — với **Play App Signing** mỗi app vẫn có
+      app-signing key riêng nên chia sẻ upload key giữa 2 game không sao.
 - [x] `signingConfigs.release` đã wire sẵn trong `app/build.gradle.kts` (đọc `keystore.properties`).
-      → chỉ cần **tạo `keystore.properties`** ở root (copy từ `keystore.properties.example`, điền
-      `storeFile/storePassword/keyAlias/keyPassword`). Vắng file thì release tự lùi debug key.
+- [x] Đã tạo `keystore.properties` ở root (copy từ `../gravity_merge/app/android/key.properties`,
+      cùng định dạng `storeFile/storePassword/keyAlias/keyPassword`). `signingReport` xác nhận
+      `productionRelease → Config: release`. **SHA-1 release: `B0:9B:7B:11:93:BE:14:64:12:F2:10:58:A8:AA:52:48:FA:27:24:C7`** (khai vào OAuth client PGS — §4).
 - [x] Mật khẩu keystore để ngoài VCS: `keystore.properties` + `*.jks`/`*.keystore` đã vào `.gitignore`.
 - [ ] Bật **Play App Signing** (khuyến nghị) — Google giữ app signing key, mình chỉ giữ upload key.
 - [ ] Cân nhắc bật **R8/minify** cho release: `isMinifyEnabled = true` + bổ sung
@@ -90,7 +93,8 @@
       offline vẫn lùi bảng nội bộ.
 - [ ] **Credentials**: tạo OAuth2 client (Android) trong Google Cloud project được PGS liên kết;
       khai **SHA-1**:
-  - [ ] SHA-1 **upload key** (bản dev/test cài qua adb).
+  - [ ] SHA-1 **upload key** (bản dev/test cài qua adb): `B0:9B:7B:11:93:BE:14:64:12:F2:10:58:A8:AA:52:48:FA:27:24:C7`
+        (khoá dùng lại từ gravity_merge — xem §2).
   - [ ] SHA-1 **app signing key của Play** (lấy trong Play Console → App integrity) cho bản phát hành.
 - [ ] Thêm **tài khoản tester** trong PGS → test được bản debug qua adb ở **sandbox** (không cần
       publish store). Emulator phải là image **"Google Play"**.
