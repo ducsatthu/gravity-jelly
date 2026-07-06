@@ -118,7 +118,6 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)
-    implementation(libs.play.sidekick)
     debugImplementation(libs.androidx.ui.tooling)
 
     testImplementation(libs.junit)

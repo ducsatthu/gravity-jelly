@@ -15,7 +15,6 @@ playServicesGames = "20.1.2"
 firebaseBom = "33.7.0"
 googleServices = "4.4.2"
 firebaseCrashlyticsGradle = "3.0.3"
-playSidekick = "+"
 junit = "4.13.2"
 androidxJunit = "1.2.1"
 espresso = "3.6.1"
@@ -40,7 +39,6 @@ firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.r
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
 play-services-games-v2 = { group = "com.google.android.gms", name = "play-services-games-v2", version.ref = "playServicesGames" }
-play-sidekick = { group = "com.google.android.play", name = "sidekick", version.ref = "playSidekick" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
