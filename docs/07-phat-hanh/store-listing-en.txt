@@ -1,0 +1,38 @@
+========================================
+GRAVITY JELLY — STORE LISTING (ENGLISH)
+Copy each block below into Play Console → Store listing (English version)
+========================================
+
+
+===== TITLE (≤30) =====
+
+Gravity Jelly
+
+
+===== SHORT DESCRIPTION (≤80) =====
+
+Twist gravity to slam whole clusters, clear lines and chain huge combos!
+
+
+===== FULL DESCRIPTION (≤4000) =====
+
+Gravity Jelly is a casual block-fitting puzzle game with a signature twist you have never seen before: you can ROTATE gravity by 90° to slam the whole board exactly where you want!
+
+🧩 GAMEPLAY
+• Drop jelly pieces onto a 9×9 board and clear full rows or columns to score.
+• Stuck? Rotate gravity to send ENTIRE clusters crashing to one side — opening up brand new moves.
+• Clear lines back to back to trigger chain COMBOS; every big combo even refills your gravity twists.
+• Merge same-colored blocks to create SUPER BLOCKS that explode and sweep the board clean.
+
+🌏 GAME MODES
+• Endless: play until you run out of room and chase your own high score.
+• Campaign: journey through the Meadow, Forest and River worlds, and defeat challenging bosses.
+• Leaderboard: compare your scores with players everywhere (Google Play Games).
+
+✨ FEATURES
+• Lively jelly blocks with expressive eyes and color-based personalities.
+• Play offline, single player — no internet needed.
+• Supports English and Vietnamese, switch language right inside the app.
+• Free to play (contains ads).
+
+Easy to learn, hard to master. Twist your mind, twist gravity — challenge your brain today!
