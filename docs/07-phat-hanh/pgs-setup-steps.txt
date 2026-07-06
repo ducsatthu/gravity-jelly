@@ -1,0 +1,109 @@
+==================================================================
+GRAVITY JELLY — CÁC BƯỚC ĐỂ PLAY GAMES (BẢNG XẾP HẠNG) CHẠY THẬT
+==================================================================
+Code đã sẵn sàng (project id + leaderboard id đã điền). Việc còn lại là cấu hình
+OAuth + tester + publish trên Play Console / Google Cloud. Làm lần lượt.
+
+GIÁ TRỊ DÙNG CHUNG (copy khi cần)
+---------------------------------
+Package name:        com.ductranxuan.gravityjelly
+PGS project (app_id):1038542031606
+Leaderboard id:      CgkI9pW375weEAIQAA
+SHA-1 (debug):       9F:72:17:EC:FF:85:2F:5D:31:A7:18:C6:46:A6:3D:0C:D8:9D:4F:CD
+SHA-1 (upload/release key): B0:9B:7B:11:93:BE:14:64:12:F2:10:58:A8:AA:52:48:FA:27:24:C7
+SHA-1 (app signing key):    (lấy SAU khi upload AAB — xem BƯỚC 4)
+
+  → debug   = ký bản app-debug.apk (cài qua adb khi dev)
+  → upload  = ký bản app-release.apk cài tay qua adb
+  → app-signing = khoá Google ký bản người dùng tải từ Play
+
+
+==================================================================
+BƯỚC 1 — Mở cấu hình Play Games Services
+==================================================================
+URL: https://play.google.com/console
+  → Chọn app "Gravity Jelly"
+  → Menu trái: Grow → Play Games Services → Setup and management → Configuration
+
+- Nếu chưa có: bấm tạo cấu hình PGS (bạn đã có project id 1038542031606 nên có thể
+  đã xong bước này — leaderboard đã tạo được nghĩa là cấu hình đã tồn tại).
+
+
+==================================================================
+BƯỚC 2 — Cấu hình OAuth consent screen (màn hình đồng ý) — 1 lần
+==================================================================
+PGS gắn với 1 Google Cloud project. Vào project đó:
+
+URL: https://console.cloud.google.com/apis/credentials/consent
+  (Chọn đúng project — tên thường trùng "Gravity Jelly" hoặc project số 1038542031606)
+
+- User type: External
+- App name: Gravity Jelly
+- User support email: ductranxuan.29710@gmail.com
+- Developer contact email: ductranxuan.29710@gmail.com
+- Publishing status: để "Testing" cũng chạy được với test users.
+  (Scope Play Games KHÔNG nhạy cảm → không cần Google xác minh.)
+- Lưu.
+
+
+==================================================================
+BƯỚC 3 — Tạo OAuth client ID (Android) + gắn SHA-1
+==================================================================
+URL: https://console.cloud.google.com/apis/credentials
+  → + Create credentials → OAuth client ID → Application type: Android
+
+- Name: Gravity Jelly (Android)
+- Package name:  com.ductranxuan.gravityjelly
+- SHA-1: tạo LẦN LƯỢT một client cho mỗi SHA (hoặc thêm nhiều client Android):
+    • debug:   9F:72:17:EC:FF:85:2F:5D:31:A7:18:C6:46:A6:3D:0C:D8:9D:4F:CD
+    • upload:  B0:9B:7B:11:93:BE:14:64:12:F2:10:58:A8:AA:52:48:FA:27:24:C7
+  (mỗi OAuth Android client chỉ nhận 1 SHA-1 → tạo 2 client, cùng package.)
+
+Rồi quay lại Play Console:
+  Grow → Play Games Services → Setup and management → Configuration → Credentials
+  → Add credential → Type: Android → chọn OAuth client vừa tạo → Save.
+  (Thêm cả 2 credential debug + upload.)
+
+→ Sau bước này: đăng nhập PGS chạy trên bản DEBUG (adb) và bản RELEASE cài tay.
+
+
+==================================================================
+BƯỚC 4 — SHA-1 app-signing (cho bản phát hành từ Play) — sau khi upload AAB
+==================================================================
+1. Build lại AAB (đã có project/leaderboard id thật):
+      ./gradlew :app:bundleRelease
+      → app/build/outputs/bundle/release/app-release.aab
+2. Play Console → Test and release → (Internal/Closed testing) → upload AAB
+   → đồng ý bật PLAY APP SIGNING.
+3. Play Console → Test and release → App integrity → App signing
+   → copy SHA-1 của "App signing key certificate".
+4. Tạo thêm 1 OAuth Android client với SHA-1 đó (BƯỚC 3) + add credential (BƯỚC 3).
+   → đăng nhập PGS chạy trên bản người dùng tải từ Play.
+
+
+==================================================================
+BƯỚC 5 — Thêm tester (test sandbox không cần publish)
+==================================================================
+Play Console → Grow → Play Games Services → Setup and management → Testers
+  → Add tester → nhập email Google của bạn (và người test).
+- Test trên máy: cài app-debug.apk (adb) HOẶC bản internal testing.
+- Emulator phải là image "Google Play" (có Play Store).
+
+
+==================================================================
+BƯỚC 6 — Publish cấu hình PGS (tách với publish app)
+==================================================================
+Play Console → Grow → Play Games Services → Setup and management → Publishing
+  → Publish.
+- Trước khi publish có thể RESET dữ liệu điểm test (Leaderboards → ... → reset).
+- Sau publish: mọi người (không chỉ tester) thấy leaderboard.
+
+
+==================================================================
+KIỂM TRA HOẠT ĐỘNG
+==================================================================
+- Mở app → vào màn Bảng xếp hạng: nếu đăng nhập PGS OK → hiện online (top + hạng bạn).
+  Nếu lỗi/không đăng nhập → app tự lùi bảng nội bộ offline (không crash).
+- Chơi Endless tới khi thua có best mới → tự submit điểm (onBest → submitScore).
+- Lỗi hay gặp: sign-in fail = SHA-1 chưa khai đúng cho biến thể đang chạy
+  (debug vs release vs app-signing). Kiểm lại đúng SHA của APK đang cài.
