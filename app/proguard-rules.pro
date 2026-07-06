@@ -21,5 +21,11 @@
 -keep class com.google.android.gms.games.** { *; }
 -dontwarn com.google.android.gms.games.**
 
+# ── Firebase Analytics (GA4) + Crashlytics ─────────────────────────────────
+# Có consumer-rules; giữ dontwarn phòng lớp tuỳ chọn. LineNumberTable ở trên giúp
+# Crashlytics map stacktrace (nhớ upload mapping.txt lên Play/Firebase).
+-keep class com.google.firebase.** { *; }
+-dontwarn com.google.firebase.**
+
 # ── App: enum của :core dùng qua when/valueOf — giữ tên cho an toàn ─────────
 -keepclassmembers enum com.gravityjelly.** { *; }

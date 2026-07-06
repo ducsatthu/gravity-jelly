@@ -6,6 +6,14 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
+// Firebase (Analytics/GA4 + Crashlytics) chỉ bật khi có app/google-services.json (tải từ Firebase
+// console). Vắng file → KHÔNG áp plugin để dev vẫn build được; AnalyticsManager tự no-op lúc chạy.
+val hasFirebaseConfig = file("google-services.json").exists()
+if (hasFirebaseConfig) {
+    apply(plugin = "com.google.gms.google-services")
+    apply(plugin = "com.google.firebase.crashlytics")
+}
+
 // Khoá ký release đọc từ keystore.properties ở root (KHÔNG commit — xem .gitignore).
 // Vắng file → release tự lùi về ký bằng debug key để dev vẫn build được (không phát hành).
 // Định dạng: xem keystore.properties.example.
@@ -106,6 +114,11 @@ dependencies {
     implementation(libs.play.services.ads)
     implementation(libs.user.messaging.platform)
     implementation(libs.play.services.games.v2)
+
+    // Firebase: Analytics (GA4) + Crashlytics. Deps luôn có; chỉ hoạt động khi có google-services.json.
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
     implementation(libs.play.sidekick)
     debugImplementation(libs.androidx.ui.tooling)
 

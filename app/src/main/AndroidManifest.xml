@@ -17,6 +17,12 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713" />
 
+        <!-- Firebase Analytics (GA4) + Crashlytics: MẶC ĐỊNH TẮT thu thập (privacy-first).
+             AnalyticsManager bật lại SAU khi có đồng thuận UMP (canRequestAds). -->
+        <meta-data android:name="firebase_analytics_collection_enabled" android:value="false" />
+        <meta-data android:name="firebase_crashlytics_collection_enabled" android:value="false" />
+        <meta-data android:name="google_analytics_default_allow_ad_personalization_signals" android:value="false" />
+
         <!-- Play Games Services — PROJECT ID (số) do Play Console sinh ra. Hiện là PLACEHOLDER:
              thay bằng id thật để bật Bảng xếp hạng toàn cầu. PlayGamesManager tự nhận biết
              placeholder (LEADERBOARD_ID) → không init SDK, chạy bảng nội bộ, KHÔNG crash. -->

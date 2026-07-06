@@ -5,4 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.kotlin.compose) apply false
+    // Firebase (Analytics/GA4 + Crashlytics) — áp dụng CÓ ĐIỀU KIỆN ở :app khi có google-services.json.
+    alias(libs.plugins.google.services) apply false
+    alias(libs.plugins.firebase.crashlytics) apply false
 }

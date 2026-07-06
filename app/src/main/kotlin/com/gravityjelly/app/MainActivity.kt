@@ -36,6 +36,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import com.gravityjelly.app.ads.AdsManager
 import com.gravityjelly.app.ads.ConsentManager
+import com.gravityjelly.app.analytics.AnalyticsManager
 import com.gravityjelly.app.games.PlayGamesManager
 import com.gravityjelly.app.audio.GjAudioManager
 import com.gravityjelly.app.audio.LocalGjAudio
@@ -99,6 +100,7 @@ private fun GravityJellyApp() {
     val context = LocalContext.current
     val repo = remember { SettingsRepository(context) }
     val ads = remember { AdsManager(context) }
+    val analytics = remember { AnalyticsManager(context) }
     val games = remember { PlayGamesManager(context) }
     val audio = remember { GjAudioManager(context) }
     // Activity để lấy client Play Games (submit điểm) — null nếu context không phải Activity.
@@ -135,6 +137,8 @@ private fun GravityJellyApp() {
         val act = activity
         if (act != null && BuildConfig.ADS_ENABLED) {
             ConsentManager(act).gather(act) { canRequestAds ->
+                // Đồng thuận xong: bật thu thập GA4/Crashlytics + init AdMob (chỉ khi được phép).
+                analytics.setCollectionEnabled(canRequestAds)
                 if (canRequestAds) scope.launch { ads.initialize() }
             }
         }
@@ -153,6 +157,9 @@ private fun GravityJellyApp() {
             restore = { routeFromKey(it) },
         ),
     ) { mutableStateOf(Route.Splash) }
+
+    // Tracking: mỗi lần đổi màn → GA4 screen_view (tên lớp Route: Home/Game/Leaderboard…).
+    LaunchedEffect(route) { analytics.logScreenView(route::class.simpleName ?: "Unknown") }
 
     // Back hệ thống: từ Settings/Handbook → Home; ở Home/Splash để hệ thống thoát app.
     // Route.Game KHÔNG xử lý ở đây — EndlessPlayScreen tự bắt back để mở Tạm dừng (chống back nhầm
@@ -207,9 +214,11 @@ private fun GravityJellyApp() {
                 ads = ads,
                 onBest = { score ->
                     scope.launch { repo.updateBest(score) }
+                    analytics.logHighScore(score)
                     // Nộp điểm lên Play Games (guard nội bộ: chỉ khi đã cấu hình id thật).
                     if (activity != null) games.submitScore(activity, score.toLong())
                 },
+                onGameOver = { score -> analytics.logEndlessGameOver(score) },
                 onSeedUsed = { seed -> scope.launch { repo.setLastSeed(seed) } },
                 onHome = { route = Route.Home },
                 settings = settings,
@@ -266,7 +275,10 @@ private fun GravityJellyApp() {
             is Route.CampaignPlay -> CampaignPlayScreen(
                 levelIndex = current.index,
                 onExit = { route = Route.Campaign },
-                onWin = { levelId, stars -> scope.launch { repo.saveCampaignStar(levelId, stars) } },
+                onWin = { levelId, stars ->
+                    scope.launch { repo.saveCampaignStar(levelId, stars) }
+                    analytics.logLevelComplete(levelId, stars)
+                },
                 onOpenLevel = { index -> route = Route.CampaignIntro(index) },
                 settings = settings,
                 onSound = { v -> scope.launch { repo.setSound(v) } },

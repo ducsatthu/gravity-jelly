@@ -122,7 +122,8 @@
 ## 5. Khai báo chính sách trong Play Console
 
 - [ ] **Data safety form**: khai thu thập/chia sẻ dữ liệu — Ad ID (AdMob), định danh Play Games,
-      dữ liệu chơi. Khai đúng mục đích (quảng cáo, phân tích).
+      **App activity + Diagnostics/Crash (Firebase Analytics GA4 + Crashlytics)**, app-instance id.
+      Bảng khai chi tiết + mục đích: xem **`02-thiet-lap-tung-buoc.md` §5.5**.
 - [ ] **Ads declaration**: app CÓ chứa quảng cáo → tick "Yes".
 - [ ] **Content rating (IARC)**: điền bảng câu hỏi → nhận rating (game casual, không bạo lực).
 - [ ] **Target audience & content**: chọn nhóm tuổi. Nếu **có trẻ em** → tuân thủ

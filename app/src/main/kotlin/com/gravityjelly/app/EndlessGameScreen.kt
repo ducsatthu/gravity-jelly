@@ -41,6 +41,8 @@ fun EndlessGameScreen(
     best: Int,
     ads: AdsManager,
     onBest: (Int) -> Unit,
+    /** Gọi mỗi khi thua (điểm cuối) — dùng cho tracking; khác [onBest] (chỉ khi phá kỷ lục). */
+    onGameOver: (Int) -> Unit = {},
     onSeedUsed: (Long) -> Unit,
     onHome: () -> Unit,
     modifier: Modifier = Modifier,
@@ -85,6 +87,7 @@ fun EndlessGameScreen(
     LaunchedEffect(shell.gameOver, seed) {
         if (shell.gameOver) {
             activity?.let { ads.onGameOver(it) }
+            onGameOver(finalScore) // tracking: mỗi ván thua (khác onBest)
         }
     }
     // báo best (gồm cả khi vừa x2 điểm) — chỉ nâng, idempotent ở repo.

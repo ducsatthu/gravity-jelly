@@ -8,7 +8,7 @@
 > file này đi kèm **thao tác cụ thể + giá trị điền + câu trả lời mẫu**. Đọc song song hai file.
 >
 > ⚠️ Các mục khai báo pháp lý (§5) là **cam kết của bạn** — mình soạn theo đúng hành vi app hiện
-> tại (chỉ AdMob + Play Games, không IAP, không analytics), bạn **đọc xác nhận** trước khi nộp.
+> tại (AdMob + Play Games + Firebase Analytics/Crashlytics, không IAP), bạn **đọc xác nhận** trước khi nộp.
 
 ---
 
@@ -32,7 +32,8 @@
 | Flavor phát hành | `production` (`ADS_ENABLED=true`) | KHÔNG dùng `demo` (`.demo`) |
 | Danh mục | Game → Puzzle | listing |
 | Ngôn ngữ | vi (mặc định) + en | listing 2 thứ tiếng |
-| Kiếm tiền | Chỉ quảng cáo (AdMob). **Không** IAP, **không** analytics ngoài AdMob | Data safety, Ads |
+| Kiếm tiền | Chỉ quảng cáo (AdMob). **Không** IAP | Data safety, Ads |
+| Tracking | **Google Analytics (GA4) + Crashlytics** qua Firebase (gate theo consent) | Data safety, §3B |
 
 > Ghi chú SHA: đây là **upload key** (mượn từ gravity_merge). Sau khi bật **Play App Signing** (§2),
 > Google cấp thêm **app-signing key** riêng — lấy SHA-1/256 của nó trong Play Console và **khai cả hai**
@@ -107,6 +108,37 @@
 
 ---
 
+## 3B. Firebase — Analytics (GA4) + Crashlytics
+
+Code đã tích hợp sẵn (`analytics/AnalyticsManager.kt`, gate theo consent). Chỉ cần tạo project Firebase
+và thả file cấu hình vào:
+
+1. <https://console.firebase.google.com> → **Add project** (có thể liên kết với **cùng tài khoản
+   Google Analytics** để dữ liệu GA4 gom chung; hoặc tạo GA4 property mới khi được hỏi).
+2. Trong project → **Add app → Android**:
+   - **Package name:** `com.ductranxuan.gravityjelly` (BẮT BUỘC khớp — nếu không app không nhận cấu hình).
+   - App nickname: `Gravity Jelly`.
+   - (Tuỳ chọn) **SHA-1**: khai để bật Firebase Auth/Dynamic Links — Analytics/Crashlytics **không cần**.
+3. **Tải `google-services.json`** → đặt vào **`app/google-services.json`** (đã gitignore — xem dưới).
+   - Có file → Gradle **tự áp** plugin `google-services` + `firebase-crashlytics` (build.gradle.kts
+     kiểm tra `file("google-services.json").exists()`). Vắng file → bỏ qua, dev vẫn build được.
+4. **Bật Crashlytics**: Firebase console → **Crashlytics** → làm theo hướng dẫn (chạy app 1 lần +
+   ép 1 crash test để dashboard nhận). Upload **mapping.txt** (§8) để deobfuscate.
+5. **GA4**: sự kiện đã gửi sẵn — `screen_view`, `game_start`, `game_over`, `post_score`,
+   `level_end` (kèm stars), `ad_shown`. Xem realtime ở **Firebase → Analytics → Realtime** hoặc
+   **GA4 property**.
+
+**Quan trọng — quyền riêng tư & consent**
+- Manifest đặt thu thập **MẶC ĐỊNH TẮT**; `AnalyticsManager.setCollectionEnabled(canRequestAds)` bật
+  lại **sau khi** UMP trả kết quả đồng thuận. Ngoài EEA thường bật ngay.
+- Thêm Firebase = **tăng thu thập dữ liệu** → đã cập nhật **Privacy Policy** (đã redeploy) và phải
+  khai ở **Data safety** (§5.5).
+
+**Bảo mật:** `google-services.json` chứa key nhận diện project (không phải secret nghiêm trọng nhưng)
+→ đã thêm vào `.gitignore`. Backup riêng; mỗi máy dev tự tải lại từ Firebase console.
+
+---
+
 ## 4. Google Play Games Services — Bảng xếp hạng
 
 1. Play Console → **Grow → Play Games Services → Setup and management → Configuration** → *Create*.
@@ -133,8 +165,9 @@
 
 ## 5. Các form khai báo trong Play Console — CÂU TRẢ LỜI SOẠN SẴN
 
-> Vào **Policy → App content**. Dưới đây là đáp án đúng theo app hiện tại (chỉ AdMob + Play Games,
-> không IAP, không thu thập dữ liệu cá nhân phía mình). Xác nhận rồi nộp.
+> Vào **Policy → App content**. Dưới đây là đáp án đúng theo app hiện tại (AdMob + Play Games +
+> Firebase Analytics/Crashlytics, không IAP, không thu thập dữ liệu định danh cá nhân phía mình).
+> Xác nhận rồi nộp.
 
 ### 5.1 App access
 - **All functionality is available without special access** ✅
@@ -179,11 +212,18 @@ Chỉ khai phần AdMob và Play Games.
 | **User IDs** (Play Games gamer ID) | Collected **Yes**, Shared **Yes** *(chỉ khi user đăng nhập PGS)* |
 | — Mục đích | App functionality (bảng xếp hạng) |
 | — Bắt buộc? | Optional |
+| **App activity** (sự kiện GA4: màn hình, ván chơi, điểm) | Collected **Yes**, Shared **Yes** (Firebase Analytics) |
+| — Mục đích | Analytics |
+| **Diagnostics / Crash logs** (Crashlytics) | Collected **Yes**, Shared **Yes** |
+| — Mục đích | Analytics (chẩn đoán lỗi) |
+| **App info & performance** (phiên bản app/OS, kiểu máy) | Collected **Yes** (Firebase) |
+| **Device or other IDs** (app-instance id của Firebase) | Collected **Yes**, Shared **Yes** |
 | Dữ liệu **mã hoá khi truyền**? | **Yes** (HTTPS bởi SDK Google) |
-| Người dùng **yêu cầu xoá** được? | **Yes** — reset Advertising ID ở cài đặt máy; xoá dữ liệu Play Games trong tài khoản Google |
-| Tên, email, vị trí, ảnh, danh bạ… | **Không thu thập** |
+| Người dùng **yêu cầu xoá** được? | **Yes** — reset Advertising ID ở cài đặt máy; xoá dữ liệu Play Games trong tài khoản Google; từ chối consent (EEA) để không thu thập analytics |
+| Tên, email, vị trí (chính xác), ảnh, danh bạ… | **Không thu thập** |
 
-> Không khai analytics/crash SDK riêng — app **không** có Firebase/analytics (chỉ AdMob).
+> App có **Firebase Analytics (GA4) + Crashlytics** — khai đủ như bảng trên. Thu thập bị **tắt tới
+> khi có đồng thuận** (UMP) ở khu vực yêu cầu. Không có SDK analytics nào khác.
 
 ### 5.6 Các mục còn lại
 - **Government apps / News**: No.
@@ -280,6 +320,7 @@ Chỉ làm ở **build release cuối** (giữ id TEST khi dev để không bị
 | Privacy Policy (song ngữ) + deploy Vercel | ✅ live `privacypolicysite-one.vercel.app` |
 | app-ads.txt | ✅ live `/app-ads.txt` |
 | UMP consent (`ConsentManager`) | ✅ chạy trước init AdMob |
+| Firebase Analytics (GA4) + Crashlytics (`AnalyticsManager`) | ✅ code + event + gate consent; chờ `google-services.json` (§3B) |
 | R8/minify + shrinkResources + proguard | ✅ `assembleProductionRelease` OK |
 | Link privacy trong màn Cài đặt | ✅ mở URL thật |
 | Bảng xếp hạng (online PGS + offline fallback) | ✅ chờ id thật để bật online |

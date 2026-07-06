@@ -24,6 +24,10 @@ keystore.properties
 .env.*
 !.env.example
 
+# Firebase — cấu hình project, mỗi dev tự tải từ console (KHÔNG commit)
+google-services.json
+app/google-services.json
+
 # IDE (Eclipse/BuildShip) compiled output
 bin/
 core/bin/
