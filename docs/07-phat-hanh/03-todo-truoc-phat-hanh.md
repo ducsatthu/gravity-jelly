@@ -20,6 +20,11 @@ File này chỉ liệt kê **việc còn lại**. Phần "cách làm" chi tiết
 - `android:allowBackup=false` (tránh khôi phục state consent/quảng cáo sang máy khác).
 - `bundleRelease`/`assembleRelease` fail rõ ràng khi thiếu `keystore.properties` (không im lặng ký debug key).
 - Dọn 5 string không dùng + sửa 3 comment lỗi thời.
+- Icon legacy PNG: squircle + tròn (Mục 1) — hết cảnh báo lint icon.
+- **Rà i18n toàn bộ màn (07/07):** không còn text hardcode ở code production (chỉ literal trong
+  `@Preview`/comment/test, và endonym "Tiếng Việt"/"English" ở bộ chọn ngôn ngữ — cố ý không dịch).
+  Key vi↔en khớp tuyệt đối (321 key dịch), 2 key config (`game_services_project_id`, `privacy_policy_url`)
+  đã `translatable="false"` đúng chỗ. Không có placeholder/TODO lộ ra người chơi.
 
 ---
 
@@ -66,6 +71,10 @@ và 2 file y hệt nhau (lint `IconLauncherShape` + `IconDuplicates`). Nay **mas
 - [ ] Khi tạo release: **upload `mapping.txt`** (ProGuard/R8 map, nằm trong AAB) để Crashlytics/Play
       giải mã crash Kotlin. (Native debug symbols cho .so vendor không sinh được — đã xác nhận, bỏ qua.)
 - [ ] App content: khai **Target audience = 13+**, Data safety khai **Advertising ID** (AdMob).
+- [ ] **Kiểm chứng nội dung Chính sách bảo mật:** `privacy_policy_url = https://privacypolicysite-one.vercel.app`
+      (dùng ở Settings + khai Play Console). Xác nhận trang này là policy THẬT của Gravity Jelly, có nêu
+      thu thập Advertising ID/AdMob + Play Games — không phải trang mẫu chung. Sửa URL nếu cần (chỉ đổi 1 chỗ ở
+      `values/strings.xml`).
 
 ## 3. 📝 Ghi nhớ khi viết store listing / quảng bá
 
