@@ -23,6 +23,18 @@ val keystoreProperties = Properties().apply {
 }
 val hasReleaseKeystore = keystorePropertiesFile.exists()
 
+// An toàn phát hành: nếu đang chạy task đóng gói bản release mà THIẾU keystore.properties, dừng ngay
+// với lỗi rõ ràng — tránh im lặng ký bằng debug key rồi tạo ra AAB/APK không thể phát hành.
+gradle.taskGraph.whenReady {
+    val packagingRelease = allTasks.any { it.name == "bundleRelease" || it.name == "assembleRelease" }
+    if (packagingRelease && !hasReleaseKeystore) {
+        throw GradleException(
+            "Thiếu keystore.properties ở thư mục gốc — không thể ký bản release. " +
+                "Tạo file theo keystore.properties.example rồi chạy lại.",
+        )
+    }
+}
+
 android {
     namespace = "com.gravityjelly.app"
     compileSdk = 35

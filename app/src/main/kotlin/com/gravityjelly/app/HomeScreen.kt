@@ -68,9 +68,9 @@ import kotlin.math.sin
  *    Sông & Thác = GIỌT NƯỚC (đổi hình + palette theo [world]). Ẩn khi reduced-motion.
  *  · **KHÔNG HUD trên** (user 01/07: bỏ chip KỶ LỤC; hearts/life của JSX cũng không dựng).
  *
- * CHIẾN DỊCH + BẢNG XẾP HẠNG chưa có màn → coi là "sắp có": làm mờ (alpha .6) + khoá bấm
- * (design Button: coming-soon = dimmed). Sparkle của bản cũ đã GỠ (JSX comment: nền mới chưa
- * có landmark tương ứng).
+ * Cả 5 mục (Chiến dịch · Endless · Cẩm nang · BXH · Cài đặt) đều đã có màn và vào được — không
+ * mục nào bị khoá. Cơ chế `comingSoon` (làm mờ + khoá bấm) vẫn còn nhưng hiện KHÔNG dùng cho mục
+ * nào. Sparkle của bản cũ đã GỠ (JSX comment: nền mới chưa có landmark tương ứng).
  */
 @Composable
 fun HomeScreen(

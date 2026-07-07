@@ -4,7 +4,7 @@
 <resources>
     <string name="app_name">Gravity Jelly</string>
 
-    <!-- Play Games Services project id (số) — PLACEHOLDER. Thay bằng id thật từ Play Console. -->
+    <!-- Play Games Services project id (số) từ Play Console. -->
     <string name="game_services_project_id" translatable="false">1038542031606</string>
 
     <!-- ── Home ─────────────────────────────────────────────────────────────── -->
@@ -39,10 +39,6 @@
     <string name="leaderboard_you_badge">BẠN</string>
     <string name="leaderboard_default_name">Bạn</string>
     <string name="leaderboard_edit_name">Đổi tên</string>
-    <string name="leaderboard_name_hint">Nhập tên của bạn</string>
-    <string name="leaderboard_name_limit">Tối đa 14 ký tự</string>
-    <string name="leaderboard_cancel">Hủy</string>
-    <string name="leaderboard_save">Lưu</string>
     <string name="leaderboard_note">Bản lưu ngoại tuyến · nối mạng để cập nhật</string>
     <string name="leaderboard_note_global">Bảng xếp hạng toàn cầu · Play Games</string>
     <string name="leaderboard_note_empty">Chơi Endless để lập điểm · nối mạng xem BXH toàn cầu</string>
@@ -261,7 +257,6 @@
     <string name="guidedemo_3x3">3×3</string>
     <string name="guidedemo_first_turn">Lượt đầu</string>
     <string name="guidedemo_spread">Mọc lan</string>
-    <string name="guidedemo_water_active">Đang chảy</string>
     <string name="guidedemo_source_dry">Nguồn khô</string>
     <string name="guidedemo_meet_obstacle">Gặp đá</string>
     <string name="guidedemo_branch">Tách nhánh</string>

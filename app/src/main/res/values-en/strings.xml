@@ -33,10 +33,6 @@
     <string name="leaderboard_you_badge">YOU</string>
     <string name="leaderboard_default_name">You</string>
     <string name="leaderboard_edit_name">Rename</string>
-    <string name="leaderboard_name_hint">Enter your name</string>
-    <string name="leaderboard_name_limit">Up to 14 characters</string>
-    <string name="leaderboard_cancel">Cancel</string>
-    <string name="leaderboard_save">Save</string>
     <string name="leaderboard_note">Saved offline · connect to update</string>
     <string name="leaderboard_note_global">Global leaderboard · Play Games</string>
     <string name="leaderboard_note_empty">Play Endless to set a score · connect for the global ranking</string>
@@ -255,7 +251,6 @@
     <string name="guidedemo_3x3">3×3</string>
     <string name="guidedemo_first_turn">First turn</string>
     <string name="guidedemo_spread">Spreads</string>
-    <string name="guidedemo_water_active">Flowing</string>
     <string name="guidedemo_source_dry">Source dries</string>
     <string name="guidedemo_meet_obstacle">Hits rock</string>
     <string name="guidedemo_branch">Branches</string>
