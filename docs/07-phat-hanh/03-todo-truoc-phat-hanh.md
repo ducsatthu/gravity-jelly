@@ -25,6 +25,8 @@ File này chỉ liệt kê **việc còn lại**. Phần "cách làm" chi tiết
   `@Preview`/comment/test, và endonym "Tiếng Việt"/"English" ở bộ chọn ngôn ngữ — cố ý không dịch).
   Key vi↔en khớp tuyệt đối (321 key dịch), 2 key config (`game_services_project_id`, `privacy_policy_url`)
   đã `translatable="false"` đúng chỗ. Không có placeholder/TODO lộ ra người chơi.
+- **Chính sách bảo mật (07/07):** rà + bổ sung US states (CCPA/CPRA) vào `privacy_policy_site/index.html`,
+  deploy production Vercel (`privacypolicysite-one.vercel.app`) — khớp nút "Quyền riêng tư quảng cáo" (xem §2).
 
 ---
 
@@ -71,10 +73,12 @@ và 2 file y hệt nhau (lint `IconLauncherShape` + `IconDuplicates`). Nay **mas
 - [ ] Khi tạo release: **upload `mapping.txt`** (ProGuard/R8 map, nằm trong AAB) để Crashlytics/Play
       giải mã crash Kotlin. (Native debug symbols cho .so vendor không sinh được — đã xác nhận, bỏ qua.)
 - [ ] App content: khai **Target audience = 13+**, Data safety khai **Advertising ID** (AdMob).
-- [ ] **Kiểm chứng nội dung Chính sách bảo mật:** `privacy_policy_url = https://privacypolicysite-one.vercel.app`
-      (dùng ở Settings + khai Play Console). Xác nhận trang này là policy THẬT của Gravity Jelly, có nêu
-      thu thập Advertising ID/AdMob + Play Games — không phải trang mẫu chung. Sửa URL nếu cần (chỉ đổi 1 chỗ ở
-      `values/strings.xml`).
+- [x] **Chính sách bảo mật — XONG (07/07):** `privacy_policy_url = https://privacypolicysite-one.vercel.app`
+      (dùng ở Settings + khai Play Console). Nội dung song ngữ EN/VI ở `privacy_policy_site/index.html` đã
+      viết riêng cho Gravity Jelly (AdMob/Advertising ID · Play Games · Firebase Analytics+Crashlytics · dữ
+      liệu cục bộ · 13+), đối chiếu khớp `build.gradle`. Đã bổ sung §4 **US states (CCPA/CPRA)** cho khớp nút
+      "Quyền riêng tư quảng cáo", cập nhật ngày, và **deploy production Vercel** (đã curl xác minh live).
+      Còn lại phía Console: dán URL này vào Play Console → App content → Privacy policy (nếu chưa).
 
 ## 3. 📝 Ghi nhớ khi viết store listing / quảng bá
 
