@@ -11,6 +11,7 @@ import com.gravityjelly.game.GameSfx
 val LocalGjAudio = staticCompositionLocalOf<GjAudioManager?> { null }
 
 private const val SFX_VOL = 0.55f
+private const val COMBO_BURST_VOL = 1.0f   // burst combo phát to hơn SFX thường để nổi bật
 private const val BGM_VOL = 0.72f
 
 class GjAudioManager(private val context: Context) {
@@ -49,20 +50,23 @@ class GjAudioManager(private val context: Context) {
         }
     }
 
-    fun play(sfx: GjSfx, rate: Float = 1f) {
+    fun play(sfx: GjSfx, rate: Float = 1f, volume: Float = SFX_VOL, priority: Int = 1) {
         if (!soundEnabled || loaded < total) return
         val id = ids[sfx] ?: return
-        pool.play(id, SFX_VOL, SFX_VOL, 1, 0, rate)
+        pool.play(id, volume, volume, priority, 0, rate)
     }
 
     fun playGame(cue: GameSfx) {
         play(cue.toSfx())
     }
 
-    /** Combo burst 20 bậc — comboStep 1..20; ≥20 dùng bậc cao nhất. */
+    /**
+     * Combo burst 8 bậc — comboStep 1..8; ≥8 dùng bậc "max" (burst_08).
+     * Phát to hơn ([COMBO_BURST_VOL]) + ưu tiên cao để nghe RÕ trên các SFX xóa/rơi cùng nhịp.
+     */
     fun playComboBurst(comboStep: Int) {
         val idx = (comboStep - 1).coerceIn(0, COMBO_BURST.lastIndex)
-        play(COMBO_BURST[idx])
+        play(COMBO_BURST[idx], volume = COMBO_BURST_VOL, priority = 2)
     }
 
     // ── MediaPlayer (BGM) ──────────────────────────────────────────────────────
@@ -103,38 +107,22 @@ class GjAudioManager(private val context: Context) {
     }
 }
 
+// Combo burst 8 bậc (bộ âm mới): combo 1..7 → burst_01..07; combo ≥8 → burst_08 (bậc "max").
 private val COMBO_BURST = arrayOf(
     GjSfx.SFX_COMBO_BURST_01, GjSfx.SFX_COMBO_BURST_02, GjSfx.SFX_COMBO_BURST_03, GjSfx.SFX_COMBO_BURST_04,
     GjSfx.SFX_COMBO_BURST_05, GjSfx.SFX_COMBO_BURST_06, GjSfx.SFX_COMBO_BURST_07, GjSfx.SFX_COMBO_BURST_08,
-    GjSfx.SFX_COMBO_BURST_09, GjSfx.SFX_COMBO_BURST_10, GjSfx.SFX_COMBO_BURST_11, GjSfx.SFX_COMBO_BURST_12,
-    GjSfx.SFX_COMBO_BURST_13, GjSfx.SFX_COMBO_BURST_14, GjSfx.SFX_COMBO_BURST_15, GjSfx.SFX_COMBO_BURST_16,
-    GjSfx.SFX_COMBO_BURST_17, GjSfx.SFX_COMBO_BURST_18, GjSfx.SFX_COMBO_BURST_19, GjSfx.SFX_COMBO_BURST_20,
 )
 
 private fun GameSfx.toSfx(): GjSfx = when (this) {
     GameSfx.PLACE -> GjSfx.SFX_PLACE
     GameSfx.GRAVITY_ROTATE -> GjSfx.SFX_GRAVITY_ROTATE
-    GameSfx.CLEAR_BASE -> GjSfx.SFX_CLEAR_BASE
-    GameSfx.CLEAR_COMBO -> GjSfx.SFX_CLEAR_COMBO
-    GameSfx.CLUSTER_COLLAPSE -> GjSfx.SFX_CLUSTER_COLLAPSE
-    GameSfx.SETTLED -> GjSfx.SFX_SETTLED
     GameSfx.SUPER_FORM_1 -> GjSfx.SFX_SUPER_FORM_1
     GameSfx.SUPER_FORM_2 -> GjSfx.SFX_SUPER_FORM_2
     GameSfx.RAINBOW_FORM -> GjSfx.SFX_RAINBOW_FORM
-    GameSfx.SUPER_DETONATE_1 -> GjSfx.SFX_SUPER_DETONATE_1
-    GameSfx.SUPER_DETONATE_2 -> GjSfx.SFX_SUPER_DETONATE_2
     GameSfx.RAINBOW_DETONATE -> GjSfx.SFX_RAINBOW_DETONATE
     GameSfx.ROTATION_REFUND -> GjSfx.SFX_ROTATION_REFUND
     GameSfx.COMBO_EXPIRED -> GjSfx.SFX_COMBO_EXPIRED
-    GameSfx.TRAY_DEALT -> GjSfx.SFX_TRAY_DEALT
     GameSfx.GAME_OVER -> GjSfx.SFX_GAME_OVER
-    GameSfx.VINE_GROW -> GjSfx.SFX_W2_VINE_GROW
-    GameSfx.VINE_SNAP -> GjSfx.SFX_W2_VINE_SNAP
-    GameSfx.TRASH_CRUMBLE -> GjSfx.SFX_W2_TRASH_CRUMBLE
-    GameSfx.TRASH_TICK -> GjSfx.SFX_W2_TRASH_TICK
     GameSfx.DROP_CLEAR -> GjSfx.SFX_W3_DROP_CLEAR
-    GameSfx.STONE_ADDED -> GjSfx.SFX_STONE_ADDED
-    GameSfx.DEBRIS_ADDED -> GjSfx.SFX_DEBRIS_ADDED
     GameSfx.BOSS_GRAVITY_FLIP -> GjSfx.SFX_BOSS_GRAVITY_FLIP
-    GameSfx.BOSS_SHIELD_HIT -> GjSfx.SFX_BOSS_SHIELD_HIT
 }

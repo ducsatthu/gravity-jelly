@@ -356,14 +356,16 @@ class BoardAnimator {
         if (runLoop) {
             if (hasPhases) displayGrid = work.copy()   // bàn đã đặt/đã xoay, trước nhịp đầu
 
-            // combo tăng dần ⇒ NHỊP cuối có comboLevel cao nhất nổ overlay ×N — xét MỌI nhịp (xóa + ghép).
+            // combo tăng dần ⇒ NHỊP cuối có comboLevel cao nhất phát burst (combo 1 = "1 lần đạt" →
+            // burst_01, x2 → burst_02 … x20 → burst_20). Xét MỌI nhịp (xóa + ghép) từ combo ≥1.
+            // (Overlay ×N vẫn chỉ hiện khi combo > 1 do ComboPopup.hasText — combo 1 chỉ có ÂM.)
             var lastComboBeat = -1
             var bi = 0
             for (i in events.indices) {
                 when (val e = events[i]) {
-                    is GameEvent.SuperFormed -> { if (e.comboLevel >= 2) lastComboBeat = bi; bi++ }
-                    is GameEvent.RainbowFormed -> { if (e.comboLevel >= 2) lastComboBeat = bi; bi++ }
-                    is GameEvent.LinesCleared -> { if (e.comboLevel >= 2) lastComboBeat = bi; bi++ }
+                    is GameEvent.SuperFormed -> { if (e.comboLevel >= 1) lastComboBeat = bi; bi++ }
+                    is GameEvent.RainbowFormed -> { if (e.comboLevel >= 1) lastComboBeat = bi; bi++ }
+                    is GameEvent.LinesCleared -> { if (e.comboLevel >= 1) lastComboBeat = bi; bi++ }
                     else -> {}
                 }
             }
@@ -584,8 +586,9 @@ class BoardAnimator {
                 )
             }
         }
-        // combo "×N" cho nhịp ghép: nổ overlay ComboPopup tại tâm (lớp :app đọc comboBurst*)
-        if (p.fireCombo && p.comboLevel >= 2) {
+        // combo "×N" cho nhịp ghép: nổ overlay ComboPopup tại tâm (lớp :app đọc comboBurst*).
+        // combo ≥1 để phát burst đúng bậc (combo 1 chỉ có âm, overlay tự ẩn khi ≤1).
+        if (p.fireCombo && p.comboLevel >= 1) {
             comboBurstId++
             comboBurstCombo = p.comboLevel
             comboBurstCellX = center.x + 0.5f
@@ -641,8 +644,9 @@ class BoardAnimator {
                     floatCell = 0.56f,
                 )
             }
-            if (p.fireCombo && p.comboLevel >= 2) {
+            if (p.fireCombo && p.comboLevel >= 1) {
                 // combo "×N": overlay ComboPopup nổ TẠI vùng resolve ở lớp :app — chỉ ghi tâm + bump id.
+                // combo 1 = "1 lần đạt": chỉ phát burst_01 (overlay tự ẩn khi ≤1).
                 comboBurstId++
                 comboBurstCombo = p.comboLevel
                 comboBurstCellX = cx

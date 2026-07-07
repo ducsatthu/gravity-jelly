@@ -265,7 +265,8 @@ class EndlessGameHolder(
         }
         animator.onClearStep = { comboLevel ->
             onEffect?.invoke(if (comboLevel >= 3) EffectKind.COMBO else EffectKind.CLEAR)
-            onGameSound?.invoke(if (comboLevel >= 2) GameSfx.CLEAR_COMBO else GameSfx.CLEAR_BASE)
+            // Âm nhịp xóa/combo do burst 8-bậc (onComboBurstSound) đảm nhiệm HẾT: combo 1 → burst_01
+            // … x8+ → burst_08. Không có âm clear chung riêng. onEffect vẫn giữ để rung/hiệu ứng theo nhịp.
         }
         // Cascade vừa chiếu xong → áp nước người chơi đã thả trong lúc đó (đặt-hoãn); nếu không
         // có nước chờ, bàn đã ổn định = đúng lúc CHẤM mục tiêu màn (hiện overlay thắng sau clear).
@@ -274,7 +275,6 @@ class EndlessGameHolder(
             flushPendingPlacement()
             if (!hadPending || !animator.isPlaying) {
                 evaluateGoal()
-                onGameSound?.invoke(GameSfx.SETTLED)
             }
         }
         sync()
@@ -637,25 +637,17 @@ class EndlessGameHolder(
         val cb = onGameSound ?: return
         for (e in events) {
             when (e) {
+                // Chỉ phát các âm thuộc BỘ THIẾT KẾ. Các sự kiện không có âm mới (cluster collapse,
+                // super detonate thường, vine, trash, stone/debris, tray…) → im lặng.
                 is GameEvent.PiecePlaced -> cb(GameSfx.PLACE)
                 is GameEvent.GravityRotated -> cb(GameSfx.GRAVITY_ROTATE)
-                is GameEvent.ClustersCollapsed -> if (e.moved) cb(GameSfx.CLUSTER_COLLAPSE)
                 is GameEvent.SuperFormed -> cb(if (e.level >= 2) GameSfx.SUPER_FORM_2 else GameSfx.SUPER_FORM_1)
                 is GameEvent.RainbowFormed -> cb(GameSfx.RAINBOW_FORM)
-                is GameEvent.SuperDetonated -> {
-                    if (e.isRainbow) cb(GameSfx.RAINBOW_DETONATE)
-                    else cb(if (e.level >= 2) GameSfx.SUPER_DETONATE_2 else GameSfx.SUPER_DETONATE_1)
-                }
+                is GameEvent.SuperDetonated -> { if (e.isRainbow) cb(GameSfx.RAINBOW_DETONATE) }
                 is GameEvent.RotationRefunded -> cb(GameSfx.ROTATION_REFUND)
-                is GameEvent.VineGrew -> cb(GameSfx.VINE_GROW)
-                is GameEvent.VineRootsCleared -> cb(GameSfx.VINE_SNAP)
-                is GameEvent.TrashCountdownTicked -> cb(if (e.died.isNotEmpty()) GameSfx.TRASH_CRUMBLE else GameSfx.TRASH_TICK)
                 is GameEvent.WaterSourceBroken -> cb(GameSfx.DROP_CLEAR)   // W3: phá nguồn
                 is GameEvent.WaterSourceRevived -> cb(GameSfx.DROP_CLEAR)  // W3 boss: hồi sinh nguồn
-                is GameEvent.StonesAdded -> cb(GameSfx.STONE_ADDED)
-                is GameEvent.DebrisAdded -> cb(GameSfx.DEBRIS_ADDED)
                 is GameEvent.BossGravityFlipped -> cb(GameSfx.BOSS_GRAVITY_FLIP)
-                is GameEvent.TrayDealt -> cb(GameSfx.TRAY_DEALT)
                 is GameEvent.ComboExpired -> cb(GameSfx.COMBO_EXPIRED)
                 is GameEvent.GameOver -> cb(GameSfx.GAME_OVER)
                 else -> {}
