@@ -26,6 +26,29 @@ class ConsentManager(activity: Activity) {
     val canRequestAds: Boolean get() = consentInformation.canRequestAds()
 
     /**
+     * Vùng của người dùng CÓ yêu cầu cung cấp "Tùy chọn quyền riêng tư" hay không.
+     * True cho GDPR/EEA/UK/CH, và cả US states (CCPA/CPRA) nếu đã bật thông điệp US ở AdMob.
+     * Khi true, app BẮT BUỘC (chính sách Google) có một lối vào thường trực để mở lại form —
+     * ta đặt ở màn Cài đặt. Đọc được sau khi [gather] đã chạy (đầu app).
+     */
+    val isPrivacyOptionsRequired: Boolean
+        get() = consentInformation.privacyOptionsRequirementStatus ==
+            ConsentInformation.PrivacyOptionsRequirementStatus.REQUIRED
+
+    /**
+     * Mở lại form đồng thuận/tùy chọn quyền riêng tư để người dùng ĐỔI lựa chọn bất cứ lúc nào
+     * (rút/đổi đồng thuận GDPR, hoặc "Do Not Sell/Share" cho US). GMA SDK tự áp dụng lại ngay.
+     */
+    fun showPrivacyOptions(activity: Activity, onError: (String) -> Unit = {}) {
+        UserMessagingPlatform.showPrivacyOptionsForm(activity) { formError ->
+            if (formError != null) {
+                Log.w(TAG, "privacy options: ${formError.errorCode} ${formError.message}")
+                onError(formError.message ?: "")
+            }
+        }
+    }
+
+    /**
      * Thu thập consent. [onResult] được gọi đúng một lần (trên main thread) với việc app có
      * được phép request ad hay không, để nơi gọi quyết định init/nạp AdMob.
      */

@@ -23,6 +23,7 @@
     <string name="settings_version">Version</string>
     <string name="settings_rate">Rate the game</string>
     <string name="settings_privacy">Privacy policy</string>
+    <string name="settings_ad_privacy">Ad privacy options</string>
     <string name="settings_home">Back to Home</string>
 
     <!-- ── Leaderboard ──────────────────────────────────────────────────────── -->

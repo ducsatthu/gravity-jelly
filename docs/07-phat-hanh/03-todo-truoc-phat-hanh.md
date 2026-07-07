@@ -52,6 +52,23 @@ Hai file này hiện:
 
 > Ghi chú: Icon 512×512 cho **Play Store listing** (khác với icon trong máy) — user báo đã chuẩn hoá xong.
 
+## 1b. 📢 Đồng thuận quảng cáo theo vùng (EU/EEA/UK + Hoa Kỳ)  *(code XONG — cần cấu hình AdMob)*
+
+**Code đã có (07/07):**
+- UMP xin đồng thuận ngay đầu app trước khi nạp quảng cáo (`ConsentManager.gather`) — đã có từ trước.
+- **MỚI:** màn Cài đặt có nút **"Quyền riêng tư quảng cáo"** (`settings_ad_privacy`, icon Lock) →
+  gọi `UserMessagingPlatform.showPrivacyOptionsForm` để người dùng ĐỔI/RÚT đồng thuận bất cứ lúc nào.
+  Nút **chỉ hiện khi vùng người dùng yêu cầu** (`isPrivacyOptionsRequired`) — thoả policy Google mà
+  không làm rối UI ở vùng không cần. Một form này phủ **cả GDPR (EU) lẫn US states (CCPA/CPRA)**.
+
+**CẦN LÀM ở AdMob Console (bắt buộc để nút trên hoạt động):** Privacy & messaging →
+- [ ] Tạo thông điệp **GDPR** (EU consent) — chọn app Gravity Jelly, publish.
+- [ ] Tạo thông điệp **US states (CCPA/CPRA)** — publish. (Không tạo → user Mỹ không có form, nút ẩn.)
+- [ ] Kiểm tra bằng thiết bị test: điền hash vào `AdsConfig.TEST_DEVICE_HASHES` (lấy từ logcat) → app
+      ép địa lý EEA để hiện form; xác nhận nút "Quyền riêng tư quảng cáo" xuất hiện ở Cài đặt và mở được form.
+      **Nhớ xoá hash về rỗng trước khi build release.**
+- [ ] Data safety: đã khai "Advertising ID" (AdMob) — khớp với việc dùng quảng cáo cá nhân hoá (13+).
+
 ## 2. 🔍 Xác minh thủ công trên Play Console (không phải việc code)
 
 - [ ] `PlayGamesManager.LEADERBOARD_ID = "CgkI9pW375weEAIQAA"` khớp leaderboard id thật ở Play Console.

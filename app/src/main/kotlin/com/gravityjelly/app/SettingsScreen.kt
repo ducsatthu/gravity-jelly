@@ -1,5 +1,10 @@
 package com.gravityjelly.app
 
+import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -34,12 +39,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.gravityjelly.app.ads.ConsentManager
 import com.gravityjelly.app.audio.GjSfx
 import com.gravityjelly.app.audio.LocalGjAudio
 import com.gravityjelly.app.data.GjSettings
@@ -83,6 +90,15 @@ fun SettingsScreen(
     // NGÔN NGỮ: nguồn sự thật là AppCompat per-app language (AppLocale). Đổi → tự bền hoá +
     // recreate Activity để áp ngay. State cục bộ chỉ để control phản hồi tức thì trước recreate.
     var language by remember { mutableStateOf(AppLocale.current().tag) }
+
+    val context = LocalContext.current
+    val uriHandler = LocalUriHandler.current
+    // Đồng thuận quảng cáo (UMP): dùng để hiện nút "Quyền riêng tư quảng cáo" cho vùng yêu cầu
+    // (EU/EEA/UK + US states). getConsentInformation là singleton toàn tiến trình → đọc lại đúng
+    // trạng thái đã cập nhật ở đầu app. Activity có thể null khi xem @Preview → ẩn nút.
+    val activity = remember(context) { context.findActivity() }
+    val consent = remember(activity) { activity?.let { ConsentManager(it) } }
+    val showAdPrivacy = remember(consent) { consent?.isPrivacyOptionsRequired == true }
 
     GjScreenScaffold(modifier = modifier, contentAlignment = Alignment.TopStart) {
         Column(
@@ -141,28 +157,43 @@ fun SettingsScreen(
             }
 
             // ── THÔNG TIN ───────────────────────────────────────────────────────
+            val privacyUrl = stringResource(R.string.privacy_policy_url)
             SettingGroup(title = stringResource(R.string.settings_section_info)) {
                 SettingRow(GjIcons.Info, stringResource(R.string.settings_version)) {
                     Text(
-                        "1.0.0",
+                        BuildConfig.VERSION_NAME, // phiên bản thật (build.gradle.kts), không hardcode
                         style = MaterialTheme.typography.bodyLarge,
                         color = GjPalette.TextMuted,
                         fontWeight = FontWeight.Bold,
                     )
                 }
                 RowDivider()
-                SettingRow(GjIcons.Heart, stringResource(R.string.settings_rate)) {
+                SettingRow(
+                    GjIcons.Heart,
+                    stringResource(R.string.settings_rate),
+                    onClick = { context.openPlayStoreListing(uriHandler) },
+                ) {
                     GjIcon(GjIcons.Chevron, modifier = Modifier.size(20.dp), tint = GjPalette.TextMuted)
                 }
                 RowDivider()
-                val uriHandler = LocalUriHandler.current
-                val privacyUrl = stringResource(R.string.privacy_policy_url)
                 SettingRow(
                     GjIcons.Settings,
                     stringResource(R.string.settings_privacy),
                     onClick = { runCatching { uriHandler.openUri(privacyUrl) } },
                 ) {
                     GjIcon(GjIcons.Chevron, modifier = Modifier.size(20.dp), tint = GjPalette.TextMuted)
+                }
+                // Quyền riêng tư quảng cáo (UMP) — CHỈ hiện khi vùng người dùng yêu cầu (EU/US…).
+                // Bắt buộc theo chính sách Google: lối vào thường trực để đổi/rút đồng thuận.
+                if (showAdPrivacy && activity != null && consent != null) {
+                    RowDivider()
+                    SettingRow(
+                        GjIcons.Lock,
+                        stringResource(R.string.settings_ad_privacy),
+                        onClick = { consent.showPrivacyOptions(activity) },
+                    ) {
+                        GjIcon(GjIcons.Chevron, modifier = Modifier.size(20.dp), tint = GjPalette.TextMuted)
+                    }
                 }
             }
 
@@ -341,6 +372,29 @@ private fun SegmentChip(code: String, label: String, selected: Boolean, onClick:
             fontWeight = FontWeight.Bold,
             color = if (selected) GjPalette.Text else GjPalette.TextMuted,
         )
+    }
+}
+
+// ── helpers ─────────────────────────────────────────────────────────────────────
+
+/** Context → Activity (ConsentManager + showPrivacyOptionsForm cần Activity). Null nếu không có. */
+private fun Context.findActivity(): Activity? {
+    var c: Context? = this
+    while (c is ContextWrapper) { if (c is Activity) return c; c = c.baseContext }
+    return null
+}
+
+/** Mở trang app trên Play Store (ưu tiên app Play Store, lùi về web nếu thiếu). */
+private fun Context.openPlayStoreListing(uriHandler: androidx.compose.ui.platform.UriHandler) {
+    val pkg = BuildConfig.APPLICATION_ID
+    val market = runCatching {
+        startActivity(
+            Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$pkg"))
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+        )
+    }
+    if (market.isFailure) {
+        runCatching { uriHandler.openUri("https://play.google.com/store/apps/details?id=$pkg") }
     }
 }
 
