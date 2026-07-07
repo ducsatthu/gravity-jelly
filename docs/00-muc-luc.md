@@ -154,6 +154,7 @@ docs/
 |---|---|
 | [01-checklist-google-play.md](07-phat-hanh/01-checklist-google-play.md) | Checklist đưa app lên Google Play: ký release, AdMob, Play Games (leaderboard), data safety, store listing, closed testing. Có bảng placeholder→file cần đổi id thật |
 | [02-thiet-lap-tung-buoc.md](07-phat-hanh/02-thiet-lap-tung-buoc.md) | **Runbook thiết lập**: thao tác từng bước Play Console/AdMob/PGS với **giá trị dự án điền sẵn** (applicationId, SHA, URL privacy, publisher) + **câu trả lời soạn sẵn** cho mọi form khai báo (Data safety, content rating, target audience, app access) |
+| [03-todo-truoc-phat-hanh.md](07-phat-hanh/03-todo-truoc-phat-hanh.md) | **TODO còn lại** (rà soát 07/07): quyết định đã chốt (version 0.1.0 · 13+), icon PNG fallback API 24–25, xác minh id Play Games + upload mapping.txt, ghi nhớ store listing, bảng lint |
 
 ---
 
