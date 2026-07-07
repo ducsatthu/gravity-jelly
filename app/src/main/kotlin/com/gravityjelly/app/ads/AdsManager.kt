@@ -26,7 +26,8 @@ import kotlinx.coroutines.withContext
  * - **KHÔNG load lúc vừa thua**: [onGameOver] chỉ SHOW bản đã preload; nạp bản kế sau khi đóng.
  * - Mọi thao tác load/show của GMA chạy trên main thread (gọi từ UI).
  *
- * Tất cả state giữ ở đây (ngoài Compose); UI chỉ gọi [initialize]/[prepare]/[onGameOver]/[showRewarded].
+ * Tất cả state giữ ở đây (ngoài Compose); UI chỉ gọi
+ * [initialize]/[prepare]/[onGameOver]/[showInterstitial]/[showRewarded].
  */
 class AdsManager(context: Context) {
 
@@ -119,15 +120,28 @@ class AdsManager(context: Context) {
         lossCount++
         if (lossCount <= AdsConfig.GRACE_GAMES) return false
         if ((lossCount - AdsConfig.GRACE_GAMES) % AdsConfig.LOSS_INTERVAL != 0) return false
+        if (SystemClock.elapsedRealtime() - lastInterstitialAtMs < AdsConfig.COOLDOWN_MS) return false
+        return showLoadedInterstitial(activity)
+    }
 
-        val now = SystemClock.elapsedRealtime()
-        if (now - lastInterstitialAtMs < AdsConfig.COOLDOWN_MS) return false
+    /**
+     * Interstitial theo MỐC Campaign — gọi sau khi THẮNG màn đủ điều kiện (boss + mốc giữa world).
+     * Nhịp do lớp Campaign quyết ([AdsConfig.showsAdOnCampaignClear]) nên KHÔNG áp ân hạn/đếm-thua
+     * như [onGameOver]. Chỉ show bản đã preload (không load ở đây, tránh giật lúc chuyển màn).
+     * @return true nếu đã show.
+     */
+    fun showInterstitial(activity: Activity): Boolean {
+        if (!BuildConfig.ADS_ENABLED) return false
+        return showLoadedInterstitial(activity)
+    }
 
-        val ad = interstitial ?: return false // chưa preload kịp → bỏ qua, KHÔNG load lúc thua
+    /** Show interstitial đã preload + gắn callback nạp bản kế; cập nhật mốc thời gian (guard chung). */
+    private fun showLoadedInterstitial(activity: Activity): Boolean {
+        val ad = interstitial ?: return false // chưa preload kịp → bỏ qua, KHÔNG load tại đây
         ad.fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdDismissedFullScreenContent() {
                 interstitial = null
-                preloadInterstitial() // nạp bản kế sau khi đóng (không gây giật lúc thua)
+                preloadInterstitial() // nạp bản kế sau khi đóng
             }
 
             override fun onAdFailedToShowFullScreenContent(error: AdError) {
@@ -135,7 +149,7 @@ class AdsManager(context: Context) {
                 preloadInterstitial()
             }
         }
-        lastInterstitialAtMs = now
+        lastInterstitialAtMs = SystemClock.elapsedRealtime()
         interstitial = null
         ad.show(activity)
         return true

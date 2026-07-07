@@ -281,6 +281,7 @@ private fun GravityJellyApp() {
                     analytics.logLevelComplete(levelId, stars)
                 },
                 onOpenLevel = { index -> route = Route.CampaignIntro(index) },
+                ads = ads,
                 settings = settings,
                 onSound = { v -> scope.launch { repo.setSound(v) } },
                 onMusic = { v -> scope.launch { repo.setMusic(v) } },

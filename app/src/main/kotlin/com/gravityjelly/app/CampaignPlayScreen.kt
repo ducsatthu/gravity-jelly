@@ -38,6 +38,7 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInWindow
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalLifecycleOwner
@@ -46,6 +47,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
+import com.gravityjelly.app.ads.AdsConfig
+import com.gravityjelly.app.ads.AdsManager
+import com.gravityjelly.app.ads.findActivity
 import com.gravityjelly.app.data.GjSettings
 import com.gravityjelly.app.ui.components.BossCard
 import com.gravityjelly.app.ui.components.bossKindForWorld
@@ -98,6 +102,8 @@ fun CampaignPlayScreen(
     onWin: (levelId: Int, stars: Int) -> Unit,
     onOpenLevel: (Int) -> Unit,
     modifier: Modifier = Modifier,
+    /** Services quảng cáo — null trong preview/test. Interstitial mốc hiện khi RỜI màn thắng. */
+    ads: AdsManager? = null,
     settings: GjSettings = GjSettings(),
     onSound: (Boolean) -> Unit = {},
     onMusic: (Boolean) -> Unit = {},
@@ -110,6 +116,18 @@ fun CampaignPlayScreen(
     val levels = CampaignLevels.ALL
     val level = levels[levelIndex]
     val hasNext = levelIndex + 1 < levels.size
+    val activity = LocalContext.current.findActivity()
+
+    // Làm ấm interstitial TRƯỚC khi thắng (vào màn) — khi thắng chỉ show bản sẵn, không load lúc chuyển màn.
+    LaunchedEffect(Unit) { ads?.prepare() }
+
+    // Interstitial theo MỐC Campaign: hiện QC KHI RỜI màn thắng (Tiếp/Về Home) để KHÔNG cắt ngang màn
+    // ăn mừng; "Chơi lại" KHÔNG tính. Nhịp do [AdsConfig.showsAdOnCampaignClear] (boss + L16/L26/L36…).
+    fun leaveWinScreen(nav: () -> Unit) {
+        val act = activity
+        if (act != null && ads != null && AdsConfig.showsAdOnCampaignClear(level.id)) ads.showInterstitial(act)
+        nav()
+    }
 
     // Chơi lại = tạo lại holder (reset màn). replayKey đổi → remember tính lại.
     var replayKey by remember(levelIndex) { mutableIntStateOf(0) }
@@ -374,9 +392,9 @@ fun CampaignPlayScreen(
                 statLabel = stat.first,
                 statValue = stat.second,
                 hasNext = hasNext,
-                onNext = { onOpenLevel(levelIndex + 1) },
+                onNext = { leaveWinScreen { onOpenLevel(levelIndex + 1) } },
                 onReplay = { replayKey++ },
-                onHome = onExit,
+                onHome = { leaveWinScreen(onExit) },
                 reducedMotion = reducedMotion,
             )
         }

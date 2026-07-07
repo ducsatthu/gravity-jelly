@@ -27,4 +27,13 @@ object AdsConfig {
      * Rỗng = tắt debug (dùng địa lý thật). KHÔNG để giá trị khi phát hành.
      */
     val TEST_DEVICE_HASHES: List<String> = emptyList()
+
+    /**
+     * Có hiện interstitial sau khi THẮNG màn Campaign [levelId] không? (áp cho MỌI world/chiến dịch)
+     * - **Boss cuối world** (id 10/20/30/…, gồm cả boss L10 của 10 màn đầu) → sau khi hạ gục.
+     * - **Mốc GIỮA world từ World 2 trở đi** (L16/L26/L36…, tức id%10==6 & id≥16).
+     * 10 màn đầu (L1–L9) KHÔNG có mốc giữa — chỉ quảng cáo ở boss L10.
+     */
+    fun showsAdOnCampaignClear(levelId: Int): Boolean =
+        levelId % 10 == 0 || (levelId >= 16 && levelId % 10 == 6)
 }
