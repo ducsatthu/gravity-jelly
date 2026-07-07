@@ -23,34 +23,20 @@ File này chỉ liệt kê **việc còn lại**. Phần "cách làm" chi tiết
 
 ---
 
-## 1. 🎨 Icon — bổ sung PNG fallback cho API 24–25  *(việc #3)*
+## 1. 🎨 Icon — PNG fallback API 24–25  *(việc #3 — ✅ XONG 07/07)*
 
-**Hiện trạng:** Adaptive icon (Android 8.0+/API 26+) **ĐÃ ĐẦY ĐỦ và đúng** — nền kem gradient
-(`drawable/ic_launcher_background.xml`) + khối jelly hồng (`drawable-*/ic_launcher_foreground.png`)
-+ lớp monochrome (themed icon Android 13+). Phần lớn máy hiển thị icon này → **đẹp, không cần sửa.**
+**Adaptive icon (API 26+)** vẫn đầy đủ như trước (nền kem gradient + jelly hồng + monochrome).
 
-**Vấn đề (lint `IconLauncherShape` + `IconDuplicates`, 10 cảnh báo):** app có `minSdk = 24`, nên trên
-Android 7.0–7.1 (API 24–25) hệ dùng **PNG fallback** `mipmap-*/ic_launcher.png` và `ic_launcher_round.png`.
-Hai file này hiện:
-- `ic_launcher.png` **lấp kín cả ô vuông** (không bo/không chừa lề → xấu trên launcher cũ).
-- `ic_launcher_round.png` **y hệt file vuông** (không phải hình tròn) — lint báo "round icon not circular"
-  và "duplicates".
+**Đã sửa legacy PNG (`mipmap-*/ic_launcher.png` + `ic_launcher_round.png`):** trước đây lấp kín ô vuông
+và 2 file y hệt nhau (lint `IconLauncherShape` + `IconDuplicates`). Nay **mask lại từ `design/exports/app-icon-512.png`**:
+- `ic_launcher.png` = **squircle bo góc** (roundrect r≈18.75%, góc trong suốt).
+- `ic_launcher_round.png` = **mask tròn** thật.
+- Sinh cho cả 5 mật độ (48/72/96/144/192) bằng ImageMagick (Lanczos). Lint xác nhận **hết sạch cảnh báo icon**
+  (58→40 warning). Cách sinh lại nếu đổi master:
+  `magick app-icon-512.png \( -size 512x512 xc:none -fill white -draw "roundrectangle 0,0,511,511,96,96" \) -compose DstIn -composite sq.png`
+  (bản tròn thay `roundrectangle...` bằng `circle 256,256 256,0`), rồi `-resize` xuống từng mật độ.
 
-**Mức độ:** KHÔNG chặn lên store, chỉ ảnh hưởng thẩm mỹ trên **thiểu số máy API 24–25**. Nên làm cho chỉn chu.
-
-**Asset có sẵn để tái tạo:**
-- `design/exports/app-icon-512.png` (512×512, RGBA)
-- `design/Gravity Jelly Design System/08-brand/app-icon-master.png` (1254×1254, master gốc)
-
-**Hướng làm (chọn 1 — sẽ bổ sung chi tiết sau):**
-- **(A) Android Studio → Image Asset Studio:** New > Image Asset > Launcher Icons (Adaptive & Legacy),
-  nạp foreground+background hiện có → nó tự sinh lại cả legacy vuông + tròn đúng chuẩn. Nhanh, chuẩn nhất.
-- **(B) Tái tạo tay từ master:** downscale `app-icon-512.png` ra 5 mật độ (mdpi 48 / hdpi 72 / xhdpi 96 /
-  xxhdpi 144 / xxxhdpi 192 px) cho `ic_launcher.png`, và bản **bo tròn** cho `ic_launcher_round.png`.
-- **(C) Nâng `minSdk` lên 26:** bỏ hẳn nhu cầu legacy PNG (adaptive luôn được dùng) → mất cảnh báo,
-  nhưng loại người dùng Android 7.x. **Không khuyến nghị** chỉ để né lint.
-
-> Ghi chú: Icon 512×512 cho **Play Store listing** (khác với icon trong máy) — user báo đã chuẩn hoá xong.
+> Ghi chú: Icon 512×512 cho **Play Store listing** (khác icon trong máy) — user đã chuẩn hoá xong.
 
 ## 1b. 📢 Đồng thuận quảng cáo theo vùng (EU/EEA/UK + Hoa Kỳ)  *(code XONG — cần cấu hình AdMob)*
 
@@ -61,9 +47,13 @@ Hai file này hiện:
   Nút **chỉ hiện khi vùng người dùng yêu cầu** (`isPrivacyOptionsRequired`) — thoả policy Google mà
   không làm rối UI ở vùng không cần. Một form này phủ **cả GDPR (EU) lẫn US states (CCPA/CPRA)**.
 
-**CẦN LÀM ở AdMob Console (bắt buộc để nút trên hoạt động):** Privacy & messaging →
-- [ ] Tạo thông điệp **GDPR** (EU consent) — chọn app Gravity Jelly, publish.
-- [ ] Tạo thông điệp **US states (CCPA/CPRA)** — publish. (Không tạo → user Mỹ không có form, nút ẩn.)
+**AdMob Console (Privacy & messaging):**
+- [x] Thông điệp **GDPR** (EU consent) — đã thêm app Gravity Jelly + publish (07/07).
+- [x] Thông điệp **US states (CCPA/CPRA)** — đã thêm app Gravity Jelly + publish (07/07).
+      *(Tái dùng thông điệp của app cũ cùng publisher `pub-3372922503955749`, chỉ thêm App ID
+      `~3547570752` vào danh sách app — không phải dựng lại.)*
+
+**CÒN LẠI:**
 - [ ] Kiểm tra bằng thiết bị test: điền hash vào `AdsConfig.TEST_DEVICE_HASHES` (lấy từ logcat) → app
       ép địa lý EEA để hiện form; xác nhận nút "Quyền riêng tư quảng cáo" xuất hiện ở Cài đặt và mở được form.
       **Nhớ xoá hash về rỗng trước khi build release.**
@@ -93,13 +83,13 @@ Hai file này hiện:
 
 ---
 
-## Lint release — thống kê (0 error, 58 warning; đều không chặn)
+## Lint release — thống kê (0 error, 40 warning; đều không chặn)
 
 | Nhóm | Số | Xử lý |
 |------|----|-------|
 | GradleDependency / NewerVersionAvailable | 20 | Bản thư viện mới hơn — nâng khi tiện, không gấp. |
 | PluralsCandidate | 14 | Gợi ý dùng `<plurals>` cho chuỗi số nhiều — tinh chỉnh i18n, để sau. |
-| IconLauncherShape / IconDuplicates | 15 | → **Mục 1** (icon legacy). |
+| IconLauncherShape / IconDuplicates | 0 | ✅ Đã sửa (Mục 1) — mask squircle + tròn. |
 | UnusedResources | 5 → đã dọn | Đã xoá trong đợt này. |
 | OldTargetApi | 1 | targetSdk 35 vẫn hợp lệ tới ~08/2026 — bỏ qua. |
 | LockedOrientationActivity / DiscouragedApi | 2 | Khoá dọc là chủ đích của game — bỏ qua. |
