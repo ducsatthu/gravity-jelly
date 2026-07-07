@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -70,12 +69,8 @@ fun EndlessGameScreen(
     }
     val shell = holder.shell
 
-    // điểm cuối có thể được x2 nhờ rewarded (mỗi ván một lần).
-    var doubled by remember(seed) { mutableStateOf(false) }
-    val finalScore = if (doubled) shell.score * 2 else shell.score
-
     // best "đang hiển thị" gồm cả ván hiện tại (để HUD cập nhật tức thời khi vượt best).
-    val liveBest = maxOf(best, finalScore)
+    val liveBest = maxOf(best, shell.score)
 
     // làm ấm quảng cáo TRƯỚC khi cần (vào màn) — KHÔNG load lúc thua.
     LaunchedEffect(Unit) { ads.prepare() }
@@ -87,14 +82,14 @@ fun EndlessGameScreen(
     LaunchedEffect(shell.gameOver, seed) {
         if (shell.gameOver) {
             activity?.let { ads.onGameOver(it) }
-            onGameOver(finalScore) // tracking: mỗi ván thua (khác onBest)
+            onGameOver(shell.score) // tracking: mỗi ván thua (khác onBest)
         }
     }
-    // báo best (gồm cả khi vừa x2 điểm) — chỉ nâng, idempotent ở repo.
-    LaunchedEffect(shell.gameOver, seed, doubled) {
-        if (shell.gameOver && finalScore > best) {
+    // báo best — chỉ nâng, idempotent ở repo.
+    LaunchedEffect(shell.gameOver, seed) {
+        if (shell.gameOver && shell.score > best) {
             audio?.play(GjSfx.SFX_NEW_BEST)
-            onBest(finalScore)
+            onBest(shell.score)
         }
     }
 
@@ -103,8 +98,8 @@ fun EndlessGameScreen(
             holder = holder,
             best = liveBest,
             onHome = onHome,
-            // Chơi lại từ Tạm dừng: ván Endless mới (seed kế tiếp, reset x2 điểm) — như nút Chơi lại ở Result.
-            onRestart = { doubled = false; seed = nextSeed(seed) },
+            // Chơi lại từ Tạm dừng: ván Endless mới (seed kế tiếp) — như nút Chơi lại ở Result.
+            onRestart = { seed = nextSeed(seed) },
             settings = settings,
             onSound = onSound,
             onMusic = onMusic,
@@ -127,8 +122,8 @@ fun EndlessGameScreen(
                       ),
         ) {
             ResultScreen(
-                score = finalScore,
-                best  = maxOf(best, finalScore),
+                score = shell.score,
+                best  = maxOf(best, shell.score),
                 // Hồi sinh: TODO(06-P5) — engine chưa có API "continue" (chơi tiếp cùng bàn).
                 // Tạm: xem rewarded rồi mở ván mới (placeholder), giữ luồng ad đúng nghiệp vụ F2P.
                 onReviveAd = {
@@ -138,18 +133,6 @@ fun EndlessGameScreen(
                             onReward      = { seed = nextSeed(seed) },
                             onUnavailable = { /* chưa sẵn QC: bỏ qua */ },
                         )
-                    }
-                },
-                // x2 điểm: chỉ áp một lần/ván (doubled), qua rewarded.
-                onDoubleAd = {
-                    if (!doubled) {
-                        activity?.let { act ->
-                            ads.showRewarded(
-                                activity      = act,
-                                onReward      = { doubled = true },
-                                onUnavailable = { /* chưa sẵn QC */ },
-                            )
-                        }
                     }
                 },
                 onReplay = { seed = nextSeed(seed) },

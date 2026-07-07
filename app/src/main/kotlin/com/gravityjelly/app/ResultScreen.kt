@@ -95,9 +95,9 @@ private fun ScoreStat(
  * "Hết chỗ đặt!", badge "KỶ LỤC MỚI!" khi đạt kỷ lục, hàng điểm cuối / kỷ lục, rồi hàng nút
  * Chơi lại · Về Home.
  *
- * Rewarded actions (Hồi sinh · x2 điểm) — **tạm ẩn**: design mới đã bỏ nút x2, còn cơ chế "hồi
- * sinh" (chơi tiếp cùng bàn) chưa chốt nên chưa hiện nút. Callback [onReviveAd]/[onDoubleAd] giữ
- * nguyên trong chữ ký + luồng ad ở [EndlessGameScreen] để bật lại khi cơ chế được định nghĩa.
+ * Rewarded "Hồi sinh" — **tạm ẩn**: cơ chế "chơi tiếp cùng bàn" chưa chốt nên chưa hiện nút.
+ * Callback [onReviveAd] giữ trong chữ ký + luồng ad ở [EndlessGameScreen] để bật lại khi định nghĩa.
+ * (Tính năng x2-điểm-xem-quảng-cáo đã BỎ hoàn toàn.)
  *
  * Luồng một chiều: nút → callback đẩy lên :app (shell) đổi màn / gọi Services (AdMob).
  *
@@ -108,7 +108,6 @@ fun ResultScreen(
     score: Int,
     best: Int,
     @Suppress("UNUSED_PARAMETER") onReviveAd: () -> Unit,   // giữ cho revive tương lai (đang ẩn)
-    @Suppress("UNUSED_PARAMETER") onDoubleAd: () -> Unit,   // x2 đã bỏ theo design (giữ để bật lại)
     onReplay: () -> Unit,
     onHome: () -> Unit,
     modifier: Modifier = Modifier,
@@ -288,7 +287,6 @@ private fun ResultScreenPreview() {
             score = 18920,
             best = 28640,
             onReviveAd = {},
-            onDoubleAd = {},
             onReplay = {},
             onHome = {},
         )
@@ -303,7 +301,6 @@ private fun ResultScreenNewBestPreview() {
             score = 31200,
             best = 31200,
             onReviveAd = {},
-            onDoubleAd = {},
             onReplay = {},
             onHome = {},
         )

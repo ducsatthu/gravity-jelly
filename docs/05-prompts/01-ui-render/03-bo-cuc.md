@@ -86,7 +86,7 @@ Mục tiêu: màn Result khớp 04-screens/result-screen.jsx.
 Đọc trước: result-screen.jsx, screen-3-result.card.html.
 
 Việc:
-- ResultScreen(score, best, onReviveAd, onDoubleAd, onReplay, onHome). Hiển thị điểm cuối + kỷ lục (số VN), các action: "Hồi sinh · xem QC", "x2 · xem QC", "Chơi lại", "Về Home" bằng Button đúng variant.
+- ResultScreen(score, best, onReviveAd, onReplay, onHome). Hiển thị điểm cuối + kỷ lục (số VN), các action: "Hồi sinh · xem QC" (đang ẩn), "Chơi lại", "Về Home" bằng Button đúng variant. (x2-điểm-xem-QC đã BỎ hoàn toàn.)
 - Dùng Dialog/card mềm theo design; copy tiếng Việt như readme (voice).
 
 Acceptance: bố cục + copy + nút khớp result card.
