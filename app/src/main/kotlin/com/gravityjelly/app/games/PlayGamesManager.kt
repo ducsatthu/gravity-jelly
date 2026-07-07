@@ -49,17 +49,21 @@ class PlayGamesManager(private val appContext: Context) {
     /** Đã đăng nhập Play Games chưa (im lặng, không mở UI). */
     suspend fun isAuthenticated(activity: Activity): Boolean {
         if (!configured) return false
-        return runCatching {
-            PlayGames.getGamesSignInClient(activity).isAuthenticated().await()?.isAuthenticated == true
-        }.getOrDefault(false)
+        val ok = PlayGames.getGamesSignInClient(activity).isAuthenticated().await("isAuthenticated")
+            ?.isAuthenticated == true
+        Log.i(TAG, "isAuthenticated -> $ok")
+        return ok
     }
 
     /** Mở luồng đăng nhập Play Games; trả true nếu thành công. */
     suspend fun signIn(activity: Activity): Boolean {
         if (!configured) return false
-        return runCatching {
-            PlayGames.getGamesSignInClient(activity).signIn().await()?.isAuthenticated == true
-        }.getOrDefault(false)
+        val ok = PlayGames.getGamesSignInClient(activity).signIn().await("signIn")
+            ?.isAuthenticated == true
+        // ok=false ở đây = Google TỪ CHỐI xác thực (thường do SHA-1 chưa khai / account chưa là
+        // tester / PGS config chưa publish). Xem dòng "signIn failed" phía trên trong logcat để biết lý do.
+        Log.i(TAG, "signIn -> authenticated=$ok")
+        return ok
     }
 
     /** Nộp điểm Endless (fire-and-forget; chỉ khi đã cấu hình + điểm > 0). */
@@ -67,6 +71,19 @@ class PlayGamesManager(private val appContext: Context) {
         if (!configured || score <= 0L) return
         runCatching { PlayGames.getLeaderboardsClient(activity).submitScore(LEADERBOARD_ID, score) }
             .onFailure { Log.w(TAG, "submitScore failed", it) }
+    }
+
+    /**
+     * Nộp điểm và **chờ** server nhận xong (để [load] ngay sau đó thấy điểm mới). Dùng khi mở BXH
+     * lúc đã đăng nhập — bảo đảm best đặt TRƯỚC khi đăng nhập (submitScore lúc đó no-op) vẫn lên server.
+     * Trả true nếu gửi xong. PGS luôn giữ điểm cao nhất nên gọi lặp vô hại.
+     */
+    suspend fun submitScoreAwait(activity: Activity, score: Long): Boolean {
+        if (!configured || score <= 0L) return false
+        return runCatching {
+            PlayGames.getLeaderboardsClient(activity)
+                .submitScoreImmediate(LEADERBOARD_ID, score).await() != null
+        }.getOrDefault(false)
     }
 
     /** Lấy top 10 + điểm/hạng của người chơi. Trả null nếu chưa cấu hình / lỗi / chưa đăng nhập. */
@@ -94,6 +111,7 @@ class PlayGamesManager(private val appContext: Context) {
             val you = youScore?.let {
                 LbYou(it.rank.toInt().coerceAtLeast(0), it.scoreHolderDisplayName ?: "", it.rawScore.toInt())
             }
+            Log.i(TAG, "load -> entries=${entries.size}, you=${you?.let { "rank=${it.rank} score=${it.score}" } ?: "null"}")
             OnlineLeaderboard(entries, you)
         }.getOrElse {
             Log.w(TAG, "load failed", it)
@@ -102,9 +120,18 @@ class PlayGamesManager(private val appContext: Context) {
     }
 }
 
-/** Task → suspend; lỗi/hủy trả null (không ném) để lời gọi tự lùi về bảng nội bộ. */
-private suspend fun <T> Task<T>.await(): T? = suspendCancellableCoroutine { cont ->
+/**
+ * Task → suspend; lỗi/hủy trả null (không ném) để lời gọi tự lùi về bảng nội bộ.
+ * [tag] != null → log nguyên nhân lỗi (dùng cho đăng nhập: lộ lý do SHA-1/OAuth thật ra logcat).
+ */
+private suspend fun <T> Task<T>.await(tag: String? = null): T? = suspendCancellableCoroutine { cont ->
     addOnSuccessListener { cont.resume(it) }
-    addOnFailureListener { cont.resume(null) }
-    addOnCanceledListener { cont.resume(null) }
+    addOnFailureListener { e ->
+        if (tag != null) Log.w("PlayGames", "$tag failed: ${e.message}", e)
+        cont.resume(null)
+    }
+    addOnCanceledListener {
+        if (tag != null) Log.w("PlayGames", "$tag canceled (người dùng huỷ hoặc hệ thống chặn)")
+        cont.resume(null)
+    }
 }

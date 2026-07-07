@@ -100,15 +100,26 @@ fun LeaderboardRoute(
         games.initialize()
         val signedIn = games.isAuthenticated(activity)
         if (!signedIn) { state = offlineState(cached, best, localName, true, false); return }
+        // Đẩy best lên server TRƯỚC khi load — vá trường hợp lập best lúc chưa đăng nhập (submit
+        // lúc đó no-op): giờ đã auth thì best mới thực sự lên bảng, load ngay dưới thấy được.
+        games.submitScoreAwait(activity, best.toLong())
         val online = games.load(activity)
-        if (online != null && online.entries.isNotEmpty()) {
-            repo.saveLeaderboardCache(online) // đồng bộ về máy để mở offline lần sau
+        if (online != null) {
+            // Đã đăng nhập + tải OK → luôn ONLINE, KỂ CẢ top công khai còn rỗng (leaderboard mới,
+            // điểm chưa lan truyền). Hạng cá nhân [online.you] vẫn hiện ngay khi PGS trả về — không
+            // chờ top có người. Chỉ lưu cache khi có entry để không đè cache tốt bằng danh sách rỗng.
+            if (online.entries.isNotEmpty()) repo.saveLeaderboardCache(online)
+            // Điểm hiện tại: ưu tiên điểm server, nhưng không thấp hơn best cục bộ (vừa lập chưa kịp lan truyền).
+            val myScore = maxOf(best, online.you?.score ?: 0)
+            // Hạng: dùng hạng SERVER nếu đã có (>0); chưa có → tự tính = số người điểm cao hơn + 1
+            // (top rỗng + có điểm ⇒ hạng 1). Tự đúng lại khi Google trả hạng thật.
+            val youRank = online.you?.rank?.takeIf { it > 0 }
+                ?: (online.entries.count { it.score > myScore } + 1)
             state = LeaderboardUiState(
                 source = LbSource.ONLINE,
                 top = online.entries.take(3),
                 rest = online.entries.drop(3),
-                you = online.you?.copy(name = online.you.name.ifBlank { localName })
-                    ?: LbYou(0, localName, best),
+                you = LbYou(youRank, online.you?.name?.ifBlank { localName } ?: localName, myScore),
                 configured = true, signedIn = true,
             )
         } else {
