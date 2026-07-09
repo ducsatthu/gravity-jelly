@@ -22,6 +22,11 @@ data class LeaderboardUiState(
     val you: LbYou?,
     val configured: Boolean = false,
     val signedIn: Boolean = false,
+    /**
+     * Server ĐÃ nhận điểm của người chơi nhưng trả `rank = 0` ⇒ họ bị loại khỏi
+     * COLLECTION_PUBLIC vì hồ sơ Play Games đang ẩn. Điểm không mất, chỉ không được xếp hạng.
+     */
+    val profileHidden: Boolean = false,
 )
 
 /** Dữ liệu thô lấy từ PGS (trước khi tách top/rest cho UI). */

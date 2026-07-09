@@ -16,15 +16,22 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gravityjelly.app.R
@@ -111,10 +118,12 @@ fun YouRow(rank: Int, name: String, score: Int, onEdit: (() -> Unit)? = null) {
         }
         Row(Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(GjSpace.sm)) {
-            Text(
-                name, modifier = Modifier.weight(1f, fill = false),
-                style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.ExtraBold, fontSize = 18.sp),
-                color = GjPalette.Text, maxLines = 1, overflow = TextOverflow.Ellipsis,
+            // tên tự co cho vừa (hiện đủ tên dài, không cắt) — như tên trong khung bục
+            AutoResizeText(
+                text = name, color = GjPalette.Text,
+                baseStyle = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.ExtraBold),
+                maxFontSize = 18.sp, minFontSize = 9.sp,
+                modifier = Modifier.weight(1f, fill = false),
             )
             Box(
                 Modifier.clip(RoundedCornerShape(GjRadius.full))
@@ -144,6 +153,39 @@ fun YouRow(rank: Int, name: String, score: Int, onEdit: (() -> Unit)? = null) {
             color = GjPalette.PrimaryEdge,
         )
     }
+}
+
+/**
+ * Text tự co cỡ chữ cho vừa 1 dòng trong bề rộng cấp phát (Compose BOM 2024.09 chưa có autoSize).
+ * Đo qua onTextLayout: còn tràn + chưa chạm sàn → hạ 1sp rồi đo lại; ổn định thì bật vẽ.
+ * drawWithContent giữ chữ ẩn tới khi cỡ ổn định (tránh nhấp nháy). remember theo (text,max) → đổi tên reset.
+ * Dùng chung cho tên trong khung bục (FrameSlot) và hàng "Bạn" (YouRow).
+ */
+@Composable
+fun AutoResizeText(
+    text: String,
+    color: Color,
+    baseStyle: TextStyle,
+    maxFontSize: TextUnit,
+    minFontSize: TextUnit,
+    modifier: Modifier = Modifier,
+) {
+    var fontSize by remember(text, maxFontSize) { mutableStateOf(maxFontSize) }
+    var ready by remember(text, maxFontSize) { mutableStateOf(false) }
+    Text(
+        text, color = color, maxLines = 1, softWrap = false, overflow = TextOverflow.Ellipsis,
+        modifier = modifier.drawWithContent { if (ready) drawContent() },
+        style = baseStyle.copy(fontSize = fontSize),
+        onTextLayout = { result ->
+            if (!ready) {
+                if (result.hasVisualOverflow && fontSize.value > minFontSize.value) {
+                    fontSize = (fontSize.value - 1f).coerceAtLeast(minFontSize.value).sp
+                } else {
+                    ready = true
+                }
+            }
+        },
+    )
 }
 
 // trộn màu bán trong suốt trên nền surface trắng (tránh nền trong suốt lộ gradient nền)

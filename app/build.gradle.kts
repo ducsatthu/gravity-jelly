@@ -44,7 +44,7 @@ android {
         applicationId = "com.ductranxuan.gravityjelly"
         minSdk = 24
         targetSdk = 35
-        versionCode = 3
+        versionCode = 4
         versionName = "0.1.0"
         // Quảng cáo luôn bật (đã bỏ flavor demo — chỉ còn bản release-ready).
         buildConfigField("Boolean", "ADS_ENABLED", "true")

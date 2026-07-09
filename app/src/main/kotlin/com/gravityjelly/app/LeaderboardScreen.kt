@@ -3,12 +3,15 @@ package com.gravityjelly.app
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
-import androidx.compose.foundation.Canvas
+import android.content.Intent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -32,32 +35,36 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.gravityjelly.app.data.SettingsRepository
 import com.gravityjelly.app.games.PlayGamesManager
 import com.gravityjelly.app.ui.icons.GjIcon
 import com.gravityjelly.app.ui.icons.GjIcons
 import com.gravityjelly.app.ui.layout.GjScreenScaffold
-import com.gravityjelly.app.ui.leaderboard.FilledStar
 import com.gravityjelly.app.ui.leaderboard.LbEntry
 import com.gravityjelly.app.ui.leaderboard.LbSource
 import com.gravityjelly.app.ui.leaderboard.LbYou
-import com.gravityjelly.app.ui.leaderboard.Leaf
 import com.gravityjelly.app.ui.leaderboard.LbRow
 import com.gravityjelly.app.ui.leaderboard.LeaderboardUiState
+import com.gravityjelly.app.ui.leaderboard.AutoResizeText
 import com.gravityjelly.app.ui.leaderboard.OnlineLeaderboard
-import com.gravityjelly.app.ui.leaderboard.Podium
 import com.gravityjelly.app.ui.leaderboard.YouRow
+import com.gravityjelly.app.ui.leaderboard.formatScore
 import com.gravityjelly.app.ui.leaderboard.offlineState
 import com.gravityjelly.app.ui.theme.GjPalette
 import com.gravityjelly.app.ui.theme.GjRadius
@@ -111,16 +118,23 @@ fun LeaderboardRoute(
             if (online.entries.isNotEmpty()) repo.saveLeaderboardCache(online)
             // Điểm hiện tại: ưu tiên điểm server, nhưng không thấp hơn best cục bộ (vừa lập chưa kịp lan truyền).
             val myScore = maxOf(best, online.you?.score ?: 0)
-            // Hạng: dùng hạng SERVER nếu đã có (>0); chưa có → tự tính = số người điểm cao hơn + 1
-            // (top rỗng + có điểm ⇒ hạng 1). Tự đúng lại khi Google trả hạng thật.
-            val youRank = online.you?.rank?.takeIf { it > 0 }
-                ?: (online.entries.count { it.score > myScore } + 1)
+            // Đồng bộ NGƯỢC: server giữ best cao hơn máy này (cài lại app, đổi máy, xoá dữ liệu) →
+            // ghi lại vào DataStore. `updateBest` tự chặn ghi lùi (chỉ nhận điểm lớn hơn), nên gọi
+            // vô hại; và vì chỉ gọi khi lớn hơn thật sự, vòng refresh kế tiếp sẽ đứng yên.
+            if (myScore > best) repo.updateBest(myScore)
+            // Hạng: CHỈ lấy hạng server. Trước đây chỗ này tự tính "số người điểm cao hơn + 1" khi
+            // server trả rank=0 — sai: rank=0 KHÔNG phải "chưa lan truyền" mà là "không được xếp
+            // hạng" (hồ sơ Play Games đang ẩn ⇒ bị loại khỏi COLLECTION_PUBLIC). Hậu quả: app báo
+            // "bạn hạng 1" trong khi bảng công khai không hề có tên. Không rõ hạng → 0 → YouRow hiện "—".
+            val youRank = online.you?.rank?.takeIf { it > 0 } ?: 0
             state = LeaderboardUiState(
                 source = LbSource.ONLINE,
                 top = online.entries.take(3),
                 rest = online.entries.drop(3),
                 you = LbYou(youRank, online.you?.name?.ifBlank { localName } ?: localName, myScore),
                 configured = true, signedIn = true,
+                // Server có điểm (you != null) mà không cho hạng ⇒ hồ sơ đang ẩn, mách nước cho người chơi.
+                profileHidden = online.you != null && youRank == 0,
             )
         } else {
             // Đã đăng nhập nhưng tải lỗi/không mạng → hiện bản cache đã đồng bộ.
@@ -135,7 +149,15 @@ fun LeaderboardRoute(
         onBack = onBack,
         onSignIn = { scope.launch { if (activity != null && games.signIn(activity)) refresh() } },
         modifier = modifier,
+        onOpenPlayGames = { context.openPlayGames() },
     )
+}
+
+/** Mở app Play Games để người chơi bật hiển thị hồ sơ. Không cài / không mở được → bỏ qua im lặng. */
+private fun Context.openPlayGames() {
+    val intent = packageManager.getLaunchIntentForPackage("com.google.android.play.games")
+        ?: return
+    runCatching { startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }
 }
 
 /** Render thuần theo [state] (đã tách khỏi việc tải để test/preview được). */
@@ -145,12 +167,12 @@ fun LeaderboardScreen(
     onBack: () -> Unit,
     onSignIn: () -> Unit,
     modifier: Modifier = Modifier,
+    onOpenPlayGames: () -> Unit = {},
 ) {
     GjScreenScaffold(modifier = modifier, applyGutter = false, contentAlignment = Alignment.TopStart) {
         Column(Modifier.fillMaxSize()) {
-            Header(onBack)
-
             if (state.source == LbSource.LOADING) {
+                Header(onBack)
                 Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Text(
                         stringResource(R.string.leaderboard_loading),
@@ -158,6 +180,15 @@ fun LeaderboardScreen(
                     )
                 }
                 return@Column
+            }
+
+            // Top-3 = tranh PNG "leaderboard_podium_bg" (bục kẹo vàng/bạc/đồng vẽ sẵn); tên + điểm
+            // overlay vào 3 ô khung trống. Header phủ lên vùng trời của tranh (leaderboard-screen.jsx).
+            val podiumReady = state.top.size == 3
+            if (podiumReady) {
+                ArtPodium(state.top, onBack)
+            } else {
+                Header(onBack)
             }
 
             Spacer(Modifier.height(4.dp))
@@ -173,12 +204,6 @@ fun LeaderboardScreen(
             // gợi ý đăng nhập (chỉ khi PGS đã cấu hình nhưng chưa đăng nhập)
             if (state.configured && !state.signedIn) {
                 SignInBanner(onSignIn)
-            }
-
-            val podiumReady = state.top.size == 3
-            if (podiumReady) {
-                Spacer(Modifier.height(6.dp))
-                PodiumBlock(state.top)
             }
 
             // danh sách: nếu đủ bục → hạng 4..N; nếu không → dồn tất cả thành hàng từ hạng 1
@@ -197,6 +222,7 @@ fun LeaderboardScreen(
                     YouRow(rank = you.rank, name = you.name, score = you.score) // onEdit = null: không đổi tên (dùng tên Play Games)
                 }
             }
+            if (state.profileHidden) ProfileHiddenHint(onOpenPlayGames)
             Footer(state)
         }
     }
@@ -218,7 +244,11 @@ private fun Header(onBack: () -> Unit) {
         Text(
             stringResource(R.string.leaderboard_title),
             modifier = Modifier.weight(1f).padding(end = 48.dp),
-            style = MaterialTheme.typography.headlineLarge, color = GjPalette.Text, textAlign = TextAlign.Center,
+            // textShadow trắng nhẹ vì tiêu đề phủ lên vùng trời của tranh bục (leaderboard-screen.jsx)
+            style = MaterialTheme.typography.headlineLarge.copy(
+                shadow = Shadow(color = Color.White.copy(alpha = 0.7f), offset = Offset(0f, 1f), blurRadius = 0f),
+            ),
+            color = GjPalette.Text, textAlign = TextAlign.Center,
         )
     }
 }
@@ -262,43 +292,97 @@ private fun SignInBanner(onSignIn: () -> Unit) {
     }
 }
 
+// ── bục Top-3 = tranh PNG dựng sẵn + tên/điểm overlay ────────────────────────────
+// Nguồn: leaderboard-screen.jsx (bản mới) + 06-svg-assets/backgrounds/leaderboard-podium-bg.png
+// (941×2091). Tranh vẽ đầy đủ bục vàng/bạc/đồng + huy hiệu 1/2/3; ta chỉ overlay tên + điểm
+// vào 3 ô khung trống. Toạ độ là % của ẢNH nên bám mọi bề rộng màn hình.
+// Vùng dành chỗ = tới đáy bục ở ảnh y=880 → aspectRatio 941/880 (spacer trong design).
 @Composable
-private fun PodiumBlock(top: List<LbEntry>) {
-    Box(Modifier.fillMaxWidth().padding(horizontal = GjSpace.lg)) {
-        // mây trôi ở vùng trời hai bên đỉnh bục (không bị bar che) — hiện rõ
-        Cloud(Modifier.align(Alignment.TopStart).offset(x = (-2).dp, y = 58.dp).size(96.dp, 46.dp))
-        Cloud(Modifier.align(Alignment.TopEnd).offset(x = 2.dp, y = 82.dp).size(74.dp, 40.dp))
-        FilledStar(24.dp, Modifier.align(Alignment.TopStart).offset(x = 60.dp, y = 4.dp))
-        FilledStar(26.dp, Modifier.align(Alignment.TopEnd).offset(x = (-60).dp, y = (-2).dp))
-        Leaf(84.dp, flip = false, modifier = Modifier.align(Alignment.BottomStart).offset(x = (-30).dp, y = 8.dp))
-        Leaf(84.dp, flip = true, modifier = Modifier.align(Alignment.BottomEnd).offset(x = 30.dp, y = 8.dp))
-
-        Row(
-            Modifier.fillMaxWidth().padding(top = 46.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.Bottom,
-        ) {
-            Podium(rank = 2, name = top[1].name, score = top[1].score, modifier = Modifier.weight(1f))
-            Podium(rank = 1, name = top[0].name, score = top[0].score, modifier = Modifier.weight(1f))
-            Podium(rank = 3, name = top[2].name, score = top[2].score, modifier = Modifier.weight(1f))
-        }
+private fun ArtPodium(top: List<LbEntry>, onBack: () -> Unit) {
+    BoxWithConstraints(Modifier.fillMaxWidth().aspectRatio(941f / 880f).clipToBounds()) {
+        val w = maxWidth
+        val imgH = w * (2091f / 941f) // chiều cao ảnh thật ở bề rộng này (phần dưới đáy bục bị cắt)
+        Image(
+            painter = painterResource(R.drawable.leaderboard_podium_bg),
+            contentDescription = null,
+            // Crop + TopCenter: ảnh phủ đủ bề rộng, neo mép trên, phần dưới đáy bục bị cắt (Box
+            // aspectRatio 941/880). Không bóp dẹt; 1px-ảnh = w/941 nên toạ-độ-% khớp thẳng.
+            modifier = Modifier.fillMaxSize(),
+            alignment = Alignment.TopCenter,
+            contentScale = ContentScale.Crop,
+        )
+        // 3 ô khung (left/top/width/height = % ảnh, khớp leaderboard-screen.jsx FrameSlot)
+        FrameSlot(1, top[0].name, top[0].score, w * 0.356f, imgH * 0.135f, w * 0.292f, imgH * 0.155f)
+        FrameSlot(2, top[1].name, top[1].score, w * 0.058f, imgH * 0.215f, w * 0.250f, imgH * 0.105f)
+        FrameSlot(3, top[2].name, top[2].score, w * 0.707f, imgH * 0.230f, w * 0.228f, imgH * 0.100f)
+        // header phủ lên vùng trời của tranh
+        Box(Modifier.fillMaxWidth().align(Alignment.TopStart)) { Header(onBack) }
     }
 }
 
+// tên + điểm + nhãn "ĐIỂM" đặt giữa một ô khung trống của tranh (màu mực khớp tông khung).
 @Composable
-private fun Cloud(modifier: Modifier) {
-    Canvas(modifier) {
-        val w = size.width; val h = size.height
-        val body = Color(0xFFCFE2F7) // xanh pastel rõ hơn #DCEBFB để nổi trên nền kem
-        // đáy phẳng mềm
-        drawRoundRect(body, topLeft = Offset(w * 0.08f, h * 0.5f), size = Size(w * 0.84f, h * 0.45f),
-            cornerRadius = androidx.compose.ui.geometry.CornerRadius(h * 0.22f))
-        // ba cụm bông tạo dáng mây
-        drawCircle(body, radius = h * 0.4f, center = Offset(w * 0.28f, h * 0.58f))
-        drawCircle(body, radius = h * 0.52f, center = Offset(w * 0.52f, h * 0.5f))
-        drawCircle(body, radius = h * 0.38f, center = Offset(w * 0.74f, h * 0.6f))
-        // highlight trắng phía trên
-        drawCircle(Color.White.copy(alpha = 0.5f), radius = h * 0.2f, center = Offset(w * 0.44f, h * 0.4f))
+private fun FrameSlot(rank: Int, name: String, score: Int, x: Dp, y: Dp, w: Dp, h: Dp) {
+    val ink = when (rank) {
+        1 -> Color(0xFFA5731A) // vàng
+        2 -> Color(0xFF5A65B6) // xanh tím
+        else -> Color(0xFFC05F72) // hồng
+    }
+    val big = rank == 1
+    Column(
+        Modifier.offset(x = x, y = y).size(w, h).padding(horizontal = 3.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(if (big) 3.dp else 1.dp, Alignment.CenterVertically),
+    ) {
+        // Tên: TỰ THU NHỎ cỡ chữ cho vừa bề rộng khung (không cắt) — hạ dần tới sàn min rồi mới
+        // ellipsis (chỉ với tên cực dài). Play Games tối đa ~20 ký tự → hầu hết hiện đủ.
+        AutoResizeText(
+            text = name, color = ink,
+            baseStyle = MaterialTheme.typography.bodyLarge.copy(
+                fontWeight = FontWeight.ExtraBold, textAlign = TextAlign.Center,
+            ),
+            maxFontSize = if (big) 16.sp else 13.sp,
+            minFontSize = if (big) 9.sp else 8.sp,
+            modifier = Modifier.fillMaxWidth(),
+        )
+        Text(
+            formatScore(score), color = ink,
+            style = MaterialTheme.typography.titleLarge.copy(
+                fontWeight = FontWeight.ExtraBold,
+                fontSize = if (big) 24.sp else 18.sp, lineHeight = if (big) 25.sp else 19.sp,
+            ),
+        )
+        Text(
+            stringResource(R.string.leaderboard_points), color = ink.copy(alpha = 0.75f),
+            style = MaterialTheme.typography.labelSmall.copy(
+                fontWeight = FontWeight.ExtraBold,
+                fontSize = if (big) 11.sp else 10.sp, letterSpacing = 0.06.em,
+            ),
+        )
+    }
+}
+
+/**
+ * Điểm đã lên server nhưng hồ sơ Play Games đang ẩn → người chơi không có hạng công khai.
+ * Nói thẳng nguyên nhân + mở app Play Games để họ tự bật hiển thị hồ sơ.
+ */
+@Composable
+private fun ProfileHiddenHint(onOpenPlayGames: () -> Unit) {
+    Row(
+        Modifier.fillMaxWidth().padding(horizontal = GjSpace.lg, vertical = 2.dp)
+            .clip(RoundedCornerShape(GjRadius.md))
+            .pointerInput(Unit) { detectTapGestures(onTap = { onOpenPlayGames() }) }
+            .padding(horizontal = GjSpace.sm, vertical = 6.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center,
+    ) {
+        GjIcon(GjIcons.Info, modifier = Modifier.size(15.dp), tint = GjPalette.PrimaryEdge)
+        Spacer(Modifier.size(6.dp))
+        Text(
+            stringResource(R.string.leaderboard_profile_hidden),
+            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+            color = GjPalette.PrimaryEdge, textAlign = TextAlign.Center,
+        )
     }
 }
 

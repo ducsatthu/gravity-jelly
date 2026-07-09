@@ -1,54 +1,31 @@
 /* leaderboard-screen.jsx — LEADERBOARD. Single GLOBAL Endless board (no
-   friends system, no user avatars). 3D candy podium (laurel + rank number,
-   crown on #1, confetti / stars / leaves flourish), colored rounded-square
-   rank badges, purple scores, and a pinned tangerine "you" row with inline
-   name-edit. Exposes window.GJLeaderboardScreen. */
+   friends system, no user avatars). Top-3 podium is the SUPPLIED PNG ART
+   `06-svg-assets/backgrounds/leaderboard-podium-bg.png` (candy podium with
+   gold/silver/bronze frames baked in) — names + scores are overlaid inside
+   the three empty frames. Below: rank rows, pinned tangerine "you" row with
+   inline name-edit. Exposes window.GJLeaderboardScreen. */
 
 (function () {
   const NS = window.GravityJellyDesignSystem_3e0487;
   const { Icon } = NS;
-  const EX = window.GJExtras;
+  const BG_SRC = '../06-svg-assets/backgrounds/leaderboard-podium-bg.png';
 
-  // ---- podium metal palettes (gold / silver / bronze) ----
-  const METAL = {
-    1: { top: '#FFE79A', bot: '#FFCB4E', edge: '#EBB43C', ink: '#8A5A12', laurel: '#C98A1E' },
-    2: { top: '#ECE7DB', bot: '#CFC7B6', edge: '#BDB4A1', ink: '#6E6555', laurel: '#8C8474' },
-    3: { top: '#F6CFA6', bot: '#E7A876', edge: '#D5945F', ink: '#8A4E23', laurel: '#B06B34' },
+  // ink colors matched to the art's three frame tints (gold / periwinkle / pink)
+  const INK = {
+    1: '#A5731A',
+    2: '#5A65B6',
+    3: '#C05F72',
   };
 
-  // laurel wreath framing the rank number: two symmetric branches curving up
-  // around the number (matches the DS's hand-drawn glyph vocabulary)
-  function Laurel({ size = 62, color, children }) {
-    // left-branch leaf positions [x, y, rotation] along an upward curve; right = mirror
-    const pts = [[11, 25, 65], [8, 21, 45], [6.4, 16.5, 15], [7, 12, -12], [9, 8, -35]];
-    const leaf = (x, y, rot, key) => <ellipse key={key} cx={x} cy={y} rx="2.8" ry="1.5" transform={`rotate(${rot} ${x} ${y})`} fill={color} />;
+  // name + score overlaid inside one of the art's empty podium frames.
+  // Coordinates are % of the art image (so they track any screen width).
+  function FrameSlot({ rank, name, score, style }) {
+    const big = rank === 1;
     return (
-      <div style={{ position: 'relative', width: size, height: size, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <svg width={size} height={size} viewBox="0 0 32 32" style={{ position: 'absolute', inset: 0 }}>
-          <path d="M11 26C7 22 5.5 17 8 8" fill="none" stroke={color} strokeWidth="1.1" strokeLinecap="round" opacity="0.7" />
-          <path d="M21 26C25 22 26.5 17 24 8" fill="none" stroke={color} strokeWidth="1.1" strokeLinecap="round" opacity="0.7" />
-          {pts.map(([x, y, r], i) => leaf(x, y, r, 'l' + i))}
-          {pts.map(([x, y, r], i) => leaf(32 - x, y, -r, 'r' + i))}
-        </svg>
-        <span style={{ position: 'relative', fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: size * 0.44, lineHeight: 1 }}>{children}</span>
-      </div>
-    );
-  }
-
-  function Podium({ rank, name, score }) {
-    const h = rank === 1 ? 176 : rank === 2 ? 132 : 116;
-    const m = METAL[rank];
-    return (
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', alignSelf: 'flex-end', position: 'relative' }}>
-        {rank === 1 && <div style={{ position: 'absolute', top: -30, zIndex: 3, animation: 'gj-bob 2600ms var(--ease-inout, ease-in-out) infinite' }}><EX.Crown size={40} /></div>}
-        <div style={{ width: '100%', height: h, borderRadius: '18px 18px 0 0', paddingTop: rank === 1 ? 18 : 12, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2,
-          background: `linear-gradient(180deg, ${m.top} 0%, ${m.bot} 68%)`,
-          borderTop: `3px solid color-mix(in srgb, ${m.top} 70%, white)`,
-          boxShadow: `inset 0 -10px 18px -8px ${m.edge}, inset 3px 0 0 color-mix(in srgb, ${m.top} 80%, white), inset -3px 0 0 ${m.edge}, var(--shadow-md)` }}>
-          <div style={{ color: m.ink }}><Laurel size={rank === 1 ? 66 : 56} color={m.laurel}>{rank}</Laurel></div>
-          <span style={{ fontFamily: 'var(--font-body)', fontWeight: 800, fontSize: rank === 1 ? 'var(--text-body)' : 'var(--text-caption)', color: m.ink, whiteSpace: 'nowrap' }}>{name}</span>
-          <span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: rank === 1 ? 22 : 18, color: m.ink, lineHeight: 1.1 }}>{score.toLocaleString('vi-VN')}</span>
-        </div>
+      <div style={{ position: 'absolute', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: big ? 4 : 1, textAlign: 'center', color: INK[rank], ...style }}>
+        <span style={{ maxWidth: '100%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontFamily: 'var(--font-body)', fontWeight: 800, fontSize: big ? 16 : 13 }}>{name}</span>
+        <span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: big ? 24 : 18, lineHeight: 1.05 }}>{score.toLocaleString('vi-VN')}</span>
+        <span style={{ fontFamily: 'var(--font-body)', fontWeight: 800, fontSize: big ? 11 : 10, letterSpacing: '0.06em', opacity: 0.75 }}>ĐIỂM</span>
       </div>
     );
   }
@@ -72,37 +49,6 @@
         <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontFamily: 'var(--font-body)', fontWeight: 800, fontSize: 18, color: 'var(--color-text)' }}>{name}</span>
         <span style={{ flexShrink: 0, fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 20, color: 'var(--color-gravity-edge)' }}>{score.toLocaleString('vi-VN')}</span>
       </div>
-    );
-  }
-
-  // scattered decoration in the podium header
-  function Confetti() {
-    const bits = [
-      { l: '12%', t: 46, c: '#F090B4', r: 20, w: 10, h: 10, br: 3 },
-      { l: '20%', t: 74, c: '#FFCA66', r: -15, w: 10, h: 10, br: 3 },
-      { l: '33%', t: 30, c: '#66C9B8', r: 40, w: 9, h: 9, br: 2 },
-      { l: '68%', t: 30, c: '#8FAAEE', r: 25, w: 9, h: 9, br: 2 },
-      { l: '80%', t: 66, c: '#F3C85B', r: -20, w: 10, h: 10, br: 3 },
-      { l: '88%', t: 44, c: '#F090B4', r: 15, w: 9, h: 9, br: 2 },
-    ];
-    return (
-      <div aria-hidden="true" style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
-        {bits.map((b, i) => <span key={i} style={{ position: 'absolute', left: b.l, top: b.t, width: b.w, height: b.h, borderRadius: b.br, background: b.c, transform: `rotate(${b.r}deg)`, opacity: 0.9 }} />)}
-        <div style={{ position: 'absolute', left: '26%', top: 58 }}><EX.FilledStar size={22} /></div>
-        <div style={{ position: 'absolute', right: '25%', top: 40 }}><EX.FilledStar size={26} /></div>
-        <span style={{ position: 'absolute', left: '9%', top: 30, color: '#FFF', fontSize: 14, fontWeight: 800 }}>✦</span>
-        <span style={{ position: 'absolute', right: '10%', top: 70, color: '#CFC3AE', fontSize: 12, fontWeight: 800 }}>✦</span>
-      </div>
-    );
-  }
-
-  function Leaf({ flip }) {
-    return (
-      <svg width="70" height="60" viewBox="0 0 70 60" aria-hidden="true" style={{ transform: flip ? 'scaleX(-1)' : 'none' }}>
-        <path d="M4 56C4 30 24 8 54 4c2 26-16 48-50 52z" fill="#8FD08A" />
-        <path d="M14 50C22 34 34 24 48 16" stroke="#63B368" strokeWidth="2.4" fill="none" strokeLinecap="round" />
-        <path d="M20 44C14 30 30 14 52 12c0 20-14 34-32 32z" fill="#A6DCA0" opacity="0.7" />
-      </svg>
     );
   }
 
@@ -167,42 +113,41 @@
     }, []);
 
     return (
-      <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', height: '100%', background: 'var(--color-bg, #FFF7EC)' }}>
-        <div style={{ height: 'var(--dim-hud-h)', flexShrink: 0, display: 'flex', alignItems: 'center', gap: 'var(--space-sm)', padding: '0 var(--space-md)', position: 'relative', zIndex: 4 }}>
-          <button type="button" onClick={onBack} aria-label="Quay lại" style={{ width: 'var(--dim-icon-btn)', height: 'var(--dim-icon-btn)', borderRadius: 'var(--radius-lg)', border: 'none', background: 'var(--color-surface)', boxShadow: 'var(--shadow-sm)', color: 'var(--color-text)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon name="back" size={24} /></button>
-          <h1 style={{ flex: 1, margin: 0, textAlign: 'center', paddingRight: 'var(--dim-icon-btn)', fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'var(--text-title)', color: 'var(--color-text)' }}>Xếp hạng</h1>
+      <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', height: '100%', background: '#FBEFDC', overflow: 'hidden' }}>
+        {/* supplied candy-podium art, width-fit + top-anchored; the top-3
+            name/score slots live INSIDE this wrapper so %-coordinates map
+            straight onto the image regardless of screen width */}
+        <div aria-hidden="false" style={{ position: 'absolute', left: 0, top: 0, right: 0, zIndex: 1, pointerEvents: 'none' }}>
+          <img src={BG_SRC} alt="" style={{ display: 'block', width: '100%', height: 'auto' }} />
+          <FrameSlot rank={1} name={top[0].name} score={top[0].score} style={{ left: '35.6%', top: '13.5%', width: '29.2%', height: '15.5%' }} />
+          <FrameSlot rank={2} name={top[1].name} score={top[1].score} style={{ left: '5.8%', top: '21.5%', width: '25%', height: '10.5%' }} />
+          <FrameSlot rank={3} name={top[2].name} score={top[2].score} style={{ left: '70.7%', top: '23%', width: '22.8%', height: '10%' }} />
         </div>
+
+        {/* header over the art */}
+        <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: 'var(--dim-hud-h)', display: 'flex', alignItems: 'center', gap: 'var(--space-sm)', padding: '0 var(--space-md)', zIndex: 4 }}>
+          <button type="button" onClick={onBack} aria-label="Quay lại" style={{ width: 'var(--dim-icon-btn)', height: 'var(--dim-icon-btn)', borderRadius: 'var(--radius-lg)', border: 'none', background: 'var(--color-surface)', boxShadow: 'var(--shadow-sm)', color: 'var(--color-text)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon name="back" size={24} /></button>
+          <h1 style={{ flex: 1, margin: 0, textAlign: 'center', paddingRight: 'var(--dim-icon-btn)', fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'var(--text-title)', color: 'var(--color-text)', textShadow: '0 1px 0 rgba(255,255,255,0.7)' }}>Xếp hạng</h1>
+        </div>
+
+        {/* spacer reserving the podium art region (podium base ends at
+            image y 880/2091 → height = width × 880/941) */}
+        <div aria-hidden="true" style={{ flexShrink: 0, width: '100%', aspectRatio: '941 / 880' }}></div>
 
         {/* board identity */}
-        <div style={{ display: 'flex', justifyContent: 'center', margin: '4px var(--space-lg) var(--space-sm)', position: 'relative', zIndex: 4 }}>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7, whiteSpace: 'nowrap', height: 42, padding: '0 18px', borderRadius: 999, background: 'linear-gradient(180deg, var(--color-gravity-shine), var(--color-gravity))', boxShadow: '0 3px 0 var(--color-gravity-edge)', fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 16, color: '#fff' }}>♾️ Endless · 🌐 Toàn cầu</span>
-        </div>
-        <p style={{ margin: '0 var(--space-lg) 6px', textAlign: 'center', fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 'var(--text-caption)', color: 'var(--color-text-muted)', position: 'relative', zIndex: 4 }}>Điểm cao nhất mọi thời đại</p>
-
-        {/* podium */}
-        <div style={{ position: 'relative', padding: '0 var(--space-lg)', marginBottom: 6 }}>
-          {/* clouds */}
-          <div aria-hidden="true" style={{ position: 'absolute', left: -10, bottom: 40, width: 90, height: 46, borderRadius: 999, background: '#DCEBFB', filter: 'blur(2px)', opacity: 0.8 }} />
-          <div aria-hidden="true" style={{ position: 'absolute', right: -6, bottom: 54, width: 70, height: 40, borderRadius: 999, background: '#DCEBFB', filter: 'blur(2px)', opacity: 0.7 }} />
-          <Confetti />
-          <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8, position: 'relative', paddingTop: 46 }}>
-            <Podium rank={2} name={top[1].name} score={top[1].score} />
-            <Podium rank={1} name={top[0].name} score={top[0].score} />
-            <Podium rank={3} name={top[2].name} score={top[2].score} />
-          </div>
-          {/* leaves flanking the podium base (behind the bars) */}
-          <div aria-hidden="true" style={{ position: 'absolute', left: -22, bottom: -12, zIndex: 0 }}><Leaf /></div>
-          <div aria-hidden="true" style={{ position: 'absolute', right: -22, bottom: -12, zIndex: 0 }}><Leaf flip /></div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3, flexShrink: 0, position: 'relative', zIndex: 4, marginBottom: 6 }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7, whiteSpace: 'nowrap', height: 36, padding: '0 16px', borderRadius: 999, background: 'linear-gradient(180deg, var(--color-gravity-shine), var(--color-gravity))', boxShadow: '0 3px 0 var(--color-gravity-edge)', fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 14, color: '#fff' }}>♾️ Endless · 🌐 Toàn cầu</span>
+          <span style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 'var(--text-caption)', color: 'var(--color-text-muted)' }}>Điểm cao nhất mọi thời đại</span>
         </div>
 
         {/* ranked list */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: '10px var(--space-lg) var(--space-md)', display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '4px var(--space-lg) var(--space-md)', display: 'flex', flexDirection: 'column', gap: 10, position: 'relative', zIndex: 4 }}>
           {list.map((r, i) => <Row key={i} rank={i + 4} {...r} />)}
         </div>
 
         {/* pinned: your global rank + rename */}
-        <div style={{ flexShrink: 0, padding: '6px var(--space-lg) 8px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-md)', padding: '10px 18px 10px 12px', borderRadius: 'var(--radius-xl)', background: 'color-mix(in srgb, var(--color-primary) 12%, var(--color-surface))', boxShadow: 'inset 0 0 0 2px var(--color-primary)' }}>
+        <div style={{ flexShrink: 0, padding: '6px var(--space-lg) 8px', position: 'relative', zIndex: 4 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-md)', padding: '10px 18px 10px 12px', borderRadius: 'var(--radius-xl)', background: 'color-mix(in srgb, var(--color-primary) 12%, var(--color-surface))', boxShadow: 'inset 0 0 0 2px var(--color-primary), var(--shadow-sm)' }}>
             <span style={{ flexShrink: 0, minWidth: 60, height: 46, padding: '0 10px', borderRadius: 14, background: 'linear-gradient(180deg, #FFE0C6, #FFCBA6)', boxShadow: 'inset 0 2px 0 rgba(255,255,255,0.6), var(--shadow-sm)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 18, color: 'var(--color-primary-edge)' }}>{you.rank}</span>
             <span style={{ flex: 1, minWidth: 0, display: 'flex', alignItems: 'center', gap: 8, fontFamily: 'var(--font-body)', fontWeight: 800, fontSize: 18, color: 'var(--color-text)' }}>
               <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{name}</span>
@@ -214,7 +159,7 @@
         </div>
 
         {/* footer note */}
-        <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, padding: '2px 0 10px', color: 'var(--color-text-muted)' }}>
+        <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, padding: '2px 0 10px', color: 'var(--color-text-muted)', position: 'relative', zIndex: 4 }}>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
             <Icon name="info" size={15} color="var(--color-text-muted)" />
             <span style={{ fontFamily: 'var(--font-body)', fontWeight: 800, fontSize: 'var(--text-caption)', color: 'var(--color-text)' }}>Cập nhật lúc {stamp.now}</span>

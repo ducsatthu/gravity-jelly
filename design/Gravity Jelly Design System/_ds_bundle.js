@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"GravityJellyDesignSystem_3e0487","components":[{"name":"JellyBlock","sourcePath":"02-foundations/01-jelly-block/JellyBlock.jsx"},{"name":"Eyes","sourcePath":"02-foundations/02-eyes/Eyes.jsx"},{"name":"Icon","sourcePath":"02-foundations/03-icon/Icon.jsx"},{"name":"Button","sourcePath":"03-components/01-button/Button.jsx"},{"name":"Hud","sourcePath":"03-components/02-hud/Hud.jsx"},{"name":"TrayPiece","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"Tray","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"GravityRotateButton","sourcePath":"03-components/04-gravity-rotate-button/GravityRotateButton.jsx"},{"name":"ComboPopup","sourcePath":"03-components/05-combo-popup/ComboPopup.jsx"},{"name":"Dialog","sourcePath":"03-components/06-dialog/Dialog.jsx"},{"name":"ObjectiveBar","sourcePath":"03-components/08-objective-bar/ObjectiveBar.jsx"},{"name":"BossMascot","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"ShieldBar","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossCard","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossIntroCard","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossToast","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossRule","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossHud","sourcePath":"03-components/09-boss-hud/BossHud.jsx"}],"sourceHashes":{"02-foundations/01-jelly-block/JellyBlock.jsx":"99d676a3206c","02-foundations/02-eyes/Eyes.jsx":"d4762b606971","02-foundations/03-icon/Icon.jsx":"a75a00c43bb6","03-components/01-button/Button.jsx":"ff24f7c456d7","03-components/02-hud/Hud.jsx":"b68bb167fc30","03-components/03-tray/Tray.jsx":"e425b7cd5eed","03-components/04-gravity-rotate-button/GravityRotateButton.jsx":"09df27eb60e6","03-components/05-combo-popup/ComboPopup.jsx":"3430e5b0f130","03-components/06-dialog/Dialog.jsx":"d5e802d0a1db","03-components/08-objective-bar/ObjectiveBar.jsx":"d3ef438d707b","03-components/09-boss-hud/BossHud.jsx":"c7336202317f","04-screens/board-boss.jsx":"fe9ea9512869","04-screens/board-campaign.jsx":"db93679ac719","04-screens/board-design.jsx":"5163f27516da","04-screens/board.jsx":"a2c1742d1301","04-screens/boss-intro-screen.jsx":"5b7d158f2415","04-screens/cam-nang-illus.jsx":"4e6ed15b2b63","04-screens/cam-nang-screen.jsx":"54efac16eddc","04-screens/daily-reward-screen.jsx":"0309b17c4056","04-screens/home-screen.jsx":"7d45b68edee5","04-screens/leaderboard-screen.jsx":"b2332769263b","04-screens/level-intro-screen.jsx":"1252c538acaf","04-screens/level-win-screen.jsx":"b88ddcf6bfa8","04-screens/missions-screen.jsx":"a2cb834bcb3d","04-screens/out-of-lives-screen.jsx":"c5661499a9aa","04-screens/pause-screen.jsx":"edd558af8897","04-screens/phone-frame.jsx":"18e22e60b390","04-screens/play/jelly-play.jsx":"90bcd0f1ca70","04-screens/result-screen.jsx":"775264ed1cbe","04-screens/screen-extras.jsx":"b6a2513dd24c","04-screens/settings-screen.jsx":"a5cbe4af2727","04-screens/shop-screen.jsx":"454bf4d67682","04-screens/splash-screen.jsx":"b36502be0325","04-screens/tweaks-panel.jsx":"6591467622ed","04-screens/world-gate-locked.jsx":"4d32d0ac3bad","04-screens/world-gate.jsx":"6db94465e8f2","04-screens/world1-strip.jsx":"2c816bdee51c","04-screens/world10-strip.jsx":"86352e2ce593","04-screens/world2-strip.jsx":"442d24cbb43f","04-screens/world3-strip.jsx":"43895f789f0d","04-screens/world4-strip.jsx":"d3f5e8aadbec","04-screens/world5-strip.jsx":"31ce848e45ea","04-screens/world6-strip.jsx":"3479dadec253","04-screens/world7-strip.jsx":"e0b64525e7fa","04-screens/world8-strip.jsx":"444f9855082e","04-screens/world9-strip.jsx":"aea09bf6b901","07-mechanics/mechanics-cards.js":"711cd9d74c93","07-mechanics/mechanics-kit.jsx":"f52efab2af43","07-mechanics/mechanics-widgets.jsx":"2285bf5de0e0","07-mechanics/world3-water-kit.jsx":"402befadc370","08-brand/gravity-jelly-logo.js":"597a18d35b1e","prototypes/proto-engine.js":"6887737568ba","prototypes/proto-game.jsx":"75954a4bee0a","prototypes/proto-ui.jsx":"138d35a58082"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":4,"namespace":"GravityJellyDesignSystem_3e0487","components":[{"name":"JellyBlock","sourcePath":"02-foundations/01-jelly-block/JellyBlock.jsx"},{"name":"Eyes","sourcePath":"02-foundations/02-eyes/Eyes.jsx"},{"name":"Icon","sourcePath":"02-foundations/03-icon/Icon.jsx"},{"name":"Button","sourcePath":"03-components/01-button/Button.jsx"},{"name":"Hud","sourcePath":"03-components/02-hud/Hud.jsx"},{"name":"TrayPiece","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"Tray","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"GravityRotateButton","sourcePath":"03-components/04-gravity-rotate-button/GravityRotateButton.jsx"},{"name":"ComboPopup","sourcePath":"03-components/05-combo-popup/ComboPopup.jsx"},{"name":"Dialog","sourcePath":"03-components/06-dialog/Dialog.jsx"},{"name":"ObjectiveBar","sourcePath":"03-components/08-objective-bar/ObjectiveBar.jsx"},{"name":"BossMascot","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"ShieldBar","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossCard","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossIntroCard","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossToast","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossRule","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossHud","sourcePath":"03-components/09-boss-hud/BossHud.jsx"}],"sourceHashes":{"02-foundations/01-jelly-block/JellyBlock.jsx":"99d676a3206c","02-foundations/02-eyes/Eyes.jsx":"d4762b606971","02-foundations/03-icon/Icon.jsx":"a75a00c43bb6","03-components/01-button/Button.jsx":"ff24f7c456d7","03-components/02-hud/Hud.jsx":"b68bb167fc30","03-components/03-tray/Tray.jsx":"e425b7cd5eed","03-components/04-gravity-rotate-button/GravityRotateButton.jsx":"09df27eb60e6","03-components/05-combo-popup/ComboPopup.jsx":"3430e5b0f130","03-components/06-dialog/Dialog.jsx":"d5e802d0a1db","03-components/08-objective-bar/ObjectiveBar.jsx":"d3ef438d707b","03-components/09-boss-hud/BossHud.jsx":"c7336202317f","04-screens/board-boss.jsx":"fe9ea9512869","04-screens/board-campaign.jsx":"db93679ac719","04-screens/board-design.jsx":"5163f27516da","04-screens/board.jsx":"a2c1742d1301","04-screens/boss-intro-screen.jsx":"5b7d158f2415","04-screens/cam-nang-illus.jsx":"4e6ed15b2b63","04-screens/cam-nang-screen.jsx":"54efac16eddc","04-screens/daily-reward-screen.jsx":"0309b17c4056","04-screens/home-screen.jsx":"7d45b68edee5","04-screens/leaderboard-screen.jsx":"42b25fe52aea","04-screens/level-intro-screen.jsx":"1252c538acaf","04-screens/level-win-screen.jsx":"b88ddcf6bfa8","04-screens/missions-screen.jsx":"a2cb834bcb3d","04-screens/out-of-lives-screen.jsx":"c5661499a9aa","04-screens/pause-screen.jsx":"edd558af8897","04-screens/phone-frame.jsx":"18e22e60b390","04-screens/play/jelly-play.jsx":"90bcd0f1ca70","04-screens/result-screen.jsx":"775264ed1cbe","04-screens/screen-extras.jsx":"b6a2513dd24c","04-screens/settings-screen.jsx":"a5cbe4af2727","04-screens/shop-screen.jsx":"454bf4d67682","04-screens/splash-screen.jsx":"b36502be0325","04-screens/tweaks-panel.jsx":"6591467622ed","04-screens/world-gate-locked.jsx":"4d32d0ac3bad","04-screens/world-gate.jsx":"6db94465e8f2","04-screens/world1-strip.jsx":"2c816bdee51c","04-screens/world10-strip.jsx":"86352e2ce593","04-screens/world2-strip.jsx":"442d24cbb43f","04-screens/world3-strip.jsx":"43895f789f0d","04-screens/world4-strip.jsx":"d3f5e8aadbec","04-screens/world5-strip.jsx":"31ce848e45ea","04-screens/world6-strip.jsx":"3479dadec253","04-screens/world7-strip.jsx":"e0b64525e7fa","04-screens/world8-strip.jsx":"444f9855082e","04-screens/world9-strip.jsx":"aea09bf6b901","07-mechanics/mechanics-cards.js":"711cd9d74c93","07-mechanics/mechanics-kit.jsx":"f52efab2af43","07-mechanics/mechanics-widgets.jsx":"2285bf5de0e0","07-mechanics/world3-water-kit.jsx":"402befadc370","08-brand/gravity-jelly-logo.js":"597a18d35b1e","prototypes/proto-engine.js":"6887737568ba","prototypes/proto-game.jsx":"75954a4bee0a","prototypes/proto-ui.jsx":"138d35a58082"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
@@ -7350,165 +7350,73 @@ try { (() => {
 try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 /* leaderboard-screen.jsx — LEADERBOARD. Single GLOBAL Endless board (no
-   friends system, no user avatars). 3D candy podium (laurel + rank number,
-   crown on #1, confetti / stars / leaves flourish), colored rounded-square
-   rank badges, purple scores, and a pinned tangerine "you" row with inline
-   name-edit. Exposes window.GJLeaderboardScreen. */
+   friends system, no user avatars). Top-3 podium is the SUPPLIED PNG ART
+   `06-svg-assets/backgrounds/leaderboard-podium-bg.png` (candy podium with
+   gold/silver/bronze frames baked in) — names + scores are overlaid inside
+   the three empty frames. Below: rank rows, pinned tangerine "you" row with
+   inline name-edit. Exposes window.GJLeaderboardScreen. */
 
 (function () {
   const NS = window.GravityJellyDesignSystem_3e0487;
   const {
     Icon
   } = NS;
-  const EX = window.GJExtras;
+  const BG_SRC = '../06-svg-assets/backgrounds/leaderboard-podium-bg.png';
 
-  // ---- podium metal palettes (gold / silver / bronze) ----
-  const METAL = {
-    1: {
-      top: '#FFE79A',
-      bot: '#FFCB4E',
-      edge: '#EBB43C',
-      ink: '#8A5A12',
-      laurel: '#C98A1E'
-    },
-    2: {
-      top: '#ECE7DB',
-      bot: '#CFC7B6',
-      edge: '#BDB4A1',
-      ink: '#6E6555',
-      laurel: '#8C8474'
-    },
-    3: {
-      top: '#F6CFA6',
-      bot: '#E7A876',
-      edge: '#D5945F',
-      ink: '#8A4E23',
-      laurel: '#B06B34'
-    }
+  // ink colors matched to the art's three frame tints (gold / periwinkle / pink)
+  const INK = {
+    1: '#A5731A',
+    2: '#5A65B6',
+    3: '#C05F72'
   };
 
-  // laurel wreath framing the rank number: two symmetric branches curving up
-  // around the number (matches the DS's hand-drawn glyph vocabulary)
-  function Laurel({
-    size = 62,
-    color,
-    children
-  }) {
-    // left-branch leaf positions [x, y, rotation] along an upward curve; right = mirror
-    const pts = [[11, 25, 65], [8, 21, 45], [6.4, 16.5, 15], [7, 12, -12], [9, 8, -35]];
-    const leaf = (x, y, rot, key) => /*#__PURE__*/React.createElement("ellipse", {
-      key: key,
-      cx: x,
-      cy: y,
-      rx: "2.8",
-      ry: "1.5",
-      transform: `rotate(${rot} ${x} ${y})`,
-      fill: color
-    });
-    return /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        width: size,
-        height: size,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }
-    }, /*#__PURE__*/React.createElement("svg", {
-      width: size,
-      height: size,
-      viewBox: "0 0 32 32",
-      style: {
-        position: 'absolute',
-        inset: 0
-      }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: "M11 26C7 22 5.5 17 8 8",
-      fill: "none",
-      stroke: color,
-      strokeWidth: "1.1",
-      strokeLinecap: "round",
-      opacity: "0.7"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: "M21 26C25 22 26.5 17 24 8",
-      fill: "none",
-      stroke: color,
-      strokeWidth: "1.1",
-      strokeLinecap: "round",
-      opacity: "0.7"
-    }), pts.map(([x, y, r], i) => leaf(x, y, r, 'l' + i)), pts.map(([x, y, r], i) => leaf(32 - x, y, -r, 'r' + i))), /*#__PURE__*/React.createElement("span", {
-      style: {
-        position: 'relative',
-        fontFamily: 'var(--font-display)',
-        fontWeight: 800,
-        fontSize: size * 0.44,
-        lineHeight: 1
-      }
-    }, children));
-  }
-  function Podium({
+  // name + score overlaid inside one of the art's empty podium frames.
+  // Coordinates are % of the art image (so they track any screen width).
+  function FrameSlot({
     rank,
     name,
-    score
+    score,
+    style
   }) {
-    const h = rank === 1 ? 176 : rank === 2 ? 132 : 116;
-    const m = METAL[rank];
+    const big = rank === 1;
     return /*#__PURE__*/React.createElement("div", {
       style: {
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        alignSelf: 'flex-end',
-        position: 'relative'
-      }
-    }, rank === 1 && /*#__PURE__*/React.createElement("div", {
-      style: {
         position: 'absolute',
-        top: -30,
-        zIndex: 3,
-        animation: 'gj-bob 2600ms var(--ease-inout, ease-in-out) infinite'
-      }
-    }, /*#__PURE__*/React.createElement(EX.Crown, {
-      size: 40
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        width: '100%',
-        height: h,
-        borderRadius: '18px 18px 0 0',
-        paddingTop: rank === 1 ? 18 : 12,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: 2,
-        background: `linear-gradient(180deg, ${m.top} 0%, ${m.bot} 68%)`,
-        borderTop: `3px solid color-mix(in srgb, ${m.top} 70%, white)`,
-        boxShadow: `inset 0 -10px 18px -8px ${m.edge}, inset 3px 0 0 color-mix(in srgb, ${m.top} 80%, white), inset -3px 0 0 ${m.edge}, var(--shadow-md)`
+        justifyContent: 'center',
+        gap: big ? 4 : 1,
+        textAlign: 'center',
+        color: INK[rank],
+        ...style
       }
-    }, /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("span", {
       style: {
-        color: m.ink
-      }
-    }, /*#__PURE__*/React.createElement(Laurel, {
-      size: rank === 1 ? 66 : 56,
-      color: m.laurel
-    }, rank)), /*#__PURE__*/React.createElement("span", {
-      style: {
+        maxWidth: '100%',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
         fontFamily: 'var(--font-body)',
         fontWeight: 800,
-        fontSize: rank === 1 ? 'var(--text-body)' : 'var(--text-caption)',
-        color: m.ink,
-        whiteSpace: 'nowrap'
+        fontSize: big ? 16 : 13
       }
     }, name), /*#__PURE__*/React.createElement("span", {
       style: {
         fontFamily: 'var(--font-display)',
         fontWeight: 800,
-        fontSize: rank === 1 ? 22 : 18,
-        color: m.ink,
-        lineHeight: 1.1
+        fontSize: big ? 24 : 18,
+        lineHeight: 1.05
       }
-    }, score.toLocaleString('vi-VN'))));
+    }, score.toLocaleString('vi-VN')), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-body)',
+        fontWeight: 800,
+        fontSize: big ? 11 : 10,
+        letterSpacing: '0.06em',
+        opacity: 0.75
+      }
+    }, "\u0110I\u1EC2M"));
   }
 
   // colored rounded-square rank badge, per row
@@ -7583,140 +7491,6 @@ function _extends() { return _extends = Object.assign ? Object.assign.bind() : f
         color: 'var(--color-gravity-edge)'
       }
     }, score.toLocaleString('vi-VN')));
-  }
-
-  // scattered decoration in the podium header
-  function Confetti() {
-    const bits = [{
-      l: '12%',
-      t: 46,
-      c: '#F090B4',
-      r: 20,
-      w: 10,
-      h: 10,
-      br: 3
-    }, {
-      l: '20%',
-      t: 74,
-      c: '#FFCA66',
-      r: -15,
-      w: 10,
-      h: 10,
-      br: 3
-    }, {
-      l: '33%',
-      t: 30,
-      c: '#66C9B8',
-      r: 40,
-      w: 9,
-      h: 9,
-      br: 2
-    }, {
-      l: '68%',
-      t: 30,
-      c: '#8FAAEE',
-      r: 25,
-      w: 9,
-      h: 9,
-      br: 2
-    }, {
-      l: '80%',
-      t: 66,
-      c: '#F3C85B',
-      r: -20,
-      w: 10,
-      h: 10,
-      br: 3
-    }, {
-      l: '88%',
-      t: 44,
-      c: '#F090B4',
-      r: 15,
-      w: 9,
-      h: 9,
-      br: 2
-    }];
-    return /*#__PURE__*/React.createElement("div", {
-      "aria-hidden": "true",
-      style: {
-        position: 'absolute',
-        inset: 0,
-        pointerEvents: 'none'
-      }
-    }, bits.map((b, i) => /*#__PURE__*/React.createElement("span", {
-      key: i,
-      style: {
-        position: 'absolute',
-        left: b.l,
-        top: b.t,
-        width: b.w,
-        height: b.h,
-        borderRadius: b.br,
-        background: b.c,
-        transform: `rotate(${b.r}deg)`,
-        opacity: 0.9
-      }
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        left: '26%',
-        top: 58
-      }
-    }, /*#__PURE__*/React.createElement(EX.FilledStar, {
-      size: 22
-    })), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'absolute',
-        right: '25%',
-        top: 40
-      }
-    }, /*#__PURE__*/React.createElement(EX.FilledStar, {
-      size: 26
-    })), /*#__PURE__*/React.createElement("span", {
-      style: {
-        position: 'absolute',
-        left: '9%',
-        top: 30,
-        color: '#FFF',
-        fontSize: 14,
-        fontWeight: 800
-      }
-    }, "\u2726"), /*#__PURE__*/React.createElement("span", {
-      style: {
-        position: 'absolute',
-        right: '10%',
-        top: 70,
-        color: '#CFC3AE',
-        fontSize: 12,
-        fontWeight: 800
-      }
-    }, "\u2726"));
-  }
-  function Leaf({
-    flip
-  }) {
-    return /*#__PURE__*/React.createElement("svg", {
-      width: "70",
-      height: "60",
-      viewBox: "0 0 70 60",
-      "aria-hidden": "true",
-      style: {
-        transform: flip ? 'scaleX(-1)' : 'none'
-      }
-    }, /*#__PURE__*/React.createElement("path", {
-      d: "M4 56C4 30 24 8 54 4c2 26-16 48-50 52z",
-      fill: "#8FD08A"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: "M14 50C22 34 34 24 48 16",
-      stroke: "#63B368",
-      strokeWidth: "2.4",
-      fill: "none",
-      strokeLinecap: "round"
-    }), /*#__PURE__*/React.createElement("path", {
-      d: "M20 44C14 30 30 14 52 12c0 20-14 34-32 32z",
-      fill: "#A6DCA0",
-      opacity: "0.7"
-    }));
   }
   function NameDialog({
     initial,
@@ -7929,17 +7703,68 @@ function _extends() { return _extends = Object.assign ? Object.assign.bind() : f
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
-        background: 'var(--color-bg, #FFF7EC)'
+        background: '#FBEFDC',
+        overflow: 'hidden'
       }
     }, /*#__PURE__*/React.createElement("div", {
+      "aria-hidden": "false",
       style: {
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        right: 0,
+        zIndex: 1,
+        pointerEvents: 'none'
+      }
+    }, /*#__PURE__*/React.createElement("img", {
+      src: BG_SRC,
+      alt: "",
+      style: {
+        display: 'block',
+        width: '100%',
+        height: 'auto'
+      }
+    }), /*#__PURE__*/React.createElement(FrameSlot, {
+      rank: 1,
+      name: top[0].name,
+      score: top[0].score,
+      style: {
+        left: '35.6%',
+        top: '13.5%',
+        width: '29.2%',
+        height: '15.5%'
+      }
+    }), /*#__PURE__*/React.createElement(FrameSlot, {
+      rank: 2,
+      name: top[1].name,
+      score: top[1].score,
+      style: {
+        left: '5.8%',
+        top: '21.5%',
+        width: '25%',
+        height: '10.5%'
+      }
+    }), /*#__PURE__*/React.createElement(FrameSlot, {
+      rank: 3,
+      name: top[2].name,
+      score: top[2].score,
+      style: {
+        left: '70.7%',
+        top: '23%',
+        width: '22.8%',
+        height: '10%'
+      }
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        right: 0,
         height: 'var(--dim-hud-h)',
-        flexShrink: 0,
         display: 'flex',
         alignItems: 'center',
         gap: 'var(--space-sm)',
         padding: '0 var(--space-md)',
-        position: 'relative',
         zIndex: 4
       }
     }, /*#__PURE__*/React.createElement("button", {
@@ -7971,15 +7796,26 @@ function _extends() { return _extends = Object.assign ? Object.assign.bind() : f
         fontFamily: 'var(--font-display)',
         fontWeight: 800,
         fontSize: 'var(--text-title)',
-        color: 'var(--color-text)'
+        color: 'var(--color-text)',
+        textShadow: '0 1px 0 rgba(255,255,255,0.7)'
       }
     }, "X\u1EBFp h\u1EA1ng")), /*#__PURE__*/React.createElement("div", {
+      "aria-hidden": "true",
+      style: {
+        flexShrink: 0,
+        width: '100%',
+        aspectRatio: '941 / 880'
+      }
+    }), /*#__PURE__*/React.createElement("div", {
       style: {
         display: 'flex',
-        justifyContent: 'center',
-        margin: '4px var(--space-lg) var(--space-sm)',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 3,
+        flexShrink: 0,
         position: 'relative',
-        zIndex: 4
+        zIndex: 4,
+        marginBottom: 6
       }
     }, /*#__PURE__*/React.createElement("span", {
       style: {
@@ -7987,105 +7823,33 @@ function _extends() { return _extends = Object.assign ? Object.assign.bind() : f
         alignItems: 'center',
         gap: 7,
         whiteSpace: 'nowrap',
-        height: 42,
-        padding: '0 18px',
+        height: 36,
+        padding: '0 16px',
         borderRadius: 999,
         background: 'linear-gradient(180deg, var(--color-gravity-shine), var(--color-gravity))',
         boxShadow: '0 3px 0 var(--color-gravity-edge)',
         fontFamily: 'var(--font-display)',
         fontWeight: 800,
-        fontSize: 16,
+        fontSize: 14,
         color: '#fff'
       }
-    }, "\u267E\uFE0F Endless \xB7 \uD83C\uDF10 To\xE0n c\u1EA7u")), /*#__PURE__*/React.createElement("p", {
+    }, "\u267E\uFE0F Endless \xB7 \uD83C\uDF10 To\xE0n c\u1EA7u"), /*#__PURE__*/React.createElement("span", {
       style: {
-        margin: '0 var(--space-lg) 6px',
-        textAlign: 'center',
         fontFamily: 'var(--font-body)',
         fontWeight: 700,
         fontSize: 'var(--text-caption)',
-        color: 'var(--color-text-muted)',
-        position: 'relative',
-        zIndex: 4
+        color: 'var(--color-text-muted)'
       }
-    }, "\u0110i\u1EC3m cao nh\u1EA5t m\u1ECDi th\u1EDDi \u0111\u1EA1i"), /*#__PURE__*/React.createElement("div", {
-      style: {
-        position: 'relative',
-        padding: '0 var(--space-lg)',
-        marginBottom: 6
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      "aria-hidden": "true",
-      style: {
-        position: 'absolute',
-        left: -10,
-        bottom: 40,
-        width: 90,
-        height: 46,
-        borderRadius: 999,
-        background: '#DCEBFB',
-        filter: 'blur(2px)',
-        opacity: 0.8
-      }
-    }), /*#__PURE__*/React.createElement("div", {
-      "aria-hidden": "true",
-      style: {
-        position: 'absolute',
-        right: -6,
-        bottom: 54,
-        width: 70,
-        height: 40,
-        borderRadius: 999,
-        background: '#DCEBFB',
-        filter: 'blur(2px)',
-        opacity: 0.7
-      }
-    }), /*#__PURE__*/React.createElement(Confetti, null), /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: 'flex',
-        alignItems: 'flex-end',
-        gap: 8,
-        position: 'relative',
-        paddingTop: 46
-      }
-    }, /*#__PURE__*/React.createElement(Podium, {
-      rank: 2,
-      name: top[1].name,
-      score: top[1].score
-    }), /*#__PURE__*/React.createElement(Podium, {
-      rank: 1,
-      name: top[0].name,
-      score: top[0].score
-    }), /*#__PURE__*/React.createElement(Podium, {
-      rank: 3,
-      name: top[2].name,
-      score: top[2].score
-    })), /*#__PURE__*/React.createElement("div", {
-      "aria-hidden": "true",
-      style: {
-        position: 'absolute',
-        left: -22,
-        bottom: -12,
-        zIndex: 0
-      }
-    }, /*#__PURE__*/React.createElement(Leaf, null)), /*#__PURE__*/React.createElement("div", {
-      "aria-hidden": "true",
-      style: {
-        position: 'absolute',
-        right: -22,
-        bottom: -12,
-        zIndex: 0
-      }
-    }, /*#__PURE__*/React.createElement(Leaf, {
-      flip: true
-    }))), /*#__PURE__*/React.createElement("div", {
+    }, "\u0110i\u1EC3m cao nh\u1EA5t m\u1ECDi th\u1EDDi \u0111\u1EA1i")), /*#__PURE__*/React.createElement("div", {
       style: {
         flex: 1,
         overflowY: 'auto',
-        padding: '10px var(--space-lg) var(--space-md)',
+        padding: '4px var(--space-lg) var(--space-md)',
         display: 'flex',
         flexDirection: 'column',
-        gap: 10
+        gap: 10,
+        position: 'relative',
+        zIndex: 4
       }
     }, list.map((r, i) => /*#__PURE__*/React.createElement(Row, _extends({
       key: i,
@@ -8093,7 +7857,9 @@ function _extends() { return _extends = Object.assign ? Object.assign.bind() : f
     }, r)))), /*#__PURE__*/React.createElement("div", {
       style: {
         flexShrink: 0,
-        padding: '6px var(--space-lg) 8px'
+        padding: '6px var(--space-lg) 8px',
+        position: 'relative',
+        zIndex: 4
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -8103,7 +7869,7 @@ function _extends() { return _extends = Object.assign ? Object.assign.bind() : f
         padding: '10px 18px 10px 12px',
         borderRadius: 'var(--radius-xl)',
         background: 'color-mix(in srgb, var(--color-primary) 12%, var(--color-surface))',
-        boxShadow: 'inset 0 0 0 2px var(--color-primary)'
+        boxShadow: 'inset 0 0 0 2px var(--color-primary), var(--shadow-sm)'
       }
     }, /*#__PURE__*/React.createElement("span", {
       style: {
@@ -8189,7 +7955,9 @@ function _extends() { return _extends = Object.assign ? Object.assign.bind() : f
         alignItems: 'center',
         gap: 2,
         padding: '2px 0 10px',
-        color: 'var(--color-text-muted)'
+        color: 'var(--color-text-muted)',
+        position: 'relative',
+        zIndex: 4
       }
     }, /*#__PURE__*/React.createElement("span", {
       style: {

@@ -31,12 +31,14 @@
     <string name="leaderboard_title">Ranking</string>
     <string name="leaderboard_tag">♾️ Endless</string>
     <string name="leaderboard_subtitle">All-time high scores</string>
+    <string name="leaderboard_points">PTS</string>
     <string name="leaderboard_you_badge">YOU</string>
     <string name="leaderboard_default_name">You</string>
     <string name="leaderboard_edit_name">Rename</string>
     <string name="leaderboard_note">Saved offline · connect to update</string>
     <string name="leaderboard_note_global">Global leaderboard · Play Games</string>
     <string name="leaderboard_note_empty">Play Endless to set a score · connect for the global ranking</string>
+    <string name="leaderboard_profile_hidden">Your Play Games profile is hidden · tap to make it public and appear</string>
     <string name="leaderboard_signin">Sign in to Play Games for the global ranking</string>
     <string name="leaderboard_loading">Loading leaderboard…</string>
 

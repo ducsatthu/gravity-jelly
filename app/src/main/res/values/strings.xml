@@ -37,12 +37,14 @@
     <string name="leaderboard_title">Xếp hạng</string>
     <string name="leaderboard_tag">♾️ Endless</string>
     <string name="leaderboard_subtitle">Điểm cao nhất mọi thời đại</string>
+    <string name="leaderboard_points">ĐIỂM</string>
     <string name="leaderboard_you_badge">BẠN</string>
     <string name="leaderboard_default_name">Bạn</string>
     <string name="leaderboard_edit_name">Đổi tên</string>
     <string name="leaderboard_note">Bản lưu ngoại tuyến · nối mạng để cập nhật</string>
     <string name="leaderboard_note_global">Bảng xếp hạng toàn cầu · Play Games</string>
     <string name="leaderboard_note_empty">Chơi Endless để lập điểm · nối mạng xem BXH toàn cầu</string>
+    <string name="leaderboard_profile_hidden">Hồ sơ Play Games đang ẩn · chạm để bật công khai và lên bảng</string>
     <string name="leaderboard_signin">Đăng nhập Play Games để xem BXH toàn cầu</string>
     <string name="leaderboard_loading">Đang tải bảng xếp hạng…</string>
 

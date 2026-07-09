@@ -66,11 +66,20 @@ class PlayGamesManager(private val appContext: Context) {
         return ok
     }
 
-    /** Nộp điểm Endless (fire-and-forget; chỉ khi đã cấu hình + điểm > 0). */
+    /**
+     * Nộp điểm Endless (fire-and-forget; chỉ khi đã cấu hình + điểm > 0).
+     *
+     * Dùng [submitScoreImmediate] để **quan sát được lỗi**: `submitScore` trả Unit nên `runCatching`
+     * chỉ bắt được lỗi đồng bộ, mọi thất bại phía Task đều bị nuốt im lặng.
+     */
     fun submitScore(activity: Activity, score: Long) {
         if (!configured || score <= 0L) return
-        runCatching { PlayGames.getLeaderboardsClient(activity).submitScore(LEADERBOARD_ID, score) }
-            .onFailure { Log.w(TAG, "submitScore failed", it) }
+        runCatching {
+            PlayGames.getLeaderboardsClient(activity)
+                .submitScoreImmediate(LEADERBOARD_ID, score)
+                .addOnSuccessListener { Log.i(TAG, "submitScore ok: $score") }
+                .addOnFailureListener { Log.w(TAG, "submitScore failed: ${it.message}", it) }
+        }.onFailure { Log.w(TAG, "submitScore threw", it) }
     }
 
     /**
@@ -91,11 +100,14 @@ class PlayGamesManager(private val appContext: Context) {
         if (!configured) return null
         return runCatching {
             val client = PlayGames.getLeaderboardsClient(activity)
+            // forceReload = true: không có nó, SDK được phép trả buffer cache cục bộ → bảng đóng
+            // băng ở snapshot cũ, điểm mới của người khác không bao giờ hiện.
             val topData = client.loadTopScores(
                 LEADERBOARD_ID,
                 LeaderboardVariant.TIME_SPAN_ALL_TIME,
                 LeaderboardVariant.COLLECTION_PUBLIC,
                 10,
+                true,
             ).await()?.get()
             val entries = buildList {
                 topData?.scores?.let { buffer ->
