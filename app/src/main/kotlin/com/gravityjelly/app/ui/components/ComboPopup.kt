@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -208,10 +209,15 @@ fun ComboPopup(
     showText: Boolean = true,
     heightDp: Dp = 120.dp,
     visible: Boolean = true,
+    textScale: Float = 1f,
 ) {
     if (!visible) return
 
     val tier    = remember(combo) { tierFor(combo) }
+    // Cỡ chữ ×N hiệu dụng = numSize của tier × textScale. Mọi cỡ dẫn xuất (dấu ×, lời khen,
+    // khoảng cách dọc) tính từ [numSp] nên scale đồng bộ. Chỉ burst in-game phóng to (textScale=2f);
+    // Cẩm nang/demo/Level Info giữ 1f để layout không vỡ.
+    val numSp   = tier.numSize * textScale
     val word    = praise ?: stringResource(tier.wordRes)
     val hasText = combo > 1 && showText
     val n       = (combo + 2).coerceIn(3, 9)
@@ -343,18 +349,23 @@ fun ComboPopup(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 // Kéo lời khen SÁT RẠT dưới ×N. Khoảng hở dư theo cỡ số (line box) nên trừ tỉ lệ
                 // với tier.numSize thay vì hằng số → mọi tier đều dính sát (design gap≈1px).
-                verticalArrangement = Arrangement.spacedBy(-(tier.numSize * 0.40f).dp),
+                verticalArrangement = Arrangement.spacedBy(-(numSp * 0.40f).dp),
             ) {
                 // ×N with white outline (drawn behind + colored on top)
-                Box(contentAlignment = Alignment.Center) {
+                // unbounded: khi textScale phóng to (burst in-game), ×N đo theo bề rộng THẬT của chữ
+                // rồi canh giữa TRÀN ra ngoài khung 174dp — không bị ép xuống hàng / cắt cụt.
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier.wrapContentWidth(unbounded = true),
+                ) {
                     val comboStr = buildAnnotatedString {
-                        withStyle(SpanStyle(fontSize = (tier.numSize * 0.62f).sp)) { append("×") }
-                        withStyle(SpanStyle(fontSize = tier.numSize.sp))           { append(combo.toString()) }
+                        withStyle(SpanStyle(fontSize = (numSp * 0.62f).sp)) { append("×") }
+                        withStyle(SpanStyle(fontSize = numSp.sp))           { append(combo.toString()) }
                     }
                     // weight-extra (800) = token "số / score pop" của design (ComboPopup.jsx var(--weight-extra)).
                     val outlineStyle = MaterialTheme.typography.headlineLarge.copy(
                         fontWeight      = FontWeight.ExtraBold,
-                        lineHeight      = tier.numSize.sp,
+                        lineHeight      = numSp.sp,
                         lineHeightStyle = TrimLineHeight,
                         platformStyle   = TrimPlatform,
                         shadow          = Shadow(Color.White, Offset.Zero, blurRadius = 3f),
@@ -364,6 +375,8 @@ fun ComboPopup(
                         Text(
                             text     = comboStr,
                             style    = outlineStyle.copy(color = Color.White),
+                            softWrap = false,
+                            maxLines = 1,
                             modifier = Modifier.offset(dx.dp, dy.dp),
                         )
                     }
@@ -372,6 +385,8 @@ fun ComboPopup(
                     // KHÔNG drive animation bằng recomposition — vẫn đa sắc đúng nhận diện.
                     Text(
                         text  = comboStr,
+                        softWrap = false,
+                        maxLines = 1,
                         style = outlineStyle.copy(
                             brush = Brush.linearGradient(
                                 colors = tier.grad,
@@ -391,23 +406,31 @@ fun ComboPopup(
                 val praiseString = remember(word, tier.stars) { coloredPraiseString(word, tier.stars) }
                 val plainWord    = remember(word, tier.stars) { if (tier.stars > 0) "✦ $word ✦" else word }
                 val praiseStyle  = MaterialTheme.typography.headlineLarge.copy(
-                    fontSize        = (tier.numSize * 0.44f).sp,
+                    fontSize        = (numSp * 0.44f).sp,
                     fontWeight      = FontWeight.ExtraBold,
-                    lineHeight      = (tier.numSize * 0.44f).sp,
+                    lineHeight      = (numSp * 0.44f).sp,
                     lineHeightStyle = TrimLineHeight,
                     platformStyle   = TrimPlatform,
                     letterSpacing   = 0.5.sp,
                 )
-                Box(contentAlignment = Alignment.Center) {
+                // unbounded + softWrap=false: lời khen (có ✦…✦) LUÔN nằm 1 hàng, canh giữa tràn ra
+                // ngoài khung khi phóng to → sao hai bên không rớt xuống hàng / vỡ.
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier.wrapContentWidth(unbounded = true),
+                ) {
                     // bản trắng 8 hướng (đặt SAU) làm viền cartoon + bóng nâu nhẹ ở dưới
                     val praiseOutline = praiseStyle.copy(
                         color  = Color.White,
                         shadow = Shadow(Color(0x47785C34), Offset(0f, 2f), blurRadius = 2f),
                     )
                     for ((dx, dy) in OUTLINE_DIRS) {
-                        Text(text = plainWord, style = praiseOutline, modifier = Modifier.offset(dx.dp, dy.dp))
+                        Text(
+                            text = plainWord, style = praiseOutline, softWrap = false, maxLines = 1,
+                            modifier = Modifier.offset(dx.dp, dy.dp),
+                        )
                     }
-                    Text(text = praiseString, style = praiseStyle)
+                    Text(text = praiseString, style = praiseStyle, softWrap = false, maxLines = 1)
                 }
             }
         }

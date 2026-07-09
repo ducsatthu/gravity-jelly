@@ -389,7 +389,7 @@ internal fun ComboBurstOverlay(
                     }
                     .alpha(alpha.value),
             ) {
-                ComboPopup(combo = burst.combo, showDish = false, showPieces = false)
+                ComboPopup(combo = burst.combo, showDish = false, showPieces = false, textScale = COMBO_BURST_TEXT_SCALE)
             }
         }
     }
@@ -402,3 +402,6 @@ internal const val GUIDE_SETTLE_GRACE_MS = 450L
 internal const val COMBO_HOLD_MS  = 1300L
 internal const val COMBO_FADE_MS  = 700
 internal const val BUBBLE_ANCHOR_DP = 72f
+/** Cỡ chữ combo burst in-game (nhân với numSize gốc). Nhỏ hơn 2× để chữ combo cao (13–20)
+ *  không tràn quá đáy vùng bàn khi combo nổ sát đáy. */
+internal const val COMBO_BURST_TEXT_SCALE = 1.6f
