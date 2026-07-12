@@ -78,10 +78,10 @@ fun EndlessGameScreen(
     // lưu seed gần nhất mỗi khi bắt đầu ván mới (bất đồng bộ ở lớp shell).
     LaunchedEffect(seed) { onSeedUsed(seed) }
 
-    // khi thua: interstitial theo sự kiện (đã preload; không load) + báo best.
+    // khi thua: interstitial NGAY sau mỗi ván (đã preload; không load) + báo best.
     LaunchedEffect(shell.gameOver, seed) {
         if (shell.gameOver) {
-            activity?.let { ads.onGameOver(it) }
+            activity?.let { ads.onEndlessGameOver(it) }
             onGameOver(shell.score) // tracking: mỗi ván thua (khác onBest)
         }
     }

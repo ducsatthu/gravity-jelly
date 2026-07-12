@@ -21,6 +21,27 @@ object AdsConfig {
     /** Thời gian chờ tối thiểu giữa hai interstitial (ms) — guard phụ, không phải trigger chính. */
     const val COOLDOWN_MS = 90_000L
 
+    /** Số lần thử nạp lại tối đa (mỗi lần vào màn) khi load hụt — thường do mất mạng. */
+    const val MAX_LOAD_RETRIES = 4
+
+    /** Backoff giữa các lần thử lại (ms) — tăng dần để không "quay tay" khi offline kéo dài. */
+    val RETRY_DELAYS_MS = longArrayOf(2_000L, 5_000L, 15_000L, 30_000L)
+
+    /**
+     * Delay (ms) cho lần thử nạp lại thứ [attempt] (0-based) sau khi load hụt.
+     * `null` = đã hết ngân sách ([MAX_LOAD_RETRIES] lần) → DỪNG retry (offline không hao pin).
+     */
+    fun retryDelayMs(attempt: Int): Long? =
+        if (attempt < 0 || attempt >= MAX_LOAD_RETRIES) null
+        else RETRY_DELAYS_MS[attempt.coerceAtMost(RETRY_DELAYS_MS.lastIndex)]
+
+    /**
+     * Endless: có hiện interstitial sau ván thua thứ [gameOverCount] (1-based) không?
+     * CHỐT: MỌI ván — không ân hạn/đếm-thua/cooldown (khác [showsAdOnCampaignClear] & loss-gate).
+     * Chỉ cần đã preload; nếu chưa kịp thì [AdsManager] bỏ qua ván đó (offline không ảnh hưởng).
+     */
+    fun showsAdOnEndlessGameOver(gameOverCount: Int): Boolean = gameOverCount >= 1
+
     /**
      * Hash thiết bị test cho UMP (ép hiện form đồng thuận EEA khi dev).
      * Lấy từ logcat khi chạy: dòng "Use ConsentDebugSettings.Builder().addTestDeviceHashedId(\"…\")".
