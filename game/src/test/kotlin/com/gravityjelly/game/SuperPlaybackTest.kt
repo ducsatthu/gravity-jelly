@@ -43,10 +43,22 @@ class SuperPlaybackTest {
         return out
     }
 
-    /** Chạy sim ~2.5s (qua hết nhịp + collapse + gap) để playback hoàn tất. */
-    private fun runToEnd(anim: BoardAnimator) {
+    /**
+     * Chạy sim ~4s (qua hết nhịp + collapse + gap) để playback hoàn tất, trả về grid hiển thị của
+     * nhịp CUỐI. Lưu ý: khi playback xong [BoardAnimator.displayGrid] tự trả `null` (bàn giao lại cho
+     * grid truth của engine để ô mới không tàng hình — xem BoardAnimator §184), nên phải chụp lại bản
+     * hiển thị cuối cùng trước khi nó null để đối chiếu với truth.
+     */
+    private fun runToEnd(anim: BoardAnimator): Grid {
+        var last = anim.displayGrid
         var ms = 0L
-        while (ms < 4000) { anim.step(GameClock.STEP_NANOS); ms += GameClock.STEP_NANOS / 1_000_000L }
+        while (ms < 4000) {
+            anim.step(GameClock.STEP_NANOS)
+            anim.displayGrid?.let { last = it }
+            ms += GameClock.STEP_NANOS / 1_000_000L
+        }
+        assertNull("playback xong thì displayGrid phải null (trả truth về engine)", anim.displayGrid)
+        return last ?: error("playback không sinh displayGrid nào")
     }
 
     @Test
@@ -63,10 +75,9 @@ class SuperPlaybackTest {
 
         val anim = BoardAnimator()
         anim.ingest(toGameEvents(listOf(Vec(5, 5)), result.events), pre, Direction.DOWN, work, Direction.DOWN)
-        runToEnd(anim)
 
         // playback khớp truth engine: đúng 1 siêu khối MINT
-        val g = anim.displayGrid!!
+        val g = runToEnd(anim)
         var supers = 0
         for (y in 0 until Grid.SIZE) for (x in 0 until Grid.SIZE) {
             val c = g.get(x, y)
@@ -94,9 +105,8 @@ class SuperPlaybackTest {
 
         val anim = BoardAnimator()
         anim.ingest(toGameEvents(listOf(Vec(5, 5)), result.events), pre, Direction.DOWN, work, Direction.DOWN)
-        runToEnd(anim)
 
-        val g = anim.displayGrid!!
+        val g = runToEnd(anim)
         var rainbows = 0
         for (y in 0 until Grid.SIZE) for (x in 0 until Grid.SIZE) {
             if (g.get(x, y)?.isRainbow == true) rainbows++
@@ -123,9 +133,8 @@ class SuperPlaybackTest {
 
         val anim = BoardAnimator()
         anim.ingest(toGameEvents(listOf(Vec(8, 4)), result.events), pre, Direction.DOWN, work, Direction.DOWN)
-        runToEnd(anim)
 
-        val g = anim.displayGrid!!
+        val g = runToEnd(anim)
         // không còn ô MINT nào trên bàn
         for (y in 0 until Grid.SIZE) for (x in 0 until Grid.SIZE) {
             assertTrue("ô MINT ($x,$y) phải bị quét", g.get(x, y)?.color != JellyColor.MINT)
