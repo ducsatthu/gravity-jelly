@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"GravityJellyDesignSystem_3e0487","components":[{"name":"JellyBlock","sourcePath":"02-foundations/01-jelly-block/JellyBlock.jsx"},{"name":"Eyes","sourcePath":"02-foundations/02-eyes/Eyes.jsx"},{"name":"Icon","sourcePath":"02-foundations/03-icon/Icon.jsx"},{"name":"Button","sourcePath":"03-components/01-button/Button.jsx"},{"name":"Hud","sourcePath":"03-components/02-hud/Hud.jsx"},{"name":"TrayPiece","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"Tray","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"GravityRotateButton","sourcePath":"03-components/04-gravity-rotate-button/GravityRotateButton.jsx"},{"name":"ComboPopup","sourcePath":"03-components/05-combo-popup/ComboPopup.jsx"},{"name":"Dialog","sourcePath":"03-components/06-dialog/Dialog.jsx"},{"name":"ObjectiveBar","sourcePath":"03-components/08-objective-bar/ObjectiveBar.jsx"},{"name":"BossMascot","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"ShieldBar","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossCard","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossIntroCard","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossToast","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossRule","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossHud","sourcePath":"03-components/09-boss-hud/BossHud.jsx"}],"sourceHashes":{"02-foundations/01-jelly-block/JellyBlock.jsx":"99d676a3206c","02-foundations/02-eyes/Eyes.jsx":"d4762b606971","02-foundations/03-icon/Icon.jsx":"a75a00c43bb6","03-components/01-button/Button.jsx":"ff24f7c456d7","03-components/02-hud/Hud.jsx":"b68bb167fc30","03-components/03-tray/Tray.jsx":"e425b7cd5eed","03-components/04-gravity-rotate-button/GravityRotateButton.jsx":"09df27eb60e6","03-components/05-combo-popup/ComboPopup.jsx":"3430e5b0f130","03-components/06-dialog/Dialog.jsx":"d5e802d0a1db","03-components/08-objective-bar/ObjectiveBar.jsx":"d3ef438d707b","03-components/09-boss-hud/BossHud.jsx":"c7336202317f","04-screens/board-boss.jsx":"fe9ea9512869","04-screens/board-campaign.jsx":"db93679ac719","04-screens/board-design.jsx":"5163f27516da","04-screens/board.jsx":"a2c1742d1301","04-screens/boss-intro-screen.jsx":"5b7d158f2415","04-screens/cam-nang-illus.jsx":"4e6ed15b2b63","04-screens/cam-nang-screen.jsx":"54efac16eddc","04-screens/daily-reward-screen.jsx":"0309b17c4056","04-screens/home-screen.jsx":"7d45b68edee5","04-screens/leaderboard-screen.jsx":"42b25fe52aea","04-screens/level-intro-screen.jsx":"1252c538acaf","04-screens/level-win-screen.jsx":"b88ddcf6bfa8","04-screens/missions-screen.jsx":"a2cb834bcb3d","04-screens/out-of-lives-screen.jsx":"c5661499a9aa","04-screens/pause-screen.jsx":"edd558af8897","04-screens/phone-frame.jsx":"18e22e60b390","04-screens/play/jelly-play.jsx":"90bcd0f1ca70","04-screens/result-screen.jsx":"775264ed1cbe","04-screens/screen-extras.jsx":"b6a2513dd24c","04-screens/settings-screen.jsx":"a5cbe4af2727","04-screens/shop-screen.jsx":"454bf4d67682","04-screens/splash-screen.jsx":"b36502be0325","04-screens/tweaks-panel.jsx":"6591467622ed","04-screens/world-gate-locked.jsx":"4d32d0ac3bad","04-screens/world-gate.jsx":"6db94465e8f2","04-screens/world1-strip.jsx":"2c816bdee51c","04-screens/world10-strip.jsx":"86352e2ce593","04-screens/world2-strip.jsx":"442d24cbb43f","04-screens/world3-strip.jsx":"43895f789f0d","04-screens/world4-strip.jsx":"d3f5e8aadbec","04-screens/world5-strip.jsx":"31ce848e45ea","04-screens/world6-strip.jsx":"3479dadec253","04-screens/world7-strip.jsx":"e0b64525e7fa","04-screens/world8-strip.jsx":"444f9855082e","04-screens/world9-strip.jsx":"aea09bf6b901","07-mechanics/mechanics-cards.js":"711cd9d74c93","07-mechanics/mechanics-kit.jsx":"f52efab2af43","07-mechanics/mechanics-widgets.jsx":"2285bf5de0e0","07-mechanics/world3-water-kit.jsx":"402befadc370","08-brand/gravity-jelly-logo.js":"597a18d35b1e","prototypes/proto-engine.js":"6887737568ba","prototypes/proto-game.jsx":"75954a4bee0a","prototypes/proto-ui.jsx":"138d35a58082"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":4,"namespace":"GravityJellyDesignSystem_3e0487","components":[{"name":"JellyBlock","sourcePath":"02-foundations/01-jelly-block/JellyBlock.jsx"},{"name":"Eyes","sourcePath":"02-foundations/02-eyes/Eyes.jsx"},{"name":"Icon","sourcePath":"02-foundations/03-icon/Icon.jsx"},{"name":"Button","sourcePath":"03-components/01-button/Button.jsx"},{"name":"TrayPiece","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"Tray","sourcePath":"03-components/03-tray/Tray.jsx"},{"name":"GravityRotateButton","sourcePath":"03-components/04-gravity-rotate-button/GravityRotateButton.jsx"},{"name":"ComboPopup","sourcePath":"03-components/05-combo-popup/ComboPopup.jsx"},{"name":"Dialog","sourcePath":"03-components/06-dialog/Dialog.jsx"},{"name":"ObjectiveBar","sourcePath":"03-components/08-objective-bar/ObjectiveBar.jsx"},{"name":"BossMascot","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"ShieldBar","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossCard","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossIntroCard","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossToast","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossRule","sourcePath":"03-components/09-boss-hud/BossHud.jsx"},{"name":"BossHud","sourcePath":"03-components/09-boss-hud/BossHud.jsx"}],"sourceHashes":{"02-foundations/01-jelly-block/JellyBlock.jsx":"b841f9eee4f4","02-foundations/02-eyes/Eyes.jsx":"d4762b606971","02-foundations/03-icon/Icon.jsx":"a75a00c43bb6","03-components/01-button/Button.jsx":"ff24f7c456d7","03-components/03-tray/Tray.jsx":"e425b7cd5eed","03-components/04-gravity-rotate-button/GravityRotateButton.jsx":"09df27eb60e6","03-components/05-combo-popup/ComboPopup.jsx":"3430e5b0f130","03-components/06-dialog/Dialog.jsx":"d5e802d0a1db","03-components/08-objective-bar/ObjectiveBar.jsx":"ef07c5eb8e80","03-components/09-boss-hud/BossHud.jsx":"c7336202317f","04-screens/board-boss.jsx":"1ff56fe850eb","04-screens/board-campaign.jsx":"992c07b1d808","04-screens/board-design.jsx":"036d5578811f","04-screens/board.jsx":"5c744383c9f5","04-screens/boss-intro-screen.jsx":"5b7d158f2415","04-screens/cam-nang-illus.jsx":"e2e9c7f9d61f","04-screens/cam-nang-screen.jsx":"eb3f53b10b73","04-screens/daily-reward-screen.jsx":"0309b17c4056","04-screens/home-screen.jsx":"8543a930e4c4","04-screens/leaderboard-screen.jsx":"97e3c4dac363","04-screens/level-intro-screen.jsx":"1252c538acaf","04-screens/level-win-screen.jsx":"b88ddcf6bfa8","04-screens/missions-screen.jsx":"a2cb834bcb3d","04-screens/out-of-lives-screen.jsx":"c5661499a9aa","04-screens/pause-screen.jsx":"edd558af8897","04-screens/phone-frame.jsx":"18e22e60b390","04-screens/play/jelly-play.jsx":"06c4d9432b25","04-screens/result-screen.jsx":"775264ed1cbe","04-screens/screen-extras.jsx":"b6a2513dd24c","04-screens/settings-screen.jsx":"a5cbe4af2727","04-screens/shop-screen.jsx":"454bf4d67682","04-screens/splash-screen.jsx":"b36502be0325","04-screens/tweaks-panel.jsx":"6591467622ed","04-screens/world-gate-locked.jsx":"4d32d0ac3bad","04-screens/world-gate.jsx":"6db94465e8f2","04-screens/world1-strip.jsx":"17e4df86be2a","04-screens/world10-strip.jsx":"86352e2ce593","04-screens/world2-strip.jsx":"b92b423a099f","04-screens/world3-strip.jsx":"6e1f82a5232c","04-screens/world4-strip.jsx":"c71731aa5dd2","04-screens/world5-strip.jsx":"31ce848e45ea","04-screens/world6-strip.jsx":"3479dadec253","04-screens/world7-strip.jsx":"e0b64525e7fa","04-screens/world8-strip.jsx":"444f9855082e","04-screens/world9-strip.jsx":"aea09bf6b901","07-mechanics/mechanics-cards.js":"711cd9d74c93","07-mechanics/mechanics-kit.jsx":"f52efab2af43","07-mechanics/mechanics-widgets.jsx":"2285bf5de0e0","07-mechanics/world3-water-kit.jsx":"402befadc370","08-brand/gravity-jelly-logo.js":"597a18d35b1e","prototypes/proto-engine.js":"6887737568ba","prototypes/proto-game.jsx":"75954a4bee0a","prototypes/proto-ui.jsx":"138d35a58082"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
@@ -267,10 +267,12 @@ Object.assign(__ds_scope, { Eyes });
 try { (() => {
 /**
  * JellyBlock — the signature cell character: a rounded jelly cube with a
- * thick edge, glossy top sheen, and googly eyes that track gravity. Each
- * color carries a cute corner sticker (star / leaf / heart / droplet) so
- * blocks are recognizable by motif, not just hue. Also renders the
- * immovable "stone" cell.
+ * thick edge, glossy top sheen and a cute corner motif (star / leaf / heart
+ * / droplet). The four coloured blocks now render from full-bleed PNG art
+ * (frame, gloss and motif are baked into the image); we simply clip the
+ * square corners with a matching border-radius. Googly eyes are still
+ * overlaid on top so they can track gravity. The immovable "stone" cell is
+ * still drawn natively.
  */
 
 const PALETTE = {
@@ -300,6 +302,25 @@ const PALETTE = {
     shine: 'var(--color-stone-shine)'
   }
 };
+
+/* Resolve the design-system asset root from wherever _ds_bundle.js was
+   loaded, so block art resolves the same on component cards, the index
+   click-through, prototypes — any page depth. */
+const DS_ASSET_ROOT = (() => {
+  try {
+    const cur = typeof document !== 'undefined' && document.currentScript && document.currentScript.src || '';
+    const src = cur || (typeof document !== 'undefined' ? Array.from(document.querySelectorAll('script[src]')).map(s => s.src).find(u => /_ds_bundle\.js/.test(u)) : '') || '';
+    return src ? src.replace(/[^/]*_ds_bundle\.js.*$/, '') : '';
+  } catch (e) {
+    return '';
+  }
+})();
+const BLOCK_IMG = {
+  yellow: `${DS_ASSET_ROOT}06-svg-assets/blocks/jelly-yellow.jpg`,
+  mint: `${DS_ASSET_ROOT}06-svg-assets/blocks/jelly-mint.jpg`,
+  pink: `${DS_ASSET_ROOT}06-svg-assets/blocks/jelly-pink.jpg`,
+  blue: `${DS_ASSET_ROOT}06-svg-assets/blocks/jelly-blue.jpg`
+};
 function JellyBlock({
   color = 'yellow',
   size = 36,
@@ -315,105 +336,66 @@ function JellyBlock({
 }) {
   const pal = PALETTE[color] || PALETTE.yellow;
   const isStone = color === 'stone';
-  const r = Math.max(6, Math.round(size * 0.28));
+  const r = Math.max(6, Math.round(size * 0.20));
   // Every block stays fully rounded on all four corners — never squared.
   const radius = `${r}px`;
   const squash = squashed ? 'scale(1.08, 0.86)' : 'scale(1)';
+  const base = {
+    width: size,
+    height: size,
+    borderRadius: radius,
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxSizing: 'border-box',
+    overflow: 'hidden',
+    boxShadow: clearing ? `0 0 0 4px ${pal.shine}, var(--shadow-md)` : 'var(--shadow-sm)',
+    transform: clearing ? `${squash} scale(1.12)` : squash,
+    opacity: clearing ? 0 : 1,
+    filter: clearing ? 'brightness(1.6)' : 'none',
+    transition: 'transform var(--motion-fast,150ms) var(--ease-jelly,ease), opacity var(--motion-base,250ms) var(--ease-out,ease), filter var(--motion-base,250ms) var(--ease-out,ease)',
+    ...style
+  };
+
+  // Stone: immovable cell — still drawn natively (no art supplied).
+  if (isStone) {
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        ...base,
+        background: pal.fill,
+        border: `var(--border-jelly, 3px) solid ${pal.edge}`
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: 2,
+        left: '12%',
+        right: '12%',
+        height: '34%',
+        background: pal.shine,
+        borderRadius: '50%',
+        opacity: 0.85,
+        filter: 'blur(0.5px)',
+        pointerEvents: 'none'
+      }
+    }), /*#__PURE__*/React.createElement(StoneFace, {
+      size: size
+    }));
+  }
+
+  // Coloured jelly blocks — full-bleed art, corners clipped by border-radius.
   return /*#__PURE__*/React.createElement("div", {
     style: {
-      width: size,
-      height: size,
-      borderRadius: radius,
-      background: pal.fill,
-      border: `var(--border-jelly, 3px) solid ${pal.edge}`,
-      boxShadow: clearing ? `0 0 0 4px ${pal.shine}, var(--shadow-md)` : 'var(--shadow-sm)',
-      position: 'relative',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: Math.round(size * 0.04),
-      boxSizing: 'border-box',
-      overflow: 'hidden',
-      transform: clearing ? `${squash} scale(1.12)` : squash,
-      opacity: clearing ? 0 : 1,
-      filter: clearing ? 'brightness(1.6)' : 'none',
-      transition: 'transform var(--motion-fast,150ms) var(--ease-jelly,ease), opacity var(--motion-base,250ms) var(--ease-out,ease), filter var(--motion-base,250ms) var(--ease-out,ease)',
-      ...style
+      ...base,
+      background: `url("${BLOCK_IMG[color] || BLOCK_IMG.yellow}") center / cover no-repeat, ${pal.fill}`
     }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      top: 2,
-      left: '12%',
-      right: '12%',
-      height: '34%',
-      background: pal.shine,
-      borderRadius: '50%',
-      opacity: 0.85,
-      filter: 'blur(0.5px)',
-      pointerEvents: 'none'
-    }
-  }), isStone ? /*#__PURE__*/React.createElement(StoneFace, {
-    size: size
-  }) : showEyes && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(__ds_scope.Eyes, {
+  }, showEyes && /*#__PURE__*/React.createElement(__ds_scope.Eyes, {
     direction: direction,
     blockSize: size,
     open: !squashed && !blink,
     expression: expression
-  }), !squashed && /*#__PURE__*/React.createElement(Sticker, {
-    color: color,
-    size: size
-  })));
-}
-
-/* Each color carries its own cute sticker — a little decal in the top
-   corner so blocks are recognizable by motif, not just hue (and friendlier
-   for colorblind play). Star / clover-leaf / heart / droplet. */
-function Sticker({
-  color = 'yellow',
-  size = 36
-}) {
-  const pal = PALETTE[color] || PALETTE.yellow;
-  const s = Math.round(size * 0.36);
-  const glyph = {
-    yellow: /*#__PURE__*/React.createElement("path", {
-      d: "M12 2.4l2.7 5.9 6.4.6-4.8 4.3 1.4 6.3L12 16.4 6.3 19.5l1.4-6.3L2.9 8.9l6.4-.6z"
-    }),
-    /* star */
-    mint: /*#__PURE__*/React.createElement("path", {
-      d: "M5 19c0-8 6-14 14-14 0 8-6 14-14 14zm3.5-3.5C13 14 16 11 17 7"
-    }),
-    /* leaf */
-    pink: /*#__PURE__*/React.createElement("path", {
-      d: "M12 20.7l-1.5-1.4C5.4 14.6 2 11.5 2 7.8 2 5.1 4.1 3 6.8 3 8.3 3 9.8 3.8 12 6 14.2 3.8 15.7 3 17.2 3 19.9 3 22 5.1 22 7.8c0 3.7-3.4 6.8-8.5 11.5z"
-    }),
-    /* heart */
-    blue: /*#__PURE__*/React.createElement("path", {
-      d: "M12 3.2c4 5 6 8 6 11a6 6 0 1 1-12 0c0-3 2-6 6-11z"
-    }) /* droplet */
-  }[color];
-  if (!glyph) return null;
-  const stroked = color === 'mint';
-  return /*#__PURE__*/React.createElement("svg", {
-    width: s,
-    height: s,
-    viewBox: "0 0 24 24",
-    "aria-hidden": "true",
-    style: {
-      position: 'absolute',
-      top: Math.round(size * 0.07),
-      right: Math.round(size * 0.07),
-      transform: 'rotate(-12deg)',
-      fill: stroked ? 'none' : pal.shine,
-      stroke: pal.edge,
-      strokeWidth: stroked ? 2.2 : 1.6,
-      strokeLinejoin: 'round',
-      strokeLinecap: 'round',
-      filter: 'drop-shadow(0 1px 0.5px rgba(90,70,54,0.25))',
-      pointerEvents: 'none'
-    }
-  }, glyph);
+  }));
 }
 
 /* Stone cells get a couple of pebble notches instead of a face. */
@@ -736,132 +718,6 @@ function Button({
 }
 Object.assign(__ds_scope, { Button });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "03-components/01-button/Button.jsx", error: String((e && e.message) || e) }); }
-
-// 03-components/02-hud/Hud.jsx
-try { (() => {
-/**
- * Hud — the 56dp top status bar: live score on the left, a gravity-direction
- * indicator in the center, and a round pause button on the right.
- */
-
-const ARROW = {
-  down: '180deg',
-  up: '0deg',
-  left: '270deg',
-  right: '90deg'
-};
-function GravityIndicator({
-  direction = 'down'
-}) {
-  return /*#__PURE__*/React.createElement("div", {
-    title: "H\u01B0\u1EDBng tr\u1ECDng l\u1EF1c",
-    style: {
-      display: 'inline-flex',
-      flexShrink: 0,
-      alignItems: 'center',
-      gap: 'var(--space-xs)',
-      height: 36,
-      padding: '0 var(--space-md)',
-      borderRadius: 'var(--radius-full)',
-      background: 'var(--color-gravity)',
-      boxShadow: `0 3px 0 var(--color-gravity-edge)`,
-      color: 'var(--color-text-invert)'
-    }
-  }, /*#__PURE__*/React.createElement("svg", {
-    width: "18",
-    height: "18",
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: "2.6",
-    strokeLinecap: "round",
-    strokeLinejoin: "round",
-    style: {
-      transform: `rotate(${ARROW[direction] || '180deg'})`,
-      transition: 'transform var(--motion-medium) var(--ease-inout)'
-    }
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M12 4v15M6 13l6 6 6-6"
-  })), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontFamily: 'var(--font-display)',
-      fontWeight: 'var(--weight-semibold)',
-      fontSize: 'var(--text-label)',
-      letterSpacing: 'var(--tracking-wide)',
-      whiteSpace: 'nowrap',
-      lineHeight: 1
-    }
-  }, "TR\u1ECCNG L\u1EF0C"));
-}
-function Hud({
-  score = 0,
-  best = null,
-  direction = 'down',
-  onPause,
-  style = {}
-}) {
-  return /*#__PURE__*/React.createElement("div", {
-    style: {
-      height: 'var(--dim-hud-h)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      gap: 'var(--space-md)',
-      padding: '0 var(--space-lg)',
-      boxSizing: 'border-box',
-      ...style
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      minWidth: 84
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontFamily: 'var(--font-body)',
-      fontSize: 'var(--text-caption)',
-      fontWeight: 'var(--weight-bold)',
-      color: 'var(--color-text-muted)',
-      letterSpacing: 'var(--tracking-wide)',
-      lineHeight: 1
-    }
-  }, "\u0110I\u1EC2M"), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontFamily: 'var(--font-display)',
-      fontSize: 'var(--text-score)',
-      fontWeight: 'var(--weight-bold)',
-      color: 'var(--color-text)',
-      lineHeight: 1.1
-    }
-  }, score.toLocaleString('vi-VN'))), /*#__PURE__*/React.createElement(GravityIndicator, {
-    direction: direction
-  }), /*#__PURE__*/React.createElement("button", {
-    type: "button",
-    onClick: onPause,
-    "aria-label": "T\u1EA1m d\u1EEBng",
-    style: {
-      width: 'var(--dim-icon-btn)',
-      height: 'var(--dim-icon-btn)',
-      borderRadius: 'var(--radius-lg)',
-      border: 'var(--border-thin) solid #ECDFC9',
-      background: 'var(--color-surface)',
-      color: 'var(--color-text)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      boxShadow: 'var(--shadow-sm)',
-      cursor: 'pointer',
-      flexShrink: 0
-    }
-  }, /*#__PURE__*/React.createElement(__ds_scope.Icon, {
-    name: "pause",
-    size: 22
-  })));
-}
-Object.assign(__ds_scope, { Hud });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "03-components/02-hud/Hud.jsx", error: String((e && e.message) || e) }); }
 
 // 03-components/03-tray/Tray.jsx
 try { (() => {
@@ -2160,7 +2016,8 @@ function movesStars(goal) {
 // canonical special-block art from the design system's SVG assets.
 function BlockGlyph({
   src,
-  size = 32
+  size = 32,
+  radius = 0
 }) {
   return /*#__PURE__*/React.createElement("span", {
     style: {
@@ -2178,6 +2035,7 @@ function BlockGlyph({
     alt: "",
     style: {
       display: 'block',
+      borderRadius: radius || undefined,
       filter: 'drop-shadow(0 1px 2px rgba(120,92,52,0.2))'
     }
   }));
@@ -2217,8 +2075,9 @@ function TutorialGlyph({
       }));
     case 'super1':
       return /*#__PURE__*/React.createElement(BlockGlyph, {
-        src: `${blockBase}super-pink-1.svg`,
-        size: 32
+        src: `${blockBase.replace('blocks/', 'ui/')}hoanggia-pink.jpg`,
+        size: 32,
+        radius: 6
       });
     case 'super2':
       return /*#__PURE__*/React.createElement(BlockGlyph, {
@@ -3233,7 +3092,7 @@ try { (() => {
   } = NS;
   const EX = window.GJExtras;
   const P = window.GJBoardParts;
-  const BG_SRC = '../06-svg-assets/backgrounds/meadow-bg.png';
+  const BG_SRC = '../06-svg-assets/backgrounds/meadow-bg.jpg';
   const CARD_SRC = '../06-svg-assets/ui/score-card.svg';
   function StatCard({
     label,
@@ -3672,7 +3531,7 @@ try { (() => {
   } = NS;
   const EX = window.GJExtras;
   const P = window.GJBoardParts;
-  const BG_SRC = '../06-svg-assets/backgrounds/meadow-bg.png';
+  const BG_SRC = '../06-svg-assets/backgrounds/meadow-bg.jpg';
   const CARD_SRC = '../06-svg-assets/ui/score-card.svg';
 
   /* Reuse the cream score-card art for any labelled stat (here: LƯỢT). Turns
@@ -4028,7 +3887,7 @@ try { (() => {
     Eyes
   } = NS;
   const Board = window.GJBoard;
-  const BG_SRC = '../06-svg-assets/backgrounds/meadow-bg.png';
+  const BG_SRC = '../06-svg-assets/backgrounds/meadow-bg.jpg';
   const PAL = {
     yellow: {
       fill: '#FFE3A3',
@@ -4634,7 +4493,7 @@ try { (() => {
           style: {
             width: cell,
             height: cell,
-            borderRadius: Math.max(6, Math.round(cell * 0.28)),
+            borderRadius: Math.max(6, Math.round(cell * 0.20)),
             background: 'var(--color-cell-empty)',
             boxShadow: 'inset 0 0 0 1px var(--color-cell-line)'
           }
@@ -4884,6 +4743,82 @@ try { (() => {
     S: 'stone'
   };
 
+  /* Vua Thạch (Jelly King) royal-frame art — crowned jelly panel per colour,
+     gem = that colour's emblem (star/leaf/heart/drop). Supplied PNG art. */
+  const VUATHACH_SRC = {
+    yellow: '../06-svg-assets/ui/vuathach-yellow.jpg',
+    mint: '../06-svg-assets/ui/vuathach-mint.jpg',
+    pink: '../06-svg-assets/ui/vuathach-pink.jpg',
+    blue: '../06-svg-assets/ui/vuathach-blue.jpg'
+  };
+  function VuaThach({
+    color = 'blue',
+    size = 52
+  }) {
+    return /*#__PURE__*/React.createElement("img", {
+      src: VUATHACH_SRC[color] || VUATHACH_SRC.blue,
+      alt: "Vua Th\u1EA1ch",
+      style: {
+        width: size,
+        height: size,
+        display: 'block',
+        borderRadius: Math.round(size * 0.20),
+        boxShadow: '0 2px 5px var(--color-shadow-soft)'
+      }
+    });
+  }
+
+  /* Thạch Hoàng Gia (Royal Jelly, cấp 1) — royal-frame PNG art per colour.
+     (Repurposed from the royal art; own copy so a later Vua Thạch swap is isolated.) */
+  const HOANGGIA_SRC = {
+    yellow: '../06-svg-assets/ui/hoanggia-yellow.jpg',
+    mint: '../06-svg-assets/ui/hoanggia-mint.jpg',
+    pink: '../06-svg-assets/ui/hoanggia-pink.jpg',
+    blue: '../06-svg-assets/ui/hoanggia-blue.jpg'
+  };
+  function HoangGia({
+    color = 'pink',
+    size = 52
+  }) {
+    return /*#__PURE__*/React.createElement("img", {
+      src: HOANGGIA_SRC[color] || HOANGGIA_SRC.pink,
+      alt: "Th\u1EA1ch Ho\xE0ng Gia",
+      style: {
+        width: size,
+        height: size,
+        display: 'block',
+        borderRadius: Math.round(size * 0.20),
+        boxShadow: '0 2px 5px var(--color-shadow-soft)'
+      }
+    });
+  }
+
+  /* Thạch Cầu Vồng (Rainbow Jelly) + Hoàng Đế Cầu Vồng (Rainbow Emperor) —
+     supplied PNG art. kind: 'rainbow' (sparkle) | 'emperor' (crowned). */
+  const RAINBOW_SRC = {
+    rainbow: '../06-svg-assets/ui/rainbow.jpg',
+    emperor: '../06-svg-assets/ui/rainbowemperor.jpg'
+  };
+  function RainbowJelly({
+    kind = 'rainbow',
+    size = 52
+  }) {
+    const src = RAINBOW_SRC[kind] || RAINBOW_SRC.rainbow;
+    const alt = kind === 'emperor' ? 'Hoàng Đế Cầu Vồng' : 'Thạch Cầu Vồng';
+    // both are opaque full-bleed squares now — clip corners with border-radius.
+    return /*#__PURE__*/React.createElement("img", {
+      src: src,
+      alt: alt,
+      style: {
+        width: size,
+        height: size,
+        display: 'block',
+        borderRadius: Math.round(size * 0.20),
+        boxShadow: '0 2px 5px var(--color-shadow-soft)'
+      }
+    });
+  }
+
   /* one 9-or-smaller grid drawn in the sunken board well. `rows` is an array
      of strings; chars: '.' empty · Y/M/P/B/S jelly · lowercase = same block
      but dimmed (faded, for "swept away" after-states). */
@@ -4912,7 +4847,7 @@ try { (() => {
           style: {
             width: cell,
             height: cell,
-            borderRadius: Math.round(cell * 0.28),
+            borderRadius: Math.round(cell * 0.20),
             background: 'var(--color-cell-empty)',
             boxShadow: 'inset 0 0 0 1.5px var(--color-cell-line)'
           }
@@ -5249,10 +5184,9 @@ try { (() => {
       rows: ['PPP', 'PPP', 'PPP']
     })), /*#__PURE__*/React.createElement(Flow, null), /*#__PURE__*/React.createElement(Stage, {
       label: "Th\u1EA1ch Ho\xE0ng Gia"
-    }, /*#__PURE__*/React.createElement(SpecialBlock, {
-      type: "super",
+    }, /*#__PURE__*/React.createElement(HoangGia, {
       color: "pink",
-      size: 46
+      size: 56
     }))),
     rainbow: () => /*#__PURE__*/React.createElement(Wrap, null, /*#__PURE__*/React.createElement(Stage, {
       label: "3\xD73 \u0111\u1EE7 ba m\xE0u"
@@ -5261,9 +5195,9 @@ try { (() => {
       rows: ['YYY', 'MMM', 'BBB']
     })), /*#__PURE__*/React.createElement(Flow, null), /*#__PURE__*/React.createElement(Stage, {
       label: "Th\u1EA1ch C\u1EA7u V\u1ED3ng"
-    }, /*#__PURE__*/React.createElement(SpecialBlock, {
-      type: "rainbow",
-      size: 46
+    }, /*#__PURE__*/React.createElement(RainbowJelly, {
+      kind: "rainbow",
+      size: 62
     }))),
     superL2: () => /*#__PURE__*/React.createElement(Wrap, null, /*#__PURE__*/React.createElement(Stage, {
       label: "2 Th\u1EA1ch Ho\xE0ng Gia"
@@ -5272,21 +5206,17 @@ try { (() => {
         display: 'flex',
         gap: 4
       }
-    }, /*#__PURE__*/React.createElement(SpecialBlock, {
-      type: "super",
+    }, /*#__PURE__*/React.createElement(HoangGia, {
       color: "blue",
-      size: 36
-    }), /*#__PURE__*/React.createElement(SpecialBlock, {
-      type: "super",
+      size: 46
+    }), /*#__PURE__*/React.createElement(HoangGia, {
       color: "blue",
-      size: 36
+      size: 46
     }))), /*#__PURE__*/React.createElement(Flow, null), /*#__PURE__*/React.createElement(Stage, {
       label: "Vua Th\u1EA1ch"
-    }, /*#__PURE__*/React.createElement(SpecialBlock, {
-      type: "super",
+    }, /*#__PURE__*/React.createElement(VuaThach, {
       color: "blue",
-      size: 48,
-      lvl: 2
+      size: 62
     }))),
     rainbowSuper: () => /*#__PURE__*/React.createElement(Wrap, null, /*#__PURE__*/React.createElement(Stage, {
       label: "2 k\xEDp n\u1ED5"
@@ -5295,23 +5225,18 @@ try { (() => {
         display: 'flex',
         gap: 4
       }
-    }, /*#__PURE__*/React.createElement(SpecialBlock, {
-      type: "rainbow",
-      size: 34
-    }), /*#__PURE__*/React.createElement(SpecialBlock, {
-      type: "super",
+    }, /*#__PURE__*/React.createElement(RainbowJelly, {
+      kind: "rainbow",
+      size: 40
+    }), /*#__PURE__*/React.createElement(HoangGia, {
       color: "yellow",
-      size: 34
+      size: 40
     }))), /*#__PURE__*/React.createElement(Flow, null), /*#__PURE__*/React.createElement(Stage, {
       label: "Ho\xE0ng \u0110\u1EBF C\u1EA7u V\u1ED3ng"
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        paddingTop: 12
-      }
-    }, /*#__PURE__*/React.createElement(SpecialBlock, {
-      type: "crown",
-      size: 48
-    })))),
+    }, /*#__PURE__*/React.createElement(RainbowJelly, {
+      kind: "emperor",
+      size: 62
+    }))),
     blastSuper: () => /*#__PURE__*/React.createElement(Wrap, null, /*#__PURE__*/React.createElement(Stage, {
       label: "Qu\xE9t to\xE0n b\xE0n"
     }, /*#__PURE__*/React.createElement(MiniBoard, {
@@ -5434,7 +5359,10 @@ try { (() => {
   window.GJCamNangIllus = {
     Illus,
     MiniBoard,
-    SpecialBlock
+    SpecialBlock,
+    HoangGia,
+    VuaThach,
+    RainbowJelly
   };
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "04-screens/cam-nang-illus.jsx", error: String((e && e.message) || e) }); }
@@ -5457,7 +5385,10 @@ try { (() => {
   const {
     Illus,
     MiniBoard,
-    SpecialBlock
+    SpecialBlock,
+    HoangGia,
+    VuaThach,
+    RainbowJelly
   } = window.GJCamNangIllus;
 
   // Shared card look — drawn natively (no image). White surface, soft candy
@@ -5914,43 +5845,25 @@ try { (() => {
           rows: ['.MM.', 'MMM.', '.M.S']
         }));
       case 'rainbow':
-        return /*#__PURE__*/React.createElement(ThumbWell, null, /*#__PURE__*/React.createElement(MiniBoard, {
-          cell: 15,
-          rows: ['YYY', 'MMM', 'BBB']
+        return /*#__PURE__*/React.createElement(ThumbWell, null, /*#__PURE__*/React.createElement(RainbowJelly, {
+          kind: "rainbow",
+          size: 52
         }));
       case 'super':
-        return /*#__PURE__*/React.createElement(ThumbWell, {
-          tint: "var(--color-block-pink-shine)"
-        }, /*#__PURE__*/React.createElement(SpecialBlock, {
-          type: "super",
+        return /*#__PURE__*/React.createElement(ThumbWell, null, /*#__PURE__*/React.createElement(HoangGia, {
           color: "pink",
           size: 52
         }));
       case 'superL2':
-        return /*#__PURE__*/React.createElement(ThumbWell, null, /*#__PURE__*/React.createElement("div", {
-          style: {
-            display: 'flex',
-            gap: 4
-          }
-        }, /*#__PURE__*/React.createElement(SpecialBlock, {
-          type: "super",
+        return /*#__PURE__*/React.createElement(ThumbWell, null, /*#__PURE__*/React.createElement(VuaThach, {
           color: "blue",
-          size: 34
-        }), /*#__PURE__*/React.createElement(SpecialBlock, {
-          type: "super",
-          color: "blue",
-          size: 34,
-          lvl: 2
-        })));
+          size: 52
+        }));
       case 'rainbowSuper':
-        return /*#__PURE__*/React.createElement(ThumbWell, null, /*#__PURE__*/React.createElement("div", {
-          style: {
-            paddingTop: 10
-          }
-        }, /*#__PURE__*/React.createElement(SpecialBlock, {
-          type: "crown",
-          size: 44
-        })));
+        return /*#__PURE__*/React.createElement(ThumbWell, null, /*#__PURE__*/React.createElement(RainbowJelly, {
+          kind: "emperor",
+          size: 52
+        }));
       case 'blastSuper':
         return /*#__PURE__*/React.createElement(ThumbWell, null, /*#__PURE__*/React.createElement(MiniBoard, {
           cell: 13,
@@ -5970,23 +5883,18 @@ try { (() => {
             alignItems: 'center',
             gap: 6
           }
-        }, /*#__PURE__*/React.createElement(SpecialBlock, {
-          type: "rainbow",
-          size: 38
+        }, /*#__PURE__*/React.createElement(RainbowJelly, {
+          kind: "rainbow",
+          size: 44
         }), /*#__PURE__*/React.createElement(MiniBoard, {
           cell: 13,
           rows: ['Y', 'M', 'B']
         })));
       case 'blastRainbowSuper':
-        return /*#__PURE__*/React.createElement(ThumbWell, null, /*#__PURE__*/React.createElement("div", {
-          style: {
-            paddingTop: 10
-          }
-        }, /*#__PURE__*/React.createElement(SpecialBlock, {
-          type: "crown",
-          color: "pink",
-          size: 42
-        })));
+        return /*#__PURE__*/React.createElement(ThumbWell, null, /*#__PURE__*/React.createElement(RainbowJelly, {
+          kind: "emperor",
+          size: 50
+        }));
       case 'comboTurn':
         return /*#__PURE__*/React.createElement(ThumbWell, {
           tint: "var(--color-block-blue-shine)"
@@ -6508,7 +6416,7 @@ try { (() => {
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
-        background: 'url(../06-svg-assets/backgrounds/cam-nang-bg.png) center top / cover no-repeat, var(--color-bg)'
+        background: 'url(../06-svg-assets/backgrounds/cam-nang-bg.jpg) center top / cover no-repeat, var(--color-bg)'
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -6915,9 +6823,9 @@ try { (() => {
     Icon
   } = NS;
   const BG_BY_WORLD = {
-    1: '../06-svg-assets/backgrounds/home-world-1-bg.png',
-    2: '../06-svg-assets/backgrounds/home-world-2-bg.png',
-    3: '../06-svg-assets/backgrounds/home-world-3-bg.png'
+    1: '../06-svg-assets/backgrounds/home-world-1-bg.jpg',
+    2: '../06-svg-assets/backgrounds/home-world-2-bg.jpg',
+    3: '../06-svg-assets/backgrounds/home-world-3-bg.jpg'
   };
   const BG = BG_BY_WORLD[1];
   const PANEL = '../06-svg-assets/ui/home-panel.png';
@@ -7351,7 +7259,7 @@ try { (() => {
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 /* leaderboard-screen.jsx — LEADERBOARD. Single GLOBAL Endless board (no
    friends system, no user avatars). Top-3 podium is the SUPPLIED PNG ART
-   `06-svg-assets/backgrounds/leaderboard-podium-bg.png` (candy podium with
+   `06-svg-assets/backgrounds/leaderboard-podium-bg.jpg` (candy podium with
    gold/silver/bronze frames baked in) — names + scores are overlaid inside
    the three empty frames. Below: rank rows, pinned tangerine "you" row with
    inline name-edit. Exposes window.GJLeaderboardScreen. */
@@ -7361,7 +7269,7 @@ function _extends() { return _extends = Object.assign ? Object.assign.bind() : f
   const {
     Icon
   } = NS;
-  const BG_SRC = '../06-svg-assets/backgrounds/leaderboard-podium-bg.png';
+  const BG_SRC = '../06-svg-assets/backgrounds/leaderboard-podium-bg.jpg';
 
   // ink colors matched to the art's three frame tints (gold / periwinkle / pink)
   const INK = {
@@ -9913,7 +9821,6 @@ try { (() => {
   const NS = window.GravityJellyDesignSystem_3e0487;
   const {
     JellyBlock,
-    Hud,
     GravityRotateButton,
     ComboPopup,
     Dialog,
@@ -10531,11 +10438,56 @@ try { (() => {
         opacity: 0.3,
         filter: 'blur(3px)'
       }
-    }))), /*#__PURE__*/React.createElement(Hud, {
-      score: score,
-      direction: dir,
-      onPause: () => setPaused(true)
-    }), /*#__PURE__*/React.createElement("div", {
+    }))), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        zIndex: 1,
+        height: 'var(--dim-hud-h)',
+        flexShrink: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '0 var(--space-lg)'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontFamily: 'var(--font-display)',
+        fontWeight: 800,
+        fontSize: 'var(--text-score)',
+        color: 'var(--color-text)'
+      }
+    }, score), /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      onClick: () => setPaused(true),
+      "aria-label": "T\u1EA1m d\u1EEBng",
+      style: {
+        width: 44,
+        height: 44,
+        borderRadius: '50%',
+        border: 'none',
+        background: 'var(--color-surface)',
+        boxShadow: '0 4px 0 #E9D7BA, 0 8px 14px -6px var(--color-shadow-key)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        cursor: 'pointer',
+        gap: 4
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        width: 5,
+        height: 16,
+        borderRadius: 2,
+        background: 'var(--color-gravity)'
+      }
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        width: 5,
+        height: 16,
+        borderRadius: 2,
+        background: 'var(--color-gravity)'
+      }
+    }))), /*#__PURE__*/React.createElement("div", {
       ref: areaRef,
       style: {
         position: 'relative',
@@ -15031,7 +14983,7 @@ try { (() => {
    ----------------------------------------------------------------
    Pure artboard: 360 × 1080dp, NO HUD (the HUD is a separate sticky
    layer added by the screen shell). The scenery + winding road are a
-   single painted PNG backdrop (06-svg-assets/backgrounds/world1-map-bg.png,
+   single painted PNG backdrop (06-svg-assets/backgrounds/world1-map-bg.jpg,
    724×2172 → exact 1:3, so no distortion at 360 wide). We no longer draw
    trees/bushes/path in SVG — we just DROP the ten level nodes onto the
    painted trail. Reads bottom→top:
@@ -15050,7 +15002,7 @@ try { (() => {
   const {
     JellyBlock
   } = NS;
-  const BG_SRC = '../06-svg-assets/backgrounds/world1-map-bg-v3.png';
+  const BG_SRC = '../06-svg-assets/backgrounds/world1-map-bg-v3.jpg';
   const LOCK_SRC = '../06-svg-assets/ui/locked-tile.png';
   const OPEN_SRC = '../06-svg-assets/ui/unlocked-tile.png';
   const DONE_SRC = '../06-svg-assets/ui/completed-tile.png';
@@ -17396,7 +17348,7 @@ try { (() => {
    ----------------------------------------------------------------
    Same approach as World 1: pure painted artboard 360 × 1280dp, NO HUD.
    The scenery + winding jungle road + locked gate are a single painted
-   PNG backdrop (06-svg-assets/backgrounds/world2-map-bg-v3.png, 665×2365
+   PNG backdrop (06-svg-assets/backgrounds/world2-map-bg-v3.jpg, 665×2365
    → exact 1:~3.55, scaled to 360 wide = 360×1280, no distortion). We do
    NOT draw trees/bushes/path in SVG — we just DROP the ten level nodes
    onto the painted trail. Reads bottom→top:
@@ -17411,7 +17363,7 @@ try { (() => {
    Reuses DS tokens & tile art. Exposes window.GJWorld2Strip.
    ---------------------------------------------------------------- */
 (function () {
-  const BG_SRC = '../06-svg-assets/backgrounds/world2-map-bg-v3.png';
+  const BG_SRC = '../06-svg-assets/backgrounds/world2-map-bg-v3.jpg';
   const LOCK_SRC = '../06-svg-assets/ui/locked-tile.png';
   const OPEN_SRC = '../06-svg-assets/ui/unlocked-tile.png';
   const DONE_SRC = '../06-svg-assets/ui/completed-tile.png';
@@ -18048,7 +18000,7 @@ try { (() => {
    ----------------------------------------------------------------
    Same approach as World 2: pure painted artboard 360 × 1280dp, NO HUD.
    The scenery + winding river road + locked gate are a single painted
-   PNG backdrop (06-svg-assets/backgrounds/world3-map-bg.png, 665×2365
+   PNG backdrop (06-svg-assets/backgrounds/world3-map-bg.jpg, 665×2365
    → exact 1:~3.556, scaled to 360 wide = 360×1280, no distortion). We do
    NOT draw rocks/waterfalls/path in SVG — we just DROP the ten level nodes
    onto the painted trail. Reads bottom→top:
@@ -18063,7 +18015,7 @@ try { (() => {
    Reuses DS tokens & tile art. Exposes window.GJWorld3Strip.
    ---------------------------------------------------------------- */
 (function () {
-  const BG_SRC = '../06-svg-assets/backgrounds/world3-map-bg.png';
+  const BG_SRC = '../06-svg-assets/backgrounds/world3-map-bg.jpg';
   const LOCK_SRC = '../06-svg-assets/ui/locked-tile.png';
   const OPEN_SRC = '../06-svg-assets/ui/unlocked-tile.png';
   const DONE_SRC = '../06-svg-assets/ui/completed-tile.png';
@@ -18694,7 +18646,7 @@ try { (() => {
    ----------------------------------------------------------------
    Same approach as Worlds 1–3: pure painted artboard 360 × 1080dp, NO HUD.
    The scenery + winding sand road + locked gate are a single painted PNG
-   backdrop (06-svg-assets/backgrounds/world4-map-bg.png, 724×2172 → exact
+   backdrop (06-svg-assets/backgrounds/world4-map-bg.jpg, 724×2172 → exact
    1:3, scaled to 360 wide = 360×1080, no distortion). We do NOT draw
    dunes/cacti/path in SVG — we just DROP the ten level nodes onto the
    painted trail. Reads bottom→top:
@@ -18709,7 +18661,7 @@ try { (() => {
    Reuses DS tokens & tile art. Exposes window.GJWorld4Strip.
    ---------------------------------------------------------------- */
 (function () {
-  const BG_SRC = '../06-svg-assets/backgrounds/world4-map-bg.png';
+  const BG_SRC = '../06-svg-assets/backgrounds/world4-map-bg.jpg';
   const LOCK_SRC = '../06-svg-assets/ui/locked-tile.png';
   const OPEN_SRC = '../06-svg-assets/ui/unlocked-tile.png';
   const DONE_SRC = '../06-svg-assets/ui/completed-tile.png';
@@ -18728,71 +18680,90 @@ try { (() => {
   // the painted path centerline of world4-map-bg.png.
   const NODES = [{
     id: 31,
-    x: 184,
-    y: 1005,
+    x: 190,
+    y: 1000,
     kind: 'reg',
     state: 'done',
     stars: 3,
     color: 'yellow'
-  }, {
+  },
+  // R bend
+  {
     id: 32,
-    x: 216,
-    y: 915,
+    x: 158,
+    y: 888,
     kind: 'reg',
     state: 'done',
     stars: 3,
     color: 'pink'
-  }, {
+  },
+  // L bend
+  {
     id: 33,
-    x: 191,
-    y: 820,
+    x: 205,
+    y: 800,
     kind: 'reg',
     state: 'done',
     stars: 2,
     color: 'mint'
-  }, {
+  },
+  // R bend
+  {
     id: 34,
-    x: 166,
-    y: 725,
+    x: 136,
+    y: 707,
     kind: 'reg',
     state: 'open'
-  }, {
+  },
+  // L bend
+  {
     id: 35,
-    x: 166,
-    y: 640,
+    x: 240,
+    y: 612,
     kind: 'reg',
     state: 'locked'
-  }, {
+  },
+  // R bend
+  {
     id: 36,
-    x: 172,
-    y: 555,
+    x: 132,
+    y: 519,
     kind: 'breather',
     state: 'locked'
-  }, {
+  },
+  // L bend
+  {
     id: 37,
-    x: 209,
-    y: 460,
+    x: 244,
+    y: 456,
     kind: 'reg',
     state: 'locked'
-  }, {
+  },
+  // R bend (deep)
+  {
     id: 38,
-    x: 174,
-    y: 360,
+    x: 130,
+    y: 382,
     kind: 'reg',
     state: 'locked'
-  }, {
+  },
+  // L bend
+  {
     id: 39,
-    x: 158,
-    y: 272,
+    x: 210,
+    y: 306,
     kind: 'reg',
     state: 'locked'
-  }, {
+  },
+  // R bend
+  {
     id: 40,
-    x: 175,
-    y: 205,
+    x: 151,
+    y: 240,
     kind: 'boss',
     state: 'locked'
-  }];
+  } // road → gate
+  ];
 
   // ─── Stars ────────────────────────────────────────────────────────────
   function Star({
@@ -19309,7 +19280,68 @@ try { (() => {
     }), /*#__PURE__*/React.createElement(GateChip, null), NODES.map(n => /*#__PURE__*/React.createElement(PlaceNode, {
       key: n.id,
       node: n
-    })), /*#__PURE__*/React.createElement(StartSign, null));
+    })), /*#__PURE__*/React.createElement(StartSign, null), window.__gjGrid !== false && /*#__PURE__*/React.createElement(DebugGrid, null));
+  }
+  function DebugGrid() {
+    const lines = [];
+    for (let y = 0; y <= H; y += 40) {
+      lines.push(/*#__PURE__*/React.createElement("div", {
+        key: 'h' + y,
+        style: {
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: y,
+          height: 1,
+          background: y % 200 === 0 ? 'rgba(200,0,0,0.55)' : 'rgba(0,0,0,0.22)'
+        }
+      }));
+      lines.push(/*#__PURE__*/React.createElement("div", {
+        key: 'hy' + y,
+        style: {
+          position: 'absolute',
+          left: 2,
+          top: y + 1,
+          fontSize: 9,
+          fontFamily: 'monospace',
+          color: '#B00',
+          fontWeight: 700
+        }
+      }, y));
+    }
+    for (let x = 0; x <= W; x += 40) {
+      lines.push(/*#__PURE__*/React.createElement("div", {
+        key: 'v' + x,
+        style: {
+          position: 'absolute',
+          top: 0,
+          bottom: 0,
+          left: x,
+          width: 1,
+          background: x % 80 === 0 ? 'rgba(0,0,200,0.4)' : 'rgba(0,0,0,0.18)'
+        }
+      }));
+      lines.push(/*#__PURE__*/React.createElement("div", {
+        key: 'vx' + x,
+        style: {
+          position: 'absolute',
+          top: 2,
+          left: x + 2,
+          fontSize: 9,
+          fontFamily: 'monospace',
+          color: '#00B',
+          fontWeight: 700
+        }
+      }, x));
+    }
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        inset: 0,
+        zIndex: 99,
+        pointerEvents: 'none'
+      }
+    }, lines);
   }
   window.GJWorld4Strip = World4Strip;
 })();
@@ -36263,8 +36295,6 @@ __ds_ns.Eyes = __ds_scope.Eyes;
 __ds_ns.Icon = __ds_scope.Icon;
 
 __ds_ns.Button = __ds_scope.Button;
-
-__ds_ns.Hud = __ds_scope.Hud;
 
 __ds_ns.TrayPiece = __ds_scope.TrayPiece;
 

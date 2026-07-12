@@ -9,7 +9,7 @@
   const NS = window.GravityJellyDesignSystem_3e0487;
   const { JellyBlock, Eyes } = NS;
   const Board = window.GJBoard;
-  const BG_SRC = '../06-svg-assets/backgrounds/meadow-bg.png';
+  const BG_SRC = '../06-svg-assets/backgrounds/meadow-bg.jpg';
 
   const PAL = {
     yellow: { fill: '#FFE3A3', edge: '#E8B85C', shine: '#FFF1CE' },

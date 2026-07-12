@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><style>
+  body{margin:0;background:#FFF7EC;font-family:system-ui;color:#5B4636;padding:24px}
+  h3{font-weight:700;margin:24px 0 8px;font-size:14px;letter-spacing:.04em;text-transform:uppercase;color:#9B886F}
+  .row{display:flex;gap:20px;align-items:flex-end;flex-wrap:wrap}
+  .cell{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px;color:#9B886F}
+  .board{background:#F4E9D8;border-radius:16px;padding:14px;display:inline-flex;gap:6px}
+  .board .box{background:#FBF3E4;border-radius:12px}
+  img{display:block}
+</style></head><body>
+  <h3>New Royal Lv1 vs normal — 100px</h3>
+  <div class="row" id="big"></div>
+  <h3>At play size — 48 / 34 / 32 / 28px (readability)</h3>
+  <div class="row" id="sizes"></div>
+  <h3>On a board — normal blocks with one royal dropped in (34px)</h3>
+  <div class="board" id="board"></div>
+<script>
+  const colors=['yellow','mint','pink','blue'];
+  const big=document.getElementById('big');
+  colors.forEach(c=>{
+    big.insertAdjacentHTML('beforeend',`<div class="cell"><img src="../06-svg-assets/blocks/super-${c}-1.svg" width="100" height="100"><span>${c} · royal</span></div>`);
+  });
+  colors.forEach(c=>{
+    big.insertAdjacentHTML('beforeend',`<div class="cell"><img src="../06-svg-assets/blocks/jelly-${c}.svg" width="100" height="100"><span>${c} · normal</span></div>`);
+  });
+  const sizes=document.getElementById('sizes');
+  [48,34,32,28].forEach(s=>{
+    sizes.insertAdjacentHTML('beforeend',`<div class="cell"><img src="../06-svg-assets/blocks/super-pink-1.svg" width="${s}" height="${s}"><span>${s}px</span></div>`);
+    sizes.insertAdjacentHTML('beforeend',`<div class="cell"><img src="../06-svg-assets/blocks/jelly-pink.svg" width="${s}" height="${s}"><span>normal</span></div>`);
+  });
+  const board=document.getElementById('board');
+  const layout=[['jelly-yellow','jelly-mint','super-mint-1'],['jelly-pink','super-blue-1','jelly-blue'],['jelly-blue','jelly-yellow','jelly-pink']];
+  layout.forEach(r=>r.forEach(n=>board.insertAdjacentHTML('beforeend',`<div class="box"><img src="../06-svg-assets/blocks/${n}.svg" width="34" height="34"></div>`)));
+</script>
+</body></html>

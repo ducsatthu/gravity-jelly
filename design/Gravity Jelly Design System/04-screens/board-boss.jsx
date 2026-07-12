@@ -13,7 +13,7 @@
   const { JellyBlock } = NS;
   const EX = window.GJExtras;
   const P = window.GJBoardParts;
-  const BG_SRC = '../06-svg-assets/backgrounds/meadow-bg.png';
+  const BG_SRC = '../06-svg-assets/backgrounds/meadow-bg.jpg';
   const CARD_SRC = '../06-svg-assets/ui/score-card.svg';
 
   function StatCard({ label, value, low = false }) {

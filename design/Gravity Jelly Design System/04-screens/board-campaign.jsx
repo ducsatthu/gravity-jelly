@@ -12,7 +12,7 @@
   const { JellyBlock } = NS;
   const EX = window.GJExtras;
   const P = window.GJBoardParts;
-  const BG_SRC = '../06-svg-assets/backgrounds/meadow-bg.png';
+  const BG_SRC = '../06-svg-assets/backgrounds/meadow-bg.jpg';
   const CARD_SRC = '../06-svg-assets/ui/score-card.svg';
 
   /* Reuse the cream score-card art for any labelled stat (here: LƯỢT). Turns

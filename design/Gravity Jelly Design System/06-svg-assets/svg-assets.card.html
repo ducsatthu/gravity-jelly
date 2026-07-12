@@ -12,6 +12,7 @@
   .blocks { display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-end; }
   .blocks figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 6px; }
   .blocks img { width: 72px; height: 72px; }
+  .blocks img.jelly { border-radius: 20%; border: 2px solid transparent; box-sizing: border-box; }
   .scale { display: flex; gap: 12px; align-items: flex-end; padding: 12px; background: var(--color-surface-sunken); border-radius: var(--radius-card); }
   .scale img { display: block; }
   .fab { width: 84px; }
@@ -45,32 +46,40 @@
 </head>
 <body>
   <section>
-    <h2>Jelly blocks · 5 màu</h2>
+    <h2>Jelly blocks · 4 màu</h2>
     <div class="blocks">
-      <figure><img src="blocks/jelly-yellow.svg" alt="yellow" /><cap>yellow · ★</cap></figure>
-      <figure><img src="blocks/jelly-mint.svg" alt="mint" /><cap>mint · 🍀</cap></figure>
-      <figure><img src="blocks/jelly-pink.svg" alt="pink" /><cap>pink · ♥</cap></figure>
-      <figure><img src="blocks/jelly-blue.svg" alt="blue" /><cap>blue · 💧</cap></figure>
-      <figure><img src="blocks/jelly-stone.svg" alt="stone" /><cap>stone · khóa</cap></figure>
+      <figure><img class="jelly" src="blocks/jelly-yellow.jpg" alt="yellow" /><cap>yellow · ★</cap></figure>
+      <figure><img class="jelly" src="blocks/jelly-mint.jpg" alt="mint" /><cap>mint · 🍀</cap></figure>
+      <figure><img class="jelly" src="blocks/jelly-pink.jpg" alt="pink" /><cap>pink · ♥</cap></figure>
+      <figure><img class="jelly" src="blocks/jelly-blue.jpg" alt="blue" /><cap>blue · 💧</cap></figure>
     </div>
   </section>
 
   <section>
-    <h2>Thạch Hoàng Gia (cấp 1) + Vua Thạch (cấp 2) · theo 4 màu</h2>
+    <h2>Thạch Hoàng Gia (cấp 1) · khung hoàng gia · 4 màu (PNG full-bleed, bo góc)</h2>
     <div class="blocks">
-      <figure><img src="blocks/super-yellow-1.svg" alt="super yellow 1" /><cap>yellow · cấp 1</cap></figure>
-      <figure><img src="blocks/super-mint-1.svg" alt="super mint 1" /><cap>mint · cấp 1</cap></figure>
-      <figure><img src="blocks/super-pink-1.svg" alt="super pink 1" /><cap>pink · cấp 1</cap></figure>
-      <figure><img src="blocks/super-blue-1.svg" alt="super blue 1" /><cap>blue · cấp 1</cap></figure>
+      <figure><img class="jelly" src="ui/hoanggia-yellow.jpg" alt="Thạch Hoàng Gia yellow" style="width:104px;height:104px" /><cap>yellow · sao ★</cap></figure>
+      <figure><img class="jelly" src="ui/hoanggia-mint.jpg" alt="Thạch Hoàng Gia mint" style="width:104px;height:104px" /><cap>mint · lá 🍀</cap></figure>
+      <figure><img class="jelly" src="ui/hoanggia-pink.jpg" alt="Thạch Hoàng Gia pink" style="width:104px;height:104px" /><cap>pink · tim ♥</cap></figure>
+      <figure><img class="jelly" src="ui/hoanggia-blue.jpg" alt="Thạch Hoàng Gia blue" style="width:104px;height:104px" /><cap>blue · giọt 💧</cap></figure>
     </div>
+    <p class="note" style="margin-top:12px"><b>Thạch Hoàng Gia (cấp 1)</b> nay dùng art khung hoàng gia PNG (<code>ui/hoanggia-*.png</code>). Bản PNG cấp 1 cũ (<code>blocks/super-*-1.png</code>) đã gỡ bỏ.</p>
     <div class="blocks" style="margin-top:16px">
-      <figure><img src="blocks/super-yellow-2.svg" alt="super yellow 2" /><cap>yellow · cấp 2</cap></figure>
-      <figure><img src="blocks/super-mint-2.svg" alt="super mint 2" /><cap>mint · cấp 2</cap></figure>
-      <figure><img src="blocks/super-pink-2.svg" alt="super pink 2" /><cap>pink · cấp 2</cap></figure>
-      <figure><img src="blocks/super-blue-2.svg" alt="super blue 2" /><cap>blue · cấp 2</cap></figure>
-      <figure><img src="blocks/rainbow.svg" alt="rainbow wild cấp 1" /><cap>Thạch Cầu Vồng · cấp 1</cap></figure>
-      <figure><img src="blocks/rainbow-2.svg" alt="rainbow wild cấp 2" style="width:72px;height:auto;align-self:flex-start" /><cap>Hoàng Đế Cầu Vồng · cấp 2 👑</cap></figure>
+      <figure><img class="jelly" src="ui/rainbow.jpg" alt="Thạch Cầu Vồng" style="width:96px;height:96px" /><cap>Thạch Cầu Vồng · cấp 1 ✦</cap></figure>
+      <figure><img class="jelly" src="ui/rainbowemperor.jpg" alt="Hoàng Đế Cầu Vồng" style="width:96px;height:96px" /><cap>Hoàng Đế Cầu Vồng · cấp 2 👑</cap></figure>
     </div>
+    <p class="note" style="margin-top:12px"><b>Thạch Cầu Vồng</b> — PNG full-bleed 4 màu + ngọc kim cương 4 cánh. <b>Hoàng Đế Cầu Vồng</b> — PNG full-bleed khung tím đính đá quý + mão vàng, ngọc lục giác cầu vồng. Cả hai bo góc ~20%. Thay bản <code>rainbow.svg</code> / <code>rainbow-2.svg</code> cũ.</p>
+  </section>
+
+  <section>
+    <h2>Vua Thạch · khung hoàng gia mới · 4 màu (PNG full-bleed, bo góc)</h2>
+    <div class="blocks">
+      <figure><img class="jelly" src="ui/vuathach-yellow.jpg" alt="Vua Thạch yellow" style="width:104px;height:104px" /><cap>yellow · sao ★</cap></figure>
+      <figure><img class="jelly" src="ui/vuathach-mint.jpg" alt="Vua Thạch mint" style="width:104px;height:104px" /><cap>mint · lá 🍀</cap></figure>
+      <figure><img class="jelly" src="ui/vuathach-pink.jpg" alt="Vua Thạch pink" style="width:104px;height:104px" /><cap>pink · tim ♥</cap></figure>
+      <figure><img class="jelly" src="ui/vuathach-blue.jpg" alt="Vua Thạch blue" style="width:104px;height:104px" /><cap>blue · giọt 💧</cap></figure>
+    </div>
+    <p class="note" style="margin-top:12px">Thiết kế <b>Vua Thạch (Jelly King)</b> mới — khung jelly bo góc đội <b>vương miện vàng</b>, giữa gắn <b>ngọc emblem</b> theo màu (sao / lá / tim / giọt nước). PNG đã cắt nền trong suốt, dùng cho popup cẩm nang, màn tiến hoá và thưởng. Thay cho bản vẽ cấp 2 (<code>super-*-2.svg</code>) cũ.</p>
   </section>
 
   <section>
@@ -127,10 +136,10 @@
   <section>
     <h2>Scale-safe · 1 file dùng mọi kích thước</h2>
     <div class="scale">
-      <img src="blocks/jelly-pink.svg" style="width:32px;height:32px" alt="32" />
-      <img src="blocks/jelly-pink.svg" style="width:48px;height:48px" alt="48" />
-      <img src="blocks/jelly-pink.svg" style="width:72px;height:72px" alt="72" />
-      <img src="blocks/jelly-pink.svg" style="width:112px;height:112px" alt="112" />
+      <img src="blocks/jelly-pink.jpg" style="width:32px;height:32px" alt="32" />
+      <img src="blocks/jelly-pink.jpg" style="width:48px;height:48px" alt="48" />
+      <img src="blocks/jelly-pink.jpg" style="width:72px;height:72px" alt="72" />
+      <img src="blocks/jelly-pink.jpg" style="width:112px;height:112px" alt="112" />
     </div>
   </section>
 
@@ -142,14 +151,14 @@
   <section>
     <h2>Mắt · hướng trọng lực + biểu cảm (overlay)</h2>
     <div class="faces">
-      <figure><div class="stack"><img src="blocks/jelly-yellow.svg" style="opacity:.18" /><img src="faces/eyes-down.svg" /></div><cap>down</cap></figure>
-      <figure><div class="stack"><img src="blocks/jelly-yellow.svg" style="opacity:.18" /><img src="faces/eyes-up.svg" /></div><cap>up</cap></figure>
-      <figure><div class="stack"><img src="blocks/jelly-yellow.svg" style="opacity:.18" /><img src="faces/eyes-left.svg" /></div><cap>left</cap></figure>
-      <figure><div class="stack"><img src="blocks/jelly-yellow.svg" style="opacity:.18" /><img src="faces/eyes-right.svg" /></div><cap>right</cap></figure>
-      <figure><div class="stack"><img src="blocks/jelly-yellow.svg" style="opacity:.18" /><img src="faces/eyes-front.svg" /></div><cap>front</cap></figure>
-      <figure><div class="stack"><img src="blocks/jelly-yellow.svg" style="opacity:.18" /><img src="faces/eyes-happy.svg" /></div><cap>happy</cap></figure>
-      <figure><div class="stack"><img src="blocks/jelly-yellow.svg" style="opacity:.18" /><img src="faces/eyes-wink.svg" /></div><cap>wink</cap></figure>
-      <figure><div class="stack"><img src="blocks/jelly-yellow.svg" style="opacity:.18" /><img src="faces/eyes-focus.svg" /></div><cap>focus</cap></figure>
+      <figure><div class="stack"><img src="blocks/jelly-yellow.jpg" style="opacity:.18" /><img src="faces/eyes-down.svg" /></div><cap>down</cap></figure>
+      <figure><div class="stack"><img src="blocks/jelly-yellow.jpg" style="opacity:.18" /><img src="faces/eyes-up.svg" /></div><cap>up</cap></figure>
+      <figure><div class="stack"><img src="blocks/jelly-yellow.jpg" style="opacity:.18" /><img src="faces/eyes-left.svg" /></div><cap>left</cap></figure>
+      <figure><div class="stack"><img src="blocks/jelly-yellow.jpg" style="opacity:.18" /><img src="faces/eyes-right.svg" /></div><cap>right</cap></figure>
+      <figure><div class="stack"><img src="blocks/jelly-yellow.jpg" style="opacity:.18" /><img src="faces/eyes-front.svg" /></div><cap>front</cap></figure>
+      <figure><div class="stack"><img src="blocks/jelly-yellow.jpg" style="opacity:.18" /><img src="faces/eyes-happy.svg" /></div><cap>happy</cap></figure>
+      <figure><div class="stack"><img src="blocks/jelly-yellow.jpg" style="opacity:.18" /><img src="faces/eyes-wink.svg" /></div><cap>wink</cap></figure>
+      <figure><div class="stack"><img src="blocks/jelly-yellow.jpg" style="opacity:.18" /><img src="faces/eyes-focus.svg" /></div><cap>focus</cap></figure>
     </div>
   </section>
 

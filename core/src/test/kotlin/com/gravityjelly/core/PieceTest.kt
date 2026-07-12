@@ -1,6 +1,7 @@
 package com.gravityjelly.core
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -19,8 +20,18 @@ class PieceTest {
 
     @Test
     fun allShapesAreConnected() {
+        // Khối chéo (D2/D3) CỐ Ý rời ô — bẫy nâng cao tự tách khi có trọng lực cụm; miễn trừ đúng nhóm này.
         for (shape in PieceLibrary.ALL) {
+            if (shape in PieceLibrary.DIAGONAL) continue
             assertTrue("Not connected: $shape", isConnected(shape.cells))
+        }
+    }
+
+    @Test
+    fun diagonalShapesAreIntentionallyDisconnected() {
+        assertTrue("DIAGONAL không được rỗng", PieceLibrary.DIAGONAL.isNotEmpty())
+        for (shape in PieceLibrary.DIAGONAL) {
+            assertFalse("Khối chéo phải RỜI ô: $shape", isConnected(shape.cells))
         }
     }
 

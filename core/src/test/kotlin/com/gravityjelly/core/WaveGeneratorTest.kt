@@ -59,17 +59,30 @@ class WaveGeneratorTest {
         assertEquals(w1.hadHelpful, w2.hadHelpful)
     }
 
-    // ── deal: bậc 🟢 giữ đúng thứ tự RNG (parity với RNG thuần) ──
+    // ── deal: bốc-thường combo-friendly (nghiêng mảnh nhỏ, KHÔNG có khối đặc biệt khi chưa ép) ──
 
     @Test
-    fun deal_greenTier_matchesPureRng() {
+    fun deal_normalPick_isDeterministicAndHasNoSpecialWithoutForce() {
         val g = Grid() // trống → 🟢
-        val wave = WaveGenerator.deal(g, pool, colors, Rng(7L), cfg, forceHelpful = false)
-        assertEquals(WaveGenerator.Tier.GREEN, wave.tier)
+        val w1 = WaveGenerator.deal(g, pool, colors, Rng(7L), cfg, forceHelpful = false, forceSpecial = false)
+        val w2 = WaveGenerator.deal(g, pool, colors, Rng(7L), cfg, forceHelpful = false, forceSpecial = false)
+        assertEquals(WaveGenerator.Tier.GREEN, w1.tier)
+        assertEquals(w1.pieces, w2.pieces)                              // deterministic
+        // Bốc-thường trọng số 0 cho khối đặc biệt → không đợt nào tự nhiên chứa pentomino/3×3/chéo.
+        assertFalse(w1.hadSpecial)
+        assertTrue(w1.pieces.none { it.shape in PieceLibrary.SPECIAL })
+        // Nghiêng mảnh nhỏ: mọi mảnh ≤ 4 ô.
+        assertTrue(w1.pieces.all { it.shape.size <= 4 })
+    }
 
-        val rng = Rng(7L)
-        val expected = List(TrayGenerator.TRAY_SIZE) { Piece(rng.pick(pool), rng.pick(colors)) }
-        assertEquals(expected, wave.pieces)
+    // ── deal: chèn khối ĐẶC BIỆT khi tới hạn (đủ 24 loại) ──
+
+    @Test
+    fun deal_forceSpecial_injectsSpecialPiece() {
+        val g = Grid() // trống → mọi khối đặc biệt đặt-được
+        val wave = WaveGenerator.deal(g, pool, colors, Rng(11L), cfg, forceHelpful = false, forceSpecial = true)
+        assertTrue("forceSpecial phải chèn 1 khối đặc biệt", wave.hadSpecial)
+        assertTrue(wave.pieces.any { it.shape in PieceLibrary.SPECIAL })
     }
 
     // ── deal: bậc 🔴 ép có mảnh thoát ──

@@ -7,9 +7,9 @@
   const { Icon } = NS;
 
   const BG_BY_WORLD = {
-    1: '../06-svg-assets/backgrounds/home-world-1-bg.png',
-    2: '../06-svg-assets/backgrounds/home-world-2-bg.png',
-    3: '../06-svg-assets/backgrounds/home-world-3-bg.png',
+    1: '../06-svg-assets/backgrounds/home-world-1-bg.jpg',
+    2: '../06-svg-assets/backgrounds/home-world-2-bg.jpg',
+    3: '../06-svg-assets/backgrounds/home-world-3-bg.jpg',
   };
   const BG = BG_BY_WORLD[1];
   const PANEL = '../06-svg-assets/ui/home-panel.png';

@@ -891,11 +891,11 @@ class BoardAnimator {
         lastEventNanos = renderNanos()   // ván mới: nhìn trọng lực rồi trôi về tính cách
     }
 
-    fun drawOverlays(scope: DrawScope, cellPx: Float, gap: Float, measurer: TextMeasurer, now: Long) {
-        drawClearing(scope, cellPx, gap, now)
+    fun drawOverlays(scope: DrawScope, cellPx: Float, gap: Float, measurer: TextMeasurer, now: Long, bitmaps: JellyBitmaps? = null) {
+        drawClearing(scope, cellPx, gap, now, bitmaps)
         drawWaterNew(scope, cellPx, gap, now)       // World 3: ring "mới mọc" (dưới particle)
-        drawSmileFlashes(scope, cellPx, gap, now)   // block cùng màu cười (chặng 2)
-        drawSuperFlashes(scope, cellPx, gap, now)   // siêu khối biến mất cuối (chặng 3) — vẽ trên cùng
+        drawSmileFlashes(scope, cellPx, gap, now, bitmaps)   // block cùng màu cười (chặng 2)
+        drawSuperFlashes(scope, cellPx, gap, now, bitmaps)   // siêu khối biến mất cuối (chặng 3) — vẽ trên cùng
         particles.drawParticles(scope, cellPx, renderAlpha)
         particles.drawPopups(scope, measurer, cellPx, renderAlpha)
     }
@@ -927,7 +927,7 @@ class BoardAnimator {
      * Block CÙNG MÀU "cười rồi biến mất" (chặng 2 nổ). Giữ HAPPY + nhún nhẹ trong [DET_SMILE_HOLD_NANOS]
      * rồi pop-fade trong [DET_SMILE_POP_NANOS]. Tổ hợp vocabulary: Eyes.HAPPY + 03-line-clear pop.
      */
-    private fun drawSmileFlashes(scope: DrawScope, cellPx: Float, gap: Float, now: Long) {
+    private fun drawSmileFlashes(scope: DrawScope, cellPx: Float, gap: Float, now: Long, bitmaps: JellyBitmaps? = null) {
         if (smileFlashes.isEmpty()) return
         val blockSize = cellPx - gap
         val cr = CornerRadius(blockSize * CORNER_FRAC, blockSize * CORNER_FRAC)
@@ -960,6 +960,7 @@ class BoardAnimator {
                         left, top, blockSize, cr, borderStroke, palette, f.color, 0f, 1f,
                         expression = EyeExpression.NORMAL, eyeOpen = true,
                         squashScaleX = squash, squashScaleY = squash, clearProgress = clearP, showSticker = false,
+                        bitmaps = bitmaps,
                     )
                     if (clearP == 0f) {
                         val a = el.toFloat() / DET_SMILE_HOLD_NANOS
@@ -978,6 +979,7 @@ class BoardAnimator {
                         left, top, blockSize, cr, borderStroke, palette, f.color, 0f, 1f,
                         expression = EyeExpression.HAPPY, eyeOpen = true,
                         squashScaleX = squash, squashScaleY = squash, clearProgress = clearP, showSticker = false,
+                        bitmaps = bitmaps,
                     )
                 }
             }
@@ -989,7 +991,7 @@ class BoardAnimator {
      * mắt HAPPY (Eyes.jsx ^ ^) + nhún to easeOutBack (01-drop-squash) → pop-fade (03-line-clear).
      * Pha 1 (≤45%): nhún to ×1.0→×1.26, mắt cười rõ. Pha 2: clearProgress 0→1 (pop ×1.12 + mờ → 0).
      */
-    private fun drawSuperFlashes(scope: DrawScope, cellPx: Float, gap: Float, now: Long) {
+    private fun drawSuperFlashes(scope: DrawScope, cellPx: Float, gap: Float, now: Long, bitmaps: JellyBitmaps? = null) {
         if (superFlashes.isEmpty()) return
         val blockSize = cellPx - gap
         val cr = CornerRadius(blockSize * CORNER_FRAC, blockSize * CORNER_FRAC)
@@ -1024,7 +1026,7 @@ class BoardAnimator {
                         left, top, blockSize, cr, borderStroke, 0f, 1f,
                         expression = EyeExpression.HAPPY, eyeOpen = true,
                         squashScaleX = bounce, squashScaleY = bounce, clearProgress = clearP,
-                        level = f.level, pulse = 1f, spin = spin,
+                        level = f.level, pulse = 1f, spin = spin, bitmaps = bitmaps,
                     )
                 } else {
                     drawSuperJellyCell(
@@ -1033,13 +1035,14 @@ class BoardAnimator {
                         expression = EyeExpression.HAPPY, eyeOpen = true,
                         squashScaleX = bounce, squashScaleY = bounce,
                         clearProgress = clearP, pulse = 1f, spin = spin,
+                        color = f.color, bitmaps = bitmaps,
                     )
                 }
             }
         }
     }
 
-    private fun drawClearing(scope: DrawScope, cellPx: Float, gap: Float, now: Long) {
+    private fun drawClearing(scope: DrawScope, cellPx: Float, gap: Float, now: Long, bitmaps: JellyBitmaps? = null) {
         val blockSize = cellPx - gap
         val corner = blockSize * CORNER_FRAC
         val cr = CornerRadius(corner, corner)
@@ -1068,6 +1071,7 @@ class BoardAnimator {
                             left, top, blockSize, cr, borderStroke,
                             JellyTheme.forColor(jelly), jelly, 0f, 0f,
                             expression = EyeExpression.HAPPY, eyeOpen = true, showSticker = false,
+                            bitmaps = bitmaps,
                         )
                         // lóe trắng phủ lên thân (đỉnh flash sáng nhất) — mờ dần khi pop
                         scope.drawRoundRect(
@@ -1093,6 +1097,7 @@ class BoardAnimator {
                             JellyTheme.forColor(jelly), jelly, 0f, 0f,
                             expression = EyeExpression.HAPPY, eyeOpen = true,
                             clearProgress = pt, showSticker = false,
+                            bitmaps = bitmaps,
                         )
                     } else {
                         val eo = Anim.easeOut(pt)

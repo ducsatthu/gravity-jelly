@@ -12,7 +12,7 @@ components. Baseline device: **360 × 800 dp** portrait, rendered inside an Andr
 ## Screens (priority / play-flow order)
 1. **Game** (`board-design.jsx` → `window.GJBoardDesign`, aliased `GJGameScreen`) — the
    heart of the product, and the OFFICIAL “① Game” card. A meadow **PNG backdrop**
-   (`06-svg-assets/backgrounds/meadow-bg.png`) under a single unified **HUD** (score
+   (`06-svg-assets/backgrounds/meadow-bg.jpg`) under a single unified **HUD** (score
    card · gravity D-pad · round pause button), the 9×9 `Board` in an **SVG cream frame**
    (`06-svg-assets/ui/board-frame.svg`, edge-to-edge, board cell 31dp), and a 3-well
    **SVG tray** (`06-svg-assets/ui/tray.svg`) kept tight under the board next to a purple

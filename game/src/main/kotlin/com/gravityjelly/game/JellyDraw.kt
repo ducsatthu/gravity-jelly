@@ -28,6 +28,11 @@ internal const val GLOSS_TOP_OFF      = 2f / 36f    // offset từ đỉnh (2dp 
 internal const val GLOSS_ALPHA        = 0.85f       // độ mờ shine (theo design)
 // Mắt — dùng bởi JellyEyes.kt (drawEyes) và drawStoneBlock
 internal const val EYE_Y_FRAC         = 0.50f       // tâm Y mắt = giữa khối (theo JSX flex-center)
+// Mắt cho các tầng có art khung riêng (bám `06-svg-assets/eye-block-preview.card.html`):
+internal const val EYE_Y_SUPER1       = 0.52f       // super_1.png: thân đầy, emblem ở góc → mắt gần giữa
+internal const val EYE_Y_VUATHACH     = 0.58f       // Vua Thạch: vương miện ở đỉnh → mắt xuống thân
+internal const val EYE_Y_RAINBOW      = 0.56f       // Thạch Cầu Vồng
+internal const val EYE_Y_EMPEROR      = 0.60f       // Hoàng Đế Cầu Vồng: vương miện cầu vồng cao hơn
 internal const val EYE_R_FRAC         = 0.13f       // bán kính lòng trắng = blockSize*0.26/2
 internal const val STONE_EYE_OFF_FRAC = 0.12f       // offset tâm gạch đá từ tâm khối
 internal const val STONE_DASH_W_FRAC  = 0.12f       // nửa chiều dài gạch ngang đá
@@ -457,21 +462,29 @@ internal fun DrawScope.drawPieceShape(
     gravity: Direction = Direction.DOWN,
     showSticker: Boolean = true,
     gapFrac: Float = GAP_FRAC,
+    bitmaps: JellyBitmaps? = null,
 ) {
     val gap = cell * gapFrac
     val blockSize = cell - gap
     val corner = blockSize * CORNER_FRAC
     val cr = CornerRadius(corner, corner)
     val borderStroke = Stroke(blockSize * BORDER_FRAC)
-    val palette = JellyTheme.forColor(piece.color)
     val cells = piece.shape.cells
     for (i in cells.indices) {
         val c = cells[i]
+        val cellColor = piece.colorAt(i)                 // màu RIÊNG từng ô (vd tâm vuông 3×3 khác vành)
         val left = originX + c.x * cell + gap / 2
         val top = originY + c.y * cell + gap / 2
-        drawJellyBlock(left, top, blockSize, cr, borderStroke, palette)
-        drawEyes(left, top, blockSize, gravity.dx.toFloat(), gravity.dy.toFloat())
-        if (showSticker) drawSticker(piece.color, palette, left, top, blockSize)
+        if (bitmaps != null) {
+            // Thân = art PNG (đã bao gồm gloss/viền/emblem); mắt vẫn overlay vẽ tay.
+            drawBlockImage(bitmaps.base(cellColor), left, top, blockSize)
+            drawEyes(left, top, blockSize, gravity.dx.toFloat(), gravity.dy.toFloat())
+        } else {
+            val palette = JellyTheme.forColor(cellColor)
+            drawJellyBlock(left, top, blockSize, cr, borderStroke, palette)
+            drawEyes(left, top, blockSize, gravity.dx.toFloat(), gravity.dy.toFloat())
+            if (showSticker) drawSticker(cellColor, palette, left, top, blockSize)
+        }
     }
 }
 
@@ -494,6 +507,7 @@ internal fun DrawScope.drawJellyCell(
     squashScaleY: Float = 1f,
     clearProgress: Float = 0f,
     showSticker: Boolean = true,
+    bitmaps: JellyBitmaps? = null,
 ) {
     // alpha: 1 → 0 khi clearProgress tăng (fade out)
     val clearAlpha  = if (clearProgress > 0f) 1f - clearProgress else 1f
@@ -502,7 +516,7 @@ internal fun DrawScope.drawJellyCell(
 
     // mắt nhắm khi squash mạnh (một trục nào đó < 0.92) HOẶC khi tính cách đang chớp ([eyeOpen]=false)
     val eyeOpenNow  = eyeOpen && squashScaleX >= 0.92f && squashScaleY >= 0.92f
-    // sticker ẩn khi đang squash (như JSX !squashed)
+    // sticker ẩn khi đang squash (như JSX !squashed) — chỉ dùng ở nhánh vẽ tay fallback
     val drawStickerNow = showSticker && squashScaleX == 1f && squashScaleY == 1f
 
     val sx    = squashScaleX * clearScale
@@ -511,10 +525,16 @@ internal fun DrawScope.drawJellyCell(
 
     // KHÔNG gộp cụm — mỗi ô là khối jelly bo tròn RIÊNG (đúng design: JellyBlock
     // "never squared"). Xem memory ingame-endless-fidelity (quyết định: không gộp).
+    // Thân = art PNG (`blocks/jelly-*.png`) khi có [bitmaps]; mắt vẫn overlay vẽ tay.
     fun body() {
-        drawJellyBlock(left, top, blockSize, cr, borderStroke, palette, clearAlpha)
-        drawEyes(left, top, blockSize, dirX, dirY, expression, eyeOpenNow, clearAlpha)
-        if (drawStickerNow) drawSticker(color, palette, left, top, blockSize, clearAlpha)
+        if (bitmaps != null) {
+            drawBlockImage(bitmaps.base(color), left, top, blockSize, clearAlpha)
+            drawEyes(left, top, blockSize, dirX, dirY, expression, eyeOpenNow, clearAlpha)
+        } else {
+            drawJellyBlock(left, top, blockSize, cr, borderStroke, palette, clearAlpha)
+            drawEyes(left, top, blockSize, dirX, dirY, expression, eyeOpenNow, clearAlpha)
+            if (drawStickerNow) drawSticker(color, palette, left, top, blockSize, clearAlpha)
+        }
     }
 
     if (sx != 1f || sy != 1f) scale(sx, sy, pivot) { body() } else body()

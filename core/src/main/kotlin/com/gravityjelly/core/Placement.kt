@@ -146,7 +146,8 @@ fun canFreePlaceAnywhere(grid: Grid, piece: Piece): Boolean {
 }
 
 fun place(grid: Grid, piece: Piece, cells: List<Vec>) {
-    for (cell in cells) {
-        grid.set(cell.x, cell.y, Grid.Cell(CellType.BLOCK, piece.color))
+    // [cells] luôn cùng thứ tự với shape.cells (mọi producer dùng shape.at) → màu-theo-ô căn bằng index.
+    for (i in cells.indices) {
+        grid.set(cells[i].x, cells[i].y, Grid.Cell(CellType.BLOCK, piece.colorAt(i)))
     }
 }

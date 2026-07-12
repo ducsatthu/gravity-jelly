@@ -749,7 +749,7 @@ class EndlessGameHolder(
      */
     private fun setGhostAndPreview(cells: List<Vec>, piece: Piece, ox: Int, oy: Int) {
         dragOx = ox; dragOy = oy
-        boardRender.ghost = GhostPreview(cells, piece.color)
+        boardRender.ghost = GhostPreview(cells, piece.color, piece.cellColors)
         if (ox == lastPreviewOx && oy == lastPreviewOy) return
         lastPreviewOx = ox; lastPreviewOy = oy
         applyPreview(previewPlaced(boardRender.grid, piece, cells))

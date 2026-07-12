@@ -1,0 +1,241 @@
+<!-- @dsCard group="Assets" viewport="760x600" name="Mắt động × Jelly block" subtitle="Ghép Eyes (hướng trọng lực + biểu cảm) lên PNG jelly block — auto + điều khiển tay" -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  html, body { margin: 0; }
+  body { background: var(--color-bg); font-family: var(--font-body); color: var(--color-text); padding: 22px; }
+  .wrap { display: flex; gap: 22px; align-items: flex-start; flex-wrap: wrap; }
+  .stage { background: var(--color-surface); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); padding: 22px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .hero { position: relative; }
+  .hero .bob { animation: gjIdleBob 2600ms var(--ease-jelly, ease-in-out) infinite; }
+  @keyframes gjIdleBob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-5px) } }
+  .tag { font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--color-text); min-height: 26px; }
+  .sub { font-size: 12px; font-weight: 700; letter-spacing: .04em; color: var(--color-text-muted); text-transform: uppercase; }
+
+  .panel { display: flex; flex-direction: column; gap: 16px; min-width: 250px; }
+  .group { display: flex; flex-direction: column; gap: 8px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { font-family: var(--font-body); font-weight: 800; font-size: 13px; border: none; cursor: pointer; padding: 9px 14px; border-radius: var(--radius-pill); background: var(--color-surface-sunken); color: var(--color-text); box-shadow: inset 0 -2px 0 rgba(120,92,52,0.12); transition: transform 120ms var(--ease-out), background 120ms; }
+  .chip:hover { transform: translateY(-1px); }
+  .chip[data-on="1"] { background: var(--color-gravity); color: #fff; box-shadow: inset 0 -2px 0 var(--color-gravity-edge); }
+
+  .pad { display: grid; grid-template-columns: repeat(3, 44px); grid-template-rows: repeat(3, 44px); gap: 6px; }
+  .pad button { border: none; cursor: pointer; border-radius: var(--radius-md); background: var(--color-surface-sunken); color: var(--color-text); font-size: 18px; font-weight: 800; box-shadow: inset 0 -2px 0 rgba(120,92,52,0.12); }
+  .pad button[data-on="1"] { background: var(--color-gravity); color: #fff; box-shadow: inset 0 -2px 0 var(--color-gravity-edge); }
+  .pad .sp { visibility: hidden; }
+
+  .sw { width: 34px; height: 34px; border-radius: 10px; border: 2px solid #fff; cursor: pointer; box-shadow: var(--shadow-sm); padding: 0; }
+  .sw[data-on="1"] { outline: 3px solid var(--color-gravity); outline-offset: 2px; }
+
+  .row4 { display: flex; gap: 14px; align-items: center; }
+  .cell { position: relative; }
+  .cellcap { text-align: center; font-size: 11px; font-weight: 700; color: var(--color-text-muted); margin-top: 4px; }
+  .legend { font-size: 12px; font-weight: 600; color: var(--color-text-muted); line-height: 1.5; max-width: 440px; }
+  img.block { display: block; }
+  .ov { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script src="../_ds_bundle.js"></script>
+  <script type="text/babel">
+    const NS = window.GravityJellyDesignSystem_3e0487;
+    const { Eyes } = NS;
+    const { useState, useEffect, useRef } = React;
+
+    const COLORS = ['yellow', 'mint', 'pink', 'blue'];
+    const SWATCH = { yellow: '#FFE3A3', mint: '#A3E5D9', pink: '#F7A9C0', blue: '#B3C7F7' };
+    const src = (c) => `blocks/jelly-${c}.png`;
+
+    // Eyes sit at ~52% of block height (matches the original JellyBlock geometry).
+    function BlockFace({ color, size, direction, expression, open }) {
+      return (
+        <div className="cell" style={{ width: size, height: size }}>
+          <img className="block" src={src(color)} width={size} height={size} alt={color} />
+          <div className="ov" style={{ transform: `translateY(${Math.round(size * 0.02)}px)` }}>
+            <Eyes blockSize={size} direction={direction} expression={expression} open={open} />
+          </div>
+        </div>
+      );
+    }
+
+    // New jelly evolutions — royal frames (Vua Thạch) + rainbow line. Each frame
+    // has a crown/gem at the top, so the eyes sit in the lower glossy body (eyeY).
+    const ROYAL = [
+      { color: 'yellow', src: 'ui/vuathach-yellow.jpg' },
+      { color: 'mint',   src: 'ui/vuathach-mint.jpg' },
+      { color: 'pink',   src: 'ui/vuathach-pink.jpg' },
+      { color: 'blue',   src: 'ui/vuathach-blue.jpg' },
+    ];
+    const RAINBOW = [
+      { key: 'rainbow', src: 'ui/rainbow.jpg',        cap: 'Thạch Cầu Vồng',   eyeY: 0.56 },
+      { key: 'emperor', src: 'ui/rainbowemperor.jpg', cap: 'Hoàng Đế Cầu Vồng', eyeY: 0.60 },
+    ];
+
+    // Frame + eyes: PNG frame (width w, height auto) with the Eyes overlay
+    // centred horizontally and dropped to eyeY (fraction of frame height).
+    function FrameFace({ src, w, eyeY = 0.58, direction, expression = 'normal', open = true }) {
+      return (
+        <div className="cell" style={{ width: w }}>
+          <img className="block" src={src} style={{ width: w, height: 'auto', display: 'block' }} alt="" />
+          <div className="ov" style={{ inset: 0 }}>
+            <div style={{ position: 'absolute', left: '50%', top: `${eyeY * 100}%`, transform: 'translate(-50%, -50%)' }}>
+              <Eyes blockSize={w} direction={direction} expression={expression} open={open} />
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Auto timeline: track gravity in 4 directions, blink, then run through every expression.
+    const SEQ = [
+      { dir: 'down',  expr: 'normal', open: true,  dur: 950,  tag: 'nhìn xuống' },
+      { dir: 'left',  expr: 'normal', open: true,  dur: 850,  tag: 'nhìn trái' },
+      { dir: 'up',    expr: 'normal', open: true,  dur: 850,  tag: 'nhìn lên' },
+      { dir: 'right', expr: 'normal', open: true,  dur: 850,  tag: 'nhìn phải' },
+      { dir: 'down',  expr: 'normal', open: false, dur: 170,  tag: 'chớp mắt' },
+      { dir: 'down',  expr: 'normal', open: true,  dur: 450,  tag: 'nhìn xuống' },
+      { dir: 'down',  expr: 'happy',  open: true,  dur: 1400, tag: 'happy · đang rơi' },
+      { dir: 'down',  expr: 'focus',  open: true,  dur: 1700, tag: 'focus · khoá mục tiêu' },
+      { dir: 'down',  expr: 'wink',   open: true,  dur: 1200, tag: 'wink' },
+      { dir: 'down',  expr: 'smug',   open: true,  dur: 1200, tag: 'smug' },
+      { dir: 'down',  expr: 'front',  open: true,  dur: 1000, tag: 'front · nhìn thẳng' },
+    ];
+
+    const EXPRS = ['normal', 'happy', 'focus', 'smug', 'wink', 'front'];
+    const DIRS = ['down', 'up', 'left', 'right'];
+
+    function App() {
+      const [color, setColor] = useState('mint');
+      const [auto, setAuto] = useState(true);
+      const [step, setStep] = useState(0);
+      const [man, setMan] = useState({ dir: 'down', expr: 'normal', open: true, tag: 'nhìn xuống' });
+
+      // advance auto timeline
+      useEffect(() => {
+        if (!auto) return;
+        const t = setTimeout(() => setStep((s) => (s + 1) % SEQ.length), SEQ[step].dur);
+        return () => clearTimeout(t);
+      }, [auto, step]);
+
+      const cur = auto ? SEQ[step] : man;
+
+      // synced tracking row (always live)
+      const [rowDir, setRowDir] = useState('down');
+      useEffect(() => {
+        const t = setInterval(() => setRowDir((d) => DIRS[(DIRS.indexOf(d) + 1) % DIRS.length]), 900);
+        return () => clearInterval(t);
+      }, []);
+
+      const pick = (patch) => { setAuto(false); setMan((m) => ({ ...m, ...patch })); };
+
+      const padBtn = (dir, label, area) => (
+        <button style={{ gridArea: area }} data-on={!auto && man.dir === dir && (man.expr === 'normal' || man.expr === 'focus') ? '1' : '0'}
+          onClick={() => pick({ dir, tag: 'nhìn ' + ({ down: 'xuống', up: 'lên', left: 'trái', right: 'phải' }[dir]) })}>{label}</button>
+      );
+
+      return (
+        <div className="wrap">
+          <div className="stage">
+            <div className="hero">
+              <div className="bob">
+                <BlockFace color={color} size={190} direction={cur.dir} expression={cur.expr} open={cur.open !== false} />
+              </div>
+            </div>
+            <div className="tag">{cur.tag}</div>
+            <div className="sub">{cur.expr} · {cur.dir}{cur.open === false ? ' · blink' : ''}</div>
+          </div>
+
+          <div className="panel">
+            <div className="group">
+              <span className="sub">Màu block</span>
+              <div className="chips">
+                {COLORS.map((c) => (
+                  <button key={c} className="sw" style={{ background: SWATCH[c] }} data-on={color === c ? '1' : '0'} onClick={() => setColor(c)} aria-label={c} />
+                ))}
+              </div>
+            </div>
+
+            <div className="group">
+              <span className="sub">Hướng trọng lực</span>
+              <div className="pad" style={{ gridTemplateAreas: '". up ." "left . right" ". down ."' }}>
+                {padBtn('up', '↑', 'up')}
+                {padBtn('left', '←', 'left')}
+                {padBtn('right', '→', 'right')}
+                {padBtn('down', '↓', 'down')}
+              </div>
+            </div>
+
+            <div className="group">
+              <span className="sub">Biểu cảm</span>
+              <div className="chips">
+                {EXPRS.map((e) => (
+                  <button key={e} className="chip" data-on={!auto && man.expr === e ? '1' : '0'}
+                    onClick={() => pick({ expr: e, tag: e })}>{e}</button>
+                ))}
+                <button className="chip" data-on={!auto && man.open === false ? '1' : '0'}
+                  onClick={() => pick({ expr: 'normal', open: man.open === false ? true : false, tag: man.open === false ? 'mở mắt' : 'chớp mắt' })}>blink</button>
+              </div>
+            </div>
+
+            <div className="group">
+              <div className="chips">
+                <button className="chip" data-on={auto ? '1' : '0'} onClick={() => setAuto((a) => !a)}>
+                  {auto ? '⏸ đang tự động' : '▶ chạy tự động'}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="stage" style={{ width: '100%' }}>
+            <span className="sub" style={{ alignSelf: 'flex-start' }}>4 màu · đồng bộ theo hướng trọng lực</span>
+            <div className="row4">
+              {COLORS.map((c) => (
+                <div key={c}>
+                  <BlockFace color={c} size={84} direction={rowDir} expression="normal" open={true} />
+                  <div className="cellcap">{c}</div>
+                </div>
+              ))}
+            </div>
+            <div className="legend">Eyes là overlay riêng — pupil trượt theo hướng trọng lực (normal/focus), 6 biểu cảm + chớp mắt. Ghép trực tiếp lên PNG jelly block hiện tại, canh giữa ~52% chiều cao khối.</div>
+          </div>
+
+          <div className="stage" style={{ width: '100%' }}>
+            <span className="sub" style={{ alignSelf: 'flex-start' }}>Thạch Hoàng Gia (Vua Thạch) · 4 màu · mắt trong thân khung</span>
+            <div className="row4">
+              {ROYAL.map((r) => (
+                <div key={r.color}>
+                  <FrameFace src={r.src} w={84} eyeY={0.58} direction={rowDir} expression={cur.expr} open={cur.open !== false} />
+                  <div className="cellcap">{r.color}</div>
+                </div>
+              ))}
+            </div>
+            <div className="legend">Khung hoàng gia có vương miện + ngọc ở đỉnh, nên mắt canh xuống ~58% chiều cao (trong thân jelly). Pupil vẫn bám hướng trọng lực + biểu cảm như block thường.</div>
+          </div>
+
+          <div className="stage" style={{ width: '100%' }}>
+            <span className="sub" style={{ alignSelf: 'flex-start' }}>Thạch Cầu Vồng + Hoàng Đế Cầu Vồng · mắt bám trọng lực</span>
+            <div className="row4">
+              {RAINBOW.map((r) => (
+                <div key={r.key}>
+                  <FrameFace src={r.src} w={84} eyeY={r.eyeY} direction={rowDir} expression={cur.expr} open={cur.open !== false} />
+                  <div className="cellcap">{r.cap}</div>
+                </div>
+              ))}
+            </div>
+            <div className="legend">Dòng cầu vồng dùng chung overlay Eyes: Thạch Cầu Vồng mắt canh giữa thân, Hoàng Đế Cầu Vồng canh xuống dưới vương miện. Đủ bộ để kiểm tra mắt động trên toàn bộ thạch mới.</div>
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

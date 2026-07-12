@@ -38,4 +38,16 @@ class Shape private constructor(val cells: List<Vec>) {
     }
 }
 
-data class Piece(val shape: Shape, val color: JellyColor)
+/**
+ * Mảnh khay: [shape] + [color] (màu chủ đạo).
+ * [cellColors] (tùy chọn) = màu RIÊNG từng ô, căn đúng thứ tự [Shape.cells]; null = mọi ô dùng [color].
+ * Dùng cho khối đa sắc như vuông 3×3 (vành ngoài 1 màu, tâm 1 màu khác) — xem [PieceLibrary.dealt].
+ */
+data class Piece(
+    val shape: Shape,
+    val color: JellyColor,
+    val cellColors: List<JellyColor>? = null,
+) {
+    /** Màu của ô thứ [index] (theo thứ tự [Shape.cells]); rơi về [color] nếu không có màu riêng. */
+    fun colorAt(index: Int): JellyColor = cellColors?.getOrNull(index) ?: color
+}

@@ -255,10 +255,10 @@ function movesStars(goal) {
 /* ── tutorial glyph picker ──────────────────────────────────────────── */
 
 // canonical special-block art from the design system's SVG assets.
-function BlockGlyph({ src, size = 32 }) {
+function BlockGlyph({ src, size = 32, radius = 0 }) {
   return (
     <span style={{ width: size, height: size, flexShrink: 0, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
-      <img src={src} width={size} height={size} alt="" style={{ display: 'block', filter: 'drop-shadow(0 1px 2px rgba(120,92,52,0.2))' }} />
+      <img src={src} width={size} height={size} alt="" style={{ display: 'block', borderRadius: radius || undefined, filter: 'drop-shadow(0 1px 2px rgba(120,92,52,0.2))' }} />
     </span>
   );
 }
@@ -272,7 +272,7 @@ function TutorialGlyph({ variant, blockBase }) {
         <Icon name="rotateCw" size={19} color="var(--color-gravity)" strokeWidth={2.4} />
       </span>
     );
-    case 'super1': return <BlockGlyph src={`${blockBase}super-pink-1.svg`} size={32} />;
+    case 'super1': return <BlockGlyph src={`${blockBase.replace('blocks/', 'ui/')}hoanggia-pink.jpg`} size={32} radius={6} />;
     case 'super2': return <BlockGlyph src={`${blockBase}super-blue-2.svg`} size={32} />;
     case 'rainbow': return <BlockGlyph src={`${blockBase}rainbow.svg`} size={32} />;
     case 'rainbowSuper': return <BlockGlyph src={`${blockBase}rainbow-2.svg`} size={32} />;

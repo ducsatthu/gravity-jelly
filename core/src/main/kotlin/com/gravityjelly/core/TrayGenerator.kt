@@ -5,7 +5,7 @@ class TrayGenerator(
     private val pool: List<Shape> = PieceLibrary.ALL,
 ) {
     fun deal(): List<Piece> = List(TRAY_SIZE) {
-        Piece(
+        PieceLibrary.dealt(
             shape = rng.pick(pool),
             color = rng.pick(JellyColor.entries),
         )

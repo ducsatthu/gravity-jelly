@@ -21,6 +21,7 @@ fun DragPieceOverlay(
     renderTick: Long,
     modifier: Modifier,
 ) {
+    val bitmaps = rememberJellyBitmaps()
     Canvas(modifier) {
         @Suppress("UNUSED_EXPRESSION") renderTick
         val piece = holder.dragPiece ?: return@Canvas
@@ -33,6 +34,6 @@ fun DragPieceOverlay(
         val cy = pos.y - parentWin.y
         val originX = cx - sw * cell / 2f
         val originY = cy - sh * cell / 2f
-        drawPieceShape(piece, originX, originY, cell, holder.boardRender.gravity)
+        drawPieceShape(piece, originX, originY, cell, holder.boardRender.gravity, bitmaps = bitmaps)
     }
 }

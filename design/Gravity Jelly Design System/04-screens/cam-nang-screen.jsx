@@ -8,7 +8,7 @@
 (function () {
   const NS = window.GravityJellyDesignSystem_3e0487;
   const { Icon, JellyBlock } = NS;
-  const { Illus, MiniBoard, SpecialBlock } = window.GJCamNangIllus;
+  const { Illus, MiniBoard, SpecialBlock, HoangGia, VuaThach, RainbowJelly } = window.GJCamNangIllus;
 
   // Shared card look — drawn natively (no image). White surface, soft candy
   // shadow, thin warm border. Top-right corner is squared off so the CSS
@@ -187,21 +187,21 @@
       case 'sticky':
         return <ThumbWell><MiniBoard cell={16} rows={['.MM.', 'MMM.', '.M.S']} /></ThumbWell>;
       case 'rainbow':
-        return <ThumbWell><MiniBoard cell={15} rows={['YYY', 'MMM', 'BBB']} /></ThumbWell>;
+        return <ThumbWell><RainbowJelly kind="rainbow" size={52} /></ThumbWell>;
       case 'super':
-        return <ThumbWell tint="var(--color-block-pink-shine)"><SpecialBlock type="super" color="pink" size={52} /></ThumbWell>;
+        return <ThumbWell><HoangGia color="pink" size={52} /></ThumbWell>;
       case 'superL2':
-        return <ThumbWell><div style={{ display: 'flex', gap: 4 }}><SpecialBlock type="super" color="blue" size={34} /><SpecialBlock type="super" color="blue" size={34} lvl={2} /></div></ThumbWell>;
+        return <ThumbWell><VuaThach color="blue" size={52} /></ThumbWell>;
       case 'rainbowSuper':
-        return <ThumbWell><div style={{ paddingTop: 10 }}><SpecialBlock type="crown" size={44} /></div></ThumbWell>;
+        return <ThumbWell><RainbowJelly kind="emperor" size={52} /></ThumbWell>;
       case 'blastSuper':
         return <ThumbWell><MiniBoard cell={13} glow={new Set(['0-1', '1-0', '1-3', '2-1', '3-2'])} rows={['.P.B', 'P.MP', 'BPYP', 'MMPB']} /></ThumbWell>;
       case 'blastSuperL2':
         return <ThumbWell><MiniBoard cell={13} glow={new Set(['1-1', '1-2', '1-3', '2-1', '2-2', '2-3', '3-1', '3-2', '3-3'])} rows={['BMPYB', 'BYBPM', 'MYBYP', 'PBMBY', 'YPBMP']} /></ThumbWell>;
       case 'blastRainbow':
-        return <ThumbWell><div style={{ display: 'flex', alignItems: 'center', gap: 6 }}><SpecialBlock type="rainbow" size={38} /><MiniBoard cell={13} rows={['Y', 'M', 'B']} /></div></ThumbWell>;
+        return <ThumbWell><div style={{ display: 'flex', alignItems: 'center', gap: 6 }}><RainbowJelly kind="rainbow" size={44} /><MiniBoard cell={13} rows={['Y', 'M', 'B']} /></div></ThumbWell>;
       case 'blastRainbowSuper':
-        return <ThumbWell><div style={{ paddingTop: 10 }}><SpecialBlock type="crown" color="pink" size={42} /></div></ThumbWell>;
+        return <ThumbWell><RainbowJelly kind="emperor" size={50} /></ThumbWell>;
       case 'comboTurn':
         return (
           <ThumbWell tint="var(--color-block-blue-shine)">
@@ -357,7 +357,7 @@
       .filter(([, list]) => list.length);
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: 'url(../06-svg-assets/backgrounds/cam-nang-bg.png) center top / cover no-repeat, var(--color-bg)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: 'url(../06-svg-assets/backgrounds/cam-nang-bg.jpg) center top / cover no-repeat, var(--color-bg)' }}>
         <div style={{ flex: 1, minHeight: 0, overflowY: 'auto' }}>
           <div style={{ padding: '12px 14px 28px', display: 'flex', flexDirection: 'column', gap: 14 }}>
             <HeaderCard count={unlockedCount} total={total} onBack={onBack} />

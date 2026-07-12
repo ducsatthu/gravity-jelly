@@ -74,6 +74,7 @@ fun GuideMiniBoard(
 ) {
     val cols = rows.maxOf { it.size }
     val rowN = rows.size
+    val bitmaps = rememberJellyBitmaps()
     Canvas(
         modifier
             .fillMaxWidth()
@@ -124,6 +125,7 @@ fun GuideMiniBoard(
                             cell, left, top, blockSize, cr, borderStroke,
                             vineUp = vineAt(x, y - 1), vineDown = vineAt(x, y + 1),
                             vineLeft = vineAt(x - 1, y), vineRight = vineAt(x + 1, y),
+                            bitmaps = bitmaps,
                         )
                     }
                 }
@@ -138,20 +140,21 @@ private fun DrawScope.drawGuideCell(
     cr: CornerRadius, borderStroke: Stroke,
     vineUp: Boolean = false, vineDown: Boolean = false,
     vineLeft: Boolean = false, vineRight: Boolean = false,
+    bitmaps: JellyBitmaps? = null,
 ) {
     when (cell.kind) {
         GuideCellKind.EMPTY -> {}
         GuideCellKind.STONE -> drawStoneBlock(left, top, blockSize, cr, borderStroke)
         GuideCellKind.JELLY -> {
             val color = cell.color ?: JellyColor.YELLOW
-            drawJellyCell(left, top, blockSize, cr, borderStroke, JellyTheme.forColor(color), color, 0f, 1f)
+            drawJellyCell(left, top, blockSize, cr, borderStroke, JellyTheme.forColor(color), color, 0f, 1f, bitmaps = bitmaps)
         }
         GuideCellKind.SUPER1 -> {
             val color = cell.color ?: JellyColor.YELLOW
             drawSuperJellyCell(
                 left, top, blockSize, cr, borderStroke,
                 JellyTheme.forColor(color), level = 1, dirX = 0f, dirY = 1f,
-                pulse = GUIDE_PULSE, spin = GUIDE_SPIN,
+                pulse = GUIDE_PULSE, spin = GUIDE_SPIN, color = color, bitmaps = bitmaps,
             )
         }
         GuideCellKind.SUPER2 -> {
@@ -159,16 +162,16 @@ private fun DrawScope.drawGuideCell(
             drawSuperJellyCell(
                 left, top, blockSize, cr, borderStroke,
                 JellyTheme.forColor(color), level = 2, dirX = 0f, dirY = 1f,
-                pulse = GUIDE_PULSE, spin = GUIDE_SPIN,
+                pulse = GUIDE_PULSE, spin = GUIDE_SPIN, color = color, bitmaps = bitmaps,
             )
         }
         GuideCellKind.RAINBOW -> drawRainbowCell(
             left, top, blockSize, cr, borderStroke, 0f, 1f,
-            level = 0, pulse = GUIDE_PULSE, spin = GUIDE_SPIN,
+            level = 0, pulse = GUIDE_PULSE, spin = GUIDE_SPIN, bitmaps = bitmaps,
         )
         GuideCellKind.RAINBOW2 -> drawRainbowCell(
             left, top, blockSize, cr, borderStroke, 0f, 1f,
-            level = 2, pulse = GUIDE_PULSE, spin = GUIDE_SPIN,
+            level = 2, pulse = GUIDE_PULSE, spin = GUIDE_SPIN, bitmaps = bitmaps,
         )
         GuideCellKind.VINE -> {
             val isRoot = cell.color != null

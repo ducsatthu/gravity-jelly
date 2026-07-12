@@ -1,4 +1,4 @@
-<!-- @dsCard group="Motion" viewport="700x440" name="Effects (animated)" subtitle="4-way fall · rotate · happy clear · escalating combo · focus · wink · blink" -->
+<!-- @dsCard group="Motion" viewport="700x440" name="Effects (animated)" subtitle="4-way fall · rotate · happy clear · tiến hóa (thạch mới) · focus · wink · blink" -->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -25,6 +25,7 @@
 
   .wall { position: absolute; inset: 6px; border-radius: var(--radius-md); border: 2px dashed var(--color-cell-line); pointer-events: none; }
   .arrow { position: absolute; font-size: 14px; color: var(--color-gravity); font-weight: 800; }
+  @keyframes gjPop { 0%{transform:scale(.34);opacity:0} 58%{transform:scale(1.14)} 78%{transform:scale(.96)} 100%{transform:scale(1);opacity:1} }
 </style>
 </head>
 <body>
@@ -35,8 +36,15 @@
   <script src="../_ds_bundle.js"></script>
   <script type="text/babel">
     const NS = window.GravityJellyDesignSystem_3e0487;
-    const { JellyBlock, ComboPopup } = NS;
-    const { useState, useEffect } = React;
+    const { JellyBlock, Eyes } = NS;
+    // new evolution frame art (Thạch Hoàng Gia + dòng cầu vồng)
+    const A = '../06-svg-assets/ui/';
+    const EVOS = [
+      { src: A + 'vuathach-pink.jpg', eyeY: 0.58, expr: 'happy' },
+      { src: A + 'rainbow.jpg',        eyeY: 0.56, expr: 'focus' },
+      { src: A + 'rainbowemperor.jpg', eyeY: 0.60, expr: 'happy' },
+    ];
+    const { useState, useEffect, useRef } = React;
     const DIRS = ['down','left','up','right'];
     const ARROWS = { down:'↓', up:'↑', left:'←', right:'→' };
     const ARROW_POS = {
@@ -46,17 +54,35 @@
       right: { left: 6, top: '50%', transform: 'translateY(-50%)' },
     };
 
+    // Frame + eyes: the new jelly PNG art with the Eyes overlay dropped to eyeY
+    // (fraction of frame height, since the crown/gem sits at the top).
+    function FrameFace({ src, size = 66, eyeY = 0.58, direction = 'down', expression = 'normal', open = true, style }) {
+      return (
+        <div style={{ position: 'relative', width: size, ...style }}>
+          <img src={src} alt="" style={{ display: 'block', width: size, height: 'auto', filter: 'drop-shadow(0 3px 5px var(--color-shadow-soft))' }} />
+          <div style={{ position: 'absolute', inset: 0 }}>
+            <div style={{ position: 'absolute', left: '50%', top: `${eyeY * 100}%`, transform: 'translate(-50%, -50%)' }}>
+              <Eyes blockSize={size} direction={direction} expression={expression} open={open} />
+            </div>
+          </div>
+        </div>
+      );
+    }
+
     // 1 — falls toward each gravity wall in turn; eyes track the fall.
     function FallDirs() {
       const [i, setI] = useState(0);
+      const ref = useRef(null);
       useEffect(() => { const t = setInterval(() => setI(x => (x + 1) % 4), 1200); return () => clearInterval(t); }, []);
       const d = DIRS[i];
+      // restart the fall animation WITHOUT remounting the image (avoids a decode blank)
+      useEffect(() => { const el = ref.current; if (!el) return; el.style.animation = 'none'; void el.offsetWidth; el.style.animation = ''; }, [i]);
       return (
         <>
           <div className="wall" />
           <div className="arrow" style={ARROW_POS[d]}>{ARROWS[d]}</div>
-          <div key={i} className={'fall-' + d}>
-            <JellyBlock color="yellow" size={48} direction={d} />
+          <div ref={ref} className={'fall-' + d}>
+            <FrameFace src={A + 'vuathach-yellow.jpg'} size={62} eyeY={0.58} direction={d} />
           </div>
         </>
       );
@@ -76,10 +102,10 @@
         const t = setInterval(step, 1500);
         return () => { alive = false; clearInterval(t); };
       }, []);
-      return <JellyBlock color="mint" size={48} direction={DIRS[i]} expression={looking ? 'normal' : 'front'} />;
+      return <FrameFace src={A + 'vuathach-mint.jpg'} size={64} eyeY={0.58} direction={DIRS[i]} expression={looking ? 'normal' : 'front'} />;
     }
 
-    // 3 — line clear: blocks beam a happy "^ ^" and pop one-by-one, slowly.
+    // 3 — line clear: royal jellies beam a happy "^ ^" and pop one-by-one, slowly.
     function ClearHappy() {
       const [cleared, setCleared] = useState([false, false, false]);
       useEffect(() => {
@@ -94,25 +120,40 @@
         const loop = setInterval(run, 3000);
         return () => { clearInterval(loop); timers.forEach(clearTimeout); };
       }, []);
-      const slowFade = { transition: 'transform 380ms var(--ease-jelly), opacity 560ms var(--ease-out), filter 560ms var(--ease-out)' };
-      return <div style={{ display: 'flex', gap: 2 }}>
-        {['pink', 'pink', 'pink'].map((c, i) => (
-          <JellyBlock key={i} color={c} size={40} clearing={cleared[i]} expression="happy" style={slowFade} />
+      const st = (on) => ({ transition: 'transform 380ms var(--ease-jelly), opacity 560ms var(--ease-out)', transform: on ? 'scale(0.24)' : 'scale(1)', opacity: on ? 0 : 1 });
+      return <div style={{ display: 'flex', gap: 5 }}>
+        {[0, 1, 2].map((i) => (
+          <FrameFace key={i} src={A + 'vuathach-pink.jpg'} size={46} eyeY={0.58} expression="happy" style={st(cleared[i])} />
         ))}
       </div>;
     }
 
-    // 4 — combo popup: each clear pushes the chain higher → praise heats up.
-    function Combo() {
-      const [k, setK] = useState(0);
-      const seq = [2, 3, 4, 5, 7, 9];
-      useEffect(() => { const t = setInterval(() => setK(x => x + 1), 1200); return () => clearInterval(t); }, []);
-      return <ComboPopup key={k} combo={seq[k % seq.length]} showDish={false} />;
+    // 4 — evolve: the new jelly frames (royal + rainbow line) pop in one by one.
+    // All frames stay mounted (crossfade via opacity) so none re-decode / blank out.
+    function Evolve() {
+      const [i, setI] = useState(0);
+      const ref = useRef(null);
+      useEffect(() => { const t = setInterval(() => setI(x => (x + 1) % EVOS.length), 1500); return () => clearInterval(t); }, []);
+      useEffect(() => { const el = ref.current; if (!el) return; el.style.animation = 'none'; void el.offsetWidth; el.style.animation = 'gjPop 620ms var(--ease-jelly) both'; }, [i]);
+      return (
+        <div ref={ref} style={{ position: 'relative', width: 66, height: 66 }}>
+          {EVOS.map((e, idx) => (
+            <div key={idx} style={{ position: 'absolute', inset: 0, opacity: idx === i ? 1 : 0 }}>
+              <img src={e.src} alt="" style={{ display: 'block', width: 66, height: 'auto', filter: 'drop-shadow(0 3px 5px var(--color-shadow-soft))' }} />
+              <div style={{ position: 'absolute', inset: 0 }}>
+                <div style={{ position: 'absolute', left: '50%', top: `${e.eyeY * 100}%`, transform: 'translate(-50%, -50%)' }}>
+                  <Eyes blockSize={66} direction="down" expression={e.expr} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      );
     }
 
     // 5 — eyes front, locked on the player; the reticle keeps pulling focus.
     function Focus() {
-      return <JellyBlock color="blue" size={48} direction="down" expression="focus" />;
+      return <FrameFace src={A + 'rainbow.jpg'} size={66} eyeY={0.56} direction="down" expression="focus" />;
     }
 
     // 6 — and now and then, a cheeky wink at the user.
@@ -124,7 +165,7 @@
         const t = setInterval(blink, 2200); blink();
         return () => { alive = false; clearInterval(t); };
       }, []);
-      return <JellyBlock color="yellow" size={48} direction="down" expression={on ? 'wink' : 'front'} />;
+      return <FrameFace src={A + 'vuathach-yellow.jpg'} size={64} eyeY={0.58} direction="down" expression={on ? 'wink' : 'front'} />;
     }
 
     // 7 — looks straight ahead and blinks both eyes, like a person.
@@ -135,13 +176,12 @@
         const close = (ms) => { setShut(true); timers.push(setTimeout(() => { if (alive) setShut(false); }, ms)); };
         const beat = () => {
           close(130);
-          // occasional natural double-blink
           if (Math.random() < 0.35) timers.push(setTimeout(() => close(120), 300));
         };
         const t = setInterval(beat, 2400); beat();
         return () => { alive = false; clearInterval(t); timers.forEach(clearTimeout); };
       }, []);
-      return <JellyBlock color="mint" size={48} direction="down" expression="front" blink={shut} />;
+      return <FrameFace src={A + 'rainbowemperor.jpg'} size={66} eyeY={0.60} direction="down" expression="front" open={!shut} />;
     }
 
     const Panel = ({ children, cap }) => (
@@ -154,7 +194,7 @@
           <Panel cap="RƠI · 4 HƯỚNG"><FallDirs/></Panel>
           <Panel cap="XOAY TRỌNG LỰC · 350ms"><Rotate/></Panel>
           <Panel cap="XÓA HÀNG · vui vẻ ^ ^"><ClearHappy/></Panel>
-          <Panel cap="COMBO · khen ngợi tăng dần"><Combo/></Panel>
+          <Panel cap="TIẾN HÓA · thạch mới"><Evolve/></Panel>
         </div>
         <div className="row">
           <Panel cap="FOCUS · nhìn người chơi"><Focus/></Panel>

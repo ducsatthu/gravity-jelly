@@ -20,7 +20,6 @@
               "02-foundations/02-eyes/**",
               "02-foundations/03-icon/**",
               "03-components/01-button/**",
-              "03-components/02-hud/**",
               "03-components/03-tray/**",
               "03-components/04-gravity-rotate-button/**",
               "03-components/05-combo-popup/**",
@@ -77,10 +76,6 @@
         "message": "<GravityRotateButton> doesn't accept that prop. Declared props: turnsLeft, onRotate, disabled, style."
       },
       {
-        "selector": "JSXOpeningElement[name.name='Hud'] > JSXAttribute > JSXIdentifier[name!=/^(?:score|best|direction|onPause|style|key|ref|className|style|children)$/]",
-        "message": "<Hud> doesn't accept that prop. Declared props: score, best, direction, onPause, style."
-      },
-      {
         "selector": "JSXOpeningElement[name.name='Icon'] > JSXAttribute > JSXIdentifier[name!=/^(?:name|size|color|strokeWidth|style|key|ref|className|style|children)$/]",
         "message": "<Icon> doesn't accept that prop. Declared props: name, size, color, strokeWidth, style."
       },
@@ -126,9 +121,6 @@
         "replaces": []
       },
       "GravityRotateButton": {
-        "replaces": []
-      },
-      "Hud": {
         "replaces": []
       },
       "Icon": {

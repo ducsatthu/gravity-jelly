@@ -2,7 +2,7 @@
    ----------------------------------------------------------------
    Same approach as Worlds 1–3: pure painted artboard 360 × 1080dp, NO HUD.
    The scenery + winding sand road + locked gate are a single painted PNG
-   backdrop (06-svg-assets/backgrounds/world4-map-bg.png, 724×2172 → exact
+   backdrop (06-svg-assets/backgrounds/world4-map-bg.jpg, 724×2172 → exact
    1:3, scaled to 360 wide = 360×1080, no distortion). We do NOT draw
    dunes/cacti/path in SVG — we just DROP the ten level nodes onto the
    painted trail. Reads bottom→top:
@@ -17,7 +17,7 @@
    Reuses DS tokens & tile art. Exposes window.GJWorld4Strip.
    ---------------------------------------------------------------- */
 (function () {
-  const BG_SRC   = '../06-svg-assets/backgrounds/world4-map-bg.png';
+  const BG_SRC   = '../06-svg-assets/backgrounds/world4-map-bg.jpg';
   const LOCK_SRC = '../06-svg-assets/ui/locked-tile.png';
   const OPEN_SRC = '../06-svg-assets/ui/unlocked-tile.png';
   const DONE_SRC = '../06-svg-assets/ui/completed-tile.png';
@@ -35,16 +35,16 @@
   // sand trail (alternating left/right bends), bottom→top. x/y measured from
   // the painted path centerline of world4-map-bg.png.
   const NODES = [
-    { id: 31, x: 184, y: 1005, kind: 'reg',      state: 'done',   stars: 3, color: 'yellow' },
-    { id: 32, x: 216, y:  915, kind: 'reg',      state: 'done',   stars: 3, color: 'pink'   },
-    { id: 33, x: 191, y:  820, kind: 'reg',      state: 'done',   stars: 2, color: 'mint'   },
-    { id: 34, x: 166, y:  725, kind: 'reg',      state: 'open'   },
-    { id: 35, x: 166, y:  640, kind: 'reg',      state: 'locked' },
-    { id: 36, x: 172, y:  555, kind: 'breather', state: 'locked' },
-    { id: 37, x: 209, y:  460, kind: 'reg',      state: 'locked' },
-    { id: 38, x: 174, y:  360, kind: 'reg',      state: 'locked' },
-    { id: 39, x: 158, y:  272, kind: 'reg',      state: 'locked' },
-    { id: 40, x: 175, y:  205, kind: 'boss',     state: 'locked' },
+    { id: 31, x: 190, y: 1000, kind: 'reg',      state: 'done',   stars: 3, color: 'yellow' }, // R bend
+    { id: 32, x: 158, y:  888, kind: 'reg',      state: 'done',   stars: 3, color: 'pink'   }, // L bend
+    { id: 33, x: 205, y:  800, kind: 'reg',      state: 'done',   stars: 2, color: 'mint'   }, // R bend
+    { id: 34, x: 136, y:  707, kind: 'reg',      state: 'open'   },                            // L bend
+    { id: 35, x: 240, y:  612, kind: 'reg',      state: 'locked' },                            // R bend
+    { id: 36, x: 132, y:  519, kind: 'breather', state: 'locked' },                            // L bend
+    { id: 37, x: 244, y:  456, kind: 'reg',      state: 'locked' },                            // R bend (deep)
+    { id: 38, x: 130, y:  382, kind: 'reg',      state: 'locked' },                            // L bend
+    { id: 39, x: 210, y:  306, kind: 'reg',      state: 'locked' },                            // R bend
+    { id: 40, x: 151, y:  240, kind: 'boss',     state: 'locked' },                            // road → gate
   ];
 
   // ─── Stars ────────────────────────────────────────────────────────────
@@ -343,8 +343,24 @@
 
         {/* Start marker */}
         <StartSign />
+
+        {/* DEBUG coord grid (temporary) */}
+        {window.__gjGrid !== false && <DebugGrid />}
       </div>
     );
+  }
+
+  function DebugGrid() {
+    const lines = [];
+    for (let y = 0; y <= H; y += 40) {
+      lines.push(<div key={'h'+y} style={{ position:'absolute', left:0, right:0, top:y, height:1, background: y%200===0?'rgba(200,0,0,0.55)':'rgba(0,0,0,0.22)' }} />);
+      lines.push(<div key={'hy'+y} style={{ position:'absolute', left:2, top:y+1, fontSize:9, fontFamily:'monospace', color:'#B00', fontWeight:700 }}>{y}</div>);
+    }
+    for (let x = 0; x <= W; x += 40) {
+      lines.push(<div key={'v'+x} style={{ position:'absolute', top:0, bottom:0, left:x, width:1, background: x%80===0?'rgba(0,0,200,0.4)':'rgba(0,0,0,0.18)' }} />);
+      lines.push(<div key={'vx'+x} style={{ position:'absolute', top:2, left:x+2, fontSize:9, fontFamily:'monospace', color:'#00B', fontWeight:700 }}>{x}</div>);
+    }
+    return <div style={{ position:'absolute', inset:0, zIndex:99, pointerEvents:'none' }}>{lines}</div>;
   }
 
   window.GJWorld4Strip = World4Strip;

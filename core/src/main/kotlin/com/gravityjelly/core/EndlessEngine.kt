@@ -128,6 +128,7 @@ class EndlessEngine(
     private var waterSources: List<WaterSource> = emptyList()
     /** Chống hạn: số đợt RỦI RO (bậc ≥🟡) liên tiếp KHÔNG có mảnh thoát. Chạm ngưỡng → ép đợt kế có. */
     private var wavesSinceHelpful = 0
+    private var wavesSinceSpecial = 0
 
     init {
         for ((pos, cell) in preset) grid.set(pos.x, pos.y, cell)
@@ -157,12 +158,14 @@ class EndlessEngine(
         internal val placeTurns: Int,
         internal val waterSources: List<WaterSource>,
         internal val wavesSinceHelpful: Int,
+        internal val wavesSinceSpecial: Int,
         internal val rngState: ULong,
     )
 
     fun snapshot(): Snapshot = Snapshot(
         grid.copy(), gravity, stage, waveIdx, tray.toList(), rotBudget, score, combo,
         gameOver, placesSinceGrow, placeTurns, waterSources.toList(), wavesSinceHelpful,
+        wavesSinceSpecial,
         rng.stateSnapshot(),
     )
 
@@ -180,6 +183,7 @@ class EndlessEngine(
         placeTurns = s.placeTurns
         waterSources = s.waterSources
         wavesSinceHelpful = s.wavesSinceHelpful
+        wavesSinceSpecial = s.wavesSinceSpecial
         rng.stateRestore(s.rngState)
     }
 
@@ -555,22 +559,24 @@ class EndlessEngine(
             waveIdx++
             val pool = tuning.poolFor(stage)
             return List(TrayGenerator.TRAY_SIZE) { i ->
-                wave.getOrNull(i) ?: Piece(rng.pick(pool), rng.pick(JellyColor.entries))
+                wave.getOrNull(i) ?: PieceLibrary.dealt(rng.pick(pool), rng.pick(JellyColor.entries))
             }
         }
         val pool = tuning.poolFor(stage)
         val cfg = tuning.antiDrought
             ?: return List(TrayGenerator.TRAY_SIZE) {
-                Piece(shape = rng.pick(pool), color = rng.pick(JellyColor.entries))
+                PieceLibrary.dealt(shape = rng.pick(pool), color = rng.pick(JellyColor.entries))
             }
-        // Chống hạn (Endless live): sinh đợt bảo đảm đường thoát, cập nhật bộ đếm hạn hán.
+        // Chống hạn (Endless live): sinh đợt bảo đảm đường thoát + chèn khối đặc biệt định kỳ.
         val forceHelpful = wavesSinceHelpful >= cfg.pityWaves
-        val wave = WaveGenerator.deal(grid, pool, JellyColor.entries, rng, cfg, forceHelpful)
+        val forceSpecial = cfg.specialEveryWaves > 0 && wavesSinceSpecial >= cfg.specialEveryWaves
+        val wave = WaveGenerator.deal(grid, pool, JellyColor.entries, rng, cfg, forceHelpful, forceSpecial)
         wavesSinceHelpful = when {
             wave.tier == WaveGenerator.Tier.GREEN -> 0   // bàn thoáng → không tính hạn hán
             wave.hadHelpful -> 0
             else -> wavesSinceHelpful + 1
         }
+        wavesSinceSpecial = if (wave.hadSpecial) 0 else wavesSinceSpecial + 1
         return wave.pieces
     }
 

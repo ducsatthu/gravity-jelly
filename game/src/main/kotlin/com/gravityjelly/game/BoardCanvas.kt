@@ -44,8 +44,7 @@ import com.gravityjelly.core.hardDrop
 private const val SHOW_CLUSTER_NUMBER = false
 private const val NUMBER_Y_FRAC    = 0.62f
 private const val NUMBER_SIZE_FRAC = 0.32f
-private const val GHOST_FILL_ALPHA = 0.42f
-private const val GHOST_EDGE_ALPHA = 0.75f
+private const val GHOST_FILL_ALPHA = 0.5f   // độ mờ thân art PNG khi xem trước điểm rơi
 
 // Kích thước giếng lõm — đọc bởi lớp ráp màn (kể cả :app) để tính tọa độ lưới cho drag
 const val BOARD_PAD_DP         = 5f   // padding trong giếng (board.jsx: pad=5 → lưới gần kín giếng)
@@ -89,7 +88,8 @@ class BoardRender {
 }
 
 /** Vị trí hard-drop preview của mảnh đang kéo (cells tính từ :core hardDrop). */
-data class GhostPreview(val cells: List<Vec>, val color: JellyColor)
+/** [cellColors] (tùy chọn) = màu riêng từng ô, căn theo [cells]; null = mọi ô dùng [color]. */
+data class GhostPreview(val cells: List<Vec>, val color: JellyColor, val cellColors: List<JellyColor>? = null)
 
 /**
  * Vẽ CẢ BÀN (giếng lõm + lưới 9×9 + khối jelly) trong MỘT Canvas (CLAUDE.md §chống giật).
@@ -112,6 +112,8 @@ fun BoardCanvas(
     val textMeasurer = rememberTextMeasurer()
     // Kết quả mắt tái dùng (mutate trong draw phase — KHÔNG cấp phát mỗi ô/mỗi frame).
     val eyeOut = remember { EyeRender() }
+    // Art PNG thân khối (tải 1 lần, chia sẻ giữa mọi Canvas). Mắt vẫn overlay vẽ tay.
+    val bitmaps = rememberJellyBitmaps()
 
     // Precompute inset shadow brush — density không thay đổi runtime → remember 1 lần
     val insetShadowBrush = remember(density) {
@@ -246,6 +248,7 @@ fun BoardCanvas(
                                 expression = eyeOut.expression, eyeOpen = eyeOut.open,
                                 squashScaleX = sqX, squashScaleY = sqY, clearProgress = clp,
                                 level = cell.superLevel, pulse = superPulse, spin = superSpin,
+                                bitmaps = bitmaps,
                             )
                             cell.isSuper -> drawSuperJellyCell(
                                 left, top, blockSize, cr, borderStroke,
@@ -253,6 +256,7 @@ fun BoardCanvas(
                                 expression = eyeOut.expression, eyeOpen = eyeOut.open,
                                 squashScaleX = sqX, squashScaleY = sqY, clearProgress = clp,
                                 pulse = superPulse, spin = superSpin,
+                                color = eyeColor, bitmaps = bitmaps,
                             )
                             else -> drawJellyCell(
                                 left, top, blockSize, cr, borderStroke,
@@ -262,6 +266,7 @@ fun BoardCanvas(
                                 squashScaleX  = sqX,
                                 squashScaleY  = sqY,
                                 clearProgress = clp,
+                                bitmaps       = bitmaps,
                             )
                         }
                         if (SHOW_CLUSTER_NUMBER && cs >= 2) drawNumber(textMeasurer, cs, left, top, blockSize)
@@ -276,21 +281,20 @@ fun BoardCanvas(
                 drawRegionLoop(previewLoops[i], cellSize, blockSize, superSpin)
             }
 
-            // ghost preview (điểm rơi)
+            // ghost preview (điểm rơi) — thân art PNG mờ (đồng bộ với khối thật)
             if (ghost != null) {
-                val palette = JellyTheme.forColor(ghost.color)
-                val cells   = ghost.cells
+                val cells = ghost.cells
                 for (i in cells.indices) {
+                    val color = ghost.cellColors?.getOrNull(i) ?: ghost.color
                     val v    = cells[i]
                     val left = v.x * cellSize + gap / 2f
                     val top  = v.y * cellSize + gap / 2f
-                    drawRoundRect(palette.fill.copy(alpha = GHOST_FILL_ALPHA), Offset(left, top), Size(blockSize, blockSize), cr)
-                    drawRoundRect(palette.edge.copy(alpha = GHOST_EDGE_ALPHA), Offset(left, top), Size(blockSize, blockSize), cr, style = borderStroke)
+                    drawBlockImage(bitmaps.base(color), left, top, blockSize, GHOST_FILL_ALPHA)
                 }
             }
 
             // lớp hiệu ứng (clearing + particle + popup) — cùng MỘT Canvas, cùng translate
-            animator?.drawOverlays(this, cellSize, gap, textMeasurer, now)
+            animator?.drawOverlays(this, cellSize, gap, textMeasurer, now, bitmaps)
         }
     }
 }
@@ -478,7 +482,7 @@ internal fun sampleRender(withGhost: Boolean): BoardRender {
     if (withGhost) {
         val piece = Piece(PieceLibrary.L3_0, JellyColor.BLUE)
         val res   = hardDrop(grid, piece, lateralIndex = 3, gravity = Direction.DOWN)
-        if (res is PlacementResult.Success) r.ghost = GhostPreview(res.cells, piece.color)
+        if (res is PlacementResult.Success) r.ghost = GhostPreview(res.cells, piece.color, piece.cellColors)
     }
     return r
 }

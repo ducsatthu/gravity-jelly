@@ -314,7 +314,7 @@ class EndlessEngineTest {
         assertTrue(ev1.first() is GameEvent.PiecePlaced)
         val placed1 = ev1.first() as GameEvent.PiecePlaced
         assertEquals(
-            listOf(Vec(1, 6), Vec(1, 7), Vec(0, 8), Vec(1, 8)),
+            listOf(Vec(0, 8), Vec(1, 8), Vec(2, 8)),
             placed1.cells,
         )
         val s1 = e.state()
@@ -328,7 +328,7 @@ class EndlessEngineTest {
         val ev2 = e.placePiece(1, 4)
         val placed2 = ev2.first() as GameEvent.PiecePlaced
         assertEquals(
-            listOf(Vec(4, 6), Vec(4, 7), Vec(4, 8), Vec(5, 8)),
+            listOf(Vec(4, 7), Vec(5, 7), Vec(6, 7), Vec(6, 8)),
             placed2.cells,
         )
         val s2 = e.state()
@@ -415,8 +415,10 @@ class EndlessEngineTest {
         val s2 = playGreedy(seed = 12345L)
 
         // Golden: exact values for seed 12345, budget 0, greedy free-place strategy.
-        // Đặt-tự-do KHÔNG rơi; chỉ cascade khi clear.
-        assertEquals(117, s1.score)
+        // Đặt-tự-do KHÔNG rơi; chỉ cascade khi clear. Với pool đủ 24 kiểu (nhiều khối lớn: 3×3,
+        // pentomino, chéo), greedy top-left lấp bí trước khi kịp lấp kín dòng nào → score 0, stage 5.
+        assertEquals(0, s1.score)
+        assertEquals(5, s1.stage)
         assertTrue("Greedy fill should end game over", s1.isGameOver)
 
         // Same seed → bit-identical kết quả (deterministic).

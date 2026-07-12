@@ -1,6 +1,6 @@
 /* leaderboard-screen.jsx — LEADERBOARD. Single GLOBAL Endless board (no
    friends system, no user avatars). Top-3 podium is the SUPPLIED PNG ART
-   `06-svg-assets/backgrounds/leaderboard-podium-bg.png` (candy podium with
+   `06-svg-assets/backgrounds/leaderboard-podium-bg.jpg` (candy podium with
    gold/silver/bronze frames baked in) — names + scores are overlaid inside
    the three empty frames. Below: rank rows, pinned tangerine "you" row with
    inline name-edit. Exposes window.GJLeaderboardScreen. */
@@ -8,7 +8,7 @@
 (function () {
   const NS = window.GravityJellyDesignSystem_3e0487;
   const { Icon } = NS;
-  const BG_SRC = '../06-svg-assets/backgrounds/leaderboard-podium-bg.png';
+  const BG_SRC = '../06-svg-assets/backgrounds/leaderboard-podium-bg.jpg';
 
   // ink colors matched to the art's three frame tints (gold / periwinkle / pink)
   const INK = {

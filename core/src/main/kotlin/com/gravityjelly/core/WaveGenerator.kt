@@ -17,6 +17,12 @@ data class AntiDroughtConfig(
     val pityWaves: Int = 2,
     /** Trần số lần resample khi tìm mảnh đặt-được (chặn vòng lặp; deterministic). */
     val maxResample: Int = 24,
+    /**
+     * Cứ tối đa bấy nhiêu đợt KHÔNG có khối "đặc biệt" ([PieceLibrary.SPECIAL]: pentomino/3×3/chéo)
+     * thì ép đợt kế chèn 1 khối đặc biệt (đặt-được) — bảo đảm gặp đủ 24 loại dù bốc-thường nghiêng về
+     * mảnh nhỏ dễ combo. 0 = tắt (không bao giờ ép).
+     */
+    val specialEveryWaves: Int = 3,
 )
 
 /**
@@ -29,11 +35,24 @@ object WaveGenerator {
 
     enum class Tier { GREEN, YELLOW, RED }
 
-    /** [pieces] = đợt khay; [hadHelpful] = đợt có ≥1 mảnh tạo clear trên bàn hiện tại; [tier] = bậc đã tính. */
-    data class Wave(val pieces: List<Piece>, val hadHelpful: Boolean, val tier: Tier)
+    /**
+     * [pieces] = đợt khay; [hadHelpful] = có ≥1 mảnh lấp-kín-hàng trên bàn hiện tại; [hadSpecial] = có
+     * ≥1 khối [PieceLibrary.SPECIAL]; [tier] = bậc độ đầy.
+     */
+    data class Wave(
+        val pieces: List<Piece>,
+        val hadHelpful: Boolean,
+        val tier: Tier,
+        val hadSpecial: Boolean,
+    )
 
     /**
+     * COMBO-FRIENDLY: bốc-thường bốc CÓ TRỌNG SỐ nghiêng về mảnh nhỏ/linh hoạt (dễ lấp khe → dễ combo);
+     * khối đặc biệt (pentomino/3×3/chéo) trọng số 0 ở bốc-thường, chỉ ra qua CHÈN ĐỊNH KỲ để vẫn gặp đủ
+     * 24 loại. Vẫn ĐẢM BẢO ĐƯỜNG THOÁT khi bàn đầy. Deterministic qua [rng].
+     *
      * @param forceHelpful pity từ [EndlessEngine] (đủ [AntiDroughtConfig.pityWaves] đợt rủi ro không thoát).
+     * @param forceSpecial tới hạn [AntiDroughtConfig.specialEveryWaves] đợt không có khối đặc biệt → ép chèn 1.
      */
     fun deal(
         grid: Grid,
@@ -42,26 +61,82 @@ object WaveGenerator {
         rng: Rng,
         cfg: AntiDroughtConfig,
         forceHelpful: Boolean,
+        forceSpecial: Boolean = false,
     ): Wave {
         val tier = tierFor(grid, cfg)
         val needHelpful = tier == Tier.RED || forceHelpful
 
         val pieces = ArrayList<Piece>(TrayGenerator.TRAY_SIZE)
         repeat(TrayGenerator.TRAY_SIZE) {
-            val shape = pickShape(tier, pool, rng)
+            val shape = weightedPick(pool, rng) { comboWeight(it, tier) }
             val color = rng.pick(colors)
-            pieces.add(ensurePlaceable(Piece(shape, color), grid, pool, cfg, rng))
+            pieces.add(ensurePlaceable(PieceLibrary.dealt(shape, color), grid, pool, cfg, rng))
         }
 
+        // CHÈN KHỐI ĐẶC BIỆT (đủ 24 loại) — nếu tới hạn và đợt chưa có khối đặc biệt nào đặt-được.
+        var hadSpecial = pieces.any { it.shape in PieceLibrary.SPECIAL }
+        if (forceSpecial && !hadSpecial) {
+            val sp = findPlaceableSpecial(grid, pool, colors, rng)
+            if (sp != null) {
+                pieces[rng.nextInt(pieces.size)] = sp
+                hadSpecial = true
+            }
+        }
+
+        // ĐẢM BẢO ĐƯỜNG THOÁT: chèn mảnh lấp-kín-hàng vào slot KHÔNG-đặc-biệt (giữ lại khối đặc biệt vừa chèn).
         var hadHelpful = pieces.any { isLineClearing(grid, it) }
         if (needHelpful && !hadHelpful) {
             val hp = findLineClearingPiece(grid, pool, colors, rng)
             if (hp != null) {
-                pieces[rng.nextInt(pieces.size)] = hp
+                val idx = pieces.indices.firstOrNull { pieces[it].shape !in PieceLibrary.SPECIAL }
+                    ?: rng.nextInt(pieces.size)
+                pieces[idx] = hp
                 hadHelpful = true
             }
         }
-        return Wave(pieces, hadHelpful, tier)
+        return Wave(pieces, hadHelpful, tier, hadSpecial)
+    }
+
+    /**
+     * Trọng số bốc-thường: khối [PieceLibrary.SPECIAL] = 0 (chỉ ra qua chèn định kỳ). Còn lại: mảnh
+     * càng nhỏ càng cao (dễ lấp khe → dễ combo); bậc 🔴 (bàn rất đầy) ưu tiên nhỏ mạnh hơn.
+     */
+    private fun comboWeight(shape: Shape, tier: Tier): Int {
+        if (shape in PieceLibrary.SPECIAL) return 0
+        return when (shape.size) {
+            1, 2 -> if (tier == Tier.RED) 8 else 5
+            3 -> if (tier == Tier.RED) 6 else 4
+            else -> if (tier == Tier.RED) 2 else 3   // size 4
+        }
+    }
+
+    /** Bốc 1 hình theo trọng số [weightOf] (deterministic: 1 lần [Rng.nextInt]). Mọi trọng số 0 → uniform. */
+    private inline fun weightedPick(pool: List<Shape>, rng: Rng, weightOf: (Shape) -> Int): Shape {
+        var total = 0
+        for (s in pool) total += weightOf(s)
+        if (total <= 0) return rng.pick(pool)
+        var r = rng.nextInt(total)
+        for (s in pool) {
+            r -= weightOf(s)
+            if (r < 0) return s
+        }
+        return pool.last()
+    }
+
+    /**
+     * 1 khối đặc biệt ĐẶT-ĐƯỢC, bốc CÔNG BẰNG theo KIỂU ([PieceLibrary.SPECIAL_KINDS]): lọc các kiểu còn
+     * ≥1 hướng vừa [pool] & đặt-được, bốc 1 kiểu rồi 1 hướng trong kiểu → 3×3 (1 hướng) không bị pentomino
+     * (nhiều hướng) lấn át. Null nếu không kiểu nào đặt-được. Màu qua [rng].
+     */
+    private fun findPlaceableSpecial(grid: Grid, pool: List<Shape>, colors: List<JellyColor>, rng: Rng): Piece? {
+        val kinds = PieceLibrary.SPECIAL_KINDS.mapNotNull { kind ->
+            kind.filter { it in pool && canFreePlaceAnywhere(grid, PieceLibrary.dealt(it, colors.first())) }
+                .ifEmpty { null }
+        }
+        if (kinds.isEmpty()) return null
+        val kind = kinds[rng.nextInt(kinds.size)]
+        val shape = kind[rng.nextInt(kind.size)]
+        return PieceLibrary.dealt(shape, rng.pick(colors))
     }
 
     private fun tierFor(grid: Grid, cfg: AntiDroughtConfig): Tier {
@@ -76,13 +151,6 @@ object WaveGenerator {
         }
     }
 
-    /** 🟢 RNG thuần (giữ đúng thứ tự rng cũ). 🟡/🔴 ưu tiên mảnh nhỏ ≤4 ô cho dễ lấp khe. */
-    private fun pickShape(tier: Tier, pool: List<Shape>, rng: Rng): Shape {
-        if (tier == Tier.GREEN) return rng.pick(pool)
-        val small = pool.filter { it.size <= 4 }
-        return rng.pick(if (small.isNotEmpty()) small else pool)
-    }
-
     /** Đảm bảo mảnh đặt được đâu đó trên bàn; nếu không, resample hình (bounded) rồi fallback mảnh nhỏ nhất vừa. */
     private fun ensurePlaceable(
         piece: Piece, grid: Grid, pool: List<Shape>, cfg: AntiDroughtConfig, rng: Rng,
@@ -91,11 +159,11 @@ object WaveGenerator {
         var tries = cfg.maxResample
         while (tries-- > 0) {
             val s = rng.pick(pool)
-            val p = Piece(s, piece.color)
+            val p = PieceLibrary.dealt(s, piece.color)
             if (canFreePlaceAnywhere(grid, p)) return p
         }
-        val fit = pool.filter { canFreePlaceAnywhere(grid, Piece(it, piece.color)) }.minByOrNull { it.size }
-        return Piece(fit ?: PieceLibrary.DOT, piece.color)
+        val fit = pool.filter { canFreePlaceAnywhere(grid, PieceLibrary.dealt(it, piece.color)) }.minByOrNull { it.size }
+        return PieceLibrary.dealt(fit ?: PieceLibrary.DOT, piece.color)
     }
 
     /**
@@ -108,7 +176,7 @@ object WaveGenerator {
         val start = rng.nextInt(pool.size)
         for (k in pool.indices) {
             val shape = pool[(start + k) % pool.size]
-            if (isLineClearing(grid, Piece(shape, colors.first()))) return Piece(shape, rng.pick(colors))
+            if (isLineClearing(grid, Piece(shape, colors.first()))) return PieceLibrary.dealt(shape, rng.pick(colors))
         }
         return null
     }

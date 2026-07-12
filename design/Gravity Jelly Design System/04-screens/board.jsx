@@ -71,7 +71,7 @@
         {grid.map((row, r) =>
           row.map((cellv, c) => {
             if (!cellv) {
-              return <div key={`${r}-${c}`} style={{ width: cell, height: cell, borderRadius: Math.max(6, Math.round(cell * 0.28)), background: 'var(--color-cell-empty)', boxShadow: 'inset 0 0 0 1px var(--color-cell-line)' }} />;
+              return <div key={`${r}-${c}`} style={{ width: cell, height: cell, borderRadius: Math.max(6, Math.round(cell * 0.20)), background: 'var(--color-cell-empty)', boxShadow: 'inset 0 0 0 1px var(--color-cell-line)' }} />;
             }
             const isStone = cellv.code === 'S';
             return (

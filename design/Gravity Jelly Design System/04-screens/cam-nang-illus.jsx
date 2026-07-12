@@ -10,6 +10,43 @@
 
   const COL = { Y: 'yellow', M: 'mint', P: 'pink', B: 'blue', S: 'stone' };
 
+  /* Vua Thạch (Jelly King) royal-frame art — crowned jelly panel per colour,
+     gem = that colour's emblem (star/leaf/heart/drop). Supplied PNG art. */
+  const VUATHACH_SRC = {
+    yellow: '../06-svg-assets/ui/vuathach-yellow.jpg',
+    mint: '../06-svg-assets/ui/vuathach-mint.jpg',
+    pink: '../06-svg-assets/ui/vuathach-pink.jpg',
+    blue: '../06-svg-assets/ui/vuathach-blue.jpg',
+  };
+  function VuaThach({ color = 'blue', size = 52 }) {
+    return <img src={VUATHACH_SRC[color] || VUATHACH_SRC.blue} alt="Vua Thạch" style={{ width: size, height: size, display: 'block', borderRadius: Math.round(size * 0.20), boxShadow: '0 2px 5px var(--color-shadow-soft)' }} />;
+  }
+
+  /* Thạch Hoàng Gia (Royal Jelly, cấp 1) — royal-frame PNG art per colour.
+     (Repurposed from the royal art; own copy so a later Vua Thạch swap is isolated.) */
+  const HOANGGIA_SRC = {
+    yellow: '../06-svg-assets/ui/hoanggia-yellow.jpg',
+    mint: '../06-svg-assets/ui/hoanggia-mint.jpg',
+    pink: '../06-svg-assets/ui/hoanggia-pink.jpg',
+    blue: '../06-svg-assets/ui/hoanggia-blue.jpg',
+  };
+  function HoangGia({ color = 'pink', size = 52 }) {
+    return <img src={HOANGGIA_SRC[color] || HOANGGIA_SRC.pink} alt="Thạch Hoàng Gia" style={{ width: size, height: size, display: 'block', borderRadius: Math.round(size * 0.20), boxShadow: '0 2px 5px var(--color-shadow-soft)' }} />;
+  }
+
+  /* Thạch Cầu Vồng (Rainbow Jelly) + Hoàng Đế Cầu Vồng (Rainbow Emperor) —
+     supplied PNG art. kind: 'rainbow' (sparkle) | 'emperor' (crowned). */
+  const RAINBOW_SRC = {
+    rainbow: '../06-svg-assets/ui/rainbow.jpg',
+    emperor: '../06-svg-assets/ui/rainbowemperor.jpg',
+  };
+  function RainbowJelly({ kind = 'rainbow', size = 52 }) {
+    const src = RAINBOW_SRC[kind] || RAINBOW_SRC.rainbow;
+    const alt = kind === 'emperor' ? 'Hoàng Đế Cầu Vồng' : 'Thạch Cầu Vồng';
+    // both are opaque full-bleed squares now — clip corners with border-radius.
+    return <img src={src} alt={alt} style={{ width: size, height: size, display: 'block', borderRadius: Math.round(size * 0.20), boxShadow: '0 2px 5px var(--color-shadow-soft)' }} />;
+  }
+
   /* one 9-or-smaller grid drawn in the sunken board well. `rows` is an array
      of strings; chars: '.' empty · Y/M/P/B/S jelly · lowercase = same block
      but dimmed (faded, for "swept away" after-states). */
@@ -25,7 +62,7 @@
         {rows.flatMap((row, y) => row.split('').map((ch, x) => {
           const key = `${y}-${x}`;
           if (ch === '.') {
-            return <span key={key} style={{ width: cell, height: cell, borderRadius: Math.round(cell * 0.28), background: 'var(--color-cell-empty)', boxShadow: 'inset 0 0 0 1.5px var(--color-cell-line)' }} />;
+            return <span key={key} style={{ width: cell, height: cell, borderRadius: Math.round(cell * 0.20), background: 'var(--color-cell-empty)', boxShadow: 'inset 0 0 0 1.5px var(--color-cell-line)' }} />;
           }
           const faded = ch === ch.toLowerCase() && ch !== ch.toUpperCase();
           const color = COL[ch.toUpperCase()] || 'yellow';
@@ -163,28 +200,28 @@
           <MiniBoard cell={13} rows={['PPP', 'PPP', 'PPP']} />
         </div>
         <Flow />
-        <Stage label="Thạch Hoàng Gia"><SpecialBlock type="super" color="pink" size={46} /></Stage>
+        <Stage label="Thạch Hoàng Gia"><HoangGia color="pink" size={56} /></Stage>
       </Wrap>
     ),
     rainbow: () => (
       <Wrap>
         <Stage label="3×3 đủ ba màu"><MiniBoard cell={18} rows={['YYY', 'MMM', 'BBB']} /></Stage>
         <Flow />
-        <Stage label="Thạch Cầu Vồng"><SpecialBlock type="rainbow" size={46} /></Stage>
+        <Stage label="Thạch Cầu Vồng"><RainbowJelly kind="rainbow" size={62} /></Stage>
       </Wrap>
     ),
     superL2: () => (
       <Wrap>
-        <Stage label="2 Thạch Hoàng Gia"><div style={{ display: 'flex', gap: 4 }}><SpecialBlock type="super" color="blue" size={36} /><SpecialBlock type="super" color="blue" size={36} /></div></Stage>
+        <Stage label="2 Thạch Hoàng Gia"><div style={{ display: 'flex', gap: 4 }}><HoangGia color="blue" size={46} /><HoangGia color="blue" size={46} /></div></Stage>
         <Flow />
-        <Stage label="Vua Thạch"><SpecialBlock type="super" color="blue" size={48} lvl={2} /></Stage>
+        <Stage label="Vua Thạch"><VuaThach color="blue" size={62} /></Stage>
       </Wrap>
     ),
     rainbowSuper: () => (
       <Wrap>
-        <Stage label="2 kíp nổ"><div style={{ display: 'flex', gap: 4 }}><SpecialBlock type="rainbow" size={34} /><SpecialBlock type="super" color="yellow" size={34} /></div></Stage>
+        <Stage label="2 kíp nổ"><div style={{ display: 'flex', gap: 4 }}><RainbowJelly kind="rainbow" size={40} /><HoangGia color="yellow" size={40} /></div></Stage>
         <Flow />
-        <Stage label="Hoàng Đế Cầu Vồng"><div style={{ paddingTop: 12 }}><SpecialBlock type="crown" size={48} /></div></Stage>
+        <Stage label="Hoàng Đế Cầu Vồng"><RainbowJelly kind="emperor" size={62} /></Stage>
       </Wrap>
     ),
     blastSuper: () => (
@@ -236,5 +273,5 @@
     return <div style={{ display: 'flex', justifyContent: 'center', padding: '4px 0' }}>{fn()}</div>;
   }
 
-  window.GJCamNangIllus = { Illus, MiniBoard, SpecialBlock };
+  window.GJCamNangIllus = { Illus, MiniBoard, SpecialBlock, HoangGia, VuaThach, RainbowJelly };
 })();

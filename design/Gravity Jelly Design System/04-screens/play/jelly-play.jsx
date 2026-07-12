@@ -4,7 +4,7 @@
 
 (function () {
   const NS = window.GravityJellyDesignSystem_3e0487;
-  const { JellyBlock, Hud, GravityRotateButton, ComboPopup, Dialog, Button } = NS;
+  const { JellyBlock, GravityRotateButton, ComboPopup, Dialog, Button } = NS;
   const { useState, useRef, useEffect, useLayoutEffect, useCallback } = React;
 
   const N = 9;
@@ -353,7 +353,13 @@
             <div key={'blob' + i} style={{ position: 'absolute', top: b.t, left: b.l, width: b.s, height: b.s, borderRadius: '42% 58% 56% 44% / 50% 46% 54% 50%', background: `var(--color-block-${b.c})`, opacity: 0.3, filter: 'blur(3px)' }} />
           ))}
         </div>
-        <Hud score={score} direction={dir} onPause={() => setPaused(true)} />
+        <div style={{ position: 'relative', zIndex: 1, height: 'var(--dim-hud-h)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 var(--space-lg)' }}>
+          <span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'var(--text-score)', color: 'var(--color-text)' }}>{score}</span>
+          <button type="button" onClick={() => setPaused(true)} aria-label="Tạm dừng" style={{ width: 44, height: 44, borderRadius: '50%', border: 'none', background: 'var(--color-surface)', boxShadow: '0 4px 0 #E9D7BA, 0 8px 14px -6px var(--color-shadow-key)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', gap: 4 }}>
+            <span style={{ width: 5, height: 16, borderRadius: 2, background: 'var(--color-gravity)' }} />
+            <span style={{ width: 5, height: 16, borderRadius: 2, background: 'var(--color-gravity)' }} />
+          </button>
+        </div>
 
         {/* board */}
         <div ref={areaRef} style={{ position: 'relative', zIndex: 1, flex: 1, minHeight: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '4px 4px 12px' }}>

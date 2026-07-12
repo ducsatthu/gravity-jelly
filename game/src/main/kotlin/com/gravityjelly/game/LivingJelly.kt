@@ -49,6 +49,7 @@ fun LivingJellyThumbnail(
     staticExpression: EyeExpression = EyeExpression.FRONT,
 ) {
     val density = LocalDensity.current.density
+    val bitmaps = rememberJellyBitmaps()
     val timeMs = remember { mutableLongStateOf(0L) }
     if (animate) {
         LaunchedEffect(Unit) {
@@ -123,18 +124,14 @@ fun LivingJellyThumbnail(
 
         val gap = cell * GAP_FRAC
         val blockSize = cell - gap
-        val corner = blockSize * CORNER_FRAC
-        val cr = CornerRadius(corner, corner)
-        val borderStroke = Stroke(blockSize * BORDER_FRAC)
-        val palette = JellyTheme.forColor(piece.color)
         val cells = piece.shape.cells
         for (i in cells.indices) {
             val c = cells[i]
             val left = originX + c.x * cell + gap / 2f
             val top = originY + c.y * cell + gap / 2f
-            drawJellyBlock(left, top, blockSize, cr, borderStroke, palette)
+            // Thân = art PNG (`blocks/jelly-*.png`, gồm gloss/viền/emblem); mắt vẫn overlay động.
+            drawBlockImage(bitmaps.base(piece.color), left, top, blockSize)
             drawEyes(left, top, blockSize, dirX, dirY, expression, open = !blinking)
-            drawSticker(piece.color, palette, left, top, blockSize)
         }
     }
 }

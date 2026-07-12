@@ -63,6 +63,9 @@ internal fun DrawScope.drawEyes(
     expression: EyeExpression = EyeExpression.NORMAL,
     open: Boolean = true,
     alpha: Float = 1f,
+    // Tâm Y mắt theo tỉ lệ chiều cao khối. Mặc định giữa ([EYE_Y_FRAC]); tầng có khung vương miện
+    // (Vua Thạch / Cầu Vồng) canh xuống thân — xem `06-svg-assets/eye-block-preview.card.html`.
+    eyeYFrac: Float = EYE_Y_FRAC,
 ) {
     val eyeR    = blockSize * EYE_R_FRAC
     val eyeDiam = eyeR * 2f
@@ -70,7 +73,7 @@ internal fun DrawScope.drawEyes(
     val sparkR  = maxOf(density, pupilR * 0.34f)
     val eyeOff  = eyeR + blockSize * 0.06f
     val cx = left + blockSize / 2f
-    val cy = top  + blockSize * EYE_Y_FRAC
+    val cy = top  + blockSize * eyeYFrac
 
     val travel = eyeR * 0.43f
     val pxOff  = dirX * travel

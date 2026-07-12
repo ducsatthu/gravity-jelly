@@ -128,6 +128,7 @@ fun PieceThumbnail(
     gapFrac: Float = GAP_FRAC,
 ) {
     val density = LocalDensity.current.density
+    val bitmaps = rememberJellyBitmaps()
     Canvas(modifier) {
         val sw   = piece.shape.width
         val sh   = piece.shape.height
@@ -140,6 +141,7 @@ fun PieceThumbnail(
             cell    = cell,
             gravity = gravity,
             gapFrac = gapFrac,
+            bitmaps = bitmaps,
         )
     }
 }

@@ -9,13 +9,13 @@ The play-board screen is `04-screens/board-design.jsx` → `window.GJBoardDesign
 `window.GJGameScreen`); it IS the official "① Game" card (`screen-1-game.card.html`) and the
 Game screen in the `index.html` click-through. Old `game-screen.jsx` / `board-scene.jsx` were
 deleted — don't bring them back. Structure, top → bottom:
-- **Meadow PNG backdrop** — `06-svg-assets/backgrounds/meadow-bg.png`, full-bleed `object-fit: cover; object-position: center bottom`.
+- **Meadow PNG backdrop** — `06-svg-assets/backgrounds/meadow-bg.jpg`, full-bleed `object-fit: cover; object-position: center bottom`.
 - **Unified HUD** (one flex row): score card (left) · gravity D-pad (center) · pause button (right).
   - Score card = `06-svg-assets/ui/score-card.svg` (plain cream card) with ĐIỂM label + number overlaid centered.
   - Gravity = purple candy D-pad capsule (← ↑ ↓ →; active dir = raised white disc).
   - Pause = small (44dp) WHITE round candy button, two purple bars. (Not an image, not purple.)
 - **Board** = 9×9 `GJBoard` grid dropped into the SVG cream frame `06-svg-assets/ui/board-frame.svg`
-  (edge-to-edge, no transparent margin; inset 5%, cell 31dp). Empty-cell radius matches jelly block radius (≈ cell × 0.28).
+  (edge-to-edge, no transparent margin; inset 5%, cell 31dp). Empty-cell radius matches jelly block radius (≈ cell × 0.20).
 - **Tray** = `06-svg-assets/ui/tray.svg` (3 wells, edge-to-edge) kept TIGHT under the board, next to a purple refresh FAB (60dp). Spare meadow space sits below the tray.
 - Props: `score, gravity|direction, board, pieces, blockDirection, onPause, onRotate, onRefresh`.
 - **This "① Game" screen = ENDLESS mode.** Keep it (nearly) intact — do not add campaign HUD to it. It also exports `window.GJBoardParts` (ScoreCard, GravityPad, PauseCard, BoardPanel, PieceView, TrayDock, RefreshFab, PAL) so campaign/boss reuse the exact chrome.
@@ -39,6 +39,23 @@ SVG chrome in `06-svg-assets/ui/` (board-frame, tray, score-card); raster backgr
 `06-svg-assets/backgrounds/`. Shown in the Assets-group cards **SVG Game Objects**
 (`svg-assets.card.html`) and **PNG Backgrounds** (`png-backgrounds.card.html`). When adding
 new game art, drop it here and add it to the matching card.
+- **Thạch Hoàng Gia (Royal Jelly, cấp 1) art** = `06-svg-assets/ui/hoanggia-{yellow,mint,pink,blue}.jpg`
+  (OPAQUE full-bleed royal-frame square per colour — gold crown + colour gem emblem). CANONICAL Thạch
+  Hoàng Gia visual; corners clipped with border-radius (~20%) wherever rendered. The old cấp-1 PNGs
+  `blocks/super-*-1.png` were REMOVED. Rendered via `window.GJCamNangIllus.HoangGia({color,size})`
+  — handbook `super` illustration + thumbnail, and the `super1`/`superL2`/`rainbowSuper` before-states.
+  ObjectiveBar `super1` tutorial glyph also points at `ui/hoanggia-pink.jpg` (rounded).
+- **Vua Thạch (Jelly King) royal-frame art** = `06-svg-assets/ui/vuathach-{yellow,mint,pink,blue}.jpg`
+  (OPAQUE full-bleed square per colour — gold CROWN with purple accents over a colour panel + gem
+  emblem: star/leaf/heart/drop). CANONICAL Vua Thạch (cấp 2) visual; corners clipped with border-radius
+  (~20%). Rendered via `window.GJCamNangIllus.VuaThach({color,size})` — handbook `superL2` illustration
+  + thumbnail. Decoupled from Thạch Hoàng Gia via separate `hoanggia-*`/`vuathach-*` files.
+- **Thạch Cầu Vồng / Hoàng Đế Cầu Vồng art** = `06-svg-assets/ui/rainbow.jpg` (OPAQUE full-bleed
+  4-colour square + diamond gem, bo góc ~20%) &
+  `06-svg-assets/ui/rainbowemperor.jpg` (OPAQUE full-bleed crowned rainbow, bo góc ~20%). CANONICAL new rainbow-line
+  visual; supersedes old `blocks/rainbow.svg` / `rainbow-2.svg`. Rendered via
+  `window.GJCamNangIllus.RainbowJelly({kind:'rainbow'|'emperor',size})` — used in handbook
+  `rainbow`/`rainbowSuper`/`blastRainbow`/`blastRainbowSuper` illustrations + thumbnails.
 
 ## Brand
 "Block jelly" identity: characters are rounded jelly BLOCKS with EYES, thick edge, top gloss/shine. Candy-sweet tone, warm cream background, soft light-brown shadows. Playful, friendly, clean.

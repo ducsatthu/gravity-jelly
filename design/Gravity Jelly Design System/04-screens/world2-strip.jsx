@@ -2,7 +2,7 @@
    ----------------------------------------------------------------
    Same approach as World 1: pure painted artboard 360 × 1280dp, NO HUD.
    The scenery + winding jungle road + locked gate are a single painted
-   PNG backdrop (06-svg-assets/backgrounds/world2-map-bg-v3.png, 665×2365
+   PNG backdrop (06-svg-assets/backgrounds/world2-map-bg-v3.jpg, 665×2365
    → exact 1:~3.55, scaled to 360 wide = 360×1280, no distortion). We do
    NOT draw trees/bushes/path in SVG — we just DROP the ten level nodes
    onto the painted trail. Reads bottom→top:
@@ -17,7 +17,7 @@
    Reuses DS tokens & tile art. Exposes window.GJWorld2Strip.
    ---------------------------------------------------------------- */
 (function () {
-  const BG_SRC   = '../06-svg-assets/backgrounds/world2-map-bg-v3.png';
+  const BG_SRC   = '../06-svg-assets/backgrounds/world2-map-bg-v3.jpg';
   const LOCK_SRC = '../06-svg-assets/ui/locked-tile.png';
   const OPEN_SRC = '../06-svg-assets/ui/unlocked-tile.png';
   const DONE_SRC = '../06-svg-assets/ui/completed-tile.png';

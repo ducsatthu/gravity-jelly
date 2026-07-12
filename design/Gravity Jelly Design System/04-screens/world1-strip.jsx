@@ -2,7 +2,7 @@
    ----------------------------------------------------------------
    Pure artboard: 360 × 1080dp, NO HUD (the HUD is a separate sticky
    layer added by the screen shell). The scenery + winding road are a
-   single painted PNG backdrop (06-svg-assets/backgrounds/world1-map-bg.png,
+   single painted PNG backdrop (06-svg-assets/backgrounds/world1-map-bg.jpg,
    724×2172 → exact 1:3, so no distortion at 360 wide). We no longer draw
    trees/bushes/path in SVG — we just DROP the ten level nodes onto the
    painted trail. Reads bottom→top:
@@ -20,7 +20,7 @@
   const NS = window.GravityJellyDesignSystem_3e0487 || {};
   const { JellyBlock } = NS;
 
-  const BG_SRC = '../06-svg-assets/backgrounds/world1-map-bg-v3.png';
+  const BG_SRC = '../06-svg-assets/backgrounds/world1-map-bg-v3.jpg';
   const LOCK_SRC = '../06-svg-assets/ui/locked-tile.png';
   const OPEN_SRC = '../06-svg-assets/ui/unlocked-tile.png';
   const DONE_SRC = '../06-svg-assets/ui/completed-tile.png';

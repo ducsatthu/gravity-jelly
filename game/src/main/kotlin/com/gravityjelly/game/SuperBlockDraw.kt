@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.lerp
+import com.gravityjelly.core.JellyColor
 import kotlin.math.sin
 
 /**
@@ -155,6 +156,8 @@ internal fun DrawScope.drawSuperJellyCell(
     clearProgress: Float = 0f,
     pulse: Float = 0f,
     spin: Float = 0f,
+    color: JellyColor = JellyColor.YELLOW,
+    bitmaps: JellyBitmaps? = null,
 ) {
     val clearAlpha = if (clearProgress > 0f) 1f - clearProgress else 1f
     val clearScale = if (clearProgress > 0f) 1f + clearProgress * 0.12f else 1f
@@ -163,6 +166,19 @@ internal fun DrawScope.drawSuperJellyCell(
     val sy = squashScaleY * clearScale
     val pivot = Offset(left + blockSize / 2f, top + blockSize / 2f)
     val lvlMul = if (level >= 2) 1f else 0.85f      // cấp 2 sáng mạnh hơn
+
+    // Art PNG: Thạch Hoàng Gia (cấp 1 = super_*_1.png) / Vua Thạch (cấp 2 = vuathach-*.png).
+    // Vương miện/viền/tia đã "nướng" trong art → KHÔNG vẽ tay trang trí nữa (quyết định reskin 12/07).
+    if (bitmaps != null) {
+        val img = if (level >= 2) bitmaps.vuathach(color) else bitmaps.superL1(color)
+        val eyeY = if (level >= 2) EYE_Y_VUATHACH else EYE_Y_SUPER1
+        fun imgBody() {
+            drawBlockImage(img, left, top, blockSize, clearAlpha)
+            drawEyes(left, top, blockSize, dirX, dirY, expression, eyeOpenNow, clearAlpha, eyeY)
+        }
+        if (sx != 1f || sy != 1f) scale(sx, sy, pivot) { imgBody() } else imgBody()
+        return
+    }
 
     ensureSuperCache(blockSize, density)
 
@@ -375,6 +391,7 @@ internal fun DrawScope.drawRainbowCell(
     level: Int = 0,
     pulse: Float = 0f,
     spin: Float = 0f,
+    bitmaps: JellyBitmaps? = null,
 ) {
     val clearAlpha = if (clearProgress > 0f) 1f - clearProgress else 1f
     val clearScale = if (clearProgress > 0f) 1f + clearProgress * 0.12f else 1f
@@ -386,6 +403,20 @@ internal fun DrawScope.drawRainbowCell(
     val pivot = Offset(cx, cy)
     val corner = cr.x
     val apex = level >= 2
+
+    // Art PNG: Thạch Cầu Vồng (rainbow.png) / Hoàng Đế Cầu Vồng (rainbowemperor.png). Sparkle/vương
+    // miện đã "nướng" trong art → không vẽ tay trang trí (quyết định reskin 12/07).
+    if (bitmaps != null) {
+        val img = if (apex) bitmaps.rainbowEmperor else bitmaps.rainbow
+        val eyeY = if (apex) EYE_Y_EMPEROR else EYE_Y_RAINBOW
+        fun imgBody() {
+            drawBlockImage(img, left, top, blockSize, clearAlpha)
+            drawEyes(left, top, blockSize, dirX, dirY, expression, eyeOpenNow, clearAlpha, eyeY)
+        }
+        if (sx != 1f || sy != 1f) scale(sx, sy, pivot) { imgBody() } else imgBody()
+        return
+    }
+
     if (apex) ensureSuperCache(blockSize, density)
 
     fun body() {
