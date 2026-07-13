@@ -110,7 +110,8 @@ private fun TraySlot(
 /** Vẽ mảnh thu nhỏ vừa khít ô khay (một Canvas, allocation-free). */
 @Composable
 private fun PiecePreview(piece: Piece, modifier: Modifier) {
-    PieceThumbnail(piece, modifier)
+    // Nhích thân khối lên trong ô khay cho bớt cảm giác nặng đáy (chỉ ở tray).
+    PieceThumbnail(piece, modifier, bodyLiftFrac = TRAY_BODY_LIFT_FRAC)
 }
 
 /**
@@ -126,6 +127,7 @@ fun PieceThumbnail(
     cellDp: Float? = null,
     gravity: Direction = Direction.DOWN,
     gapFrac: Float = GAP_FRAC,
+    bodyLiftFrac: Float = 0f,
 ) {
     val density = LocalDensity.current.density
     val bitmaps = rememberJellyBitmaps()
@@ -142,6 +144,7 @@ fun PieceThumbnail(
             gravity = gravity,
             gapFrac = gapFrac,
             bitmaps = bitmaps,
+            bodyLiftFrac = bodyLiftFrac,
         )
     }
 }

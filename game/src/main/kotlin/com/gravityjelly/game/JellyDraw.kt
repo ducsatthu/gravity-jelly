@@ -20,6 +20,9 @@ import com.gravityjelly.core.Piece
 // Tỉ lệ dịch từ token (GjRadius.md=12dp / GjDimens.cell=36dp, GjBorder.jelly=3dp / 36dp)
 internal const val GAP_FRAC           = 0.06f
 const val TRAY_GAP_FRAC               = 0.10f       // khe rộng hơn cho khay (design Tray.jsx gap≈2dp/cell)
+// Khay nhích thân khối lên: nuốt bớt gờ-bóng đáy của art (chiếu-sáng-từ-trên) cho bớt cảm giác
+// nặng đáy khi khối đứng riêng trong ô khay. CHỈ áp ở tray (board/drag/logo giữ nguyên art gốc).
+const val TRAY_BODY_LIFT_FRAC         = 0.05f
 internal const val CORNER_FRAC        = 0.28f       // theo JellyBlock.jsx: Math.round(size*0.28) / size
 internal const val BORDER_FRAC        = 3f / 36f    // GjBorder.jelly / GjDimens.cell ≈ 0.083
 internal const val GLOSS_INSET_FRAC   = 0.12f       // inset ngang trái/phải 12%
@@ -463,12 +466,15 @@ internal fun DrawScope.drawPieceShape(
     showSticker: Boolean = true,
     gapFrac: Float = GAP_FRAC,
     bitmaps: JellyBitmaps? = null,
+    bodyLiftFrac: Float = 0f,
 ) {
     val gap = cell * gapFrac
     val blockSize = cell - gap
     val corner = blockSize * CORNER_FRAC
     val cr = CornerRadius(corner, corner)
     val borderStroke = Stroke(blockSize * BORDER_FRAC)
+    // Nhích thân lên → mắt cũng nhích lên nửa mức đó cho khớp mặt (chỉ khi có lift, tray).
+    val eyeY = EYE_Y_FRAC - bodyLiftFrac * 0.5f
     val cells = piece.shape.cells
     for (i in cells.indices) {
         val c = cells[i]
@@ -477,12 +483,12 @@ internal fun DrawScope.drawPieceShape(
         val top = originY + c.y * cell + gap / 2
         if (bitmaps != null) {
             // Thân = art PNG (đã bao gồm gloss/viền/emblem); mắt vẫn overlay vẽ tay.
-            drawBlockImage(bitmaps.base(cellColor), left, top, blockSize)
-            drawEyes(left, top, blockSize, gravity.dx.toFloat(), gravity.dy.toFloat())
+            drawBlockImage(bitmaps.base(cellColor), left, top, blockSize, liftFrac = bodyLiftFrac)
+            drawEyes(left, top, blockSize, gravity.dx.toFloat(), gravity.dy.toFloat(), eyeYFrac = eyeY)
         } else {
             val palette = JellyTheme.forColor(cellColor)
             drawJellyBlock(left, top, blockSize, cr, borderStroke, palette)
-            drawEyes(left, top, blockSize, gravity.dx.toFloat(), gravity.dy.toFloat())
+            drawEyes(left, top, blockSize, gravity.dx.toFloat(), gravity.dy.toFloat(), eyeYFrac = eyeY)
             if (showSticker) drawSticker(cellColor, palette, left, top, blockSize)
         }
     }

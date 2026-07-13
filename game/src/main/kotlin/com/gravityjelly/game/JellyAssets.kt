@@ -80,11 +80,24 @@ private fun loadRaw(res: Resources, id: Int): Bitmap = synchronized(rawCache) {
  */
 class JellyArt internal constructor(private val src: Bitmap) {
     private val bySize = HashMap<Int, ImageBitmap>()
+    private val byLifted = HashMap<Long, ImageBitmap>()
 
     /** ImageBitmap đã thu nhỏ về đúng [sizePx]² (bo góc AA sẵn). Cache theo size. */
     fun at(sizePx: Int): ImageBitmap {
         val size = sizePx.coerceIn(1, src.width)
         return synchronized(bySize) { bySize.getOrPut(size) { renderRounded(src, size) } }
+    }
+
+    /**
+     * Bản "nhích lên" cho KHAY: nuốt bớt gờ-bóng đáy ([liftPx] px cuối) rồi phóng phần còn lại
+     * lấp kín ô → trọng tâm khối dồn lên, bớt cảm giác nặng đáy. Chỉ dùng ở tray (xem [drawBlockImage]).
+     * Cache theo (size, liftPx). [liftPx]=0 → giống [at].
+     */
+    fun atLifted(sizePx: Int, liftPx: Int): ImageBitmap {
+        val size = sizePx.coerceIn(1, src.width)
+        if (liftPx <= 0) return at(size)
+        val key = size.toLong() * 1000L + liftPx.coerceAtMost(999)
+        return synchronized(byLifted) { byLifted.getOrPut(key) { renderRoundedLifted(src, size, liftPx) } }
     }
 }
 
@@ -101,6 +114,29 @@ private fun renderRounded(src: Bitmap, size: Int): ImageBitmap {
     }
     canvas.drawRoundRect(RectF(0f, 0f, size.toFloat(), size.toFloat()), radius, radius, paint)
     if (small !== src) small.recycle()
+    return out.asImageBitmap()
+}
+
+/**
+ * Như [renderRounded] nhưng CẮT [liftPx] px ở đáy rồi phóng phần trên lấp kín ô (bo góc AA ở [size]).
+ * Cách làm: thu nhỏ vuông về [size]², kéo dãn dọc thành cao ([size]+[liftPx]) rồi chỉ lấy [size] hàng
+ * TRÊN (BitmapShader mặc định lấy từ gốc) → hàng dưới cùng (gờ-bóng đáy) bị bỏ. Dãn ~[liftPx]/[size]
+ * (vài %) không thấy méo, nhưng trọng tâm dồn lên. Chỉ cho tray.
+ */
+private fun renderRoundedLifted(src: Bitmap, size: Int, liftPx: Int): ImageBitmap {
+    val base = highQualityScale(src, size)
+    val tall = Bitmap.createScaledBitmap(base, size, size + liftPx, true)
+    if (base !== src) base.recycle()
+    val out = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
+    val canvas = Canvas(out)
+    val radius = size * CORNER_RADIUS_FRAC
+    val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        isFilterBitmap = true
+        isDither = true
+        shader = BitmapShader(tall, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
+    }
+    canvas.drawRoundRect(RectF(0f, 0f, size.toFloat(), size.toFloat()), radius, radius, paint)
+    tall.recycle()
     return out.asImageBitmap()
 }
 
@@ -163,9 +199,10 @@ fun rememberJellyBitmaps(): JellyBitmaps {
  */
 internal fun DrawScope.drawBlockImage(
     art: JellyArt, left: Float, top: Float, blockSize: Float, alpha: Float = 1f,
+    liftFrac: Float = 0f,
 ) {
     val size = blockSize.roundToInt().coerceAtLeast(1)
-    val image = art.at(size)
+    val image = if (liftFrac > 0f) art.atLifted(size, (size * liftFrac).roundToInt()) else art.at(size)
     translate(left, top) {
         drawImage(
             image = image,
