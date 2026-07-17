@@ -26,7 +26,6 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.gravityjelly.core.CellEffect
 import com.gravityjelly.core.CellType
 import com.gravityjelly.core.Direction
 import com.gravityjelly.core.Grid
@@ -35,7 +34,6 @@ import com.gravityjelly.core.Piece
 import com.gravityjelly.core.PieceLibrary
 import com.gravityjelly.core.PlacementResult
 import com.gravityjelly.core.Vec
-import com.gravityjelly.core.WaterSource
 import com.gravityjelly.core.findClusters
 import com.gravityjelly.core.hardDrop
 
@@ -75,11 +73,6 @@ class BoardRender {
     // O(1) khi vẽ chu vi (allocation-free). Rỗng = thả trơn, không sáng gì.
     var previewRegion: List<Vec> = emptyList()
     val previewMask = BooleanArray(Grid.SIZE * Grid.SIZE)
-
-    // ── Lớp SÀN nước (World 3 · Dòng chảy) ──
-    // Nguồn hiện tại (pos + đường flow + broken) → vẽ DẢI nước nối liền ([drawWaterRibbon]). Cập nhật
-    // khi grid đổi (holder sync); render đọc thẳng, allocation-aware.
-    var waterSources: List<WaterSource> = emptyList()
 
     // Đường BAO của vùng — mỗi phần tử là 1 contour kín (mảng điểm lưới encode py·(SIZE+1)+px, đã gộp
     // đỉnh thẳng hàng). Hỗ trợ MỌI hình: nhiều vùng rời, chữ thập, L, blob nổ super, cả lỗ thủng. Dải
@@ -196,14 +189,6 @@ fun BoardCanvas(
                 drawRoundRect(JellyTheme.cellLine, off, sz, cr, style = cellLineStroke)
             }
 
-            // ── 2b. Lớp SÀN nước (World 3 · Dòng chảy): DẢI nước nối liền, vẽ TRƯỚC khối (jelly đứng ĐÈ) ──
-            // Vẽ thẳng từ waterSources (pos + flow) — không dùng lớp effect/displayGrid. Ô nước MỚI mọc
-            // lượt này bị ẩn tới mốc pop (SAU cascade) → dải chỉ "mọc dài" khi flash→merge→rơi đã xong.
-            val waterPending: ((Vec) -> Boolean)? =
-                if (r.waterSources.isEmpty() || animator == null) null
-                else { v -> animator.waterPending(v.x, v.y, now) }
-            for (s in r.waterSources) drawWaterRibbon(s, cellSize, blockSize, cr, now, waterPending)
-
             // Block trong vùng sẽ nổ → khoác VIỀN LẤP LÁNH kiểu siêu khối (viền nhiều màu chạy).
             val regionActive = ghost != null && previewRegion.isNotEmpty()
 
@@ -216,17 +201,6 @@ fun BoardCanvas(
                 val top  = y * cellSize + gap / 2f + oy
                 when (cell.type) {
                     CellType.STONE -> drawStoneBlock(left, top, blockSize, cr, borderStroke)
-                    CellType.VINE -> {
-                        val vu = y > 0 && grid.get(x, y - 1)?.type == CellType.VINE
-                        val vd = y < n - 1 && grid.get(x, y + 1)?.type == CellType.VINE
-                        val vl = x > 0 && grid.get(x - 1, y)?.type == CellType.VINE
-                        val vr = x < n - 1 && grid.get(x + 1, y)?.type == CellType.VINE
-                        drawVineCell(left, top, blockSize, cr, borderStroke, cell.vineRoot, vu, vd, vl, vr)
-                    }
-                    CellType.TARGET -> {}   // W3 v5: bỏ ô giọt (phá nguồn trực tiếp) — không còn TARGET
-                    CellType.TRASH -> if (cell.trashCountdown > 0)
-                        drawTrashCell(left, top, blockSize, cr, borderStroke, cell.trashCountdown)
-                    else drawDebrisCell(left, top, blockSize, cr, borderStroke)
                     CellType.BLOCK -> {
                         // Vùng preview: viền lấp lánh SAU LƯNG block (ló ra ngoài mép, mặt block vẫn sạch).
                         if (regionActive && previewMask[y * n + x]) drawShimmerBorder(left, top, blockSize, superSpin)

@@ -1,6 +1,10 @@
 /* home-screen.jsx — HOME = painted meadow art (home-camp-bg.png, logo baked in)
    + slim top HUD (KỶ LỤC + hearts/life-regen) + twinkling sparkles over the
-   arch gate, the guidebook and the ancient stone disc. Exposes window.GJHomeScreen. */
+   arch gate, the guidebook and the ancient stone disc. Exposes window.GJHomeScreen.
+
+   17/07: Campaign feature REMOVED (see docs/08-go-bo-campaign.md). Top row is now a SINGLE
+   centred Endless CTA (41cqw ≈ 62% of the old 66cqw row — matches BTN_HERO_FRAC in
+   HomeScreen.kt); the "Chiến dịch" button and its onCampaign prop are gone. */
 
 (function () {
   const NS = window.GravityJellyDesignSystem_3e0487;
@@ -17,7 +21,6 @@
   const BTN_GREEN = '../06-svg-assets/ui/button-frame-green.png';
   const BTN_ORANGE = '../06-svg-assets/ui/button-frame-orange.png';
 
-  const IC_CAMPAIGN = '../06-svg-assets/ui/btn-campaign.png';
   const IC_INFINITE = '../06-svg-assets/ui/btn-infinite.png';
   const IC_GUIDE = '../06-svg-assets/ui/btn-guide.png';
   const IC_SETTING = '../06-svg-assets/ui/btn-setting.png';
@@ -188,7 +191,7 @@
 
   function HomeScreen({
     best = 28640, hearts = 4, maxHearts = 5, regenSeconds = 750, petals = true,
-    world = 1, onCampaign, onPlay, onGuide, onTools,
+    world = 1, onPlay, onGuide, onTools,
   }) {
     const bg = BG_BY_WORLD[world] || BG;
     const [hp, setHp] = React.useState(Math.min(hearts, maxHearts));
@@ -248,8 +251,10 @@
             position: 'absolute', left: '6%', right: '6%', top: '75%', bottom: '5%',
             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly',
           }}>
-            <div style={{ display: 'flex', width: '66cqw', alignItems: 'center', justifyContent: 'center', gap: '4cqw' }}>
-              <IconButton icon={IC_CAMPAIGN} label="Chiến dịch" onClick={onCampaign} />
+            {/* Hàng trên: CTA chơi DUY NHẤT (Endless), canh giữa. Nút "Chiến dịch" đã gỡ 17/07
+                cùng tính năng Campaign — xem docs/08-go-bo-campaign.md §5. Rộng 41cqw ≈ 62% của
+                66cqw (khớp BTN_HERO_FRAC=0.62 ở HomeScreen.kt). */}
+            <div style={{ display: 'flex', width: '41cqw', alignItems: 'center', justifyContent: 'center' }}>
               <IconButton icon={IC_INFINITE} label="Endless" onClick={onPlay} />
             </div>
             <div style={{ display: 'flex', width: '66cqw', alignItems: 'center', justifyContent: 'center', gap: '4cqw' }}>

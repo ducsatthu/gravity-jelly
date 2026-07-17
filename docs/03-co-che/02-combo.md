@@ -9,7 +9,9 @@
 Combo là bộ đếm `Int` tích luỹ qua các nhịp resolve và nước đi. Combo ảnh hưởng đến:
 - **Điểm** (nhân trực tiếp)
 - **Hồi lượt xoay** (cơ chế chữ ký)
-- **Sát thương boss** (phá khiên)
+
+> *(Vế "sát thương boss / phá khiên" đã bỏ 17/07 cùng tính năng Campaign — xem
+> [`../08-go-bo-campaign.md`](../08-go-bo-campaign.md).)*
 
 ---
 
@@ -84,31 +86,7 @@ Combo nhân **trực tiếp** vào điểm — x5 combo = 5× điểm cơ bản.
 
 ---
 
-## 6. Combo sát thương boss (Boss Shield Damage)
-
-**Nguồn:** `EndlessGameHolder` — dùng cùng công thức `ComboReward.rotationRefund`.
-
-- Mỗi tier combo mới ≥ x2 → +1 sát thương khiên.
-- HUD hiện "Combo ×2 phá khiên" (`BossHud.kt`).
-- Boss levels: L10 (bossHP=5), L20 (bossHP=8), L30 (bossHP=10).
-
-Solver (`CampaignSolver.calcComboDamage`) đã đồng bộ dùng chung `ComboReward.rotationRefund` — 1 sát thương mỗi tier combo mới ≥×2.
-
----
-
-## 7. Combo từ sự kiện boss
-
-Boss có thể **gián tiếp tạo combo** cho người chơi:
-
-- **Boss đảo trọng lực** (Thần Thác, L30): `flipBossGravityIfDue()` → đổ ngược bàn → `foldResolve()` → cascade có thể tăng combo.
-- **Boss spawn dây** (Thần Rừng, L20): gốc mới mọc → `foldResolve()` → nếu dây lấp đầy hàng → combo.
-- **Cơ chế đổ rác** (archetype boss dự phòng, KHÔNG dùng ở L20 = Thần Rừng): rác chèn → `foldResolve()` → cascade → combo.
-
-Các sự kiện boss chạy **sau** `finishTurn()` → combo đã được set từ nước đi trước, `foldResolve` chỉ tăng thêm (không reset).
-
----
-
-## 8. Combo UI
+## 6. Combo UI
 
 **ComboPopup** (`ComboPopup.kt`) — 10 bậc hiển thị (tới ×30):
 
@@ -131,11 +109,11 @@ Các sự kiện boss chạy **sau** `finishTurn()` → combo đã được set 
 
 ---
 
-## 9. Combo theo thời gian (Timed Combo) — ĐÃ IMPLEMENT
+## 7. Combo theo thời gian (Timed Combo) — ĐÃ IMPLEMENT
 
 > Trạng thái: **đã implement** (03/07/2026).
 
-### 9.1 Luật
+### 7.1 Luật
 
 - Sau nước đi **có ích** (clear/merge), bắt đầu **bộ đếm 10 giây**.
 - Trong 10s, nếu người chơi thực hiện nước đi có ích tiếp theo → combo **GIỮ** và timer reset.
@@ -143,7 +121,7 @@ Các sự kiện boss chạy **sau** `finishTurn()` → combo đã được set 
 - Hết 10s mà chưa có nước có ích → combo **RESET về 0**.
 - Hiệu ứng: người chơi nhanh tay vẫn duy trì combo dù xen kẽ nước vô ích.
 
-### 9.2 Kiến trúc (giữ deterministic)
+### 7.2 Kiến trúc (giữ deterministic)
 
 - `:core` — **KHÔNG biết thời gian thực**. `EndlessTuning.comboTimeBased = true` → `finishTurn()` giữ combo khi nước vô ích. `resetCombo()` public trả `GameEvent.ComboExpired`.
 - `:game` — `BoardRender.comboTimerStartNanos/Duration` lưu mốc timer cho Canvas.
@@ -151,7 +129,7 @@ Các sự kiện boss chạy **sau** `finishTurn()` → combo đã được set 
 - `EndlessGameHolder.startComboTimerIfProductive()` phát hiện nước có ích → reset timer.
 - Solver/replay: `comboTimeBased = false` (mặc định) → combo vẫn reset kiểu cũ.
 
-### 9.3 Hào quang countdown (Board Aura)
+### 7.3 Hào quang countdown (Board Aura)
 
 - Viền hào quang **4 màu** (VÀNG/MINT/HỒNG/XANH) chạy quanh giếng bàn (rounded rect).
 - Tốc độ quay: nhanh khi mới bắt đầu, chậm dần khi cạn (speedScale 0.3→1.0).
@@ -170,8 +148,8 @@ Các sự kiện boss chạy **sau** `finishTurn()` → combo đã được set 
 | 2 | Cross-move combo | `:core` | `EndlessEngine.kt` | ✅ Đã implement |
 | 3 | Combo hồi xoay | `:core` | `ComboReward.kt` | ✅ Đã implement |
 | 4 | Combo nhân điểm | `:core` | `LineClearing.kt` | ✅ Đã implement |
-| 5 | Boss shield damage | `:app` | `EndlessGameHolder.kt` | ✅ Đã implement |
-| 6 | Detonation bonus | `:core` | `SuperBlock.kt` | ✅ Đã implement |
-| 7 | Boss cascade gián tiếp | `:core` | `EndlessEngine.kt` | ✅ Đã implement |
-| 8 | Timed combo (10s) | `:core`+`:app` | `EndlessTuning`+`EndlessPlayScreen` | ✅ Đã implement |
-| 9 | Board aura countdown | `:game` | `BoardCanvas.kt` | ✅ Đã implement |
+| 5 | Detonation bonus | `:core` | `SuperBlock.kt` | ✅ Đã implement |
+| 6 | Timed combo (10s) | `:core`+`:app` | `EndlessTuning`+`EndlessPlayScreen` | ✅ Đã implement |
+| 7 | Board aura countdown | `:game` | `BoardCanvas.kt` | ✅ Đã implement |
+
+*(Hai mục cũ "Boss shield damage" + "Boss cascade gián tiếp" đã gỡ 17/07 cùng tính năng Campaign.)*

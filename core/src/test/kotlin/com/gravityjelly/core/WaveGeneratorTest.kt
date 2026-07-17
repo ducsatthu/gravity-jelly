@@ -75,6 +75,32 @@ class WaveGeneratorTest {
         assertTrue(w1.pieces.all { it.shape.size <= 4 })
     }
 
+    /**
+     * Chống hồi quy bug "bàn trống → mảnh to dễ ra": bốc-thường trên bàn TRỐNG (🟢) phải nghiêng mảnh nhỏ,
+     * KHÔNG để mảnh 4 ô áp đảo dù có 19 biến thể 4 ô vs 3 biến thể ≤2 ô. Với bốc per-shape cũ mảnh 4 ô ~59%;
+     * bốc theo lớp-cỡ chuẩn hoá đưa về ~30% (lớp LARGE) → kiểm dưới ngưỡng an toàn.
+     */
+    @Test
+    fun deal_greenBoard_doesNotFavorLargePieces() {
+        val g = Grid() // trống → 🟢
+        var small = 0; var large = 0; var n = 0
+        for (seed in 0L until 400L) {
+            val wave = WaveGenerator.deal(g, pool, colors, Rng(seed), cfg, forceHelpful = false, forceSpecial = false)
+            for (p in wave.pieces) {
+                n++
+                when (p.shape.size) {
+                    1, 2 -> small++
+                    4 -> large++
+                }
+            }
+        }
+        val largeFrac = large.toDouble() / n
+        val smallFrac = small.toDouble() / n
+        // Mảnh to KHÔNG áp đảo (bug cũ ~0.59) và mảnh nhỏ được ưu tiên tương xứng lớp SMALL 40%.
+        assertTrue("mảnh 4 ô = $largeFrac phải < 0.40", largeFrac < 0.40)
+        assertTrue("mảnh ≤2 ô = $smallFrac phải > 0.30", smallFrac > 0.30)
+    }
+
     // ── deal: chèn khối ĐẶC BIỆT khi tới hạn (đủ 24 loại) ──
 
     @Test

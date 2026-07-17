@@ -9,7 +9,6 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.text.TextMeasurer
-import com.gravityjelly.core.CellEffect
 import com.gravityjelly.core.CellType
 import com.gravityjelly.core.ClearedLines
 import com.gravityjelly.core.Direction
@@ -49,16 +48,6 @@ class BoardAnimator {
     var renderAlpha = 0f
 
     fun renderNanos(): Long = simTimeNanos + (renderAlpha * GameClock.STEP_NANOS).toLong()
-
-    /**
-     * World 3 · Dòng chảy — ô nước MỚI mọc lượt này còn ĐANG CHỜ "hiện" (mốc pop [waterNewStart] ở TƯƠNG
-     * LAI vì được lên lịch SAU cascade). true ⇒ lớp ribbon KHÔNG vẽ tới ô này → dải nước chỉ **mọc dài ra
-     * sau khi flash→merge→rơi xong**, đồng bộ với pop nốt-mới. Ô đã "hiện" (mốc ≤ now) / cũ (0) → false.
-     */
-    fun waterPending(x: Int, y: Int, now: Long): Boolean {
-        val st = waterNewStart[y][x]
-        return st != 0L && now < st
-    }
 
     // ── playback cascade tuần tự (xóa → rơi → xóa → rơi …) ──────────────────────
     // Combo ăn điểm KHÔNG dồn một nhịp: bàn rơi xong, hàng mới đầy mới flash nhịp kế.
@@ -121,8 +110,6 @@ class BoardAnimator {
         val smileHighlight: Boolean = false, // true = HIGHLIGHT (cầu vồng) thay vì CƯỜI (super)
         val superCells: List<Vec>? = null,   // chặng 3: tâm SIÊU KHỐI biến mất cuối
         val rainbowCells: List<Vec>? = null, // chặng 3: tâm CẦU VỒNG biến mất cuối
-        // World 3 · Dòng chảy — khối bị đẩy trôi 1 ô (from→to); pha riêng chạy SAU cascade (slide + squash).
-        val pushMoves: List<Pair<Vec, Vec>>? = null,
     )
 
     /**
@@ -178,9 +165,9 @@ class BoardAnimator {
         val playing = isPlaying
         if (wasPlaying && !playing) {
             // Playback xong ⇒ TRẢ về grid truth (BoardRender). [work] chỉ dựng lại đặt/xoay/ghép/xóa,
-            // KHÔNG áp các biến đổi engine sau nhịp (dây leo VỪA MỌC, rác boss, giọt vỡ…). Nếu giữ
-            // displayGrid cũ, các ô đó "tàng hình" nhưng vẫn tính đầy hàng → hàng đủ 9 tự combo dù
-            // người chơi không thấy. Nulling ⇒ Canvas dùng r.grid (đã gồm mọi ô mới).
+            // KHÔNG áp các biến đổi engine sau nhịp. Nếu giữ displayGrid cũ, ô mới "tàng hình" nhưng
+            // vẫn tính đầy hàng → hàng đủ 9 tự combo dù người chơi không thấy. Nulling ⇒ Canvas dùng
+            // r.grid (đã gồm mọi ô mới).
             displayGrid = null
             onPlaybackEnd?.invoke()
         }
@@ -196,7 +183,6 @@ class BoardAnimator {
     private val clearShine = Array(n) { Array(n) { Color.White } }   // màu ring shine theo khối
     private val clearJelly = Array(n) { arrayOfNulls<JellyColor>(n) } // màu JELLY (null = đá) → vẽ lại thân+mắt lúc xóa
     private val clearBurstDone = Array(n) { BooleanArray(n) }         // particle của ô đã nổ chưa (theo nhịp sóng, không đồng loạt)
-    private val waterNewStart = Array(n) { LongArray(n) }             // World 3: ô nước vừa mọc → pop ring (0 = không)
     private val superFlashes = ArrayList<SuperFlash>(4)               // tâm siêu khối đang "cười + nổ"
     private val smileFlashes = ArrayList<SmileFlash>(32)              // block cùng màu đang "cười rồi biến mất"
     private var squashGravity = Direction.DOWN
@@ -269,31 +255,23 @@ class BoardAnimator {
         phaseIdx = 0
         displayGrid = null
 
-        // Reset slide MỖI LƯỢT: nếu không, ô bị đẩy (JellyPushed) lượt trước còn slideDX/DY ≠ 0, mà lượt
-        // sau lại đặt slideStart = now toàn cục → những ô cũ đó bị "settle/rơi" lại dù không di chuyển
-        // (bug "cả bàn rơi mỗi nước"). computeSlide (xoay/collapse) cũng tự reset, đây phủ nhánh còn lại.
+        // Reset slide MỖI LƯỢT: nếu không, ô cũ còn slideDX/DY ≠ 0 mà lượt sau lại đặt slideStart = now
+        // toàn cục → những ô cũ đó bị "settle/rơi" lại dù không di chuyển (bug "cả bàn rơi mỗi nước").
+        // computeSlide (xoay/collapse) cũng tự reset, đây phủ nhánh còn lại.
         for (y in 0 until n) for (x in 0 until n) { slideDX[y][x] = 0f; slideDY[y][x] = 0f }
 
         val work = pre.copy()
 
         // có "nhịp" cần playback không: xóa hàng/cột, hợp nhất siêu khối, HOẶC tạo cầu vồng.
         var hasBeats = false
-        // World 3 · Dòng chảy: nốt nước mới mọc (pop) + khối bị đẩy (trượt). Lên lịch SAU chuỗi cascade
-        // (flash→merge→rơi) để "nước đi CUỐI cùng" — không đồng thời với trọng lực rơi (yêu cầu W3).
-        var hasPush = false
-        var hasGrow = false
         for (i in events.indices) {
             when (events[i]) {
                 is GameEvent.LinesCleared, is GameEvent.SuperFormed, is GameEvent.RainbowFormed -> hasBeats = true
-                is GameEvent.JellyPushed -> hasPush = true
-                is GameEvent.WaterGrew -> hasGrow = true
                 else -> {}
             }
         }
-        // hasPhases = có pha điều phối displayGrid (cascade hoặc đẩy nước); runLoop = còn phải duyệt để
-        // seed nốt-mới (grow) dù không có pha nào (khi ấy displayGrid giữ null = truth).
-        val hasPhases = hasBeats || hasPush
-        val runLoop = hasPhases || hasGrow
+        val hasPhases = hasBeats
+        val runLoop = hasPhases
 
         // "Nhìn trọng lực" CẢ BÀN chỉ khi XOAY trọng lực (mọi khối đều định hướng lại theo tường mới).
         // Đặt mảnh / xóa-rơi KHÔNG snap cả bàn: chỉ ô vừa đặt/vừa rơi mới nhìn trọng lực (per-cell,
@@ -319,21 +297,6 @@ class BoardAnimator {
             }
         }
 
-        // 1b) World 3 · Dòng chảy: splash "phá nguồn" + pop "hồi sinh nguồn" (particle tức thì tại nguồn).
-        //     Pop "mới mọc" (WaterGrew) và trượt "bị đẩy" (JellyPushed) KHÔNG xử ở đây — chúng được LÊN
-        //     LỊCH SAU chuỗi cascade đặt-mảnh ở mục (3), để nước "đi CUỐI" (sau flash→merge→rơi).
-        for (i in events.indices) {
-            when (val e = events[i]) {
-                is GameEvent.WaterSourceBroken ->
-                    if (!reducedMotion) particles.burst(e.pos.x + 0.5f, e.pos.y + 0.5f, WATER_SPLASH_COLOR, WATER_SPLASH_PARTICLES)
-                is GameEvent.WaterSourceRevived -> if (!reducedMotion) {   // boss thả thác hồi sinh: pop + foam
-                    waterNewStart[e.pos.y][e.pos.x] = now
-                    particles.burst(e.pos.x + 0.5f, e.pos.y + 0.5f, WATER_FOAM_COLOR, WATER_SPLASH_PARTICLES)
-                }
-                else -> {}
-            }
-        }
-
         var cursor = now
 
         // 2) xoay trọng lực → slide cả bàn về tường mới + xoay con ngươi (ngay lập tức)
@@ -349,10 +312,8 @@ class BoardAnimator {
             if (runLoop) cursor = now + Anim.ROTATE_NANOS
         }
 
-        // 3) chuỗi nhịp resolve theo ĐÚNG thứ tự engine: hợp nhất siêu khối / xóa+nổ → rơi, RỒI mới tới
-        //    Dòng chảy (nốt nước mọc + khối bị đẩy). [events] đã theo đúng thứ tự engine (resolve đặt-mảnh
-        //    xong mới growWaterFlow/pushJellyByFlow) → duyệt tuần tự MỘT [cursor] cho "nước đi CUỐI cùng".
-        //    Mỗi nhịp = beat (form|clear) rồi collapse; nhịp kế chỉ bắt đầu SAU khi rơi xong.
+        // 3) chuỗi nhịp resolve theo ĐÚNG thứ tự engine: hợp nhất siêu khối / xóa+nổ → rơi. Mỗi nhịp =
+        //    beat (form|clear) rồi collapse; nhịp kế chỉ bắt đầu SAU khi rơi xong.
         if (runLoop) {
             if (hasPhases) displayGrid = work.copy()   // bàn đã đặt/đã xoay, trước nhịp đầu
 
@@ -391,15 +352,6 @@ class BoardAnimator {
                         cursor = buildClearBeat(e, work, postGravity, cursor, fireCombo = beatIdx == lastComboBeat)
                         beatIdx++
                     }
-                    // World 3 · nốt nước MỚI mọc: pop ring seed tại [cursor] hiện tại (SAU cascade). Đồng bộ
-                    // lớp effect vào [work] để applyClusterGravity nhịp sau tôn trọng "neo-nước" (§6.3) —
-                    // effect sync BẤT KỂ reducedMotion (đúng bàn); chỉ pop ring mới gate reducedMotion.
-                    is GameEvent.WaterGrew -> for (c in e.cells) {
-                        work.setEffect(c.x, c.y, CellEffect.WATER_FLOW)
-                        if (!reducedMotion) waterNewStart[c.y][c.x] = cursor
-                    }
-                    // World 3 · khối trôi/đẩy 1 ô theo dòng: trượt SAU cascade (một pha đẩy riêng).
-                    is GameEvent.JellyPushed -> cursor = buildPushBeat(e, work, cursor)
                     else -> {}
                 }
             }
@@ -462,11 +414,10 @@ class BoardAnimator {
         val sk = work.copy()                                     // màu mọi ô trước khi xóa
         val seed = lineCells(e.lines, Grid.SIZE)
         val (toClear, dets) = expandDetonations(work, seed)
-        val rootSet = e.survivingRoots.toHashSet()
 
         if (dets.isEmpty()) {
             // ── nhịp xóa thường ──
-            for (v in toClear) if (v !in rootSet) work.set(v.x, v.y, null)
+            for (v in toClear) work.set(v.x, v.y, null)
             val beforeK = work.copy()
             val moved = applyClusterGravity(work, gravity)
             val afterK = work.copy()
@@ -494,16 +445,16 @@ class BoardAnimator {
         val centers = HashSet<Vec>(); for (d in dets) centers.add(d.center)
         val superCenters = ArrayList<Vec>(); val rainbowCenters = ArrayList<Vec>()
         for (d in dets) if (d.isRainbow) rainbowCenters.add(d.center) else superCenters.add(d.center)
-        val stage1 = ArrayList<Vec>()                            // hàng/cột (trừ tâm detonator, trừ root sống)
-        for (v in seed) if (v !in centers && v !in rootSet) stage1.add(v)
-        val stage2 = ArrayList<Vec>()                            // ô bị quét (trừ hàng, trừ tâm, trừ root sống)
-        for (v in toClear) if (v !in seed && v !in centers && v !in rootSet) stage2.add(v)
+        val stage1 = ArrayList<Vec>()                            // hàng/cột (trừ tâm detonator)
+        for (v in seed) if (v !in centers) stage1.add(v)
+        val stage2 = ArrayList<Vec>()                            // ô bị quét (trừ hàng, trừ tâm)
+        for (v in toClear) if (v !in seed && v !in centers) stage2.add(v)
 
         // display grid theo từng chặng (block còn lại vẫn HIỆN cho tới lượt biến mất)
         val g1 = sk.copy(); for (v in stage1) g1.set(v.x, v.y, null)
         val g2 = g1.copy(); for (v in stage2) g2.set(v.x, v.y, null)
-        val g3 = g2.copy(); for (v in centers) if (v !in rootSet) g3.set(v.x, v.y, null)
-        for (v in toClear) if (v !in rootSet) work.set(v.x, v.y, null)  // work = final (trước rơi)
+        val g3 = g2.copy(); for (v in centers) g3.set(v.x, v.y, null)
+        for (v in toClear) work.set(v.x, v.y, null)  // work = final (trước rơi)
         val moved = applyClusterGravity(work, gravity)
         val afterK = work.copy()
 
@@ -525,23 +476,6 @@ class BoardAnimator {
         return collapseAt + Anim.COLLAPSE_NANOS + Anim.CASCADE_GAP_NANOS
     }
 
-    /**
-     * World 3 · Dòng chảy — dựng một pha ĐẨY: khối trên kênh trôi 1 ô theo dòng ([GameEvent.JellyPushed]).
-     * Áp [e].moves vào [work] (để nhịp sau — vd foldResolve clear — dựng đúng bàn sau đẩy) rồi thêm pha
-     * slide tại [cursor]. Chạy SAU chuỗi cascade nên khối trượt "đi cuối", không đè lúc trọng lực rơi.
-     */
-    private fun buildPushBeat(e: GameEvent.JellyPushed, work: Grid, cursor: Long): Long {
-        // Chụp occupant NGUỒN trước khi mutate (đoàn tàu: from của khối này có thể là to của khối kia).
-        val landing = HashMap<Vec, Grid.Cell?>(e.moves.size * 2)
-        for ((from, _) in e.moves) landing[from] = work.get(from.x, from.y)
-        val tos = HashSet<Vec>(e.moves.size * 2); for ((_, to) in e.moves) tos.add(to)
-        for ((from, _) in e.moves) if (from !in tos) work.set(from.x, from.y, null)  // ô nguồn không bị chiếm lại → trống
-        for ((from, to) in e.moves) work.set(to.x, to.y, landing[from])
-        val after = work.copy()
-        phases.add(CascadePhase(at = cursor, display = after, isCollapse = false, pushMoves = e.moves))
-        return cursor + WATER_PUSH_NANOS + Anim.CASCADE_GAP_NANOS
-    }
-
     /** Kích hoạt các pha playback tới hạn theo thời gian sim [now]. */
     private fun advancePhases(now: Long) {
         while (phaseIdx < phases.size && phases[phaseIdx].at <= now) {
@@ -549,7 +483,6 @@ class BoardAnimator {
             phaseIdx++
             displayGrid = p.display
             when {
-                p.pushMoves != null -> activatePush(p)
                 p.isCollapse -> activateCollapse(p)
                 p.isForm -> activateForm(p)
                 p.smileCells != null -> activateSmile(p)
@@ -691,29 +624,6 @@ class BoardAnimator {
             }
         }
         onClearStep?.invoke(0)
-    }
-
-    /**
-     * World 3 · Dòng chảy — kích hoạt pha ĐẨY: khối [pushMoves] trượt VÀO ô đích từ ô nguồn (slide) +
-     * squash nhẹ khi tới. [displayGrid] đã là bàn sau đẩy (đặt ở [advancePhases]); reducedMotion → hiện
-     * ngay tại đích (không trượt).
-     */
-    private fun activatePush(p: CascadePhase) {
-        val moves = p.pushMoves ?: return
-        // Xoá slide buffer trước: chỉ các ô vừa đẩy mới trượt (cascade trước đã rơi xong tại mốc này).
-        for (y in 0 until n) for (x in 0 until n) { slideDX[y][x] = 0f; slideDY[y][x] = 0f }
-        if (reducedMotion) return
-        slideStart = p.at
-        slideDur = WATER_PUSH_NANOS
-        // Squash đặt lúc khối TỚI đích (p.at + WATER_PUSH), KHÔNG phải lúc khởi hành — khớp
-        // [activateCollapse] (nhún khi CHẠM, impact = p.at + COLLAPSE). Đặt tại p.at làm khối "nảy"
-        // ngay đầu cú trượt → đẩy nước trông GIẬT; đặt ở đích cho cú trượt mượt rồi nhún khi cập bến.
-        val impact = p.at + WATER_PUSH_NANOS
-        for ((from, to) in moves) {
-            slideDX[to.y][to.x] = (from.x - to.x).toFloat()
-            slideDY[to.y][to.x] = (from.y - to.y).toFloat()
-            placeStart[to.y][to.x] = impact
-        }
     }
 
     /** Kích hoạt nhịp rơi: nội suy slide từ [CascadePhase.slideBefore] về [CascadePhase.display]. */
@@ -882,7 +792,6 @@ class BoardAnimator {
             placeStart[y][x] = 0L; clearStart[y][x] = 0L
             clearJelly[y][x] = null; clearBurstDone[y][x] = true
             slideDX[y][x] = 0f; slideDY[y][x] = 0f
-            waterNewStart[y][x] = 0L
         }
         rotActive = false
         phases.clear(); phaseIdx = 0; displayGrid = null
@@ -893,34 +802,10 @@ class BoardAnimator {
 
     fun drawOverlays(scope: DrawScope, cellPx: Float, gap: Float, measurer: TextMeasurer, now: Long, bitmaps: JellyBitmaps? = null) {
         drawClearing(scope, cellPx, gap, now, bitmaps)
-        drawWaterNew(scope, cellPx, gap, now)       // World 3: ring "mới mọc" (dưới particle)
         drawSmileFlashes(scope, cellPx, gap, now, bitmaps)   // block cùng màu cười (chặng 2)
         drawSuperFlashes(scope, cellPx, gap, now, bitmaps)   // siêu khối biến mất cuối (chặng 3) — vẽ trên cùng
         particles.drawParticles(scope, cellPx, renderAlpha)
         particles.drawPopups(scope, measurer, cellPx, renderAlpha)
-    }
-
-    /**
-     * World 3 · Dòng chảy — nốt nước vừa mọc lượt này: ring foam bung ra + mờ dần (~[WATER_NEW_NANOS]).
-     * Tổ hợp keyframe gjwNew/gjwTipGlow (world3-water-kit.jsx): viền foam scale ra + fade. Allocation-free.
-     */
-    private fun drawWaterNew(scope: DrawScope, cellPx: Float, gap: Float, now: Long) {
-        val blockSize = cellPx - gap
-        for (y in 0 until n) for (x in 0 until n) {
-            val start = waterNewStart[y][x]
-            if (start == 0L) continue
-            val el = now - start
-            if (el < 0L) continue
-            if (el >= WATER_NEW_NANOS) { waterNewStart[y][x] = 0L; continue }
-            val t = el.toFloat() / WATER_NEW_NANOS
-            val cx = x * cellPx + gap / 2f + blockSize / 2f
-            val cy = y * cellPx + gap / 2f + blockSize / 2f
-            val ringR = blockSize * (0.42f + 0.28f * t)
-            scope.drawCircle(
-                WATER_FOAM_COLOR.copy(alpha = (1f - t) * 0.9f), ringR, Offset(cx, cy),
-                style = Stroke(width = blockSize * 0.07f * (1f - t)),
-            )
-        }
     }
 
     /**
@@ -1116,12 +1001,6 @@ class BoardAnimator {
     companion object {
         private const val PARTICLES_PER_CELL = 5   // spec 4–6 đốm/khối
         private const val SUPER_POP_PARTICLES = 12 // lóe sao khi siêu khối hợp nhất (b0 "ngôi sao nổ")
-        // World 3 · Dòng chảy (world3-water-kit.jsx)
-        private const val WATER_NEW_NANOS = 600 * Anim.MS       // ring "mới mọc" bung + fade
-        private const val WATER_PUSH_NANOS = 300 * Anim.MS      // jelly trượt 1 ô khi bị đẩy
-        private const val WATER_SPLASH_PARTICLES = 18           // splash khi phá nguồn
-        private val WATER_SPLASH_COLOR = Color(0xFF5FD2D6)      // AQ.mid
-        private val WATER_FOAM_COLOR = Color(0xFFEAFBFB)        // AQ.foam
         private const val SUPER_FLASH_NANOS = 520 * Anim.MS   // "cười tươi rồi nổ" của tâm siêu khối
         private const val SUPER_SPIN_NANOS  = 2600 * Anim.MS  // viền màu chạy (đồng bộ BoardCanvas)
 

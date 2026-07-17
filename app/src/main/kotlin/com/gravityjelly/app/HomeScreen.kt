@@ -61,22 +61,22 @@ import kotlin.math.sin
  *    [world] = world người chơi đang tiến tới → Home đổi cảnh theo tiến độ (Đồng cỏ → Rừng → Sông).
  *  · **Panel kem `home_panel.png` TÁCH RỜI** (dùng chung mọi world) phủ lên nền ở đáy (JSX top 72.5%,
  *    height 25%), chứa **menu icon 2 hàng** (JSX khối top 75%, bottom 5%):
- *      – Hàng trên: CHIẾN DỊCH · ENDLESS (2 nút chơi chính, rộng 31cqw/nút).
- *      – Hàng dưới: CẨM NANG · BẢNG XẾP HẠNG · CÀI ĐẶT (3 nút, rộng ~19.3cqw/nút).
- *    Mỗi nút là 1 ảnh PNG tự chứa (khung + icon), flex ĐỀU BỀ NGANG, cao theo tỉ lệ art, nhấn nén .93.
+ *      – Hàng trên: **ENDLESS** — CTA chơi DUY NHẤT, canh giữa, rộng [BTN_HERO_FRAC] của contentW.
+ *        (Nút CHIẾN DỊCH đã gỡ 17/07 cùng tính năng Campaign — xem `docs/08-go-bo-campaign.md`.)
+ *      – Hàng dưới: CẨM NANG · BẢNG XẾP HẠNG · CÀI ĐẶT (3 nút, chia ĐỀU contentW).
+ *    Mỗi nút là 1 ảnh PNG tự chứa (khung + icon), cao theo tỉ lệ art, nhấn nén .93.
  *  · **Hạt bay theo world** ([PetalLayer]) trôi ngang như gió: Đồng cỏ = cánh hoa · Rừng rậm = LÁ ·
  *    Sông & Thác = GIỌT NƯỚC (đổi hình + palette theo [world]). Ẩn khi reduced-motion.
  *  · **KHÔNG HUD trên** (user 01/07: bỏ chip KỶ LỤC; hearts/life của JSX cũng không dựng).
  *
- * Cả 5 mục (Chiến dịch · Endless · Cẩm nang · BXH · Cài đặt) đều đã có màn và vào được — không
- * mục nào bị khoá. Cơ chế `comingSoon` (làm mờ + khoá bấm) vẫn còn nhưng hiện KHÔNG dùng cho mục
- * nào. Sparkle của bản cũ đã GỠ (JSX comment: nền mới chưa có landmark tương ứng).
+ * Cả 4 mục (Endless · Cẩm nang · BXH · Cài đặt) đều đã có màn và vào được — không mục nào bị khoá.
+ * Cơ chế `comingSoon` (làm mờ + khoá bấm) vẫn còn nhưng hiện KHÔNG dùng cho mục nào. Sparkle của
+ * bản cũ đã GỠ (JSX comment: nền mới chưa có landmark tương ứng).
  */
 @Composable
 fun HomeScreen(
     onPlayEndless: () -> Unit,
     onSettings: () -> Unit,
-    onPlayCampaign: () -> Unit = {},
     onHandbook: () -> Unit = {},
     onLeaderboard: () -> Unit = {},
     world: Int = 1,
@@ -112,7 +112,6 @@ fun HomeScreen(
             // ── Panel kem tách rời + menu icon 2 hàng (JSX: panel top 72.5% h25%, khối nút top 75% bottom 5%).
             HomeMenu(
                 boxW = boxW, imgH = imgH,
-                onCampaign = onPlayCampaign,    // prototype đã mở
                 onPlay = onPlayEndless,
                 onGuide = onHandbook,
                 onLeaderboard = onLeaderboard,  // đã có màn Bảng xếp hạng
@@ -134,9 +133,11 @@ private const val PANEL_CREAM_H = 0.046f
 private const val PANEL_CREAM_V = 0.113f
 // Thu nhỏ cụm nút so với vùng cream (canh giữa) — chỉnh cỡ nút Home bằng đúng knob này (user 03/07).
 private const val BTN_ROW_SCALE = 0.85f
+// Bề rộng CTA Endless (hàng trên) theo contentW — chỉ còn 1 nút chơi sau khi gỡ Campaign nên nó là
+// nút chủ đạo: to hơn nút phụ hàng dưới (~1/3 contentW mỗi nút) mà không tràn hết bề ngang panel.
+private const val BTN_HERO_FRAC = 0.62f
 
 // Tỉ lệ RỘNG/CAO từng icon PNG (px nguồn bản mới 02/07) — height = width / aspect.
-private const val AR_CAMPAIGN = 1244f / 722f
 private const val AR_INFINITE = 1386f / 696f
 private const val AR_GUIDE = 918f / 884f
 private const val AR_LEADER = 1052f / 1043f
@@ -153,7 +154,6 @@ private const val AR_SETTING = 962f / 964f
 private fun BoxScope.HomeMenu(
     boxW: Dp,
     imgH: Dp,
-    onCampaign: () -> Unit,
     onPlay: () -> Unit,
     onGuide: () -> Unit,
     onLeaderboard: () -> Unit,
@@ -203,17 +203,13 @@ private fun BoxScope.HomeMenu(
             // JSX justify-content:space-evenly → lề trên = giữa = dưới, tự cân, KHÔNG tràn màn thấp.
             verticalArrangement = Arrangement.SpaceEvenly,
         ) {
-            // Hàng trên — 2 nút chơi chính. Nút weight(1f) → chia ĐỀU bề ngang contentW (JSX flex:1);
-            // cao = rộng/aspect (JSX img width:100% height:auto). 2 hàng cùng contentW → DÀI BẰNG NHAU.
+            // Hàng trên — CTA chơi chính DUY NHẤT (Endless), canh giữa. Sau khi gỡ Campaign (17/07,
+            // docs/08-go-bo-campaign.md) chỉ còn một chế độ chơi → nút rộng [BTN_HERO_FRAC] của contentW
+            // (to hơn nút phụ hàng dưới, không tràn hết bề ngang panel); cao = rộng/aspect.
             Row(
-                modifier = Modifier.width(contentW),
-                horizontalArrangement = Arrangement.spacedBy(gap),
+                modifier = Modifier.width(contentW * BTN_HERO_FRAC),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                IconButton(
-                    icon = painterResource(R.drawable.btn_campaign), contentDescription = stringResource(R.string.home_campaign),
-                    aspect = AR_CAMPAIGN, onClick = onCampaign,
-                )
                 IconButton(
                     icon = painterResource(R.drawable.btn_infinite), contentDescription = stringResource(R.string.home_endless),
                     aspect = AR_INFINITE, onClick = onPlay,

@@ -43,7 +43,7 @@ class AnalyticsManager(context: Context) {
 
     // ── Sự kiện game (GA4) ──────────────────────────────────────────────────────
 
-    /** Vào một ván (mode = "endless" | "campaign"). */
+    /** Vào một ván (mode = "endless" — chế độ chơi duy nhất từ 17/07, xem docs/08-go-bo-campaign.md). */
     fun logGameStart(mode: String) = log("game_start") {
         putString("mode", mode)
     }
@@ -59,13 +59,6 @@ class AnalyticsManager(context: Context) {
         putLong(FirebaseAnalytics.Param.SCORE, score.toLong())
     }
 
-    /** Qua màn Campaign. */
-    fun logLevelComplete(levelId: Int, stars: Int) = log(FirebaseAnalytics.Event.LEVEL_END) {
-        putString(FirebaseAnalytics.Param.LEVEL_NAME, "level_$levelId")
-        putLong(FirebaseAnalytics.Param.LEVEL, levelId.toLong())
-        putLong("stars", stars.toLong())
-        putLong("success", 1L)
-    }
 
     /** Xem màn hình (GA4 screen_view). */
     fun logScreenView(screen: String) = log(FirebaseAnalytics.Event.SCREEN_VIEW) {

@@ -267,7 +267,7 @@ Chuẩn bị **cả vi + en** (app đã đa ngôn ngữ).
 |---|---|
 | App icon | 512×512 PNG |
 | Feature graphic | 1024×500 |
-| Screenshots điện thoại (≥2, nên 4–8) | Home, Endless, Campaign, Boss, **Bảng xếp hạng** |
+| Screenshots điện thoại (≥2, nên 4–8) | Home, Endless (bàn 9×9), Endless lúc combo/siêu khối, Cẩm nang, **Bảng xếp hạng** |
 | (Tuỳ chọn) video YouTube | — |
 
 - **Category:** Game → Puzzle. **Tags:** puzzle, casual, brain.

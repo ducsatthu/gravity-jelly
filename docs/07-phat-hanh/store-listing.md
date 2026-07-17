@@ -24,7 +24,6 @@ Gravity Jelly là game giải đố xếp khối casual với một cơ chế ch
 
 🌏 CHẾ ĐỘ CHƠI
 • Bất tận (Endless): chơi tới khi hết chỗ, đua điểm cao nhất của chính bạn.
-• Chiến dịch: phiêu lưu qua các thế giới Đồng cỏ → Rừng rậm → Sông & Thác, đánh bại những con trùm đầy thử thách.
 • Bảng xếp hạng: so tài điểm số với người chơi khắp nơi (Google Play Games).
 
 ✨ ĐẶC ĐIỂM
@@ -56,7 +55,6 @@ Gravity Jelly is a casual block-fitting puzzle game with a signature twist you h
 
 🌏 GAME MODES
 • Endless: play until you run out of room and chase your own high score.
-• Campaign: journey through the Meadow, Forest and River worlds, and defeat challenging bosses.
 • Leaderboard: compare your scores with players everywhere (Google Play Games).
 
 ✨ FEATURES

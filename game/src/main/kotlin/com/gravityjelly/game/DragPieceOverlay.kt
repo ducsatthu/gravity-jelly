@@ -8,7 +8,7 @@ import androidx.compose.ui.geometry.Offset
 /**
  * Overlay mảnh đang kéo (floating) — vẽ tại con trỏ với cỡ ô bàn, frame-driven (đọc
  * [renderTick] mỗi vsync, KHÔNG recompose). Public để lớp ráp ở :app tái dùng
- * (EndlessPlayScreen, CampaignPlayScreen). [parentWin] = vị trí window của Box cha
+ * (EndlessPlayScreen). [parentWin] = vị trí window của Box cha
  * (để quy con trỏ về toạ độ local).
  *
  * Ghi chú: trước đây nằm chung trong `EndlessScreen.kt` (màn Endless dựng ở `:game` cũ).

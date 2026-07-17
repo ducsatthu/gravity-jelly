@@ -38,45 +38,12 @@ fun findClusters(grid: Grid): List<List<Vec>> {
 }
 
 /**
- * Ô jelly = ô đầy KHÔNG bất động. STONE, VINE, TRASH đứng yên: không thuộc cụm, không rơi theo
+ * Ô jelly = ô đầy KHÔNG bất động. STONE đứng yên: không thuộc cụm, không rơi theo
  * trọng lực/xoay — nhưng vẫn là vật cản chặn cụm khác (grid.isEmpty=false).
  */
 private fun isJelly(grid: Grid, x: Int, y: Int): Boolean {
     val t = grid.get(x, y)?.type ?: return false
-    return t != CellType.STONE && t != CellType.VINE && t != CellType.TRASH
-}
-
-/**
- * Jelly **rơi được** theo trọng lực = jelly KHÔNG nằm trên sàn nước (World 3). Khối đang nằm TRONG dòng
- * nước ([Grid.effect] != NONE) bị dòng "giữ" → không chịu trọng lực (chỉ trôi theo dòng, [pushJellyByFlow]),
- * và là vật cản bất động cho cụm khác. Xem yêu cầu người chơi 05/07.
- */
-private fun isFallingJelly(grid: Grid, x: Int, y: Int): Boolean =
-    isJelly(grid, x, y) && grid.effect(x, y) == CellEffect.NONE
-
-/** Như [findClusters] nhưng CHỈ gồm jelly rơi-được (bỏ ô neo-nước) — dùng cho trọng lực. */
-private fun findGravityClusters(grid: Grid): List<List<Vec>> {
-    val visited = Array(grid.size) { BooleanArray(grid.size) }
-    val clusters = mutableListOf<List<Vec>>()
-    for (y in 0 until grid.size) for (x in 0 until grid.size) {
-        if (visited[y][x] || !isFallingJelly(grid, x, y)) continue
-        val color = grid.get(x, y)?.color
-        val cluster = mutableListOf<Vec>()
-        val queue = ArrayDeque<Vec>()
-        queue.add(Vec(x, y)); visited[y][x] = true
-        while (queue.isNotEmpty()) {
-            val curr = queue.removeFirst()
-            cluster.add(curr)
-            for (dir in Direction.entries) {
-                val nx = curr.x + dir.dx; val ny = curr.y + dir.dy
-                if (grid.inBounds(nx, ny) && !visited[ny][nx] &&
-                    isFallingJelly(grid, nx, ny) && grid.get(nx, ny)?.color == color
-                ) { visited[ny][nx] = true; queue.add(Vec(nx, ny)) }
-            }
-        }
-        clusters.add(cluster.sortedWith(compareBy({ it.y }, { it.x })))
-    }
-    return clusters
+    return t != CellType.STONE
 }
 
 /**
@@ -91,7 +58,7 @@ fun applyConnectedGravity(grid: Grid, gravity: Direction, seed: Set<Vec>): Boole
     val active = HashSet<Vec>()
     val queue = ArrayDeque<Vec>()
     fun tryAdd(x: Int, y: Int) {
-        if (grid.inBounds(x, y) && isFallingJelly(grid, x, y)) {   // ô neo-nước không rơi → không active
+        if (grid.inBounds(x, y) && isJelly(grid, x, y)) {
             val v = Vec(x, y)
             if (active.add(v)) queue.add(v)
         }
@@ -176,7 +143,7 @@ private fun activeColorClusters(grid: Grid, active: Set<Vec>): List<List<Vec>> {
 fun applyClusterGravity(grid: Grid, gravity: Direction): Boolean {
     var anyMoved = false
     while (true) {
-        val clusters = findGravityClusters(grid)   // bỏ ô neo-nước (không rơi theo trọng lực)
+        val clusters = findClusters(grid)
         val sorted = clusters.sortedByDescending { cluster ->
             cluster.maxOf { it.x * gravity.dx + it.y * gravity.dy }
         }

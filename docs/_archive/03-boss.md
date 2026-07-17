@@ -37,7 +37,7 @@ Khiên rút về **0 = hạ boss**. Thanh Khiên vẽ ở `ui/components/BossHud
 
 ## 3. Phá Khiên bằng combo (BOSS_COMBO)
 
-Cơ chế phá Khiên dùng CHUNG cho L10 & L20, gắn chặt hệ combo (xem [`02-combo.md`](02-combo.md)).
+Cơ chế phá Khiên dùng CHUNG cho L10 & L20, gắn chặt hệ combo (xem [`02-combo.md`](../03-co-che/02-combo.md)).
 
 **Luật:** mỗi lần bậc combo chạm **mức MỚI ≥ ×2** gây `bậc − 1` sát thương.
 
@@ -112,7 +112,7 @@ Vai trò: boss "làm quen" — dạy khái niệm Khiên + phá bằng combo, kh
 | Sao | `StarThresholds(19, 26, 33, MOVES)` |
 
 Logic chiêu: `EndlessEngine.spawnBossVineIfDue()` — `core/.../EndlessEngine.kt:382-397` (spawn gốc mới ở ô trống ngẫu nhiên qua `rng`).
-Người chơi chặt dây bằng khối **MINT** (xem [`06-world-2-vine.md`](../02-thiet-ke-man/06-world-2-vine.md)) để giữ bàn thoáng, rồi combo phá Khiên.
+Người chơi chặt dây bằng khối **MINT** (xem [`06-world-2-vine.md`](02-thiet-ke-man/06-world-2-vine.md)) để giữ bàn thoáng, rồi combo phá Khiên.
 
 **Thắng:** 8 sát thương. **Thua:** kẹt khay do dây phủ kín.
 > ⚠ Đồng bộ tài liệu: một số file cũ ghi "mỗi 3 lượt". Code là chuẩn → **4 lượt** (`bossVineSpawnEveryN = 4`).
@@ -134,7 +134,7 @@ Người chơi chặt dây bằng khối **MINT** (xem [`06-world-2-vine.md`](..
 | Sao | `StarThresholds(25, 32, 39, MOVES)` — ⚠ cần chơi thử tinh chỉnh |
 
 Logic chiêu: `reviveWaterSourcesIfDue()` (`EndlessEngine.kt:342-359`), `spawnBossSourceIfDue()` (`EndlessEngine.kt:361-380`).
-**Nước = chướng ngại:** dòng chảy đẩy khối (drift/push) làm rối thế combo; cắm **Thạch Nước** (khối xanh) xoá dòng qua ô nguồn để **tạm dập** một nguồn (giảm áp lực) — KHÔNG còn là điều kiện thắng (xem [`07-world-3-nhip-nuoc.md`](../02-thiet-ke-man/07-world-3-nhip-nuoc.md)).
+**Nước = chướng ngại:** dòng chảy đẩy khối (drift/push) làm rối thế combo; cắm **Thạch Nước** (khối xanh) xoá dòng qua ô nguồn để **tạm dập** một nguồn (giảm áp lực) — KHÔNG còn là điều kiện thắng (xem [`07-world-3-nhip-nuoc.md`](02-thiet-ke-man/07-world-3-nhip-nuoc.md)).
 
 **Thắng:** đủ 11 sát thương combo (phá Khiên). **Thua:** kẹt khay khi áp lực dòng dâng.
 
@@ -164,7 +164,7 @@ Cấu hình chảy qua: `LevelSetup.kt` (`campaignTuning`) → `EndlessTuning` �
 
 ## 9. UI / HUD boss
 
-**Nguồn thật:** [`04-ui-ux/01-boss-hud-objective-bar.md`](../04-ui-ux/01-boss-hud-objective-bar.md). Code: `app/.../ui/components/BossHud.kt`.
+**Nguồn thật:** [`04-ui-ux/01-boss-hud-objective-bar.md`](04-boss-hud-objective-bar.md). Code: `app/.../ui/components/BossHud.kt`.
 
 - `BossCard` — thẻ compact in-game (thay ObjectiveBar ở màn boss): mascot trái · MÀN n · tên · thanh Khiên · chip luật/tell. Cao tối thiểu 118dp.
 - `BossIntroCard` — thẻ lớn màn Intro trước boss (tag BOSS, mascot, "ĐỐI THỦ", Khiên đầy, CTA "Chơi").
@@ -203,7 +203,7 @@ Hệ boss đã tách sạch để thêm thế giới mới với chi phí thấp
 | Đảo trọng lực 180° / N lượt | `bossGravityEveryN` → `flipBossGravityIfDue()` (`EndlessEngine.kt:326-340`), tell `GRAVITY_INVERT` | LEGACY — còn code, không bật |
 | Đổ rác/đá mỗi lượt | `debrisPerTurn` | archetype dự phòng, chưa dùng |
 
-**Draft W4 — "Tượng Cát Cổ" (Lõi Giáp):** xem [`02-he-muc-tieu.md § 17`](../02-thiet-ke-man/02-he-muc-tieu.md). Archetype boss dài hạn (Lõi Giáp / Siege / Hỗn loạn) ở [`03-campaign-vo-han.md § 11`](../02-thiet-ke-man/03-campaign-vo-han.md).
+**Draft W4 — "Tượng Cát Cổ" (Lõi Giáp):** xem [`02-he-muc-tieu.md § 17`](02-thiet-ke-man/02-he-muc-tieu.md). Archetype boss dài hạn (Lõi Giáp / Siege / Hỗn loạn) ở [`03-campaign-vo-han.md § 11`](02-thiet-ke-man/03-campaign-vo-han.md).
 
 ---
 
@@ -218,7 +218,7 @@ Hệ boss đã tách sạch để thêm thế giới mới với chi phí thấp
 | Cộng dồn + chấm goal | `game/.../EndlessGameHolder.kt` |
 | Thẻ + mascot + wiring | `app/.../ui/components/BossHud.kt`, `app/.../CampaignPlayScreen.kt`, `app/.../CampaignIntroScreen.kt` |
 | Cẩm nang boss | `app/.../ui/guide/GjGuide.kt`, `app/.../ui/guide/CamNangParts.kt` |
-| Docs cơ chế nền | [`02-combo.md`](02-combo.md) · [`06-world-2-vine.md`](../02-thiet-ke-man/06-world-2-vine.md) · [`07-world-3-nhip-nuoc.md`](../02-thiet-ke-man/07-world-3-nhip-nuoc.md) |
+| Docs cơ chế nền | [`02-combo.md`](../03-co-che/02-combo.md) · [`06-world-2-vine.md`](02-thiet-ke-man/06-world-2-vine.md) · [`07-world-3-nhip-nuoc.md`](02-thiet-ke-man/07-world-3-nhip-nuoc.md) |
 
 ---
 

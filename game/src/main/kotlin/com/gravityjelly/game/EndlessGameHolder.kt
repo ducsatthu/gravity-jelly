@@ -4,25 +4,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.geometry.Offset
-import com.gravityjelly.core.CellType
-import com.gravityjelly.core.ComboReward
 import com.gravityjelly.core.EndlessEngine
 import com.gravityjelly.core.EndlessState
 import com.gravityjelly.core.EndlessTuning
 import com.gravityjelly.core.GameEvent
-import com.gravityjelly.core.Goal
-import com.gravityjelly.core.GoalType
 import com.gravityjelly.core.Grid
-import com.gravityjelly.core.Level
 import com.gravityjelly.core.Piece
 import com.gravityjelly.core.PlacementResult
-import com.gravityjelly.core.StarMetric
-import com.gravityjelly.core.StarThresholds
-import com.gravityjelly.core.TriggerKind
-import com.gravityjelly.core.forLevel
 import com.gravityjelly.core.PlacementOutcome
 import com.gravityjelly.core.Vec
-import com.gravityjelly.core.campaignTuning
 import com.gravityjelly.core.freePlace
 import com.gravityjelly.core.nearestFreePlacement
 import com.gravityjelly.core.previewPlaced
@@ -73,82 +63,21 @@ class EndlessGameHolder(
     seed: Long,
     initialBudget: Int = EndlessEngine.DEFAULT_ROTATION_BUDGET,
     tuning: EndlessTuning = EndlessTuning(),
-    /** Màn Campaign đang chơi (null = chế độ Endless, không có mục tiêu/thắng). */
-    val level: Level? = null,
 ) {
-    private val engine = if (level != null) EndlessEngine.forLevel(level)
-        else EndlessEngine(seed, initialBudget, tuning)
+    private val engine = EndlessEngine(seed, initialBudget, tuning)
 
     val boardRender = BoardRender()
     val animator = BoardAnimator()
 
-    // ── mục tiêu Campaign (null ở Endless) ──
-    /** Mục tiêu của màn (null = Endless). Lớp vỏ đọc để hiện HUD "Dọn sạch"… */
-    val goal: Goal? = level?.goal
-    private val starThresholds: StarThresholds? = level?.stars
-
-    /** Số nước đã đặt (đơn vị sao MOVES). Compose observe để HUD hiện. */
-    var movesUsed by mutableStateOf(0)
-        private set
-
-    /** Đã HOÀN THÀNH mục tiêu màn chưa (chỉ Campaign). Lớp vỏ hiện overlay thắng khi true. */
-    var levelComplete by mutableStateOf(false)
-        private set
-
-    /** Sao đạt được khi hoàn thành (1–3); 0 khi chưa xong. */
-    var starsEarned by mutableStateOf(0)
-        private set
-
-    // Đã xảy ra ÍT NHẤT một lần xóa trong màn — chặn "thắng rỗng" khi bàn vốn đã trống (L1/L2).
-    private var anyCleared = false
-
-    /** Số cú xoay đã dùng (đơn vị sao ROTATIONS — L3). */
-    var rotationsUsed by mutableStateOf(0)
-        private set
-
-    // ── Trigger tutorial đã xảy ra (hệ mục tiêu v2) — bám EVENT stream, tích luỹ cả màn. ──
-    private var trigRow = false
-    private var trigCol = false
-    private var trigRotate = false
-    private var trigSuper1 = false
-    private var trigSuper2 = false
-    private var trigRainbow = false
-    private var trigRainbowSuper = false
-    private var trigCombo2 = false   // đã đạt combo ≥×2 lần nào chưa (L8)
-
     // ── Combo timer (comboTimeBased): nước vô ích không reset combo, chỉ hết 10s mới reset. ──
     /** Engine có bật combo timer không (đọc tuning 1 lần). */
-    val isComboTimeBased: Boolean = if (level != null) campaignTuning(level).comboTimeBased else tuning.comboTimeBased
+    val isComboTimeBased: Boolean = tuning.comboTimeBased
 
     /**
      * Tick phát khi combo timer BẮT ĐẦU / RESET (nước có ích mới). LaunchedEffect observe để
      * chạy delay 10s rồi gọi [expireComboTimer]. Compose state vì LaunchedEffect cần key.
      */
     var comboTimerTick by mutableStateOf(0L)
-        private set
-
-    // ── Boss combo: sát thương tích luỹ + số nhịp combo (đơn vị sao COMBO). ──
-    private var bossDamage = 0
-    private var comboHits = 0
-
-    // ── CLEAR_TARGETS/MIXED: số ô đích đã phá + tổng cần phá. ──
-    /** Tổng ô đích cần phá = [Goal.count] (gốc dây leo W2 / số lần phá nguồn W3, kể cả boss hồi sinh). */
-    val initialTargets: Int = level?.goal?.let { g ->
-        if (g.type == GoalType.CLEAR_TARGETS || g.type == GoalType.MIXED) g.count else 0
-    } ?: 0
-    /** Số ô đích đã phá (gốc dây leo [GameEvent.VineRootsCleared] + nguồn [GameEvent.WaterSourceBroken]). */
-    var targetsCleared by mutableStateOf(0)
-        private set
-    /** Số gốc còn lại cần phá (cho ObjectiveBar biến thể targets/mixed). */
-    val targetsRemaining: Int get() = (initialTargets - targetsCleared).coerceAtLeast(0)
-
-    /** Sát thương boss tích luỹ / máu boss (cho BossHud in-game). 0 = không phải màn boss. */
-    var bossHpDamage by mutableStateOf(0)
-        private set
-    val bossHpMax: Int = level?.goal?.takeIf { it.type == GoalType.BOSS_COMBO }?.bossHP ?: 0
-
-    /** Cảnh báo boss sắp ra chiêu (W2 mọc dây · W3 đảo trọng lực) + đếm ngược — null nếu màn không có tell. */
-    var bossTell by mutableStateOf(engine.bossTell())
         private set
 
     /**
@@ -268,15 +197,8 @@ class EndlessGameHolder(
             // Âm nhịp xóa/combo do burst 8-bậc (onComboBurstSound) đảm nhiệm HẾT: combo 1 → burst_01
             // … x8+ → burst_08. Không có âm clear chung riêng. onEffect vẫn giữ để rung/hiệu ứng theo nhịp.
         }
-        // Cascade vừa chiếu xong → áp nước người chơi đã thả trong lúc đó (đặt-hoãn); nếu không
-        // có nước chờ, bàn đã ổn định = đúng lúc CHẤM mục tiêu màn (hiện overlay thắng sau clear).
-        animator.onPlaybackEnd = {
-            val hadPending = pendingPlacement != null
-            flushPendingPlacement()
-            if (!hadPending || !animator.isPlaying) {
-                evaluateGoal()
-            }
-        }
+        // Cascade vừa chiếu xong → áp nước người chơi đã thả trong lúc đó (đặt-hoãn).
+        animator.onPlaybackEnd = { flushPendingPlacement() }
         sync()
     }
 
@@ -287,15 +209,13 @@ class EndlessGameHolder(
     // ── input ──
 
     fun rotate(cw: Boolean) {
-        if (shell.gameOver || levelComplete) return
+        if (shell.gameOver) return
         if (animator.isPlaying) return   // khoá input khi bàn đang chiếu cascade (tránh lệch thấy/truth)
         val pre = boardRender.grid.copy()
         val preGravity = boardRender.gravity
-        val comboBefore = shell.combo   // combo VÀO nước này (trước resolve) — mốc tính sát thương boss
         val events = engine.rotateGravity(cw)
         sync()
         if (events.isNotEmpty()) {
-            trackGoalEvents(events, comboBefore)
             animator.ingest(events, pre, preGravity, boardRender.grid, boardRender.gravity)
             dispatchFeedback(events)
             dispatchSounds(events)
@@ -312,7 +232,7 @@ class EndlessGameHolder(
      * Trả false khi đã thua, hoặc còn MỘT nước chờ chưa áp (giữ một nước chờ mỗi lúc).
      */
     fun beginDrag(trayIndex: Int): Boolean {
-        if (shell.gameOver || levelComplete) return false
+        if (shell.gameOver) return false
         if (pendingPlacement != null) return false   // còn nước chờ áp khi cascade xong → khoan kéo tiếp
         val p = shell.tray.getOrNull(trayIndex) ?: return false
         dragIndex = trayIndex
@@ -467,13 +387,9 @@ class EndlessGameHolder(
     private fun applyPlacement(index: Int, ox: Int, oy: Int) {
         val pre = boardRender.grid.copy()
         val preGravity = boardRender.gravity
-        val comboBefore = shell.combo   // combo VÀO nước này (trước resolve) — mốc tính sát thương boss
         val events = engine.placePieceAt(index, ox, oy)
         sync()
         if (events.isNotEmpty()) {
-            if (events.any { it is GameEvent.PiecePlaced }) movesUsed++
-            if (events.any { it is GameEvent.LinesCleared }) anyCleared = true
-            trackGoalEvents(events, comboBefore)
             animator.ingest(events, pre, preGravity, boardRender.grid, boardRender.gravity)
             dispatchFeedback(events)
             dispatchSounds(events)
@@ -481,100 +397,6 @@ class EndlessGameHolder(
             detectGuideMechanics(events)
             startComboTimerIfProductive(events)
         }
-    }
-
-    // ── mục tiêu màn Campaign ──
-
-    /**
-     * Chấm mục tiêu màn khi bàn ĐÃ ổn định (gọi từ [BoardAnimator.onPlaybackEnd]). Chỉ Campaign
-     * (goal != null). CLEAR_ALL = đã xóa ít nhất 1 lần VÀ bàn không còn ô cần dọn. Đặt sao +
-     * [levelComplete] → lớp vỏ hiện overlay thắng.
-     */
-    /**
-     * Ghi nhận TRIGGER tutorial + sát thương boss từ chuỗi event MỖI nước (hệ mục tiêu v2). Cộng dồn
-     * cả màn — [evaluateGoal] đọc lại khi bàn ổn định. Boss: sát thương = bậc−1 mỗi lần combo chạm mức
-     * mới ≥×2 ([ComboReward.rotationRefund] trên đỉnh combo nước này).
-     */
-    internal fun trackGoalEvents(events: List<GameEvent>, comboBefore: Int) {
-        var peakCombo = comboBefore
-        for (e in events) {
-            when (e) {
-                is GameEvent.LinesCleared -> {
-                    if (e.lines.rows.isNotEmpty()) trigRow = true
-                    if (e.lines.cols.isNotEmpty()) trigCol = true
-                    if (e.comboLevel > peakCombo) peakCombo = e.comboLevel
-                }
-                is GameEvent.GravityRotated -> { trigRotate = true; rotationsUsed++ }
-                is GameEvent.SuperFormed -> {
-                    if (e.level >= 2) trigSuper2 = true else trigSuper1 = true
-                    if (e.comboLevel > peakCombo) peakCombo = e.comboLevel
-                }
-                is GameEvent.SuperDetonated -> if (e.level >= 2) trigSuper2 = true
-                is GameEvent.RainbowFormed -> {
-                    if (e.level >= 2) trigRainbowSuper = true else trigRainbow = true
-                    if (e.comboLevel > peakCombo) peakCombo = e.comboLevel
-                }
-                is GameEvent.VineRootsCleared -> targetsCleared += e.roots.size   // World 2 · CLEAR_TARGETS
-                is GameEvent.WaterSourceBroken -> targetsCleared += 1             // World 3 · phá nguồn
-                else -> {}
-            }
-        }
-        if (peakCombo >= 2) trigCombo2 = true    // combo ×2 lần đầu (L8)
-        // Sát thương boss = số bậc combo MỚI đạt trong nước này (đo từ [comboBefore] — combo VÀO nước,
-        // KHÔNG phải đỉnh cộng dồn cả màn). Nhờ vậy khi combo timer 10s reset combo→0, combo kế đo lại
-        // từ 0 → mỗi combo ≥×2 lại phá Khiên (bug cũ: [bossComboBefore] kẹt đỉnh cũ nên x3/x4/x5 = 0 dmg).
-        val dmg = ComboReward.rotationRefund(comboBefore, peakCombo)
-        if (dmg > 0) { bossDamage += dmg; comboHits++; bossHpDamage = bossDamage }
-    }
-
-    private fun evaluateGoal() {
-        val g = goal ?: return
-        if (levelComplete) return
-        val done = when (g.type) {
-            GoalType.CLEAR_ALL -> anyCleared && !hasBlocks(boardRender.grid)
-            GoalType.REACH_SCORE -> shell.score >= g.score
-            GoalType.BOSS_COMBO -> bossDamage >= g.bossHP
-            GoalType.TUTORIAL -> when (g.trigger) {
-                TriggerKind.ROW -> trigRow
-                TriggerKind.COL -> trigCol
-                TriggerKind.ROTATE -> trigRotate
-                TriggerKind.SUPER1 -> trigSuper1
-                TriggerKind.SUPER2 -> trigSuper2
-                TriggerKind.RAINBOW -> trigRainbow
-                TriggerKind.RAINBOW_SUPER -> trigRainbowSuper
-                TriggerKind.COMBO_X2 -> trigCombo2
-                null -> false
-            }
-            // World 2: phá đủ N gốc dây leo (CLEAR_TARGETS) / phá đủ gốc VÀ đủ điểm (MIXED).
-            GoalType.CLEAR_TARGETS -> targetsCleared >= g.count
-            GoalType.MIXED -> targetsCleared >= g.count && shell.score >= g.score
-            GoalType.COMBO_CHAIN -> false   // chưa hỗ trợ
-        }
-        if (done) {
-            starsEarned = computeStars()
-            levelComplete = true
-        }
-    }
-
-    /** Còn ô cần dọn (BLOCK/TARGET)? STONE là chướng ngại, không tính vào clear_all. */
-    private fun hasBlocks(grid: Grid): Boolean {
-        for (y in 0 until grid.size) for (x in 0 until grid.size) {
-            val t = grid.get(x, y)?.type
-            if (t == CellType.BLOCK || t == CellType.TARGET) return true
-        }
-        return false
-    }
-
-    private fun computeStars(): Int {
-        val s = starThresholds ?: return 1
-        // MOVES/ROTATIONS/COMBO: ÍT hơn = tốt hơn (≤ ngưỡng). SCORE: NHIỀU hơn = tốt hơn (≥ ngưỡng).
-        val measured = when (s.metric) {
-            StarMetric.SCORE -> shell.score
-            StarMetric.ROTATIONS -> rotationsUsed
-            StarMetric.COMBO -> comboHits
-            else -> movesUsed   // MOVES
-        }
-        return s.tierFor(measured)
     }
 
     /**
@@ -587,7 +409,7 @@ class EndlessGameHolder(
         pendingPlacement = null
         boardRender.ghost = null
         clearPreview()
-        if (shell.gameOver || levelComplete) return
+        if (shell.gameOver) return
         applyPlacement(p.index, p.ox, p.oy)
     }
 
@@ -645,9 +467,6 @@ class EndlessGameHolder(
                 is GameEvent.RainbowFormed -> cb(GameSfx.RAINBOW_FORM)
                 is GameEvent.SuperDetonated -> { if (e.isRainbow) cb(GameSfx.RAINBOW_DETONATE) }
                 is GameEvent.RotationRefunded -> cb(GameSfx.ROTATION_REFUND)
-                is GameEvent.WaterSourceBroken -> cb(GameSfx.DROP_CLEAR)   // W3: phá nguồn
-                is GameEvent.WaterSourceRevived -> cb(GameSfx.DROP_CLEAR)  // W3 boss: hồi sinh nguồn
-                is GameEvent.BossGravityFlipped -> cb(GameSfx.BOSS_GRAVITY_FLIP)
                 is GameEvent.ComboExpired -> cb(GameSfx.COMBO_EXPIRED)
                 is GameEvent.GameOver -> cb(GameSfx.GAME_OVER)
                 else -> {}
@@ -838,9 +657,7 @@ class EndlessGameHolder(
         boardRender.grid = s.grid
         boardRender.gravity = s.gravity
         fillClusterSizes(s.grid, boardRender.clusterSizes)
-        boardRender.waterSources = s.waterSources
         shell = snapshotFrom(s)
-        bossTell = engine.bossTell()
     }
 
     private fun snapshotFrom(s: EndlessState) = ShellState(

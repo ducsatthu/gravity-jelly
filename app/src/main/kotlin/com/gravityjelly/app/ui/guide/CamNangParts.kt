@@ -65,13 +65,6 @@ import com.gravityjelly.game.gRainbow2
 import com.gravityjelly.game.gStone
 import com.gravityjelly.game.gSuper1
 import com.gravityjelly.game.gSuper2
-import com.gravityjelly.game.gTrash
-import com.gravityjelly.game.gVine
-import com.gravityjelly.game.gVineRoot
-import com.gravityjelly.game.gWaterSource
-import com.gravityjelly.game.gWaterFlow
-import com.gravityjelly.game.gWaterBroken
-import com.gravityjelly.core.Direction
 
 /**
  * Khối dựng cho màn **Cẩm nang** — bám `design/.../04-screens/cam-nang-screen.jsx` (+ `cam-nang-illus.jsx`).
@@ -103,9 +96,6 @@ internal val GuideGroup.displayLabel: String
         GuideGroup.SUPER -> stringResource(R.string.camnangparts_group_super)
         GuideGroup.BLAST -> stringResource(R.string.camnangparts_group_blast)
         GuideGroup.COMBO -> stringResource(R.string.camnangparts_group_combo)
-        GuideGroup.FOREST -> stringResource(R.string.camnangparts_group_forest)
-        GuideGroup.RIVER -> stringResource(R.string.camnangparts_group_river)
-        GuideGroup.BOSS -> stringResource(R.string.camnangparts_group_boss)
     }
 
 /** Màu KHỐI jelly đại diện nhóm ở tab + tiêu đề nhóm (bám GROUP_JELLY của thiết kế). */
@@ -115,9 +105,6 @@ internal val GuideGroup.jelly: JellyColor
         GuideGroup.SUPER -> JellyColor.YELLOW
         GuideGroup.BLAST -> JellyColor.PINK
         GuideGroup.COMBO -> JellyColor.BLUE
-        GuideGroup.FOREST -> JellyColor.MINT
-        GuideGroup.RIVER -> JellyColor.BLUE
-        GuideGroup.BOSS -> JellyColor.PINK
     }
 
 // ── shorthand dựng lưới thumbnail (file-private, không đụng GjGuideDemos) ─────────
@@ -132,12 +119,6 @@ private val Y = JellyColor.YELLOW
 private val M = JellyColor.MINT
 private val P = JellyColor.PINK
 private val B = JellyColor.BLUE
-private val vr = gVineRoot
-private val vi = gVine
-private val tr = gTrash
-private val ws = gWaterSource(Direction.DOWN)   // nguồn nước (chảy xuống)
-private val wf = gWaterFlow(Direction.DOWN)      // ô dòng chảy
-private val wx = gWaterBroken                     // nguồn khô
 
 // ── Peel: góc giấy gập ở trên-phải thẻ ───────────────────────────────────────────
 /**
@@ -374,41 +355,6 @@ private fun thumbRows(id: String): List<List<GuideCell>>? = when (id) {
     )
     "detonate-rainbow1" -> listOf(listOf(rb))
     "detonate-rainbow2" -> listOf(listOf(rb2))
-    "vine-intro" -> listOf(
-        listOf(e, vi, e, e),
-        listOf(vi, vi, e, e),
-        listOf(e, vr, e, e),
-    )
-    "vine-destroy" -> listOf(
-        listOf(e, vi, e, e),
-        listOf(j(Y), vr, j(M), j(P)),
-    )
-    "vine-to-trash" -> listOf(
-        listOf(e, tr, e, e),
-        listOf(e, e, e, e),
-        listOf(e, vr, e, e),
-    )
-    "trash-destroy" -> listOf(
-        listOf(e, tr, e),
-        listOf(tr, s1(Y), tr),
-        listOf(e, tr, e),
-    )
-    "water-flow" -> listOf(       // nguồn top chảy xuống + rẽ nhánh quanh đá (liền mạch)
-        listOf(wf, ws, wf),
-        listOf(wf, st, wf),
-        listOf(wf, e, wf),
-    )
-    "water-drift" -> listOf(      // khối trôi xuôi theo dòng
-        listOf(e, ws, e),
-        listOf(e, wf, e),
-        listOf(e, j(P), e),
-    )
-    "water-break" -> listOf(      // Thạch Nước cột ô nguồn → phá
-        listOf(e, ws, e),
-        listOf(e, j(B), e),
-        listOf(e, j(B), e),
-    )
-    // ── Đấu trùm: KHÔNG dùng lưới jelly — boss-basic vẽ Khiên+combo, 3 trùm dùng boss art (xem GuideThumb) ──
     else -> null
 }
 
@@ -433,8 +379,6 @@ internal fun GuideThumb(id: String, modifier: Modifier = Modifier, height: Dp = 
     ) {
         when {
             id == "combo-refill" -> ComboThumbContent()
-            id == "boss-basic" -> BossShieldThumbContent()
-            id in bossArtRes -> BossArtThumbContent(bossArtRes.getValue(id))
             else -> {
                 val rows = thumbRows(id) ?: thumbRows("sticky-cluster")!!
                 val cols = rows.maxOf { it.size }
@@ -448,77 +392,6 @@ internal fun GuideThumb(id: String, modifier: Modifier = Modifier, height: Dp = 
                 }
             }
         }
-    }
-}
-
-// ── Thumbnail Đấu trùm ────────────────────────────────────────────────────────────
-/** 3 trùm dùng CHÍNH boss art (mắt-only) như thẻ boss in-game. */
-private val bossArtRes: Map<String, Int> = mapOf(
-    "boss-worm" to R.drawable.boss_worm,
-    "boss-forest" to R.drawable.boss_forest,
-    "boss-water" to R.drawable.boss_water,
-)
-
-/** Mascot boss thật + quầng tím (giống [com.gravityjelly.app.ui.components.BossCard]). */
-@Composable
-private fun BossArtThumbContent(res: Int) {
-    Box(contentAlignment = Alignment.Center) {
-        Box(
-            Modifier
-                .size(72.dp)
-                .clip(RoundedCornerShape(GjRadius.full))
-                .background(Brush.radialGradient(listOf(GjPalette.Gravity.copy(alpha = 0.16f), Color.Transparent))),
-        )
-        Image(
-            painter = painterResource(res),
-            contentDescription = null,
-            contentScale = ContentScale.Fit,
-            modifier = Modifier.fillMaxHeight().padding(vertical = 8.dp),
-        )
-    }
-}
-
-/** Nền "Đấu trùm & Khiên": biểu tượng Khiên tím + huy hiệu combo "×2" (phá Khiên bằng combo). */
-@Composable
-private fun BossShieldThumbContent() {
-    Box(contentAlignment = Alignment.Center) {
-        ShieldGlyph(size = 60.dp)
-        Text(
-            stringResource(R.string.camnangparts_combo_x2),
-            style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.ExtraBold, fontSize = 20.sp),
-            color = GjPalette.TextInvert,
-            modifier = Modifier.offset(y = (-1).dp),
-        )
-    }
-}
-
-/** Khiên heraldic (bo vai trên, thu về mũi dưới) — tô gradient tím Gravity, viền trắng. */
-@Composable
-private fun ShieldGlyph(size: Dp, fill: Color = GjPalette.Gravity) {
-    Canvas(Modifier.size(size)) {
-        val s = this.size.minDimension / 24f
-        val path = Path().apply {
-            moveTo(12f * s, 2.5f * s)
-            lineTo(20.5f * s, 5.5f * s)
-            lineTo(20.5f * s, 12f * s)
-            cubicTo(20.5f * s, 17f * s, 16.5f * s, 20.5f * s, 12f * s, 22.5f * s)
-            cubicTo(7.5f * s, 20.5f * s, 3.5f * s, 17f * s, 3.5f * s, 12f * s)
-            lineTo(3.5f * s, 5.5f * s)
-            close()
-        }
-        drawPath(
-            path,
-            brush = Brush.verticalGradient(
-                listOf(androidx.compose.ui.graphics.lerp(fill, Color.White, 0.14f), fill),
-            ),
-        )
-        drawPath(
-            path,
-            color = Color.White.copy(alpha = 0.92f),
-            style = androidx.compose.ui.graphics.drawscope.Stroke(
-                width = 2f * s, join = androidx.compose.ui.graphics.StrokeJoin.Round,
-            ),
-        )
     }
 }
 

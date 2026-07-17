@@ -396,7 +396,6 @@ internal fun ComboBurstOverlay(
 }
 
 // Chờ thêm sau khi bàn lắng trước khi mở popup dạy cơ chế — để người chơi thấy KẾT QUẢ đã ổn định.
-// internal: CampaignPlayScreen tái dùng cùng nhịp dạy luật.
 internal const val GUIDE_SETTLE_GRACE_MS = 450L
 
 internal const val COMBO_HOLD_MS  = 1300L

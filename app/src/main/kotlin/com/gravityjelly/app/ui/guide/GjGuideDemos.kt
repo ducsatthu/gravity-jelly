@@ -32,13 +32,6 @@ import com.gravityjelly.game.gRainbow2
 import com.gravityjelly.game.gStone
 import com.gravityjelly.game.gSuper1
 import com.gravityjelly.game.gSuper2
-import com.gravityjelly.game.gTrash
-import com.gravityjelly.game.gVine
-import com.gravityjelly.game.gVineRoot
-import com.gravityjelly.core.Direction
-import com.gravityjelly.game.gWaterBroken
-import com.gravityjelly.game.gWaterFlow
-import com.gravityjelly.game.gWaterSource
 
 /**
  * Minh hoạ "TRƯỚC → SAU" cho từng cơ chế trong popup dạy luật / cẩm nang. Dùng [GuideMiniBoard] của
@@ -54,12 +47,6 @@ private val Rb2 = gRainbow2
 private fun J(c: JellyColor) = gJelly(c)
 private fun S1(c: JellyColor) = gSuper1(c)
 private fun S2(c: JellyColor) = gSuper2(c)
-private val Vr = gVineRoot
-private val Vi = gVine
-private val Tr = gTrash
-private val Ws = gWaterSource(Direction.DOWN)   // nguồn nước (ở top, chảy XUỐNG)
-private val Wf = gWaterFlow(Direction.DOWN)     // ô dòng chảy (xuống)
-private val Wx = gWaterBroken                   // nguồn khô
 private val Y = JellyColor.YELLOW
 private val M = JellyColor.MINT
 private val P = JellyColor.PINK
@@ -426,141 +413,5 @@ internal fun DetonateRainbow2Demo() = BeforeAfter(
         listOf(E, E, E, E, E),
         listOf(E, E, E, E, E),
         listOf(E, E, E, E, E),                   // sạch trơn — kể cả đá
-    ),
-)
-
-// ── 11. Dây leo mọc lan — mỗi lượt 1 đốt, dần thành cây nhiều nhánh ──────────────
-@Composable
-internal fun VineIntroDemo() = LabeledBeforeAfter(
-    beforeLabel = stringResource(R.string.guidedemo_first_turn),
-    before = listOf(
-        listOf(E, E,  E, E),
-        listOf(E, Vi, E, E),                     // gốc + 1 đốt
-        listOf(E, Vr, E, E),                     // gốc
-    ),
-    afterLabel = stringResource(R.string.guidedemo_spread),
-    after = listOf(
-        listOf(E, Vi, E,  E),                    // ngọn trên
-        listOf(E, Vi, Vi, E),                    // thân + nhánh sang phải
-        listOf(E, Vr, E,  E),                    // gốc vẫn ở
-    ),
-)
-
-// ── World 3 · Dòng chảy: nguồn ở top chảy XUỐNG, gặp cản thì rẽ & tách nhánh (bàn 3 cột cho gọn) ─────
-@Composable
-internal fun WaterFlowDemo() {
-    Column(verticalArrangement = Arrangement.spacedBy(GjSpace.md)) {
-        LabeledBeforeAfter(
-            beforeLabel = stringResource(R.string.guidedemo_first_turn),
-            before = listOf(listOf(E, Ws, E), listOf(E, E, E), listOf(E, E, E)),   // nguồn top
-            afterLabel = stringResource(R.string.guidedemo_spread),
-            after = listOf(listOf(E, Ws, E), listOf(E, Wf, E), listOf(E, Wf, E)),  // chảy thẳng xuống
-        )
-        LabeledBeforeAfter(
-            beforeLabel = stringResource(R.string.guidedemo_meet_obstacle),
-            before = listOf(listOf(E, Ws, E), listOf(E, St, E), listOf(E, E, E)),   // đá chặn ngay dưới nguồn
-            afterLabel = stringResource(R.string.guidedemo_branch),
-            after = listOf(listOf(Wf, Ws, Wf), listOf(Wf, St, Wf), listOf(Wf, E, Wf)), // rẽ từ nguồn → 2 nhánh liền xuống
-        )
-    }
-}
-
-// ── World 3 · Trôi theo dòng: khối trên nước trôi xuôi dòng + không rơi theo trọng lực ─────────
-@Composable
-internal fun WaterDriftDemo() = LabeledBeforeAfter(
-    beforeLabel = stringResource(R.string.guidedemo_block_on_flow),
-    before = listOf(listOf(E, Ws, E), listOf(E, J(P), E), listOf(E, E, E)),   // khối hồng trên dòng
-    afterLabel = stringResource(R.string.guidedemo_drift_down),
-    after = listOf(listOf(E, Ws, E), listOf(E, Wf, E), listOf(E, J(P), E)),   // trôi xuôi dòng 1 ô
-)
-
-// ── World 3 · Phá nguồn: cắm THẠCH NƯỚC (xanh) vào cột qua ô nguồn rồi xoá → nguồn khô ─────────
-@Composable
-internal fun WaterBreakDemo() = LabeledBeforeAfter(
-    beforeLabel = stringResource(R.string.guidedemo_blue_in_source),
-    before = listOf(listOf(E, Ws, E), listOf(E, J(B), E), listOf(E, J(B), E)),   // Thạch Nước cột ô nguồn
-    afterLabel = stringResource(R.string.guidedemo_source_dry),
-    after = listOf(listOf(E, Wx, E), listOf(E, E, E), listOf(E, E, E)),          // xoá → nguồn khô
-)
-
-// ── 11b. Dây leo bám cứng — không rơi/xoay theo trọng lực ───────────────────────
-@Composable
-internal fun VineStickyDemo() = LabeledBeforeAfter(
-    beforeLabel = stringResource(R.string.guidedemo_gravity_down),
-    before = listOf(
-        listOf(J(Y), Vi, E),                     // khối thường trên cao + đốt
-        listOf(E,    Vi, E),
-        listOf(E,    Vr, E),                     // gốc lơ lửng
-        listOf(E,    E,  E),                     // đáy trống
-    ),
-    afterLabel = stringResource(R.string.guidedemo_vine_sticks_block_falls),
-    after = listOf(
-        listOf(E,    Vi, E),                     // dây leo GIỮ NGUYÊN chỗ
-        listOf(E,    Vi, E),
-        listOf(E,    Vr, E),
-        listOf(J(Y), E,  E),                     // khối thường RƠI xuống đáy
-    ),
-)
-
-// ── 12. Cách phá dây leo — CÓ / KHÔNG có khối xanh lá (2 trường hợp) ────────────
-@Composable
-internal fun VineDestroyDemo() {
-    Column(verticalArrangement = Arrangement.spacedBy(GjSpace.md)) {
-        LabeledBeforeAfter(
-            beforeLabel = stringResource(R.string.guidedemo_no_green),
-            before = listOf(
-                listOf(E, Vi, E, E),
-                listOf(J(Y), Vr, J(P), J(B)),    // hàng đầy, KHÔNG mint
-            ),
-            afterLabel = stringResource(R.string.guidedemo_root_survives),
-            after = listOf(
-                listOf(E, Vi, E, E),
-                listOf(E, Vr, E, E),              // gốc + dây leo còn nguyên
-            ),
-        )
-        LabeledBeforeAfter(
-            beforeLabel = stringResource(R.string.guidedemo_has_green),
-            before = listOf(
-                listOf(E, Vi, E, E),
-                listOf(J(Y), Vr, J(M), J(P)),    // hàng đầy, CÓ mint
-            ),
-            afterLabel = stringResource(R.string.guidedemo_destroyed_completely),
-            after = listOf(
-                listOf(E, E, E, E),
-                listOf(E, E, E, E),               // gốc + cả dây tan
-            ),
-        )
-    }
-}
-
-// ── 13. Rác rừng — cắt dây leo rời gốc → hoá rác cố định ─────────────────────────
-@Composable
-internal fun VineToTrashDemo() = BeforeAfter(
-    before = listOf(
-        listOf(E, Vi, E, E),                     // đốt trên (sẽ bị cắt rời)
-        listOf(J(Y), Vi, J(P), J(B)),            // hàng cắt qua (KHÔNG mint)
-        listOf(E, Vr, E, E),                     // gốc
-    ),
-    after = listOf(
-        listOf(E, Tr, E, E),                     // đốt rời → RÁC (cố định tại chỗ)
-        listOf(E, E, E, E),                      // hàng đã xoá
-        listOf(E, Vr, E, E),                     // gốc sống sót
-    ),
-)
-
-// ── 14. Cách phá rác rừng — chỉ khối giải phóng mới phá được ─────────────────────
-@Composable
-internal fun TrashDestroyDemo() = LabeledBeforeAfter(
-    beforeLabel = stringResource(R.string.guidedemo_royal_jelly_blast),
-    before = listOf(
-        listOf(E, Tr, E),
-        listOf(Tr, S1(Y), Tr),                   // siêu khối bao quanh bởi rác
-        listOf(E, Tr, E),
-    ),
-    afterLabel = stringResource(R.string.guidedemo_trash_gone),
-    after = listOf(
-        listOf(E, E, E),
-        listOf(E, E, E),                          // tất cả rác bị phá
-        listOf(E, E, E),
     ),
 )

@@ -168,9 +168,10 @@ class AdsManager(context: Context) {
     }
 
     /**
-     * Interstitial theo MỐC Campaign — gọi sau khi THẮNG màn đủ điều kiện (boss + mốc giữa world).
-     * Nhịp do lớp Campaign quyết ([AdsConfig.showsAdOnCampaignClear]) nên KHÔNG áp ân hạn/đếm-thua
-     * như [onGameOver]. Chỉ show bản đã preload (không load ở đây, tránh giật lúc chuyển màn).
+     * Interstitial "show thẳng theo mốc do lớp gọi tự quyết" — KHÔNG áp ân hạn/đếm-thua như
+     * [onGameOver]. Chỉ show bản đã preload (không load ở đây, tránh giật lúc chuyển màn).
+     * Hiện KHÔNG có caller: nhịp theo-mốc vốn của Campaign, đã gỡ 17/07 (docs/08-go-bo-campaign.md);
+     * Endless đi qua [onEndlessGameOver]. Giữ lại cho chế độ chơi tương lai cần nhịp tương tự.
      * @return true nếu đã show.
      */
     fun showInterstitial(activity: Activity): Boolean {

@@ -4,6 +4,23 @@
 Maintaining the **Gravity Jelly** design system / UI kit for the casual Android puzzle game.
 Must follow the existing **Gravity Jelly design system** exactly.
 
+## ⚠️ Campaign REMOVED from the app (17/07/2026) — these artifacts are SHELVED
+The Campaign feature (worlds / levels / bosses / world map) was **removed from the shipping app**
+(weak feedback, rarely played) — **Endless is the only game mode**. See
+`docs/08-go-bo-campaign.md`; the design docs live in `docs/_archive/`.
+
+**Do NOT treat these as the source of truth for current code — the matching Kotlin is deleted:**
+- `04-screens/board-campaign.jsx` (`GJBoardCampaign`) + `screen-1b-game-campaign.card.html`
+- `04-screens/board-boss.jsx` (`GJBoardBoss`) + `screen-1c-game-boss.card.html`
+- `03-components/09-boss-hud/` (`BossCard`/`BossIntroCard`/`BossToast`/`BossMascot`/`ShieldBar`) + `boss-hud.card.html`
+- `03-components/08-objective-bar/` (`ObjectiveBar`) + `screen-1e-game-objective.card.html`
+- `06-svg-assets/bosses/` + `boss-art.card.html`, world-map artifacts
+- The "World → level numbering" table at the bottom of this file (bosses at 10/20/30…, breathers at 6/16/26…)
+
+Files are KEPT (not deleted) so a future Campaign revival can reuse them. Anything NOT in the list
+above (board-design.jsx = Endless, blocks, tray, HUD, cam-nang, pause, leaderboard, home-screen) is
+**still live** — keep following it exactly.
+
 ## Official Game board ("① Game" screen) — CANONICAL, do not regress
 The play-board screen is `04-screens/board-design.jsx` → `window.GJBoardDesign` (aliased
 `window.GJGameScreen`); it IS the official "① Game" card (`screen-1-game.card.html`) and the

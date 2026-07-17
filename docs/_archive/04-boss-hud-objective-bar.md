@@ -3,7 +3,7 @@
 Cập nhật 05/07/2026. Tài liệu cụm hiển thị **dưới HUD 56dp, trên bàn 9×9** khi chơi Campaign:
 màn thường dùng `ObjectiveBar`, màn **BOSS** (L10/L20/L30…) dùng **`BossCard`** (thẻ Khiên).
 
-> Cơ chế boss chi tiết (Khiên, tell, 3 boss, tham số): [`../03-co-che/03-boss.md`](../03-co-che/03-boss.md) — nguồn thật. File này chỉ đặc tả **lớp hiển thị**.
+> Cơ chế boss chi tiết (Khiên, tell, 3 boss, tham số): [`../03-co-che/03-boss.md`](03-boss.md) — nguồn thật. File này chỉ đặc tả **lớp hiển thị**.
 
 Nguồn thiết kế (sự-thật):
 - `design/Gravity Jelly Design System/03-components/08-objective-bar/ObjectiveBar.jsx`
@@ -127,4 +127,4 @@ nước** (design "unified to số nước"). Điểm/đích chỉ còn là **đ
   W2 spawn dây **mỗi 4 lượt** (không phải 3); W3 Thần Thác = `CLEAR_TARGETS` **phá 8 nguồn** + tell
   `SOURCE_REVIVE` "Thả thác nước" (hồi sinh + thả nguồn mỗi 3 lượt) — **BỎ** "Đảo trọng lực"/HP 10 của bản cũ
   (`GRAVITY_INVERT` chỉ còn LEGACY trong engine). Sửa `bossNameForWorld`→`bossNameResForWorld`. Cơ chế đầy đủ
-  chuyển sang [`../03-co-che/03-boss.md`](../03-co-che/03-boss.md).
+  chuyển sang [`../03-co-che/03-boss.md`](03-boss.md).

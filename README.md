@@ -32,8 +32,11 @@ Kiểm thử `:core` (không cần thiết bị): `./gradlew :core:test`.
 ## Việc tiếp theo (gợi ý)
 
 1. `:core` — hiện thực hard-drop 4 hướng, physics cụm (connected-component gravity), resolve cascade, điều kiện thua + unit/golden test (xem `TODO(core)`).
-2. `:core` — parser JSON màn + generator + solver (BFS/IDA*) chạy headless.
-3. `:game` — vẽ khối-có-mắt, preview rơi, particle xóa (object pool), nội suy alpha; cú xoay trọng lực.
-4. `:app` — điều hướng + màn Map (Compose vỏ + Canvas đường/node), DataStore tiến độ sao, AdMob preload theo sự kiện.
+2. `:game` — vẽ khối-có-mắt, preview rơi, particle xóa (object pool), nội suy alpha; cú xoay trọng lực.
+3. `:app` — điều hướng + DataStore (best/seed/settings/seenGuides) + AdMob preload theo sự kiện.
+4. Hệ **mở-khoá-theme theo mốc điểm Endless** (thay tiến độ Campaign cũ) — xem `docs/08-go-bo-campaign.md §9`.
 
-Tham chiếu thiết kế: `docs/00-muc-luc.md` (mục lục), `docs/02-thiet-ke-man/03-campaign-vo-han.md`, `docs/04-ui-ux/04-man-ban-do.md`, `docs/05-prompts/02-map/`, và `design/`.
+> Campaign đã gỡ 17/07/2026 (feedback chưa đủ tốt, ít chơi) — Endless là chế độ chơi duy nhất.
+> Chi tiết: `docs/08-go-bo-campaign.md`; thiết kế cũ lưu ở `docs/_archive/`.
+
+Tham chiếu thiết kế: `docs/00-muc-luc.md` (mục lục), `docs/05-prompts/01-ui-render/`, và `design/`.

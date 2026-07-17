@@ -16,6 +16,4 @@ enum class GameSfx {
     // Combo burst phát qua callback riêng onComboBurstSound(level) — không dùng enum.
     COMBO_EXPIRED,
     GAME_OVER,
-    DROP_CLEAR,
-    BOSS_GRAVITY_FLIP,
 }

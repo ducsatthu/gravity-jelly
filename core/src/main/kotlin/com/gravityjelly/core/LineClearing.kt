@@ -18,16 +18,8 @@ fun findFullLines(grid: Grid): ClearedLines {
     return ClearedLines(fullRows, fullCols)
 }
 
-/**
- * Ô "đầy" cho mục đích xếp hàng/cột: bất kỳ ô có nội dung. TRASH đang đếm ngược (cành héo,
- * countdown > 0) vẫn đếm là đầy → có thể bị phá bằng line clear. TRASH chết (countdown = 0,
- * rác lá khô) thì chặn — chỉ bị phá bởi siêu khối/cầu vồng nổ.
- */
-private fun isFilled(grid: Grid, x: Int, y: Int): Boolean {
-    val c = grid.get(x, y) ?: return false
-    if (c.type == CellType.TRASH) return c.trashCountdown > 0
-    return true
-}
+/** Ô "đầy" cho mục đích xếp hàng/cột: bất kỳ ô có nội dung. */
+private fun isFilled(grid: Grid, x: Int, y: Int): Boolean = !grid.isEmpty(x, y)
 
 /**
  * Xóa đồng thời mọi hàng/cột trong [lines]. Ô giao điểm chỉ tính một lần.

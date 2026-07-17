@@ -123,6 +123,4 @@ private fun GameSfx.toSfx(): GjSfx = when (this) {
     GameSfx.ROTATION_REFUND -> GjSfx.SFX_ROTATION_REFUND
     GameSfx.COMBO_EXPIRED -> GjSfx.SFX_COMBO_EXPIRED
     GameSfx.GAME_OVER -> GjSfx.SFX_GAME_OVER
-    GameSfx.DROP_CLEAR -> GjSfx.SFX_W3_DROP_CLEAR
-    GameSfx.BOSS_GRAVITY_FLIP -> GjSfx.SFX_BOSS_GRAVITY_FLIP
 }

@@ -76,13 +76,13 @@ val GjLogoFontFamily = FontFamily(
 
 /**
  * Display "candy/jelly" = Baloo 2 — ĐỦ glyph tiếng Việt. Dùng cho MỌI số/nhãn display có thể chứa
- * chữ Việt (HUD, ObjectiveBar, BossHud…). KHÔNG dùng [GjLogoFontFamily] (Fredoka) cho chữ Việt vì vỡ dấu.
+ * chữ Việt (HUD, thẻ điểm, Cẩm nang…). KHÔNG dùng [GjLogoFontFamily] (Fredoka) cho chữ Việt vì vỡ dấu.
  */
 val GjDisplayFontFamily = DisplayFamily
 
 /**
  * Body = Nunito — font `--font-body` của thiết kế (caption/nhãn/chip). ĐỦ glyph tiếng Việt. Export để
- * pin tường minh nơi `MaterialTheme.typography` không chắc chắn (vd chip BossHud) — tránh fallback vỡ font.
+ * pin tường minh nơi `MaterialTheme.typography` không chắc chắn (vd chip) — tránh fallback vỡ font.
  */
 val GjBodyFontFamily = NunitoFamily
 

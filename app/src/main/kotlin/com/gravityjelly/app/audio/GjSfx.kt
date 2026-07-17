@@ -6,6 +6,9 @@ import com.gravityjelly.app.R
  * Chỉ giữ các sfx thuộc BỘ ÂM THIẾT KẾ (design/Music/sfx). Các âm cũ không nằm trong bộ này
  * (clear_base/combo, cluster_collapse, super_detonate, settled, tray_dealt, vine/trash,
  * stone/debris, boss_shield_hit/vine_spawn, dialog_close) đã bị gỡ hẳn.
+ *
+ * 17/07: gỡ tiếp nhóm âm CHỈ Campaign dùng (campaign_node_tap · level_win/fail · star_reveal ·
+ * objective_done · confetti · boss_* · w3_drop_clear) cùng tính năng — xem docs/08-go-bo-campaign.md.
  */
 enum class GjSfx {
     SFX_PLACE,
@@ -26,24 +29,14 @@ enum class GjSfx {
     SFX_COMBO_EXPIRED,
     SFX_NEW_BEST,
     SFX_GAME_OVER,
-    SFX_W3_DROP_CLEAR,
-    SFX_BOSS_GRAVITY_FLIP,
-    SFX_BOSS_TELL,
-    SFX_BOSS_DEFEATED,
-    SFX_LEVEL_WIN,
-    SFX_STAR_REVEAL,
-    SFX_LEVEL_FAIL,
-    SFX_OBJECTIVE_DONE,
     SFX_UI_PRIMARY,
     SFX_UI_SECONDARY,
     SFX_DIALOG_OPEN,
     SFX_TOGGLE_ON,
     SFX_TOGGLE_OFF,
     SFX_SCREEN_TRANSITION,
-    SFX_CAMPAIGN_NODE_TAP,
     SFX_GUIDE_OPEN,
     SFX_GUIDE_CONFIRM,
-    SFX_CONFETTI,
 }
 
 val GjSfx.rawResId: Int
@@ -66,22 +59,12 @@ val GjSfx.rawResId: Int
         GjSfx.SFX_COMBO_EXPIRED -> R.raw.sfx_combo_expired
         GjSfx.SFX_NEW_BEST -> R.raw.sfx_new_best
         GjSfx.SFX_GAME_OVER -> R.raw.sfx_game_over
-        GjSfx.SFX_W3_DROP_CLEAR -> R.raw.sfx_w3_drop_clear
-        GjSfx.SFX_BOSS_GRAVITY_FLIP -> R.raw.sfx_boss_gravity_flip
-        GjSfx.SFX_BOSS_TELL -> R.raw.sfx_boss_tell
-        GjSfx.SFX_BOSS_DEFEATED -> R.raw.sfx_boss_defeated
-        GjSfx.SFX_LEVEL_WIN -> R.raw.sfx_level_win
-        GjSfx.SFX_STAR_REVEAL -> R.raw.sfx_star_reveal
-        GjSfx.SFX_LEVEL_FAIL -> R.raw.sfx_level_fail
-        GjSfx.SFX_OBJECTIVE_DONE -> R.raw.sfx_objective_done
         GjSfx.SFX_UI_PRIMARY -> R.raw.sfx_ui_primary
         GjSfx.SFX_UI_SECONDARY -> R.raw.sfx_ui_secondary
         GjSfx.SFX_DIALOG_OPEN -> R.raw.sfx_dialog_open
         GjSfx.SFX_TOGGLE_ON -> R.raw.sfx_toggle_on
         GjSfx.SFX_TOGGLE_OFF -> R.raw.sfx_toggle_off
         GjSfx.SFX_SCREEN_TRANSITION -> R.raw.sfx_screen_transition
-        GjSfx.SFX_CAMPAIGN_NODE_TAP -> R.raw.sfx_campaign_node_tap
         GjSfx.SFX_GUIDE_OPEN -> R.raw.sfx_guide_open
         GjSfx.SFX_GUIDE_CONFIRM -> R.raw.sfx_guide_confirm
-        GjSfx.SFX_CONFETTI -> R.raw.sfx_confetti
     }

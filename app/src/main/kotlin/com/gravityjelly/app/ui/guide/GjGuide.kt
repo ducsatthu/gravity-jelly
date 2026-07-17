@@ -24,12 +24,8 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gravityjelly.app.R
-import com.gravityjelly.app.ui.components.BossCard
-import com.gravityjelly.app.ui.components.BossKind
 import com.gravityjelly.app.ui.components.ComboPopup
 import com.gravityjelly.app.ui.components.GravityRotateButton
-import com.gravityjelly.core.BossTell
-import com.gravityjelly.core.BossTellKind
 import com.gravityjelly.app.ui.icons.GjIcon
 import com.gravityjelly.app.ui.icons.GjIcons
 import com.gravityjelly.app.ui.theme.GjPalette
@@ -45,9 +41,6 @@ enum class GuideGroup {
     SUPER,
     BLAST,
     COMBO,
-    FOREST,
-    RIVER,
-    BOSS,
 }
 
 /**
@@ -196,100 +189,6 @@ object GjGuide {
         demo = { DetonateRainbow2Demo() },
     )
 
-    // ── Rừng rậm: dây leo + rác (World 2) — 5 mục riêng biệt ───────────────────────
-    val vineIntro = GjGuideEntry(
-        id = "vine-intro", icon = GjIcons.Heart, group = GuideGroup.FOREST,
-        titleRes = R.string.guide_vine_intro_title,
-        descRes = R.string.guide_vine_intro_desc,
-        bodyRes = R.string.guide_vine_intro_body,
-        demo = { VineIntroDemo() },
-    )
-    val vineDestroy = GjGuideEntry(
-        id = "vine-destroy", icon = GjIcons.Star, group = GuideGroup.FOREST,
-        titleRes = R.string.guide_vine_destroy_title,
-        descRes = R.string.guide_vine_destroy_desc,
-        bodyRes = R.string.guide_vine_destroy_body,
-        demo = { VineDestroyDemo() },
-    )
-    val vineSticky = GjGuideEntry(
-        id = "vine-sticky", icon = GjIcons.Heart, group = GuideGroup.FOREST,
-        titleRes = R.string.guide_vine_sticky_title,
-        descRes = R.string.guide_vine_sticky_desc,
-        bodyRes = R.string.guide_vine_sticky_body,
-        demo = { VineStickyDemo() },
-    )
-    val vineToTrash = GjGuideEntry(
-        id = "vine-to-trash", icon = GjIcons.Heart, group = GuideGroup.FOREST,
-        titleRes = R.string.guide_vine_to_trash_title,
-        descRes = R.string.guide_vine_to_trash_desc,
-        bodyRes = R.string.guide_vine_to_trash_body,
-        demo = { VineToTrashDemo() },
-    )
-    val trashDestroy = GjGuideEntry(
-        id = "trash-destroy", icon = GjIcons.Star, group = GuideGroup.FOREST,
-        titleRes = R.string.guide_trash_destroy_title,
-        descRes = R.string.guide_trash_destroy_desc,
-        bodyRes = R.string.guide_trash_destroy_body,
-        demo = { TrashDestroyDemo() },
-    )
-
-    // ── Sông & Thác: Dòng chảy (World 3) — 3 mục: dòng chảy · trôi theo dòng · phá nguồn ─────
-    val waterFlow = GjGuideEntry(
-        id = "water-flow", icon = GjIcons.Star, group = GuideGroup.RIVER,
-        titleRes = R.string.guide_water_flow_title,
-        descRes = R.string.guide_water_flow_desc,
-        bodyRes = R.string.guide_water_flow_body,
-        demo = { WaterFlowDemo() },
-    )
-    val waterDrift = GjGuideEntry(
-        id = "water-drift", icon = GjIcons.Chevron, group = GuideGroup.RIVER,
-        titleRes = R.string.guide_water_drift_title,
-        descRes = R.string.guide_water_drift_desc,
-        bodyRes = R.string.guide_water_drift_body,
-        demo = { WaterDriftDemo() },
-    )
-    val waterBreak = GjGuideEntry(
-        id = "water-break", icon = GjIcons.Check, group = GuideGroup.RIVER,
-        titleRes = R.string.guide_water_break_title,
-        descRes = R.string.guide_water_break_desc,
-        bodyRes = R.string.guide_water_break_body,
-        demo = { WaterBreakDemo() },
-    )
-
-    // ── Đấu trùm: cuối mỗi thế giới (World 1/2/3) — 1 mục nền + 3 mục theo trùm ─────
-    /** Nền: mọi trùm có Khiên, phá bằng combo ≥ ×2 (bậc − 1 sát thương). Mở rộng khi thêm World mới. */
-    val bossBasic = GjGuideEntry(
-        id = "boss-basic", icon = GjIcons.Trophy, group = GuideGroup.BOSS,
-        titleRes = R.string.guide_boss_basic_title,
-        descRes = R.string.guide_boss_basic_desc,
-        bodyRes = R.string.guide_boss_basic_body,
-        demo = { BossBasicDemo() },
-    )
-    /** Trùm W1 "Chú Sâu Đồng Cỏ" — combo thuần, 5 Khiên, không chiêu phụ. */
-    val bossWorm = GjGuideEntry(
-        id = "boss-worm", icon = GjIcons.Star, group = GuideGroup.BOSS,
-        titleRes = R.string.guide_boss_worm_title,
-        descRes = R.string.guide_boss_worm_desc,
-        bodyRes = R.string.guide_boss_worm_body,
-        demo = { BossWormDemo() },
-    )
-    /** Trùm W2 "Thần Rừng" — 8 Khiên, mọc thêm gốc dây mỗi 4 lượt (tell "Mọc dây"). */
-    val bossForest = GjGuideEntry(
-        id = "boss-forest", icon = GjIcons.Heart, group = GuideGroup.BOSS,
-        titleRes = R.string.guide_boss_forest_title,
-        descRes = R.string.guide_boss_forest_desc,
-        bodyRes = R.string.guide_boss_forest_body,
-        demo = { BossForestDemo() },
-    )
-    /** Trùm W3 "Thần Thác" — combo phá 11 Khiên; nước là chướng ngại, mỗi 3 lượt hồi/thả nguồn (tối đa 4). */
-    val bossWater = GjGuideEntry(
-        id = "boss-water", icon = GjIcons.Check, group = GuideGroup.BOSS,
-        titleRes = R.string.guide_boss_water_title,
-        descRes = R.string.guide_boss_water_desc,
-        bodyRes = R.string.guide_boss_water_body,
-        demo = { BossWaterDemo() },
-    )
-
     /** Mọi mục hướng dẫn, theo thứ tự hiển thị ở trang review (cẩm nang). */
     val all: List<GjGuideEntry> = listOf(
         gravityRotate,
@@ -298,9 +197,6 @@ object GjGuide {
         formSuper1, formRainbow, formSuper2, formRainbow2,
         detonateSuper1, detonateSuper2, detonateRainbow1, detonateRainbow2,
         comboRefill,
-        vineIntro, vineDestroy, vineSticky, vineToTrash, trashDestroy,
-        waterFlow, waterDrift, waterBreak,
-        bossBasic, bossWorm, bossForest, bossWater,
     )
 
     /** Tra mục theo [id] (null nếu không có). */
@@ -333,9 +229,6 @@ val GuideGroup.tint: Color
         GuideGroup.SUPER -> GjPalette.Warning
         GuideGroup.BLAST -> GjPalette.Primary
         GuideGroup.COMBO -> GjPalette.Gravity
-        GuideGroup.FOREST -> GjPalette.Success
-        GuideGroup.RIVER -> GjPalette.Info
-        GuideGroup.BOSS -> GjPalette.Gravity
     }
 
 // ── Rich-text đa ngôn ngữ: markup màu trong resource ───────────────────────────
@@ -453,46 +346,4 @@ private fun ComboRefillDemo() {
             )
         }
     }
-}
-
-// ── Đấu trùm: minh hoạ bằng chính thẻ [BossCard] thật của màn boss ────────────────
-//   Dùng đúng component in-game (mascot + thanh Khiên + chip luật/cảnh-báo) để người
-//   chơi nhận ra ngay thứ họ sẽ gặp. Số liệu khớp CampaignLevels (bossHP 5/8/11, đều combo phá Khiên).
-
-/** Nền: thẻ trùm W1 đang vỡ Khiên (3/5) — dạy khái niệm Khiên chung. */
-@Composable
-private fun BossBasicDemo() {
-    BossCard(
-        level = 10, name = stringResource(R.string.boss_name_worm), kind = BossKind.WORM,
-        shieldCurrent = 3, shieldTarget = 5,
-    )
-}
-
-/** Trùm W1 "Chú Sâu Đồng Cỏ" — chip luật "Combo ×2 phá khiên", không tell. */
-@Composable
-private fun BossWormDemo() {
-    BossCard(
-        level = 10, name = stringResource(R.string.boss_name_worm), kind = BossKind.WORM,
-        shieldCurrent = 4, shieldTarget = 5,
-    )
-}
-
-/** Trùm W2 "Thần Rừng" — chip CẢNH BÁO "Mọc dây" (sau 2 lượt). */
-@Composable
-private fun BossForestDemo() {
-    BossCard(
-        level = 20, name = stringResource(R.string.boss_name_forest), kind = BossKind.FOREST,
-        shieldCurrent = 6, shieldTarget = 8,
-        tell = BossTell(BossTellKind.VINE_SPAWN, turnsUntil = 2),
-    )
-}
-
-/** Trùm W3 "Thần Thác" — combo phá 11 Khiên; chip CẢNH BÁO "Hồi nguồn" (mỗi 3 lượt). */
-@Composable
-private fun BossWaterDemo() {
-    BossCard(
-        level = 30, name = stringResource(R.string.boss_name_water), kind = BossKind.WATER,
-        shieldCurrent = 8, shieldTarget = 11,
-        tell = BossTell(BossTellKind.SOURCE_REVIVE, turnsUntil = 3),
-    )
 }

@@ -6,9 +6,6 @@ sealed class ResolveEvent {
         val cellsCleared: Int,
         val comboLevel: Int,
         val score: Int,
-        val survivingRoots: List<Vec> = emptyList(),
-        /** W3: các hàng/cột vừa xoá có chứa ≥1 khối BLUE (Thạch Nước) → mới phá được nguồn (§7). */
-        val bluLines: ClearedLines = ClearedLines(emptyList(), emptyList()),
     ) : ResolveEvent()
 
     data class ClustersCollapsed(val moved: Boolean) : ResolveEvent()
@@ -51,19 +48,6 @@ sealed class ResolveEvent {
         val comboLevel: Int = 0,
         val level: Int = 0,
     ) : ResolveEvent()
-
-    /**
-     * Xoá dòng đi qua GỐC dây leo → cả dây tan. [roots] = các gốc bị diệt (tín hiệu chấm
-     * CLEAR_TARGETS); [cells] = mọi ô dây (gốc + đốt + đốt héo) đã biến mất trong nhịp này (cho render).
-     */
-    data class VineRootsCleared(val roots: List<Vec>, val cells: List<Vec>) : ResolveEvent()
-
-    /**
-     * Xoá hàng/cột (hoặc kíp nổ cuốn qua) đi qua ô ĐÍCH "giọt nước" ([CellType.TARGET], World 3 ·
-     * Sông & Thác) → giọt vỡ. [drops] = các giọt vừa phá (tín hiệu chấm CLEAR_TARGETS/MIXED). Giọt
-     * rơi/đếm-đầy như ô thường; khác dây leo ở chỗ KHÔNG cần diệt cả chuỗi — mỗi ô là một target.
-     */
-    data class DropsCleared(val drops: List<Vec>) : ResolveEvent()
 }
 
 data class ResolveResult(
@@ -153,64 +137,17 @@ fun resolve(grid: Grid, gravity: Direction, startCombo: Int = 0, mergeEnabled: B
             // nhịp xóa thường → +lines.count. Cộng dồn với combo sẵn có (startCombo).
             combo += if (detonations.isEmpty()) lines.count else detonations.sumOf { detonationComboBonus(it) }
 
-            // DÂY LEO + QUY TẮC MINT (§8 goal-system-v2.md): gốc chỉ bị phá nếu:
-            //  (a) gốc nằm trên dòng bị xoá VÀ dòng đó chứa ≥1 khối MINT, hoặc
-            //  (b) gốc bị siêu khối MINT nổ quét (đã giữ lại trong expandDetonations).
-            // Bắt gốc khi lưới còn nguyên (trước set null).
-            val rootsHit = toClear.filter { v ->
-                val c = grid.get(v.x, v.y) ?: return@filter false
-                if (!c.isVineRoot) return@filter false
-                // (b) Gốc từ MINT detonation (không nằm trên line → giữ luôn)
-                if (v !in lineSet) return@filter true
-                // (a) Gốc trên dòng xoá → kiểm tra MINT
-                val rowMint = v.y in lines.rows && (0 until grid.size).any { x ->
-                    val bc = grid.get(x, v.y); bc != null && bc.type == CellType.BLOCK && bc.color == JellyColor.MINT
-                }
-                val colMint = v.x in lines.cols && (0 until grid.size).any { y ->
-                    val bc = grid.get(v.x, y); bc != null && bc.type == CellType.BLOCK && bc.color == JellyColor.MINT
-                }
-                rowMint || colMint
-            }
-            val vineGone = HashSet<Vec>()
-            for (r in rootsHit) vineGone.addAll(destroyVineOfRoot(grid, r))
-
-            // GIỌT NƯỚC (World 3): mọi ô đích trên vùng xoá = giọt vỡ (bắt trước khi set null).
-            val dropsHit = toClear.filter { grid.get(it.x, it.y)?.type == CellType.TARGET }
-
-            // World 3 · QUY TẮC THẠCH NƯỚC: dòng đi qua ô nguồn chỉ PHÁ được nguồn nếu dòng đó **chứa ≥1
-            // khối BLUE (Thạch Nước)** (§7). Bắt các hàng/cột "có nước" khi lưới còn nguyên (trước set null).
-            val bluRows = lines.rows.filter { r ->
-                (0 until grid.size).any { x -> val bc = grid.get(x, r); bc?.type == CellType.BLOCK && bc.color == JellyColor.BLUE }
-            }
-            val bluCols = lines.cols.filter { c ->
-                (0 until grid.size).any { y -> val bc = grid.get(c, y); bc?.type == CellType.BLOCK && bc.color == JellyColor.BLUE }
-            }
-
-            val rootsHitSet = rootsHit.toSet()
-            val survivingRoots = ArrayList<Vec>()
             var cellsCleared = 0
             for (v in toClear) {
-                val c = grid.get(v.x, v.y)
-                if (c != null && c.isVineRoot && v !in rootsHitSet) {
-                    survivingRoots.add(v)
-                    continue
-                }
                 grid.set(v.x, v.y, null)
                 cellsCleared++
             }
-            vineGone.addAll(wiltDisconnectedVines(grid))
 
             val score = Scoring.clearScore(cellsCleared, lines.count, combo)
             totalScore += score
-            events.add(ResolveEvent.LinesCleared(lines, cellsCleared, combo, score, survivingRoots, ClearedLines(bluRows, bluCols)))
+            events.add(ResolveEvent.LinesCleared(lines, cellsCleared, combo, score))
             for (d in detonations) {
                 events.add(ResolveEvent.SuperDetonated(d.center, d.color, d.level, d.cells, d.isRainbow))
-            }
-            if (rootsHit.isNotEmpty() || vineGone.isNotEmpty()) {
-                events.add(ResolveEvent.VineRootsCleared(rootsHit, vineGone.sortedWith(compareBy({ it.y }, { it.x }))))
-            }
-            if (dropsHit.isNotEmpty()) {
-                events.add(ResolveEvent.DropsCleared(dropsHit.sortedWith(compareBy({ it.y }, { it.x }))))
             }
             val moved = applyClusterGravity(grid, gravity)
             events.add(ResolveEvent.ClustersCollapsed(moved))

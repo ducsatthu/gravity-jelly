@@ -26,7 +26,6 @@ Gravity Jelly is a casual block-fitting puzzle game with a signature twist you h
 
 🌏 GAME MODES
 • Endless: play until you run out of room and chase your own high score.
-• Campaign: journey through the Meadow, Forest and River worlds, and defeat challenging bosses.
 • Leaderboard: compare your scores with players everywhere (Google Play Games).
 
 ✨ FEATURES

@@ -29,8 +29,6 @@ data class GjSettings(
     val lastSeed: Long = 0L,
     /** Id các mục hướng dẫn người chơi đã xem (mỗi luật/thành tựu = 1 id) — xem [com.gravityjelly.app.ui.guide.GjGuide]. */
     val seenGuides: Set<String> = emptySet(),
-    /** Sao đạt được mỗi màn Campaign: levelId → sao (1–3). Màn chưa có key = chưa hoàn thành. */
-    val campaignStars: Map<Int, Int> = emptyMap(),
     /** Tên người chơi hiển thị ở Bảng xếp hạng. Rỗng = chưa đặt → dùng tên mặc định (i18n). */
     val playerName: String = "",
 )
@@ -60,7 +58,6 @@ class SettingsRepository(private val dataStore: DataStore<Preferences>) {
                 vibrate = p[KEY_VIBRATE] ?: true,
                 lastSeed = p[KEY_LAST_SEED] ?: 0L,
                 seenGuides = p[KEY_SEEN_GUIDES] ?: emptySet(),
-                campaignStars = decodeStars(p[KEY_CAMPAIGN_STARS] ?: emptySet()),
                 playerName = p[KEY_PLAYER_NAME] ?: "",
             )
         }
@@ -88,15 +85,6 @@ class SettingsRepository(private val dataStore: DataStore<Preferences>) {
     suspend fun markGuideSeen(id: String) {
         dataStore.edit { p ->
             p[KEY_SEEN_GUIDES] = (p[KEY_SEEN_GUIDES] ?: emptySet()) + id
-        }
-    }
-
-    /** Lưu sao một màn Campaign (chỉ NÂNG, không hạ). Encode map thành set "levelId:stars". */
-    suspend fun saveCampaignStar(levelId: Int, stars: Int) {
-        dataStore.edit { p ->
-            val cur = decodeStars(p[KEY_CAMPAIGN_STARS] ?: emptySet()).toMutableMap()
-            if (stars > (cur[levelId] ?: 0)) cur[levelId] = stars
-            p[KEY_CAMPAIGN_STARS] = cur.entries.map { "${it.key}:${it.value}" }.toSet()
         }
     }
 
@@ -146,22 +134,13 @@ class SettingsRepository(private val dataStore: DataStore<Preferences>) {
         private val KEY_VIBRATE = booleanPreferencesKey("vibrate")
         private val KEY_LAST_SEED = longPreferencesKey("last_seed")
         private val KEY_SEEN_GUIDES = stringSetPreferencesKey("seen_guides")
-        private val KEY_CAMPAIGN_STARS = stringSetPreferencesKey("campaign_stars")
+        // (Khoá "campaign_stars" của bản cũ đã bỏ 17/07 cùng tính năng Campaign — key mồ côi trên
+        // máy người chơi cũ tự vô hại, DataStore bỏ qua khoá không đọc tới; không cần migration.)
         private val KEY_PLAYER_NAME = androidx.datastore.preferences.core.stringPreferencesKey("player_name")
         private val KEY_LB_ENTRIES = stringPreferencesKey("lb_cache_entries")
         private val KEY_LB_YOU = stringPreferencesKey("lb_cache_you")
 
         /** Bỏ ký tự phân tách khỏi tên trước khi mã hoá (tránh vỡ định dạng cache). */
         private fun sanitize(s: String): String = s.replace('\t', ' ').replace('\n', ' ')
-
-        /** "levelId:stars" set → map (bỏ qua entry hỏng để không crash khi format lệch). */
-        private fun decodeStars(raw: Set<String>): Map<Int, Int> = buildMap {
-            for (e in raw) {
-                val parts = e.split(":")
-                val id = parts.getOrNull(0)?.toIntOrNull() ?: continue
-                val stars = parts.getOrNull(1)?.toIntOrNull() ?: continue
-                put(id, stars)
-            }
-        }
     }
 }

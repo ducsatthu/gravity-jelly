@@ -47,9 +47,9 @@ object WaveGenerator {
     )
 
     /**
-     * COMBO-FRIENDLY: bốc-thường bốc CÓ TRỌNG SỐ nghiêng về mảnh nhỏ/linh hoạt (dễ lấp khe → dễ combo);
-     * khối đặc biệt (pentomino/3×3/chéo) trọng số 0 ở bốc-thường, chỉ ra qua CHÈN ĐỊNH KỲ để vẫn gặp đủ
-     * 24 loại. Vẫn ĐẢM BẢO ĐƯỜNG THOÁT khi bàn đầy. Deterministic qua [rng].
+     * COMBO-FRIENDLY: bốc-thường bốc CÓ TRỌNG SỐ theo LỚP CỠ, nghiêng về mảnh nhỏ/linh hoạt (dễ lấp khe →
+     * dễ combo); bàn càng đầy càng nghiêng nhỏ. Khối đặc biệt (pentomino/3×3/chéo) trọng số 0 ở bốc-thường,
+     * chỉ ra qua CHÈN ĐỊNH KỲ để vẫn gặp đủ 24 loại. Vẫn ĐẢM BẢO ĐƯỜNG THOÁT khi bàn đầy. Deterministic qua [rng].
      *
      * @param forceHelpful pity từ [EndlessEngine] (đủ [AntiDroughtConfig.pityWaves] đợt rủi ro không thoát).
      * @param forceSpecial tới hạn [AntiDroughtConfig.specialEveryWaves] đợt không có khối đặc biệt → ép chèn 1.
@@ -68,7 +68,7 @@ object WaveGenerator {
 
         val pieces = ArrayList<Piece>(TrayGenerator.TRAY_SIZE)
         repeat(TrayGenerator.TRAY_SIZE) {
-            val shape = weightedPick(pool, rng) { comboWeight(it, tier) }
+            val shape = pickByClass(pool, tier, rng)
             val color = rng.pick(colors)
             pieces.add(ensurePlaceable(PieceLibrary.dealt(shape, color), grid, pool, cfg, rng))
         }
@@ -97,30 +97,55 @@ object WaveGenerator {
         return Wave(pieces, hadHelpful, tier, hadSpecial)
     }
 
+    /** Lớp cỡ dùng cho bốc-thường (khối đặc biệt không thuộc lớp nào). */
+    private enum class SizeClass { SMALL, MED, LARGE }
+
     /**
-     * Trọng số bốc-thường: khối [PieceLibrary.SPECIAL] = 0 (chỉ ra qua chèn định kỳ). Còn lại: mảnh
-     * càng nhỏ càng cao (dễ lấp khe → dễ combo); bậc 🔴 (bàn rất đầy) ưu tiên nhỏ mạnh hơn.
+     * Lớp cỡ của [shape] cho bốc-thường; **null** nếu là khối [PieceLibrary.SPECIAL] (trọng số 0 — chỉ ra
+     * qua chèn định kỳ). Đặc biệt (≥5 ô + chéo) đã loại nên nhánh `else` chỉ còn mảnh 4 ô.
      */
-    private fun comboWeight(shape: Shape, tier: Tier): Int {
-        if (shape in PieceLibrary.SPECIAL) return 0
+    private fun sizeClassOf(shape: Shape): SizeClass? {
+        if (shape in PieceLibrary.SPECIAL) return null
         return when (shape.size) {
-            1, 2 -> if (tier == Tier.RED) 8 else 5
-            3 -> if (tier == Tier.RED) 6 else 4
-            else -> if (tier == Tier.RED) 2 else 3   // size 4
+            1, 2 -> SizeClass.SMALL
+            3 -> SizeClass.MED
+            else -> SizeClass.LARGE
         }
     }
 
-    /** Bốc 1 hình theo trọng số [weightOf] (deterministic: 1 lần [Rng.nextInt]). Mọi trọng số 0 → uniform. */
-    private inline fun weightedPick(pool: List<Shape>, rng: Rng, weightOf: (Shape) -> Int): Shape {
+    /**
+     * Trọng số theo LỚP CỠ (không theo từng hình) — bàn càng đầy càng nghiêng mảnh nhỏ để dễ lấp khe.
+     * Vì bốc lớp trước rồi mới bốc đều 1 hình trong lớp, tỉ lệ ra mỗi cỡ ĐỘC LẬP với số biến thể của cỡ
+     * đó (19 hình 4 ô không còn lấn át 3 hình ≤2 ô như bốc per-shape cũ).
+     */
+    private fun classWeight(cls: SizeClass, tier: Tier): Int = when (tier) {
+        Tier.GREEN -> when (cls) { SizeClass.SMALL -> 40; SizeClass.MED -> 30; SizeClass.LARGE -> 30 }
+        Tier.YELLOW -> when (cls) { SizeClass.SMALL -> 45; SizeClass.MED -> 32; SizeClass.LARGE -> 23 }
+        Tier.RED -> when (cls) { SizeClass.SMALL -> 55; SizeClass.MED -> 30; SizeClass.LARGE -> 15 }
+    }
+
+    /**
+     * Bốc-thường CHUẨN HOÁ THEO LỚP CỠ: bốc LỚP (SMALL/MED/LARGE) theo [classWeight] rồi bốc ĐỀU 1 hình
+     * trong lớp. Nhờ vậy tỉ lệ ra mỗi cỡ đúng ý đồ, KHÔNG bị lệch vì số biến thể mỗi cỡ chênh nhau. Khối
+     * đặc biệt (trọng số 0) không thuộc lớp nào — chỉ ra qua chèn định kỳ. Deterministic: tối đa 2 lần
+     * [Rng.nextInt] (lớp, rồi hình); thứ tự duyệt cố định qua [SizeClass.entries] và thứ tự [pool].
+     * Fallback [Rng.pick] nếu [pool] không có hình thường nào (chỉ toàn đặc biệt).
+     */
+    private fun pickByClass(pool: List<Shape>, tier: Tier, rng: Rng): Shape {
+        val byClass = HashMap<SizeClass, MutableList<Shape>>()
+        for (s in pool) sizeClassOf(s)?.let { byClass.getOrPut(it) { ArrayList() }.add(s) }
+        val classes = SizeClass.entries.filter { byClass.containsKey(it) }
+        if (classes.isEmpty()) return rng.pick(pool)
         var total = 0
-        for (s in pool) total += weightOf(s)
-        if (total <= 0) return rng.pick(pool)
+        for (c in classes) total += classWeight(c, tier)
         var r = rng.nextInt(total)
-        for (s in pool) {
-            r -= weightOf(s)
-            if (r < 0) return s
+        var chosen = classes.last()
+        for (c in classes) {
+            r -= classWeight(c, tier)
+            if (r < 0) { chosen = c; break }
         }
-        return pool.last()
+        val bucket = byClass.getValue(chosen)
+        return bucket[rng.nextInt(bucket.size)]
     }
 
     /**
