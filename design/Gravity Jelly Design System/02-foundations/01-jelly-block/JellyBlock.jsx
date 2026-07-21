@@ -35,10 +35,10 @@ const DS_ASSET_ROOT = (() => {
 })();
 
 const BLOCK_IMG = {
-  yellow: `${DS_ASSET_ROOT}06-svg-assets/blocks/jelly-yellow.jpg`,
-  mint:   `${DS_ASSET_ROOT}06-svg-assets/blocks/jelly-mint.jpg`,
-  pink:   `${DS_ASSET_ROOT}06-svg-assets/blocks/jelly-pink.jpg`,
-  blue:   `${DS_ASSET_ROOT}06-svg-assets/blocks/jelly-blue.jpg`,
+  yellow: `${DS_ASSET_ROOT}06-svg-assets/blocks/jelly-yellow.png`,
+  mint:   `${DS_ASSET_ROOT}06-svg-assets/blocks/jelly-mint.png`,
+  pink:   `${DS_ASSET_ROOT}06-svg-assets/blocks/jelly-pink.png`,
+  blue:   `${DS_ASSET_ROOT}06-svg-assets/blocks/jelly-blue.png`,
 };
 
 export function JellyBlock({

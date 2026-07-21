@@ -1,4 +1,4 @@
-<!-- @dsCard group="Assets" viewport="760x600" name="Mắt động × Jelly block" subtitle="Ghép Eyes (hướng trọng lực + biểu cảm) lên PNG jelly block — auto + điều khiển tay" -->
+<!-- @dsCard group="Assets" viewport="760x600" name="Mắt động × Jelly block" subtitle="Ghép Eyes (hướng trọng lực + biểu cảm) lên JPEG jelly block — auto + điều khiển tay" -->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -34,7 +34,7 @@
   .cell { position: relative; }
   .cellcap { text-align: center; font-size: 11px; font-weight: 700; color: var(--color-text-muted); margin-top: 4px; }
   .legend { font-size: 12px; font-weight: 600; color: var(--color-text-muted); line-height: 1.5; max-width: 440px; }
-  img.block { display: block; }
+  img.block { display: block; border-radius: 20%; }
   .ov { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
 </style>
 </head>
@@ -203,7 +203,7 @@
                 </div>
               ))}
             </div>
-            <div className="legend">Eyes là overlay riêng — pupil trượt theo hướng trọng lực (normal/focus), 6 biểu cảm + chớp mắt. Ghép trực tiếp lên PNG jelly block hiện tại, canh giữa ~52% chiều cao khối.</div>
+            <div className="legend">Eyes là overlay riêng — pupil trượt theo hướng trọng lực (normal/focus), 6 biểu cảm + chớp mắt. Ghép trực tiếp lên JPEG jelly block hiện tại, canh giữa ~52% chiều cao khối.</div>
           </div>
 
           <div className="stage" style={{ width: '100%' }}>

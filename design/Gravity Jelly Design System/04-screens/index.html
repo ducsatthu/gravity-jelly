@@ -1,4 +1,4 @@
-<!-- @dsCard group="Screens" viewport="440x900" name="Gravity Jelly — Interactive Kit" subtitle="Toàn bộ 14 màn click-through: Splash → Home → Intro → Game → Win/Result, + Shop/Daily/Missions/Leaderboard/Boss" -->
+<!-- @dsCard group="Screens" viewport="440x900" name="Gravity Jelly — Interactive Kit" subtitle="Endless click-through: Splash → Home → Game → Result, + Shop/Daily/Missions/Leaderboard/Settings" -->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -30,11 +30,8 @@
   <script type="text/babel" src="result-screen.jsx"></script>
   <script type="text/babel" src="settings-screen.jsx"></script>
   <script type="text/babel" src="splash-screen.jsx"></script>
-  <script type="text/babel" src="level-intro-screen.jsx"></script>
-  <script type="text/babel" src="level-win-screen.jsx"></script>
   <script type="text/babel" src="pause-screen.jsx"></script>
   <script type="text/babel" src="out-of-lives-screen.jsx"></script>
-  <script type="text/babel" src="boss-intro-screen.jsx"></script>
   <script type="text/babel" src="daily-reward-screen.jsx"></script>
   <script type="text/babel" src="shop-screen.jsx"></script>
   <script type="text/babel" src="missions-screen.jsx"></script>
@@ -70,13 +67,10 @@
     const SCREENS = [
       { key: 'splash', label: 'Splash', solo: true },
       { key: 'home', label: 'Home' },
-      { key: 'levelIntro', label: 'Level Intro' },
       { key: 'game', label: 'Game' },
       { key: 'pause', label: 'Pause', solo: true },
-      { key: 'levelWin', label: 'Level Win', solo: true },
       { key: 'result', label: 'Result' },
       { key: 'outOfLives', label: 'Hết lượt', solo: true },
-      { key: 'bossIntro', label: 'Boss Intro', solo: true },
       { key: 'daily', label: 'Daily' },
       { key: 'shop', label: 'Shop' },
       { key: 'missions', label: 'Nhiệm vụ' },
@@ -110,11 +104,9 @@
       const [screen, setScreen] = useState('splash');
       const [best, setBest] = useState(28640);
       const [coins, setCoins] = useState(1240);
-      const [level, setLevel] = useState(23);
       const [g, setG] = useState(freshGame());
       const [paused, setPaused] = useState(false);
       const [result, setResult] = useState({ score: 0, isNewBest: false });
-      const [win, setWin] = useState({ stars: 2, score: 12480, coins: 120 });
       const [settings, setSettings] = useState({ sound: true, music: true, vibrate: false, lang: 'vi' });
 
       const PhoneFrame = window.GJPhoneFrame;
@@ -123,18 +115,14 @@
       const Result = window.GJResultScreen;
       const Settings = window.GJSettingsScreen;
       const Splash = window.GJSplashScreen;
-      const LevelIntro = window.GJLevelIntroScreen;
-      const LevelWin = window.GJLevelWinScreen;
       const Pause = window.GJPauseScreen;
       const OutOfLives = window.GJOutOfLivesScreen;
-      const BossIntro = window.GJBossIntroScreen;
       const Daily = window.GJDailyRewardScreen;
       const Shop = window.GJShopScreen;
       const Missions = window.GJMissionsScreen;
       const Leaderboard = window.GJLeaderboardScreen;
 
       const startGame = () => { setG(freshGame()); setPaused(false); setScreen('game'); };
-      const isBoss = level % 10 === 0;
 
       const rotate = () => setG((s) => {
         const di = (DIRS.indexOf(s.direction) + 1) % DIRS.length;
@@ -142,11 +130,6 @@
         return { ...s, direction: DIRS[di], turnsLeft, combo: ((s.combo % 4) + 2), score: s.score + 240 };
       });
 
-      const finishWin = () => {
-        const stars = 1 + (g.combo > 4 ? 2 : g.turnsLeft > 0 ? 1 : 0);
-        setWin({ stars: Math.min(3, stars), score: g.score, coins: 80 + stars * 40 });
-        setScreen('levelWin');
-      };
       const endRun = () => {
         const isNewBest = g.score > best;
         if (isNewBest) setBest(g.score);
@@ -154,21 +137,13 @@
         setScreen('result');
       };
 
-      // intro level: boss levels detour through BossIntro first
-      const goIntro = () => setScreen(isBoss ? 'bossIntro' : 'levelIntro');
-
       let body = null, fixed = null;
 
       if (screen === 'splash') {
         body = <Splash progress={0.72} />;
         // auto-advance after a beat (kept manual-friendly: tap anywhere)
       } else if (screen === 'home') {
-        body = <Home best={best} onCampaign={goIntro} onPlay={startGame} onGuide={() => setScreen('daily')} onTools={() => setScreen('settings')} />;
-      } else if (screen === 'levelIntro') {
-        body = <LevelIntro level={level} world="Sông & Thác" accent="var(--color-info)"
-          onStart={startGame} onClose={() => setScreen('home')} />;
-      } else if (screen === 'bossIntro') {
-        body = <BossIntro level={level} world="Sông & Thác" onChallenge={startGame} onClose={() => setScreen('home')} />;
+        body = <Home best={best} onPlay={startGame} onGuide={() => setScreen('daily')} onLeaderboard={() => setScreen('leaderboard')} onSettings={() => setScreen('settings')} />;
       } else if (screen === 'game') {
         body = <>
           <Game score={g.score} direction={g.direction} turnsLeft={g.turnsLeft}
@@ -186,7 +161,7 @@
           </div>}
           {/* dev shortcuts: jump to win / lose */}
           <div style={{ position: 'absolute', left: 12, bottom: 12, display: 'flex', gap: 6, zIndex: 30 }}>
-            <button type="button" onClick={finishWin} style={devBtn}>▷ Thắng</button>
+            <button type="button" onClick={endRun} style={devBtn}>▷ Kết thúc</button>
             <button type="button" onClick={() => setScreen('outOfLives')} style={devBtn}>♥ Hết lượt</button>
           </div>
         </>;
@@ -195,10 +170,6 @@
           onToggle={(k) => setSettings(s => ({ ...s, [k]: !s[k] }))}
           onResume={() => setScreen('game')} onRestart={startGame}
           onSettings={() => setScreen('settings')} onQuit={() => setScreen('home')} />;
-      } else if (screen === 'levelWin') {
-        body = <LevelWin level={level} stars={win.stars} score={win.score} coins={win.coins}
-          onNext={() => { setLevel(l => l + 1); setCoins(c => c + win.coins); setScreen('levelIntro'); }}
-          onReplay={startGame} onHome={() => setScreen('home')} />;
       } else if (screen === 'result') {
         body = <Result score={result.score} best={best} isNewBest={result.isNewBest}
           onX2={() => setResult((r) => ({ ...r, score: r.score * 2 }))}
@@ -224,7 +195,7 @@
           onBack={() => setScreen('home')} />;
       }
 
-      const noStatus = screen === 'splash' || screen === 'bossIntro' || screen === 'game';
+      const noStatus = screen === 'splash' || screen === 'game';
 
       return (
         <>

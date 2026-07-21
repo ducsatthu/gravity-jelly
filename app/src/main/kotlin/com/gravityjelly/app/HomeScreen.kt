@@ -1,294 +1,893 @@
 package com.gravityjelly.app
 
+import androidx.annotation.DrawableRes
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.RoundRect
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.drawscope.Fill
+import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.drawscope.withTransform
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
+import androidx.compose.ui.unit.sp
+import com.gravityjelly.app.ui.theme.GjDisplayFontFamily
+import com.gravityjelly.app.ui.theme.GjBodyFontFamily
+import com.gravityjelly.app.ui.theme.GjPalette
 import com.gravityjelly.app.ui.theme.GravityJellyTheme
 import kotlin.math.PI
 import kotlin.math.floor
 import kotlin.math.sin
 
 /**
- * Màn Home — RE-SKIN 01/07 sang nền **`home_world_N_bg.png`** (đổi theo [world]) + **menu icon PNG**
- * (design/04-screens/home-screen.jsx, bản mới).
+ * Màn Home — RE-SKIN 21/07 theo `04-screens/home-screen.jsx` (bản mới: single Endless, Tùy chỉnh).
  *
- *  · Nền tranh vẽ `home_world_{world}_bg.png` (821×1916): trời + LOGO + bàn biome (bản 02/07 **KHÔNG
- *    còn bake panel** — đáy chỉ còn cảnh biome). Neo ĐÁY full-width; phần dư trên là trời ([WorldTheme.homeSky]).
- *    [world] = world người chơi đang tiến tới → Home đổi cảnh theo tiến độ (Đồng cỏ → Rừng → Sông).
- *  · **Panel kem `home_panel.png` TÁCH RỜI** (dùng chung mọi world) phủ lên nền ở đáy (JSX top 72.5%,
- *    height 25%), chứa **menu icon 2 hàng** (JSX khối top 75%, bottom 5%):
- *      – Hàng trên: **ENDLESS** — CTA chơi DUY NHẤT, canh giữa, rộng [BTN_HERO_FRAC] của contentW.
- *        (Nút CHIẾN DỊCH đã gỡ 17/07 cùng tính năng Campaign — xem `docs/08-go-bo-campaign.md`.)
- *      – Hàng dưới: CẨM NANG · BẢNG XẾP HẠNG · CÀI ĐẶT (3 nút, chia ĐỀU contentW).
- *    Mỗi nút là 1 ảnh PNG tự chứa (khung + icon), cao theo tỉ lệ art, nhấn nén .93.
- *  · **Hạt bay theo world** ([PetalLayer]) trôi ngang như gió: Đồng cỏ = cánh hoa · Rừng rậm = LÁ ·
- *    Sông & Thác = GIỌT NƯỚC (đổi hình + palette theo [world]). Ẩn khi reduced-motion.
- *  · **KHÔNG HUD trên** (user 01/07: bỏ chip KỶ LỤC; hearts/life của JSX cũng không dựng).
- *
- * Cả 4 mục (Endless · Cẩm nang · BXH · Cài đặt) đều đã có màn và vào được — không mục nào bị khoá.
- * Cơ chế `comingSoon` (làm mờ + khoá bấm) vẫn còn nhưng hiện KHÔNG dùng cho mục nào. Sparkle của
- * bản cũ đã GỠ (JSX comment: nền mới chưa có landmark tương ứng).
+ *  · Nền cảnh [sceneId] dùng chung cho cả Home và in-game (bỏ home_world_N_bg riêng).
+ *  · RecordCard (góc trái trên): KỶ LỤC + best score.
+ *  · CornerCustomize (góc phải trên): nút palette mở sheet Tùy chỉnh.
+ *  · Logo (giữa trên, bob animation).
+ *  · PlayButton (giữa): "CHƠI NGAY" — CTA cam candy.
+ *  · 3 NavButton (hàng dưới): Cẩm nang · Xếp hạng · Cài đặt.
+ *  · CustomizeSheet (bottom sheet): chọn cảnh/nền + nhạc nền + âm lượng.
  */
 @Composable
 fun HomeScreen(
-    onPlayEndless: () -> Unit,
-    onSettings: () -> Unit,
-    onHandbook: () -> Unit = {},
-    onLeaderboard: () -> Unit = {},
-    world: Int = 1,
-    reducedMotion: Boolean = false,
-    modifier: Modifier = Modifier,
-) {
-    // Nền + trời đổi theo world người chơi đang tiến tới (WorldTheme). Trời lấp dải trên khi màn cao hơn ảnh.
-    Box(modifier = modifier.fillMaxSize().background(WorldTheme.homeSky(world))) {
-        BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
-            // Khung = MÀN HÌNH. Ảnh nền NEO ĐÁY, phủ full bề ngang, tỉ lệ 821/1916 (HOME_AR);
-            // dư phía trên (máy cao) lộ trời. Menu là con TRỰC TIẾP của khung, neo từ ĐÁY →
-            // bám đúng panel kem (đáy art = đáy màn).
-            val boxW: Dp = maxWidth
-            val imgH: Dp = boxW * HOME_AR      // chiều cao art khi phủ full width (neo đáy)
-            val artHpx = with(LocalDensity.current) { imgH.toPx() }
-
-            // Nền: NEO ĐÁY bằng ContentScale.Crop + BottomCenter — cover ghim đáy (art cao hơn
-            // màn → cắt bớt TRỜI ở trên), đáy art luôn trùng đáy màn.
-            Image(
-                painter            = painterResource(WorldTheme.homeBackground(world)),
-                contentDescription = "Gravity Jelly",
-                modifier           = Modifier.fillMaxSize(),
-                contentScale       = ContentScale.Crop,
-                alignment          = Alignment.BottomCenter,
-            )
-
-            // ── Cánh hoa bay NGANG trong dải giữa (dưới logo, trên panel) — vẽ TRƯỚC menu để
-            // KHÔNG đè lên nút (user 01/07). Ẩn khi reduced-motion.
-            if (!reducedMotion) {
-                PetalLayer(world = world, artHeightPx = artHpx, modifier = Modifier.fillMaxSize())
-            }
-
-            // ── Panel kem tách rời + menu icon 2 hàng (JSX: panel top 72.5% h25%, khối nút top 75% bottom 5%).
-            HomeMenu(
-                boxW = boxW, imgH = imgH,
-                onPlay = onPlayEndless,
-                onGuide = onHandbook,
-                onLeaderboard = onLeaderboard,  // đã có màn Bảng xếp hạng
-                onSettings = onSettings,
-            )
-        }
-    }
-}
-
-// Tỉ lệ ảnh nền home-world-N-bg.png (821×1916, mọi world cùng khổ) — cao/rộng.
-private const val HOME_AR = 1916f / 821f
-
-// (Trời đỉnh ảnh nay lấy theo world qua WorldTheme.homeSky — xem HomeScreen.)
-
-// Panel kem `home_panel.png` (1448×1086): tỉ lệ RỘNG/CAO + phần viền cream (fraction, đo PIL 02/07:
-// ngang cream bắt đầu ~4.6% mỗi bên, dọc ~11.3% trên/dưới) — dùng để pad nút vào đúng vùng cream.
-private const val PANEL_AR = 1448f / 1086f
-private const val PANEL_CREAM_H = 0.046f
-private const val PANEL_CREAM_V = 0.113f
-// Thu nhỏ cụm nút so với vùng cream (canh giữa) — chỉnh cỡ nút Home bằng đúng knob này (user 03/07).
-private const val BTN_ROW_SCALE = 0.85f
-// Bề rộng CTA Endless (hàng trên) theo contentW — chỉ còn 1 nút chơi sau khi gỡ Campaign nên nó là
-// nút chủ đạo: to hơn nút phụ hàng dưới (~1/3 contentW mỗi nút) mà không tràn hết bề ngang panel.
-private const val BTN_HERO_FRAC = 0.62f
-
-// Tỉ lệ RỘNG/CAO từng icon PNG (px nguồn bản mới 02/07) — height = width / aspect.
-private const val AR_INFINITE = 1386f / 696f
-private const val AR_GUIDE = 918f / 884f
-private const val AR_LEADER = 1052f / 1043f
-private const val AR_SETTING = 962f / 964f
-
-// ── Panel kem TÁCH RỜI + menu 2 hàng ─────────────────────────────────────────────────────
-// Bản 02/07: nền `home_world_N_bg.png` KHÔNG còn bake panel — panel là ảnh riêng `home_panel.png`
-// phủ lên (dùng chung mọi world). Bám JSX home-screen.jsx:
-//   · panel: left/right 6% (width 88%), top 72.5%, height 25% → đáy cách stage 2.5%.
-//   · khối menu: left/right 6%, top 75%, bottom 5% (height 20%), column space-evenly.
-//   · 2 hàng, mỗi hàng rộng 66cqw, gap 4cqw; nút flex ĐỀU BỀ NGANG (width = slot), cao theo aspect.
-// cqw = 1% bề rộng stage = boxW/100.
-@Composable
-private fun BoxScope.HomeMenu(
-    boxW: Dp,
-    imgH: Dp,
     onPlay: () -> Unit,
     onGuide: () -> Unit,
     onLeaderboard: () -> Unit,
     onSettings: () -> Unit,
+    best: Int = 0,
+    sceneId: String = "meadow",
+    musicId: String = "meadow",
+    bgmVolume: Int = 70,
+    onSceneChange: (String) -> Unit = {},
+    onMusicChange: (String) -> Unit = {},
+    onVolumeChange: (Int) -> Unit = {},
+    reducedMotion: Boolean = false,
+    modifier: Modifier = Modifier,
 ) {
-    val cqw = boxW / 100f
+    val scene = Scenes.byId(sceneId)
+    var sheetOpen by remember { mutableStateOf(false) }
 
-    // Panel kem tách rời — RỘNG 90% (user 02/07), GIỮ ĐÚNG TỈ LỆ GỐC (không stretch): height =
-    // width / aspect. Neo đáy cách stage 3%. x canh giữa (mỗi bên (1-.90)/2 = 5%).
-    val panelW = boxW * 0.85f            // thu nhỏ (user 02/07: panel hơi lớn so design)
-    val panelH = panelW / PANEL_AR
-    val panelX = (boxW - panelW) / 2f    // canh giữa ngang
-    val panelBottomUp = imgH * 0.02f     // hạ thấp hơn → lộ rõ bàn đá phía trên
+    Box(modifier = modifier.fillMaxSize()) {
+        // ── Nền cảnh full-bleed, neo đáy ──
+        Image(
+            painter = painterResource(scene.bgRes),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop,
+            alignment = Alignment.BottomCenter,
+        )
 
-    Image(
-        painter = painterResource(R.drawable.home_panel),
-        contentDescription = null,
-        contentScale = ContentScale.Fit,
-        modifier = Modifier
-            .align(Alignment.BottomStart)
-            .offset(x = panelX, y = -panelBottomUp)
-            .size(width = panelW, height = panelH),
+        // ── Hạt bay (cánh hoa / lá / giọt) — dưới nút, trên nền ──
+        if (!reducedMotion) {
+            PetalLayer(sceneId = sceneId, modifier = Modifier.fillMaxSize())
+        }
+
+        // ── Nội dung chính ──
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .windowInsetsPadding(WindowInsets.safeDrawing),
+        ) {
+            // RecordCard góc trái trên (home-screen.jsx RecordCard: top 22, left 16)
+            RecordCard(best = best, modifier = Modifier.align(Alignment.TopStart))
+
+            // Nút Tùy chỉnh góc phải trên (home-screen.jsx CornerCustomize: top 22, right 18)
+            CornerCustomize(
+                onClick = { sheetOpen = true },
+                modifier = Modifier.align(Alignment.TopEnd),
+            )
+
+            // Cột chính: logo + nút chơi + nav
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 24.dp, vertical = 40.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Spacer(Modifier.height(46.dp))
+
+                // Logo (home-screen.jsx LogoMark: width 250, maxWidth 78%, bob animation)
+                LogoMark(reducedMotion = reducedMotion)
+
+                Spacer(Modifier.weight(1f))
+
+                // CTA "CHƠI NGAY" (home-screen.jsx PlayButton)
+                PlayButton(
+                    label = stringResource(R.string.home_play),
+                    onClick = onPlay,
+                )
+
+                Spacer(Modifier.height(42.dp))
+
+                // 3 nút phụ (home-screen.jsx NavButton row)
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 2.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    NavButton(
+                        iconRes = R.drawable.ic_guide,
+                        label = stringResource(R.string.home_guide),
+                        onClick = onGuide,
+                    )
+                    NavButton(
+                        iconRes = R.drawable.ic_trophy,
+                        label = stringResource(R.string.home_leaderboard),
+                        onClick = onLeaderboard,
+                    )
+                    NavButton(
+                        iconRes = R.drawable.ic_settings,
+                        label = stringResource(R.string.home_settings),
+                        onClick = onSettings,
+                    )
+                }
+            }
+        }
+
+        // ── Customize bottom sheet ──
+        AnimatedVisibility(
+            visible = sheetOpen,
+            enter = fadeIn(tween(250)),
+            exit = fadeOut(tween(200)),
+        ) {
+            CustomizeSheet(
+                best = best,
+                sceneId = sceneId,
+                musicId = musicId,
+                volume = bgmVolume,
+                onScene = onSceneChange,
+                onMusic = onMusicChange,
+                onVolume = onVolumeChange,
+                onClose = { sheetOpen = false },
+            )
+        }
+    }
+}
+
+// ── RecordCard (home-screen.jsx RecordCard) ──────────────────────────────────
+
+/** Số kiểu Việt: 12480 → "12.480". */
+private fun Int.viScore(): String {
+    if (this == 0) return "0"
+    return toString().reversed().chunked(3).joinToString(".").reversed()
+}
+
+@Composable
+private fun RecordCard(best: Int, modifier: Modifier = Modifier) {
+    // home-screen.jsx: top 22, left 16, padding 7 15 7 9, borderRadius 20, cream candy card
+    Row(
+        modifier = modifier
+            .padding(start = 16.dp, top = 22.dp)
+            .drawBehind {
+                val r = CornerRadius(20.dp.toPx())
+                // edge (home-screen.jsx: 0 4px 0 #EBDCC4)
+                drawRoundRect(Color(0xFFEBDCC4), cornerRadius = r,
+                    topLeft = Offset(0f, 4.dp.toPx()), size = size)
+                // face (gradient 180deg #FFFFFF → #FFF7EC)
+                drawRoundRect(
+                    brush = Brush.verticalGradient(listOf(Color.White, Color(0xFFFFF7EC))),
+                    cornerRadius = r, size = size,
+                )
+            }
+            .padding(start = 9.dp, end = 15.dp, top = 7.dp, bottom = 7.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        Image(
+            painter = painterResource(R.drawable.ic_trophy),
+            contentDescription = null,
+            modifier = Modifier.size(30.dp),
+        )
+        Column {
+            Text(
+                text = stringResource(R.string.home_record),
+                style = MaterialTheme.typography.labelSmall.copy(
+                    fontFamily = GjBodyFontFamily,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 11.sp,
+                    letterSpacing = 0.06.em,
+                    color = GjPalette.TextMuted,
+                    lineHeight = 1.em,
+                ),
+            )
+            Text(
+                text = best.viScore(),
+                style = MaterialTheme.typography.titleLarge.copy(
+                    fontFamily = GjDisplayFontFamily,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp,
+                    color = GjPalette.Text,
+                    lineHeight = 1.2.em,
+                ),
+                modifier = Modifier.padding(top = 3.dp),
+            )
+        }
+    }
+}
+
+// ── CornerCustomize (home-screen.jsx CornerCustomize) ────────────────────────
+
+@Composable
+private fun CornerCustomize(onClick: () -> Unit, modifier: Modifier = Modifier) {
+    val interaction = remember { MutableInteractionSource() }
+    val pressed by interaction.collectIsPressedAsState()
+    val yOffset by animateFloatAsState(
+        targetValue = if (pressed) 3f else 0f,
+        animationSpec = spring(stiffness = Spring.StiffnessMediumLow),
+        label = "customizePress",
     )
 
-    // Khối menu TRÙNG panel. Viền cream panel KHÔNG đều (ngang ~4.6% · dọc ~11.3%) → pad bù theo viền
-    // rồi cộng khe M=4cqw ĐỀU 4 phía (user 02/07: lề trên/dưới/2 bên tới bờ panel bằng nhau).
-    // MỌI số đo là fraction của boxW/panel (không px cứng) → co giãn TỈ LỆ mọi máy, không vỡ layout.
-    val padH = panelW * PANEL_CREAM_H + cqw * 4f
-    val padV = panelH * PANEL_CREAM_V + cqw * 4f
-    // Bề ngang tối đa (tới sát khe cream) rồi THU NHỎ theo hệ số, canh giữa → nút nhỏ lại ĐỀU cả
-    // rộng lẫn cao (weight+aspect), 2 hàng vẫn dài bằng nhau, khoảng dọc tự giãn qua space-evenly.
-    // (user 03/07: nút hơi lớn.) BTN_ROW_SCALE là knob tỉ lệ duy nhất để chỉnh cỡ nút.
-    val contentW = (panelW - padH * 2f) * BTN_ROW_SCALE
-    val gap = cqw * 4f                   // khe giữa nút = 4cqw (JSX gap:4cqw)
+    // home-screen.jsx: top 22, right 18, 50×50, borderRadius 18, cream candy
+    Box(
+        modifier = modifier
+            .padding(end = 18.dp, top = 22.dp)
+            .size(50.dp)
+            .graphicsLayer { translationY = yOffset.dp.toPx() }
+            .drawBehind {
+                val r = CornerRadius(18.dp.toPx())
+                val edgeH = if (pressed) 1.dp.toPx() else 4.dp.toPx()
+                // edge
+                drawRoundRect(Color(0xFFEBDCC4), cornerRadius = r,
+                    topLeft = Offset(0f, edgeH), size = size)
+                // face
+                drawRoundRect(
+                    brush = Brush.verticalGradient(listOf(Color.White, Color(0xFFFFF7EC))),
+                    cornerRadius = r, size = size,
+                )
+                // highlight pill (home-screen.jsx: top 5, h10, opacity .8)
+                val pillH = 10.dp.toPx()
+                val pillW = size.width * 0.52f
+                drawRoundRect(
+                    Color(0xCCFFFFFF), cornerRadius = CornerRadius(999f),
+                    topLeft = Offset((size.width - pillW) / 2f, 5.dp.toPx()),
+                    size = Size(pillW, pillH),
+                )
+            }
+            .selectable(
+                selected = false, interactionSource = interaction,
+                indication = null, onClick = onClick,
+            ),
+        contentAlignment = Alignment.Center,
+    ) {
+        Image(
+            painter = painterResource(R.drawable.ic_palette),
+            contentDescription = stringResource(R.string.home_customize),
+            modifier = Modifier.size(30.dp),
+        )
+    }
+}
+
+// ── LogoMark (home-screen.jsx LogoMark + gj2-logo-bob) ──────────────────────
+
+@Composable
+private fun LogoMark(reducedMotion: Boolean) {
+    val bob = remember { Animatable(0f) }
+    LaunchedEffect(reducedMotion) {
+        if (reducedMotion) return@LaunchedEffect
+        bob.animateTo(
+            targetValue = 1f,
+            animationSpec = infiniteRepeatable(
+                animation = tween(4000, easing = LinearEasing),
+                repeatMode = RepeatMode.Restart,
+            ),
+        )
+    }
+    // home-screen.jsx: bob -6px, 4s ease-in-out infinite
+    val offsetY = if (reducedMotion) 0f else {
+        val phase = bob.value * 2f * PI.toFloat()
+        -6f * sin(phase)
+    }
+    Image(
+        painter = painterResource(R.drawable.home_logo),
+        contentDescription = "Gravity Jelly",
+        modifier = Modifier
+            .width(250.dp)
+            .graphicsLayer { translationY = offsetY.dp.toPx() },
+        contentScale = ContentScale.FillWidth,
+    )
+}
+
+// ── PlayButton (home-screen.jsx PlayButton — tangerine candy CTA) ───────────
+
+// home-screen.jsx: width 254, height 68, borderRadius 28
+private val PlayFillNormal = listOf(Color(0xFFFFC59A), Color(0xFFFF9F68))
+private val PlayEdge = Color(0xFFE97E45)
+
+@Composable
+private fun PlayButton(label: String, onClick: () -> Unit) {
+    val interaction = remember { MutableInteractionSource() }
+    val pressed by interaction.collectIsPressedAsState()
+    val yOffset by animateFloatAsState(
+        targetValue = if (pressed) 4f else 0f,
+        animationSpec = spring(dampingRatio = 0.55f, stiffness = Spring.StiffnessMediumLow),
+        label = "playPress",
+    )
 
     Box(
         modifier = Modifier
-            .align(Alignment.BottomStart)
-            .offset(x = panelX, y = -panelBottomUp)
-            .size(width = panelW, height = panelH),
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = padH, vertical = padV),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            // JSX justify-content:space-evenly → lề trên = giữa = dưới, tự cân, KHÔNG tràn màn thấp.
-            verticalArrangement = Arrangement.SpaceEvenly,
-        ) {
-            // Hàng trên — CTA chơi chính DUY NHẤT (Endless), canh giữa. Sau khi gỡ Campaign (17/07,
-            // docs/08-go-bo-campaign.md) chỉ còn một chế độ chơi → nút rộng [BTN_HERO_FRAC] của contentW
-            // (to hơn nút phụ hàng dưới, không tràn hết bề ngang panel); cao = rộng/aspect.
-            Row(
-                modifier = Modifier.width(contentW * BTN_HERO_FRAC),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                IconButton(
-                    icon = painterResource(R.drawable.btn_infinite), contentDescription = stringResource(R.string.home_endless),
-                    aspect = AR_INFINITE, onClick = onPlay,
+            .width(254.dp)
+            .height(68.dp)
+            .graphicsLayer { translationY = yOffset.dp.toPx() }
+            .drawBehind {
+                val r = CornerRadius(28.dp.toPx())
+                val edgeH = if (pressed) 2.dp.toPx() else 6.dp.toPx()
+                // edge
+                drawRoundRect(PlayEdge, cornerRadius = r,
+                    topLeft = Offset(0f, edgeH), size = size)
+                // face gradient
+                drawRoundRect(
+                    brush = Brush.verticalGradient(PlayFillNormal),
+                    cornerRadius = r, size = size,
+                )
+                // gloss (home-screen.jsx: top 3, left/right 6%, height 46%, opacity 1)
+                val glossL = size.width * 0.06f
+                val glossW = size.width * 0.88f
+                val glossH = size.height * 0.46f
+                drawRoundRect(
+                    brush = Brush.verticalGradient(
+                        listOf(Color(0xBFFFFFFF), Color(0x00FFFFFF)),
+                    ),
+                    topLeft = Offset(glossL, 3.dp.toPx()),
+                    size = Size(glossW, glossH),
+                    cornerRadius = CornerRadius(24.dp.toPx()),
                 )
             }
-            // Hàng dưới — 3 nút phụ trợ, cũng weight(1f) trên contentW = hàng trên.
+            .selectable(
+                selected = false, interactionSource = interaction,
+                indication = null, onClick = onClick,
+            ),
+        contentAlignment = Alignment.Center,
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(9.dp),
+        ) {
+            PlayIcon(Modifier.size(28.dp))
+            Text(
+                text = label,
+                style = MaterialTheme.typography.headlineMedium.copy(
+                    fontFamily = GjDisplayFontFamily,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 23.sp,
+                    color = Color.White,
+                    letterSpacing = 0.01.em,
+                ),
+            )
+        }
+    }
+}
+
+// ── NavButton (home-screen.jsx NavButton — cream candy secondary) ───────────
+
+@Composable
+private fun PlayIcon(modifier: Modifier = Modifier) {
+    val path = remember { Path() }
+    Canvas(modifier) {
+        path.rewind()
+        val w = size.width
+        val h = size.height
+        val inset = w * 0.08f
+        path.moveTo(inset, 0f)
+        path.lineTo(w, h / 2f)
+        path.lineTo(inset, h)
+        path.close()
+        // shadow
+        drawPath(path, color = Color(0x40000000), style = Fill,
+            blendMode = BlendMode.SrcOver)
+        translate(left = -1.5f.dp.toPx(), top = -1.5f.dp.toPx()) {
+            drawPath(path, color = Color.White, style = Fill)
+        }
+    }
+}
+
+// home-screen.jsx: width 92, height 84, borderRadius 22
+private val NavFill = listOf(Color.White, Color(0xFFFFF7EC))
+private val NavEdge = Color(0xFFEBDCC4)
+
+@Composable
+private fun NavButton(
+    @DrawableRes iconRes: Int,
+    label: String,
+    onClick: () -> Unit,
+) {
+    val interaction = remember { MutableInteractionSource() }
+    val pressed by interaction.collectIsPressedAsState()
+    val yOffset by animateFloatAsState(
+        targetValue = if (pressed) 3f else 0f,
+        animationSpec = spring(dampingRatio = 0.55f, stiffness = Spring.StiffnessMediumLow),
+        label = "navPress",
+    )
+
+    Box(
+        modifier = Modifier
+            .size(width = 92.dp, height = 84.dp)
+            .graphicsLayer { translationY = yOffset.dp.toPx() }
+            .drawBehind {
+                val r = CornerRadius(22.dp.toPx())
+                val edgeH = if (pressed) 2.dp.toPx() else 5.dp.toPx()
+                drawRoundRect(NavEdge, cornerRadius = r,
+                    topLeft = Offset(0f, edgeH), size = size)
+                drawRoundRect(
+                    brush = Brush.verticalGradient(NavFill),
+                    cornerRadius = r, size = size,
+                )
+                // highlight pill (home-screen.jsx: top 5, left/right 24%, h11)
+                val pillW = size.width * 0.52f
+                drawRoundRect(
+                    Color(0xCCFFFFFF), cornerRadius = CornerRadius(999f),
+                    topLeft = Offset((size.width - pillW) / 2f, 5.dp.toPx()),
+                    size = Size(pillW, 11.dp.toPx()),
+                )
+            }
+            .selectable(
+                selected = false, interactionSource = interaction,
+                indication = null, onClick = onClick,
+            ),
+        contentAlignment = Alignment.Center,
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            Image(
+                painter = painterResource(iconRes),
+                contentDescription = label,
+                modifier = Modifier.size(38.dp),
+            )
+            Text(
+                text = label,
+                style = MaterialTheme.typography.labelSmall.copy(
+                    fontFamily = GjBodyFontFamily,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 12.5.sp,
+                    color = GjPalette.Text,
+                    lineHeight = 1.em,
+                ),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
+        }
+    }
+}
+
+// ── CustomizeSheet (home-screen.jsx CustomizeSheet) ──────────────────────────
+
+@Composable
+private fun CustomizeSheet(
+    best: Int,
+    sceneId: String,
+    musicId: String,
+    volume: Int,
+    onScene: (String) -> Unit,
+    onMusic: (String) -> Unit,
+    onVolume: (Int) -> Unit,
+    onClose: () -> Unit,
+) {
+    // Scrim + sheet
+    Box(modifier = Modifier.fillMaxSize()) {
+        // Scrim (home-screen.jsx: rgba(60,44,24,0.42))
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0x6B3C2C18))
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null,
+                    onClick = onClose,
+                ),
+        )
+
+        // Sheet
+        Column(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp))
+                .background(GjPalette.Bg)
+                .padding(horizontal = 16.dp, vertical = 10.dp),
+        ) {
+            // Drag handle (home-screen.jsx: 44×5, #E2D4BD)
+            Box(
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .width(44.dp)
+                    .height(5.dp)
+                    .clip(RoundedCornerShape(999.dp))
+                    .background(Color(0xFFE2D4BD)),
+            )
+
+            Spacer(Modifier.height(10.dp))
+
+            // Header: title + close button
             Row(
-                modifier = Modifier.width(contentW),
-                horizontalArrangement = Arrangement.spacedBy(gap),
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                IconButton(
-                    icon = painterResource(R.drawable.btn_guide), contentDescription = stringResource(R.string.home_guide),
-                    aspect = AR_GUIDE, onClick = onGuide,
+                Text(
+                    text = stringResource(R.string.customize_title),
+                    style = MaterialTheme.typography.headlineMedium.copy(
+                        fontFamily = GjDisplayFontFamily,
+                        fontWeight = FontWeight.ExtraBold,
+                        fontSize = 22.sp,
+                        color = GjPalette.Text,
+                    ),
                 )
-                IconButton(
-                    icon = painterResource(R.drawable.btn_leaderboard), contentDescription = stringResource(R.string.home_leaderboard),
-                    aspect = AR_LEADER, onClick = onLeaderboard,
-                )
-                IconButton(
-                    icon = painterResource(R.drawable.btn_setting), contentDescription = stringResource(R.string.home_settings),
-                    aspect = AR_SETTING, onClick = onSettings,
-                )
+                Box(
+                    modifier = Modifier
+                        .size(36.dp)
+                        .clip(CircleShape)
+                        .background(GjPalette.SurfaceSunken)
+                        .clickable(onClick = onClose),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text("✕", fontSize = 16.sp, color = GjPalette.Text)
+                }
+            }
+
+            Spacer(Modifier.height(14.dp))
+
+            Column(
+                modifier = Modifier.verticalScroll(rememberScrollState()),
+            ) {
+                // ── CẢNH & NỀN section ──
+                SectionLabel(stringResource(R.string.customize_scene_section))
+                Spacer(Modifier.height(8.dp))
+
+                // 2-column grid of scene thumbnails
+                val scenes = Scenes.all
+                for (row in scenes.chunked(2)) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    ) {
+                        for (sc in row) {
+                            SceneThumbnail(
+                                scene = sc,
+                                active = sc.id == sceneId,
+                                locked = best < sc.unlockAt,
+                                onClick = { onScene(sc.id) },
+                                modifier = Modifier.weight(1f),
+                            )
+                        }
+                        if (row.size == 1) Spacer(Modifier.weight(1f))
+                    }
+                    Spacer(Modifier.height(10.dp))
+                }
+
+                Spacer(Modifier.height(10.dp))
+
+                // ── NHẠC NỀN section ──
+                SectionLabel(stringResource(R.string.customize_music_section))
+                Spacer(Modifier.height(8.dp))
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(20.dp))
+                        .background(Color.White),
+                ) {
+                    for ((i, sc) in scenes.withIndex()) {
+                        val locked = best < sc.unlockAt
+                        val playing = musicId == sc.id
+                        MusicRow(
+                            scene = sc,
+                            locked = locked,
+                            playing = playing,
+                            onClick = { if (!locked) onMusic(sc.id) },
+                            showDivider = i < scenes.lastIndex,
+                        )
+                    }
+                }
+
+                Spacer(Modifier.height(16.dp))
+
+                // ── Volume slider ──
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 2.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                ) {
+                    Text("🔊", fontSize = 18.sp)
+                    Slider(
+                        value = volume / 100f,
+                        onValueChange = { onVolume((it * 100).toInt()) },
+                        modifier = Modifier.weight(1f),
+                        colors = SliderDefaults.colors(
+                            thumbColor = GjPalette.Gravity,
+                            activeTrackColor = GjPalette.Gravity,
+                        ),
+                    )
+                    Text(
+                        text = volume.toString(),
+                        style = MaterialTheme.typography.labelSmall.copy(
+                            fontFamily = GjDisplayFontFamily,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 13.sp,
+                            color = GjPalette.Text,
+                        ),
+                        modifier = Modifier.width(34.dp),
+                        textAlign = TextAlign.End,
+                    )
+                }
+
+                Spacer(Modifier.height(18.dp))
             }
         }
     }
 }
 
-/**
- * Nút icon PNG (JSX IconButton): ảnh tự chứa (khung + icon). Đặt trong Row → dùng `weight(1f)` để
- * CHIA ĐỀU bề ngang hàng (JSX flex:1), rồi `aspectRatio(aspect)` suy CHIỀU CAO theo tỉ lệ art
- * (JSX img width:100% height:auto). Nhờ vậy 2 hàng luôn trải đúng contentW ở MỌI kích thước máy,
- * KHÔNG cần số cao "ma thuật" → co giãn tỉ lệ, không vỡ layout.
- * Nhấn nén scale .93 với ease nảy (JSX cubic-bezier(.34,1.56,.64,1) → spring nảy, đúng motion token
- * "gentle jelly bounce"). comingSoon = làm mờ + khoá bấm. Bóng đổ đã bake sẵn trong PNG (alpha).
- */
 @Composable
-private fun RowScope.IconButton(
-    icon: Painter,
-    contentDescription: String,
-    aspect: Float,
-    onClick: () -> Unit,
-    comingSoon: Boolean = false,
-) {
-    val interaction = remember { MutableInteractionSource() }
-    val pressed by interaction.collectIsPressedAsState()
-    val scale by animateFloatAsState(
-        targetValue = if (pressed) 0.93f else 1f,
-        animationSpec = spring(dampingRatio = 0.55f, stiffness = Spring.StiffnessMediumLow),
-        label = "iconPress",
-    )
-    Image(
-        painter = icon,
-        contentDescription = contentDescription,
-        contentScale = ContentScale.Fit,
-        modifier = Modifier
-            .weight(1f)              // flex:1 → mỗi nút một phần bằng nhau của contentW
-            .aspectRatio(aspect)     // cao = rộng / aspect (width:100% height:auto)
-            .graphicsLayer {
-                scaleX = scale
-                scaleY = scale
-                alpha = if (comingSoon) 0.6f else 1f
-            }
-            .selectable(
-                selected = false,
-                enabled = !comingSoon,
-                interactionSource = interaction,
-                indication = null,
-                onClick = onClick,
-            ),
+private fun SectionLabel(text: String) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.labelSmall.copy(
+            fontFamily = GjDisplayFontFamily,
+            fontWeight = FontWeight.Bold,
+            fontSize = 12.sp,
+            letterSpacing = 0.04.em,
+            color = GjPalette.TextMuted,
+        ),
+        modifier = Modifier.padding(start = 2.dp),
     )
 }
 
-// ── Cánh hoa bay ────────────────────────────────────────────────────────────────────────
-// JSX Petals (count=24, seed=7): mỗi cánh RƠI dọc (-12%→112% màn) + trôi ngang `drift`, đồng
-// thời ĐUNG ĐƯA + LỘN (translateX ±7px, rotate -32°→34°). Deterministic qua PRNG. Vẽ trong MỘT
-// Canvas, path + brush tái dùng, frame loop withFrameNanos (redraw không recompose) — chống giật.
+@Composable
+private fun SceneThumbnail(
+    scene: Scene,
+    active: Boolean,
+    locked: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    // home-screen.jsx: aspectRatio 16/11, borderRadius 16
+    Box(
+        modifier = modifier
+            .aspectRatio(16f / 11f)
+            .clip(RoundedCornerShape(16.dp))
+            .then(
+                if (active) Modifier.drawBehind {
+                    drawRoundRect(
+                        GjPalette.Gravity,
+                        cornerRadius = CornerRadius(16.dp.toPx()),
+                        size = Size(size.width + 6.dp.toPx(), size.height + 6.dp.toPx()),
+                        topLeft = Offset(-3.dp.toPx(), -3.dp.toPx()),
+                    )
+                } else Modifier
+            )
+            .clickable(enabled = !locked, onClick = onClick),
+    ) {
+        Image(
+            painter = painterResource(scene.bgRes),
+            contentDescription = stringResource(scene.nameRes),
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop,
+            alignment = Alignment.Center,
+        )
+        // Bottom gradient + name
+        Box(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .fillMaxWidth()
+                .background(
+                    Brush.verticalGradient(
+                        listOf(Color.Transparent, Color(0xA83C2C18)),
+                    ),
+                )
+                .padding(horizontal = 10.dp, vertical = 7.dp),
+        ) {
+            Text(
+                text = stringResource(scene.nameRes),
+                style = MaterialTheme.typography.labelSmall.copy(
+                    fontFamily = GjDisplayFontFamily,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 13.sp,
+                    color = Color.White,
+                ),
+            )
+        }
+        // Active checkmark
+        if (active) {
+            Box(
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(7.dp)
+                    .size(24.dp)
+                    .clip(CircleShape)
+                    .background(GjPalette.Gravity),
+                contentAlignment = Alignment.Center,
+            ) {
+                Text("✓", fontSize = 14.sp, color = Color.White, fontWeight = FontWeight.Bold)
+            }
+        }
+        // Lock overlay
+        if (locked) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color(0x66000000)),
+                contentAlignment = Alignment.Center,
+            ) {
+                Text("🔒", fontSize = 24.sp)
+            }
+        }
+    }
+}
 
-/** PRNG mulberry32 — khớp rng(seed) của JSX để phân bố cánh hoa trùng thiết kế. */
+@Composable
+private fun MusicRow(
+    scene: Scene,
+    locked: Boolean,
+    playing: Boolean,
+    onClick: () -> Unit,
+    showDivider: Boolean,
+) {
+    // home-screen.jsx: minHeight 56, padding 0 14px
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(56.dp)
+            .then(
+                if (playing) Modifier.background(GjPalette.SurfaceSunken)
+                else Modifier
+            )
+            .clickable(enabled = !locked, onClick = onClick)
+            .padding(horizontal = 14.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        // Circle icon
+        val circleColor = when {
+            locked -> Color(0xFFE2D4BD)
+            playing -> GjPalette.Gravity
+            else -> GjPalette.SurfaceSunken
+        }
+        Box(
+            modifier = Modifier
+                .size(34.dp)
+                .clip(CircleShape)
+                .background(circleColor),
+            contentAlignment = Alignment.Center,
+        ) {
+            Text(
+                text = if (locked) "⚙" else "♫",
+                fontSize = 16.sp,
+                color = if (playing) Color.White else GjPalette.Text,
+            )
+        }
+
+        // Track name + lock hint
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = stringResource(scene.trackNameRes),
+                style = MaterialTheme.typography.labelLarge.copy(
+                    fontFamily = GjDisplayFontFamily,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 15.sp,
+                    color = GjPalette.Text,
+                ),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
+            if (locked) {
+                Text(
+                    text = stringResource(R.string.customize_unlock_at, scene.unlockAt.viScore()),
+                    style = MaterialTheme.typography.labelSmall.copy(
+                        fontFamily = GjBodyFontFamily,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 12.sp,
+                        color = GjPalette.TextMuted,
+                    ),
+                )
+            }
+        }
+
+        // Right side: playing indicator or "Chọn"
+        when {
+            playing -> {
+                Text("♪♪♪", fontSize = 13.sp, color = GjPalette.Gravity)
+            }
+            !locked -> {
+                Text(
+                    text = stringResource(R.string.customize_select),
+                    style = MaterialTheme.typography.labelSmall.copy(
+                        fontFamily = GjDisplayFontFamily,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 12.sp,
+                        color = GjPalette.Gravity,
+                    ),
+                )
+            }
+        }
+    }
+    if (showDivider) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(1.5.dp)
+                .padding(horizontal = 14.dp)
+                .background(Color(0xFFE6DAC9)),
+        )
+    }
+}
+
+// ── Cánh hoa bay ────────────────────────────────────────────────────────────────
+
 private class Mulberry32(private var seed: Int) {
     fun next(): Float {
         seed += 0x6D2B79F5
@@ -298,147 +897,108 @@ private class Mulberry32(private var seed: Int) {
     }
 }
 
-// 4 cặp màu cánh hoa (JSX PETAL_COLORS: đỉnh sáng → đáy đậm).
 private val PetalColors = arrayOf(
-    Color(0xFFFFFFFF) to Color(0xFFFBE7EF), // cúc trắng
-    Color(0xFFFBD0DF) to Color(0xFFF7A9C0), // hồng
-    Color(0xFFFFF1CE) to Color(0xFFFFE3A3), // vàng bơ
-    Color(0xFFF7A9C0) to Color(0xFFE576A0), // hồng đậm
+    Color(0xFFFFFFFF) to Color(0xFFFBE7EF),
+    Color(0xFFFBD0DF) to Color(0xFFF7A9C0),
+    Color(0xFFFFF1CE) to Color(0xFFFFE3A3),
+    Color(0xFFF7A9C0) to Color(0xFFE576A0),
 )
 
-// World 2 · Rừng rậm — LÁ bay (xanh lá theo palette rừng, đỉnh sáng → đáy đậm).
 private val LeafColors = arrayOf(
-    Color(0xFFD8F0C0) to Color(0xFFA9D98A), // lá non
-    Color(0xFFCBF2EB) to Color(0xFF5FC3B2), // mint (design)
-    Color(0xFFBCE3A0) to Color(0xFF7FB069), // xanh lá
-    Color(0xFFA3E5D9) to Color(0xFF4F9D5A), // rừng đậm
+    Color(0xFFD8F0C0) to Color(0xFFA9D98A),
+    Color(0xFFCBF2EB) to Color(0xFF5FC3B2),
+    Color(0xFFBCE3A0) to Color(0xFF7FB069),
+    Color(0xFFA3E5D9) to Color(0xFF4F9D5A),
 )
 
-// World 3 · Sông & Thác — GIỌT/TIA nước bay (xanh nước theo palette info, đỉnh sáng → đáy đậm).
 private val DropColors = arrayOf(
-    Color(0xFFFFFFFF) to Color(0xFFC5E7EE), // bọt trắng
-    Color(0xFFEAFAFB) to Color(0xFFB4E0EA), // nước sáng
-    Color(0xFFD6EEF1) to Color(0xFF8FB6F2), // info xanh
-    Color(0xFFCFEFF3) to Color(0xFFA6DCE5), // ngọc lam
+    Color(0xFFFFFFFF) to Color(0xFFC5E7EE),
+    Color(0xFFEAFAFB) to Color(0xFFB4E0EA),
+    Color(0xFFD6EEF1) to Color(0xFF8FB6F2),
+    Color(0xFFCFEFF3) to Color(0xFFA6DCE5),
 )
 
-/** Loại hạt bay trên Home theo world: cánh hoa (Đồng cỏ) · lá (Rừng) · giọt nước (Sông). */
-private enum class HomeParticle { PETAL, LEAF, DROP }
-
-private fun homeParticle(world: Int): HomeParticle = when (world) {
-    2    -> HomeParticle.LEAF
-    3    -> HomeParticle.DROP
-    else -> HomeParticle.PETAL
+private fun particleColors(sceneId: String): Array<Pair<Color, Color>> = when (sceneId) {
+    "forest" -> LeafColors
+    "waterfall" -> DropColors
+    else -> PetalColors
 }
 
-/** 4 cặp màu gradient của hạt theo world (mọi mảng cùng cỡ 4 để [PetalSpec.colorIdx] hợp lệ). */
-private fun homeParticleColors(kind: HomeParticle): Array<Pair<Color, Color>> = when (kind) {
-    HomeParticle.LEAF -> LeafColors
-    HomeParticle.DROP -> DropColors
-    HomeParticle.PETAL -> PetalColors
-}
-
-// Dải cho phép cánh hoa bay — theo tỉ lệ ART (821×1916): DƯỚI logo (~.38), TRÊN panel (~.78).
-// Cánh clamp cứng trong [BAND_TOP, BAND_BOT] → KHÔNG BAO GIỜ đè logo hay panel nút (user 01/07).
-private const val BAND_TOP = 0.40f
-private const val BAND_BOT = 0.76f
-
-// Cánh hoa bay NGANG như gió thổi, đường đi BẤT ĐỊNH (2 dao động dọc lệch tần + gió giật ngang).
 private class PetalSpec(
-    val wBase: Float,      // rộng cánh (px baseline 360)
-    val baseYFrac: Float,  // tâm dọc trong DẢI (0..1)
-    val travelDur: Float,  // giây bay ngang trọn màn
-    val delay: Float,      // âm → bắt đầu giữa chừng
-    val colorIdx: Int,
-    val dir: Float,        // +1 trái→phải, −1 phải→trái
-    val wobAmp: Float,     // biên độ wander dọc (theo NỬA dải)
-    val wobFreq1: Float, val wobPhase1: Float, // dao động dọc chính (chậm)
-    val wobFreq2: Float, val wobPhase2: Float, // dao động dọc phụ (nhanh, nhỏ) → bất định
-    val rotSpeed: Float,   // độ/giây lộn (theo gió)
-    val gustAmp: Float, val gustFreq: Float, val gustPhase: Float, // gió giật ngang (px baseline 360)
+    val wBase: Float, val baseYFrac: Float, val travelDur: Float, val delay: Float,
+    val colorIdx: Int, val dir: Float, val wobAmp: Float,
+    val wobFreq1: Float, val wobPhase1: Float, val wobFreq2: Float, val wobPhase2: Float,
+    val rotSpeed: Float, val gustAmp: Float, val gustFreq: Float, val gustPhase: Float,
 )
 
 private const val TAU = (2.0 * PI).toFloat()
+private const val BAND_TOP = 0.30f
+private const val BAND_BOT = 0.70f
 
-/** Dựng [count] cánh hoa gió-thổi; PRNG Mulberry32 deterministic theo seed. */
 private fun buildPetals(count: Int, seed: Int): List<PetalSpec> {
     val r = Mulberry32(seed)
     return List(count) {
-        val w = 13f + r.next() * 13f
-        val baseY = 0.06f + r.next() * 0.88f          // chừa mép để wander không vọt khỏi dải
-        val travelDur = 3.5f + r.next() * 3f          // 3.5..6.5s (gió mạnh, bay nhanh)
-        val delay = -r.next() * travelDur
-        val colorIdx = floor(r.next() * PetalColors.size).toInt().coerceIn(0, PetalColors.size - 1)
-        val dir = 1f                                  // CHỈ bay trái→phải (một chiều)
-        val wobAmp = 0.10f + r.next() * 0.16f
-        val wobFreq1 = 0.10f + r.next() * 0.12f
-        val wobPhase1 = r.next() * TAU
-        val wobFreq2 = 0.28f + r.next() * 0.30f
-        val wobPhase2 = r.next() * TAU
-        val rotSpeed = (if (r.next() < 0.5f) -1f else 1f) * (14f + r.next() * 30f)
-        val gustAmp = 6f + r.next() * 12f
-        val gustFreq = 0.10f + r.next() * 0.14f
-        val gustPhase = r.next() * TAU
         PetalSpec(
-            w, baseY, travelDur, delay, colorIdx, dir,
-            wobAmp, wobFreq1, wobPhase1, wobFreq2, wobPhase2,
-            rotSpeed, gustAmp, gustFreq, gustPhase,
+            wBase = 13f + r.next() * 13f,
+            baseYFrac = 0.06f + r.next() * 0.88f,
+            travelDur = 3.5f + r.next() * 3f,
+            delay = -r.next() * (3.5f + r.next() * 3f),
+            colorIdx = floor(r.next() * 4).toInt().coerceIn(0, 3),
+            dir = 1f,
+            wobAmp = 0.10f + r.next() * 0.16f,
+            wobFreq1 = 0.10f + r.next() * 0.12f,
+            wobPhase1 = r.next() * TAU,
+            wobFreq2 = 0.28f + r.next() * 0.30f,
+            wobPhase2 = r.next() * TAU,
+            rotSpeed = (if (r.next() < 0.5f) -1f else 1f) * (14f + r.next() * 30f),
+            gustAmp = 6f + r.next() * 12f,
+            gustFreq = 0.10f + r.next() * 0.14f,
+            gustPhase = r.next() * TAU,
         )
     }
 }
 
-// Nửa-kích thước cánh trong không gian đơn vị (rộng 1 → halfW .5; cao 1.35 → halfH .675).
 private const val PETAL_HALF_W = 0.5f
 private const val PETAL_HALF_H = 0.675f
 
-/** Cánh hoa đơn vị: bo góc 52/52/52/8% (JSX border-radius) → 3 góc tròn + 1 góc nhọn (BL). */
 private fun unitPetalPath(): Path = Path().apply {
-    val rect = Rect(-PETAL_HALF_W, -PETAL_HALF_H, PETAL_HALF_W, PETAL_HALF_H)
-    val round = CornerRadius(0.5f, 0.5f)   // 52% ~ bo gần tròn
-    val sharp = CornerRadius(0.08f, 0.108f) // 8% (theo rộng/cao) → góc nhọn
     addRoundRect(
         RoundRect(
-            rect = rect,
-            topLeft = round, topRight = round,
-            bottomRight = round, bottomLeft = sharp,
+            rect = Rect(-PETAL_HALF_W, -PETAL_HALF_H, PETAL_HALF_W, PETAL_HALF_H),
+            topLeft = CornerRadius(0.5f), topRight = CornerRadius(0.5f),
+            bottomRight = CornerRadius(0.5f), bottomLeft = CornerRadius(0.08f, 0.108f),
         ),
     )
 }
 
-/** LÁ đơn vị (World 2): hình lá thuôn nhọn 2 đầu (hai cung quад) hơi lệch → dáng lá tự nhiên. */
 private fun unitLeafPath(): Path = Path().apply {
     val w = PETAL_HALF_W * 0.86f
-    moveTo(0f, -PETAL_HALF_H)                                   // ngọn trên
-    quadraticBezierTo(w, -PETAL_HALF_H * 0.10f, 0.06f, PETAL_HALF_H)  // mép phải phình xuống cuống
-    quadraticBezierTo(-w, PETAL_HALF_H * 0.10f, 0f, -PETAL_HALF_H)    // mép trái về ngọn
+    moveTo(0f, -PETAL_HALF_H)
+    quadraticBezierTo(w, -PETAL_HALF_H * 0.10f, 0.06f, PETAL_HALF_H)
+    quadraticBezierTo(-w, PETAL_HALF_H * 0.10f, 0f, -PETAL_HALF_H)
     close()
 }
 
-/** GIỌT nước đơn vị (World 3): teardrop — đỉnh nhọn, đáy tròn (giống ô đích giọt nước in-game). */
 private fun unitDropPath(): Path = Path().apply {
     val w = PETAL_HALF_W * 0.82f
-    moveTo(0f, -PETAL_HALF_H)                                   // đỉnh nhọn
-    cubicTo(w, -PETAL_HALF_H * 0.15f, w, PETAL_HALF_H * 0.55f, 0f, PETAL_HALF_H)   // phải xuống đáy tròn
-    cubicTo(-w, PETAL_HALF_H * 0.55f, -w, -PETAL_HALF_H * 0.15f, 0f, -PETAL_HALF_H) // trái về đỉnh
+    moveTo(0f, -PETAL_HALF_H)
+    cubicTo(w, -PETAL_HALF_H * 0.15f, w, PETAL_HALF_H * 0.55f, 0f, PETAL_HALF_H)
+    cubicTo(-w, PETAL_HALF_H * 0.55f, -w, -PETAL_HALF_H * 0.15f, 0f, -PETAL_HALF_H)
     close()
 }
 
-private fun unitParticlePath(kind: HomeParticle): Path = when (kind) {
-    HomeParticle.LEAF -> unitLeafPath()
-    HomeParticle.DROP -> unitDropPath()
-    HomeParticle.PETAL -> unitPetalPath()
+private fun unitParticlePath(sceneId: String): Path = when (sceneId) {
+    "forest" -> unitLeafPath()
+    "waterfall" -> unitDropPath()
+    else -> unitPetalPath()
 }
 
 @Composable
-private fun PetalLayer(world: Int, artHeightPx: Float, modifier: Modifier = Modifier) {
+private fun PetalLayer(sceneId: String, modifier: Modifier = Modifier) {
     val petals = remember { buildPetals(count = 12, seed = 7) }
-    // Hình + màu hạt đổi theo world: cánh hoa (Đồng cỏ) · lá (Rừng) · giọt nước (Sông).
-    val kind = homeParticle(world)
-    val petal = remember(kind) { unitParticlePath(kind) }
-    // Brush gradient đơn-vị cho 4 cặp màu (đỉnh sáng → đáy đậm); toạ độ theo trục hạt, CTM sẽ
-    // scale theo hạt khi vẽ → không cấp phát mỗi frame.
-    val brushes = remember(kind) {
-        homeParticleColors(kind).map { (c1, c2) ->
+    val petal = remember(sceneId) { unitParticlePath(sceneId) }
+    val brushes = remember(sceneId) {
+        particleColors(sceneId).map { (c1, c2) ->
             Brush.verticalGradient(listOf(c1, c2), startY = -PETAL_HALF_H, endY = PETAL_HALF_H)
         }
     }
@@ -456,35 +1016,29 @@ private fun PetalLayer(world: Int, artHeightPx: Float, modifier: Modifier = Modi
 
     Canvas(modifier = modifier) {
         val elapsed = if (startNanos == 0L) 0f else (nowNanos - startNanos) / 1_000_000_000f
-        val unit = size.width / 360f // px trên 1 đơn vị dp-baseline-360
-        // Dải bay: map tỉ lệ ART → màn (art neo đáy → đỉnh art ở y âm khi art cao hơn màn).
-        val artTop = size.height - artHeightPx
-        val bandTop = artTop + BAND_TOP * artHeightPx
-        val bandBot = artTop + BAND_BOT * artHeightPx
+        val unit = size.width / 360f
+        val bandTop = size.height * BAND_TOP
+        val bandBot = size.height * BAND_BOT
         val bandHalf = (bandBot - bandTop) / 2f
-        val marginX = size.width * 0.10f              // vào/ra ngoài mép ngang
+        val marginX = size.width * 0.10f
         for (s in petals) {
-            // Tiến trình bay ngang p ∈ [0,1): (elapsed - delay)/travelDur, delay âm → giữa chừng.
             val phase = (elapsed - s.delay) / s.travelDur
             val p = phase - floor(phase)
-            // x: đi ngang trọn màn theo hướng gió (dir), vào/ra khỏi mép; cộng gió giật ngang.
-            val startX = if (s.dir > 0f) -marginX else size.width + marginX
-            val endX = if (s.dir > 0f) size.width + marginX else -marginX
+            val startX = -marginX
+            val endX = size.width + marginX
             var px = startX + (endX - startX) * p
             px += s.gustAmp * unit * sin(TAU * s.gustFreq * elapsed + s.gustPhase)
-            // y: tâm trong dải + WANDER bất định (2 sine lệch tần), CLAMP cứng trong dải.
             val baseY = bandTop + s.baseYFrac * (bandBot - bandTop)
             val wob = sin(TAU * s.wobFreq1 * elapsed + s.wobPhase1) +
                 0.5f * sin(TAU * s.wobFreq2 * elapsed + s.wobPhase2)
             val py = (baseY + wob * s.wobAmp * bandHalf).coerceIn(bandTop, bandBot)
-            // opacity: hiện dần ở mép vào (0..8%), mờ dần ở mép ra (90..100%).
             val alpha = when {
                 p < 0.08f -> p / 0.08f
                 p > 0.90f -> (1f - p) / 0.10f
                 else -> 1f
             }
             if (alpha <= 0.01f) continue
-            val rot = s.rotSpeed * elapsed                // lộn chậm theo gió
+            val rot = s.rotSpeed * elapsed
             val half = s.wBase * unit / 2f
             withTransform({
                 translate(px, py)
@@ -497,16 +1051,18 @@ private fun PetalLayer(world: Int, artHeightPx: Float, modifier: Modifier = Modi
     }
 }
 
-// ── Preview ──────────────────────────────────────────────────────────────────────────────
+// ── Preview ──────────────────────────────────────────────────────────────────
 
-@Preview(name = "Home (world-1 bg)", widthDp = 360, heightDp = 800)
+@Preview(name = "Home — new design", widthDp = 360, heightDp = 800)
 @Composable
 private fun HomeScreenPreview() {
     GravityJellyTheme {
         HomeScreen(
-            onPlayEndless = {},
+            onPlay = {},
+            onGuide = {},
+            onLeaderboard = {},
             onSettings = {},
-            onHandbook = {},
+            best = 28640,
         )
     }
 }

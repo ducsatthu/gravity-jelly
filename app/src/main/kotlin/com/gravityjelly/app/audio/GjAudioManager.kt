@@ -12,7 +12,7 @@ val LocalGjAudio = staticCompositionLocalOf<GjAudioManager?> { null }
 
 private const val SFX_VOL = 0.55f
 private const val COMBO_BURST_VOL = 1.0f   // burst combo phát to hơn SFX thường để nổi bật
-private const val BGM_VOL = 0.72f
+private const val BGM_VOL_DEFAULT = 0.70f
 
 class GjAudioManager(private val context: Context) {
 
@@ -73,14 +73,31 @@ class GjAudioManager(private val context: Context) {
 
     private var bgmPlayer: MediaPlayer? = null
     private var bgmWanted = false
+    private var bgmVolume = BGM_VOL_DEFAULT
+    private var currentTrackRes: Int = R.raw.bgm_world_1
+
+    fun setBgmVolume(percent: Int) {
+        bgmVolume = (percent.coerceIn(0, 100) / 100f)
+        bgmPlayer?.setVolume(bgmVolume, bgmVolume)
+    }
+
+    fun switchTrack(rawResId: Int) {
+        if (rawResId == currentTrackRes && bgmPlayer != null) return
+        val wasPlaying = bgmWanted && musicEnabled
+        bgmPlayer?.stop()
+        bgmPlayer?.release()
+        bgmPlayer = null
+        currentTrackRes = rawResId
+        if (wasPlaying) startBgm()
+    }
 
     fun startBgm() {
         bgmWanted = true
         if (!musicEnabled) return
         if (bgmPlayer == null) {
-            bgmPlayer = MediaPlayer.create(context, R.raw.bgm_world_1)?.apply {
+            bgmPlayer = MediaPlayer.create(context, currentTrackRes)?.apply {
                 isLooping = true
-                setVolume(BGM_VOL, BGM_VOL)
+                setVolume(bgmVolume, bgmVolume)
             }
         }
         bgmPlayer?.let { if (!it.isPlaying) it.start() }

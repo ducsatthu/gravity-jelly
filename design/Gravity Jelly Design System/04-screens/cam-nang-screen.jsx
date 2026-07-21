@@ -357,7 +357,7 @@
       .filter(([, list]) => list.length);
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: 'url(../06-svg-assets/backgrounds/cam-nang-bg.jpg) center top / cover no-repeat, var(--color-bg)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: 'url(../06-svg-assets/backgrounds/cam-nang-bg.webp) center top / cover no-repeat, var(--color-bg)' }}>
         <div style={{ flex: 1, minHeight: 0, overflowY: 'auto' }}>
           <div style={{ padding: '12px 14px 28px', display: 'flex', flexDirection: 'column', gap: 14 }}>
             <HeaderCard count={unlockedCount} total={total} onBack={onBack} />

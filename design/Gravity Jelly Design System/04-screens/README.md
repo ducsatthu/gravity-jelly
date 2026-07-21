@@ -12,13 +12,14 @@ components. Baseline device: **360 × 800 dp** portrait, rendered inside an Andr
 ## Screens (priority / play-flow order)
 1. **Game** (`board-design.jsx` → `window.GJBoardDesign`, aliased `GJGameScreen`) — the
    heart of the product, and the OFFICIAL “① Game” card. A meadow **PNG backdrop**
-   (`06-svg-assets/backgrounds/meadow-bg.jpg`) under a single unified **HUD** (score
+   (`06-svg-assets/backgrounds/meadow-bg.webp`) under a single unified **HUD** (score
    card · gravity D-pad · round pause button), the 9×9 `Board` in an **SVG cream frame**
    (`06-svg-assets/ui/board-frame.svg`, edge-to-edge, board cell 31dp), and a 3-well
    **SVG tray** (`06-svg-assets/ui/tray.svg`) kept tight under the board next to a purple
    refresh FAB. Score card art = `06-svg-assets/ui/score-card.svg`.
-2. **Home** (`home-screen.jsx`) — jelly-character logo + wordmark, best-score chip,
-   Play (Endless) CTA, Settings + Daily (coming soon).
+2. **Home** (`home-screen.jsx`) — endless-only: wordmark logo, big Play CTA,
+   three floating nav buttons (Cẩm nang · Xếp hạng · Cài đặt, no panel), and a
+   corner Tùy chỉnh sheet to switch scene/background + background music.
 3. **Result** (`result-screen.jsx`) — final + best score, rewarded-ad actions
    (x2 score, revive), replay + home.
 4. **Settings** (`settings-screen.jsx`) — sound / music / vibration toggles,

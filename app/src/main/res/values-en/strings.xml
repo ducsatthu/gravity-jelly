@@ -4,10 +4,27 @@
     <string name="app_name">Gravity Jelly</string>
 
     <!-- ── Home ─────────────────────────────────────────────────────────────── -->
-    <string name="home_endless">Play Endless</string>
+    <string name="home_play">PLAY NOW</string>
+    <!-- home_endless: ĐÃ GỠ 21/07 — thay bằng home_play -->
     <string name="home_guide">Handbook</string>
-    <string name="home_leaderboard">Leaderboard</string>
+    <string name="home_leaderboard">Ranking</string>
     <string name="home_settings">Settings</string>
+    <string name="home_record">BEST</string>
+    <string name="home_customize">Customize</string>
+
+    <!-- ── Customize sheet ─────────────────────────────────────────────────── -->
+    <string name="customize_title">Customize</string>
+    <string name="customize_scene_section">SCENE &amp; BACKGROUND</string>
+    <string name="customize_music_section">MUSIC</string>
+    <string name="customize_close">Close</string>
+    <string name="customize_select">Select</string>
+    <string name="customize_unlock_at">🔒 Unlock at %1$s pts</string>
+    <string name="scene_meadow">Meadow</string>
+    <string name="scene_forest">Forest</string>
+    <string name="scene_waterfall">Waterfall</string>
+    <string name="track_meadow">Morning Meadow</string>
+    <string name="track_forest">Forest Whisper</string>
+    <string name="track_waterfall">Jade Cascade</string>
 
     <!-- ── Settings ─────────────────────────────────────────────────────────── -->
     <string name="settings_back">Back</string>

@@ -24,8 +24,6 @@
               "03-components/04-gravity-rotate-button/**",
               "03-components/05-combo-popup/**",
               "03-components/06-dialog/**",
-              "03-components/08-objective-bar/**",
-              "03-components/09-boss-hud/**",
               "04-screens/**",
               "04-screens/play/**",
               "07-mechanics/**",
@@ -50,10 +48,6 @@
       {
         "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Baloo 2|Fredoka|Nunito))/i]",
         "message": "Font not provided by the design system. Available: Baloo 2, Fredoka, Nunito."
-      },
-      {
-        "selector": "JSXOpeningElement[name.name='ShieldProgress'] > JSXAttribute > JSXIdentifier[name!=/^(?:current|target|key|ref|className|style|children)$/]",
-        "message": "<ShieldProgress> doesn't accept that prop. Declared props: current, target."
       },
       {
         "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|variant|size|icon|iconRight|fullWidth|disabled|comingSoon|onClick|style|key|ref|className|style|children)$/]",
@@ -84,10 +78,6 @@
         "message": "<JellyConnect> doesn't accept that prop. Declared props: top, right, bottom, left."
       },
       {
-        "selector": "JSXOpeningElement[name.name='StarInfo'] > JSXAttribute > JSXIdentifier[name!=/^(?:tier|now|next|key|ref|className|style|children)$/]",
-        "message": "<StarInfo> doesn't accept that prop. Declared props: tier, now, next."
-      },
-      {
         "selector": "JSXOpeningElement[name.name='TrayPieceModel'] > JSXAttribute > JSXIdentifier[name!=/^(?:cells|color|count|key|ref|className|style|children)$/]",
         "message": "<TrayPieceModel> doesn't accept that prop. Declared props: cells, color, count."
       }
@@ -105,9 +95,6 @@
   ],
   "x-omelette": {
     "components": {
-      "ShieldProgress": {
-        "replaces": []
-      },
       "Button": {
         "replaces": []
       },
@@ -127,9 +114,6 @@
         "replaces": []
       },
       "JellyConnect": {
-        "replaces": []
-      },
-      "StarInfo": {
         "replaces": []
       },
       "TrayPieceModel": {

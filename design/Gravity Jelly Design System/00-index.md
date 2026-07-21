@@ -39,32 +39,23 @@ moved.
 | 04 | `03-components/04-gravity-rotate-button/` | `GravityRotateButton` — 64dp FAB + turns badge | ✅ |
 | 05 | `03-components/05-combo-popup/` | `ComboPopup` — springy ×N chain multiplier | ✅ |
 | 06 | `03-components/06-dialog/` | `Dialog` — soft modal sheet (pause/confirm/info) | ✅ |
-| 08 | `03-components/08-objective-bar/` | `ObjectiveBar` — level-objective cluster under the HUD: left **Màn** badge (level + world) · tutorial (chỉ combo giữ ×N, hành động đơn không hiện số) · CLEAR_TARGETS dimming counter (vine/drop, buried lock); active/near/done. Sao tính đồng nhất theo **số nước** (bỏ REACH_SCORE/MIXED — không còn điểm; lượt xoay ở FAB, không ở bar) | ✅ |
-| 09 | `03-components/09-boss-hud/` | `BossCard` / `BossIntroCard` / `BossToast` / `BossMascot` / `ShieldBar` (`BossHud` = `BossCard`) — soft boss cluster: each boss its OWN eyes-only silhouette (worm/vine/water, no ring) · compact card (mascot overflows left · **Khiên** shield bar · rule/tell chip) · large intro card (BOSS tag + "Chơi" CTA) · warning toast. No HP hearts, no "gây sát thương" | ✅ |
 
 ## 04 · Screens (UI kit)
 | # | Path | What | Status |
 |---|------|------|--------|
 | — | `04-screens/index.html` | Interactive click-through (Home→Game→Result→Settings) | ✅ |
-| 01 | `04-screens/board-design.jsx` | **Game** (official ① card) — meadow PNG bg + unified HUD (score · gravity · pause) + SVG board frame + SVG tray + refresh FAB (priority #1) = ENDLESS. Also exports `window.GJBoardParts` (chrome reused below). | ✅ |
-| 01b | `04-screens/board-campaign.jsx` | **Game · Chiến dịch** — campaign in-game: reuses board chrome, swaps score for LƯỢT (moves) card + live 3-star badge + MỤC TIÊU progress banner (`GJBoardCampaign`) | ✅ |
-| 01c | `04-screens/board-boss.jsx` | **Game · Boss** — campaign boss fight in-game: boss HP bar + PHA pips + LƯỢT + stars, purple danger vignette, stone-armour board (`GJBoardBoss`) | ✅ |
-| 01e | `04-screens/screen-1e-game-objective.card.html` | **Game · Mục tiêu** — ObjectiveBar ráp vào màn GAME thật (HUD điểm/trọng lực/pause · cụm mục tiêu · bàn · khay) | ✅ |
-| 02 | `04-screens/home-screen.jsx` | **Home** — logo, Play, Settings, Daily | ✅ |
+| 01 | `04-screens/board-design.jsx` | **Game** (official ① card) — meadow PNG bg + unified HUD (score · gravity · pause) + SVG board frame + SVG tray + refresh FAB = ENDLESS. Also exports `window.GJBoardParts` (chrome). | ✅ |
+| 02 | `04-screens/home-screen.jsx` | **Home** (endless) — logo, big Play CTA, 3 nav buttons (no panel), corner Tùy chỉnh sheet (scene/bg + score-locked music) | ✅ |
 | 03 | `04-screens/result-screen.jsx` | **Result** — final/best, x2 ad, revive, replay, home | ✅ |
 | 04 | `04-screens/settings-screen.jsx` | **Settings** — sound/music/vibration, language, info | ✅ |
-| 05 | `04-screens/level-map.jsx` | **Level Map** — vertical climb, biome scene, winding path, node states (completed/current/locked/boss/breather), HUD + star progress | ✅ |
 | 06 | `04-screens/splash-screen.jsx` | **Splash / Loading** — logo, bobbing blocks, jelly progress bar | ✅ |
-| 07 | `04-screens/level-intro-screen.jsx` | **Level Intro** — updated to new objective system: title "Màn X · Tên" + world chip, bold objective block (big hero glyph + goal sentence), 3-star threshold row (per-unit), gravity rotation-budget chip + optional new-mechanic chip, BẮT ĐẦU CTA. `goal.kind`: tutorial/targets/score/boss | ✅ |
-| 08 | `04-screens/level-win-screen.jsx` | **Level Win** — confetti, 3-star result, score, coin reward, Next/Replay/Map | ✅ |
 | 09 | `04-screens/pause-screen.jsx` | **Pause** — ghost board + Dialog: quick toggles, resume/restart/settings/quit | ✅ |
 | 10 | `04-screens/out-of-lives-screen.jsx` | **Out of Lives** — empty hearts, refill countdown, coins/ad refill | ✅ |
-| 11 | `04-screens/boss-intro-screen.jsx` | **Boss Intro** — gravity stage, boss jelly, BOSS banner, Challenge | ✅ |
-| 12 | `04-screens/daily-reward-screen.jsx` | **Daily Reward** — 7-day streak grid, claim CTA | ✅ |
-| 13 | `04-screens/shop-screen.jsx` | **Shop** — coin balance, booster shelf, coin packs (tabbed) | ✅ |
-| 14 | `04-screens/missions-screen.jsx` | **Missions / Achievements** — daily/achv tabs, progress bars, claim | ✅ |
-| 15 | `04-screens/leaderboard-screen.jsx` | **Leaderboard** — friends/global tabs, top-3 podium, ranked rows | ✅ |
-| 16 | `04-screens/cam-nang-screen.jsx` | **Cẩm nang (Handbook)** — collectible 13-rule book in 4 groups; locked/unlocked entries; teach-style detail popup with "real game" illustration | ✅ |
+| 11 | `04-screens/daily-reward-screen.jsx` | **Daily Reward** — 7-day streak grid, claim CTA | ✅ |
+| 12 | `04-screens/shop-screen.jsx` | **Shop** — coin balance, booster shelf, coin packs (tabbed) | ✅ |
+| 13 | `04-screens/missions-screen.jsx` | **Missions / Achievements** — daily/achv tabs, progress bars, claim | ✅ |
+| 14 | `04-screens/leaderboard-screen.jsx` | **Leaderboard** — friends/global tabs, top-3 podium, ranked rows | ✅ |
+| 15 | `04-screens/cam-nang-screen.jsx` | **Cẩm nang (Handbook)** — collectible 13-rule book in 4 groups; locked/unlocked entries; teach-style detail popup with "real game" illustration | ✅ |
 | — | `04-screens/cam-nang-illus.jsx` | Helper: Handbook popup illustrations — `MiniBoard`, `SpecialBlock` (super/rainbow/crown), per-mechanic before→after demos (`window.GJCamNangIllus`) | ✅ |
 | — | `04-screens/board.jsx` | Helper: char-map → clustered 9×9 board | ✅ |
 | — | `04-screens/phone-frame.jsx` | Helper: Android device shell | ✅ |

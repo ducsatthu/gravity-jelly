@@ -7,15 +7,12 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
-    <!-- Splash hệ thống (androidx.core SplashScreen, backport tới API 24): nền KEM #FFF7EC +
-         logo thương hiệu (khối jelly hồng + nét xoay tím + quầng/lấp lánh vàng) đúng
-         brand.card / gravity-jelly-logo.js (colorway "cream"). Nền splash = nền game → khi
-         Compose dựng frame đầu (postSplashScreenTheme) không "nhảy" màu. Tránh chớp trắng cold start. -->
+    <!-- Splash hệ thống (androidx.core SplashScreen, backport tới API 24): nền KEM + logo mới.
+         Nền splash = nền game → Compose dựng frame đầu không "nhảy" màu. -->
     <style name="Theme.GravityJelly.Splash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/gj_splash_cream</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_logo</item>
-        <!-- Wordmark "Gravity Jelly" ở đáy splash (splash_branding.png, nền trong suốt).
-             Thuộc tính nền tảng API 31+ (Android 12); AndroidX SplashScreen bỏ qua ở API thấp hơn. -->
+        <!-- Logo chữ mới (home_logo resize) ở đáy splash. API 31+ (Android 12). -->
         <item name="android:windowSplashScreenBrandingImage" tools:targetApi="31">@drawable/splash_branding</item>
         <item name="postSplashScreenTheme">@style/Theme.GravityJelly</item>
         <item name="android:statusBarColor">@color/gj_splash_cream</item>

@@ -108,6 +108,11 @@ private fun GravityJellyApp() {
     // Đồng bộ cờ âm thanh từ Settings → AudioManager (gate SFX + BGM bên trong manager).
     LaunchedEffect(settings.sound) { audio.soundEnabled = settings.sound }
     LaunchedEffect(settings.music) { audio.musicEnabled = settings.music }
+    LaunchedEffect(settings.bgmVolume) { audio.setBgmVolume(settings.bgmVolume) }
+    LaunchedEffect(settings.musicId) {
+        val track = Scenes.trackById(settings.musicId)
+        audio.switchTrack(track.trackRes)
+    }
     DisposableEffect(Unit) { onDispose { audio.release() } }
 
     // BGM chạy xuyên suốt — bật lúc mở app, pause/resume theo lifecycle, release khi destroy.
@@ -125,9 +130,12 @@ private fun GravityJellyApp() {
         onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
 
-    // World hiện tại cho nền Home/Endless — tạm khoá world 1 (Đồng cỏ). TODO seam: hệ mở-khoá-theme
-    // theo mốc điểm Endless (xem docs/08-go-bo-campaign.md §9) sẽ thay hằng số này sau.
-    val currentWorld = 1
+    // Cảnh hiện tại → nền chung Home + in-game (Tùy chỉnh lưu ở DataStore).
+    // World cho GameScreen lấy từ scene (meadow=1, forest=2, waterfall=3).
+    val currentScene = Scenes.byId(settings.sceneId)
+    val currentWorld = when (settings.sceneId) {
+        "forest" -> 2; "waterfall" -> 3; else -> 1
+    }
 
     // UMP: xin đồng thuận (GDPR/EEA) TRƯỚC, chỉ khi được phép mới init/nạp AdMob (lazy, luồng nền).
     LaunchedEffect(activity) {
@@ -194,11 +202,26 @@ private fun GravityJellyApp() {
             )
 
             Route.Home -> HomeScreen(
-                onPlayEndless = { route = Route.Game },
-                onSettings = { route = Route.Settings },
-                onHandbook = { route = Route.Handbook },
+                onPlay = { route = Route.Game },
+                onGuide = { route = Route.Handbook },
                 onLeaderboard = { route = Route.Leaderboard },
-                world = currentWorld,
+                onSettings = { route = Route.Settings },
+                best = settings.best,
+                sceneId = settings.sceneId,
+                musicId = settings.musicId,
+                bgmVolume = settings.bgmVolume,
+                onSceneChange = { id ->
+                    scope.launch { repo.setSceneId(id) }
+                },
+                onMusicChange = { id ->
+                    scope.launch { repo.setMusicId(id) }
+                    val track = Scenes.trackById(id)
+                    audio.switchTrack(track.trackRes)
+                },
+                onVolumeChange = { v ->
+                    scope.launch { repo.setBgmVolume(v) }
+                    audio.setBgmVolume(v)
+                },
                 reducedMotion = reducedMotion,
                 modifier = Modifier.fillMaxSize(),
             )
@@ -215,7 +238,15 @@ private fun GravityJellyApp() {
                 },
                 onGameOver = { score -> analytics.logEndlessGameOver(score) },
                 onSeedUsed = { seed -> scope.launch { repo.setLastSeed(seed) } },
-                onHome = { route = Route.Home },
+                // Khôi phục ván dở: Bundle lo khi OS kill lúc ở nền; đĩa là lớp dự phòng khi Bundle mất.
+                resumeBlob = settings.endlessSave,
+                onPersistGame = { blob -> scope.launch { repo.setEndlessSave(blob) } },
+                onClearSave = { scope.launch { repo.clearEndlessSave() } },
+                // Về Home = rời ván → xoá bản lưu (vào lại là ván mới, đồng nhất hành vi cũ).
+                onHome = {
+                    scope.launch { repo.clearEndlessSave() }
+                    route = Route.Home
+                },
                 settings = settings,
                 onSound = { v -> scope.launch { repo.setSound(v) } },
                 onMusic = { v -> scope.launch { repo.setMusic(v) } },

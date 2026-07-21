@@ -8,10 +8,27 @@
     <string name="game_services_project_id" translatable="false">1038542031606</string>
 
     <!-- ── Home ─────────────────────────────────────────────────────────────── -->
-    <string name="home_endless">Chơi Endless</string>
+    <string name="home_play">CHƠI NGAY</string>
+    <!-- home_endless: ĐÃ GỠ 21/07 — thay bằng home_play -->
     <string name="home_guide">Cẩm nang</string>
-    <string name="home_leaderboard">Bảng xếp hạng</string>
+    <string name="home_leaderboard">Xếp hạng</string>
     <string name="home_settings">Cài đặt</string>
+    <string name="home_record">KỶ LỤC</string>
+    <string name="home_customize">Tùy chỉnh</string>
+
+    <!-- ── Tùy chỉnh (Customize sheet) ─────────────────────────────────────── -->
+    <string name="customize_title">Tùy chỉnh</string>
+    <string name="customize_scene_section">CẢNH &amp; NỀN</string>
+    <string name="customize_music_section">NHẠC NỀN</string>
+    <string name="customize_close">Đóng</string>
+    <string name="customize_select">Chọn</string>
+    <string name="customize_unlock_at">🔒 Mở tại %1$s điểm</string>
+    <string name="scene_meadow">Đồng cỏ</string>
+    <string name="scene_forest">Khu rừng</string>
+    <string name="scene_waterfall">Thác nước</string>
+    <string name="track_meadow">Đồng cỏ ban mai</string>
+    <string name="track_forest">Rừng thì thầm</string>
+    <string name="track_waterfall">Thác ngọc bích</string>
 
     <!-- ── Cài đặt ──────────────────────────────────────────────────────────── -->
     <string name="settings_back">Quay lại</string>

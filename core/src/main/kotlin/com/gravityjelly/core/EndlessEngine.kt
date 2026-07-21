@@ -134,6 +134,22 @@ class EndlessEngine(
         rng.stateRestore(s.rngState)
     }
 
+    /**
+     * Serialize TRỌN state ván thành chuỗi bền cho :app lưu qua process death (Bundle/DataStore).
+     * Cặp với [loadSave]. Xem [EndlessSaveCodec].
+     */
+    fun encodeSave(): String = EndlessSaveCodec.encode(snapshot())
+
+    /**
+     * Khôi phục ván từ chuỗi [encodeSave]. Trả `false` nếu chuỗi hỏng/sai phiên bản (giữ nguyên
+     * ván hiện tại) → lớp vỏ khởi ván mới thay vì crash.
+     */
+    fun loadSave(blob: String): Boolean {
+        val s = EndlessSaveCodec.decode(blob) ?: return false
+        restore(s)
+        return true
+    }
+
     fun state(): EndlessState = EndlessState(
         grid = grid.copy(),
         gravity = gravity,

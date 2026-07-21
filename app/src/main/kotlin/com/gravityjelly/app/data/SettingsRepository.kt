@@ -31,6 +31,18 @@ data class GjSettings(
     val seenGuides: Set<String> = emptySet(),
     /** Tên người chơi hiển thị ở Bảng xếp hạng. Rỗng = chưa đặt → dùng tên mặc định (i18n). */
     val playerName: String = "",
+    /** Cảnh đang chọn (home + in-game dùng chung). Giá trị = Scene.id ("meadow"/"forest"/"waterfall"). */
+    val sceneId: String = "meadow",
+    /** Nhạc nền đang chọn. Giá trị = Scene.id. */
+    val musicId: String = "meadow",
+    /** Âm lượng nhạc nền 0–100. */
+    val bgmVolume: Int = 70,
+    /**
+     * Ảnh chụp ván Endless đang chơi dở ([com.gravityjelly.core.EndlessEngine.encodeSave]) — lớp
+     * dự phòng process death khi Bundle savedInstanceState không còn. Null = không có ván dở.
+     * Xoá khi thắng/thua, Chơi lại, hoặc rời về Home.
+     */
+    val endlessSave: String? = null,
 )
 
 /** DataStore preferences gắn vào Context (một instance/quy trình). */
@@ -59,6 +71,10 @@ class SettingsRepository(private val dataStore: DataStore<Preferences>) {
                 lastSeed = p[KEY_LAST_SEED] ?: 0L,
                 seenGuides = p[KEY_SEEN_GUIDES] ?: emptySet(),
                 playerName = p[KEY_PLAYER_NAME] ?: "",
+                sceneId = p[KEY_SCENE_ID] ?: "meadow",
+                musicId = p[KEY_MUSIC_ID] ?: "meadow",
+                bgmVolume = p[KEY_BGM_VOLUME] ?: 70,
+                endlessSave = p[KEY_ENDLESS_SAVE],
             )
         }
 
@@ -80,6 +96,16 @@ class SettingsRepository(private val dataStore: DataStore<Preferences>) {
         val trimmed = name.trim().take(14)
         if (trimmed.isEmpty()) it.remove(KEY_PLAYER_NAME) else it[KEY_PLAYER_NAME] = trimmed
     }
+
+    /** Lưu ván Endless đang chơi dở (ghi đè bản cũ). Gọi lúc vào nền / mỗi nước đã lắng. */
+    suspend fun setEndlessSave(blob: String) = edit { it[KEY_ENDLESS_SAVE] = blob }
+
+    /** Xoá ván Endless đã lưu (thắng/thua, Chơi lại, về Home). */
+    suspend fun clearEndlessSave() = edit { it.remove(KEY_ENDLESS_SAVE) }
+
+    suspend fun setSceneId(id: String) = edit { it[KEY_SCENE_ID] = id }
+    suspend fun setMusicId(id: String) = edit { it[KEY_MUSIC_ID] = id }
+    suspend fun setBgmVolume(volume: Int) = edit { it[KEY_BGM_VOLUME] = volume.coerceIn(0, 100) }
 
     /** Đánh dấu một mục hướng dẫn đã xem (cộng dồn id, idempotent). */
     suspend fun markGuideSeen(id: String) {
@@ -136,7 +162,11 @@ class SettingsRepository(private val dataStore: DataStore<Preferences>) {
         private val KEY_SEEN_GUIDES = stringSetPreferencesKey("seen_guides")
         // (Khoá "campaign_stars" của bản cũ đã bỏ 17/07 cùng tính năng Campaign — key mồ côi trên
         // máy người chơi cũ tự vô hại, DataStore bỏ qua khoá không đọc tới; không cần migration.)
-        private val KEY_PLAYER_NAME = androidx.datastore.preferences.core.stringPreferencesKey("player_name")
+        private val KEY_PLAYER_NAME = stringPreferencesKey("player_name")
+        private val KEY_SCENE_ID = stringPreferencesKey("scene_id")
+        private val KEY_MUSIC_ID = stringPreferencesKey("music_id")
+        private val KEY_BGM_VOLUME = intPreferencesKey("bgm_volume")
+        private val KEY_ENDLESS_SAVE = stringPreferencesKey("endless_save")
         private val KEY_LB_ENTRIES = stringPreferencesKey("lb_cache_entries")
         private val KEY_LB_YOU = stringPreferencesKey("lb_cache_you")
 

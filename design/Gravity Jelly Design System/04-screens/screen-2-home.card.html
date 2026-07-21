@@ -1,4 +1,4 @@
-<!-- @dsCard group="Screens" viewport="392x812" name="② Home" subtitle="Home World 3 — Sông & Thác (đã mở khoá); Tweaks đổi nền W1/W2/W3 · panel kem 5 nút menu" -->
+<!-- @dsCard group="Screens" viewport="392x812" name="② Home" subtitle="Home tối giản (endless) — nút CSS/ảnh không panel, đổi cảnh/nền + nhạc nền trong sheet Tùy chỉnh" -->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -20,11 +20,10 @@
   <script type="text/babel" src="home-screen.jsx"></script>
   <script type="text/babel">
     const PhoneFrame = window.GJPhoneFrame, Home = window.GJHomeScreen;
-    const { useTweaks, TweaksPanel, TweakSection, TweakToggle, TweakRadio } = window;
+    const { useTweaks, TweaksPanel, TweakSection, TweakToggle } = window;
 
     const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-      "petals": true,
-      "world": 1
+      "playDisabled": false
     }/*EDITMODE-END*/;
 
     function App() {
@@ -33,19 +32,15 @@
         <React.Fragment>
           <PhoneFrame>
             <Home
-              petals={t.petals}
-              world={t.world}
-              onCampaign={()=>{}} onPlay={()=>{}} onGuide={()=>{}} onTools={()=>{}}
+              best={28640}
+              playDisabled={t.playDisabled}
+              onPlay={()=>{}} onGuide={()=>{}} onLeaderboard={()=>{}} onSettings={()=>{}}
             />
           </PhoneFrame>
           <TweaksPanel>
-            <TweakSection label="Thế giới" />
-            <TweakRadio label="Nền home" value={t.world}
-              options={[{label:'W1 Đồng cỏ',value:1},{label:'W2 Rừng rậm',value:2},{label:'W3 Sông & Thác',value:3}]}
-              onChange={(v) => setTweak('world', v)} />
-            <TweakSection label="Hiệu ứng" />
-            <TweakToggle label="Cánh hoa bay" value={t.petals}
-              onChange={(v) => setTweak('petals', v)} />
+            <TweakSection label="Trạng thái" />
+            <TweakToggle label="Khoá nút Chơi" value={t.playDisabled}
+              onChange={(v) => setTweak('playDisabled', v)} />
           </TweaksPanel>
         </React.Fragment>
       );

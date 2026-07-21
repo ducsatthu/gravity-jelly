@@ -63,6 +63,11 @@ class EndlessGameHolder(
     seed: Long,
     initialBudget: Int = EndlessEngine.DEFAULT_ROTATION_BUDGET,
     tuning: EndlessTuning = EndlessTuning(),
+    /**
+     * Chuỗi [EndlessEngine.encodeSave] để KHÔI PHỤC ván đang chơi dở (process death). Null / hỏng →
+     * bắt đầu ván mới theo [seed]. Lớp vỏ (:app) cấp từ Bundle/DataStore — xem EndlessGameScreen.
+     */
+    restoreBlob: String? = null,
 ) {
     private val engine = EndlessEngine(seed, initialBudget, tuning)
 
@@ -199,8 +204,16 @@ class EndlessGameHolder(
         }
         // Cascade vừa chiếu xong → áp nước người chơi đã thả trong lúc đó (đặt-hoãn).
         animator.onPlaybackEnd = { flushPendingPlacement() }
+        // Khôi phục ván dở TRƯỚC [sync] để shell/boardRender phản ánh state đã nạp (không phải ván mới).
+        if (restoreBlob != null) engine.loadSave(restoreBlob)
         sync()
     }
+
+    /**
+     * Serialize ván hiện tại để lớp vỏ lưu bền (Bundle/DataStore) — gọi lúc app vào nền / mỗi nước
+     * đã lắng. Cặp với tham số [restoreBlob]. Xem [EndlessEngine.encodeSave].
+     */
+    fun encodeSave(): String = engine.encodeSave()
 
     fun setBoardBounds(x: Float, y: Float, sizePx: Float) {
         boardWinX = x; boardWinY = y; boardSizePx = sizePx
